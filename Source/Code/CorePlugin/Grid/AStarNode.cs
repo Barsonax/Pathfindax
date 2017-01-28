@@ -9,11 +9,11 @@ namespace Pathfindax.Grid
 	[DebuggerDisplay("{WorldPosition}")]
 	public class AStarNode : IAStarNode
 	{
-		public INode Source { get; private set; }
-		public Vector2 WorldPosition { get; private set; }
+		public INode Source { get; }
+		public Vector2 WorldPosition { get; }
 		public bool Walkable { get; set; }
-		public int GridX { get; private set; }
-		public int GridY { get; private set; }
+		public int GridX { get; }
+		public int GridY { get; }
 		public IAStarNode Parent { get; set; }
 		public int HCost { get; set; }
 		public int GCost { get; set; }
@@ -45,7 +45,7 @@ namespace Pathfindax.Grid
 
 		public override string ToString()
 		{
-			return string.Format("X:{0} Y:{0} Walkable: {3}", GridX, GridY, Walkable);
+			return $"X:{GridX} Y:{GridY} Walkable: {Walkable}";
 		}
 	}
 }

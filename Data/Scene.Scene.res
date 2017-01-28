@@ -5,37 +5,43 @@
     <Y dataType="Float">33</Y>
   </globalGravity>
   <serializeObj dataType="Array" type="Duality.GameObject[]" id="427169525">
-    <item dataType="Struct" type="Duality.GameObject" id="2791459855">
+    <item dataType="Struct" type="Duality.GameObject" id="2682468596">
       <active dataType="Bool">true</active>
       <children />
-      <compList dataType="Struct" type="System.Collections.Generic.List`1[[Duality.Component]]" id="840644973">
-        <_items dataType="Array" type="Duality.Component[]" id="3265520870" length="4">
-          <item dataType="Struct" type="Pathfindax.PathfindComponent" id="2005275945">
+      <compList dataType="Struct" type="System.Collections.Generic.List`1[[Duality.Component]]" id="3918368074">
+        <_items dataType="Array" type="Duality.Component[]" id="1895225184" length="4">
+          <item dataType="Struct" type="Pathfindax.PathfindComponent" id="1896284686">
+            <_randomGenerator dataType="Struct" type="System.Random" id="4081381710">
+              <inext dataType="Int">0</inext>
+              <inextp dataType="Int">21</inextp>
+              <SeedArray dataType="Array" type="System.Int32[]" id="2430161616">0, 1428246518, 199211498, 513568520, 1056391562, 351013685, 91209044, 1714952521, 1878557815, 974032774, 1976824635, 1440055934, 133364350, 1549227781, 764635200, 171119094, 2131234665, 1874193042, 1002441325, 437159924, 1620156730, 145538607, 2103575577, 305409610, 1713778518, 902344520, 1419354610, 284893643, 931700396, 1374816880, 940898977, 1001492222, 78439698, 1154579352, 991826087, 344264823, 1583199260, 802136656, 1962107833, 1649779763, 1010100694, 514090586, 183558086, 941950176, 429715985, 889759080, 1921067530, 1560551059, 194081770, 2031249544, 1544059604, 1902160695, 696405259, 2113532671, 448640435, 1057455980</SeedArray>
+            </_randomGenerator>
             <_x003C_BoundRadius_x003E_k__BackingField dataType="Float">0</_x003C_BoundRadius_x003E_k__BackingField>
-            <_x003C_Pathfinder_x003E_k__BackingField />
-            <_x003C_StaticNodeGrid_x003E_k__BackingField />
+            <_x003C_MultithreadedPathfinder_x003E_k__BackingField />
+            <_x003C_Path_x003E_k__BackingField />
+            <_x003C_SourceNodeGrid_x003E_k__BackingField />
             <active dataType="Bool">true</active>
-            <gameobj dataType="ObjectRef">2791459855</gameobj>
+            <gameobj dataType="ObjectRef">2682468596</gameobj>
           </item>
         </_items>
         <_size dataType="Int">1</_size>
         <_version dataType="Int">1</_version>
       </compList>
-      <compMap dataType="Struct" type="System.Collections.Generic.Dictionary`2[[System.Type],[Duality.Component]]" id="2072756984" surrogate="true">
+      <compMap dataType="Struct" type="System.Collections.Generic.Dictionary`2[[System.Type],[Duality.Component]]" id="311593626" surrogate="true">
         <header />
         <body>
-          <keys dataType="Array" type="System.Object[]" id="2394073351">
-            <item dataType="Type" id="2257183822" value="Pathfindax.PathfindComponent" />
+          <keys dataType="Array" type="System.Object[]" id="569157168">
+            <item dataType="Type" id="3656615612" value="Pathfindax.PathfindComponent" />
           </keys>
-          <values dataType="Array" type="System.Object[]" id="1544724096">
-            <item dataType="ObjectRef">2005275945</item>
+          <values dataType="Array" type="System.Object[]" id="2876763758">
+            <item dataType="ObjectRef">1896284686</item>
           </values>
         </body>
       </compMap>
       <compTransform />
       <identifier dataType="Struct" type="System.Guid" surrogate="true">
         <header>
-          <data dataType="Array" type="System.Byte[]" id="2828749573">9A8MH26+QEOiFgcJuStcuw==</data>
+          <data dataType="Array" type="System.Byte[]" id="4077815948">4nouFs0/t0KjZ7bzVCIloQ==</data>
         </header>
         <body />
       </identifier>
@@ -59,8 +65,16 @@
             <gameobj dataType="ObjectRef">2893321747</gameobj>
             <ignoreParent dataType="Bool">false</ignoreParent>
             <parentTransform />
-            <pos dataType="Struct" type="Duality.Vector3" />
-            <posAbs dataType="Struct" type="Duality.Vector3" />
+            <pos dataType="Struct" type="Duality.Vector3">
+              <X dataType="Float">6.353591</X>
+              <Y dataType="Float">6.574586</Y>
+              <Z dataType="Float">-10</Z>
+            </pos>
+            <posAbs dataType="Struct" type="Duality.Vector3">
+              <X dataType="Float">6.353591</X>
+              <Y dataType="Float">6.574586</Y>
+              <Z dataType="Float">-10</Z>
+            </posAbs>
             <scale dataType="Float">1</scale>
             <scaleAbs dataType="Float">1</scaleAbs>
             <vel dataType="Struct" type="Duality.Vector3" />

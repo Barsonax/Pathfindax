@@ -9,21 +9,14 @@ namespace Pathfindax.Algorithms
 {
 	public class AStarAlgorithm : IPathFindAlgorithm<IAStarNode>
 	{
-		private readonly INodeGrid<IAStarNode> _nodeGrid;
-
-		public AStarAlgorithm(INodeGrid<IAStarNode> nodeGrid)
+		public IList<INode> FindPath(INodeGrid<IAStarNode> nodeGrid, Vector2 pathStart, Vector2 pathEnd)
 		{
-			_nodeGrid = nodeGrid;
+			var startNode = nodeGrid.GetNode(pathStart);
+			var endNode = nodeGrid.GetNode(pathEnd);
+			return FindPath(nodeGrid, startNode, endNode);
 		}
 
-		public IList<INode> FindPath(Vector2 pathStart, Vector2 pathEnd)
-		{
-			var startNode = _nodeGrid.GetNode(pathStart);
-			var endNode = _nodeGrid.GetNode(pathEnd);
-			return FindPath(startNode, endNode);
-		}
-
-		public IList<INode> FindPath(IAStarNode startNode, IAStarNode targetNode)
+		private IList<INode> FindPath(INodeGrid<IAStarNode> nodeGrid, IAStarNode startNode, IAStarNode targetNode)
 		{
 			try
 			{
@@ -37,7 +30,7 @@ namespace Pathfindax.Algorithms
 				}
 				if (startNode.Walkable && targetNode.Walkable)
 				{
-					var openSet = new MinHeap<IAStarNode>(_nodeGrid.MaxSize);
+					var openSet = new MinHeap<IAStarNode>(nodeGrid.MaxSize);
 					var closedSet = new HashSet<IAStarNode>();
 					var itterations = 0;
 					var neighbourUpdates = 0;
@@ -56,7 +49,7 @@ namespace Pathfindax.Algorithms
 							break;
 						}
 
-						foreach (var neighbour in _nodeGrid.GetNeighbours(currentNode))
+						foreach (var neighbour in nodeGrid.GetNeighbours(currentNode))
 						{
 							if (!neighbour.Walkable || closedSet.Contains(neighbour))
 							{
@@ -92,7 +85,7 @@ namespace Pathfindax.Algorithms
 
 		private IList<INode> RetracePath(IAStarNode startNode, IAStarNode endNode)
 		{
-            var path = new List<INode>();
+			var path = new List<INode>();
 			var currentNode = endNode;
 
 			while (true)
@@ -101,8 +94,8 @@ namespace Pathfindax.Algorithms
 				if (currentNode == startNode) break;
 				currentNode = currentNode.Parent;
 			}
-		    path.Reverse();
-		    return path;
+			path.Reverse();
+			return path;
 		}
 
 		private static int GetDistance(INode nodeA, INode nodeB)

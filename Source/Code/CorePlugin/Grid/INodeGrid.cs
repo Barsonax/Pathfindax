@@ -10,6 +10,5 @@ namespace Pathfindax.Grid
 
 		List<TNode> GetNeighbours(TNode node);
 		TNode GetNode(Vector2 worldPoint);
-		TNode GetNode(INode sourceNode);
 	}
 }

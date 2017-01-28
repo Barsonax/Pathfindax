@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Duality;
 using NSubstitute;
 using NUnit.Framework;
@@ -16,7 +17,8 @@ namespace Pathfindax.Test
 		public void RequestPath_SingleThread_NoExceptions()
 		{
 			var algorithm = Substitute.For<IPathFindAlgorithm<INode>>();
-			var pathfindManager = new PathfinderManager<INode>(algorithm);
+			var nodeGrid = Substitute.For<IList<INodeGrid<INode>>>();
+			var pathfindManager = new MultithreadedPathfinder<INode>(nodeGrid, algorithm);
 			pathfindManager.Start();
 			var start = new Vector2(0.5f, 0.5f);
 			var end = new Vector2(127.5f, 127.5f);
@@ -29,7 +31,8 @@ namespace Pathfindax.Test
 		public void RequestPath_MultipleThreads_NoExceptions()
 		{
 			var algorithm = Substitute.For<IPathFindAlgorithm<INode>>();
-			var pathfindManager = new PathfinderManager<INode>(algorithm, 4);
+			var nodeGrid = Substitute.For<IList<INodeGrid<INode>>>();
+			var pathfindManager = new MultithreadedPathfinder<INode>(nodeGrid, algorithm, 4);
 			pathfindManager.Start();
 			var start = new Vector2(0.5f, 0.5f);
 			var end = new Vector2(127.5f, 127.5f);

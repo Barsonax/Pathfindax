@@ -11,16 +11,16 @@ namespace Pathfindax.Grid
 	[Serializable]
 	public class SourceNodeGrid : ISourceNodeGrid
 	{
-		public Array2D<INode> Grid { get; }
+		public Array2D<INode> NodeArray { get; }
 		public Vector2 GridWorldSize { get; }
 
-		public int Width => Grid.Width;
-		public int Height => Grid.Height;
+		public int Width => NodeArray.Width;
+		public int Height => NodeArray.Height;
 
 		public SourceNodeGrid(Array2D<INode> grid, float cellSize)
 		{
-			Grid = grid;
-			GridWorldSize = new Vector2((Grid.Width * cellSize) - cellSize, (Grid.Height * cellSize) - cellSize);
+			NodeArray = grid;
+			GridWorldSize = new Vector2((NodeArray.Width * cellSize) - cellSize, (NodeArray.Height * cellSize) - cellSize);
 		}
 
 		public List<INode> GetNeighbours(INode node)
@@ -37,14 +37,14 @@ namespace Pathfindax.Grid
 					var checkX = node.GridX + x;
 					var checkY = node.GridY + y;
 
-					if (checkX >= 0 && checkX < Grid.Width && checkY >= 0 && checkY < Grid.Height)
+					if (checkX >= 0 && checkX < NodeArray.Width && checkY >= 0 && checkY < NodeArray.Height)
 					{
 						//if (x == 1 && y == 1 && !CheckWalkable(node.GridX, node.GridY + 1) && !CheckWalkable(node.GridX + 1, node.GridY)) continue;
 						//if (x == -1 && y == 1 && !CheckWalkable(node.GridX, node.GridY + 1) && !CheckWalkable(node.GridX - 1, node.GridY)) continue;
 						//if (x == -1 && y == -1 && !CheckWalkable(node.GridX, node.GridY - 1) && !CheckWalkable(node.GridX - 1, node.GridY)) continue;
 						//if (x == 1 && y == -1 && !CheckWalkable(node.GridX, node.GridY - 1) && !CheckWalkable(node.GridX + 1, node.GridY)) continue;
 
-						neighbours.Add(Grid[checkX, checkY]);
+						neighbours.Add(NodeArray[checkX, checkY]);
 					}
 				}
 			}
@@ -53,8 +53,8 @@ namespace Pathfindax.Grid
 
 		private bool CheckWalkable(int x, int y)
 		{
-			if (x >= 0 && x < Grid.Width && y >= 0 && y < Grid.Height) return false;
-			return Grid[x, y].Walkable;
+			if (x >= 0 && x < NodeArray.Width && y >= 0 && y < NodeArray.Height) return false;
+			return NodeArray[x, y].Walkable;
 		}
 
 		public INode NodeFromWorldPoint(Vector2 worldPosition)
@@ -64,10 +64,10 @@ namespace Pathfindax.Grid
 			percentX = MathF.Clamp(percentX, 0, 1);
 			percentY = MathF.Clamp(percentY, 0, 1);
 
-			var x = (int)Math.Round((Grid.Width - 1) * percentX);
-			var y = (int)Math.Round((Grid.Height - 1) * percentY);
+			var x = (int)Math.Round((NodeArray.Width - 1) * percentX);
+			var y = (int)Math.Round((NodeArray.Height - 1) * percentY);
 
-			return Grid[x, y];
+			return NodeArray[x, y];
 		}
 	}
 }

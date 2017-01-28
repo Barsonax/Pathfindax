@@ -67,7 +67,6 @@
     <Compile Include="Grid\ISourceNodeGrid.cs" />
     <Compile Include="Grid\Node.cs" />
     <Compile Include="Grid\SourceNodeGrid.cs" />
-    <Compile Include="GridUtils.cs" />
     <Compile Include="Grid\IAStarNode.cs" />
     <Compile Include="Grid\INodeGridProvider.cs" />
     <Compile Include="Grid\INode.cs" />
@@ -75,11 +74,11 @@
     <Compile Include="Algorithms\IPathFindAlgorithm.cs" />
     <Compile Include="Collections\MinHeap.cs" />
     <Compile Include="PathfindComponent.cs" />
-    <Compile Include="PathfindEngine\IProcesser.cs" />
-    <Compile Include="PathfindEngine\IPathfinderManager.cs" />
+    <Compile Include="Threading\IProcesser.cs" />
+    <Compile Include="PathfindEngine\IMultithreadedPathfinder.cs" />
     <Compile Include="PathfindEngine\IPathPostProcess.cs" />
     <Compile Include="Threading\MultithreadedWorker.cs" />
-    <Compile Include="PathfindEngine\PathfinderManager.cs" />
+    <Compile Include="PathfindEngine\MultithreadedPathfinder.cs" />
     <Compile Include="PathfindEngine\Pathfinder.cs" />
     <Compile Include="PathfindEngine\PathRequest.cs" />
     <Compile Include="Threading\Worker.cs" />

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Duality;
 using Duality.Drawing;
 using Pathfindax.Algorithms;
@@ -10,7 +12,7 @@ namespace Pathfindax
 {
 	public class PathfindComponent : Component, ICmpInitializable, ICmpRenderer, ICmpUpdatable
 	{
-		public Pathfinder<IAStarNode> Pathfinder { get; set; }
+		public IMultithreadedPathfinder MultithreadedPathfinder { get; set; }
 		public SourceNodeGrid SourceNodeGrid { get; set; }
 		public Vector2[] Path { get; private set; }
 		public float BoundRadius { get; }
@@ -19,7 +21,7 @@ namespace Pathfindax
 		{
 			if (context == InitContext.Activate && DualityApp.ExecContext == DualityApp.ExecutionContext.Game)
 			{
-				if (Pathfinder == null)
+				if (MultithreadedPathfinder == null)
 				{
 					var width = 16;
 					var height = 16;
@@ -47,17 +49,20 @@ namespace Pathfindax
 
 					SourceNodeGrid = new SourceNodeGrid(array, 1);
 					var nodeGrid = new AStarGrid(SourceNodeGrid);
-					var algorithm = new AStarAlgorithm(nodeGrid);
-					Pathfinder = new Pathfinder<IAStarNode>(algorithm);
-					var request = new PathRequest(new Vector2(0, 0), new Vector2(16, 19), 1);
-					Path = Pathfinder.Process(request);
+					var algorithm = new AStarAlgorithm();
+
+					MultithreadedPathfinder = new MultithreadedPathfinder<IAStarNode>(new List<INodeGrid<IAStarNode>> { nodeGrid }, algorithm);
+					MultithreadedPathfinder.Start();
 				}
 			}
 		}
 
 		public void OnShutdown(ShutdownContext context)
 		{
-
+			if (MultithreadedPathfinder != null)
+			{
+				MultithreadedPathfinder.Stop();
+			}
 		}
 
 		public bool IsVisible(IDrawDevice device)
@@ -77,7 +82,7 @@ namespace Pathfindax
 				{
 					for (int x = 0; x < SourceNodeGrid.Width; x++)
 					{
-						var node = SourceNodeGrid.Grid[x, y];
+						var node = SourceNodeGrid.NodeArray[x, y];
 						if (node.Walkable)
 						{
 							canvas.DrawCircle(node.WorldPosition.X, node.WorldPosition.Y, 0.5f);
@@ -100,13 +105,15 @@ namespace Pathfindax
 			}
 		}
 
-		private Random _randomGenerator = new Random();
+		private readonly Random _randomGenerator = new Random();
 		public void OnUpdate()
 		{
 			var start = new Vector2(_randomGenerator.Next(0, (int)SourceNodeGrid.GridWorldSize.X), _randomGenerator.Next(0, (int)SourceNodeGrid.GridWorldSize.Y));
 			var end = new Vector2(_randomGenerator.Next(0, (int)SourceNodeGrid.GridWorldSize.X), _randomGenerator.Next(0, (int)SourceNodeGrid.GridWorldSize.Y));
 			var request = new PathRequest(start, end, 1);
-			Path = Pathfinder.Process(request);
+			var task = MultithreadedPathfinder.RequestPath(request);
+			task.Wait();
+			Path = task.Result.Path;
 		}
 	}
 }

@@ -10,7 +10,7 @@ namespace Pathfindax.Test
 	public class AstarAlgorithmTests
 	{
 		[Test]
-		[Parallelizable]
+		[MaxTime(5000)]
 		public void FindPath_16x16NodeGrid_PathLengthIsNot0()
 		{
 			var width = 16;
@@ -24,14 +24,10 @@ namespace Pathfindax.Test
 				}
 			}
 
-			var staticNodeGrid = new SourceNodeGrid(array, 1);
-			var nodeGrid = new AStarGrid(staticNodeGrid);
-			var aStarAlgorithm = new AStarAlgorithm(nodeGrid);
-			var startSourceNode = staticNodeGrid.NodeFromWorldPoint(new Vector2(0, 0));
-			var endSourceNode = staticNodeGrid.NodeFromWorldPoint(new Vector2(13, 7));
-			var startNode = nodeGrid.GetNode(startSourceNode);
-			var endNode = nodeGrid.GetNode(endSourceNode);
-			var path = aStarAlgorithm.FindPath(startNode, endNode);
+			var sourceNodeGrid = new SourceNodeGrid(array, 1);
+			var nodeGrid = new AStarGrid(sourceNodeGrid);
+			var aStarAlgorithm = new AStarAlgorithm();
+			var path = aStarAlgorithm.FindPath(nodeGrid, new Vector2(0, 0), new Vector2(13, 7));
 			Assert.AreEqual(path.Count > 0, true);
 		}
 	}

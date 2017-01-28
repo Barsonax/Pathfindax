@@ -4,10 +4,10 @@ namespace Pathfindax.Grid
 {
 	public class Node : INode
 	{
-		public Vector2 WorldPosition { get; private set; }
+		public Vector2 WorldPosition { get; }
 		public bool Walkable { get; set; }
-		public int GridX { get; private set; }
-		public int GridY { get; private set; }
+		public int GridX { get; }
+		public int GridY { get; }
 
 		public Node(Vector2 worldPos, int gridX, int gridY, bool walkable = true)
 		{

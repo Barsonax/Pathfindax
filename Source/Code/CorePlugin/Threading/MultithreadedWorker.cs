@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Timers;
-using Pathfindax.PathfindEngine;
 using Timer = System.Timers.Timer;
 
 namespace Pathfindax.Threading
