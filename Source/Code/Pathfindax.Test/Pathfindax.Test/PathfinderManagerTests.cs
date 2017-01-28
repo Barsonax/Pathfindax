@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Duality;
 using NSubstitute;
@@ -22,8 +24,13 @@ namespace Pathfindax.Test
 			pathfindManager.Start();
 			var start = new Vector2(0.5f, 0.5f);
 			var end = new Vector2(127.5f, 127.5f);
-			var task = pathfindManager.RequestPath(new PathRequest(start, end, 1));
-			task.Wait();
+			var taskCompletionSource = new TaskCompletionSource<bool>();
+			Action<CompletedPath> success = pathrequest =>
+			{
+				taskCompletionSource.SetResult(true);
+			};
+			pathfindManager.RequestPath(new PathRequest(success, start, end, 1));
+			taskCompletionSource.Task.Wait();
 		}
 
 		[Test]
@@ -37,12 +44,18 @@ namespace Pathfindax.Test
 			var start = new Vector2(0.5f, 0.5f);
 			var end = new Vector2(127.5f, 127.5f);
 
-			var tasks = new Task<PathRequest>[10];
-			for (int i = 0; i < tasks.Length; i++)
+
+			var tasks = new PathRequest[10];
+			var taskCompletionSource = new TaskCompletionSource<bool>[tasks.Length];
+			var success = new Action<CompletedPath>[tasks.Length];
+			for (var i = 0; i < tasks.Length; i++)
 			{
-				tasks[i] = pathfindManager.RequestPath(new PathRequest(start, end, 1));
+				var i1 = i;
+				taskCompletionSource[i1] = new TaskCompletionSource<bool>();
+				success[i] = request => taskCompletionSource[i1].SetResult(true);
+				pathfindManager.RequestPath(new PathRequest(success[i], start, end, 1));
 			}
-			Task.WaitAll(tasks);
+			Task.WaitAll(taskCompletionSource.Select(x => x.Task).ToArray());
 		}
 	}
 }

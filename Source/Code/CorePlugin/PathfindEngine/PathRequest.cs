@@ -1,4 +1,5 @@
-﻿using Duality;
+﻿using System;
+using Duality;
 
 namespace Pathfindax.PathfindEngine
 {
@@ -8,12 +9,14 @@ namespace Pathfindax.PathfindEngine
 		public Vector2 PathEnd;
 		public float Clearance;
 		public Vector2[] Path;
+		public Action<CompletedPath> Callback;
 
-		public PathRequest(Vector2 start, Vector2 end, float clearance)
+		public PathRequest(Action<CompletedPath> callback, Vector2 start, Vector2 end, float clearance)
 		{
 			PathStart = start;
 			PathEnd = end;
 			Clearance = clearance;
+			Callback = callback;
 		}
 	}
 }

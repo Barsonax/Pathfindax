@@ -110,10 +110,13 @@ namespace Pathfindax
 		{
 			var start = new Vector2(_randomGenerator.Next(0, (int)SourceNodeGrid.GridWorldSize.X), _randomGenerator.Next(0, (int)SourceNodeGrid.GridWorldSize.Y));
 			var end = new Vector2(_randomGenerator.Next(0, (int)SourceNodeGrid.GridWorldSize.X), _randomGenerator.Next(0, (int)SourceNodeGrid.GridWorldSize.Y));
-			var request = new PathRequest(start, end, 1);
-			var task = MultithreadedPathfinder.RequestPath(request);
-			task.Wait();
-			Path = task.Result.Path;
+			var request = new PathRequest(PathSolved, start, end, 1);
+			MultithreadedPathfinder.RequestPath(request);
+		}
+
+		public void PathSolved(CompletedPath completedPath)
+		{
+			Path = completedPath.Path;
 		}
 	}
 }

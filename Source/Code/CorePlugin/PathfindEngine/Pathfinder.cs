@@ -8,7 +8,7 @@ using Pathfindax.Threading;
 
 namespace Pathfindax.PathfindEngine
 {
-	public class Pathfinder<TNode> : IProcesser<Vector2[], PathRequest>
+	public class Pathfinder<TNode> : IProcesser<CompletedPath, PathRequest>
 		where TNode : INode
 	{
 		private readonly IList<INodeGrid<TNode>> _nodeGrids;
@@ -23,7 +23,7 @@ namespace Pathfindax.PathfindEngine
 		/// <param name="pathPostProcesses">The post processing steps that will be applied after the <see cref="IPathFindAlgorithm{TNode}"/> found a path</param>
 		public Pathfinder(IList<INodeGrid<TNode>> nodeGrids, IPathFindAlgorithm<TNode> pathFindAlgorithm, IList<IPathPostProcess> pathPostProcesses = null)
 		{
-			if(nodeGrids.Count > 1) throw new NotSupportedException("Hierachical pathfinding is not yet implemented. Please use only 1 nodegrid at this time.");
+			if (nodeGrids.Count > 1) throw new NotSupportedException("Hierachical pathfinding is not yet implemented. Please use only 1 nodegrid at this time.");
 			_algorithm = pathFindAlgorithm;
 			_pathPostProcesses = pathPostProcesses;
 			_nodeGrids = nodeGrids;
@@ -34,11 +34,11 @@ namespace Pathfindax.PathfindEngine
 		/// </summary>
 		/// <param name="pathRequest"></param>
 		/// <returns>The path from <see cref="PathRequest.PathStart"/> to <see cref="PathRequest.PathEnd"/></returns>
-		public Vector2[] Process(PathRequest pathRequest)
+		public CompletedPath Process(PathRequest pathRequest)
 		{
 			var nodeGrid = _nodeGrids[0]; //TODO implement hierachical pathfinding here
 			var path = _algorithm.FindPath(nodeGrid, pathRequest.PathStart, pathRequest.PathEnd);
-			if (path == null) return null;
+			if (path == null) return new CompletedPath(null, false, pathRequest.Callback);
 			if (_pathPostProcesses != null)
 			{
 				foreach (var postProcess in _pathPostProcesses)
@@ -46,7 +46,7 @@ namespace Pathfindax.PathfindEngine
 					path = postProcess.Process(path);
 				}
 			}
-			return path.Select(x => x.WorldPosition).ToArray();
+			return new CompletedPath(path.Select(x => x.WorldPosition).ToArray(), true, pathRequest.Callback);
 		}
 	}
 }

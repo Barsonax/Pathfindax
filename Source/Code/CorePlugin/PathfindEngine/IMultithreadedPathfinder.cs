@@ -4,7 +4,7 @@ namespace Pathfindax.PathfindEngine
 {
 	public interface IMultithreadedPathfinder
 	{
-		Task<PathRequest> RequestPath(PathRequest pathRequest);
+		void RequestPath(PathRequest pathRequest);
 		void Start();
 		void Stop();
 	}

@@ -74,6 +74,7 @@
     <Compile Include="Algorithms\IPathFindAlgorithm.cs" />
     <Compile Include="Collections\MinHeap.cs" />
     <Compile Include="PathfindComponent.cs" />
+    <Compile Include="PathfindEngine\CompletedPath.cs" />
     <Compile Include="Threading\IProcesser.cs" />
     <Compile Include="PathfindEngine\IMultithreadedPathfinder.cs" />
     <Compile Include="PathfindEngine\IPathPostProcess.cs" />

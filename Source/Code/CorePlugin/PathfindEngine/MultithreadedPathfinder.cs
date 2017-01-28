@@ -12,16 +12,16 @@ namespace Pathfindax.PathfindEngine
 	public class MultithreadedPathfinder<TNode> : IMultithreadedPathfinder, IDisposable
 		where TNode : INode
 	{
-		private readonly MultithreadedWorker<Vector2[], PathRequest> _multithreadedWorker;
+		private readonly MultithreadedWorker<CompletedPath, PathRequest> _multithreadedWorker;
 
-		public MultithreadedPathfinder(IList<INodeGrid<TNode>> nodeGrids, IPathFindAlgorithm<TNode> pathFindAlgorithm, int maxThreads = 1, double checkInterval = 10)
+		public MultithreadedPathfinder(IList<INodeGrid<TNode>> nodeGrids, IPathFindAlgorithm<TNode> pathFindAlgorithm, int maxThreads = 1, long checkInterval = 10)
 		{
-			var pathfinders = new List<IProcesser<Vector2[], PathRequest>>();
+			var pathfinders = new List<IProcesser<CompletedPath, PathRequest>>();
 			for (int i = 0; i < maxThreads; i++)
 			{
 				pathfinders.Add(new Pathfinder<TNode>(nodeGrids, pathFindAlgorithm));
 			}
-			_multithreadedWorker = new MultithreadedWorker<Vector2[], PathRequest>(pathfinders, checkInterval);
+			_multithreadedWorker = new MultithreadedWorker<CompletedPath, PathRequest>(pathfinders, checkInterval);
 		}
 
 		public void Start()
@@ -34,12 +34,9 @@ namespace Pathfindax.PathfindEngine
 			_multithreadedWorker.Stop();
 		}
 
-		public async Task<PathRequest> RequestPath(PathRequest pathRequest)
+		public void RequestPath(PathRequest pathRequest)
 		{
-			var task = _multithreadedWorker.Enqueue(pathRequest);
-			await task;
-			pathRequest.Path = task.Result;
-			return pathRequest;
+			_multithreadedWorker.Enqueue(pathRequest, pathRequest.Callback);
 		}
 
 		/// <summary>
