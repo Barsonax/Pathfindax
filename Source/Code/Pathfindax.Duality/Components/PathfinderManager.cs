@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Linq;
 using Duality;
+using Duality.Resources;
 
 namespace Pathfindax.Duality.Components
 {
-	public class PathfinderManager : Component, ICmpInitializable
+	public class PathfinderManager : Component
 	{
 		private static IPathfinderComponent[] _pathfinderComponents;
 
@@ -16,6 +17,11 @@ namespace Pathfindax.Duality.Components
 		/// <returns></returns>
 		public static IPathfinderComponent GetPathfinder(string id = null)
 		{
+			if (_pathfinderComponents == null)
+			{
+				_pathfinderComponents = Scene.Current.FindComponents<IPathfinderComponent>().ToArray();
+			}
+			
 			if (string.IsNullOrEmpty(id))
 			{
 				try
@@ -38,19 +44,6 @@ namespace Pathfindax.Duality.Components
 					throw new InvalidOperationException("2 pathfinders found with the same id", ex);
 				}
 			}
-		}
-
-		public void OnInit(InitContext context)
-		{
-			if (context == InitContext.Activate && DualityApp.ExecContext == DualityApp.ExecutionContext.Game)
-			{
-				_pathfinderComponents = GameObj.ParentScene.FindComponents<IPathfinderComponent>().ToArray();
-			}
-		}
-
-		public void OnShutdown(ShutdownContext context)
-		{
-			
 		}
 	}
 }
