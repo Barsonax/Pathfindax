@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Pathfindax</name>
+    </assembly>
+    <members>
+        <member name="T:Pathfindax.Grid.AStarGrid">
+            <summary>
+            Contains data specific for the A* algorithm.
+            Do not share this between threads.
+            </summary>
+        </member>
+        <member name="T:Pathfindax.Grid.SourceNodeGrid">
+            <summary>
+            Class that holds node data which wont change and is safe to share between threads
+            </summary>
+        </member>
+        <member name="M:Pathfindax.PathfindEngine.MultithreadedPathfinder`1.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+        </member>
+        <member name="M:Pathfindax.PathfindEngine.Pathfinder`1.#ctor(System.Collections.Generic.IList{Pathfindax.Grid.INodeGrid{`0}},Pathfindax.Algorithms.IPathFindAlgorithm{`0},System.Collections.Generic.IList{Pathfindax.PathfindEngine.IPathPostProcess})">
+            <summary>
+            Initialises a new pathfinder with a algorithm and optional post processing steps.
+            </summary>
+            <param name="nodeGrids">The nodegrids that will be used to solve paths</param>
+            <param name="pathFindAlgorithm">The algorithm that will be used to solve paths</param>
+            <param name="pathPostProcesses">The post processing steps that will be applied after the <see cref="T:Pathfindax.Algorithms.IPathFindAlgorithm`1"/> found a path</param>
+        </member>
+        <member name="M:Pathfindax.PathfindEngine.Pathfinder`1.Process(Pathfindax.PathfindEngine.PathRequest)">
+            <summary>
+            Solves a <see cref="T:Pathfindax.PathfindEngine.PathRequest"/>
+            </summary>
+            <param name="pathRequest"></param>
+            <returns>A <see cref="T:Pathfindax.PathfindEngine.CompletedPath"/> object containing the solved path if succesfull/></returns>
+        </member>
+        <member name="M:Pathfindax.Threading.MultithreadedWorkerQueue`2.#ctor(System.Collections.Generic.IList{Pathfindax.Threading.IProcesser{`0,`1}},System.Double)">
+            <summary>
+            Initializes a new <see cref="T:Pathfindax.Threading.MultithreadedWorkerQueue`2"/>
+            </summary>
+            <param name="processers">A list with IProcessers that will do the actual work. The max amount of threads used it equal to the amount of <see cref="T:Pathfindax.Threading.IProcesser`2"/></param> in the list.
+            <param name="checkInterval">How long the worker will wait before checking the queue again for new work in ms</param>
+        </member>
+        <member name="M:Pathfindax.Threading.MultithreadedWorkerQueue`2.Start">
+            <summary>
+            Starts checking the queue for work to do
+            </summary>
+        </member>
+        <member name="M:Pathfindax.Threading.MultithreadedWorkerQueue`2.Stop">
+            <summary>
+            Stops checking the queue for work to do
+            </summary>
+        </member>
+        <member name="M:Pathfindax.Threading.MultithreadedWorkerQueue`2.Enqueue(`1,System.Action{`0})">
+            <summary>
+            Enqueues a new work item in the queue.
+            </summary>
+            <param name="workItem"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Pathfindax.Threading.MultithreadedWorkerQueue`2.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+        </member>
+        <member name="P:Pathfindax.Threading.Worker`2.IsBusy">
+            <summary>
+            True if this <see cref="T:Pathfindax.Threading.Worker`2"/> is doing work.
+            </summary>
+        </member>
+        <member name="M:Pathfindax.Threading.Worker`2.DoWork(`1,System.Action{`0})">
+            <summary>
+            Starts working on a work item on a dedicated thread
+            </summary>
+            <param name="taskCompletionSource">The work item</param>
+            <returns>True if the worker was not busy and the work was accepted</returns>
+        </member>
+    </members>
+</doc>
