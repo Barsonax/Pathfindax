@@ -31,15 +31,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="NSubstitute, Version=1.10.0.0, Culture=neutral, PublicKeyToken=92dd2e9066daa5ca, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NSubstitute.1.10.0.0\lib\net45\NSubstitute.dll</HintPath>
+      <HintPath>..\packages\NSubstitute.1.10.0.0\lib\net45\NSubstitute.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="nunit.framework, Version=3.6.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NUnit.3.6.0\lib\net45\nunit.framework.dll</HintPath>
+      <HintPath>..\packages\NUnit.3.6.0\lib\net45\nunit.framework.dll</HintPath>
       <Private>True</Private>
-    </Reference>
-    <Reference Include="Pathfindax">
-      <HintPath>..\..\Pathfindax\bin\Debug\Pathfindax.dll</HintPath>
     </Reference>
     <Reference Include="System" />
   </ItemGroup>
@@ -47,6 +44,12 @@
     <Compile Include="AstarAlgorithmTests.cs" />
     <Compile Include="MultithreadedPathfinderTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Pathfindax\Pathfindax.csproj">
+      <Project>{D4DFA287-B394-4D15-97E0-D2A0675D26A6}</Project>
+      <Name>Pathfindax</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
