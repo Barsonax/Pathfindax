@@ -7,8 +7,12 @@ using Pathfindax.Primitives;
 
 namespace Pathfindax.Algorithms
 {
+	/// <summary>
+	/// Class that implements the A* algorithm to find paths
+	/// </summary>
 	public class AStarAlgorithm : IPathFindAlgorithm<IAStarNode>
 	{
+		/// <inheritdoc />
 		public IList<INode> FindPath(INodeGrid<IAStarNode> nodeGrid, PositionF pathStart, PositionF pathEnd)
 		{
 			var startNode = nodeGrid.GetNode(pathStart);

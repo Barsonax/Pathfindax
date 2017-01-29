@@ -4,6 +4,73 @@
         <name>Pathfindax</name>
     </assembly>
     <members>
+        <member name="T:Pathfindax.Algorithms.AStarAlgorithm">
+            <summary>
+            Class that implements the A* algorithm to find paths
+            </summary>
+        </member>
+        <member name="M:Pathfindax.Algorithms.AStarAlgorithm.FindPath(Pathfindax.Grid.INodeGrid{Pathfindax.Grid.IAStarNode},Pathfindax.Primitives.PositionF,Pathfindax.Primitives.PositionF)">
+            <inheritdoc />
+        </member>
+        <member name="T:Pathfindax.Algorithms.IPathFindAlgorithm`1">
+            <summary>
+            Interface for classes that implement algorithms to find a path.
+            </summary>
+            <typeparam name="TNode"></typeparam>
+        </member>
+        <member name="M:Pathfindax.Algorithms.IPathFindAlgorithm`1.FindPath(Pathfindax.Grid.INodeGrid{`0},Pathfindax.Primitives.PositionF,Pathfindax.Primitives.PositionF)">
+            <summary>
+            Finds a path from <paramref name="pathStart"></paramref> to <paramref name="pathEnd"></paramref> using the <paramref name="nodeGrid"></paramref> and returns this as a list of <see cref="T:Pathfindax.Grid.INode"/>.
+            </summary>
+            <param name="nodeGrid"></param>
+            <param name="pathStart"></param>
+            <param name="pathEnd"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Pathfindax.Collections.Array2D`1">
+            <summary>
+            A array class that provides both single dimensional and 2-dimensional access to a array.
+            </summary>
+            <typeparam name="TItem"></typeparam>
+        </member>
+        <member name="P:Pathfindax.Collections.Array2D`1.Length">
+            <summary>
+            The length of the internal array
+            </summary>
+        </member>
+        <member name="P:Pathfindax.Collections.Array2D`1.Width">
+            <summary>
+            The width of the array in items
+            </summary>
+        </member>
+        <member name="P:Pathfindax.Collections.Array2D`1.Height">
+            <summary>
+            The height of the array in items
+            </summary>
+        </member>
+        <member name="P:Pathfindax.Collections.Array2D`1.Item(System.Int32,System.Int32)">
+            <summary>
+            Provides access to the internal array with a 2-dimensional indexer
+            </summary>
+            <param name="x"></param>
+            <param name="y"></param>
+        </member>
+        <member name="P:Pathfindax.Collections.Array2D`1.Item(System.Int32)">
+            <summary>
+            Provides access to the internal array with the standard indexer
+            </summary>
+            <param name="i"></param>
+        </member>
+        <member name="M:Pathfindax.Collections.Array2D`1.#ctor(System.Int32,System.Int32)">
+            <summary>
+            Creates a new <see cref="T:Pathfindax.Collections.Array2D`1"/>
+            </summary>
+            <param name="width">The width of the array in items</param>
+            <param name="height">The height of the array in items</param>
+        </member>
+        <member name="M:Pathfindax.Collections.Array2D`1.GetEnumerator">
+            <inheritdoc />
+        </member>
         <member name="T:Pathfindax.Grid.AStarGrid">
             <summary>
             Contains data specific for the A* algorithm.
