@@ -102,12 +102,18 @@
             <param name="pathRequest"></param>
             <returns>A <see cref="T:Pathfindax.PathfindEngine.CompletedPath"/> object containing the solved path if succesfull/></returns>
         </member>
-        <member name="M:Pathfindax.Threading.MultithreadedWorkerQueue`2.#ctor(System.Collections.Generic.IList{Pathfindax.Threading.IProcesser{`0,`1}},System.Double)">
+        <member name="T:Pathfindax.Threading.MultithreadedWorkerQueue`2">
+            <summary>
+            Queues items and processes them with one or multiple threads
+            </summary>
+            <typeparam name="TOut"></typeparam>
+            <typeparam name="TIn"></typeparam>
+        </member>
+        <member name="M:Pathfindax.Threading.MultithreadedWorkerQueue`2.#ctor(System.Collections.Generic.IList{Pathfindax.Threading.IProcesser{`0,`1}})">
             <summary>
             Initializes a new <see cref="T:Pathfindax.Threading.MultithreadedWorkerQueue`2"/>
             </summary>
             <param name="processers">A list with IProcessers that will do the actual work. The max amount of threads used it equal to the amount of <see cref="T:Pathfindax.Threading.IProcesser`2"/></param> in the list.
-            <param name="checkInterval">How long the worker will wait before checking the queue again for new work in ms</param>
         </member>
         <member name="M:Pathfindax.Threading.MultithreadedWorkerQueue`2.Start">
             <summary>
@@ -124,6 +130,7 @@
             Enqueues a new work item in the queue.
             </summary>
             <param name="workItem"></param>
+            <param name="action"></param>
             <returns></returns>
         </member>
         <member name="M:Pathfindax.Threading.MultithreadedWorkerQueue`2.Dispose">
@@ -131,9 +138,27 @@
             Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
             </summary>
         </member>
+        <member name="T:Pathfindax.Threading.Worker`2">
+            <summary>
+            Class for doing work on a dedicated thread
+            </summary>
+            <typeparam name="TOut"></typeparam>
+            <typeparam name="TIn"></typeparam>
+        </member>
         <member name="P:Pathfindax.Threading.Worker`2.IsBusy">
             <summary>
             True if this <see cref="T:Pathfindax.Threading.Worker`2"/> is doing work.
+            </summary>
+        </member>
+        <member name="M:Pathfindax.Threading.Worker`2.#ctor(Pathfindax.Threading.IProcesser{`0,`1})">
+            <summary>
+            Creates a new worker that will start doing its work on a dedicated thread.
+            </summary>
+            <param name="processer"></param>
+        </member>
+        <member name="M:Pathfindax.Threading.Worker`2.Start">
+            <summary>
+            Starts the worker
             </summary>
         </member>
         <member name="M:Pathfindax.Threading.Worker`2.DoWork(`1,System.Action{`0})">
@@ -141,7 +166,11 @@
             Starts working on a work item on a dedicated thread
             </summary>
             <param name="taskCompletionSource">The work item</param>
+            <param name="onCompleted"></param>
             <returns>True if the worker was not busy and the work was accepted</returns>
+        </member>
+        <member name="M:Pathfindax.Threading.Worker`2.Dispose">
+            <inheritdoc />
         </member>
     </members>
 </doc>

@@ -4,6 +4,11 @@ using System.Threading;
 
 namespace Pathfindax.Threading
 {
+	/// <summary>
+	/// Queues items and processes them with one or multiple threads
+	/// </summary>
+	/// <typeparam name="TOut"></typeparam>
+	/// <typeparam name="TIn"></typeparam>
 	public class MultithreadedWorkerQueue<TOut, TIn> : IDisposable
 	{
 		private readonly BlockingQueue<WorkItem<TOut, TIn>> _workItemsCompletedQueue = new BlockingQueue<WorkItem<TOut, TIn>>();
@@ -16,23 +21,24 @@ namespace Pathfindax.Threading
 		/// Initializes a new <see cref="MultithreadedWorkerQueue{TOut,TIn}"/>
 		/// </summary>
 		/// <param name="processers">A list with IProcessers that will do the actual work. The max amount of threads used it equal to the amount of <see cref="IProcesser{TOut,TIn}"/></param> in the list.
-		/// <param name="checkInterval">How long the worker will wait before checking the queue again for new work in ms</param>
-		public MultithreadedWorkerQueue(IList<IProcesser<TOut, TIn>> processers, double checkInterval = 10)
+		public MultithreadedWorkerQueue(IList<IProcesser<TOut, TIn>> processers)
 		{
+			if(processers.Count == 0) throw new ArgumentException($"Provide atleast one {nameof(IProcesser<TOut, TIn>)}");
 			_workers = new List<Worker<TOut, TIn>>();
 			foreach (var processer in processers)
 			{
 				_workers.Add(new Worker<TOut, TIn>(processer));
 			}
-			var queueWriter = new Thread(state =>
+			var queueWriter = new Thread(TryProcessNext)
 			{
-				TryProcessNext();
-			});
+				IsBackground = true
+			};
+
 			queueWriter.Start();
-			var queueReader = new Thread(state =>
+			var queueReader = new Thread(CallbackCompletedWorkitem)
 			{
-				CallbackCompletedWorkitem();
-			});
+				IsBackground = true
+			};
 			queueReader.Start();
 		}
 
@@ -56,6 +62,7 @@ namespace Pathfindax.Threading
 		/// Enqueues a new work item in the queue.
 		/// </summary>
 		/// <param name="workItem"></param>
+		/// <param name="action"></param>
 		/// <returns></returns>
 		public void Enqueue(TIn workItem, Action<TOut> action)
 		{
@@ -66,7 +73,7 @@ namespace Pathfindax.Threading
 		private void TryProcessNext()
 		{
 			while (!_disposed)
-			{				
+			{
 				foreach (var worker in _workers)
 				{
 					if (worker.IsBusy) continue;
@@ -100,6 +107,10 @@ namespace Pathfindax.Threading
 		/// </summary>
 		public void Dispose()
 		{
+			foreach (var worker in _workers)
+			{
+				worker.Dispose();
+			}
 			_disposed = true;
 		}
 	}
