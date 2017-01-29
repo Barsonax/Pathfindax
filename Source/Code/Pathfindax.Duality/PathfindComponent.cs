@@ -112,6 +112,7 @@ namespace Pathfindax.Duality
 			var end = new PositionF(_randomGenerator.Next(0, (int)SourceNodeGrid.GridWorldSize.X), _randomGenerator.Next(0, (int)SourceNodeGrid.GridWorldSize.Y));
 			var request = new PathRequest(PathSolved, start, end, 1);
 			MultithreadedPathfinder.RequestPath(request);
+			MultithreadedPathfinder.ProcessCompletedPaths();
 		}
 
 		public void PathSolved(CompletedPath completedPath)

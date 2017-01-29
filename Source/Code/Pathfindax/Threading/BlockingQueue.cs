@@ -6,7 +6,6 @@ namespace Pathfindax.Threading
 {
 	internal class BlockingQueue<T> : IQueueReader<T>, IQueueWriter<T>, IDisposable
 	{
-		public int Count => _mQueue.Count;
 		// use a .NET queue to store the data
 		private readonly Queue<T> _mQueue = new Queue<T>();
 		// create a semaphore that contains the items in the queue as resources.

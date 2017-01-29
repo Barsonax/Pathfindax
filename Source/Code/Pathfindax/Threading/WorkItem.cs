@@ -6,12 +6,10 @@ namespace Pathfindax.Threading
 	{
 		public TIn Work;
 		public TOut Result;
-		public Action<TOut> Callback;
 
-		public WorkItem(TIn work, Action<TOut> callback)
+		public WorkItem(TIn work)
 		{
 			Work = work;
-			Callback = callback;
 		}
 	}
 }

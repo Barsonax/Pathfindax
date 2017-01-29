@@ -26,9 +26,9 @@ namespace Pathfindax.Test
 		[Test]
 		public void RequestPath_SingleThread_NoExceptions()
 		{
-			var pathfindManager = SetupMultithreadedPathfinder(1);
+			var multithreadedPathfinder = SetupMultithreadedPathfinder(1);
 
-			pathfindManager.Start();
+			multithreadedPathfinder.Start();
 			var start = new PositionF(0.5f, 0.5f);
 			var end = new PositionF(127.5f, 127.5f);
 			var taskCompletionSource = new TaskCompletionSource<bool>();
@@ -36,13 +36,14 @@ namespace Pathfindax.Test
 			{
 				taskCompletionSource.SetResult(true);
 			};
-			pathfindManager.RequestPath(new PathRequest(success, start, end, 1));
+			multithreadedPathfinder.RequestPath(new PathRequest(success, start, end, 1));
 			var stopWatch = new Stopwatch();
 			stopWatch.Start();
 			while (!taskCompletionSource.Task.IsCompleted)
 			{
 				Thread.Sleep(10);
-				if(stopWatch.ElapsedMilliseconds > 2000) throw new TimeoutException();
+				multithreadedPathfinder.ProcessCompletedPaths();
+				if (stopWatch.ElapsedMilliseconds > 2000) throw new TimeoutException();
 			}
 			Assert.AreEqual(taskCompletionSource.Task.Result, true);
 		}
@@ -50,8 +51,8 @@ namespace Pathfindax.Test
 		[Test]
 		public void RequestPath_MultipleThreads_NoExceptions()
 		{
-			var pathfindManager = SetupMultithreadedPathfinder(4);
-			pathfindManager.Start();
+			var multithreadedPathfinder = SetupMultithreadedPathfinder(4);
+			multithreadedPathfinder.Start();
 			var start = new PositionF(0.5f, 0.5f);
 			var end = new PositionF(127.5f, 127.5f);
 
@@ -63,7 +64,7 @@ namespace Pathfindax.Test
 				var i1 = i;
 				taskCompletionSources[i1] = new TaskCompletionSource<bool>();
 				success[i] = request => taskCompletionSources[i1].SetResult(true);
-				pathfindManager.RequestPath(new PathRequest(success[i], start, end, 1));
+				multithreadedPathfinder.RequestPath(new PathRequest(success[i], start, end, 1));
 			}
 			var tasks = taskCompletionSources.Select(x => x.Task).ToList();
 			var stopWatch = new Stopwatch();
@@ -71,6 +72,7 @@ namespace Pathfindax.Test
 			while (!tasks.All(x => x.IsCompleted))
 			{
 				Thread.Sleep(10);
+				multithreadedPathfinder.ProcessCompletedPaths();
 				if (stopWatch.ElapsedMilliseconds > 2000) throw new TimeoutException();
 			}
 			foreach (var taskCompletionSource in taskCompletionSources)

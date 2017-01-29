@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading;
 
@@ -10,8 +11,10 @@ namespace Pathfindax.Threading
 	/// <typeparam name="TOut"></typeparam>
 	/// <typeparam name="TIn"></typeparam>
 	public class MultithreadedWorkerQueue<TOut, TIn> : IDisposable
+		where TOut : class
+		where TIn : class
 	{
-		private readonly BlockingQueue<WorkItem<TOut, TIn>> _workItemsCompletedQueue = new BlockingQueue<WorkItem<TOut, TIn>>();
+		private readonly ConcurrentQueue<WorkItem<TOut, TIn>> _workItemsCompletedQueue = new ConcurrentQueue<WorkItem<TOut, TIn>>();
 		private readonly BlockingQueue<WorkItem<TOut, TIn>> _workItemsQueue = new BlockingQueue<WorkItem<TOut, TIn>>();
 		private readonly IList<Worker<TOut, TIn>> _workers;
 		private readonly ManualResetEvent _stopManualResetEvent = new ManualResetEvent(false);
@@ -35,11 +38,6 @@ namespace Pathfindax.Threading
 			};
 
 			queueWriter.Start();
-			var queueReader = new Thread(CallbackCompletedWorkitem)
-			{
-				IsBackground = true
-			};
-			queueReader.Start();
 		}
 
 		/// <summary>
@@ -62,12 +60,23 @@ namespace Pathfindax.Threading
 		/// Enqueues a new work item in the queue.
 		/// </summary>
 		/// <param name="workItem"></param>
-		/// <param name="action"></param>
 		/// <returns></returns>
-		public void Enqueue(TIn workItem, Action<TOut> action)
+		public void Enqueue(TIn workItem)
 		{
-			var taskCompletionSource = new WorkItem<TOut, TIn>(workItem, action);
+			var taskCompletionSource = new WorkItem<TOut, TIn>(workItem);
 			_workItemsQueue.Enqueue(taskCompletionSource);
+		}
+
+		public bool TryDequeue(out TOut result)
+		{
+			WorkItem<TOut, TIn> completedWorkitem = null;
+			if (_workItemsCompletedQueue.TryDequeue(out completedWorkitem))
+			{
+				result = completedWorkitem.Result;
+				return true;
+			}
+			result = null;
+			return false;
 		}
 
 		private void TryProcessNext()
@@ -77,7 +86,7 @@ namespace Pathfindax.Threading
 				foreach (var worker in _workers)
 				{
 					if (worker.IsBusy) continue;
-					var work = _workItemsQueue.Dequeue();
+					var work = _workItemsQueue.Dequeue(); //If there is no work left in the queue then the thread will wait here until there is more work.
 					_stopManualResetEvent.WaitOne();
 					worker.DoWork(work.Work, result =>
 					{
@@ -85,15 +94,6 @@ namespace Pathfindax.Threading
 						EnqueueCompletedWorkItem(work);
 					});
 				}
-			}
-		}
-
-		private void CallbackCompletedWorkitem()
-		{
-			while (!_disposed)
-			{
-				var completedWorkItem = _workItemsCompletedQueue.Dequeue();
-				completedWorkItem.Callback.Invoke(completedWorkItem.Result);
 			}
 		}
 

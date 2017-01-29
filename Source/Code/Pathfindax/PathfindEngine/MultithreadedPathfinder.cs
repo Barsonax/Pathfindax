@@ -33,7 +33,16 @@ namespace Pathfindax.PathfindEngine
 
 		public void RequestPath(PathRequest pathRequest)
 		{
-			_multithreadedWorkerQueue.Enqueue(pathRequest, pathRequest.Callback);
+			_multithreadedWorkerQueue.Enqueue(pathRequest);
+		}
+
+		public void ProcessCompletedPaths()
+		{
+			CompletedPath completedPath;
+			while (_multithreadedWorkerQueue.TryDequeue(out completedPath))
+			{
+				completedPath.Callback.Invoke(completedPath);
+			}
 		}
 
 		/// <summary>

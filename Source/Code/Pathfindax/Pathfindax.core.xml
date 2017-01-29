@@ -125,12 +125,11 @@
             Stops checking the queue for work to do
             </summary>
         </member>
-        <member name="M:Pathfindax.Threading.MultithreadedWorkerQueue`2.Enqueue(`1,System.Action{`0})">
+        <member name="M:Pathfindax.Threading.MultithreadedWorkerQueue`2.Enqueue(`1)">
             <summary>
             Enqueues a new work item in the queue.
             </summary>
             <param name="workItem"></param>
-            <param name="action"></param>
             <returns></returns>
         </member>
         <member name="M:Pathfindax.Threading.MultithreadedWorkerQueue`2.Dispose">
