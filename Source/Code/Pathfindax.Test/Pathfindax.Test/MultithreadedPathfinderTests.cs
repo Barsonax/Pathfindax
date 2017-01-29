@@ -68,7 +68,6 @@ namespace Pathfindax.Test
 			var tasks = taskCompletionSources.Select(x => x.Task).ToList();
 			var stopWatch = new Stopwatch();
 			stopWatch.Start();
-			pathfindManager.Stop();
 			while (!tasks.All(x => x.IsCompleted))
 			{
 				Thread.Sleep(10);
