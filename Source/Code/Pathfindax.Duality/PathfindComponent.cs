@@ -10,6 +10,10 @@ using Pathfindax.Primitives;
 
 namespace Pathfindax.Duality
 {
+	/// <summary>
+	/// Provides a way for other components to request a path from a to b
+	/// WIP
+	/// </summary>
 	public class PathfindComponent : Component, ICmpInitializable, ICmpRenderer, ICmpUpdatable
 	{
 		public IMultithreadedPathfinder MultithreadedPathfinder { get; set; }
@@ -17,7 +21,7 @@ namespace Pathfindax.Duality
 		public PositionF[] Path { get; private set; }
 		public float BoundRadius { get; }
 
-		public void OnInit(InitContext context)
+		void ICmpInitializable.OnInit(InitContext context)
 		{
 			if (context == InitContext.Activate && DualityApp.ExecContext == DualityApp.ExecutionContext.Game)
 			{
@@ -45,8 +49,6 @@ namespace Pathfindax.Duality
 					array[8, 10].Walkable = false;
 					array[9, 10].Walkable = false;
 
-
-
 					SourceNodeGrid = new SourceNodeGrid(array, 1);
 					var nodeGrid = new AStarGrid(SourceNodeGrid);
 					var algorithm = new AStarAlgorithm();
@@ -57,7 +59,7 @@ namespace Pathfindax.Duality
 			}
 		}
 
-		public void OnShutdown(ShutdownContext context)
+		void ICmpInitializable.OnShutdown(ShutdownContext context)
 		{
 			if (MultithreadedPathfinder != null)
 			{
@@ -65,7 +67,7 @@ namespace Pathfindax.Duality
 			}
 		}
 
-		public bool IsVisible(IDrawDevice device)
+		bool ICmpRenderer.IsVisible(IDrawDevice device)
 		{
 			// Only render when in screen overlay mode and the visibility mask is non-empty
 			return
@@ -73,7 +75,7 @@ namespace Pathfindax.Duality
 				(device.VisibilityMask & VisibilityFlag.ScreenOverlay) == VisibilityFlag.None;
 		}
 
-		public void Draw(IDrawDevice device)
+		void ICmpRenderer.Draw(IDrawDevice device)
 		{
 			if (SourceNodeGrid != null)
 			{
@@ -106,7 +108,7 @@ namespace Pathfindax.Duality
 		}
 
 		private readonly Random _randomGenerator = new Random();
-		public void OnUpdate()
+		void ICmpUpdatable.OnUpdate()
 		{
 			var start = new PositionF(_randomGenerator.Next(0, (int)SourceNodeGrid.GridWorldSize.X), _randomGenerator.Next(0, (int)SourceNodeGrid.GridWorldSize.Y));
 			var end = new PositionF(_randomGenerator.Next(0, (int)SourceNodeGrid.GridWorldSize.X), _randomGenerator.Next(0, (int)SourceNodeGrid.GridWorldSize.Y));
@@ -115,7 +117,12 @@ namespace Pathfindax.Duality
 			MultithreadedPathfinder.ProcessCompletedPaths();
 		}
 
-		public void PathSolved(CompletedPath completedPath)
+		public void RequestPath(PathRequest pathRequest)
+		{
+			MultithreadedPathfinder.RequestPath(pathRequest);
+		}
+
+		private void PathSolved(CompletedPath completedPath)
 		{
 			Path = completedPath.Path;
 		}

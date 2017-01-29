@@ -82,6 +82,27 @@
             Class that holds node data which wont change and is safe to share between threads
             </summary>
         </member>
+        <member name="M:Pathfindax.PathfindEngine.IMultithreadedPathfinder.RequestPath(Pathfindax.PathfindEngine.PathRequest)">
+            <summary>
+            Requests a path.
+            </summary>
+            <param name="pathRequest"></param>
+        </member>
+        <member name="M:Pathfindax.PathfindEngine.IMultithreadedPathfinder.ProcessCompletedPaths">
+            <summary>
+            This will process any completedpaths.
+            </summary>
+        </member>
+        <member name="M:Pathfindax.PathfindEngine.IMultithreadedPathfinder.Start">
+            <summary>
+            Starts the pathfinder.
+            </summary>
+        </member>
+        <member name="M:Pathfindax.PathfindEngine.IMultithreadedPathfinder.Stop">
+            <summary>
+            Stops the pathfinder.
+            </summary>
+        </member>
         <member name="M:Pathfindax.PathfindEngine.MultithreadedPathfinder`1.Dispose">
             <summary>
             Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
