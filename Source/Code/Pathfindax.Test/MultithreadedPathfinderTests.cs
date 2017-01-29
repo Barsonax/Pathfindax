@@ -56,7 +56,7 @@ namespace Pathfindax.Test
 			var start = new PositionF(0.5f, 0.5f);
 			var end = new PositionF(127.5f, 127.5f);
 
-			var pathRequests = new PathRequest[10000];
+			var pathRequests = new PathRequest[100];
 			var taskCompletionSources = new TaskCompletionSource<bool>[pathRequests.Length];
 			var success = new Action<CompletedPath>[pathRequests.Length];
 			for (var i = 0; i < pathRequests.Length; i++)

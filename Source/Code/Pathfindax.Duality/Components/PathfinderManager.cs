@@ -2,7 +2,7 @@
 using System.Linq;
 using Duality;
 
-namespace Pathfindax.Duality
+namespace Pathfindax.Duality.Components
 {
 	public class PathfinderManager : Component, ICmpInitializable
 	{

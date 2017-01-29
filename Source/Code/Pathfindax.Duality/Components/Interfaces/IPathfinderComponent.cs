@@ -1,6 +1,6 @@
 ﻿using Pathfindax.PathfindEngine;
 
-namespace Pathfindax.Duality
+namespace Pathfindax.Duality.Components
 {
 	public interface IPathfinderComponent : IPathfinder
 	{

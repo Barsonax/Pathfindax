@@ -7,7 +7,7 @@ using Pathfindax.Grid;
 using Pathfindax.PathfindEngine;
 using Pathfindax.Primitives;
 
-namespace Pathfindax.Duality
+namespace Pathfindax.Duality.Components
 {
 	/// <summary>
 	/// Provides a way for other components to request a path from a to b

@@ -1,4 +1,5 @@
-﻿using Pathfindax.PathfindEngine;
+﻿using Pathfindax.Duality.Components;
+using Pathfindax.PathfindEngine;
 using Pathfindax.Primitives;
 
 namespace Pathfindax.Duality

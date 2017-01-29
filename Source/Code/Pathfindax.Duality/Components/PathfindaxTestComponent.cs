@@ -4,7 +4,7 @@ using Duality.Drawing;
 using Pathfindax.PathfindEngine;
 using Pathfindax.Primitives;
 
-namespace Pathfindax.Duality
+namespace Pathfindax.Duality.Components
 {
 	public class PathfindaxTestComponent : Component, ICmpUpdatable, ICmpRenderer, ICmpInitializable
 	{
