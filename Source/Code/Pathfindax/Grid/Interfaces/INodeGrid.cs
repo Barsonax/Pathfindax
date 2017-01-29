@@ -6,7 +6,8 @@ namespace Pathfindax.Grid
 	public interface INodeGrid<TNode>
 		where TNode : INode
 	{
-		int MaxSize { get; }
+		int NodeCount { get; }
+		PositionF WorldSize { get; }
 
 		List<TNode> GetNeighbours(TNode node);
 		TNode GetNode(PositionF worldPosition);

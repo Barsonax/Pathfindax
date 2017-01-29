@@ -13,7 +13,8 @@ namespace Pathfindax.Grid
 		private readonly ISourceNodeGrid _source;
 		private readonly Array2D<IAStarNode> _grid;
 
-		public int MaxSize => _grid.Width * _grid.Height;
+		public int NodeCount => _grid.Width * _grid.Height;
+		public PositionF WorldSize => _source.WorldSize;
 
 		public AStarGrid(ISourceNodeGrid source)
 		{

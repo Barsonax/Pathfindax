@@ -34,7 +34,7 @@ namespace Pathfindax.Algorithms
 				}
 				if (startNode.Walkable && targetNode.Walkable)
 				{
-					var openSet = new MinHeap<IAStarNode>(nodeGrid.MaxSize);
+					var openSet = new MinHeap<IAStarNode>(nodeGrid.NodeCount);
 					var closedSet = new HashSet<IAStarNode>();
 					var itterations = 0;
 					var neighbourUpdates = 0;

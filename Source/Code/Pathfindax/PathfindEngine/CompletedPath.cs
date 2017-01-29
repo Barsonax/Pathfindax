@@ -5,9 +5,20 @@ namespace Pathfindax.PathfindEngine
 {
 	public class CompletedPath
 	{
-		public PositionF[] Path;
-		public bool Succes;
-		public Action<CompletedPath> Callback;
+		/// <summary>
+		/// The path.
+		/// </summary>
+		public readonly PositionF[] Path;
+
+		/// <summary>
+		/// Was the pathfinder able to succesfully find a path?
+		/// </summary>
+		public readonly bool Succes;
+
+		/// <summary>
+		/// The callback that will be called after the pathfinder finds a path or cannot find one.
+		/// </summary>
+		public readonly Action<CompletedPath> Callback;
 
 		public CompletedPath(PositionF[] path, bool succes, Action<CompletedPath> callback)
 		{

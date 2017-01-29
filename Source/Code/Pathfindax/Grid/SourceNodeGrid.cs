@@ -12,7 +12,7 @@ namespace Pathfindax.Grid
 	public class SourceNodeGrid : ISourceNodeGrid
 	{
 		public Array2D<INode> NodeArray { get; }
-		public PositionF GridWorldSize { get; }
+		public PositionF WorldSize { get; }
 
 		public int Width => NodeArray.Width;
 		public int Height => NodeArray.Height;
@@ -20,7 +20,7 @@ namespace Pathfindax.Grid
 		public SourceNodeGrid(Array2D<INode> grid, float cellSize)
 		{
 			NodeArray = grid;
-			GridWorldSize = new PositionF((NodeArray.Width * cellSize) - cellSize, (NodeArray.Height * cellSize) - cellSize);
+			WorldSize = new PositionF((NodeArray.Width * cellSize) - cellSize, (NodeArray.Height * cellSize) - cellSize);
 		}
 
 		public List<INode> GetNeighbours(INode node)
@@ -59,8 +59,8 @@ namespace Pathfindax.Grid
 
 		public INode NodeFromWorldPoint(PositionF worldPosition)
 		{
-			var percentX = worldPosition.X / GridWorldSize.X;
-			var percentY = worldPosition.Y / GridWorldSize.Y;
+			var percentX = worldPosition.X / WorldSize.X;
+			var percentY = worldPosition.Y / WorldSize.Y;
 			percentX = Clamp(percentX, 0, 1);
 			percentY = Clamp(percentY, 0, 1);
 

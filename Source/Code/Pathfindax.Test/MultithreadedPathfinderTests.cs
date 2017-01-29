@@ -19,8 +19,8 @@ namespace Pathfindax.Test
 		private MultithreadedPathfinder<INode> SetupMultithreadedPathfinder(int threads)
 		{
 			var algorithm = Substitute.For<IPathFindAlgorithm<INode>>();
-			var nodeGrid = Substitute.For<IList<INodeGrid<INode>>>();
-			return new MultithreadedPathfinder<INode>(nodeGrid, algorithm, threads);
+			var nodeGrid = Substitute.For<INodeGrid<INode>>();
+			return new MultithreadedPathfinder<INode>(new List<INodeGrid<INode>> { nodeGrid }, algorithm, threads);
 		}
 
 		[Test]

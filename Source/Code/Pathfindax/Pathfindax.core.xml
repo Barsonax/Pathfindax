@@ -82,11 +82,20 @@
             Class that holds node data which wont change and is safe to share between threads
             </summary>
         </member>
-        <member name="M:Pathfindax.PathfindEngine.IMultithreadedPathfinder.RequestPath(Pathfindax.PathfindEngine.PathRequest)">
+        <member name="F:Pathfindax.PathfindEngine.CompletedPath.Path">
             <summary>
-            Requests a path.
+            The path.
             </summary>
-            <param name="pathRequest"></param>
+        </member>
+        <member name="F:Pathfindax.PathfindEngine.CompletedPath.Succes">
+            <summary>
+            Was the pathfinder able to succesfully find a path?
+            </summary>
+        </member>
+        <member name="F:Pathfindax.PathfindEngine.CompletedPath.Callback">
+            <summary>
+            The callback that will be called after the pathfinder finds a path or cannot find one.
+            </summary>
         </member>
         <member name="M:Pathfindax.PathfindEngine.IMultithreadedPathfinder.ProcessCompletedPaths">
             <summary>
@@ -103,25 +112,56 @@
             Stops the pathfinder.
             </summary>
         </member>
+        <member name="M:Pathfindax.PathfindEngine.IPathfinder.RequestPath(Pathfindax.PathfindEngine.PathRequest)">
+            <summary>
+            Requests a path.
+            </summary>
+            <param name="pathRequest"></param>
+        </member>
         <member name="M:Pathfindax.PathfindEngine.MultithreadedPathfinder`1.Dispose">
             <summary>
             Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
             </summary>
         </member>
-        <member name="M:Pathfindax.PathfindEngine.Pathfinder`1.#ctor(System.Collections.Generic.IList{Pathfindax.Grid.INodeGrid{`0}},Pathfindax.Algorithms.IPathFindAlgorithm{`0},System.Collections.Generic.IList{Pathfindax.PathfindEngine.IPathPostProcess})">
+        <member name="M:Pathfindax.PathfindEngine.PathRequestProcesser`1.#ctor(System.Collections.Generic.IList{Pathfindax.Grid.INodeGrid{`0}},Pathfindax.Algorithms.IPathFindAlgorithm{`0},System.Collections.Generic.IList{Pathfindax.PathfindEngine.IPathPostProcess})">
             <summary>
-            Initialises a new pathfinder with a algorithm and optional post processing steps.
+            Initialises a new <see cref="T:Pathfindax.PathfindEngine.PathRequestProcesser`1"/> with a <see cref="T:Pathfindax.Algorithms.IPathFindAlgorithm`1"/> and optional post processing steps.
             </summary>
             <param name="nodeGrids">The nodegrids that will be used to solve paths</param>
             <param name="pathFindAlgorithm">The algorithm that will be used to solve paths</param>
             <param name="pathPostProcesses">The post processing steps that will be applied after the <see cref="T:Pathfindax.Algorithms.IPathFindAlgorithm`1"/> found a path</param>
         </member>
-        <member name="M:Pathfindax.PathfindEngine.Pathfinder`1.Process(Pathfindax.PathfindEngine.PathRequest)">
+        <member name="M:Pathfindax.PathfindEngine.PathRequestProcesser`1.Process(Pathfindax.PathfindEngine.PathRequest)">
             <summary>
             Solves a <see cref="T:Pathfindax.PathfindEngine.PathRequest"/>
             </summary>
             <param name="pathRequest"></param>
             <returns>A <see cref="T:Pathfindax.PathfindEngine.CompletedPath"/> object containing the solved path if succesfull/></returns>
+        </member>
+        <member name="F:Pathfindax.PathfindEngine.PathRequest.PathStart">
+            <summary>
+            The position of the start of the path
+            </summary>
+        </member>
+        <member name="F:Pathfindax.PathfindEngine.PathRequest.PathEnd">
+            <summary>
+            The position of the end of the path
+            </summary>
+        </member>
+        <member name="F:Pathfindax.PathfindEngine.PathRequest.Clearance">
+            <summary>
+            The amount of clearance needed
+            </summary>
+        </member>
+        <member name="F:Pathfindax.PathfindEngine.PathRequest.Callback">
+            <summary>
+            The callback that will be called after the pathfinder finds a path or cannot find one.
+            </summary>
+        </member>
+        <member name="T:Pathfindax.Primitives.PositionF">
+            <summary>
+            A simple struct to store a x and y coord.
+            </summary>
         </member>
         <member name="T:Pathfindax.Threading.MultithreadedWorkerQueue`2">
             <summary>
