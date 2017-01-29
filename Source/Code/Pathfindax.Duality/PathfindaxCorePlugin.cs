@@ -1,13 +1,11 @@
-﻿
-using Duality;
+﻿using Duality;
 
-namespace Pathfindax
+namespace Pathfindax.Duality
 {
 	/// <summary>
 	/// Defines a Duality core plugin.
 	/// </summary>
 	public class PathfindaxCorePlugin : CorePlugin
 	{
-		// Override methods here for global logic
 	}
 }

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CorePlugin", "CorePlugin\CorePlugin.csproj", "{AFE883F3-72B4-4C7C-A1D1-44EDC09C8F6E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pathfindax.Duality", "Pathfindax.Duality\Pathfindax.Duality.csproj", "{AFE883F3-72B4-4C7C-A1D1-44EDC09C8F6E}"
 	ProjectSection(ProjectDependencies) = postProject
 		{D4DFA287-B394-4D15-97E0-D2A0675D26A6} = {D4DFA287-B394-4D15-97E0-D2A0675D26A6}
 	EndProjectSection

@@ -103,43 +103,43 @@
       <parent />
       <prefabLink />
     </item>
-    <item dataType="Struct" type="Duality.GameObject" id="3538959177">
+    <item dataType="Struct" type="Duality.GameObject" id="2265960456">
       <active dataType="Bool">true</active>
       <children />
-      <compList dataType="Struct" type="System.Collections.Generic.List`1[[Duality.Component]]" id="770954507">
-        <_items dataType="Array" type="Duality.Component[]" id="2842088054" length="4">
-          <item dataType="Struct" type="Pathfindax.PathfindComponent" id="2752775267">
-            <_randomGenerator dataType="Struct" type="System.Random" id="2635507667">
+      <compList dataType="Struct" type="System.Collections.Generic.List`1[[Duality.Component]]" id="2831735438">
+        <_items dataType="Array" type="Duality.Component[]" id="4174137552" length="4">
+          <item dataType="Struct" type="Pathfindax.Duality.PathfindComponent" id="877576394">
+            <_randomGenerator dataType="Struct" type="System.Random" id="465177378">
               <inext dataType="Int">0</inext>
               <inextp dataType="Int">21</inextp>
-              <SeedArray dataType="Array" type="System.Int32[]" id="14043750">0, 1229690251, 1026522182, 713380528, 127394164, 265273191, 1025934918, 1689761931, 1211841114, 519518273, 1819892561, 1929900544, 1082353586, 1735827109, 1150023424, 1507155456, 1292009556, 196199784, 1444405224, 357600545, 71449699, 2128290892, 1294601209, 2081944103, 1392383346, 1415610667, 1779440784, 402343738, 387530233, 1483063481, 1228099376, 1501933334, 3096828, 1766205910, 2064098675, 1486734926, 1515550226, 1544268118, 112545771, 425325010, 1854875730, 1784812302, 1670422776, 945164985, 210485219, 1496326726, 1518832256, 501721936, 1553108561, 565142482, 1392671716, 1772154900, 1775445311, 1604925051, 29477245, 2092204394</SeedArray>
+              <SeedArray dataType="Array" type="System.Int32[]" id="3846404880">0, 1869405880, 1512936423, 1597920509, 1312014859, 1454770595, 1325247294, 1496877751, 737621982, 1442232651, 1896189599, 1287574493, 873962640, 1524358055, 18376992, 670320825, 1457773286, 1621726768, 945446307, 454771295, 706971014, 1637638086, 1969417646, 2073783247, 1027910871, 290106307, 1560695879, 738832165, 397276441, 936432873, 214877852, 2043252596, 2064667088, 1653582846, 1014740764, 1050034825, 1794429442, 675431408, 782010305, 1176399096, 1579863754, 576816424, 1584313767, 1324614493, 2133123350, 155847062, 1042464564, 1541341334, 1546301705, 199579769, 1758836584, 544402641, 1104693351, 1409702729, 405735788, 1593754579</SeedArray>
             </_randomGenerator>
             <_x003C_BoundRadius_x003E_k__BackingField dataType="Float">0</_x003C_BoundRadius_x003E_k__BackingField>
             <_x003C_MultithreadedPathfinder_x003E_k__BackingField />
             <_x003C_Path_x003E_k__BackingField />
             <_x003C_SourceNodeGrid_x003E_k__BackingField />
             <active dataType="Bool">true</active>
-            <gameobj dataType="ObjectRef">3538959177</gameobj>
+            <gameobj dataType="ObjectRef">2265960456</gameobj>
           </item>
         </_items>
         <_size dataType="Int">1</_size>
         <_version dataType="Int">1</_version>
       </compList>
-      <compMap dataType="Struct" type="System.Collections.Generic.Dictionary`2[[System.Type],[Duality.Component]]" id="2292951240" surrogate="true">
+      <compMap dataType="Struct" type="System.Collections.Generic.Dictionary`2[[System.Type],[Duality.Component]]" id="1383872586" surrogate="true">
         <header />
         <body>
-          <keys dataType="Array" type="System.Object[]" id="1271866529">
-            <item dataType="Type" id="2392852590" value="Pathfindax.PathfindComponent" />
+          <keys dataType="Array" type="System.Object[]" id="2131063372">
+            <item dataType="Type" id="3095054244" value="Pathfindax.Duality.PathfindComponent" />
           </keys>
-          <values dataType="Array" type="System.Object[]" id="3247521568">
-            <item dataType="ObjectRef">2752775267</item>
+          <values dataType="Array" type="System.Object[]" id="3975486966">
+            <item dataType="ObjectRef">877576394</item>
           </values>
         </body>
       </compMap>
       <compTransform />
       <identifier dataType="Struct" type="System.Guid" surrogate="true">
         <header>
-          <data dataType="Array" type="System.Byte[]" id="1500707635">l3Kx3kE4W0mNVjTLJZhXhQ==</data>
+          <data dataType="Array" type="System.Byte[]" id="1537338712">QZl3IHg2Bkm3LJFgE0yRTw==</data>
         </header>
         <body />
       </identifier>

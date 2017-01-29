@@ -8,7 +8,7 @@ using Pathfindax.Grid;
 using Pathfindax.PathfindEngine;
 using Pathfindax.Primitives;
 
-namespace Pathfindax
+namespace Pathfindax.Duality
 {
 	public class PathfindComponent : Component, ICmpInitializable, ICmpRenderer, ICmpUpdatable
 	{
