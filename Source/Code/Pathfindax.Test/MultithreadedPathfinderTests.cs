@@ -4,12 +4,12 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Duality;
 using NSubstitute;
 using NUnit.Framework;
 using Pathfindax.Algorithms;
 using Pathfindax.Grid;
 using Pathfindax.PathfindEngine;
+using Pathfindax.Primitives;
 
 namespace Pathfindax.Test
 {
@@ -29,8 +29,8 @@ namespace Pathfindax.Test
 			var pathfindManager = SetupMultithreadedPathfinder(1);
 
 			pathfindManager.Start();
-			var start = new Vector2(0.5f, 0.5f);
-			var end = new Vector2(127.5f, 127.5f);
+			var start = new PositionF(0.5f, 0.5f);
+			var end = new PositionF(127.5f, 127.5f);
 			var taskCompletionSource = new TaskCompletionSource<bool>();
 			Action<CompletedPath> success = pathrequest =>
 			{
@@ -52,8 +52,8 @@ namespace Pathfindax.Test
 		{
 			var pathfindManager = SetupMultithreadedPathfinder(4);
 			pathfindManager.Start();
-			var start = new Vector2(0.5f, 0.5f);
-			var end = new Vector2(127.5f, 127.5f);
+			var start = new PositionF(0.5f, 0.5f);
+			var end = new PositionF(127.5f, 127.5f);
 
 			var pathRequests = new PathRequest[10];
 			var taskCompletionSources = new TaskCompletionSource<bool>[pathRequests.Length];

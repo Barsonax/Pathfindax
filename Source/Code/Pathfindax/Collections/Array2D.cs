@@ -1,25 +1,20 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
 
 namespace Pathfindax.Collections
 {
 	[Serializable]
-	[DataContract(Namespace = "")]
 	public class Array2D<T> : IEnumerable<T>
 	{
 		public int Length => _items.Length;
 
 		public int Width => _width;
-		[DataMember]
 		private int _width;
 
 		public int Height => _height;
-		[DataMember]
 		private int _height;
 
-		[DataMember]
 		private T[] _items;
 
 		public T this[int x, int y]

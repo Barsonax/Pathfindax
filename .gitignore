@@ -54,5 +54,7 @@
 /Source/Code/EditorPlugin/obj/
 /Source/Code/EditorPlugin/GamePlugin.core.xml
 /Source/Code/ProjectPlugins.v12.suo
-/Source/Code/Pathfindax.Test/Pathfindax.Test/obj
-/Source/Code/Pathfindax.Test/Pathfindax.Test/bin
+/Source/Code/Pathfindax/obj
+/Source/Code/Pathfindax/bin
+/Source/Code/Pathfindax.Test/obj
+/Source/Code/Pathfindax.Test/bin

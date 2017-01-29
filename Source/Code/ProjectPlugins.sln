@@ -4,8 +4,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CorePlugin", "CorePlugin\CorePlugin.csproj", "{AFE883F3-72B4-4C7C-A1D1-44EDC09C8F6E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D4DFA287-B394-4D15-97E0-D2A0675D26A6} = {D4DFA287-B394-4D15-97E0-D2A0675D26A6}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pathfindax.Test", "Pathfindax.Test\Pathfindax.Test\Pathfindax.Test.csproj", "{2C152114-2BAD-4B2E-9B53-BB51E66AF9E6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pathfindax.Test", "Pathfindax.Test\Pathfindax.Test.csproj", "{2C152114-2BAD-4B2E-9B53-BB51E66AF9E6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D4DFA287-B394-4D15-97E0-D2A0675D26A6} = {D4DFA287-B394-4D15-97E0-D2A0675D26A6}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pathfindax", "Pathfindax\Pathfindax.csproj", "{D4DFA287-B394-4D15-97E0-D2A0675D26A6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +29,10 @@ Global
 		{2C152114-2BAD-4B2E-9B53-BB51E66AF9E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2C152114-2BAD-4B2E-9B53-BB51E66AF9E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2C152114-2BAD-4B2E-9B53-BB51E66AF9E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4DFA287-B394-4D15-97E0-D2A0675D26A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4DFA287-B394-4D15-97E0-D2A0675D26A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4DFA287-B394-4D15-97E0-D2A0675D26A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4DFA287-B394-4D15-97E0-D2A0675D26A6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

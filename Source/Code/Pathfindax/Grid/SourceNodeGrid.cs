@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Duality;
 using Pathfindax.Collections;
 using Pathfindax.Primitives;
 
@@ -13,7 +12,7 @@ namespace Pathfindax.Grid
 	public class SourceNodeGrid : ISourceNodeGrid
 	{
 		public Array2D<INode> NodeArray { get; }
-		public Vector2 GridWorldSize { get; }
+		public PositionF GridWorldSize { get; }
 
 		public int Width => NodeArray.Width;
 		public int Height => NodeArray.Height;
@@ -21,7 +20,7 @@ namespace Pathfindax.Grid
 		public SourceNodeGrid(Array2D<INode> grid, float cellSize)
 		{
 			NodeArray = grid;
-			GridWorldSize = new Vector2((NodeArray.Width * cellSize) - cellSize, (NodeArray.Height * cellSize) - cellSize);
+			GridWorldSize = new PositionF((NodeArray.Width * cellSize) - cellSize, (NodeArray.Height * cellSize) - cellSize);
 		}
 
 		public List<INode> GetNeighbours(INode node)
@@ -62,13 +61,18 @@ namespace Pathfindax.Grid
 		{
 			var percentX = worldPosition.X / GridWorldSize.X;
 			var percentY = worldPosition.Y / GridWorldSize.Y;
-			percentX = MathF.Clamp(percentX, 0, 1);
-			percentY = MathF.Clamp(percentY, 0, 1);
+			percentX = Clamp(percentX, 0, 1);
+			percentY = Clamp(percentY, 0, 1);
 
 			var x = (int)Math.Round((NodeArray.Width - 1) * percentX);
 			var y = (int)Math.Round((NodeArray.Height - 1) * percentY);
 
 			return NodeArray[x, y];
+		}
+
+		private float Clamp(float value, float min, float max)
+		{
+			return value < min ? min : value > max ? max : value;
 		}
 	}
 }
