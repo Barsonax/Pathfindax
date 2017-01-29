@@ -6,11 +6,11 @@ using Pathfindax.Primitives;
 
 namespace Pathfindax.Duality
 {
-	public class PathfindaxTestComponent : Component, ICmpUpdatable, ICmpRenderer
+	public class PathfindaxTestComponent : Component, ICmpUpdatable, ICmpRenderer, ICmpInitializable
 	{
 		public PositionF[] Path { get; private set; }
 		public float BoundRadius { get; }
-		private readonly PathfinderProxy _pathfinderProxy = new PathfinderProxy();
+		private PathfinderProxy _pathfinderProxy;
 
 		private readonly Random _randomGenerator = new Random();
 		void ICmpUpdatable.OnUpdate()
@@ -44,6 +44,19 @@ namespace Pathfindax.Duality
 					canvas.FillCircle(position.X, position.Y, 0.4f);
 				}
 			}
+		}
+
+		public void OnInit(InitContext context)
+		{
+			if (context == InitContext.Activate && DualityApp.ExecContext == DualityApp.ExecutionContext.Game)
+			{
+				_pathfinderProxy = new PathfinderProxy();
+			}
+		}
+
+		public void OnShutdown(ShutdownContext context)
+		{
+
 		}
 	}
 }

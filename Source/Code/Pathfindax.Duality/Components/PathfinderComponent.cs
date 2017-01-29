@@ -15,6 +15,7 @@ namespace Pathfindax.Duality
 	/// </summary>
 	public class PathfinderComponent : Component, ICmpInitializable, ICmpRenderer, ICmpUpdatable, IPathfinderComponent
 	{
+		public string PathfinderId { get; set; }
 		public PositionF WorldSize => MultithreadedPathfinder?.WorldSize ?? new PositionF(0, 0);
 		public IMultithreadedPathfinder MultithreadedPathfinder { get; set; }
 		public SourceNodeGrid SourceNodeGrid { get; set; }

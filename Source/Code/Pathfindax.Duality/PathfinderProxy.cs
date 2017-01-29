@@ -5,17 +5,17 @@ namespace Pathfindax.Duality
 {
 	public class PathfinderProxy : IPathfinder
 	{
-		public PositionF WorldSize => _multithreadedPathfinder?.WorldSize ?? new PositionF(0, 0);
-		private IMultithreadedPathfinder _multithreadedPathfinder;
+		public PositionF WorldSize => _pathfinderComponent?.WorldSize ?? new PositionF(0, 0);
+		private readonly IPathfinderComponent _pathfinderComponent;
 
-		public PathfinderProxy()
+		public PathfinderProxy(string id = null)
 		{
-			_multithreadedPathfinder = PathfindaxCorePlugin.MultithreadedPathfinder;
+			_pathfinderComponent = PathfinderManager.GetPathfinder(id);
 		}
 
 		public void RequestPath(PathRequest pathRequest)
 		{
-			_multithreadedPathfinder.RequestPath(pathRequest);
+			_pathfinderComponent.RequestPath(pathRequest);
 		}
 	}
 }
