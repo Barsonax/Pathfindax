@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using Duality;
 using Pathfindax.Collections;
 using Pathfindax.Grid;
+using Pathfindax.Primitives;
 
 namespace Pathfindax.Algorithms
 {
 	public class AStarAlgorithm : IPathFindAlgorithm<IAStarNode>
 	{
-		public IList<INode> FindPath(INodeGrid<IAStarNode> nodeGrid, Vector2 pathStart, Vector2 pathEnd)
+		public IList<INode> FindPath(INodeGrid<IAStarNode> nodeGrid, PositionF pathStart, PositionF pathEnd)
 		{
 			var startNode = nodeGrid.GetNode(pathStart);
 			var endNode = nodeGrid.GetNode(pathEnd);

@@ -1,20 +1,20 @@
 ﻿using System;
 using Duality;
+using Pathfindax.Primitives;
 
 namespace Pathfindax.PathfindEngine
 {
 	public class PathRequest
 	{
-		public Vector2 PathStart;
-		public Vector2 PathEnd;
+		public PositionF PathStart;
+		public PositionF PathEnd;
 		public float Clearance;
-		public Vector2[] Path;
 		public Action<CompletedPath> Callback;
 
 		public PathRequest(Action<CompletedPath> callback, Vector2 start, Vector2 end, float clearance)
 		{
-			PathStart = start;
-			PathEnd = end;
+			PathStart = new PositionF(start.X, start.Y);
+			PathEnd = new PositionF(end.X, end.Y);
 			Clearance = clearance;
 			Callback = callback;
 		}

@@ -75,6 +75,7 @@
     <Compile Include="Collections\MinHeap.cs" />
     <Compile Include="PathfindComponent.cs" />
     <Compile Include="PathfindEngine\CompletedPath.cs" />
+    <Compile Include="Primitives\PositionF.cs" />
     <Compile Include="Threading\BlockingQueue.cs" />
     <Compile Include="Threading\IProcesser.cs" />
     <Compile Include="PathfindEngine\IMultithreadedPathfinder.cs" />

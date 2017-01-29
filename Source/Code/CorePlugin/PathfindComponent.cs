@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using Duality;
 using Duality.Drawing;
 using Pathfindax.Algorithms;
 using Pathfindax.Collections;
 using Pathfindax.Grid;
 using Pathfindax.PathfindEngine;
+using Pathfindax.Primitives;
 
 namespace Pathfindax
 {
@@ -14,7 +14,7 @@ namespace Pathfindax
 	{
 		public IMultithreadedPathfinder MultithreadedPathfinder { get; set; }
 		public SourceNodeGrid SourceNodeGrid { get; set; }
-		public Vector2[] Path { get; private set; }
+		public PositionF[] Path { get; private set; }
 		public float BoundRadius { get; }
 
 		public void OnInit(InitContext context)
@@ -30,7 +30,7 @@ namespace Pathfindax
 					{
 						for (int x = 0; x < width; x++)
 						{
-							array[x, y] = new Node(new Vector2(x, y));
+							array[x, y] = new Node(new PositionF(x, y));
 						}
 					}
 					array[5, 4].Walkable = false;
@@ -97,9 +97,9 @@ namespace Pathfindax
 				if (Path != null)
 				{
 					canvas.State.ColorTint = ColorRgba.Red;
-					foreach (var vector2 in Path)
+					foreach (var position in Path)
 					{
-						canvas.FillCircle(vector2.X, vector2.Y, 0.4f);
+						canvas.FillCircle(position.X, position.Y, 0.4f);
 					}
 				}
 			}

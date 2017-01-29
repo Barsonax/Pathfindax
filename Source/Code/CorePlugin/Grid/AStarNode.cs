@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using Duality;
+using Pathfindax.Primitives;
 
 namespace Pathfindax.Grid
 {
@@ -10,7 +10,7 @@ namespace Pathfindax.Grid
 	public class AStarNode : IAStarNode
 	{
 		public INode Source { get; }
-		public Vector2 WorldPosition { get; }
+		public PositionF WorldPosition { get; }
 		public bool Walkable { get; set; }
 		public int GridX { get; }
 		public int GridY { get; }

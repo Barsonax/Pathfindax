@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Duality;
+using Pathfindax.Primitives;
 
 namespace Pathfindax.Grid
 {
@@ -9,6 +9,6 @@ namespace Pathfindax.Grid
 		int MaxSize { get; }
 
 		List<TNode> GetNeighbours(TNode node);
-		TNode GetNode(Vector2 worldPoint);
+		TNode GetNode(PositionF worldPosition);
 	}
 }

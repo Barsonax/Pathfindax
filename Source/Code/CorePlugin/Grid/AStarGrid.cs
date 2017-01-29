@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using Duality;
 using Pathfindax.Collections;
+using Pathfindax.Primitives;
 
 namespace Pathfindax.Grid
 {
@@ -41,9 +41,9 @@ namespace Pathfindax.Grid
 			return node.Neighbours;
 		}
 
-		public IAStarNode GetNode(Vector2 worldPoint)
+		public IAStarNode GetNode(PositionF worldPosition)
 		{
-			var sourceNode = _source.NodeFromWorldPoint(worldPoint);
+			var sourceNode = _source.NodeFromWorldPoint(worldPosition);
 			return GetNode(sourceNode);
 		}
 

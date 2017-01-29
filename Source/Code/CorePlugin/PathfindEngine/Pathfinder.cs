@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Duality;
 using Pathfindax.Algorithms;
 using Pathfindax.Grid;
 using Pathfindax.Threading;
@@ -33,7 +32,7 @@ namespace Pathfindax.PathfindEngine
 		/// Solves a <see cref="PathRequest"/>
 		/// </summary>
 		/// <param name="pathRequest"></param>
-		/// <returns>The path from <see cref="PathRequest.PathStart"/> to <see cref="PathRequest.PathEnd"/></returns>
+		/// <returns>A <see cref="CompletedPath"/> object containing the solved path if succesfull/></returns>
 		public CompletedPath Process(PathRequest pathRequest)
 		{
 			var nodeGrid = _nodeGrids[0]; //TODO implement hierachical pathfinding here

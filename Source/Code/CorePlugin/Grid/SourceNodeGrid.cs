@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Duality;
 using Pathfindax.Collections;
+using Pathfindax.Primitives;
 
 namespace Pathfindax.Grid
 {
@@ -57,7 +58,7 @@ namespace Pathfindax.Grid
 			return NodeArray[x, y].Walkable;
 		}
 
-		public INode NodeFromWorldPoint(Vector2 worldPosition)
+		public INode NodeFromWorldPoint(PositionF worldPosition)
 		{
 			var percentX = worldPosition.X / GridWorldSize.X;
 			var percentY = worldPosition.Y / GridWorldSize.Y;

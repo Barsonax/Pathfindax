@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace Pathfindax.PathfindEngine
+﻿namespace Pathfindax.PathfindEngine
 {
 	public interface IMultithreadedPathfinder
 	{

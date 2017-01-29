@@ -1,4 +1,4 @@
-﻿using Duality;
+﻿using Pathfindax.Primitives;
 
 namespace Pathfindax.Grid
 {
@@ -7,6 +7,6 @@ namespace Pathfindax.Grid
 		int GridX { get; }
 		int GridY { get; }
 		bool Walkable { get; set; }
-		Vector2 WorldPosition { get; }
+		PositionF WorldPosition { get; }
 	}
 }

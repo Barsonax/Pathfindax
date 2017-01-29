@@ -1,15 +1,15 @@
-﻿using Duality;
+﻿using Pathfindax.Primitives;
 
 namespace Pathfindax.Grid
 {
 	public class Node : INode
 	{
-		public Vector2 WorldPosition { get; }
+		public PositionF WorldPosition { get; }
 		public bool Walkable { get; set; }
 		public int GridX { get; }
 		public int GridY { get; }
 
-		public Node(Vector2 worldPos, int gridX, int gridY, bool walkable = true)
+		public Node(PositionF worldPos, int gridX, int gridY, bool walkable = true)
 		{
 			Walkable = walkable;
 			WorldPosition = worldPos;
@@ -17,7 +17,7 @@ namespace Pathfindax.Grid
 			GridY = gridY;
 		}
 
-		public Node(Vector2 worldPos, bool walkable = true)
+		public Node(PositionF worldPos, bool walkable = true)
 		{
 			Walkable = walkable;
 			WorldPosition = worldPos;
