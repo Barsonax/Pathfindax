@@ -52,7 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AstarAlgorithmTests.cs" />
-    <Compile Include="PathfinderManagerTests.cs" />
+    <Compile Include="MultithreadedPathfinderTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

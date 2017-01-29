@@ -75,15 +75,19 @@
     <Compile Include="Collections\MinHeap.cs" />
     <Compile Include="PathfindComponent.cs" />
     <Compile Include="PathfindEngine\CompletedPath.cs" />
+    <Compile Include="Threading\BlockingQueue.cs" />
     <Compile Include="Threading\IProcesser.cs" />
     <Compile Include="PathfindEngine\IMultithreadedPathfinder.cs" />
     <Compile Include="PathfindEngine\IPathPostProcess.cs" />
-    <Compile Include="Threading\MultithreadedWorker.cs" />
+    <Compile Include="Threading\IQueueReader.cs" />
+    <Compile Include="Threading\IQueueWriter.cs" />
+    <Compile Include="Threading\MultithreadedWorkerQueue.cs" />
     <Compile Include="PathfindEngine\MultithreadedPathfinder.cs" />
     <Compile Include="PathfindEngine\Pathfinder.cs" />
     <Compile Include="PathfindEngine\PathRequest.cs" />
     <Compile Include="Threading\Worker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Threading\WorkItem.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

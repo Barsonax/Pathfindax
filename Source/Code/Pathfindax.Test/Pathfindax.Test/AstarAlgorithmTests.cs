@@ -10,7 +10,7 @@ namespace Pathfindax.Test
 	public class AstarAlgorithmTests
 	{
 		[Test]
-		[MaxTime(5000)]
+		[MaxTime(2000)]
 		public void FindPath_16x16NodeGrid_PathLengthIsNot0()
 		{
 			var width = 16;

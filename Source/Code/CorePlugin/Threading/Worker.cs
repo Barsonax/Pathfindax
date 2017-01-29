@@ -6,7 +6,7 @@ namespace Pathfindax.Threading
 	public class Worker<TOut, TIn>
 	{
 		/// <summary>
-		/// True if this <see cref="Worker{T,TOut,TIn}"/> is doing work.
+		/// True if this <see cref="Worker{TOut,TIn}"/> is doing work.
 		/// </summary>
 		public bool IsBusy { get; private set; }
 

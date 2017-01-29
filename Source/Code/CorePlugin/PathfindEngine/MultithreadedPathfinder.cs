@@ -12,7 +12,7 @@ namespace Pathfindax.PathfindEngine
 	public class MultithreadedPathfinder<TNode> : IMultithreadedPathfinder, IDisposable
 		where TNode : INode
 	{
-		private readonly MultithreadedWorker<CompletedPath, PathRequest> _multithreadedWorker;
+		private readonly MultithreadedWorkerQueue<CompletedPath, PathRequest> _multithreadedWorkerQueue;
 
 		public MultithreadedPathfinder(IList<INodeGrid<TNode>> nodeGrids, IPathFindAlgorithm<TNode> pathFindAlgorithm, int maxThreads = 1, long checkInterval = 10)
 		{
@@ -21,22 +21,22 @@ namespace Pathfindax.PathfindEngine
 			{
 				pathfinders.Add(new Pathfinder<TNode>(nodeGrids, pathFindAlgorithm));
 			}
-			_multithreadedWorker = new MultithreadedWorker<CompletedPath, PathRequest>(pathfinders, checkInterval);
+			_multithreadedWorkerQueue = new MultithreadedWorkerQueue<CompletedPath, PathRequest>(pathfinders, checkInterval);
 		}
 
 		public void Start()
 		{
-			_multithreadedWorker.Start();
+			_multithreadedWorkerQueue.Start();
 		}
 
 		public void Stop()
 		{
-			_multithreadedWorker.Stop();
+			_multithreadedWorkerQueue.Stop();
 		}
 
 		public void RequestPath(PathRequest pathRequest)
 		{
-			_multithreadedWorker.Enqueue(pathRequest, pathRequest.Callback);
+			_multithreadedWorkerQueue.Enqueue(pathRequest, pathRequest.Callback);
 		}
 
 		/// <summary>
@@ -44,7 +44,7 @@ namespace Pathfindax.PathfindEngine
 		/// </summary>
 		public void Dispose()
 		{
-			_multithreadedWorker.Dispose();
+			_multithreadedWorkerQueue.Dispose();
 		}
 	}
 }
