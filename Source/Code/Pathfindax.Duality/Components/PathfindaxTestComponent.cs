@@ -17,7 +17,6 @@ namespace Pathfindax.Duality.Components
 		[EditorHintFlags(MemberFlags.Visible)]
 		private PathfinderProxy PathfinderProxy { get; set; }
 
-
 		private readonly Random _randomGenerator = new Random();
 		void ICmpUpdatable.OnUpdate()
 		{

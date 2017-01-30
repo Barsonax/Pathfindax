@@ -2,7 +2,7 @@
 
 namespace Pathfindax.Grid
 {
-	public interface INodeGridProvider
+	public interface ISourceNodeGridProvider
 	{
 		Array2D<INode> GenerateGrid2D();
 	}
