@@ -1,5 +1,7 @@
 # Pathfindax
-Pathfinder framework for duality
+Pathfindax is a pathfinding framework that can be used to get a path from A to B in a network of nodes. By default the framework provides a implementation of the A star algorithm but you are free to implement the interfaces yourself to use a different algorithm.
+
+While the main goal was to provide a easy way to use pathfinding in duality most of the implementation is in a separate dll which can also be used without duality
 
 ### Build status: 
 | [Branch]  | Status |
