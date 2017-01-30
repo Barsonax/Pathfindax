@@ -9,7 +9,7 @@
             Class that implements the A* algorithm to find paths
             </summary>
         </member>
-        <member name="M:Pathfindax.Algorithms.AStarAlgorithm.FindPath(Pathfindax.Grid.INodeGrid{Pathfindax.Grid.IAStarNode},Pathfindax.Primitives.PositionF,Pathfindax.Primitives.PositionF)">
+        <member name="M:Pathfindax.Algorithms.AStarAlgorithm.FindPath(Pathfindax.Grid.INodeGrid{Pathfindax.Grid.IAStarGridNode},Pathfindax.Primitives.PositionF,Pathfindax.Primitives.PositionF)">
             <inheritdoc />
         </member>
         <member name="T:Pathfindax.Algorithms.IPathFindAlgorithm`1">
@@ -20,7 +20,7 @@
         </member>
         <member name="M:Pathfindax.Algorithms.IPathFindAlgorithm`1.FindPath(Pathfindax.Grid.INodeGrid{`0},Pathfindax.Primitives.PositionF,Pathfindax.Primitives.PositionF)">
             <summary>
-            Finds a path from <paramref name="pathStart"></paramref> to <paramref name="pathEnd"></paramref> using the <paramref name="nodeGrid"></paramref> and returns this as a list of <see cref="T:Pathfindax.Grid.INode"/>.
+            Finds a path from <paramref name="pathStart"></paramref> to <paramref name="pathEnd"></paramref> using the <paramref name="nodeGrid"></paramref> and returns this as a list of <see cref="T:Pathfindax.Grid.IGridNode"/>.
             </summary>
             <param name="nodeGrid"></param>
             <param name="pathStart"></param>
@@ -79,7 +79,7 @@
         </member>
         <member name="T:Pathfindax.Grid.SourceNodeGrid">
             <summary>
-            Class that holds node data which wont change and is safe to share between threads
+            Class that holds gridNode data which wont change and is safe to share between threads
             </summary>
         </member>
         <member name="F:Pathfindax.PathfindEngine.CompletedPath.Path">

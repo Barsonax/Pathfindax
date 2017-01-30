@@ -9,7 +9,7 @@ using Pathfindax.Threading;
 namespace Pathfindax.PathfindEngine
 {
 	public class MultithreadedPathfinder<TNode> : IMultithreadedPathfinder, IDisposable
-		where TNode : INode
+		where TNode : IGridNode
 	{
 		public PositionF WorldSize { get; }
 		private readonly MultithreadedWorkerQueue<CompletedPath, PathRequest> _multithreadedWorkerQueue;

@@ -9,15 +9,15 @@ namespace Pathfindax.Algorithms
 	/// </summary>
 	/// <typeparam name="TNode"></typeparam>
 	public interface IPathFindAlgorithm<TNode>
-		where TNode : INode
+		where TNode : IGridNode
 	{
 		/// <summary>
-		/// Finds a path from <paramref name="pathStart"></paramref> to <paramref name="pathEnd"></paramref> using the <paramref name="nodeGrid"></paramref> and returns this as a list of <see cref="INode"/>.
+		/// Finds a path from <paramref name="pathStart"></paramref> to <paramref name="pathEnd"></paramref> using the <paramref name="nodeGrid"></paramref> and returns this as a list of <see cref="IGridNode"/>.
 		/// </summary>
 		/// <param name="nodeGrid"></param>
 		/// <param name="pathStart"></param>
 		/// <param name="pathEnd"></param>
 		/// <returns></returns>
-		IList<INode> FindPath(INodeGrid<TNode> nodeGrid, PositionF pathStart, PositionF pathEnd);
+		IList<IGridNode> FindPath(INodeGrid<TNode> nodeGrid, PositionF pathStart, PositionF pathEnd);
 	}
 }

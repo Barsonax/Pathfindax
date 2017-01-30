@@ -3,6 +3,6 @@
   &lt;Assembly Path="C:\Users\Rick-\Documents\Visual Studio 2015\Projects\Pathfindax\Duality.dll" /&gt;&#xD;
 &lt;/AssemblyExplorer&gt;</s:String>
 	<s:String x:Key="/Default/Environment/ContinuousTesting/PersistentDataLocation/@EntryValue">C:\Users\Rick-\AppData\Local\Temp\JetBrains\ContinuousTesting\e4bb3045-2a30-4c8c-a0fa-3b99dc562cc5</s:String>
-	<s:String x:Key="/Default/Environment/ContinuousTesting/SnapshotLocation/@EntryValue">C:\Users\Rick-\AppData\Local\Temp\ssm.Gulumam.tmp</s:String>
+	<s:String x:Key="/Default/Environment/ContinuousTesting/SnapshotLocation/@EntryValue">C:\Users\Rick-\AppData\Local\Temp\ssm.Vymybuv.tmp</s:String>
 	<s:String x:Key="/Default/Environment/ContinuousTesting/Strategy/@EntryValue">RunTests</s:String>
 	<s:String x:Key="/Default/Environment/ContinuousTesting/TriggerMode/@EntryValue">OnSave</s:String></wpf:ResourceDictionary>

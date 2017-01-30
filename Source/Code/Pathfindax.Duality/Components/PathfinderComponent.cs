@@ -26,12 +26,12 @@ namespace Pathfindax.Duality.Components
 				{
 					var width = 16;
 					var height = 16;
-					var array = new Array2D<INode>(width, height);
+					var array = new Array2D<IGridNode>(width, height);
 					for (int y = 0; y < height; y++)
 					{
 						for (int x = 0; x < width; x++)
 						{
-							array[x, y] = new Node(new PositionF(x, y));
+							array[x, y] = new GridNode(new PositionF(x, y));
 						}
 					}
 					array[5, 4].Walkable = false;
@@ -50,7 +50,7 @@ namespace Pathfindax.Duality.Components
 					var nodeGrid = new AStarGrid(SourceNodeGrid);
 					var algorithm = new AStarAlgorithm();
 
-					MultithreadedPathfinder = new MultithreadedPathfinder<IAStarNode>(new List<INodeGrid<IAStarNode>> { nodeGrid }, algorithm);
+					MultithreadedPathfinder = new MultithreadedPathfinder<IAStarGridNode>(new List<INodeGrid<IAStarGridNode>> { nodeGrid }, algorithm);
 					MultithreadedPathfinder.Start();
 				}
 			}

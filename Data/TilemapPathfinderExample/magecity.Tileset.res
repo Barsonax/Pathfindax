@@ -7,7 +7,7 @@
   </autoTileConfig>
   <baseMaterial dataType="Struct" type="Duality.Drawing.BatchInfo" id="2035693768">
     <dirtyFlag dataType="Enum" type="Duality.Drawing.BatchInfo+DirtyFlag" name="All" value="3" />
-    <hashCode dataType="Int">2037530597</hashCode>
+    <hashCode dataType="Int">1956102567</hashCode>
     <mainColor dataType="Struct" type="Duality.Drawing.ColorRgba">
       <A dataType="Byte">255</A>
       <B dataType="Byte">255</B>
@@ -21,7 +21,7 @@
       <header />
       <body>
         <mainTex dataType="Struct" type="Duality.ContentRef`1[[Duality.Resources.Texture]]">
-          <contentPath dataType="String">Default:Texture:White</contentPath>
+          <contentPath dataType="String">Data\TilemapPathfinderExample\magecity.Texture.res</contentPath>
         </mainTex>
       </body>
     </textures>

@@ -6,26 +6,26 @@ using Pathfindax.Primitives;
 namespace Pathfindax.Grid
 {
 	/// <summary>
-	/// Class that holds node data which wont change and is safe to share between threads
+	/// Class that holds gridNode data which wont change and is safe to share between threads
 	/// </summary>
 	[Serializable]
 	public class SourceNodeGrid : ISourceNodeGrid
 	{
-		public Array2D<INode> NodeArray { get; }
+		public Array2D<IGridNode> NodeArray { get; }
 		public PositionF WorldSize { get; }
 
 		public int Width => NodeArray.Width;
 		public int Height => NodeArray.Height;
 
-		public SourceNodeGrid(Array2D<INode> grid, float cellSize)
+		public SourceNodeGrid(Array2D<IGridNode> grid, float cellSize)
 		{
 			NodeArray = grid;
 			WorldSize = new PositionF((NodeArray.Width * cellSize) - cellSize, (NodeArray.Height * cellSize) - cellSize);
 		}
 
-		public List<INode> GetNeighbours(INode node)
+		public List<IGridNode> GetNeighbours(IGridNode gridNode)
 		{
-			var neighbours = new List<INode>();
+			var neighbours = new List<IGridNode>();
 
 			for (var x = -1; x <= 1; x++)
 			{
@@ -34,15 +34,15 @@ namespace Pathfindax.Grid
 					if (x == 0 && y == 0)
 						continue;
 
-					var checkX = node.GridX + x;
-					var checkY = node.GridY + y;
+					var checkX = gridNode.GridX + x;
+					var checkY = gridNode.GridY + y;
 
 					if (checkX >= 0 && checkX < NodeArray.Width && checkY >= 0 && checkY < NodeArray.Height)
 					{
-						//if (x == 1 && y == 1 && !CheckWalkable(node.GridX, node.GridY + 1) && !CheckWalkable(node.GridX + 1, node.GridY)) continue;
-						//if (x == -1 && y == 1 && !CheckWalkable(node.GridX, node.GridY + 1) && !CheckWalkable(node.GridX - 1, node.GridY)) continue;
-						//if (x == -1 && y == -1 && !CheckWalkable(node.GridX, node.GridY - 1) && !CheckWalkable(node.GridX - 1, node.GridY)) continue;
-						//if (x == 1 && y == -1 && !CheckWalkable(node.GridX, node.GridY - 1) && !CheckWalkable(node.GridX + 1, node.GridY)) continue;
+						//if (x == 1 && y == 1 && !CheckWalkable(gridNode.GridX, gridNode.GridY + 1) && !CheckWalkable(gridNode.GridX + 1, gridNode.GridY)) continue;
+						//if (x == -1 && y == 1 && !CheckWalkable(gridNode.GridX, gridNode.GridY + 1) && !CheckWalkable(gridNode.GridX - 1, gridNode.GridY)) continue;
+						//if (x == -1 && y == -1 && !CheckWalkable(gridNode.GridX, gridNode.GridY - 1) && !CheckWalkable(gridNode.GridX - 1, gridNode.GridY)) continue;
+						//if (x == 1 && y == -1 && !CheckWalkable(gridNode.GridX, gridNode.GridY - 1) && !CheckWalkable(gridNode.GridX + 1, gridNode.GridY)) continue;
 
 						neighbours.Add(NodeArray[checkX, checkY]);
 					}
@@ -57,7 +57,7 @@ namespace Pathfindax.Grid
 			return NodeArray[x, y].Walkable;
 		}
 
-		public INode NodeFromWorldPoint(PositionF worldPosition)
+		public IGridNode NodeFromWorldPoint(PositionF worldPosition)
 		{
 			var percentX = worldPosition.X / WorldSize.X;
 			var percentY = worldPosition.Y / WorldSize.Y;

@@ -4,12 +4,12 @@ using Pathfindax.Primitives;
 namespace Pathfindax.Grid
 {
 	public interface INodeGrid<TNode>
-		where TNode : INode
+		where TNode : IGridNode
 	{
 		int NodeCount { get; }
 		PositionF WorldSize { get; }
 
-		List<TNode> GetNeighbours(TNode node);
+		IList<TNode> GetNeighbours(TNode node);
 		TNode GetNode(PositionF worldPosition);
 	}
 }

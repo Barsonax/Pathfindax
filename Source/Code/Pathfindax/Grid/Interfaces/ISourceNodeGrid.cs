@@ -8,7 +8,7 @@ namespace Pathfindax.Grid
 		int Height { get; }
 		int Width { get; }
 		PositionF WorldSize { get; }
-		List<INode> GetNeighbours(INode node);
-		INode NodeFromWorldPoint(PositionF worldPosition);
+		List<IGridNode> GetNeighbours(IGridNode gridNode);
+		IGridNode NodeFromWorldPoint(PositionF worldPosition);
 	}
 }

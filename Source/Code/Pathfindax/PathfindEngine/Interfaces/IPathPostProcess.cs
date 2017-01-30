@@ -5,6 +5,6 @@ namespace Pathfindax.PathfindEngine
 {
     public interface IPathPostProcess
     {
-        IList<INode> Process(IList<INode> path);
+        IList<IGridNode> Process(IList<IGridNode> path);
     }
 }

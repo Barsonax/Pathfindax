@@ -8,10 +8,10 @@ namespace Pathfindax.Grid
 	/// Contains data specific for the A* algorithm.
 	/// Do not share this between threads.
 	/// </summary>
-	public class AStarGrid : INodeGrid<IAStarNode>
+	public class AStarGrid : INodeGrid<IAStarGridNode>
 	{
 		private readonly ISourceNodeGrid _source;
-		private readonly Array2D<IAStarNode> _grid;
+		private readonly Array2D<IAStarGridNode> _grid;
 
 		public int NodeCount => _grid.Width * _grid.Height;
 		public PositionF WorldSize => _source.WorldSize;
@@ -19,38 +19,38 @@ namespace Pathfindax.Grid
 		public AStarGrid(ISourceNodeGrid source)
 		{
 			_source = source;
-			_grid = new Array2D<IAStarNode>(_source.Width, _source.Height);
+			_grid = new Array2D<IAStarGridNode>(_source.Width, _source.Height);
 		}
 
-		public List<IAStarNode> GetNeighbours(IAStarNode node)
+		public IList<IAStarGridNode> GetNeighbours(IAStarGridNode gridNode)
 		{
-			if (node.Neighbours == null || node.Neighbours.Count == 0)
+			if (gridNode.Neighbours == null || gridNode.Neighbours.Count == 0)
 			{
-				node.Neighbours = new List<IAStarNode>();
-				var sourceNeighbours = _source.GetNeighbours(node.Source);
+				gridNode.Neighbours = new List<IAStarGridNode>();
+				var sourceNeighbours = _source.GetNeighbours(gridNode.Source);
 				foreach (var sourceNeighbour in sourceNeighbours)
 				{
 					var neighbour = _grid[sourceNeighbour.GridX, sourceNeighbour.GridY];
 					if (neighbour == null)
 					{
-						neighbour = new AStarNode(sourceNeighbour);
+						neighbour = new IaStarGridNode(sourceNeighbour);
 						_grid[sourceNeighbour.GridX, sourceNeighbour.GridY] = neighbour;
 					}
-					node.Neighbours.Add(neighbour);
+					gridNode.Neighbours.Add(neighbour);
 				}
 			}
-			return node.Neighbours;
+			return gridNode.Neighbours;
 		}
 
-		public IAStarNode GetNode(PositionF worldPosition)
+		public IAStarGridNode GetNode(PositionF worldPosition)
 		{
 			var sourceNode = _source.NodeFromWorldPoint(worldPosition);
 			return GetNode(sourceNode);
 		}
 
-		public IAStarNode GetNode(INode sourceNode)
+		public IAStarGridNode GetNode(IGridNode sourceGridNode)
 		{
-			return _grid[sourceNode.GridX, sourceNode.GridY] ?? (_grid[sourceNode.GridX, sourceNode.GridY] = new AStarNode(sourceNode));
+			return _grid[sourceGridNode.GridX, sourceGridNode.GridY] ?? (_grid[sourceGridNode.GridX, sourceGridNode.GridY] = new IaStarGridNode(sourceGridNode));
 		}
 	}
 }

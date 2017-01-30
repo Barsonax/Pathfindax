@@ -7,22 +7,22 @@ namespace Pathfindax.Grid
 {
 	[Serializable]
 	[DebuggerDisplay("{WorldPosition}")]
-	public class AStarNode : IAStarNode
+	public class IaStarGridNode : IAStarGridNode
 	{
-		public INode Source { get; }
+		public IGridNode Source { get; }
 		public PositionF WorldPosition { get; }
 		public bool Walkable { get; set; }
 		public int GridX { get; }
 		public int GridY { get; }
-		public IAStarNode Parent { get; set; }
+		public IAStarGridNode Parent { get; set; }
 		public int HCost { get; set; }
 		public int GCost { get; set; }
 		public int HeapIndex { get; set; }
 		public int FCost => GCost + HCost;
 
-		public List<IAStarNode> Neighbours { get; set; }
+		public IList<IAStarGridNode> Neighbours { get; set; }
 
-		public AStarNode(INode source)
+		public IaStarGridNode(IGridNode source)
 		{
 			Walkable = source.Walkable;
 			WorldPosition = source.WorldPosition;
@@ -33,7 +33,7 @@ namespace Pathfindax.Grid
 			GCost = -1;
 		}
 
-		public int CompareTo(IAStarNode other)
+		public int CompareTo(IAStarGridNode other)
 		{
 			var compare = FCost.CompareTo(other.FCost);
 			if (compare == 0)

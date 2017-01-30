@@ -43,13 +43,14 @@
     <Compile Include="Collections\Interfaces\IHeapItem.cs" />
     <Compile Include="Collections\MinHeap.cs" />
     <Compile Include="Grid\AStarGrid.cs" />
-    <Compile Include="Grid\AStarNode.cs" />
-    <Compile Include="Grid\Interfaces\IAStarNode.cs" />
+    <Compile Include="Grid\IaStarGridNode.cs" />
+    <Compile Include="Grid\Interfaces\IAStarGridNode.cs" />
+    <Compile Include="Grid\Interfaces\IGridNode.cs" />
     <Compile Include="Grid\Interfaces\INode.cs" />
     <Compile Include="Grid\Interfaces\INodeGrid.cs" />
     <Compile Include="Grid\Interfaces\ISourceNodeGridProvider.cs" />
     <Compile Include="Grid\Interfaces\ISourceNodeGrid.cs" />
-    <Compile Include="Grid\Node.cs" />
+    <Compile Include="Grid\GridNode.cs" />
     <Compile Include="Grid\SourceNodeGrid.cs" />
     <Compile Include="PathfindEngine\CompletedPath.cs" />
     <Compile Include="PathfindEngine\Interfaces\IMultithreadedPathfinder.cs" />

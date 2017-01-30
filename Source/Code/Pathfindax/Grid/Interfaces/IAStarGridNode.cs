@@ -3,13 +3,12 @@ using Pathfindax.Collections;
 
 namespace Pathfindax.Grid
 {
-	public interface IAStarNode : INode, IHeapItem<IAStarNode>
+	public interface IAStarGridNode : IGridNode<IAStarGridNode>, IHeapItem<IAStarGridNode>
 	{
-		IAStarNode Parent { get; set; }
+		IAStarGridNode Parent { get; set; }
 		int HCost { get; set; }
 		int GCost { get; set; }
-		List<IAStarNode> Neighbours { get; set; }
 		int FCost { get; }
-		INode Source { get; }
+		IGridNode Source { get; }
 	}
 }

@@ -8,7 +8,7 @@ using Pathfindax.Threading;
 namespace Pathfindax.PathfindEngine
 {
 	public class PathRequestProcesser<TNode> : IProcesser<CompletedPath, PathRequest>
-		where TNode : INode
+		where TNode : IGridNode
 	{
 		private readonly IList<INodeGrid<TNode>> _nodeGrids;
 		private readonly IPathFindAlgorithm<TNode> _algorithm;

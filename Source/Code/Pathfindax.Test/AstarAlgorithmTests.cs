@@ -24,12 +24,12 @@ namespace Pathfindax.Test
 	{
 		private static AStarGrid InitializeNodeGrid(int width, int height, float cellSize)
 		{
-			var array = new Array2D<INode>(width, height);
+			var array = new Array2D<IGridNode>(width, height);
 			for (int y = 0; y < height; y++)
 			{
 				for (int x = 0; x < width; x++)
 				{
-					array[x, y] = new Node(new PositionF(x, y));
+					array[x, y] = new GridNode(new PositionF(x, y));
 				}
 			}
 			var sourceNodeGrid = new SourceNodeGrid(array, cellSize);
