@@ -13,15 +13,12 @@ namespace Pathfindax.Duality.Components
 	/// Provides a way for other components to request a path from a to b
 	/// WIP
 	/// </summary>
-	public class PathfinderComponent : Component, ICmpInitializable, ICmpRenderer, ICmpUpdatable, IPathfinderComponent
+	public class PathfinderComponent : PathfinderComponentBase, ICmpRenderer
 	{
-		public string PathfinderId { get; set; }
-		public PositionF WorldSize => MultithreadedPathfinder?.WorldSize ?? new PositionF(0, 0);
-		public IMultithreadedPathfinder MultithreadedPathfinder { get; set; }
 		public SourceNodeGrid SourceNodeGrid { get; set; }
 		public float BoundRadius { get; }
 
-		void ICmpInitializable.OnInit(InitContext context)
+		public override void OnInit(InitContext context)
 		{
 			if (context == InitContext.Activate && DualityApp.ExecContext == DualityApp.ExecutionContext.Game)
 			{
@@ -59,14 +56,6 @@ namespace Pathfindax.Duality.Components
 			}
 		}
 
-		void ICmpInitializable.OnShutdown(ShutdownContext context)
-		{
-			if (MultithreadedPathfinder != null)
-			{
-				MultithreadedPathfinder.Stop();
-			}
-		}
-
 		bool ICmpRenderer.IsVisible(IDrawDevice device)
 		{
 			return
@@ -95,16 +84,6 @@ namespace Pathfindax.Duality.Components
 					}
 				}
 			}
-		}
-
-		void ICmpUpdatable.OnUpdate()
-		{
-			MultithreadedPathfinder.ProcessCompletedPaths();
-		}
-
-		void IPathfinder.RequestPath(PathRequest pathRequest)
-		{
-			MultithreadedPathfinder.RequestPath(pathRequest);
 		}
 	}
 }

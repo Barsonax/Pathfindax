@@ -1,24 +1,30 @@
 ﻿using System;
 using Duality;
 using Duality.Drawing;
+using Duality.Editor;
 using Pathfindax.PathfindEngine;
 using Pathfindax.Primitives;
 
 namespace Pathfindax.Duality.Components
 {
-	public class PathfindaxTestComponent : Component, ICmpUpdatable, ICmpRenderer, ICmpInitializable
+	public class PathfindaxTestComponent : Component, ICmpUpdatable, ICmpRenderer
 	{
 		public PositionF[] Path { get; private set; }
+
+		[EditorHintFlags(MemberFlags.Invisible)]
 		public float BoundRadius { get; }
-		private PathfinderProxy _pathfinderProxy;
+
+		[EditorHintFlags(MemberFlags.Visible)]
+		private PathfinderProxy PathfinderProxy { get; set; }
+
 
 		private readonly Random _randomGenerator = new Random();
 		void ICmpUpdatable.OnUpdate()
 		{
-			var start = new PositionF(_randomGenerator.Next(0, (int)_pathfinderProxy.WorldSize.X), _randomGenerator.Next(0, (int)_pathfinderProxy.WorldSize.Y));
-			var end = new PositionF(_randomGenerator.Next(0, (int)_pathfinderProxy.WorldSize.X), _randomGenerator.Next(0, (int)_pathfinderProxy.WorldSize.Y));
+			var start = new PositionF(_randomGenerator.Next(0, (int)PathfinderProxy.WorldSize.X), _randomGenerator.Next(0, (int)PathfinderProxy.WorldSize.Y));
+			var end = new PositionF(_randomGenerator.Next(0, (int)PathfinderProxy.WorldSize.X), _randomGenerator.Next(0, (int)PathfinderProxy.WorldSize.Y));
 			var request = new PathRequest(PathSolved, start, end, 1);
-			_pathfinderProxy.RequestPath(request);
+			PathfinderProxy.RequestPath(request);
 		}
 
 		private void PathSolved(CompletedPath completedPath)
@@ -44,19 +50,6 @@ namespace Pathfindax.Duality.Components
 					canvas.FillCircle(position.X, position.Y, 0.4f);
 				}
 			}
-		}
-
-		public void OnInit(InitContext context)
-		{
-			if (context == InitContext.Activate && DualityApp.ExecContext == DualityApp.ExecutionContext.Game)
-			{
-				_pathfinderProxy = new PathfinderProxy();
-			}
-		}
-
-		public void OnShutdown(ShutdownContext context)
-		{
-
 		}
 	}
 }

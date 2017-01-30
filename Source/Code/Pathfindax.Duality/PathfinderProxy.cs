@@ -1,22 +1,44 @@
-﻿using Pathfindax.Duality.Components;
+﻿using Duality;
+using Pathfindax.Duality.Components;
 using Pathfindax.PathfindEngine;
-using Pathfindax.Primitives;
 
 namespace Pathfindax.Duality
 {
-	public class PathfinderProxy : IPathfinder
+	/// <summary>
+	/// Provides access to the pathfinder
+	/// </summary>
+	public class PathfinderProxy
 	{
-		public PositionF WorldSize => _pathfinderComponent?.WorldSize ?? new PositionF(0, 0);
-		private readonly IPathfinderComponent _pathfinderComponent;
+		private Vector2? _worldSize;
 
-		public PathfinderProxy(string id = null)
+		public Vector2 WorldSize
 		{
-			_pathfinderComponent = PathfinderManager.GetPathfinder(id);
+			get
+			{
+				if (_worldSize == null)
+				{
+					if(_pathfinderComponent == null) return new Vector2(0,0);
+					_worldSize = new Vector2(_pathfinderComponent.WorldSize.X, _pathfinderComponent.WorldSize.Y);
+				}
+				return _worldSize.Value;
+			}
+		}
+
+		public string PathfinderId { get; set; }
+		private IPathfinderComponent _pathfinderComponent;
+		private IPathfinderComponent PathfinderComponent => _pathfinderComponent ?? (_pathfinderComponent = PathfindaxCorePlugin.GetPathfinder(PathfinderId));
+
+		public PathfinderProxy() { }
+
+		public PathfinderProxy(string pathfinderId = null)
+		{
+			PathfinderId = pathfinderId;
+			_pathfinderComponent = null;
 		}
 
 		public void RequestPath(PathRequest pathRequest)
 		{
-			_pathfinderComponent.RequestPath(pathRequest);
+			PathfinderComponent.RequestPath(pathRequest);
 		}
 	}
 }

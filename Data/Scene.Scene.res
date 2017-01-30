@@ -108,10 +108,6 @@
       <children />
       <compList dataType="Struct" type="System.Collections.Generic.List`1[[Duality.Component]]" id="1647069853">
         <_items dataType="Array" type="Duality.Component[]" id="3947007718" length="4">
-          <item dataType="Struct" type="Pathfindax.Duality.Components.PathfinderManager" id="1388201612">
-            <active dataType="Bool">true</active>
-            <gameobj dataType="ObjectRef">168721759</gameobj>
-          </item>
           <item dataType="Struct" type="Pathfindax.Duality.Components.PathfinderComponent" id="4205042800">
             <_x003C_BoundRadius_x003E_k__BackingField dataType="Float">0</_x003C_BoundRadius_x003E_k__BackingField>
             <_x003C_MultithreadedPathfinder_x003E_k__BackingField />
@@ -121,7 +117,6 @@
             <gameobj dataType="ObjectRef">168721759</gameobj>
           </item>
           <item dataType="Struct" type="Pathfindax.Duality.Components.PathfindaxTestComponent" id="1143710228">
-            <_pathfinderProxy />
             <_randomGenerator dataType="Struct" type="System.Random" id="3299689328">
               <inext dataType="Int">0</inext>
               <inextp dataType="Int">21</inextp>
@@ -129,23 +124,25 @@
             </_randomGenerator>
             <_x003C_BoundRadius_x003E_k__BackingField dataType="Float">0</_x003C_BoundRadius_x003E_k__BackingField>
             <_x003C_Path_x003E_k__BackingField />
+            <_x003C_PathfinderProxy_x003E_k__BackingField dataType="Struct" type="Pathfindax.Duality.PathfinderProxy" id="103413486">
+              <_pathfinderComponent />
+              <_x003C_PathfinderId_x003E_k__BackingField />
+            </_x003C_PathfinderProxy_x003E_k__BackingField>
             <active dataType="Bool">true</active>
             <gameobj dataType="ObjectRef">168721759</gameobj>
           </item>
         </_items>
-        <_size dataType="Int">3</_size>
-        <_version dataType="Int">7</_version>
+        <_size dataType="Int">2</_size>
+        <_version dataType="Int">8</_version>
       </compList>
       <compMap dataType="Struct" type="System.Collections.Generic.Dictionary`2[[System.Type],[Duality.Component]]" id="3604148472" surrogate="true">
         <header />
         <body>
           <keys dataType="Array" type="System.Object[]" id="2643992055">
-            <item dataType="Type" id="2997564046" value="Pathfindax.Duality.Components.PathfinderManager" />
-            <item dataType="Type" id="3591055434" value="Pathfindax.Duality.Components.PathfinderComponent" />
-            <item dataType="Type" id="251244990" value="Pathfindax.Duality.Components.PathfindaxTestComponent" />
+            <item dataType="Type" id="2997564046" value="Pathfindax.Duality.Components.PathfinderComponent" />
+            <item dataType="Type" id="3591055434" value="Pathfindax.Duality.Components.PathfindaxTestComponent" />
           </keys>
           <values dataType="Array" type="System.Object[]" id="3693493824">
-            <item dataType="ObjectRef">1388201612</item>
             <item dataType="ObjectRef">4205042800</item>
             <item dataType="ObjectRef">1143710228</item>
           </values>

@@ -59,10 +59,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Components\Interfaces\IPathfinderComponent.cs" />
+    <Compile Include="Components\PathfinderComponentBase.cs" />
     <Compile Include="PathfindaxCorePlugin.cs" />
     <Compile Include="Components\PathfindaxTestComponent.cs" />
     <Compile Include="Components\PathfinderComponent.cs" />
-    <Compile Include="Components\PathfinderManager.cs" />
     <Compile Include="PathfinderProxy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
