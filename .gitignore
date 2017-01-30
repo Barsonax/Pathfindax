@@ -54,12 +54,14 @@
 /Source/Code/Pathfindax.Duality/bin/
 /Source/Code/Pathfindax.Duality/obj/
 /Source/Code/Pathfindax.Duality/Pathfindax.Duality.core.xml
+/Source/Code/Pathfindax.Duality.Tilemaps/bin/
+/Source/Code/Pathfindax.Duality.Tilemaps/obj/
+/Source/Code/Pathfindax.Duality.Tilemaps/Pathfindax.Duality.Tilemaps.core.xml
 /Source/Code/Pathfindax/obj
 /Source/Code/Pathfindax/bin
 /Source/Code/Pathfindax/Pathfindax.core.xml
 /Source/Code/Pathfindax.Test/obj
 /Source/Code/Pathfindax.Test/bin
-
-
 /Source/Code/ProjectPlugins.sln
 /Source/Code/CorePlugin
+/Source/Code/.vs

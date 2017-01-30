@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pathfindax.Test", "Pathfind
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pathfindax", "Pathfindax\Pathfindax.csproj", "{D4DFA287-B394-4D15-97E0-D2A0675D26A6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pathfindax.Duality.Tilemaps", "Pathfindax.Duality.Tilemaps\Pathfindax.Duality.Tilemaps.csproj", "{AE16D0D3-A7CC-4132-BAA0-8A9B13F66E69}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{D4DFA287-B394-4D15-97E0-D2A0675D26A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4DFA287-B394-4D15-97E0-D2A0675D26A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D4DFA287-B394-4D15-97E0-D2A0675D26A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE16D0D3-A7CC-4132-BAA0-8A9B13F66E69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE16D0D3-A7CC-4132-BAA0-8A9B13F66E69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE16D0D3-A7CC-4132-BAA0-8A9B13F66E69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE16D0D3-A7CC-4132-BAA0-8A9B13F66E69}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
