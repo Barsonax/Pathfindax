@@ -20,8 +20,8 @@ namespace Pathfindax.Duality.Components
 		private readonly Random _randomGenerator = new Random();
 		void ICmpUpdatable.OnUpdate()
 		{
-			var start = new PositionF(_randomGenerator.Next(0, (int)PathfinderProxy.WorldSize.X), _randomGenerator.Next(0, (int)PathfinderProxy.WorldSize.Y));
-			var end = new PositionF(_randomGenerator.Next(0, (int)PathfinderProxy.WorldSize.X), _randomGenerator.Next(0, (int)PathfinderProxy.WorldSize.Y));
+			var start = new PositionF(_randomGenerator.Next(0, 16), _randomGenerator.Next(0, 16));
+			var end = new PositionF(_randomGenerator.Next(0, 16), _randomGenerator.Next(0, 16));
 			var request = new PathRequest(PathSolved, start, end, 1);
 			PathfinderProxy.RequestPath(request);
 		}

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using Pathfindax.Collections;
 using Pathfindax.Grid;
+using Pathfindax.Nodes;
 using Pathfindax.Primitives;
 
 namespace Pathfindax.Algorithms
@@ -10,17 +11,17 @@ namespace Pathfindax.Algorithms
 	/// <summary>
 	/// Class that implements the A* algorithm to find paths
 	/// </summary>
-	public class AStarAlgorithm : IPathFindAlgorithm<IAStarGridNode>
+	public class AStarAlgorithm : IPathFindAlgorithm<INodeGrid<IAStarGridNode>>
 	{
 		/// <inheritdoc />
-		public IList<IGridNode> FindPath(INodeGrid<IAStarGridNode> nodeGrid, PositionF pathStart, PositionF pathEnd)
+		public IList<INode> FindPath(INodeGrid<IAStarGridNode> nodeGrid, PositionF pathStart, PositionF pathEnd)
 		{
 			var startNode = nodeGrid.GetNode(pathStart);
 			var endNode = nodeGrid.GetNode(pathEnd);
 			return FindPath(nodeGrid, startNode, endNode);
 		}
 
-		private IList<IGridNode> FindPath(INodeGrid<IAStarGridNode> nodeGrid, IAStarGridNode startGridNode, IAStarGridNode targetGridNode)
+		private IList<INode> FindPath(INodeGrid<IAStarGridNode> nodeGrid, IAStarGridNode startGridNode, IGridNodeBase targetGridNode)
 		{
 			try
 			{
@@ -30,7 +31,7 @@ namespace Pathfindax.Algorithms
 				var pathSucces = false;
 				if (startGridNode == targetGridNode)
 				{
-					return new List<IGridNode> { targetGridNode };
+					return new List<INode> { targetGridNode };
 				}
 				if (startGridNode.Walkable && targetGridNode.Walkable)
 				{
@@ -53,7 +54,7 @@ namespace Pathfindax.Algorithms
 							break;
 						}
 
-						foreach (var neighbour in nodeGrid.GetNeighbours(currentNode))
+						foreach (var neighbour in currentNode.Neighbours)
 						{
 							if (!neighbour.Walkable || closedSet.Contains(neighbour))
 							{
@@ -87,9 +88,9 @@ namespace Pathfindax.Algorithms
 			}
 		}
 
-		private IList<IGridNode> RetracePath(IAStarGridNode startGridNode, IAStarGridNode endGridNode)
+		private IList<INode> RetracePath(INode startGridNode, INode endGridNode)
 		{
-			var path = new List<IGridNode>();
+			var path = new List<INode>();
 			var currentNode = endGridNode;
 
 			while (true)
@@ -102,7 +103,7 @@ namespace Pathfindax.Algorithms
 			return path;
 		}
 
-		private static int GetDistance(IGridNode gridNodeA, IGridNode gridNodeB)
+		private static int GetDistance(IGridNodeBase gridNodeA, IGridNodeBase gridNodeB)
 		{
 			var dstX = Math.Abs(gridNodeA.GridX - gridNodeB.GridX);
 			var dstY = Math.Abs(gridNodeA.GridY - gridNodeB.GridY);

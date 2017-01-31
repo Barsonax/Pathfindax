@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using Pathfindax.Collections;
+﻿using Pathfindax.Collections;
+using Pathfindax.Nodes;
 using Pathfindax.Primitives;
 
 namespace Pathfindax.Grid
@@ -19,28 +19,31 @@ namespace Pathfindax.Grid
 		public AStarGrid(ISourceNodeGrid source)
 		{
 			_source = source;
-			_grid = new Array2D<IAStarGridNode>(_source.Width, _source.Height);
-		}
-
-		public IList<IAStarGridNode> GetNeighbours(IAStarGridNode gridNode)
-		{
-			if (gridNode.Neighbours == null || gridNode.Neighbours.Count == 0)
+			_grid = new Array2D<IAStarGridNode>(_source.NodeArray.Width, _source.NodeArray.Height);
+			for (int y = 0; y < _source.NodeArray.Height; y++)
 			{
-				gridNode.Neighbours = new List<IAStarGridNode>();
-				var sourceNeighbours = _source.GetNeighbours(gridNode.Source);
-				foreach (var sourceNeighbour in sourceNeighbours)
+				for (int x = 0; x < _source.NodeArray.Width; x++)
 				{
-					var neighbour = _grid[sourceNeighbour.GridX, sourceNeighbour.GridY];
-					if (neighbour == null)
-					{
-						neighbour = new IaStarGridNode(sourceNeighbour);
-						_grid[sourceNeighbour.GridX, sourceNeighbour.GridY] = neighbour;
-					}
-					gridNode.Neighbours.Add(neighbour);
+					var sourceNode = _source.NodeArray[x, y];
+					var aStarNode = new AstarGridNode(sourceNode);
+					_grid[x, y] = aStarNode;
 				}
 			}
-			return gridNode.Neighbours;
+
+			for (int y = 0; y < _source.NodeArray.Height; y++)
+			{
+				for (int x = 0; x < _source.NodeArray.Width; x++)
+				{
+					var aStarNode = _grid[x, y];
+					var sourceNode = _source.NodeArray[x, y];
+					foreach (var sourceNodeNeighbour in sourceNode.Neighbours)
+					{
+						aStarNode.Neighbours.Add(_grid[sourceNodeNeighbour.GridX, sourceNodeNeighbour.GridY]);
+					}
+				}
+			}
 		}
+
 
 		public IAStarGridNode GetNode(PositionF worldPosition)
 		{
@@ -48,9 +51,9 @@ namespace Pathfindax.Grid
 			return GetNode(sourceNode);
 		}
 
-		public IAStarGridNode GetNode(IGridNode sourceGridNode)
+		private IAStarGridNode GetNode(IGridNodeBase sourceGridNode)
 		{
-			return _grid[sourceGridNode.GridX, sourceGridNode.GridY] ?? (_grid[sourceGridNode.GridX, sourceGridNode.GridY] = new IaStarGridNode(sourceGridNode));
+			return _grid[sourceGridNode.GridX, sourceGridNode.GridY] ?? (_grid[sourceGridNode.GridX, sourceGridNode.GridY] = new AstarGridNode(sourceGridNode));
 		}
 	}
 }

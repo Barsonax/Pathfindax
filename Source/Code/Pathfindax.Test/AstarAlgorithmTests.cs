@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using NUnit.Framework;
 using Pathfindax.Algorithms;
-using Pathfindax.Collections;
 using Pathfindax.Grid;
 using Pathfindax.Primitives;
 
@@ -24,14 +23,7 @@ namespace Pathfindax.Test
 	{
 		private static AStarGrid InitializeNodeGrid(int width, int height, float cellSize)
 		{
-			var array = new Array2D<IGridNode>(width, height);
-			for (int y = 0; y < height; y++)
-			{
-				for (int x = 0; x < width; x++)
-				{
-					array[x, y] = new GridNode(new PositionF(x, y));
-				}
-			}
+			var array = SourceNodeGrid.GeneratePreFilledArray(width, height, 1);
 			var sourceNodeGrid = new SourceNodeGrid(array, cellSize);
 			return new AStarGrid(sourceNodeGrid);
 		}

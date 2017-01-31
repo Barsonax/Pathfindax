@@ -1,6 +1,4 @@
-﻿using Pathfindax.Primitives;
-
-namespace Pathfindax.PathfindEngine
+﻿namespace Pathfindax.PathfindEngine
 {
 	public interface IMultithreadedPathfinder : IPathfinder
 	{
@@ -27,6 +25,5 @@ namespace Pathfindax.PathfindEngine
 		/// </summary>
 		/// <param name="pathRequest"></param>
 		void RequestPath(PathRequest pathRequest);
-		PositionF WorldSize { get; }
 	}
 }

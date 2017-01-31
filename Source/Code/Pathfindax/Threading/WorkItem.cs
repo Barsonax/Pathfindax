@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Pathfindax.Threading
+﻿namespace Pathfindax.Threading
 {
 	public class WorkItem<TOut, TIn>
 	{

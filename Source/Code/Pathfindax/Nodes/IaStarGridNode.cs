@@ -1,34 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using Pathfindax.Primitives;
 
-namespace Pathfindax.Grid
+namespace Pathfindax.Nodes
 {
+	public class AstarGridNode: AstarGridNodeBase, IAStarGridNode 
+	{		
+		public IList<IAStarGridNode> Neighbours { get; set; }
+		public AstarGridNode(IGridNodeBase source) : base(source)
+		{
+			Neighbours = new List<IAStarGridNode>();
+		}
+	}
+
 	[Serializable]
 	[DebuggerDisplay("{WorldPosition}")]
-	public class IaStarGridNode : IAStarGridNode
+	public class AstarGridNodeBase : GridNodeBase
 	{
-		public IGridNode Source { get; }
-		public PositionF WorldPosition { get; }
-		public bool Walkable { get; set; }
-		public int GridX { get; }
-		public int GridY { get; }
-		public IAStarGridNode Parent { get; set; }
 		public int HCost { get; set; }
 		public int GCost { get; set; }
 		public int HeapIndex { get; set; }
 		public int FCost => GCost + HCost;
 
-		public IList<IAStarGridNode> Neighbours { get; set; }
-
-		public IaStarGridNode(IGridNode source)
+		public AstarGridNodeBase(IGridNodeBase source) : base(source.WorldPosition, source.GridX, source.GridY, source.Walkable)
 		{
-			Walkable = source.Walkable;
-			WorldPosition = source.WorldPosition;
-			GridX = source.GridX;
-			GridY = source.GridY;
-			Source = source;
 			HCost = -1;
 			GCost = -1;
 		}

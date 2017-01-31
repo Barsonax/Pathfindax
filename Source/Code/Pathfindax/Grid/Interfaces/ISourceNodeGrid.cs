@@ -1,14 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using Pathfindax.Collections;
+using Pathfindax.Nodes;
 using Pathfindax.Primitives;
 
 namespace Pathfindax.Grid
 {
 	public interface ISourceNodeGrid
 	{
-		int Height { get; }
-		int Width { get; }
+		Array2D<IGridNode> NodeArray { get; }
 		PositionF WorldSize { get; }
-		List<IGridNode> GetNeighbours(IGridNode gridNode);
-		IGridNode NodeFromWorldPoint(PositionF worldPosition);
+		IGridNodeBase NodeFromWorldPoint(PositionF worldPosition);
 	}
 }

@@ -7,11 +7,11 @@ using Pathfindax.Threading;
 
 namespace Pathfindax.PathfindEngine
 {
-	public class PathRequestProcesser<TNode> : IProcesser<CompletedPath, PathRequest>
-		where TNode : IGridNode
+	public class PathRequestProcesser<TNodeNetwork> : IProcesser<CompletedPath, PathRequest>
+		where TNodeNetwork : INodeNetwork
 	{
-		private readonly IList<INodeGrid<TNode>> _nodeGrids;
-		private readonly IPathFindAlgorithm<TNode> _algorithm;
+		private readonly IList<TNodeNetwork> _nodeGrids;
+		private readonly IPathFindAlgorithm<TNodeNetwork> _algorithm;
 		private readonly IList<IPathPostProcess> _pathPostProcesses;
 
 		/// <summary>
@@ -20,7 +20,7 @@ namespace Pathfindax.PathfindEngine
 		/// <param name="nodeGrids">The nodegrids that will be used to solve paths</param>
 		/// <param name="pathFindAlgorithm">The algorithm that will be used to solve paths</param>
 		/// <param name="pathPostProcesses">The post processing steps that will be applied after the <see cref="IPathFindAlgorithm{TNode}"/> found a path</param>
-		public PathRequestProcesser(IList<INodeGrid<TNode>> nodeGrids, IPathFindAlgorithm<TNode> pathFindAlgorithm, IList<IPathPostProcess> pathPostProcesses = null)
+		public PathRequestProcesser(IList<TNodeNetwork> nodeGrids, IPathFindAlgorithm<TNodeNetwork> pathFindAlgorithm, IList<IPathPostProcess> pathPostProcesses = null)
 		{
 			if (nodeGrids.Count > 1) throw new NotSupportedException("Hierachical pathfinding is not yet implemented. Please use only 1 nodegrid at this time.");
 			_algorithm = pathFindAlgorithm;

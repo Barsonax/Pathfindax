@@ -1,7 +1,7 @@
 ﻿using Duality;
 using Duality.Plugins.Tilemaps;
 using Pathfindax.Collections;
-using Pathfindax.Grid;
+using Pathfindax.Nodes;
 using Pathfindax.Primitives;
 
 namespace Pathfindax.Duality.Tilemaps.Components
@@ -11,7 +11,7 @@ namespace Pathfindax.Duality.Tilemaps.Components
 		public void ffoo()
 		{
 			var tilemap = GameObj.GetComponent<Tilemap>();
-			var nodeArray = new Array2D<IGridNode>(tilemap.Size.X, tilemap.Size.Y);
+			var nodeArray = new Array2D<IGridNodeBase>(tilemap.Size.X, tilemap.Size.Y);
 
 			for (int y = 0; y < tilemap.Size.Y; y++)
 			{

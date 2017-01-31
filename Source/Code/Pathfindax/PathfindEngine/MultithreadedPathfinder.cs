@@ -3,31 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using Pathfindax.Algorithms;
 using Pathfindax.Grid;
-using Pathfindax.Primitives;
 using Pathfindax.Threading;
 
 namespace Pathfindax.PathfindEngine
 {
-	public class MultithreadedPathfinder<TNode> : IMultithreadedPathfinder, IDisposable
-		where TNode : IGridNode
+	public class MultithreadedPathfinder<TNodeNetwork> : IMultithreadedPathfinder, IDisposable
+		where TNodeNetwork : INodeNetwork
 	{
-		public PositionF WorldSize { get; }
 		private readonly MultithreadedWorkerQueue<CompletedPath, PathRequest> _multithreadedWorkerQueue;
 
-		public MultithreadedPathfinder(IList<INodeGrid<TNode>> nodeGrids, IPathFindAlgorithm<TNode> pathFindAlgorithm, int maxThreads = 1)
+		public MultithreadedPathfinder(IList<TNodeNetwork> nodeNetworks, IPathFindAlgorithm<TNodeNetwork> pathFindAlgorithm, int maxThreads = 1)
 		{
-			var firstNodeGrid = nodeGrids.FirstOrDefault();
+			var firstNodeGrid = nodeNetworks.FirstOrDefault();
 			if (firstNodeGrid == null) throw new ArgumentException("Please provide atleast one nodegrid");
-			foreach (var nodeGrid in nodeGrids)
-			{
-				if (nodeGrid.WorldSize != firstNodeGrid.WorldSize) throw new ArgumentException("All nodegrids must have the same worldsize!");
-			}
-			WorldSize = firstNodeGrid.WorldSize;
 
 			var pathfinders = new List<IProcesser<CompletedPath, PathRequest>>();
 			for (int i = 0; i < maxThreads; i++)
 			{
-				pathfinders.Add(new PathRequestProcesser<TNode>(nodeGrids, pathFindAlgorithm));
+				pathfinders.Add(new PathRequestProcesser<TNodeNetwork>(nodeNetworks, pathFindAlgorithm));
 			}
 			_multithreadedWorkerQueue = new MultithreadedWorkerQueue<CompletedPath, PathRequest>(pathfinders);
 		}

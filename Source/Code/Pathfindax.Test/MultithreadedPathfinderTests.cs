@@ -8,6 +8,7 @@ using NSubstitute;
 using NUnit.Framework;
 using Pathfindax.Algorithms;
 using Pathfindax.Grid;
+using Pathfindax.Nodes;
 using Pathfindax.PathfindEngine;
 using Pathfindax.Primitives;
 
@@ -16,11 +17,11 @@ namespace Pathfindax.Test
 	[TestFixture]
 	public class MultithreadedPathfinderTests
 	{
-		private MultithreadedPathfinder<IGridNode> SetupMultithreadedPathfinder(int threads)
+		private MultithreadedPathfinder<INodeGrid<IAStarGridNode>> SetupMultithreadedPathfinder(int threads)
 		{
-			var algorithm = Substitute.For<IPathFindAlgorithm<IGridNode>>();
-			var nodeGrid = Substitute.For<INodeGrid<IGridNode>>();
-			return new MultithreadedPathfinder<IGridNode>(new List<INodeGrid<IGridNode>> { nodeGrid }, algorithm, threads);
+			var algorithm = Substitute.For<IPathFindAlgorithm<INodeGrid<IAStarGridNode>>>();
+			var nodeGrid = Substitute.For<INodeGrid<IAStarGridNode>>();
+			return new MultithreadedPathfinder<INodeGrid<IAStarGridNode>>(new List<INodeGrid<IAStarGridNode>> { nodeGrid }, algorithm, threads);
 		}
 
 		[Test]

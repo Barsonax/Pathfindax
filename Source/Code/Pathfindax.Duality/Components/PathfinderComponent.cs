@@ -2,10 +2,9 @@
 using Duality;
 using Duality.Drawing;
 using Pathfindax.Algorithms;
-using Pathfindax.Collections;
 using Pathfindax.Grid;
+using Pathfindax.Nodes;
 using Pathfindax.PathfindEngine;
-using Pathfindax.Primitives;
 
 namespace Pathfindax.Duality.Components
 {
@@ -26,14 +25,7 @@ namespace Pathfindax.Duality.Components
 				{
 					var width = 16;
 					var height = 16;
-					var array = new Array2D<IGridNode>(width, height);
-					for (int y = 0; y < height; y++)
-					{
-						for (int x = 0; x < width; x++)
-						{
-							array[x, y] = new GridNode(new PositionF(x, y));
-						}
-					}
+					var array = SourceNodeGrid.GeneratePreFilledArray(width, height, 1);
 					array[5, 4].Walkable = false;
 					array[5, 5].Walkable = false;
 					array[5, 6].Walkable = false;
@@ -50,7 +42,7 @@ namespace Pathfindax.Duality.Components
 					var nodeGrid = new AStarGrid(SourceNodeGrid);
 					var algorithm = new AStarAlgorithm();
 
-					MultithreadedPathfinder = new MultithreadedPathfinder<IAStarGridNode>(new List<INodeGrid<IAStarGridNode>> { nodeGrid }, algorithm);
+					MultithreadedPathfinder = new MultithreadedPathfinder<INodeGrid<IAStarGridNode>>(new List<INodeGrid<IAStarGridNode>> { nodeGrid }, algorithm);
 					MultithreadedPathfinder.Start();
 				}
 			}
@@ -68,9 +60,9 @@ namespace Pathfindax.Duality.Components
 			if (SourceNodeGrid != null)
 			{
 				var canvas = new Canvas(device);
-				for (int y = 0; y < SourceNodeGrid.Height; y++)
+				for (int y = 0; y < SourceNodeGrid.NodeArray.Height; y++)
 				{
-					for (int x = 0; x < SourceNodeGrid.Width; x++)
+					for (int x = 0; x < SourceNodeGrid.NodeArray.Width; x++)
 					{
 						var node = SourceNodeGrid.NodeArray[x, y];
 						if (node.Walkable)

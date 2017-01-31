@@ -1,15 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using Pathfindax.Nodes;
 using Pathfindax.Primitives;
 
 namespace Pathfindax.Grid
 {
-	public interface INodeGrid<TNode>
-		where TNode : IGridNode
+	public interface INodeGrid<out TNode> : INodeNetwork
+		where TNode : IGridNodeBase
+	{
+		PositionF WorldSize { get; }
+		TNode GetNode(PositionF worldPosition);
+	}
+
+	public interface INodeNetwork
 	{
 		int NodeCount { get; }
-		PositionF WorldSize { get; }
-
-		IList<TNode> GetNeighbours(TNode node);
-		TNode GetNode(PositionF worldPosition);
 	}
 }

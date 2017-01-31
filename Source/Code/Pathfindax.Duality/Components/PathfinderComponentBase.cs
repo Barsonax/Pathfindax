@@ -1,6 +1,5 @@
 ﻿using Duality;
 using Pathfindax.PathfindEngine;
-using Pathfindax.Primitives;
 
 namespace Pathfindax.Duality.Components
 {
@@ -8,7 +7,6 @@ namespace Pathfindax.Duality.Components
 	{
 		protected IMultithreadedPathfinder MultithreadedPathfinder { get; set; }
 
-		public PositionF WorldSize => MultithreadedPathfinder?.WorldSize ?? new PositionF(0, 0);
 		public string PathfinderId { get; set; }
 
 		public abstract void OnInit(InitContext context);
