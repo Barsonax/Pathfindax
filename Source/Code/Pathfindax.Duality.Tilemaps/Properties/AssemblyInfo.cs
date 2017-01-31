@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Pathfindax.Duality.Tilemaps")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Pathfindax support for duality tilemaps")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Barsonax")]
 [assembly: AssemblyProduct("Pathfindax.Duality.Tilemaps")]
-[assembly: AssemblyCopyright("Copyright ©  2017")]
+[assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
