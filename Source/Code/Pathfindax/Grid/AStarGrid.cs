@@ -53,7 +53,7 @@ namespace Pathfindax.Grid
 
 		private IAStarGridNode GetNode(IGridNodeBase sourceGridNode)
 		{
-			return _grid[sourceGridNode.GridX, sourceGridNode.GridY] ?? (_grid[sourceGridNode.GridX, sourceGridNode.GridY] = new AstarGridNode(sourceGridNode));
+			return _grid[sourceGridNode.GridX, sourceGridNode.GridY];
 		}
 	}
 }

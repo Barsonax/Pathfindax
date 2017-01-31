@@ -25,7 +25,7 @@ namespace Pathfindax.Duality.Components
 				{
 					var width = 16;
 					var height = 16;
-					var array = SourceNodeGrid.GeneratePreFilledArray(width, height, 1);
+					var array = SourceNodeGrid.GeneratePreFilledArray(width, height, 1, GenerateNodeGridNeighbours.All);
 					array[5, 4].Walkable = false;
 					array[5, 5].Walkable = false;
 					array[5, 6].Walkable = false;

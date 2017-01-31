@@ -7,7 +7,7 @@ using Pathfindax.Primitives;
 namespace Pathfindax.Grid
 {
 	/// <summary>
-	/// Class that holds gridNode data which wont change and is safe to share between threads
+	/// Class that holds nodegrid data which wont change and is safe to share between threads
 	/// </summary>
 	[Serializable]
 	public class SourceNodeGrid : ISourceNodeGrid
@@ -18,14 +18,10 @@ namespace Pathfindax.Grid
 		public SourceNodeGrid(Array2D<IGridNode> grid, float cellSize)
 		{
 			NodeArray = grid;
-			WorldSize = new PositionF((NodeArray.Width * cellSize) - cellSize, (NodeArray.Height * cellSize) - cellSize);
+			WorldSize = new PositionF(NodeArray.Width * cellSize - cellSize, NodeArray.Height * cellSize - cellSize);
 		}
 
-		private bool CheckWalkable(int x, int y)
-		{
-			if (x >= 0 && x < NodeArray.Width && y >= 0 && y < NodeArray.Height) return false;
-			return NodeArray[x, y].Walkable;
-		}
+
 
 		public IGridNodeBase NodeFromWorldPoint(PositionF worldPosition)
 		{
@@ -46,13 +42,14 @@ namespace Pathfindax.Grid
 		}
 
 		/// <summary>
-		/// Returns a preconfigured <see cref="Array2D{TNode}"/>
+		/// Returns a preconfigured <see cref="Array2D{TNode}"/> which can be used to make a <see cref="SourceNodeGrid"/>
 		/// </summary>
 		/// <param name="width"></param>
 		/// <param name="height"></param>
 		/// <param name="nodeSize"></param>
+		/// <param name="generateNodeGridNeighbours"></param>
 		/// <returns></returns>
-		public static Array2D<IGridNode> GeneratePreFilledArray(int width, int height, float nodeSize)
+		public static Array2D<IGridNode> GeneratePreFilledArray(int width, int height, float nodeSize, GenerateNodeGridNeighbours generateNodeGridNeighbours)
 		{
 			var array = new Array2D<IGridNode>(width, height);
 
@@ -65,22 +62,25 @@ namespace Pathfindax.Grid
 				}
 			}
 
-			for (int y = 0; y < height; y++)
+			if (generateNodeGridNeighbours != GenerateNodeGridNeighbours.None)
 			{
-				for (int x = 0; x < width; x++)
+				for (int y = 0; y < height; y++)
 				{
-					var node = array[x, y];
-					var neighbours = GetNeighbours(array, node);
-					foreach (var neighbour in neighbours)
+					for (int x = 0; x < width; x++)
 					{
-						node.Neighbours.Add(neighbour);
+						var node = array[x, y];
+						var neighbours = GetNeighbours(array, node, generateNodeGridNeighbours);
+						foreach (var neighbour in neighbours)
+						{
+							node.Neighbours.Add(neighbour);
+						}
 					}
 				}
 			}
 			return array;
 		}
 
-		private static List<IGridNode> GetNeighbours(Array2D<IGridNode> nodeArray, IGridNodeBase gridNode)
+		private static IList<IGridNode> GetNeighbours(Array2D<IGridNode> nodeArray, IGridNodeBase gridNode, GenerateNodeGridNeighbours generateNodeGridNeighbours)
 		{
 			var neighbours = new List<IGridNode>();
 
@@ -95,16 +95,29 @@ namespace Pathfindax.Grid
 
 					if (checkX >= 0 && checkX < nodeArray.Width && checkY >= 0 && checkY < nodeArray.Height)
 					{
-						//if (x == 1 && y == 1 && !CheckWalkable(gridNode.GridX, gridNode.GridY + 1) && !CheckWalkable(gridNode.GridX + 1, gridNode.GridY)) continue;
-						//if (x == -1 && y == 1 && !CheckWalkable(gridNode.GridX, gridNode.GridY + 1) && !CheckWalkable(gridNode.GridX - 1, gridNode.GridY)) continue;
-						//if (x == -1 && y == -1 && !CheckWalkable(gridNode.GridX, gridNode.GridY - 1) && !CheckWalkable(gridNode.GridX - 1, gridNode.GridY)) continue;
-						//if (x == 1 && y == -1 && !CheckWalkable(gridNode.GridX, gridNode.GridY - 1) && !CheckWalkable(gridNode.GridX + 1, gridNode.GridY)) continue;
+						if (generateNodeGridNeighbours == GenerateNodeGridNeighbours.NoDiagonal)
+						{
+							if (x == 1 && y == 1 && !CheckWalkable(nodeArray, gridNode.GridX, gridNode.GridY + 1) &&
+								!CheckWalkable(nodeArray, gridNode.GridX + 1, gridNode.GridY)) continue;
+							if (x == -1 && y == 1 && !CheckWalkable(nodeArray, gridNode.GridX, gridNode.GridY + 1) &&
+								!CheckWalkable(nodeArray, gridNode.GridX - 1, gridNode.GridY)) continue;
+							if (x == -1 && y == -1 && !CheckWalkable(nodeArray, gridNode.GridX, gridNode.GridY - 1) &&
+								!CheckWalkable(nodeArray, gridNode.GridX - 1, gridNode.GridY)) continue;
+							if (x == 1 && y == -1 && !CheckWalkable(nodeArray, gridNode.GridX, gridNode.GridY - 1) &&
+								!CheckWalkable(nodeArray, gridNode.GridX + 1, gridNode.GridY)) continue;
+						}
 
 						neighbours.Add(nodeArray[checkX, checkY]);
 					}
 				}
 			}
 			return neighbours;
+		}
+
+		private static bool CheckWalkable(Array2D<IGridNode> nodeArray, int x, int y)
+		{
+			if (x >= 0 && x < nodeArray.Width && y >= 0 && y < nodeArray.Height) return false;
+			return nodeArray[x, y].Walkable;
 		}
 	}
 }

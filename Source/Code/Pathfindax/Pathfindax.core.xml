@@ -77,18 +77,34 @@
             Do not share this between threads.
             </summary>
         </member>
-        <member name="T:Pathfindax.Grid.SourceNodeGrid">
+        <member name="F:Pathfindax.Grid.GenerateNodeGridNeighbours.None">
             <summary>
-            Class that holds gridNode data which wont change and is safe to share between threads
+            Generate no neighbours.
             </summary>
         </member>
-        <member name="M:Pathfindax.Grid.SourceNodeGrid.GeneratePreFilledArray(System.Int32,System.Int32,System.Single)">
+        <member name="F:Pathfindax.Grid.GenerateNodeGridNeighbours.NoDiagonal">
             <summary>
-            Returns a preconfigured <see cref="T:Pathfindax.Collections.Array2D`1"/>
+            Generate neighbours except diagonal neighbours
+            </summary>
+        </member>
+        <member name="F:Pathfindax.Grid.GenerateNodeGridNeighbours.All">
+            <summary>
+            Generate all neighbours
+            </summary>
+        </member>
+        <member name="T:Pathfindax.Grid.SourceNodeGrid">
+            <summary>
+            Class that holds nodegrid data which wont change and is safe to share between threads
+            </summary>
+        </member>
+        <member name="M:Pathfindax.Grid.SourceNodeGrid.GeneratePreFilledArray(System.Int32,System.Int32,System.Single,Pathfindax.Grid.GenerateNodeGridNeighbours)">
+            <summary>
+            Returns a preconfigured <see cref="T:Pathfindax.Collections.Array2D`1"/> which can be used to make a <see cref="T:Pathfindax.Grid.SourceNodeGrid"/>
             </summary>
             <param name="width"></param>
             <param name="height"></param>
             <param name="nodeSize"></param>
+            <param name="generateNodeGridNeighbours"></param>
             <returns></returns>
         </member>
         <member name="F:Pathfindax.PathfindEngine.CompletedPath.Path">

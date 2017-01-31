@@ -43,6 +43,7 @@
     <Compile Include="Collections\Interfaces\IHeapItem.cs" />
     <Compile Include="Collections\MinHeap.cs" />
     <Compile Include="Grid\AStarGrid.cs" />
+    <Compile Include="Grid\GenerateNodeGridNeighbours.cs" />
     <Compile Include="Nodes\GridNode.cs" />
     <Compile Include="Nodes\IaStarGridNode.cs" />
     <Compile Include="Nodes\Interfaces\IAStarGridNode.cs" />
