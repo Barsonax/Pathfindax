@@ -82,8 +82,8 @@
 /Plugins/Tilemaps.editor.pdb
 /Plugins/GamePlugin.core.xml
 /Plugins/Pathfindax.core.xml
-/Plugins/Pathfindax.Duality.core.xml
-/Plugins/Pathfindax.Duality.Tilemaps.core.xml
+/Plugins/Pathfindax.Duality.xml
+/Plugins/Pathfindax.Duality.Tilemaps.xml
 /Plugins/Tilemaps.core.xml
 /Plugins/Tilemaps.editor.xml
 /Plugins/Tilemaps.editor.dll
@@ -99,3 +99,9 @@
 /Plugins/PackageManagerFrontend.editor.pdb
 /Plugins/Pathfindax.Duality.core.pdb
 /Plugins/Pathfindax.Duality.Tilemaps.pdb
+/Source/Code/Binaries
+/Source/Code/Binaries/Debug/Pathfindax.Duality.xml
+/Source/Code/Binaries/Debug/Pathfindax.Duality.Tilemaps.xml
+/Source/Code/Pathfindax.Duality/Pathfindax.Duality.xml
+/Source/Code/Pathfindax.Duality.Tilemaps/Pathfindax.Duality.Tilemaps.xml
+/Plugins/Pathfindax.Duality.core.xml
