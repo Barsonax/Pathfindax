@@ -60,6 +60,9 @@
       <Name>Pathfindax</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Pathfindax.Duality.Tilemaps.nuspec" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>mkdir "$(SolutionDir)../../Plugins"

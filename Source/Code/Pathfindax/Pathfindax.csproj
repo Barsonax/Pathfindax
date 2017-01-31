@@ -68,6 +68,9 @@
     <Compile Include="Threading\Worker.cs" />
     <Compile Include="Threading\WorkItem.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Pathfindax.nuspec" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>mkdir "$(SolutionDir)../../Plugins"
