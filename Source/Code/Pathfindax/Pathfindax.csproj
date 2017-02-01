@@ -53,7 +53,7 @@
     <Compile Include="Nodes\Interfaces\IGridNodeBase.cs" />
     <Compile Include="Nodes\Interfaces\INode.cs" />
     <Compile Include="Grid\Interfaces\INodeGrid.cs" />
-    <Compile Include="Grid\Interfaces\ISourceNodeGridProvider.cs" />
+    <Compile Include="Grid\Interfaces\ISourceNodeNetworkProvider.cs" />
     <Compile Include="Grid\SourceNodeGrid.cs" />
     <Compile Include="Nodes\Node.cs" />
     <Compile Include="PathfindEngine\CompletedPath.cs" />
@@ -71,6 +71,7 @@
     <Compile Include="Threading\MultithreadedWorkerQueue.cs" />
     <Compile Include="Threading\Worker.cs" />
     <Compile Include="Threading\WorkItem.cs" />
+    <Compile Include="Utils\Extenstions\ListExtensions.cs" />
     <Compile Include="Utils\Mathf.cs" />
   </ItemGroup>
   <ItemGroup>

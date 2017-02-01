@@ -17,6 +17,8 @@ namespace Pathfindax.Duality.Components
 		public SourceNodeGrid SourceNodeGrid { get; set; }
 		public float BoundRadius { get; }
 
+		private NodeVisualizer _nodeVisualizer;
+
 		public override void OnInit(InitContext context)
 		{
 			if (context == InitContext.Activate && DualityApp.ExecContext == DualityApp.ExecutionContext.Game)
@@ -39,7 +41,7 @@ namespace Pathfindax.Duality.Components
 
 					var nodeGrid = new AStarGrid(SourceNodeGrid);
 					var algorithm = new AStarAlgorithm();
-
+					_nodeVisualizer = new NodeVisualizer(SourceNodeGrid, 0.5f);
 					MultithreadedPathfinder = new MultithreadedPathfinder<INodeGrid<IAStarGridNode>, IAStarGridNode>(new List<INodeGrid<IAStarGridNode>> { nodeGrid }, algorithm);
 					MultithreadedPathfinder.Start();
 				}
@@ -55,42 +57,7 @@ namespace Pathfindax.Duality.Components
 
 		void ICmpRenderer.Draw(IDrawDevice device)
 		{
-
-		}
-	}
-
-	public class SourceNodeGridVisualizer<TNodeNetwork, TNode>
-		where TNodeNetwork : INodeNetwork<TNode>
-		where TNode : INode
-	{
-		private TNodeNetwork _nodeNetwork;
-
-		public SourceNodeGridVisualizer(TNodeNetwork nodeNetwork)
-		{
-			_nodeNetwork = nodeNetwork;
-		}
-
-		public void Visualize(IDrawDevice device)
-		{
-			if (_nodeNetwork != null)
-			{
-				var canvas = new Canvas(device);
-				for (int y = 0; y < _nodeNetwork.NodeArray.Height; y++)
-				{
-					for (int x = 0; x < _nodeNetwork.NodeArray.Width; x++)
-					{
-						var node = _nodeNetwork.NodeArray[x, y];
-						if (node.Walkable)
-						{
-							canvas.DrawCircle(node.WorldPosition.X, node.WorldPosition.Y, 0.5f);
-						}
-						else
-						{
-							canvas.FillCircle(node.WorldPosition.X, node.WorldPosition.Y, 0.5f);
-						}
-					}
-				}
-			}
+			_nodeVisualizer.Draw(device);
 		}
 	}
 }
