@@ -43,7 +43,10 @@
     <Compile Include="Collections\Interfaces\IHeapItem.cs" />
     <Compile Include="Collections\MinHeap.cs" />
     <Compile Include="Grid\AStarGrid.cs" />
+    <Compile Include="Grid\Factories\SourceNodeGridFactory.cs" />
     <Compile Include="Grid\GenerateNodeGridNeighbours.cs" />
+    <Compile Include="Grid\Interfaces\INodeNetwork.cs" />
+    <Compile Include="Grid\NodeGridBase.cs" />
     <Compile Include="Nodes\GridNode.cs" />
     <Compile Include="Nodes\IaStarGridNode.cs" />
     <Compile Include="Nodes\Interfaces\IAStarGridNode.cs" />
@@ -51,7 +54,6 @@
     <Compile Include="Nodes\Interfaces\INode.cs" />
     <Compile Include="Grid\Interfaces\INodeGrid.cs" />
     <Compile Include="Grid\Interfaces\ISourceNodeGridProvider.cs" />
-    <Compile Include="Grid\Interfaces\ISourceNodeGrid.cs" />
     <Compile Include="Grid\SourceNodeGrid.cs" />
     <Compile Include="Nodes\Node.cs" />
     <Compile Include="PathfindEngine\CompletedPath.cs" />
@@ -69,10 +71,12 @@
     <Compile Include="Threading\MultithreadedWorkerQueue.cs" />
     <Compile Include="Threading\Worker.cs" />
     <Compile Include="Threading\WorkItem.cs" />
+    <Compile Include="Utils\Mathf.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Pathfindax.nuspec" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>mkdir "$(SolutionDir)../../Plugins"

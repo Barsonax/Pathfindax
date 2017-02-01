@@ -23,8 +23,8 @@ namespace Pathfindax.Test
 	{
 		private static AStarGrid InitializeNodeGrid(int width, int height, float cellSize)
 		{
-			var array = SourceNodeGrid.GeneratePreFilledArray(width, height, 1, GenerateNodeGridNeighbours.All);
-			var sourceNodeGrid = new SourceNodeGrid(array, cellSize);
+			var sourceNodeGridFactory = new SourceNodeGridFactory();
+			var sourceNodeGrid = sourceNodeGridFactory.GeneratePreFilledArray(width, height, cellSize, GenerateNodeGridNeighbours.All);
 			return new AStarGrid(sourceNodeGrid);
 		}
 

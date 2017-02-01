@@ -12,13 +12,14 @@
         <member name="M:Pathfindax.Algorithms.AStarAlgorithm.FindPath(Pathfindax.Grid.INodeGrid{Pathfindax.Nodes.IAStarGridNode},Pathfindax.Primitives.PositionF,Pathfindax.Primitives.PositionF)">
             <inheritdoc />
         </member>
-        <member name="T:Pathfindax.Algorithms.IPathFindAlgorithm`1">
+        <member name="T:Pathfindax.Algorithms.IPathFindAlgorithm`2">
             <summary>
             Interface for classes that implement algorithms to find a path.
             </summary>
             <typeparam name="TNodeNetwork"></typeparam>
+            <typeparam name="TNode"></typeparam>
         </member>
-        <member name="M:Pathfindax.Algorithms.IPathFindAlgorithm`1.FindPath(`0,Pathfindax.Primitives.PositionF,Pathfindax.Primitives.PositionF)">
+        <member name="M:Pathfindax.Algorithms.IPathFindAlgorithm`2.FindPath(`0,Pathfindax.Primitives.PositionF,Pathfindax.Primitives.PositionF)">
             <summary>
             Finds a path from <paramref name="pathStart"></paramref> to <paramref name="pathEnd"></paramref> using the <paramref name="nodeNetwork"></paramref> and returns this as a list of <see cref="T:Pathfindax.Nodes.IGridNodeBase"/>.
             </summary>
@@ -77,6 +78,16 @@
             Do not share this between threads.
             </summary>
         </member>
+        <member name="M:Pathfindax.Grid.SourceNodeGridFactory.GeneratePreFilledArray(System.Int32,System.Int32,System.Single,Pathfindax.Grid.GenerateNodeGridNeighbours)">
+            <summary>
+            Returns a preconfigured <see cref="T:Pathfindax.Collections.Array2D`1"/> which can be used to make a <see cref="T:Pathfindax.Grid.SourceNodeGrid"/>
+            </summary>
+            <param name="width"></param>
+            <param name="height"></param>
+            <param name="nodeSize"></param>
+            <param name="generateNodeGridNeighbours"></param>
+            <returns></returns>
+        </member>
         <member name="F:Pathfindax.Grid.GenerateNodeGridNeighbours.None">
             <summary>
             Generate no neighbours.
@@ -96,16 +107,6 @@
             <summary>
             Class that holds nodegrid data which wont change and is safe to share between threads
             </summary>
-        </member>
-        <member name="M:Pathfindax.Grid.SourceNodeGrid.GeneratePreFilledArray(System.Int32,System.Int32,System.Single,Pathfindax.Grid.GenerateNodeGridNeighbours)">
-            <summary>
-            Returns a preconfigured <see cref="T:Pathfindax.Collections.Array2D`1"/> which can be used to make a <see cref="T:Pathfindax.Grid.SourceNodeGrid"/>
-            </summary>
-            <param name="width"></param>
-            <param name="height"></param>
-            <param name="nodeSize"></param>
-            <param name="generateNodeGridNeighbours"></param>
-            <returns></returns>
         </member>
         <member name="F:Pathfindax.PathfindEngine.CompletedPath.Path">
             <summary>
@@ -143,20 +144,20 @@
             </summary>
             <param name="pathRequest"></param>
         </member>
-        <member name="M:Pathfindax.PathfindEngine.MultithreadedPathfinder`1.Dispose">
+        <member name="M:Pathfindax.PathfindEngine.MultithreadedPathfinder`2.Dispose">
             <summary>
             Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
             </summary>
         </member>
-        <member name="M:Pathfindax.PathfindEngine.PathRequestProcesser`1.#ctor(System.Collections.Generic.IList{`0},Pathfindax.Algorithms.IPathFindAlgorithm{`0},System.Collections.Generic.IList{Pathfindax.PathfindEngine.IPathPostProcess})">
+        <member name="M:Pathfindax.PathfindEngine.PathRequestProcesser`2.#ctor(System.Collections.Generic.IList{`0},Pathfindax.Algorithms.IPathFindAlgorithm{`0,`1},System.Collections.Generic.IList{Pathfindax.PathfindEngine.IPathPostProcess})">
             <summary>
-            Initialises a new <see cref="T:Pathfindax.PathfindEngine.PathRequestProcesser`1"/> with a <see cref="T:Pathfindax.Algorithms.IPathFindAlgorithm`1"/> and optional post processing steps.
+            Initialises a new <see cref="T:Pathfindax.PathfindEngine.PathRequestProcesser`2"/> with a <see cref="T:Pathfindax.Algorithms.IPathFindAlgorithm`2"/> and optional post processing steps.
             </summary>
             <param name="nodeGrids">The nodegrids that will be used to solve paths</param>
             <param name="pathFindAlgorithm">The algorithm that will be used to solve paths</param>
-            <param name="pathPostProcesses">The post processing steps that will be applied after the <see cref="T:Pathfindax.Algorithms.IPathFindAlgorithm`1"/> found a path</param>
+            <param name="pathPostProcesses">The post processing steps that will be applied after the <see cref="T:Pathfindax.Algorithms.IPathFindAlgorithm`2"/> found a path</param>
         </member>
-        <member name="M:Pathfindax.PathfindEngine.PathRequestProcesser`1.Process(Pathfindax.PathfindEngine.PathRequest)">
+        <member name="M:Pathfindax.PathfindEngine.PathRequestProcesser`2.Process(Pathfindax.PathfindEngine.PathRequest)">
             <summary>
             Solves a <see cref="T:Pathfindax.PathfindEngine.PathRequest"/>
             </summary>

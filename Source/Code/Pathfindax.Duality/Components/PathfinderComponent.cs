@@ -23,26 +23,24 @@ namespace Pathfindax.Duality.Components
 			{
 				if (MultithreadedPathfinder == null)
 				{
-					var width = 16;
-					var height = 16;
-					var array = SourceNodeGrid.GeneratePreFilledArray(width, height, 1, GenerateNodeGridNeighbours.All);
-					array[5, 4].Walkable = false;
-					array[5, 5].Walkable = false;
-					array[5, 6].Walkable = false;
-					array[5, 7].Walkable = false;
-					array[5, 8].Walkable = false;
+					var sourceNodeGridFactory = new SourceNodeGridFactory();
+					SourceNodeGrid = sourceNodeGridFactory.GeneratePreFilledArray(16, 16, 1, GenerateNodeGridNeighbours.All);
+					SourceNodeGrid.NodeArray[5, 4].Walkable = false;
+					SourceNodeGrid.NodeArray[5, 5].Walkable = false;
+					SourceNodeGrid.NodeArray[5, 6].Walkable = false;
+					SourceNodeGrid.NodeArray[5, 7].Walkable = false;
+					SourceNodeGrid.NodeArray[5, 8].Walkable = false;
 
-					array[5, 10].Walkable = false;
-					array[6, 10].Walkable = false;
-					array[7, 10].Walkable = false;
-					array[8, 10].Walkable = false;
-					array[9, 10].Walkable = false;
+					SourceNodeGrid.NodeArray[5, 10].Walkable = false;
+					SourceNodeGrid.NodeArray[6, 10].Walkable = false;
+					SourceNodeGrid.NodeArray[7, 10].Walkable = false;
+					SourceNodeGrid.NodeArray[8, 10].Walkable = false;
+					SourceNodeGrid.NodeArray[9, 10].Walkable = false;
 
-					SourceNodeGrid = new SourceNodeGrid(array, 1);
 					var nodeGrid = new AStarGrid(SourceNodeGrid);
 					var algorithm = new AStarAlgorithm();
 
-					MultithreadedPathfinder = new MultithreadedPathfinder<INodeGrid<IAStarGridNode>>(new List<INodeGrid<IAStarGridNode>> { nodeGrid }, algorithm);
+					MultithreadedPathfinder = new MultithreadedPathfinder<INodeGrid<IAStarGridNode>, IAStarGridNode>(new List<INodeGrid<IAStarGridNode>> { nodeGrid }, algorithm);
 					MultithreadedPathfinder.Start();
 				}
 			}
@@ -57,14 +55,31 @@ namespace Pathfindax.Duality.Components
 
 		void ICmpRenderer.Draw(IDrawDevice device)
 		{
-			if (SourceNodeGrid != null)
+
+		}
+	}
+
+	public class SourceNodeGridVisualizer<TNodeNetwork, TNode>
+		where TNodeNetwork : INodeNetwork<TNode>
+		where TNode : INode
+	{
+		private TNodeNetwork _nodeNetwork;
+
+		public SourceNodeGridVisualizer(TNodeNetwork nodeNetwork)
+		{
+			_nodeNetwork = nodeNetwork;
+		}
+
+		public void Visualize(IDrawDevice device)
+		{
+			if (_nodeNetwork != null)
 			{
 				var canvas = new Canvas(device);
-				for (int y = 0; y < SourceNodeGrid.NodeArray.Height; y++)
+				for (int y = 0; y < _nodeNetwork.NodeArray.Height; y++)
 				{
-					for (int x = 0; x < SourceNodeGrid.NodeArray.Width; x++)
+					for (int x = 0; x < _nodeNetwork.NodeArray.Width; x++)
 					{
-						var node = SourceNodeGrid.NodeArray[x, y];
+						var node = _nodeNetwork.NodeArray[x, y];
 						if (node.Walkable)
 						{
 							canvas.DrawCircle(node.WorldPosition.X, node.WorldPosition.Y, 0.5f);

@@ -11,7 +11,7 @@ namespace Pathfindax.Algorithms
 	/// <summary>
 	/// Class that implements the A* algorithm to find paths
 	/// </summary>
-	public class AStarAlgorithm : IPathFindAlgorithm<INodeGrid<IAStarGridNode>>
+	public class AStarAlgorithm : IPathFindAlgorithm<INodeGrid<IAStarGridNode>, IAStarGridNode>
 	{
 		/// <inheritdoc />
 		public IList<INode> FindPath(INodeGrid<IAStarGridNode> nodeGrid, PositionF pathStart, PositionF pathEnd)

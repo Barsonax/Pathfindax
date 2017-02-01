@@ -53,7 +53,7 @@
                   <tileData dataType="Struct" type="Duality.Plugins.Tilemaps.TilemapData" id="3782427491" custom="true">
                     <body>
                       <version dataType="Int">3</version>
-                      <data dataType="Array" type="System.Byte[]" id="632110822">H4sIAAAAAAAEAO3BMQEAAAjAoIUwgP1TmsIP2GoCAAAA4NsBd4sGdogRAAA=</data>
+                      <data dataType="Array" type="System.Byte[]" id="632110822">H4sIAAAAAAAEAFNgYGAQYRgFo2AUjIJRMAroBwIpowY9GFn+C4FQkdioYGwaBj1AdW4QhDKAUIYQyghCBWDTMOgBVv9ZQChLFGrY+s8KQg0H//lAKE9slDc2DYMejKzyc/j5bxSMglFAHAAA+TTu94gRAAA=</data>
                     </body>
                   </tileData>
                   <tileset dataType="Struct" type="Duality.ContentRef`1[[Duality.Plugins.Tilemaps.Tileset]]">
@@ -219,7 +219,7 @@
                   <tileData dataType="Struct" type="Duality.Plugins.Tilemaps.TilemapData" id="4117116323" custom="true">
                     <body>
                       <version dataType="Int">3</version>
-                      <data dataType="Array" type="System.Byte[]" id="821696358">H4sIAAAAAAAEAO3FQQ0AQAgEsRWBgJOCf1WQ88Cvk0z6ktTe+QEAAAAAAOCIAVoBQEaIEQAA</data>
+                      <data dataType="Array" type="System.Byte[]" id="821696358">H4sIAAAAAAAEAO3OMQ0AIBBD0YpAAEKAMAD+JUGohRtu+E2at/4qqbxP/QEAQFaa6WZkSAplmW1OhiQAAAAAgGguPaFWy4gRAAA=</data>
                     </body>
                   </tileData>
                   <tileset dataType="Struct" type="Duality.ContentRef`1[[Duality.Plugins.Tilemaps.Tileset]]">
@@ -317,7 +317,7 @@
                   <shapes dataType="Struct" type="System.Collections.Generic.List`1[[Duality.Components.Physics.ShapeInfo]]" id="2417071285">
                     <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="1334378230" length="4" />
                     <_size dataType="Int">0</_size>
-                    <_version dataType="Int">4</_version>
+                    <_version dataType="Int">50</_version>
                   </shapes>
                 </item>
                 <item dataType="Struct" type="Duality.Plugins.Tilemaps.TilemapCollider" id="648828488">
