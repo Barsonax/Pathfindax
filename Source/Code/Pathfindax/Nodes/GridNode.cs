@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using Pathfindax.Primitives;
 
 namespace Pathfindax.Nodes
 {
+	[DebuggerDisplay("{WorldPosition}")]
 	public class GridNode : GridNodeBase, IGridNode
 	{
 		public IList<IGridNode> Neighbours { get; set; }
@@ -13,6 +15,7 @@ namespace Pathfindax.Nodes
 		}
 	}
 
+	[DebuggerDisplay("{WorldPosition}")]
 	public abstract class GridNodeBase : NodeBase, IGridNodeBase
 	{
 		public int GridX { get; }
@@ -30,6 +33,11 @@ namespace Pathfindax.Nodes
 			Walkable = walkable;
 			GridX = (int)worldPos.X;
 			GridY = (int)worldPos.Y;
+		}
+
+		public override string ToString()
+		{
+			return $"{GridX}:{GridY}";
 		}
 	}
 }

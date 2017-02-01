@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Pathfindax.Duality.Tilemaps</RootNamespace>
-    <AssemblyName>Pathfindax.Duality.Tilemaps</AssemblyName>
+    <AssemblyName>Pathfindax.Duality.Tilemaps.core</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Components\TilemapNodeGridGenerator.cs" />
+    <Compile Include="PathfindaxTilemapPlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

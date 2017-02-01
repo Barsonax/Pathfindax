@@ -53,7 +53,7 @@
                   <tileData dataType="Struct" type="Duality.Plugins.Tilemaps.TilemapData" id="3782427491" custom="true">
                     <body>
                       <version dataType="Int">3</version>
-                      <data dataType="Array" type="System.Byte[]" id="632110822">H4sIAAAAAAAEAFNgYGAQYRgFo2AUjIJRMAroBwIpowY9GFn+C4FQkdioYGwaBj1AdW4QhDKAUIYQyghCBWDTMOgBVv9ZQChLFGrY+s8KQg0H//lAKE9slDc2DYMejKzyc/j5bxSMglFAHAAA+TTu94gRAAA=</data>
+                      <data dataType="Array" type="System.Byte[]" id="632110822">H4sIAAAAAAAEAOWXPQ6AIAxGOYQH8AjqJN7A6ODf4v0v4lAWk0b7I1rwLV+MAn0hQVo65wp3jb95nxAEFX//9G0oiTi1EmUtllSuUPqZh11nKhsXkPqlAr1c5cbNupDC9pPyL78NYsdixQZIof/DH/VbICqIGqKBmLABUth3FCmoX3taIUS2fh1EDn4jRI/FgA2Q8pGfpfMzxvliyY/9pSUS82N3fK/dz+hTP9q1KvsHS702nQOpIPtiiBEAAA==</data>
                     </body>
                   </tileData>
                   <tileset dataType="Struct" type="Duality.ContentRef`1[[Duality.Plugins.Tilemaps.Tileset]]">
@@ -315,9 +315,9 @@
                   <linearVel dataType="Struct" type="Duality.Vector2" />
                   <revolutions dataType="Float">0</revolutions>
                   <shapes dataType="Struct" type="System.Collections.Generic.List`1[[Duality.Components.Physics.ShapeInfo]]" id="2417071285">
-                    <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="1334378230" length="4" />
+                    <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="1334378230" length="8" />
                     <_size dataType="Int">0</_size>
-                    <_version dataType="Int">50</_version>
+                    <_version dataType="Int">438</_version>
                   </shapes>
                 </item>
                 <item dataType="Struct" type="Duality.Plugins.Tilemaps.TilemapCollider" id="648828488">
@@ -325,8 +325,8 @@
                   <gameobj dataType="ObjectRef">2534534569</gameobj>
                   <origin dataType="Enum" type="Duality.Alignment" name="Center" value="0" />
                   <roundedCorners dataType="Bool">true</roundedCorners>
-                  <shapeFriction dataType="Float">0.3</shapeFriction>
-                  <shapeRestitution dataType="Float">0.3</shapeRestitution>
+                  <shapeFriction dataType="Float">0.299999982</shapeFriction>
+                  <shapeRestitution dataType="Float">0.299999982</shapeRestitution>
                   <solidOuterEdges dataType="Bool">true</solidOuterEdges>
                   <source dataType="Array" type="Duality.Plugins.Tilemaps.TilemapCollisionSource[]" id="3581845140">
                     <item dataType="Struct" type="Duality.Plugins.Tilemaps.TilemapCollisionSource">
@@ -381,18 +381,28 @@
       <compList dataType="Struct" type="System.Collections.Generic.List`1[[Duality.Component]]" id="3244344056">
         <_items dataType="Array" type="Duality.Component[]" id="3612575113" length="4">
           <item dataType="ObjectRef">853176405</item>
+          <item dataType="Struct" type="Pathfindax.Duality.Tilemaps.Components.TilemapNodeGridGenerator" id="1370531804">
+            <_nodeGrid />
+            <_nodeVisualizer />
+            <_x003C_BoundRadius_x003E_k__BackingField dataType="Float">0</_x003C_BoundRadius_x003E_k__BackingField>
+            <active dataType="Bool">true</active>
+            <foo dataType="Int">0</foo>
+            <gameobj dataType="ObjectRef">2787828769</gameobj>
+          </item>
         </_items>
-        <_size dataType="Int">1</_size>
-        <_version dataType="Int">1</_version>
+        <_size dataType="Int">2</_size>
+        <_version dataType="Int">2</_version>
       </compList>
       <compMap dataType="Struct" type="System.Collections.Generic.Dictionary`2[[System.Type],[Duality.Component]]" id="1279086665" surrogate="true">
         <header />
         <body>
           <keys dataType="Array" type="System.Object[]" id="1378552084">
             <item dataType="ObjectRef">2883838748</item>
+            <item dataType="Type" id="2768341092" value="Pathfindax.Duality.Tilemaps.Components.TilemapNodeGridGenerator" />
           </keys>
           <values dataType="Array" type="System.Object[]" id="648235318">
             <item dataType="ObjectRef">853176405</item>
+            <item dataType="ObjectRef">1370531804</item>
           </values>
         </body>
       </compMap>
