@@ -14,6 +14,16 @@
 			Y = y;
 		}
 
+		public static PositionF operator -(PositionF p1, PositionF p2)
+		{
+			return new PositionF(p1.X - p2.X, p1.Y - p2.Y);
+		}
+
+		public static PositionF operator *(PositionF p1, float factor)
+		{
+			return new PositionF(p1.X * factor, p1.Y * factor);
+		}
+
 		public static bool operator ==(PositionF p1, PositionF p2)
 		{
 			return p1.X == p2.X && p1.Y == p2.Y;

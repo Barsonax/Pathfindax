@@ -39,7 +39,8 @@ namespace Pathfindax.Duality
 					canvas.State.ColorTint = ColorRgba.Red;
 					foreach (var nodeNeighbour in node.Neighbours)
 					{
-						canvas.DrawLine(node.WorldPosition.X + _offset.X, node.WorldPosition.Y + _offset.Y, nodeNeighbour.WorldPosition.X + _offset.X, nodeNeighbour.WorldPosition.Y + _offset.Y);
+						var vector = (nodeNeighbour.WorldPosition - node.WorldPosition) * 0.5f;
+						canvas.DrawLine(node.WorldPosition.X + _offset.X, node.WorldPosition.Y + _offset.Y, (node.WorldPosition.X + vector.X) + _offset.X, (node.WorldPosition.Y + vector.Y) + _offset.Y);
 					}
 				}
 			}
