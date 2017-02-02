@@ -78,7 +78,7 @@
             Do not share this between threads.
             </summary>
         </member>
-        <member name="M:Pathfindax.Grid.SourceNodeGridFactory.GeneratePreFilledArray(System.Int32,System.Int32,System.Single,Pathfindax.Grid.GenerateNodeGridNeighbours)">
+        <member name="M:Pathfindax.Grid.SourceNodeGridFactory.GeneratePreFilledArray(System.Int32,System.Int32,Pathfindax.Primitives.PositionF,Pathfindax.Grid.GenerateNodeGridNeighbours,Pathfindax.Primitives.PositionF)">
             <summary>
             Returns a preconfigured <see cref="T:Pathfindax.Collections.Array2D`1"/> which can be used to make a <see cref="T:Pathfindax.Grid.SourceNodeGrid"/>
             </summary>
@@ -86,6 +86,7 @@
             <param name="height"></param>
             <param name="nodeSize"></param>
             <param name="generateNodeGridNeighbours"></param>
+            <param name="offset"></param>
             <returns></returns>
         </member>
         <member name="F:Pathfindax.Grid.GenerateNodeGridNeighbours.None">
@@ -106,6 +107,11 @@
         <member name="T:Pathfindax.Grid.SourceNodeGrid">
             <summary>
             Class that holds nodegrid data which wont change and is safe to share between threads
+            </summary>
+        </member>
+        <member name="P:Pathfindax.Nodes.INode.Position">
+            <summary>
+            The local world position in the grid.
             </summary>
         </member>
         <member name="F:Pathfindax.PathfindEngine.CompletedPath.Path">

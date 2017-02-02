@@ -7,6 +7,7 @@ namespace Pathfindax.Grid
 		where TNode : IGridNodeBase
 	{
 		PositionF WorldSize { get; }
+		PositionF NodeSize { get; }
 		TNode GetNode(PositionF worldPosition);
 	}
 }

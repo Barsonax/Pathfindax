@@ -14,8 +14,9 @@ namespace Pathfindax.Grid
 		/// <param name="height"></param>
 		/// <param name="nodeSize"></param>
 		/// <param name="generateNodeGridNeighbours"></param>
+		/// <param name="offset"></param>
 		/// <returns></returns>
-		public SourceNodeGrid GeneratePreFilledArray(int width, int height, float nodeSize, GenerateNodeGridNeighbours generateNodeGridNeighbours)
+		public SourceNodeGrid GeneratePreFilledArray(int width, int height, PositionF nodeSize, GenerateNodeGridNeighbours generateNodeGridNeighbours, PositionF offset = default(PositionF))
 		{
 			var array = new Array2D<IGridNode>(width, height);
 
@@ -23,7 +24,7 @@ namespace Pathfindax.Grid
 			{
 				for (int x = 0; x < width; x++)
 				{
-					var node = new GridNode(new PositionF(x * nodeSize, y * nodeSize), x, y);
+					var node = new GridNode(new PositionF(x * nodeSize.X, y * nodeSize.Y), x, y);
 					array[x, y] = node;
 				}
 			}
@@ -43,7 +44,7 @@ namespace Pathfindax.Grid
 					}
 				}
 			}
-			return new SourceNodeGrid(array, nodeSize);
+			return new SourceNodeGrid(array, nodeSize, offset);
 		}
 
 		private IList<IGridNode> GetNeighbours(Array2D<IGridNode> nodeArray, IGridNodeBase gridNode, GenerateNodeGridNeighbours generateNodeGridNeighbours)

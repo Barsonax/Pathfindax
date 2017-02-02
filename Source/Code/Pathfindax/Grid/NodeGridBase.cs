@@ -13,12 +13,16 @@ namespace Pathfindax.Grid
 	{
 		public Array2D<TNode> NodeArray { get; protected set; }
 		public PositionF WorldSize { get; protected set; }
+		public PositionF NodeSize { get; }
 		public int NodeCount => NodeArray.Length;
+		public PositionF Offset { get; }
 
-		protected NodeGridBase(Array2D<TNode> grid, float cellSize)
+		protected NodeGridBase(Array2D<TNode> grid, PositionF nodeSize, PositionF offset)
 		{
 			NodeArray = grid;
-			WorldSize = new PositionF(NodeArray.Width * cellSize - cellSize, NodeArray.Height * cellSize - cellSize);
+			WorldSize = new PositionF(NodeArray.Width * nodeSize.X - nodeSize.X, NodeArray.Height * nodeSize.Y - nodeSize.Y);
+			NodeSize = nodeSize;
+			Offset = offset;
 		}
 
 		protected NodeGridBase() { }

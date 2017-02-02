@@ -1,22 +1,21 @@
-﻿using System.Collections.Generic;
-using System.Linq.Expressions;
-using Duality;
+﻿using Duality;
 using Duality.Drawing;
+using Pathfindax.Grid;
 using Pathfindax.Nodes;
 
 namespace Pathfindax.Duality
 {
 	public class NodeVisualizer
 	{
-		private readonly IEnumerable<IGridNode> _nodeNetwork;
+		private readonly INodeNetwork<IGridNode> _nodeNetwork;
 		private readonly float _nodeSize;
 		private Vector2 _offset;
 
-		public NodeVisualizer(IEnumerable<IGridNode> nodeNetwork, float nodeSize, Vector2 offset = default(Vector2))
+		public NodeVisualizer(INodeNetwork<IGridNode> nodeNetwork, float nodeSize)
 		{
 			_nodeNetwork = nodeNetwork;
 			_nodeSize = nodeSize;
-			_offset = offset;
+			_offset = new Vector2(nodeNetwork.Offset.X, nodeNetwork.Offset.Y);
 		}
 
 		public void Draw(IDrawDevice device)
@@ -30,17 +29,17 @@ namespace Pathfindax.Duality
 					canvas.State.ColorTint = ColorRgba.LightGrey;
 					if (node.Walkable)
 					{
-						canvas.DrawCircle(node.WorldPosition.X + _offset.X, node.WorldPosition.Y + _offset.Y, _nodeSize);
+						
 					}
 					else
 					{
-						canvas.FillCircle(node.WorldPosition.X + _offset.X, node.WorldPosition.Y + _offset.Y, _nodeSize);
+						canvas.FillCircle(node.Position.X + _offset.X, node.Position.Y + _offset.Y, _nodeSize);
 					}
-					canvas.State.ColorTint = ColorRgba.Red;
+					canvas.State.ColorTint = new ColorRgba(199, 21, 133);
 					foreach (var nodeNeighbour in node.Neighbours)
 					{
-						var vector = (nodeNeighbour.WorldPosition - node.WorldPosition) * 0.5f;
-						canvas.DrawLine(node.WorldPosition.X + _offset.X, node.WorldPosition.Y + _offset.Y, (node.WorldPosition.X + vector.X) + _offset.X, (node.WorldPosition.Y + vector.Y) + _offset.Y);
+						var vector = (nodeNeighbour.Position - node.Position) * 0.5f;
+						canvas.DrawDashLine(node.Position.X + _offset.X, node.Position.Y + _offset.Y, (node.Position.X + vector.X) + _offset.X, (node.Position.Y + vector.Y) + _offset.Y);
 					}
 				}
 			}

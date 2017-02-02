@@ -14,7 +14,7 @@ namespace Pathfindax.Nodes
 	}
 
 	[Serializable]
-	[DebuggerDisplay("{WorldPosition}")]
+	[DebuggerDisplay("{Position}")]
 	public class AstarGridNodeBase : GridNodeBase
 	{
 		public int HCost { get; set; }
@@ -22,7 +22,7 @@ namespace Pathfindax.Nodes
 		public int HeapIndex { get; set; }
 		public int FCost => GCost + HCost;
 
-		public AstarGridNodeBase(IGridNodeBase source) : base(source.WorldPosition, source.GridX, source.GridY, source.Walkable)
+		public AstarGridNodeBase(IGridNodeBase source) : base(source.Position, source.GridX, source.GridY, source.Walkable)
 		{
 			HCost = -1;
 			GCost = -1;

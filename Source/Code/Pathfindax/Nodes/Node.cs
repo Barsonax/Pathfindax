@@ -17,11 +17,11 @@ namespace Pathfindax.Nodes
 	{
 		public INode Parent { get; set; }
 		public bool Walkable { get; set; }
-		public PositionF WorldPosition { get; }
+		public PositionF Position { get; }
 
 		protected NodeBase(PositionF worldPos, bool walkable)
 		{
-			WorldPosition = worldPos;
+			Position = worldPos;
 			Walkable = walkable;
 		}
 	}

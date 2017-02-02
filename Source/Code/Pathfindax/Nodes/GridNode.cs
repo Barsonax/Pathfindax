@@ -4,7 +4,7 @@ using Pathfindax.Primitives;
 
 namespace Pathfindax.Nodes
 {
-	[DebuggerDisplay("{WorldPosition}")]
+	[DebuggerDisplay("{Position}")]
 	public class GridNode : GridNodeBase, IGridNode
 	{
 		public IList<IGridNode> Neighbours { get; set; }
@@ -15,7 +15,7 @@ namespace Pathfindax.Nodes
 		}
 	}
 
-	[DebuggerDisplay("{WorldPosition}")]
+	[DebuggerDisplay("{Position}")]
 	public abstract class GridNodeBase : NodeBase, IGridNodeBase
 	{
 		public int GridX { get; }

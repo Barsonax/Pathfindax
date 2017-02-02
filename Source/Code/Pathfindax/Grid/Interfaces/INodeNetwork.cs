@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Pathfindax.Collections;
 using Pathfindax.Nodes;
+using Pathfindax.Primitives;
 
 namespace Pathfindax.Grid
 {
@@ -9,5 +10,6 @@ namespace Pathfindax.Grid
 	{
 		Array2D<TNode> NodeArray { get; }
 		int NodeCount { get; }
+		PositionF Offset { get; }
 	}
 }

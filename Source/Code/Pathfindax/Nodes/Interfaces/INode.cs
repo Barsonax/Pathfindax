@@ -13,6 +13,10 @@ namespace Pathfindax.Nodes
 	{
 		INode Parent { get; set; }
 		bool Walkable { get; set; }
-		PositionF WorldPosition { get; }
+
+		/// <summary>
+		/// The local world position in the grid.
+		/// </summary>
+		PositionF Position { get; }
 	}
 }

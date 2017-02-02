@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Management.Instrumentation;
 using Duality;
@@ -8,6 +9,7 @@ using Duality.Plugins.Tilemaps;
 using Pathfindax.Collections;
 using Pathfindax.Grid;
 using Pathfindax.Nodes;
+using Pathfindax.Primitives;
 
 namespace Pathfindax.Duality.Tilemaps.Components
 {
@@ -23,81 +25,25 @@ namespace Pathfindax.Duality.Tilemaps.Components
 				if (baseTilemap == null) throw new InstanceNotFoundException("No tilemaps found in gameobject children!");
 				var sourceNodeGridFactory = new SourceNodeGridFactory();
 				_nodeGrid = new INodeGrid<IGridNode>[4];
-				var tileSize = baseTilemap.Tileset.Res.TileSize;
 				var offset = -new Vector2((baseTilemap.Size.X * baseTilemap.Tileset.Res.TileSize.X) - baseTilemap.Tileset.Res.TileSize.X, (baseTilemap.Size.Y * baseTilemap.Tileset.Res.TileSize.Y) - baseTilemap.Tileset.Res.TileSize.Y) / 2;
+				var nodeGridRayCaster = new NodeGridRayCaster();
 				for (int i = 0; i < 4; i++)
 				{
-					var sourceNodeGrid = sourceNodeGridFactory.GeneratePreFilledArray(baseTilemap.Size.X, baseTilemap.Size.Y, baseTilemap.Tileset.Res.TileSize.X, GenerateNodeGridNeighbours.None);
-					//TODO this is a hack since this doesnt work for tiles that do not have a equal X and Y.
+					var collisionCategory = (CollisionCategory) (1 << i);
+					var sourceNodeGrid = sourceNodeGridFactory.GeneratePreFilledArray(baseTilemap.Size.X, baseTilemap.Size.Y, new PositionF(baseTilemap.Tileset.Res.TileSize.X, baseTilemap.Tileset.Res.TileSize.Y), GenerateNodeGridNeighbours.None, new PositionF(offset.X, offset.Y));
 					for (int y = 0; y < baseTilemap.Size.Y; y++)
 					{
 						for (int x = 0; x < baseTilemap.Size.X; x++)
 						{
-							var currentPosition = offset + new Vector2(x * tileSize.X, y * tileSize.Y);
-							var nodesToExclude = new HashSet<Point2>();
-							if (currentPosition.X < 50 && currentPosition.Y < 50)
-							{
-
-							}
-							RayCastData firstHit;
-							if (RigidBody.RayCast(currentPosition, currentPosition + new Vector2(0, -tileSize.Y), hitData => hitData.Fraction, out firstHit) && RigidBody.RayCast(currentPosition + new Vector2(0, -tileSize.Y), currentPosition, hitData => hitData.Fraction, out firstHit))
-							{
-								AddNodeExclude(nodesToExclude, 0, -1);
-								AddNodeExclude(nodesToExclude, 1, -1);
-								AddNodeExclude(nodesToExclude, -1, -1);
-							}
-
-							if (RigidBody.RayCast(currentPosition, currentPosition + new Vector2(0, tileSize.Y), hitData => hitData.Fraction, out firstHit) && RigidBody.RayCast(currentPosition + new Vector2(0, tileSize.Y), currentPosition, hitData => hitData.Fraction, out firstHit))
-							{
-								AddNodeExclude(nodesToExclude, 0, 1);
-								AddNodeExclude(nodesToExclude, 1, 1);
-								AddNodeExclude(nodesToExclude, -1, 1);
-							}
-
-							if (RigidBody.RayCast(currentPosition, currentPosition + new Vector2(-tileSize.X, 0), hitData => hitData.Fraction, out firstHit) && RigidBody.RayCast(currentPosition + new Vector2(-tileSize.X, 0), currentPosition, hitData => hitData.Fraction, out firstHit))
-							{
-								AddNodeExclude(nodesToExclude, -1, 0);
-								AddNodeExclude(nodesToExclude, -1, 1);
-								AddNodeExclude(nodesToExclude, -1, -1);
-							}
-
-							if (RigidBody.RayCast(currentPosition, currentPosition + new Vector2(tileSize.X, 0), hitData => hitData.Fraction, out firstHit) && RigidBody.RayCast(currentPosition + new Vector2(tileSize.X, 0), currentPosition, hitData => hitData.Fraction, out firstHit))
-							{
-								AddNodeExclude(nodesToExclude, 1, 0);
-								AddNodeExclude(nodesToExclude, 1, 1);
-								AddNodeExclude(nodesToExclude, 1, -1);
-							}
-
-							if (RigidBody.RayCast(currentPosition, currentPosition + new Vector2(tileSize.X, tileSize.Y), hitData => hitData.Fraction, out firstHit) && RigidBody.RayCast(currentPosition + new Vector2(tileSize.X, tileSize.Y), currentPosition, hitData => hitData.Fraction, out firstHit))
-							{
-								AddNodeExclude(nodesToExclude, 1, 1);
-							}
-
-							if (RigidBody.RayCast(currentPosition, currentPosition + new Vector2(-tileSize.X, tileSize.Y), hitData => hitData.Fraction, out firstHit) && RigidBody.RayCast(currentPosition + new Vector2(-tileSize.X, tileSize.Y), currentPosition, hitData => hitData.Fraction, out firstHit))
-							{
-								AddNodeExclude(nodesToExclude, -1, 1);
-							}
-
-							if (RigidBody.RayCast(currentPosition, currentPosition + new Vector2(-tileSize.X, -tileSize.Y), hitData => hitData.Fraction, out firstHit) && RigidBody.RayCast(currentPosition + new Vector2(-tileSize.X, -tileSize.Y), currentPosition, hitData => hitData.Fraction, out firstHit))
-							{
-								AddNodeExclude(nodesToExclude, -1, -1);
-							}
-
-							if (RigidBody.RayCast(currentPosition, currentPosition + new Vector2(tileSize.X, -tileSize.Y), hitData => hitData.Fraction, out firstHit) && RigidBody.RayCast(currentPosition + new Vector2(tileSize.X, -tileSize.Y), currentPosition, hitData => hitData.Fraction, out firstHit))
-							{
-								AddNodeExclude(nodesToExclude, 1, -1);
-							}
-
-
-
 							var node = sourceNodeGrid.NodeArray[x, y];
+							var nodesToExclude = nodeGridRayCaster.GetUnreachableNeighbours(sourceNodeGrid, node, collisionCategory);
 							AddNeighbours(sourceNodeGrid.NodeArray, node, nodesToExclude.ToList());
 						}
 					}
 
 					_nodeGrid[i] = sourceNodeGrid;
 				}
-				_nodeVisualizer = new NodeVisualizer(_nodeGrid[0], baseTilemap.Tileset.Res.TileSize.X / 2, offset);
+				_nodeVisualizer = new NodeVisualizer(_nodeGrid[0], baseTilemap.Tileset.Res.TileSize.X / 2);
 			}
 			return _nodeGrid;
 		}
@@ -117,11 +63,6 @@ namespace Pathfindax.Duality.Tilemaps.Components
 					}
 				}
 			}
-		}
-
-		private void AddNodeExclude(HashSet<Point2> nodesToExclude, int x, int y)
-		{
-			nodesToExclude.Add(new Point2(x, y));
 		}
 
 		public bool IsVisible(IDrawDevice device)

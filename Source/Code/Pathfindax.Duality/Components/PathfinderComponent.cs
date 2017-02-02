@@ -5,6 +5,7 @@ using Pathfindax.Algorithms;
 using Pathfindax.Grid;
 using Pathfindax.Nodes;
 using Pathfindax.PathfindEngine;
+using Pathfindax.Primitives;
 
 namespace Pathfindax.Duality.Components
 {
@@ -26,7 +27,7 @@ namespace Pathfindax.Duality.Components
 				if (MultithreadedPathfinder == null)
 				{
 					var sourceNodeGridFactory = new SourceNodeGridFactory();
-					SourceNodeGrid = sourceNodeGridFactory.GeneratePreFilledArray(16, 16, 1, GenerateNodeGridNeighbours.All);
+					SourceNodeGrid = sourceNodeGridFactory.GeneratePreFilledArray(16, 16, new PositionF(1, 1), GenerateNodeGridNeighbours.All);
 					SourceNodeGrid.NodeArray[5, 4].Walkable = false;
 					SourceNodeGrid.NodeArray[5, 5].Walkable = false;
 					SourceNodeGrid.NodeArray[5, 6].Walkable = false;

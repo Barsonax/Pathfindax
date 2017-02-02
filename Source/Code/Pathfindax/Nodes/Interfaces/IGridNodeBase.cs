@@ -1,4 +1,6 @@
-﻿namespace Pathfindax.Nodes
+﻿using Pathfindax.Primitives;
+
+namespace Pathfindax.Nodes
 {
 	public interface IGridNode : INode<IGridNode> , IGridNodeBase
 

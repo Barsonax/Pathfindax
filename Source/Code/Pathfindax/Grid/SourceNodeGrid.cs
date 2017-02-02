@@ -1,6 +1,7 @@
 ﻿using System;
 using Pathfindax.Collections;
 using Pathfindax.Nodes;
+using Pathfindax.Primitives;
 
 namespace Pathfindax.Grid
 {
@@ -10,7 +11,7 @@ namespace Pathfindax.Grid
 	[Serializable]
 	public class SourceNodeGrid : NodeGridBase<IGridNode>
 	{
-		public SourceNodeGrid(Array2D<IGridNode> grid, float cellSize) : base(grid, cellSize)
+		public SourceNodeGrid(Array2D<IGridNode> grid, PositionF nodeSize, PositionF offset) : base(grid, nodeSize, offset)
 		{
 
 		}
