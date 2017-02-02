@@ -7,6 +7,9 @@ using Pathfindax.Primitives;
 
 namespace Pathfindax.Duality.Components
 {
+	/// <summary>
+	/// Spams path requests as a example
+	/// </summary>
 	public class PathfindaxTestComponent : Component, ICmpUpdatable, ICmpRenderer
 	{
 		public PositionF[] Path { get; private set; }
