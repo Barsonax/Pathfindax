@@ -24,6 +24,7 @@ namespace Pathfindax.Duality.Components
 		{
 			if (context == InitContext.Activate && DualityApp.ExecContext == DualityApp.ExecutionContext.Game)
 			{
+				//GameObj.GetComponent<ISourceNodeNetworkProvider<>>()
 				if (MultithreadedPathfinder == null)
 				{
 					var sourceNodeGridFactory = new SourceNodeGridFactory();

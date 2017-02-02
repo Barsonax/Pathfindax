@@ -93,11 +93,9 @@ namespace Pathfindax.Duality.Tilemaps.Components
 
 		}
 
-		private int foo;
 		public void OnUpdate()
 		{
-			foo++;
-			if (foo == 5)
+			if (_nodeGrid == null)
 			{
 				GenerateGrid2D();
 			}
