@@ -123,12 +123,17 @@
               <inextp dataType="Int">21</inextp>
               <SeedArray dataType="Array" type="System.Int32[]" id="3452601660">0, 68186866, 1622073958, 1681501993, 448337996, 1951813015, 1462785090, 1636080126, 1750105099, 2131549456, 752298880, 813910332, 1441520117, 271445836, 894113727, 209933535, 941655940, 554416137, 1443417571, 1213555745, 909002538, 1318480174, 1582237259, 1101374738, 496238850, 27135610, 1487797168, 410915421, 1554369169, 406284098, 1063670090, 2074765735, 1321879527, 187711829, 1278402788, 490736354, 2097678630, 176930191, 1231755917, 685673406, 937503663, 530902605, 1397345572, 1453305115, 2120271310, 472805606, 768270480, 402190941, 1413369339, 722990544, 610838500, 740820848, 709069906, 1071179296, 2004199670, 921197927</SeedArray>
             </_randomGenerator>
+            <_x003C_BottomRightCorner_x003E_k__BackingField dataType="Struct" type="Duality.Point2">
+              <X dataType="Int">484</X>
+              <Y dataType="Int">484</Y>
+            </_x003C_BottomRightCorner_x003E_k__BackingField>
             <_x003C_BoundRadius_x003E_k__BackingField dataType="Float">0</_x003C_BoundRadius_x003E_k__BackingField>
             <_x003C_Path_x003E_k__BackingField />
             <_x003C_PathfinderProxy_x003E_k__BackingField dataType="Struct" type="Pathfindax.Duality.PathfinderProxy" id="103413486">
               <_pathfinderComponent />
               <_x003C_PathfinderId_x003E_k__BackingField />
             </_x003C_PathfinderProxy_x003E_k__BackingField>
+            <_x003C_TopLeftCorner_x003E_k__BackingField dataType="Struct" type="Duality.Point2" />
             <active dataType="Bool">true</active>
             <gameobj dataType="ObjectRef">168721759</gameobj>
           </item>

@@ -12,6 +12,8 @@ namespace Pathfindax.Duality.Components
 	/// </summary>
 	public class PathfindaxTestComponent : Component, ICmpUpdatable, ICmpRenderer
 	{
+		public Point2 TopLeftCorner { get; set; }
+		public Point2 BottomRightCorner { get; set; }
 		public PositionF[] Path { get; private set; }
 
 		[EditorHintFlags(MemberFlags.Invisible)]
@@ -23,8 +25,8 @@ namespace Pathfindax.Duality.Components
 		private readonly Random _randomGenerator = new Random();
 		void ICmpUpdatable.OnUpdate()
 		{
-			var start = new PositionF(_randomGenerator.Next(0, 484), _randomGenerator.Next(0, 484));
-			var end = new PositionF(_randomGenerator.Next(0, 484), _randomGenerator.Next(0, 484));
+			var start = new PositionF(_randomGenerator.Next(TopLeftCorner.X, BottomRightCorner.X), _randomGenerator.Next(TopLeftCorner.Y, BottomRightCorner.Y));
+			var end = new PositionF(_randomGenerator.Next(TopLeftCorner.X, BottomRightCorner.X), _randomGenerator.Next(TopLeftCorner.Y, BottomRightCorner.Y));
 			var request = new PathRequest(PathSolved, start, end, 1);
 			PathfinderProxy.RequestPath(request);
 		}
