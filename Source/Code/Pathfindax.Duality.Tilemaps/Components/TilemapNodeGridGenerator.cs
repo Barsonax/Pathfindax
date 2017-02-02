@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using System.Management.Instrumentation;
 using Duality;
 using Duality.Components.Physics;
 using Duality.Drawing;
@@ -22,7 +21,7 @@ namespace Pathfindax.Duality.Tilemaps.Components
 			{
 				var tilemaps = GameObj.GetComponentsInChildren<Tilemap>().ToArray();
 				var baseTilemap = tilemaps.FirstOrDefault();
-				if (baseTilemap == null) throw new InstanceNotFoundException("No tilemaps found in gameobject children!");
+				if (baseTilemap == null) throw new ArgumentException("No tilemaps found in gameobject children!");
 				var sourceNodeGridFactory = new SourceNodeGridFactory();
 				_nodeGrid = new INodeGrid<IGridNode>[4];
 				var offset = -new Vector2((baseTilemap.Size.X * baseTilemap.Tileset.Res.TileSize.X) - baseTilemap.Tileset.Res.TileSize.X, (baseTilemap.Size.Y * baseTilemap.Tileset.Res.TileSize.Y) - baseTilemap.Tileset.Res.TileSize.Y) / 2;

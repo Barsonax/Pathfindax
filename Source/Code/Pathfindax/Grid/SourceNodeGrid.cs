@@ -1,5 +1,4 @@
-﻿using System;
-using Pathfindax.Collections;
+﻿using Pathfindax.Collections;
 using Pathfindax.Nodes;
 using Pathfindax.Primitives;
 

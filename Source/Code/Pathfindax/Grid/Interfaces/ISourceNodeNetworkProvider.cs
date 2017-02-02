@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Pathfindax.Nodes;
+﻿using Pathfindax.Nodes;
 
 namespace Pathfindax.Grid
 {
