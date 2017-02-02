@@ -12,6 +12,3 @@ Currently still under construction
 | develop      | [![Build status](https://ci.appveyor.com/api/projects/status/0h8kc3pk5s0p1jir/branch/develop?svg=true)](https://ci.appveyor.com/project/Barsonax/pathfindax/branch/develop) |
 
 
-![](https://zippy.gfycat.com/BitesizedExcitableHydra.webm)
-
-
