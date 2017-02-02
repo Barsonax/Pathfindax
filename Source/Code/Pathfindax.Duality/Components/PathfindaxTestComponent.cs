@@ -23,12 +23,17 @@ namespace Pathfindax.Duality.Components
 		private PathfinderProxy PathfinderProxy { get; set; }
 
 		private readonly Random _randomGenerator = new Random();
+		private int _counter;
 		void ICmpUpdatable.OnUpdate()
 		{
-			var start = new PositionF(_randomGenerator.Next(TopLeftCorner.X, BottomRightCorner.X), _randomGenerator.Next(TopLeftCorner.Y, BottomRightCorner.Y));
-			var end = new PositionF(_randomGenerator.Next(TopLeftCorner.X, BottomRightCorner.X), _randomGenerator.Next(TopLeftCorner.Y, BottomRightCorner.Y));
-			var request = new PathRequest(PathSolved, start, end, 1);
-			PathfinderProxy.RequestPath(request);
+			_counter++;
+			if (_counter > 3)
+			{
+				var start = new PositionF(_randomGenerator.Next(TopLeftCorner.X, BottomRightCorner.X), _randomGenerator.Next(TopLeftCorner.Y, BottomRightCorner.Y));
+				var end = new PositionF(_randomGenerator.Next(TopLeftCorner.X, BottomRightCorner.X), _randomGenerator.Next(TopLeftCorner.Y, BottomRightCorner.Y));
+				var request = new PathRequest(PathSolved, start, end, 1);
+				PathfinderProxy.RequestPath(request);
+			}
 		}
 
 		private void PathSolved(CompletedPath completedPath)
@@ -48,10 +53,11 @@ namespace Pathfindax.Duality.Components
 			if (Path != null)
 			{
 				var canvas = new Canvas(device);
+				canvas.State.ZOffset = -10;
 				canvas.State.ColorTint = ColorRgba.Red;
 				foreach (var position in Path)
 				{
-					canvas.FillCircle(position.X, position.Y, 10f);
+					canvas.FillCircle(position.X + TopLeftCorner.X, position.Y + TopLeftCorner.Y, 10f);
 				}
 			}
 		}

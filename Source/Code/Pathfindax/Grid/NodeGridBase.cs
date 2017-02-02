@@ -13,9 +13,9 @@ namespace Pathfindax.Grid
 	{
 		public Array2D<TNode> NodeArray { get; protected set; }
 		public PositionF WorldSize { get; protected set; }
-		public PositionF NodeSize { get; }
+		public PositionF NodeSize { get; protected set; }
 		public int NodeCount => NodeArray.Length;
-		public PositionF Offset { get; }
+		public PositionF Offset { get; protected set; }
 
 		protected NodeGridBase(Array2D<TNode> grid, PositionF nodeSize, PositionF offset)
 		{
@@ -42,8 +42,8 @@ namespace Pathfindax.Grid
 
 		public TNode GetNode(PositionF worldPosition)
 		{
-			var percentX = worldPosition.X / WorldSize.X;
-			var percentY = worldPosition.Y / WorldSize.Y;
+			var percentX = (worldPosition.X - Offset.X) / WorldSize.X;
+			var percentY = (worldPosition.Y - Offset.Y) / WorldSize.Y;
 			percentX = Mathf.Clamp(percentX, 0, 1);
 			percentY = Mathf.Clamp(percentY, 0, 1);
 

@@ -2,7 +2,7 @@
 
 namespace Pathfindax.Grid
 {
-	public interface ISourceNodeNetworkProvider<TNodeNetwork, TNode>
+	public interface ISourceNodeNetworkProvider<out TNodeNetwork, TNode>
 		where TNode : INode
 		where TNodeNetwork : INodeNetwork<TNode>
 	{

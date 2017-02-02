@@ -11,6 +11,8 @@ namespace Pathfindax.Grid
 	{
 		public AStarGrid(INodeGrid<IGridNode> source)
 		{
+			Offset = source.Offset;
+			NodeSize = source.NodeSize;
 			NodeArray = new Array2D<IAStarGridNode>(source.NodeArray.Width, source.NodeArray.Height);
 			WorldSize = source.WorldSize;
 			for (int y = 0; y < source.NodeArray.Height; y++)

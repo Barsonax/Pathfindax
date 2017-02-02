@@ -12,11 +12,12 @@ using Pathfindax.Primitives;
 
 namespace Pathfindax.Duality.Tilemaps.Components
 {
-	public class TilemapNodeGridGenerator : Component, ISourceNodeNetworkProvider<INodeGrid<IGridNode>, IGridNode>, ICmpRenderer, ICmpInitializable, ICmpUpdatable
+	public class TilemapNodeGridGenerator : Component, ISourceNodeNetworkProvider<INodeGrid<IGridNode>, IGridNode>, ICmpInitializable, ICmpUpdatable
 	{
 		private INodeGrid<IGridNode>[] _nodeGrid;
 		public INodeGrid<IGridNode>[] GenerateGrid2D()
 		{
+			if(_counter < 2) throw new Exception("The nodegrid is not yet initialized please call this later");
 			if (_nodeGrid == null)
 			{
 				var tilemaps = GameObj.GetComponentsInChildren<Tilemap>().ToArray();
@@ -93,11 +94,13 @@ namespace Pathfindax.Duality.Tilemaps.Components
 
 		}
 
+		private int _counter;
 		public void OnUpdate()
 		{
-			if (_nodeGrid == null)
+			_counter++;
+			if (_counter == 2)
 			{
-				GenerateGrid2D();
+				
 			}
 		}
 	}
