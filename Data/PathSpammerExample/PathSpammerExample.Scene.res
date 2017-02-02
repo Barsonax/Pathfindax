@@ -21,13 +21,13 @@
             <ignoreParent dataType="Bool">false</ignoreParent>
             <parentTransform />
             <pos dataType="Struct" type="Duality.Vector3">
-              <X dataType="Float">7.66666651</X>
-              <Y dataType="Float">8.333334</Y>
+              <X dataType="Float">244</X>
+              <Y dataType="Float">244</Y>
               <Z dataType="Float">-10</Z>
             </pos>
             <posAbs dataType="Struct" type="Duality.Vector3">
-              <X dataType="Float">7.66666651</X>
-              <Y dataType="Float">8.333334</Y>
+              <X dataType="Float">244</X>
+              <Y dataType="Float">244</Y>
               <Z dataType="Float">-10</Z>
             </posAbs>
             <scale dataType="Float">1</scale>
@@ -38,7 +38,7 @@
           <item dataType="Struct" type="Duality.Components.Camera" id="2755592395">
             <active dataType="Bool">true</active>
             <farZ dataType="Float">10000</farZ>
-            <focusDist dataType="Float">15000</focusDist>
+            <focusDist dataType="Float">1000</focusDist>
             <gameobj dataType="ObjectRef">2218316588</gameobj>
             <nearZ dataType="Float">0</nearZ>
             <passes dataType="Struct" type="System.Collections.Generic.List`1[[Duality.Components.Camera+Pass]]" id="1953624159">
@@ -109,6 +109,7 @@
       <compList dataType="Struct" type="System.Collections.Generic.List`1[[Duality.Component]]" id="1647069853">
         <_items dataType="Array" type="Duality.Component[]" id="3947007718" length="4">
           <item dataType="Struct" type="Pathfindax.Duality.Components.PathfinderComponent" id="4205042800">
+            <_nodeVisualizer />
             <_x003C_BoundRadius_x003E_k__BackingField dataType="Float">0</_x003C_BoundRadius_x003E_k__BackingField>
             <_x003C_MultithreadedPathfinder_x003E_k__BackingField />
             <_x003C_PathfinderId_x003E_k__BackingField />

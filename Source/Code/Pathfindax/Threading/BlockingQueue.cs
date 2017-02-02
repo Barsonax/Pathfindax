@@ -53,7 +53,7 @@ namespace Pathfindax.Threading
 		{
 			if (_mSemaphore != null)
 			{
-				_mSemaphore.Close();
+				_mSemaphore.Dispose();
 				_mQueue.Clear();
 				_mSemaphore = null;
 			}

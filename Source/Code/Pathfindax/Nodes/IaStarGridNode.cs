@@ -13,7 +13,6 @@ namespace Pathfindax.Nodes
 		}
 	}
 
-	[Serializable]
 	[DebuggerDisplay("{Position}")]
 	public class AstarGridNodeBase : GridNodeBase
 	{

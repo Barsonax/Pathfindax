@@ -20,8 +20,8 @@ namespace Pathfindax.Duality.Components
 		private readonly Random _randomGenerator = new Random();
 		void ICmpUpdatable.OnUpdate()
 		{
-			var start = new PositionF(_randomGenerator.Next(0, 16), _randomGenerator.Next(0, 16));
-			var end = new PositionF(_randomGenerator.Next(0, 16), _randomGenerator.Next(0, 16));
+			var start = new PositionF(_randomGenerator.Next(0, 484), _randomGenerator.Next(0, 484));
+			var end = new PositionF(_randomGenerator.Next(0, 484), _randomGenerator.Next(0, 484));
 			var request = new PathRequest(PathSolved, start, end, 1);
 			PathfinderProxy.RequestPath(request);
 		}
@@ -46,7 +46,7 @@ namespace Pathfindax.Duality.Components
 				canvas.State.ColorTint = ColorRgba.Red;
 				foreach (var position in Path)
 				{
-					canvas.FillCircle(position.X, position.Y, 0.4f);
+					canvas.FillCircle(position.X, position.Y, 10f);
 				}
 			}
 		}

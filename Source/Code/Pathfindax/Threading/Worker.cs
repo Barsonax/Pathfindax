@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Pathfindax.Threading
 {
@@ -30,11 +31,7 @@ namespace Pathfindax.Threading
 		public Worker(IProcesser<TOut, TIn> processer)
 		{
 			_processer = processer;
-			var thread = new Thread(Start)
-			{
-				IsBackground = true
-			};
-			thread.Start();
+			Task.Factory.StartNew(Start, TaskCreationOptions.LongRunning);
 		}
 
 		/// <summary>

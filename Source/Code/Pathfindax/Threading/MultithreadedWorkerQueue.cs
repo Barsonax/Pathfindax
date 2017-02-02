@@ -2,6 +2,7 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Pathfindax.Threading
 {
@@ -32,12 +33,7 @@ namespace Pathfindax.Threading
 			{
 				_workers.Add(new Worker<TOut, TIn>(processer));
 			}
-			var queueWriter = new Thread(TryProcessNext)
-			{
-				IsBackground = true
-			};
-
-			queueWriter.Start();
+			Task.Factory.StartNew(TryProcessNext, TaskCreationOptions.LongRunning);
 		}
 
 		/// <summary>

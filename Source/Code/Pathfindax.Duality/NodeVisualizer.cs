@@ -29,11 +29,11 @@ namespace Pathfindax.Duality
 					canvas.State.ColorTint = ColorRgba.LightGrey;
 					if (node.Walkable)
 					{
-						
+						canvas.DrawCircle(node.Position.X + _offset.X, node.Position.Y + _offset.Y, _nodeSize * 0.3f);
 					}
 					else
 					{
-						canvas.FillCircle(node.Position.X + _offset.X, node.Position.Y + _offset.Y, _nodeSize);
+						canvas.FillCircle(node.Position.X + _offset.X, node.Position.Y + _offset.Y, _nodeSize*0.3f);
 					}
 					canvas.State.ColorTint = new ColorRgba(199, 21, 133);
 					foreach (var nodeNeighbour in node.Neighbours)

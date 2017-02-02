@@ -8,7 +8,6 @@ namespace Pathfindax.Collections
 	/// A array class that provides both single dimensional and 2-dimensional access to a array.
 	/// </summary>
 	/// <typeparam name="TItem"></typeparam>
-	[Serializable]
 	public class Array2D<TItem> : IEnumerable<TItem>
 	{
 		/// <summary>
