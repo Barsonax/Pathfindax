@@ -15,7 +15,6 @@ namespace Pathfindax.Nodes
 
 	public abstract class NodeBase : INode
 	{
-		public INode Parent { get; set; }
 		public bool Walkable { get; set; }
 		public PositionF Position { get; }
 

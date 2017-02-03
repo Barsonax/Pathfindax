@@ -15,6 +15,7 @@ namespace Pathfindax.Nodes
 	[DebuggerDisplay("{Position}")]
 	public class AstarGridNodeBase : GridNodeBase
 	{
+		public IAStarGridNode Parent { get; set; }
 		public int HCost { get; set; }
 		public int GCost { get; set; }
 		public int HeapIndex { get; set; }

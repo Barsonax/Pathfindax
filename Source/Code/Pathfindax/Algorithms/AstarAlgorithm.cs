@@ -21,7 +21,7 @@ namespace Pathfindax.Algorithms
 			return FindPath(nodeGrid, startNode, endNode);
 		}
 
-		private IList<INode> FindPath(INodeGrid<IAStarGridNode> nodeGrid, IAStarGridNode startGridNode, IGridNodeBase targetGridNode)
+		private IList<INode> FindPath(INodeGrid<IAStarGridNode> nodeGrid, IAStarGridNode startGridNode, IAStarGridNode targetGridNode)
 		{
 			try
 			{
@@ -88,7 +88,7 @@ namespace Pathfindax.Algorithms
 			}
 		}
 
-		private IList<INode> RetracePath(INode startGridNode, INode endGridNode)
+		private IList<INode> RetracePath(IAStarGridNode startGridNode, IAStarGridNode endGridNode)
 		{
 			var path = new List<INode>();
 			var currentNode = endGridNode;
