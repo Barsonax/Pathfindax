@@ -109,3 +109,5 @@
 /Plugins/Pathfindax.Duality.Tilemaps.core.xml
 /Plugins/Pathfindax.Duality.Tilemaps.core.dll
 /Plugins/Pathfindax.Duality.Tilemaps.core.pdb
+/Source/Code/Pathfindax.Duality.Tilemaps.Test/obj
+/Source/Code/Pathfindax.Duality.Test/obj

@@ -19,7 +19,7 @@ namespace Pathfindax.Duality.Components
 		public INodeGrid<IGridNode> SourceNodeGrid { get; set; }
 		public float BoundRadius { get; }
 
-		private NodeVisualizer _nodeVisualizer;
+		private NodeGridVisualizer _nodeGridVisualizer;
 
 		bool ICmpRenderer.IsVisible(IDrawDevice device)
 		{
@@ -30,8 +30,8 @@ namespace Pathfindax.Duality.Components
 
 		void ICmpRenderer.Draw(IDrawDevice device)
 		{
-			if (_nodeVisualizer != null)
-				_nodeVisualizer.Draw(device);
+			if (_nodeGridVisualizer != null)
+				_nodeGridVisualizer.Draw(device);
 		}
 
 		private int _counter;
@@ -49,7 +49,7 @@ namespace Pathfindax.Duality.Components
 						SourceNodeGrid = sourceGrids.FirstOrDefault();
 						var nodeGrid = new AStarGrid(SourceNodeGrid);
 						var algorithm = new AStarAlgorithm();
-						_nodeVisualizer = new NodeVisualizer(SourceNodeGrid, SourceNodeGrid.NodeSize.X);
+						_nodeGridVisualizer = new NodeGridVisualizer(SourceNodeGrid);
 						MultithreadedPathfinder = new MultithreadedPathfinder<INodeGrid<IAStarGridNode>>(new List<INodeGrid<IAStarGridNode>> { nodeGrid }, algorithm);
 						MultithreadedPathfinder.Start();
 					}
@@ -71,7 +71,7 @@ namespace Pathfindax.Duality.Components
 
 						var nodeGrid = new AStarGrid(SourceNodeGrid);
 						var algorithm = new AStarAlgorithm();
-						_nodeVisualizer = new NodeVisualizer(SourceNodeGrid, SourceNodeGrid.NodeSize.X);
+						_nodeGridVisualizer = new NodeGridVisualizer(SourceNodeGrid);
 						MultithreadedPathfinder = new MultithreadedPathfinder<INodeGrid<IAStarGridNode>>(new List<INodeGrid<IAStarGridNode>> { nodeGrid }, algorithm);
 						MultithreadedPathfinder.Start();
 					}

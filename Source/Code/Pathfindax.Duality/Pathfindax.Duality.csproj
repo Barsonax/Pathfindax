@@ -60,8 +60,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Components\Interfaces\IPathfinderComponent.cs" />
+    <Compile Include="Components\SourceNodeNetworkProviderMockupComponent.cs" />
     <Compile Include="NodeGridRayCaster.cs" />
-    <Compile Include="NodeVisualizer.cs" />
+    <Compile Include="NodeGridVisualizer.cs" />
     <Compile Include="Components\PathfinderComponentBase.cs" />
     <Compile Include="PathfindaxCorePlugin.cs" />
     <Compile Include="Components\PathfindaxTestComponent.cs" />

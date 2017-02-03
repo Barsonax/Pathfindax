@@ -43,7 +43,7 @@ namespace Pathfindax.Duality.Tilemaps.Components
 
 					_nodeGrid[i] = sourceNodeGrid;
 				}
-				_nodeVisualizer = new NodeVisualizer(_nodeGrid[0], baseTilemap.Tileset.Res.TileSize.X / 2);
+				_nodeGridVisualizer = new NodeGridVisualizer(_nodeGrid[0]);
 			}
 			return _nodeGrid;
 		}
@@ -72,11 +72,11 @@ namespace Pathfindax.Duality.Tilemaps.Components
 (device.VisibilityMask & VisibilityFlag.ScreenOverlay) == VisibilityFlag.None;
 		}
 
-		private NodeVisualizer _nodeVisualizer;
+		private NodeGridVisualizer _nodeGridVisualizer;
 		public void Draw(IDrawDevice device)
 		{
-			if (_nodeVisualizer != null)
-				_nodeVisualizer.Draw(device);
+			if (_nodeGridVisualizer != null)
+				_nodeGridVisualizer.Draw(device);
 		}
 
 		public float BoundRadius { get; }
