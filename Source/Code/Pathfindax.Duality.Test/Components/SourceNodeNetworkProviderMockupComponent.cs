@@ -5,7 +5,10 @@ using Pathfindax.Primitives;
 
 namespace Pathfindax.Duality.Test.Components
 {
-	public class SourceNodeNetworkProviderMockupComponent : Component,ISourceNodeNetworkProvider<INodeGrid<IGridNode>>
+	/// <summary>
+	/// Provides a simple <see cref="INodeGrid{TNode}"/> for testing/example purposes
+	/// </summary>
+	public class SourceNodeNetworkProviderMockupComponent : Component, ISourceNodeNetworkProvider<INodeGrid<IGridNode>>
 	{
 		private INodeGrid<IGridNode>[] _nodeGrids;
 		public INodeGrid<IGridNode>[] GenerateGrid2D()
@@ -25,7 +28,7 @@ namespace Pathfindax.Duality.Test.Components
 				sourceNodeGrid.NodeArray[7, 10].Walkable = false;
 				sourceNodeGrid.NodeArray[8, 10].Walkable = false;
 				sourceNodeGrid.NodeArray[9, 10].Walkable = false;
-				_nodeGrids = new INodeGrid<IGridNode>[] {sourceNodeGrid};
+				_nodeGrids = new INodeGrid<IGridNode>[] { sourceNodeGrid };
 			}
 			return _nodeGrids;
 		}

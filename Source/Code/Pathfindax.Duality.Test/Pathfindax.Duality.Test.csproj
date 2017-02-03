@@ -68,10 +68,11 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>mkdir "$(SolutionDir)../../Plugins"
+    <PostBuildEvent>if $(ConfigurationName) == Debug (
+mkdir "$(SolutionDir)../../Plugins"
 copy "$(TargetPath)" "$(SolutionDir)../../Plugins"
 copy "$(TargetDir)$(TargetName).pdb" "$(SolutionDir)../../Plugins"
-xcopy /Y "$(TargetDir)*.core.xml" "$(SolutionDir)../../Plugins"</PostBuildEvent>
+xcopy /Y "$(TargetDir)*.core.xml" "$(SolutionDir)../../Plugins")</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
