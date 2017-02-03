@@ -9,10 +9,8 @@ namespace Pathfindax.Algorithms
 	/// Interface for classes that implement algorithms to find a path.
 	/// </summary>
 	/// <typeparam name="TNodeNetwork"></typeparam>
-	/// <typeparam name="TNode"></typeparam>
-	public interface IPathFindAlgorithm<TNodeNetwork, TNode>
-		where TNodeNetwork : INodeNetwork<TNode>
-		where TNode : INode
+	public interface IPathFindAlgorithm<TNodeNetwork>
+		where TNodeNetwork : INodeNetworkBase
 	{
 		/// <summary>
 		/// Finds a path from <paramref name="pathStart"></paramref> to <paramref name="pathEnd"></paramref> using the <paramref name="nodeNetwork"></paramref> and returns this as a list of <see cref="IGridNodeBase"/>.

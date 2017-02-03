@@ -3,26 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using Pathfindax.Algorithms;
 using Pathfindax.Grid;
-using Pathfindax.Nodes;
 using Pathfindax.Threading;
 
 namespace Pathfindax.PathfindEngine
 {
-	public class MultithreadedPathfinder<TNodeNetwork, TNode> : IMultithreadedPathfinder, IDisposable
-		where TNodeNetwork : INodeNetwork<TNode>
-		where TNode : INode
+	public class MultithreadedPathfinder<TNodeNetwork> : IMultithreadedPathfinder, IDisposable
+		where TNodeNetwork : INodeNetworkBase
 	{
 		private readonly MultithreadedWorkerQueue<CompletedPath, PathRequest> _multithreadedWorkerQueue;
 
-		public MultithreadedPathfinder(IList<TNodeNetwork> nodeNetworks, IPathFindAlgorithm<TNodeNetwork, TNode> pathFindAlgorithm, int maxThreads = 1)
+		public MultithreadedPathfinder(IList<TNodeNetwork> sourceNodeNetworks, IPathFindAlgorithm<TNodeNetwork> pathFindAlgorithm, int maxThreads = 1)
 		{
-			var firstNodeGrid = nodeNetworks.FirstOrDefault();
+			var firstNodeGrid = sourceNodeNetworks.FirstOrDefault();
 			if (firstNodeGrid == null) throw new ArgumentException("Please provide atleast one nodegrid");
 
 			var pathfinders = new List<IProcesser<CompletedPath, PathRequest>>();
 			for (int i = 0; i < maxThreads; i++)
 			{
-				pathfinders.Add(new PathRequestProcesser<TNodeNetwork, TNode>(nodeNetworks, pathFindAlgorithm));
+				pathfinders.Add(new PathRequestProcesser<TNodeNetwork>(sourceNodeNetworks, pathFindAlgorithm));
 			}
 			_multithreadedWorkerQueue = new MultithreadedWorkerQueue<CompletedPath, PathRequest>(pathfinders);
 		}

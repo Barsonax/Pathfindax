@@ -12,7 +12,7 @@ using Pathfindax.Primitives;
 
 namespace Pathfindax.Duality.Tilemaps.Components
 {
-	public class TilemapNodeGridGenerator : Component, ISourceNodeNetworkProvider<INodeGrid<IGridNode>, IGridNode>, ICmpInitializable, ICmpUpdatable
+	public class TilemapNodeGridGenerator : Component, ISourceNodeNetworkProvider<INodeGrid<IGridNode>>, ICmpInitializable, ICmpUpdatable
 	{
 		private INodeGrid<IGridNode>[] _nodeGrid;
 		public INodeGrid<IGridNode>[] GenerateGrid2D()

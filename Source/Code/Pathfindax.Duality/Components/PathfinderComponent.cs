@@ -42,7 +42,7 @@ namespace Pathfindax.Duality.Components
 			{
 				if (DualityApp.ExecContext == DualityApp.ExecutionContext.Game)
 				{
-					var sourceProvider = GameObj.GetComponent<ISourceNodeNetworkProvider<INodeGrid<IGridNode>, IGridNode>>();
+					var sourceProvider = GameObj.GetComponent<ISourceNodeNetworkProvider<INodeGrid<IGridNode>>>();
 					if (sourceProvider != null)
 					{
 						var sourceGrids = sourceProvider.GenerateGrid2D();
@@ -50,7 +50,7 @@ namespace Pathfindax.Duality.Components
 						var nodeGrid = new AStarGrid(SourceNodeGrid);
 						var algorithm = new AStarAlgorithm();
 						_nodeVisualizer = new NodeVisualizer(SourceNodeGrid, SourceNodeGrid.NodeSize.X);
-						MultithreadedPathfinder = new MultithreadedPathfinder<INodeGrid<IAStarGridNode>, IAStarGridNode>(new List<INodeGrid<IAStarGridNode>> { nodeGrid }, algorithm);
+						MultithreadedPathfinder = new MultithreadedPathfinder<INodeGrid<IAStarGridNode>>(new List<INodeGrid<IAStarGridNode>> { nodeGrid }, algorithm);
 						MultithreadedPathfinder.Start();
 					}
 					if (MultithreadedPathfinder == null)
@@ -72,7 +72,7 @@ namespace Pathfindax.Duality.Components
 						var nodeGrid = new AStarGrid(SourceNodeGrid);
 						var algorithm = new AStarAlgorithm();
 						_nodeVisualizer = new NodeVisualizer(SourceNodeGrid, SourceNodeGrid.NodeSize.X);
-						MultithreadedPathfinder = new MultithreadedPathfinder<INodeGrid<IAStarGridNode>, IAStarGridNode>(new List<INodeGrid<IAStarGridNode>> { nodeGrid }, algorithm);
+						MultithreadedPathfinder = new MultithreadedPathfinder<INodeGrid<IAStarGridNode>>(new List<INodeGrid<IAStarGridNode>> { nodeGrid }, algorithm);
 						MultithreadedPathfinder.Start();
 					}
 				}

@@ -17,11 +17,11 @@ namespace Pathfindax.Test
 	[TestFixture]
 	public class MultithreadedPathfinderTests
 	{
-		private MultithreadedPathfinder<INodeGrid<IAStarGridNode>, IAStarGridNode> SetupMultithreadedPathfinder(int threads)
+		private MultithreadedPathfinder<INodeGrid<IAStarGridNode>> SetupMultithreadedPathfinder(int threads)
 		{
-			var algorithm = Substitute.For<IPathFindAlgorithm<INodeGrid<IAStarGridNode>, IAStarGridNode>>();
+			var algorithm = Substitute.For<IPathFindAlgorithm<INodeGrid<IAStarGridNode>>>();
 			var nodeGrid = Substitute.For<INodeGrid<IAStarGridNode>>();
-			return new MultithreadedPathfinder<INodeGrid<IAStarGridNode>, IAStarGridNode>(new List<INodeGrid<IAStarGridNode>> { nodeGrid }, algorithm, threads);
+			return new MultithreadedPathfinder<INodeGrid<IAStarGridNode>>(new List<INodeGrid<IAStarGridNode>> { nodeGrid }, algorithm, threads);
 		}
 
 		[Test]

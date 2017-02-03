@@ -1,10 +1,7 @@
-﻿using Pathfindax.Nodes;
-
-namespace Pathfindax.Grid
+﻿namespace Pathfindax.Grid
 {
-	public interface ISourceNodeNetworkProvider<out TNodeNetwork, TNode>
-		where TNode : INode
-		where TNodeNetwork : INodeNetwork<TNode>
+	public interface ISourceNodeNetworkProvider<out TNodeNetwork> 
+		where TNodeNetwork : INodeNetworkBase
 	{
 		TNodeNetwork[] GenerateGrid2D();
 	}
