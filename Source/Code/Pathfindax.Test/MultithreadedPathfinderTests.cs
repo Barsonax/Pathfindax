@@ -17,11 +17,11 @@ namespace Pathfindax.Test
 	[TestFixture]
 	public class MultithreadedPathfinderTests
 	{
-		private MultithreadedPathfinder<INodeGrid<IAStarGridNode>, IAStarGridNode> SetupMultithreadedPathfinder(int threads)
+		private MultithreadedPathfinder<INodeGrid<IAStarGridNode>> SetupMultithreadedPathfinder(int threads)
 		{
-			var algorithm = Substitute.For<IPathFindAlgorithm<INodeGrid<IAStarGridNode>, IAStarGridNode>>();
+			var algorithm = Substitute.For<IPathFindAlgorithm<INodeGrid<IAStarGridNode>>>();
 			var nodeGrid = Substitute.For<INodeGrid<IAStarGridNode>>();
-			return new MultithreadedPathfinder<INodeGrid<IAStarGridNode>, IAStarGridNode>(new List<INodeGrid<IAStarGridNode>> { nodeGrid }, algorithm, threads);
+			return new MultithreadedPathfinder<INodeGrid<IAStarGridNode>>(new List<INodeGrid<IAStarGridNode>> { nodeGrid }, algorithm, threads);
 		}
 
 		[Test]
@@ -37,7 +37,7 @@ namespace Pathfindax.Test
 			{
 				taskCompletionSource.SetResult(true);
 			};
-			multithreadedPathfinder.RequestPath(new PathRequest(success, start, end, 1));
+			multithreadedPathfinder.RequestPath(new PathRequest(success, start, end));
 			var stopWatch = new Stopwatch();
 			stopWatch.Start();
 			while (!taskCompletionSource.Task.IsCompleted)
@@ -65,7 +65,7 @@ namespace Pathfindax.Test
 				var i1 = i;
 				taskCompletionSources[i1] = new TaskCompletionSource<bool>();
 				success[i] = request => taskCompletionSources[i1].SetResult(true);
-				multithreadedPathfinder.RequestPath(new PathRequest(success[i], start, end, 1));
+				multithreadedPathfinder.RequestPath(new PathRequest(success[i], start, end));
 			}
 			var tasks = taskCompletionSources.Select(x => x.Task).ToList();
 			var stopWatch = new Stopwatch();

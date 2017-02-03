@@ -9,11 +9,11 @@ namespace Pathfindax.Duality
 	/// <summary>
 	/// Defines a Duality core plugin.
 	/// </summary>
-	public class PathfindaxCorePlugin : CorePlugin
+	public class PathfindaxDualityCorePlugin : CorePlugin
 	{
 		private static IPathfinderComponent[] _pathfinderComponents;
 
-		public PathfindaxCorePlugin()
+		public PathfindaxDualityCorePlugin()
 		{
 			Scene.Leaving += Scene_Leaving;
 		}
@@ -29,6 +29,10 @@ namespace Pathfindax.Duality
 			if (_pathfinderComponents == null)
 			{
 				_pathfinderComponents = Scene.Current.FindComponents<IPathfinderComponent>().ToArray();
+				if (_pathfinderComponents.Select(x => x.PathfinderId).Distinct().Count() != _pathfinderComponents.Length)
+				{
+					throw new InvalidOperationException("2 or more pathfinders found with the same id");
+				}
 			}
 
 			if (string.IsNullOrEmpty(id))
@@ -44,14 +48,7 @@ namespace Pathfindax.Duality
 			}
 			else
 			{
-				try
-				{
-					return _pathfinderComponents.SingleOrDefault(x => x.PathfinderId == id);
-				}
-				catch (Exception ex)
-				{
-					throw new InvalidOperationException("2 pathfinders found with the same id", ex);
-				}
+				return _pathfinderComponents.FirstOrDefault(x => x.PathfinderId == id);
 			}
 		}
 
@@ -70,7 +67,7 @@ namespace Pathfindax.Duality
 		protected override void OnDisposePlugin()
 		{
 			Scene.Leaving -= Scene_Leaving;
-			base.OnDisposePlugin();			
+			base.OnDisposePlugin();
 		}
 
 		private static void Scene_Leaving(object sender, EventArgs e)

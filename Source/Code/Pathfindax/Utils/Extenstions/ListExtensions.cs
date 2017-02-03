@@ -11,5 +11,13 @@ namespace Pathfindax.Utils
 				list.RemoveAt(0);
 			}
 		}
+
+		public static void AddRange<T>(this IList<T> list, IEnumerable<T> itemsToAdd)
+		{
+			foreach (var item in itemsToAdd)
+			{
+				list.Add(item);
+			}
+		}
 	}
 }

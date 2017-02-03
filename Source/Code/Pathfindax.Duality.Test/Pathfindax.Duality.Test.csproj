@@ -1,30 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
-    <StartAction>Program</StartAction>
-    <StartProgram>$(SolutionDir)..\..\DualityLauncher.exe</StartProgram>
-    <StartWorkingDirectory>$(SolutionDir)..\..</StartWorkingDirectory>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
-    <StartAction>Program</StartAction>
-    <StartProgram>$(SolutionDir)..\..\DualityLauncher.exe</StartProgram>
-    <StartWorkingDirectory>$(SolutionDir)..\..</StartWorkingDirectory>
-  </PropertyGroup>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{AFE883F3-72B4-4C7C-A1D1-44EDC09C8F6E}</ProjectGuid>
+    <ProjectGuid>{47800ABA-D164-43D2-971E-FEC337FD2FCA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Pathfindax.Duality</RootNamespace>
-    <AssemblyName>Pathfindax.Duality.core</AssemblyName>
-    <FileAlignment>512</FileAlignment>
-    <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <TargetFrameworkProfile>Profile111</TargetFrameworkProfile>
+    <RootNamespace>Pathfindax.Duality.Test</RootNamespace>
+    <AssemblyName>Pathfindax.Duality.Test.Core</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <MinimumVisualStudioVersion>11.0</MinimumVisualStudioVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -34,9 +21,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>Pathfindax.Duality.xml</DocumentationFile>
+    <DocumentationFile>Pathfindax.Duality.Test.xml</DocumentationFile>
     <NoWarn>1591,1592,1573,1571,1570,1572</NoWarn>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -45,9 +31,6 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>Pathfindax.Duality.xml</DocumentationFile>
-    <NoWarn>1591,1592,1573,1571,1570,1572</NoWarn>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Duality">
@@ -56,29 +39,36 @@
     <Reference Include="DualityPrimitives">
       <HintPath>..\..\..\DualityPrimitives.dll</HintPath>
     </Reference>
+    <Reference Include="NSubstitute, Version=1.10.0.0, Culture=neutral, PublicKeyToken=92dd2e9066daa5ca, processorArchitecture=MSIL">
+      <HintPath>..\packages\NSubstitute.1.10.0.0\lib\net45\NSubstitute.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="nunit.framework, Version=3.6.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnit.3.6.0\lib\net45\nunit.framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Components\Interfaces\IPathfinderComponent.cs" />
-    <Compile Include="Grid\NodeGridRayCaster.cs" />
-    <Compile Include="Grid\NodeGridVisualizer.cs" />
-    <Compile Include="Components\PathfinderComponentBase.cs" />
-    <Compile Include="PathfindaxDualityCorePlugin.cs" />
-    <Compile Include="Components\AStarPathfinderComponent.cs" />
-    <Compile Include="PathfindEngine\PathfinderProxy.cs" />
+    <Compile Include="Components\PathfindaxPathSpammerComponent.cs" />
+    <Compile Include="Components\SourceNodeNetworkProviderMockupComponent.cs" />
+    <Compile Include="PathfindaxDualityTestCorePlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Pathfindax.Duality\Pathfindax.Duality.csproj">
+      <Project>{afe883f3-72b4-4c7c-a1d1-44edc09c8f6e}</Project>
+      <Name>Pathfindax.Duality</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Pathfindax\Pathfindax.csproj">
       <Project>{d4dfa287-b394-4d15-97e0-d2a0675d26a6}</Project>
       <Name>Pathfindax</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="Pathfindax.Duality.nuspec" />
-  </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>if $(ConfigurationName) == Debug (
 mkdir "$(SolutionDir)../../Plugins"

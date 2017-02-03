@@ -76,6 +76,7 @@
     <Compile Include="Threading\WorkItem.cs" />
     <Compile Include="Utils\Extenstions\ListExtensions.cs" />
     <Compile Include="Utils\Mathf.cs" />
+    <Compile Include="Utils\PathfindaxStrings.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Pathfindax.nuspec" />
@@ -83,10 +84,11 @@
   <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>mkdir "$(SolutionDir)../../Plugins"
+    <PostBuildEvent>if $(ConfigurationName) == Debug (
+mkdir "$(SolutionDir)../../Plugins"
 copy "$(TargetPath)" "$(SolutionDir)../../Plugins"
 copy "$(TargetDir)$(TargetName).pdb" "$(SolutionDir)../../Plugins"
-xcopy /Y "$(TargetDir)*.core.xml" "$(SolutionDir)../../Plugins"</PostBuildEvent>
+xcopy /Y "$(TargetDir)*.core.xml" "$(SolutionDir)../../Plugins")</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

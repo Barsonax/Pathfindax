@@ -2,15 +2,19 @@
 using Duality;
 using Duality.Drawing;
 using Duality.Editor;
+using Pathfindax.Duality.PathfindEngine;
 using Pathfindax.PathfindEngine;
 using Pathfindax.Primitives;
+using Pathfindax.Utils;
 
-namespace Pathfindax.Duality.Components
+namespace Pathfindax.Duality.Test.Components
 {
 	/// <summary>
 	/// Spams path requests as a example
+	/// Use the <see cref="TopLeftCorner"/> and <see cref="BottomRightCorner"/> properties to control where it will spam the path requests.
 	/// </summary>
-	public class PathfindaxTestComponent : Component, ICmpUpdatable, ICmpRenderer
+	[EditorHintCategory(PathfindaxStrings.PathfindaxTest)]
+	public class PathfindaxPathSpammerComponent : Component, ICmpUpdatable, ICmpRenderer
 	{
 		public Point2 TopLeftCorner { get; set; }
 		public Point2 BottomRightCorner { get; set; }
@@ -31,7 +35,7 @@ namespace Pathfindax.Duality.Components
 			{
 				var start = new PositionF(_randomGenerator.Next(TopLeftCorner.X, BottomRightCorner.X), _randomGenerator.Next(TopLeftCorner.Y, BottomRightCorner.Y));
 				var end = new PositionF(_randomGenerator.Next(TopLeftCorner.X, BottomRightCorner.X), _randomGenerator.Next(TopLeftCorner.Y, BottomRightCorner.Y));
-				var request = new PathRequest(PathSolved, start, end, 1);
+				var request = new PathRequest(PathSolved, start, end);
 				PathfinderProxy.RequestPath(request);
 			}
 		}
@@ -57,7 +61,7 @@ namespace Pathfindax.Duality.Components
 				canvas.State.ColorTint = ColorRgba.Red;
 				foreach (var position in Path)
 				{
-					canvas.FillCircle(position.X + TopLeftCorner.X, position.Y + TopLeftCorner.Y, 10f);
+					canvas.FillCircle(position.X, position.Y, 10f);
 				}
 			}
 		}

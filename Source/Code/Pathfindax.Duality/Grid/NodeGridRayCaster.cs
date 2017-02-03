@@ -5,14 +5,20 @@ using Duality.Components.Physics;
 using Pathfindax.Grid;
 using Pathfindax.Nodes;
 
-namespace Pathfindax.Duality
+namespace Pathfindax.Duality.Grid
 {
 	public class NodeGridRayCaster
 	{
-
-		public HashSet<Point2> GetUnreachableNeighbours(INodeGrid<IGridNode> nodeGrid, INode node, CollisionCategory collisionCategory)
+		/// <summary>
+		/// Returns the grid coordinates of direct neighbours that are not reachable.
+		/// </summary>
+		/// <param name="nodeGrid"></param>
+		/// <param name="gridNode"></param>
+		/// <param name="collisionCategory"></param>
+		/// <returns></returns>
+		public IEnumerable<Point2> GetUnreachableNeighbours(INodeGrid<IGridNode> nodeGrid, IGridNode gridNode, CollisionCategory collisionCategory)
 		{
-			var nodeWorldPosition = new Vector2(node.Position.X + nodeGrid.Offset.X, node.Position.Y + nodeGrid.Offset.Y);
+			var nodeWorldPosition = new Vector2(gridNode.Position.X + nodeGrid.Offset.X, gridNode.Position.Y + nodeGrid.Offset.Y);
 			var nodesToExclude = new HashSet<Point2>();
 			RawList<RayCastData> firstHit;
 			RigidBody.RayCast(nodeWorldPosition, nodeWorldPosition + new Vector2(0, -nodeGrid.NodeSize.Y), hitData => hitData.Fraction, out firstHit); //Cast upwards
@@ -70,6 +76,24 @@ namespace Pathfindax.Duality
 				AddNodeExclude(nodesToExclude, 1, -1);
 			}
 			return nodesToExclude;
+		}
+
+		public IEnumerable<IGridNode> GetReachableNeighbours(INodeGrid<IGridNode> nodeGrid, IGridNode gridNode, CollisionCategory collisionCategory)
+		{
+			var nodesToExclude = GetUnreachableNeighbours(nodeGrid, gridNode, collisionCategory);
+			for (var x = -1; x <= 1; x++)
+			{
+				for (var y = -1; y <= 1; y++)
+				{
+					if (x == 0 && y == 0) continue; //Skip the center since this is the node we are adding neighbours to.
+
+					var currentPosition = new Point2(gridNode.GridX + x, gridNode.GridY + y);
+					if (currentPosition.X >= 0 && currentPosition.X < nodeGrid.NodeArray.Width && currentPosition.Y >= 0 && currentPosition.Y < nodeGrid.NodeArray.Height && !nodesToExclude.Contains(new Point2(x, y)))
+					{
+						yield return nodeGrid.NodeArray[currentPosition.X, currentPosition.Y];
+					}
+				}
+			}
 		}
 
 		private void AddNodeExclude(HashSet<Point2> nodesToExclude, int x, int y)
