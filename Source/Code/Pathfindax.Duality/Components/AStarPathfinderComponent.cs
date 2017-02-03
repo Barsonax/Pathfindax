@@ -2,19 +2,21 @@
 using System.Linq;
 using Duality;
 using Duality.Drawing;
+using Duality.Editor;
 using Pathfindax.Algorithms;
+using Pathfindax.Duality.Grid;
 using Pathfindax.Grid;
 using Pathfindax.Nodes;
 using Pathfindax.PathfindEngine;
-using Pathfindax.Primitives;
+using Pathfindax.Utils;
 
 namespace Pathfindax.Duality.Components
 {
 	/// <summary>
-	/// Provides a way for other components to request a path from a to b
-	/// WIP
+	/// Provides a way for other components to request a path from A to B. Uses the A* algorithm.
 	/// </summary>
-	public class PathfinderComponent : PathfinderComponentBase, ICmpRenderer, ICmpUpdatable
+	[EditorHintCategory(PathfindaxStrings.Pathfindax)]
+	public class AStarPathfinderComponent : PathfinderComponentBase, ICmpRenderer, ICmpUpdatable
 	{
 		public INodeGrid<IGridNode> SourceNodeGrid { get; set; }
 		public float BoundRadius { get; }

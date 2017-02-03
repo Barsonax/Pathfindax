@@ -3,10 +3,10 @@ using Duality.Drawing;
 using Pathfindax.Grid;
 using Pathfindax.Nodes;
 
-namespace Pathfindax.Duality
+namespace Pathfindax.Duality.Grid
 {
 	/// <summary>
-	/// This will draw the <see cref="IGridNode"/> and their connectons to other <see cref="IGridNode"/> in the <see cref="INodeGrid{TNode}"/>
+	/// Class for visualizing a <see cref="INodeGrid{TNode}"/>
 	/// </summary>
 	public class NodeGridVisualizer
 	{
@@ -21,6 +21,9 @@ namespace Pathfindax.Duality
 			_offset = new Vector2(nodeNetwork.Offset.X, nodeNetwork.Offset.Y);
 		}
 
+		/// <summary>
+		/// This will draw the <see cref="IGridNode"/> and their connectons to other <see cref="IGridNode"/> in the <see cref="INodeGrid{TNode}"/>
+		/// </summary>
 		public void Draw(IDrawDevice device)
 		{
 			if (_nodeNetwork != null)

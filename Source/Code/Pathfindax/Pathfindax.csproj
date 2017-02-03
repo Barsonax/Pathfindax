@@ -76,6 +76,7 @@
     <Compile Include="Threading\WorkItem.cs" />
     <Compile Include="Utils\Extenstions\ListExtensions.cs" />
     <Compile Include="Utils\Mathf.cs" />
+    <Compile Include="Utils\PathfindaxStrings.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Pathfindax.nuspec" />

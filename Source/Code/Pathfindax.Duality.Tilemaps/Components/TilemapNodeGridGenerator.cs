@@ -4,17 +4,25 @@ using System.Linq;
 using Duality;
 using Duality.Components.Physics;
 using Duality.Drawing;
+using Duality.Editor;
 using Duality.Plugins.Tilemaps;
 using Pathfindax.Collections;
+using Pathfindax.Duality.Grid;
 using Pathfindax.Grid;
 using Pathfindax.Nodes;
 using Pathfindax.Primitives;
+using Pathfindax.Utils;
 
 namespace Pathfindax.Duality.Tilemaps.Components
 {
-	public class TilemapNodeGridGenerator : Component, ISourceNodeNetworkProvider<INodeGrid<IGridNode>>, ICmpInitializable, ICmpUpdatable
+	[EditorHintCategory(PathfindaxStrings.PathfindaxTilemap)]
+	public class TilemapNodeGridGenerator : Component, ISourceNodeNetworkProvider<INodeGrid<IGridNode>>, ICmpUpdatable
 	{
+		public float BoundRadius { get; }
+		private long _counter;
+		private NodeGridVisualizer _nodeGridVisualizer;
 		private INodeGrid<IGridNode>[] _nodeGrid;
+
 		public INodeGrid<IGridNode>[] GenerateGrid2D()
 		{
 			if(_counter < 2) throw new Exception("The nodegrid is not yet initialized please call this later");
@@ -72,36 +80,15 @@ namespace Pathfindax.Duality.Tilemaps.Components
 (device.VisibilityMask & VisibilityFlag.ScreenOverlay) == VisibilityFlag.None;
 		}
 
-		private NodeGridVisualizer _nodeGridVisualizer;
 		public void Draw(IDrawDevice device)
 		{
 			if (_nodeGridVisualizer != null)
 				_nodeGridVisualizer.Draw(device);
 		}
 
-		public float BoundRadius { get; }
-
-		public void OnInit(InitContext context)
-		{
-			if (context == InitContext.Activate && DualityApp.ExecContext == DualityApp.ExecutionContext.Game)
-			{
-				//GenerateGrid2D();
-			}
-		}
-
-		public void OnShutdown(ShutdownContext context)
-		{
-
-		}
-
-		private int _counter;
 		public void OnUpdate()
 		{
 			_counter++;
-			if (_counter == 2)
-			{
-				
-			}
 		}
 	}
 }

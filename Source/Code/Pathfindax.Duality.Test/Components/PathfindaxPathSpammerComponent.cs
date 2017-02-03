@@ -2,15 +2,19 @@
 using Duality;
 using Duality.Drawing;
 using Duality.Editor;
+using Pathfindax.Duality.PathfindEngine;
 using Pathfindax.PathfindEngine;
 using Pathfindax.Primitives;
+using Pathfindax.Utils;
 
-namespace Pathfindax.Duality.Components
+namespace Pathfindax.Duality.Test.Components
 {
 	/// <summary>
 	/// Spams path requests as a example
+	/// Use the <see cref="TopLeftCorner"/> and <see cref="BottomRightCorner"/> properties to control where it will spam the path requests.
 	/// </summary>
-	public class PathfindaxTestComponent : Component, ICmpUpdatable, ICmpRenderer
+	[EditorHintCategory(PathfindaxStrings.PathfindaxTest)]
+	public class PathfindaxPathSpammerComponent : Component, ICmpUpdatable, ICmpRenderer
 	{
 		public Point2 TopLeftCorner { get; set; }
 		public Point2 BottomRightCorner { get; set; }

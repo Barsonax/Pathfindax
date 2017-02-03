@@ -22,6 +22,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>Pathfindax.Duality.Test.xml</DocumentationFile>
+    <NoWarn>1591,1592,1573,1571,1570,1572</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -49,6 +50,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Components\PathfindaxPathSpammerComponent.cs" />
     <Compile Include="Components\SourceNodeNetworkProviderMockupComponent.cs" />
     <Compile Include="PathfindaxDualityTestCorePlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,13 +1,16 @@
 ﻿using Duality;
+using Duality.Editor;
 using Pathfindax.Grid;
 using Pathfindax.Nodes;
 using Pathfindax.Primitives;
+using Pathfindax.Utils;
 
 namespace Pathfindax.Duality.Test.Components
 {
 	/// <summary>
 	/// Provides a simple <see cref="INodeGrid{TNode}"/> for testing/example purposes
 	/// </summary>
+	[EditorHintCategory(PathfindaxStrings.PathfindaxTest)]
 	public class SourceNodeNetworkProviderMockupComponent : Component, ISourceNodeNetworkProvider<INodeGrid<IGridNode>>
 	{
 		private INodeGrid<IGridNode>[] _nodeGrids;

@@ -1,7 +1,7 @@
 ﻿using Pathfindax.Duality.Components;
 using Pathfindax.PathfindEngine;
 
-namespace Pathfindax.Duality
+namespace Pathfindax.Duality.PathfindEngine
 {
 	/// <summary>
 	/// Provides access to the pathfinder

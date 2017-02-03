@@ -5,12 +5,18 @@ using Duality.Components.Physics;
 using Pathfindax.Grid;
 using Pathfindax.Nodes;
 
-namespace Pathfindax.Duality
+namespace Pathfindax.Duality.Grid
 {
 	public class NodeGridRayCaster
 	{
-
-		public HashSet<Point2> GetUnreachableNeighbours(INodeGrid<IGridNode> nodeGrid, INode node, CollisionCategory collisionCategory)
+		/// <summary>
+		/// Returns the grid coordinates of direct neighbours that are not reachable.
+		/// </summary>
+		/// <param name="nodeGrid"></param>
+		/// <param name="node"></param>
+		/// <param name="collisionCategory"></param>
+		/// <returns></returns>
+		public IEnumerable<Point2> GetUnreachableNeighbours(INodeGrid<IGridNode> nodeGrid, INode node, CollisionCategory collisionCategory)
 		{
 			var nodeWorldPosition = new Vector2(node.Position.X + nodeGrid.Offset.X, node.Position.Y + nodeGrid.Offset.Y);
 			var nodesToExclude = new HashSet<Point2>();

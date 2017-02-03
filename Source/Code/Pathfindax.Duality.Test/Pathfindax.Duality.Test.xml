@@ -4,6 +4,11 @@
         <name>Pathfindax.Duality.Test.Core</name>
     </assembly>
     <members>
+        <member name="T:Pathfindax.Duality.Test.Components.PathfindaxPathSpammerComponent">
+            <summary>
+            Spams path requests as a example
+            </summary>
+        </member>
         <member name="T:Pathfindax.Duality.Test.Components.SourceNodeNetworkProviderMockupComponent">
             <summary>
             Provides a simple <see cref="T:Pathfindax.Grid.INodeGrid`1"/> for testing/example purposes
