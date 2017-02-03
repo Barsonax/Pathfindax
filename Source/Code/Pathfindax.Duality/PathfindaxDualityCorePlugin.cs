@@ -9,11 +9,11 @@ namespace Pathfindax.Duality
 	/// <summary>
 	/// Defines a Duality core plugin.
 	/// </summary>
-	public class PathfindaxCorePlugin : CorePlugin
+	public class PathfindaxDualityCorePlugin : CorePlugin
 	{
 		private static IPathfinderComponent[] _pathfinderComponents;
 
-		public PathfindaxCorePlugin()
+		public PathfindaxDualityCorePlugin()
 		{
 			Scene.Leaving += Scene_Leaving;
 		}

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Pathfindax.Duality.Test.Core</name>
+    </assembly>
+    <members>
+        <member name="T:Pathfindax.Duality.Test.PathfindaxDualityTestCorePlugin">
+            <summary>
+            Defines a Duality core plugin.
+            </summary>
+        </member>
+    </members>
+</doc>

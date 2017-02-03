@@ -53,35 +53,10 @@ namespace Pathfindax.Duality.Components
 						MultithreadedPathfinder = new MultithreadedPathfinder<INodeGrid<IAStarGridNode>>(new List<INodeGrid<IAStarGridNode>> { nodeGrid }, algorithm);
 						MultithreadedPathfinder.Start();
 					}
-					if (MultithreadedPathfinder == null)
-					{
-						var sourceNodeGridFactory = new SourceNodeGridFactory();
-						SourceNodeGrid = sourceNodeGridFactory.GeneratePreFilledArray(16, 16, new PositionF(32, 32), GenerateNodeGridNeighbours.All);
-						SourceNodeGrid.NodeArray[5, 4].Walkable = false;
-						SourceNodeGrid.NodeArray[5, 5].Walkable = false;
-						SourceNodeGrid.NodeArray[5, 6].Walkable = false;
-						SourceNodeGrid.NodeArray[5, 7].Walkable = false;
-						SourceNodeGrid.NodeArray[5, 8].Walkable = false;
-
-						SourceNodeGrid.NodeArray[5, 10].Walkable = false;
-						SourceNodeGrid.NodeArray[6, 10].Walkable = false;
-						SourceNodeGrid.NodeArray[7, 10].Walkable = false;
-						SourceNodeGrid.NodeArray[8, 10].Walkable = false;
-						SourceNodeGrid.NodeArray[9, 10].Walkable = false;
-
-						var nodeGrid = new AStarGrid(SourceNodeGrid);
-						var algorithm = new AStarAlgorithm();
-						_nodeGridVisualizer = new NodeGridVisualizer(SourceNodeGrid);
-						MultithreadedPathfinder = new MultithreadedPathfinder<INodeGrid<IAStarGridNode>>(new List<INodeGrid<IAStarGridNode>> { nodeGrid }, algorithm);
-						MultithreadedPathfinder.Start();
-					}
 				}
 			}
 		}
 
-		public override void OnInit(InitContext context)
-		{
-			
-		}
+		public override void OnInit(InitContext context) { }
 	}
 }

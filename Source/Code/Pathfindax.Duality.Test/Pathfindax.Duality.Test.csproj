@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Pathfindax.Duality.Test</RootNamespace>
-    <AssemblyName>Pathfindax.Duality.Test</AssemblyName>
+    <AssemblyName>Pathfindax.Duality.Test.Core</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>Pathfindax.Duality.Test.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -48,12 +49,30 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Components\SourceNodeNetworkProviderMockupComponent.cs" />
+    <Compile Include="PathfindaxDualityTestCorePlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Pathfindax.Duality\Pathfindax.Duality.csproj">
+      <Project>{afe883f3-72b4-4c7c-a1d1-44edc09c8f6e}</Project>
+      <Name>Pathfindax.Duality</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Pathfindax\Pathfindax.csproj">
+      <Project>{d4dfa287-b394-4d15-97e0-d2a0675d26a6}</Project>
+      <Name>Pathfindax</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>mkdir "$(SolutionDir)../../Plugins"
+copy "$(TargetPath)" "$(SolutionDir)../../Plugins"
+copy "$(TargetDir)$(TargetName).pdb" "$(SolutionDir)../../Plugins"
+xcopy /Y "$(TargetDir)*.core.xml" "$(SolutionDir)../../Plugins"</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Pathfindax.Duality.Tilemaps.Test</RootNamespace>
-    <AssemblyName>Pathfindax.Duality.Tilemaps.Test</AssemblyName>
+    <AssemblyName>Pathfindax.Duality.Tilemaps.Test.Core</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>Pathfindax.Duality.Tilemap.Test.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -51,12 +52,33 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PathfindaxTilemapTestPlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Pathfindax.Duality.Tilemaps\Pathfindax.Duality.Tilemaps.csproj">
+      <Project>{ae16d0d3-a7cc-4132-baa0-8a9b13f66e69}</Project>
+      <Name>Pathfindax.Duality.Tilemaps</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Pathfindax.Duality\Pathfindax.Duality.csproj">
+      <Project>{afe883f3-72b4-4c7c-a1d1-44edc09c8f6e}</Project>
+      <Name>Pathfindax.Duality</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Pathfindax\Pathfindax.csproj">
+      <Project>{d4dfa287-b394-4d15-97e0-d2a0675d26a6}</Project>
+      <Name>Pathfindax</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>mkdir "$(SolutionDir)../../Plugins"
+copy "$(TargetPath)" "$(SolutionDir)../../Plugins"
+copy "$(TargetDir)$(TargetName).pdb" "$(SolutionDir)../../Plugins"
+xcopy /Y "$(TargetDir)*.core.xml" "$(SolutionDir)../../Plugins"</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

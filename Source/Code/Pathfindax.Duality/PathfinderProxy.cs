@@ -10,7 +10,7 @@ namespace Pathfindax.Duality
 	{
 		public string PathfinderId { get; set; }
 		private IPathfinderComponent _pathfinderComponent;
-		private IPathfinderComponent PathfinderComponent => _pathfinderComponent ?? (_pathfinderComponent = PathfindaxCorePlugin.GetPathfinder(PathfinderId));
+		private IPathfinderComponent PathfinderComponent => _pathfinderComponent ?? (_pathfinderComponent = PathfindaxDualityCorePlugin.GetPathfinder(PathfinderId));
 
 		public PathfinderProxy() { }
 
