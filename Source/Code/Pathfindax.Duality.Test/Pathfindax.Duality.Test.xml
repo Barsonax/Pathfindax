@@ -7,6 +7,7 @@
         <member name="T:Pathfindax.Duality.Test.Components.PathfindaxPathSpammerComponent">
             <summary>
             Spams path requests as a example
+            Use the <see cref="P:Pathfindax.Duality.Test.Components.PathfindaxPathSpammerComponent.TopLeftCorner"/> and <see cref="P:Pathfindax.Duality.Test.Components.PathfindaxPathSpammerComponent.BottomRightCorner"/> properties to control where it will spam the path requests.
             </summary>
         </member>
         <member name="T:Pathfindax.Duality.Test.Components.SourceNodeNetworkProviderMockupComponent">

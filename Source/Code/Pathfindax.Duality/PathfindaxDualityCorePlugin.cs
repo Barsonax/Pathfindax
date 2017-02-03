@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using Duality;
-using Duality.Editor;
 using Duality.Resources;
 using Pathfindax.Duality.Components;
 

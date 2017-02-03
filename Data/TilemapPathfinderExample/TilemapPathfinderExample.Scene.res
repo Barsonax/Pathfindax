@@ -317,7 +317,7 @@
                   <shapes dataType="Struct" type="System.Collections.Generic.List`1[[Duality.Components.Physics.ShapeInfo]]" id="2417071285">
                     <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="1334378230" length="16" />
                     <_size dataType="Int">0</_size>
-                    <_version dataType="Int">1386</_version>
+                    <_version dataType="Int">1406</_version>
                   </shapes>
                 </item>
                 <item dataType="Struct" type="Duality.Plugins.Tilemaps.TilemapCollider" id="648828488">
@@ -395,6 +395,7 @@
             <_x003C_BoundRadius_x003E_k__BackingField dataType="Float">0</_x003C_BoundRadius_x003E_k__BackingField>
             <_x003C_MultithreadedPathfinder_x003E_k__BackingField />
             <_x003C_PathfinderId_x003E_k__BackingField />
+            <_x003C_ShowNodeGrid_x003E_k__BackingField dataType="Bool">true</_x003C_ShowNodeGrid_x003E_k__BackingField>
             <_x003C_SourceNodeGrid_x003E_k__BackingField />
             <active dataType="Bool">true</active>
             <gameobj dataType="ObjectRef">2787828769</gameobj>

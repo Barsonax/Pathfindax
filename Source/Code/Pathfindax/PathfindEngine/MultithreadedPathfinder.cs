@@ -12,15 +12,15 @@ namespace Pathfindax.PathfindEngine
 	{
 		private readonly MultithreadedWorkerQueue<CompletedPath, PathRequest> _multithreadedWorkerQueue;
 
-		public MultithreadedPathfinder(IList<TNodeNetwork> sourceNodeNetworks, IPathFindAlgorithm<TNodeNetwork> pathFindAlgorithm, int maxThreads = 1)
+		public MultithreadedPathfinder(IList<TNodeNetwork> nodeNetworks, IPathFindAlgorithm<TNodeNetwork> pathFindAlgorithm, int maxThreads = 1)
 		{
-			var firstNodeGrid = sourceNodeNetworks.FirstOrDefault();
+			var firstNodeGrid = nodeNetworks.FirstOrDefault();
 			if (firstNodeGrid == null) throw new ArgumentException("Please provide atleast one nodegrid");
 
 			var pathfinders = new List<IProcesser<CompletedPath, PathRequest>>();
 			for (int i = 0; i < maxThreads; i++)
 			{
-				pathfinders.Add(new PathRequestProcesser<TNodeNetwork>(sourceNodeNetworks, pathFindAlgorithm));
+				pathfinders.Add(new PathRequestProcesser<TNodeNetwork>(nodeNetworks, pathFindAlgorithm));
 			}
 			_multithreadedWorkerQueue = new MultithreadedWorkerQueue<CompletedPath, PathRequest>(pathfinders);
 		}

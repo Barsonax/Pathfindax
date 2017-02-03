@@ -20,6 +20,7 @@ namespace Pathfindax.Duality.Components
 	{
 		public INodeGrid<IGridNode> SourceNodeGrid { get; set; }
 		public float BoundRadius { get; }
+		public bool ShowNodeGrid { get; set; }
 
 		private NodeGridVisualizer _nodeGridVisualizer;
 
@@ -32,7 +33,7 @@ namespace Pathfindax.Duality.Components
 
 		void ICmpRenderer.Draw(IDrawDevice device)
 		{
-			if (_nodeGridVisualizer != null)
+			if (ShowNodeGrid &&_nodeGridVisualizer != null)
 				_nodeGridVisualizer.Draw(device);
 		}
 

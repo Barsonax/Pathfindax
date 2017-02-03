@@ -35,7 +35,7 @@ namespace Pathfindax.Duality.Test.Components
 			{
 				var start = new PositionF(_randomGenerator.Next(TopLeftCorner.X, BottomRightCorner.X), _randomGenerator.Next(TopLeftCorner.Y, BottomRightCorner.Y));
 				var end = new PositionF(_randomGenerator.Next(TopLeftCorner.X, BottomRightCorner.X), _randomGenerator.Next(TopLeftCorner.Y, BottomRightCorner.Y));
-				var request = new PathRequest(PathSolved, start, end, 1);
+				var request = new PathRequest(PathSolved, start, end);
 				PathfinderProxy.RequestPath(request);
 			}
 		}
@@ -61,7 +61,7 @@ namespace Pathfindax.Duality.Test.Components
 				canvas.State.ColorTint = ColorRgba.Red;
 				foreach (var position in Path)
 				{
-					canvas.FillCircle(position.X + TopLeftCorner.X, position.Y + TopLeftCorner.Y, 10f);
+					canvas.FillCircle(position.X, position.Y, 10f);
 				}
 			}
 		}
