@@ -19,7 +19,7 @@ namespace Pathfindax.Duality.Test.Components
 			if (_nodeGrids == null)
 			{
 				var sourceNodeGridFactory = new SourceNodeGridFactory();
-				var sourceNodeGrid = sourceNodeGridFactory.GeneratePreFilledArray(16, 16, new PositionF(32, 32), GenerateNodeGridNeighbours.All);
+				var sourceNodeGrid = sourceNodeGridFactory.GeneratePreFilledArray(16, 16, new PositionF(32, 32), GenerateNodeGridConnections.All);
 				sourceNodeGrid.NodeArray[5, 4].Walkable = false;
 				sourceNodeGrid.NodeArray[5, 5].Walkable = false;
 				sourceNodeGrid.NodeArray[5, 6].Walkable = false;

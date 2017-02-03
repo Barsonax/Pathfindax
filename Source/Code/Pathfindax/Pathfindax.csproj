@@ -47,7 +47,7 @@
     <Compile Include="Collections\MinHeap.cs" />
     <Compile Include="Grid\AStarGrid.cs" />
     <Compile Include="Grid\Factories\SourceNodeGridFactory.cs" />
-    <Compile Include="Grid\GenerateNodeGridNeighbours.cs" />
+    <Compile Include="Grid\GenerateNodeGridConnections.cs" />
     <Compile Include="Grid\Interfaces\INodeNetwork.cs" />
     <Compile Include="Grid\NodeGridBase.cs" />
     <Compile Include="Nodes\GridNode.cs" />

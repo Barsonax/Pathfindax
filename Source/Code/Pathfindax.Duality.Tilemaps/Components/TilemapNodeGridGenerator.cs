@@ -36,14 +36,14 @@ namespace Pathfindax.Duality.Tilemaps.Components
 				for (int i = 0; i < 4; i++)
 				{
 					var collisionCategory = (CollisionCategory) (1 << i);
-					var sourceNodeGrid = sourceNodeGridFactory.GeneratePreFilledArray(baseTilemap.Size.X, baseTilemap.Size.Y, new PositionF(baseTilemap.Tileset.Res.TileSize.X, baseTilemap.Tileset.Res.TileSize.Y), GenerateNodeGridNeighbours.None, new PositionF(offset.X, offset.Y));
+					var sourceNodeGrid = sourceNodeGridFactory.GeneratePreFilledArray(baseTilemap.Size.X, baseTilemap.Size.Y, new PositionF(baseTilemap.Tileset.Res.TileSize.X, baseTilemap.Tileset.Res.TileSize.Y), GenerateNodeGridConnections.None, new PositionF(offset.X, offset.Y));
 					for (int y = 0; y < baseTilemap.Size.Y; y++)
 					{
 						for (int x = 0; x < baseTilemap.Size.X; x++)
 						{
 							var node = sourceNodeGrid.NodeArray[x, y];
 							var neighbours = nodeGridRayCaster.GetReachableNeighbours(sourceNodeGrid, node, collisionCategory);
-							node.Neighbours.AddRange(neighbours);
+							node.Connections.AddRange(neighbours);
 						}
 					}
 

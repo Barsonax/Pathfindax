@@ -7,11 +7,11 @@ namespace Pathfindax.Nodes
 	[DebuggerDisplay("{Position}")]
 	public class GridNode : GridNodeBase, IGridNode
 	{
-		public IList<IGridNode> Neighbours { get; set; }
+		public IList<IGridNode> Connections { get; set; }
 
 		public GridNode(PositionF worldPos, int gridX, int gridY, bool walkable = true) : base(worldPos, gridX, gridY, walkable)
 		{
-			Neighbours = new List<IGridNode>();
+			Connections = new List<IGridNode>();
 		}
 	}
 

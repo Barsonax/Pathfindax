@@ -1,6 +1,6 @@
 ﻿namespace Pathfindax.Grid
 {
-	public enum GenerateNodeGridNeighbours
+	public enum GenerateNodeGridConnections
 	{
 		/// <summary>
 		/// Generate no neighbours.

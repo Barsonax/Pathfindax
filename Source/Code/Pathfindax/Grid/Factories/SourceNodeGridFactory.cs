@@ -13,10 +13,10 @@ namespace Pathfindax.Grid
 		/// <param name="width"></param>
 		/// <param name="height"></param>
 		/// <param name="nodeSize"></param>
-		/// <param name="generateNodeGridNeighbours"></param>
+		/// <param name="generateNodeGridConnections"></param>
 		/// <param name="offset"></param>
 		/// <returns></returns>
-		public SourceNodeGrid GeneratePreFilledArray(int width, int height, PositionF nodeSize, GenerateNodeGridNeighbours generateNodeGridNeighbours, PositionF offset = default(PositionF))
+		public SourceNodeGrid GeneratePreFilledArray(int width, int height, PositionF nodeSize, GenerateNodeGridConnections generateNodeGridConnections, PositionF offset = default(PositionF))
 		{
 			var array = new Array2D<IGridNode>(width, height);
 
@@ -29,17 +29,17 @@ namespace Pathfindax.Grid
 				}
 			}
 
-			if (generateNodeGridNeighbours != GenerateNodeGridNeighbours.None)
+			if (generateNodeGridConnections != GenerateNodeGridConnections.None)
 			{
 				for (int y = 0; y < height; y++)
 				{
 					for (int x = 0; x < width; x++)
 					{
 						var node = array[x, y];
-						var neighbours = GetNeighbours(array, node, generateNodeGridNeighbours);
+						var neighbours = GetNeighbours(array, node, generateNodeGridConnections);
 						foreach (var neighbour in neighbours)
 						{
-							node.Neighbours.Add(neighbour);
+							node.Connections.Add(neighbour);
 						}
 					}
 				}
@@ -47,7 +47,7 @@ namespace Pathfindax.Grid
 			return new SourceNodeGrid(array, nodeSize, offset);
 		}
 
-		private IList<IGridNode> GetNeighbours(Array2D<IGridNode> nodeArray, IGridNodeBase gridNode, GenerateNodeGridNeighbours generateNodeGridNeighbours)
+		private IList<IGridNode> GetNeighbours(Array2D<IGridNode> nodeArray, IGridNodeBase gridNode, GenerateNodeGridConnections generateNodeGridConnections)
 		{
 			var neighbours = new List<IGridNode>();
 
@@ -62,7 +62,7 @@ namespace Pathfindax.Grid
 
 					if (checkX >= 0 && checkX < nodeArray.Width && checkY >= 0 && checkY < nodeArray.Height)
 					{
-						if (generateNodeGridNeighbours == GenerateNodeGridNeighbours.NoDiagonal)
+						if (generateNodeGridConnections == GenerateNodeGridConnections.NoDiagonal)
 						{
 							if (x == 1 && y == 1 && !CheckWalkable(nodeArray, gridNode.GridX, gridNode.GridY + 1) &&
 								!CheckWalkable(nodeArray, gridNode.GridX + 1, gridNode.GridY)) continue;

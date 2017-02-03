@@ -5,11 +5,11 @@ namespace Pathfindax.Nodes
 {
 	public class Node : NodeBase, INode<INode>
 	{
-		public IList<INode> Neighbours { get; set; }
+		public IList<INode> Connections { get; set; }
 
 		public Node(PositionF worldPos, bool walkable) : base(worldPos, walkable)
 		{
-			Neighbours = new List<INode>();
+			Connections = new List<INode>();
 		}
 	}
 

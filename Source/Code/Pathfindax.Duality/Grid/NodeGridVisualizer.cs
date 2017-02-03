@@ -42,7 +42,7 @@ namespace Pathfindax.Duality.Grid
 						canvas.FillCircle(node.Position.X + _offset.X, node.Position.Y + _offset.Y, _nodeSize);
 					}
 					canvas.State.ColorTint = new ColorRgba(199, 21, 133);
-					foreach (var nodeNeighbour in node.Neighbours)
+					foreach (var nodeNeighbour in node.Connections)
 					{
 						var vector = (nodeNeighbour.Position - node.Position) * 0.5f;
 						canvas.DrawDashLine(node.Position.X + _offset.X, node.Position.Y + _offset.Y, node.Position.X + vector.X + _offset.X, node.Position.Y + vector.Y + _offset.Y);

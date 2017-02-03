@@ -6,12 +6,17 @@ namespace Pathfindax.Nodes
 	public interface INode<T> : INode
 		where T : INode
 	{
-		IList<T> Neighbours { get; set; }
+		/// <summary>
+		/// The connections to other nodes.
+		/// </summary>
+		IList<T> Connections { get; set; }
 	}
 
 	public interface INode
 	{
-		INode Parent { get; set; }
+		/// <summary>
+		/// Is this node traversable or not?
+		/// </summary>
 		bool Walkable { get; set; }
 
 		/// <summary>

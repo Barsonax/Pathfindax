@@ -54,7 +54,7 @@ namespace Pathfindax.Algorithms
 							break;
 						}
 
-						foreach (var neighbour in currentNode.Neighbours)
+						foreach (var neighbour in currentNode.Connections)
 						{
 							if (!neighbour.Walkable || closedSet.Contains(neighbour))
 							{

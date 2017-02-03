@@ -31,9 +31,9 @@ namespace Pathfindax.Grid
 				{
 					var aStarNode = NodeArray[x, y];
 					var sourceNode = source.NodeArray[x, y];
-					foreach (var sourceNodeNeighbour in sourceNode.Neighbours)
+					foreach (var sourceNodeNeighbour in sourceNode.Connections)
 					{
-						aStarNode.Neighbours.Add(NodeArray[sourceNodeNeighbour.GridX, sourceNodeNeighbour.GridY]);
+						aStarNode.Connections.Add(NodeArray[sourceNodeNeighbour.GridX, sourceNodeNeighbour.GridY]);
 					}
 				}
 			}

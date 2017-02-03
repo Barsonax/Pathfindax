@@ -5,10 +5,10 @@ namespace Pathfindax.Nodes
 {
 	public class AstarGridNode: AstarGridNodeBase, IAStarGridNode 
 	{		
-		public IList<IAStarGridNode> Neighbours { get; set; }
+		public IList<IAStarGridNode> Connections { get; set; }
 		public AstarGridNode(IGridNodeBase source) : base(source)
 		{
-			Neighbours = new List<IAStarGridNode>();
+			Connections = new List<IAStarGridNode>();
 		}
 	}
 
