@@ -79,6 +79,7 @@
     <Compile Include="Utils\Extenstions\ListExtensions.cs" />
     <Compile Include="Utils\Mathf.cs" />
     <Compile Include="Utils\PathfindaxStrings.cs" />
+    <Compile Include="Utils\StringExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Pathfindax.nuspec" />

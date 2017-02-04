@@ -36,6 +36,9 @@
     <Reference Include="Duality">
       <HintPath>..\..\..\Duality.dll</HintPath>
     </Reference>
+    <Reference Include="DualityEditor">
+      <HintPath>..\..\..\DualityEditor.exe</HintPath>
+    </Reference>
     <Reference Include="DualityPrimitives">
       <HintPath>..\..\..\DualityPrimitives.dll</HintPath>
     </Reference>
@@ -52,8 +55,11 @@
   <ItemGroup>
     <Compile Include="Components\PathfindaxPathSpammerComponent.cs" />
     <Compile Include="Components\SourceNodeNetworkProviderMockupComponent.cs" />
+    <Compile Include="NodeGridRayCasterTest.cs" />
+    <Compile Include="InitDualityAttribute.cs" />
     <Compile Include="PathfindaxDualityTestCorePlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
