@@ -4,6 +4,7 @@ using System.Diagnostics;
 using Pathfindax.Collections;
 using Pathfindax.Grid;
 using Pathfindax.Nodes;
+using Pathfindax.PathfindEngine;
 using Pathfindax.Primitives;
 
 namespace Pathfindax.Algorithms
@@ -14,14 +15,14 @@ namespace Pathfindax.Algorithms
 	public class AStarAlgorithm : IPathFindAlgorithm<INodeGrid<IAStarGridNode>>
 	{
 		/// <inheritdoc />
-		public IList<INode> FindPath(INodeGrid<IAStarGridNode> nodeGrid, PositionF pathStart, PositionF pathEnd)
+		public IList<INode> FindPath(INodeGrid<IAStarGridNode> nodeGrid, PathRequest pathRequest)
 		{
-			var startNode = nodeGrid.GetNode(pathStart);
-			var endNode = nodeGrid.GetNode(pathEnd);
-			return FindPath(nodeGrid, startNode, endNode);
+			var startNode = nodeGrid.GetNode(pathRequest.PathStart);
+			var endNode = nodeGrid.GetNode(pathRequest.PathEnd);
+			return FindPath(nodeGrid, startNode, endNode, pathRequest.CollsionLayer);
 		}
 
-		private IList<INode> FindPath(INodeGrid<IAStarGridNode> nodeGrid, IAStarGridNode startGridNode, IAStarGridNode targetGridNode)
+		private IList<INode> FindPath(INodeGrid<IAStarGridNode> nodeGrid, IAStarGridNode startGridNode, IAStarGridNode targetGridNode, PathfindaxCollisionCategory collisionCategory)
 		{
 			try
 			{
@@ -56,7 +57,8 @@ namespace Pathfindax.Algorithms
 
 						foreach (var connection in currentNode.Connections)
 						{
-							if (!connection.Node.Walkable || closedSet.Contains(connection.Node))
+
+							if (((connection.CollisionCategory & collisionCategory) != 0) || !connection.Node.Walkable || closedSet.Contains(connection.Node))
 							{
 								continue;
 							}

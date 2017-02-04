@@ -3,6 +3,7 @@ using Duality;
 using Duality.Drawing;
 using Duality.Editor;
 using Pathfindax.Duality.PathfindEngine;
+using Pathfindax.Nodes;
 using Pathfindax.PathfindEngine;
 using Pathfindax.Primitives;
 using Pathfindax.Utils;
@@ -16,6 +17,7 @@ namespace Pathfindax.Duality.Test.Components
 	[EditorHintCategory(PathfindaxStrings.PathfindaxTest)]
 	public class PathfindaxPathSpammerComponent : Component, ICmpUpdatable, ICmpRenderer
 	{
+		public PathfindaxCollisionCategory CollisionCategory { get; set; }
 		public Point2 TopLeftCorner { get; set; }
 		public Point2 BottomRightCorner { get; set; }
 		public PositionF[] Path { get; private set; }
@@ -35,7 +37,7 @@ namespace Pathfindax.Duality.Test.Components
 			{
 				var start = new PositionF(_randomGenerator.Next(TopLeftCorner.X, BottomRightCorner.X), _randomGenerator.Next(TopLeftCorner.Y, BottomRightCorner.Y));
 				var end = new PositionF(_randomGenerator.Next(TopLeftCorner.X, BottomRightCorner.X), _randomGenerator.Next(TopLeftCorner.Y, BottomRightCorner.Y));
-				var request = new PathRequest(PathSolved, start, end);
+				var request = new PathRequest(PathSolved, start, end, 1, CollisionCategory);
 				PathfinderProxy.RequestPath(request);
 			}
 		}

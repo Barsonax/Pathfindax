@@ -1,4 +1,5 @@
 ﻿using System;
+using Pathfindax.Nodes;
 using Pathfindax.Primitives;
 
 namespace Pathfindax.PathfindEngine
@@ -25,14 +26,14 @@ namespace Pathfindax.PathfindEngine
 		/// The CollisionLayer. Sometimes you can have multiple nodenetworks. One for agents that have to move over land and one for agents that can move over land and sea for instance.
 		/// WARNING: Currently not used.
 		/// </summary>
-		public int CollsionLayer;
+		public PathfindaxCollisionCategory CollsionLayer;
 
 		/// <summary>
 		/// The callback that will be called after the pathfinder finds a path or cannot find one.
 		/// </summary>
 		public readonly Action<CompletedPath> Callback;
 
-		public PathRequest(Action<CompletedPath> callback, PositionF start, PositionF end, float clearance = 1, int collisionLayer = 1)
+		public PathRequest(Action<CompletedPath> callback, PositionF start, PositionF end, float clearance = 1, PathfindaxCollisionCategory collisionLayer = PathfindaxCollisionCategory.None)
 		{
 			PathStart = start;
 			PathEnd = end;
