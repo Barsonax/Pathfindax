@@ -20,7 +20,7 @@ namespace Pathfindax.Grid
 				for (int x = 0; x < source.NodeArray.Width; x++)
 				{
 					var sourceNode = source.NodeArray[x, y];
-					var aStarNode = new AstarGridNode(sourceNode);
+					var aStarNode = new AstarGridNode(this, sourceNode);
 					NodeArray[x, y] = aStarNode;
 				}
 			}
@@ -33,7 +33,7 @@ namespace Pathfindax.Grid
 					var sourceNode = source.NodeArray[x, y];
 					foreach (var sourceNodeNeighbour in sourceNode.Connections)
 					{
-						aStarNode.Connections.Add(NodeArray[sourceNodeNeighbour.GridX, sourceNodeNeighbour.GridY]);
+						aStarNode.Connections.Add(new NodeConnection<IAStarGridNode>(NodeArray[sourceNodeNeighbour.Node.GridX, sourceNodeNeighbour.Node.GridY], sourceNodeNeighbour.CollisionCategory));
 					}
 				}
 			}

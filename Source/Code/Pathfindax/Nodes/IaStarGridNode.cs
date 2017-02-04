@@ -1,14 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
+using Pathfindax.Grid;
 
 namespace Pathfindax.Nodes
 {
-	public class AstarGridNode: AstarGridNodeBase, IAStarGridNode 
-	{		
-		public IList<IAStarGridNode> Connections { get; set; }
-		public AstarGridNode(IGridNodeBase source) : base(source)
+	public class AstarGridNode : AstarGridNodeBase, IAStarGridNode
+	{
+		public IList<NodeConnection<IAStarGridNode>> Connections { get; set; }
+		public AstarGridNode(INodeNetworkBase nodeNetwork, IGridNodeBase source) : base(nodeNetwork, source)
 		{
-			Connections = new List<IAStarGridNode>();
+			Connections = new List<NodeConnection<IAStarGridNode>>();
 		}
 	}
 
@@ -21,7 +22,7 @@ namespace Pathfindax.Nodes
 		public int HeapIndex { get; set; }
 		public int FCost => GCost + HCost;
 
-		public AstarGridNodeBase(IGridNodeBase source) : base(source.Position, source.GridX, source.GridY, source.Walkable)
+		public AstarGridNodeBase(INodeNetworkBase nodeNetwork, IGridNodeBase source) : base(nodeNetwork, source.Position, source.GridX, source.GridY, source.Walkable)
 		{
 			HCost = -1;
 			GCost = -1;

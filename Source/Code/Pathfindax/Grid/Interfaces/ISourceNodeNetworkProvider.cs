@@ -3,6 +3,6 @@
 	public interface ISourceNodeNetworkProvider<out TNodeNetwork> 
 		where TNodeNetwork : INodeNetworkBase
 	{
-		TNodeNetwork[] GenerateGrid2D();
+		TNodeNetwork GenerateGrid2D();
 	}
 }

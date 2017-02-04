@@ -19,37 +19,33 @@ namespace Pathfindax.Duality.Tilemaps.Components
 		public float BoundRadius { get; }
 		private long _counter;
 		private NodeGridVisualizer _nodeGridVisualizer;
-		private INodeGrid<IGridNode>[] _nodeGrid;
+		private INodeGrid<IGridNode> _nodeGrid;
 
-		public INodeGrid<IGridNode>[] GenerateGrid2D()
+		public INodeGrid<IGridNode> GenerateGrid2D()
 		{
-			if(_counter < 2) throw new Exception("The nodegrid is not yet initialized please call this later");
+			if (_counter < 2) throw new Exception("The nodegrid is not yet initialized please call this later");
 			if (_nodeGrid == null)
 			{
 				var tilemaps = GameObj.GetComponentsInChildren<Tilemap>().ToArray();
 				var baseTilemap = tilemaps.FirstOrDefault();
 				if (baseTilemap == null) throw new ArgumentException("No tilemaps found in gameobject children!");
 				var sourceNodeGridFactory = new SourceNodeGridFactory();
-				_nodeGrid = new INodeGrid<IGridNode>[4];
 				var offset = -new Vector2((baseTilemap.Size.X * baseTilemap.Tileset.Res.TileSize.X) - baseTilemap.Tileset.Res.TileSize.X, (baseTilemap.Size.Y * baseTilemap.Tileset.Res.TileSize.Y) - baseTilemap.Tileset.Res.TileSize.Y) / 2;
 				var nodeGridRayCaster = new NodeGridRayCaster();
-				for (int i = 0; i < 4; i++)
+				var sourceNodeGrid = sourceNodeGridFactory.GeneratePreFilledArray(baseTilemap.Size.X, baseTilemap.Size.Y, new PositionF(baseTilemap.Tileset.Res.TileSize.X, baseTilemap.Tileset.Res.TileSize.Y), GenerateNodeGridConnections.All, new PositionF(offset.X, offset.Y));
+				for (int y = 0; y < baseTilemap.Size.Y; y++)
 				{
-					var collisionCategory = (CollisionCategory) (1 << i);
-					var sourceNodeGrid = sourceNodeGridFactory.GeneratePreFilledArray(baseTilemap.Size.X, baseTilemap.Size.Y, new PositionF(baseTilemap.Tileset.Res.TileSize.X, baseTilemap.Tileset.Res.TileSize.Y), GenerateNodeGridConnections.None, new PositionF(offset.X, offset.Y));
-					for (int y = 0; y < baseTilemap.Size.Y; y++)
+					for (int x = 0; x < baseTilemap.Size.X; x++)
 					{
-						for (int x = 0; x < baseTilemap.Size.X; x++)
+						var node = sourceNodeGrid.NodeArray[x, y];
+						foreach (var nodeConnection in node.Connections)
 						{
-							var node = sourceNodeGrid.NodeArray[x, y];
-							var neighbours = nodeGridRayCaster.GetReachableNeighbours(sourceNodeGrid, node, collisionCategory);
-							node.Connections.AddRange(neighbours);
+							nodeConnection.CollisionCategory = nodeGridRayCaster.GetCollisionCategory(node, nodeConnection.Node);
 						}
 					}
-
-					_nodeGrid[i] = sourceNodeGrid;
+					_nodeGrid = sourceNodeGrid;
 				}
-				_nodeGridVisualizer = new NodeGridVisualizer(_nodeGrid[0]);
+				_nodeGridVisualizer = new NodeGridVisualizer(_nodeGrid);
 			}
 			return _nodeGrid;
 		}

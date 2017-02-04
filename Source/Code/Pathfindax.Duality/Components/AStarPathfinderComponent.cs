@@ -19,10 +19,13 @@ namespace Pathfindax.Duality.Components
 	public class AStarPathfinderComponent : PathfinderComponentBase, ICmpRenderer, ICmpUpdatable
 	{
 		public INodeGrid<IGridNode> SourceNodeGrid { get; set; }
+
+		[EditorHintFlags(MemberFlags.Invisible)]
 		public float BoundRadius { get; }
 		public bool ShowNodeGrid { get; set; }
 
-		private NodeGridVisualizer _nodeGridVisualizer;
+		[EditorHintFlags(MemberFlags.Visible)]
+		private NodeGridVisualizer NodeGridVisualizer { get; set; }
 
 		bool ICmpRenderer.IsVisible(IDrawDevice device)
 		{
@@ -33,8 +36,8 @@ namespace Pathfindax.Duality.Components
 
 		void ICmpRenderer.Draw(IDrawDevice device)
 		{
-			if (ShowNodeGrid &&_nodeGridVisualizer != null)
-				_nodeGridVisualizer.Draw(device);
+			if (ShowNodeGrid &&NodeGridVisualizer != null)
+				NodeGridVisualizer.Draw(device);
 		}
 
 		private int _counter;
@@ -48,11 +51,10 @@ namespace Pathfindax.Duality.Components
 					var sourceProvider = GameObj.GetComponent<ISourceNodeNetworkProvider<INodeGrid<IGridNode>>>();
 					if (sourceProvider != null)
 					{
-						var sourceGrids = sourceProvider.GenerateGrid2D();
-						SourceNodeGrid = sourceGrids.FirstOrDefault();
+						SourceNodeGrid = sourceProvider.GenerateGrid2D();
 						var nodeGrid = new AStarGrid(SourceNodeGrid);
 						var algorithm = new AStarAlgorithm();
-						_nodeGridVisualizer = new NodeGridVisualizer(SourceNodeGrid);
+						NodeGridVisualizer = new NodeGridVisualizer(SourceNodeGrid);
 						MultithreadedPathfinder = new MultithreadedPathfinder<INodeGrid<IAStarGridNode>>(new List<INodeGrid<IAStarGridNode>> { nodeGrid }, algorithm);
 						MultithreadedPathfinder.Start();
 					}

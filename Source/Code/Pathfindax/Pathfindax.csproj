@@ -59,6 +59,8 @@
     <Compile Include="Grid\Interfaces\ISourceNodeNetworkProvider.cs" />
     <Compile Include="Grid\SourceNodeGrid.cs" />
     <Compile Include="Nodes\Node.cs" />
+    <Compile Include="Nodes\NodeConnection.cs" />
+    <Compile Include="Nodes\PathfindaxCollisionCategory.cs" />
     <Compile Include="PathfindEngine\CompletedPath.cs" />
     <Compile Include="PathfindEngine\Interfaces\IMultithreadedPathfinder.cs" />
     <Compile Include="PathfindEngine\Interfaces\IPathPostProcess.cs" />

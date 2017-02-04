@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
+using Pathfindax.Grid;
 using Pathfindax.Primitives;
 
 namespace Pathfindax.Nodes
@@ -7,11 +8,11 @@ namespace Pathfindax.Nodes
 	[DebuggerDisplay("{Position}")]
 	public class GridNode : GridNodeBase, IGridNode
 	{
-		public IList<IGridNode> Connections { get; set; }
+		public IList<NodeConnection<IGridNode>> Connections { get; set; }
 
-		public GridNode(PositionF worldPos, int gridX, int gridY, bool walkable = true) : base(worldPos, gridX, gridY, walkable)
+		public GridNode(INodeNetworkBase nodeNetwork, PositionF worldPos, int gridX, int gridY, bool walkable = true) : base(nodeNetwork, worldPos, gridX, gridY, walkable)
 		{
-			Connections = new List<IGridNode>();
+			Connections = new List<NodeConnection<IGridNode>>();
 		}
 	}
 
@@ -21,19 +22,19 @@ namespace Pathfindax.Nodes
 		public int GridX { get; }
 		public int GridY { get; }
 
-		protected GridNodeBase(PositionF worldPos, int gridX, int gridY, bool walkable = true) : base(worldPos, walkable)
+		protected GridNodeBase(INodeNetworkBase nodeNetwork, PositionF worldPos, int gridX, int gridY, bool walkable = true) : base(nodeNetwork, worldPos, walkable)
 		{
 			Walkable = walkable;
 			GridX = gridX;
 			GridY = gridY;
 		}
 
-		protected GridNodeBase(PositionF worldPos, bool walkable = true) : base(worldPos, walkable)
+		/*protected GridNodeBase(INodeNetworkBase nodeNetwork, PositionF worldPos, bool walkable = true) : base(nodeNetwork, worldPos, walkable)
 		{
 			Walkable = walkable;
 			GridX = (int)worldPos.X;
 			GridY = (int)worldPos.Y;
-		}
+		}*/
 
 		public override string ToString()
 		{

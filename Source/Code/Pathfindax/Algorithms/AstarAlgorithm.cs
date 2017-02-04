@@ -54,22 +54,22 @@ namespace Pathfindax.Algorithms
 							break;
 						}
 
-						foreach (var neighbour in currentNode.Connections)
+						foreach (var connection in currentNode.Connections)
 						{
-							if (!neighbour.Walkable || closedSet.Contains(neighbour))
+							if (!connection.Node.Walkable || closedSet.Contains(connection.Node))
 							{
 								continue;
 							}
 
-							var newMovementCostToNeighbour = currentNode.GCost + GetDistance(currentNode, neighbour);
-							if (newMovementCostToNeighbour < neighbour.GCost || !openSet.Contains(neighbour))
+							var newMovementCostToNeighbour = currentNode.GCost + GetDistance(currentNode, connection.Node);
+							if (newMovementCostToNeighbour < connection.Node.GCost || !openSet.Contains(connection.Node))
 							{
-								neighbour.GCost = newMovementCostToNeighbour;
-								neighbour.HCost = GetDistance(neighbour, targetGridNode);
-								neighbour.Parent = currentNode;
+								connection.Node.GCost = newMovementCostToNeighbour;
+								connection.Node.HCost = GetDistance(connection.Node, targetGridNode);
+								connection.Node.Parent = currentNode;
 								neighbourUpdates++;
-								if (!openSet.Contains(neighbour))
-									openSet.Add(neighbour);
+								if (!openSet.Contains(connection.Node))
+									openSet.Add(connection.Node);
 							}
 						}
 					}

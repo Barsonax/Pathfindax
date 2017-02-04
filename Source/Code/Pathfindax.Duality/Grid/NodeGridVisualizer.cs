@@ -10,6 +10,7 @@ namespace Pathfindax.Duality.Grid
 	/// </summary>
 	public class NodeGridVisualizer
 	{
+		public PathfindaxCollisionCategory CollisionCategory { get; set; }
 		private readonly INodeGrid<IGridNode> _nodeNetwork;
 		private readonly float _nodeSize;
 		private Vector2 _offset;
@@ -42,9 +43,13 @@ namespace Pathfindax.Duality.Grid
 						canvas.FillCircle(node.Position.X + _offset.X, node.Position.Y + _offset.Y, _nodeSize);
 					}
 					canvas.State.ColorTint = new ColorRgba(199, 21, 133);
-					foreach (var nodeNeighbour in node.Connections)
+					foreach (var connection in node.Connections)
 					{
-						var vector = (nodeNeighbour.Position - node.Position) * 0.5f;
+						if ((connection.CollisionCategory & CollisionCategory) != 0)
+						{
+							continue;
+						}
+						var vector = (connection.Node.Position - node.Position) * 0.5f;
 						canvas.DrawDashLine(node.Position.X + _offset.X, node.Position.Y + _offset.Y, node.Position.X + vector.X + _offset.X, node.Position.Y + vector.Y + _offset.Y);
 					}
 				}

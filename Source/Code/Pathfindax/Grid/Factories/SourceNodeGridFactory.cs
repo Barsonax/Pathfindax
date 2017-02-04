@@ -19,12 +19,12 @@ namespace Pathfindax.Grid
 		public SourceNodeGrid GeneratePreFilledArray(int width, int height, PositionF nodeSize, GenerateNodeGridConnections generateNodeGridConnections, PositionF offset = default(PositionF))
 		{
 			var array = new Array2D<IGridNode>(width, height);
-
+			var sourceNodeGrid = new SourceNodeGrid(array, nodeSize, offset);
 			for (int y = 0; y < height; y++)
 			{
 				for (int x = 0; x < width; x++)
 				{
-					var node = new GridNode(new PositionF(x * nodeSize.X, y * nodeSize.Y), x, y);
+					var node = new GridNode(sourceNodeGrid, new PositionF(x * nodeSize.X, y * nodeSize.Y), x, y);
 					array[x, y] = node;
 				}
 			}
@@ -39,12 +39,12 @@ namespace Pathfindax.Grid
 						var neighbours = GetNeighbours(array, node, generateNodeGridConnections);
 						foreach (var neighbour in neighbours)
 						{
-							node.Connections.Add(neighbour);
+							node.Connections.Add(new NodeConnection<IGridNode>(neighbour));
 						}
 					}
 				}
 			}
-			return new SourceNodeGrid(array, nodeSize, offset);
+			return sourceNodeGrid;
 		}
 
 		private IList<IGridNode> GetNeighbours(Array2D<IGridNode> nodeArray, IGridNodeBase gridNode, GenerateNodeGridConnections generateNodeGridConnections)

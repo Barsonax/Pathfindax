@@ -1,27 +1,32 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using Pathfindax.Grid;
 using Pathfindax.Primitives;
 
 namespace Pathfindax.Nodes
 {
 	public class Node : NodeBase, INode<INode>
 	{
-		public IList<INode> Connections { get; set; }
+		public IList<NodeConnection<INode>> Connections { get; set; }
 
-		public Node(PositionF worldPos, bool walkable) : base(worldPos, walkable)
+		public Node(INodeNetworkBase nodeNetwork, PositionF worldPos, bool walkable) : base(nodeNetwork, worldPos, walkable)
 		{
-			Connections = new List<INode>();
+			Connections = new List<NodeConnection<INode>>();
 		}
 	}
 
 	public abstract class NodeBase : INode
 	{
+		public INodeNetworkBase NodeNetwork { get; }
 		public bool Walkable { get; set; }
 		public PositionF Position { get; }
+		public PositionF WorldPosition => Position + NodeNetwork.Offset;
 
-		protected NodeBase(PositionF worldPos, bool walkable)
+		protected NodeBase(INodeNetworkBase nodeNetwork, PositionF worldPos, bool walkable)
 		{
 			Position = worldPos;
 			Walkable = walkable;
+			NodeNetwork = nodeNetwork;
 		}
 	}
 }
