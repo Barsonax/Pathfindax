@@ -11,9 +11,9 @@ namespace Pathfindax.Duality.Test
 	[AttributeUsage(AttributeTargets.Assembly, AllowMultiple = false)]
 	public class InitDualityAttribute : Attribute, ITestAction
 	{
-		private string oldEnvDir = null;
-		private INativeWindow dummyWindow = null;
-		private TextWriterLogOutput consoleLogOutput = null;
+		private string oldEnvDir;
+		private INativeWindow dummyWindow;
+		private TextWriterLogOutput consoleLogOutput;
 
 		public ActionTargets Targets
 		{
