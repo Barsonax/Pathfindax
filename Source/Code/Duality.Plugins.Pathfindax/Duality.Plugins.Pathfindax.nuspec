@@ -14,8 +14,8 @@
     <description>$description$</description>
   </metadata>
     <files>
-    <file src="..\Binaries\Release\Duality.Plugins.Pathfindax.dll" target="lib" />
-    <file src="..\Binaries\Release\Duality.Plugins.Pathfindax.pdb" target="lib" />
-    <file src="..\Binaries\Release\Duality.Plugins.Pathfindax.xml" target="lib" />
+    <file src="..\Binaries\Release\Duality.Plugins.Pathfindax.core.dll" target="lib" />
+    <file src="..\Binaries\Release\Duality.Plugins.Pathfindax.core.pdb" target="lib" />
+    <file src="..\Binaries\Release\Duality.Plugins.Pathfindax.core.xml" target="lib" />
   </files>
 </package>
