@@ -1,17 +1,29 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <StartAction>Program</StartAction>
+    <StartProgram>$(SolutionDir)..\..\DualityLauncher.exe</StartProgram>
+    <StartWorkingDirectory>$(SolutionDir)..\..</StartWorkingDirectory>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <StartAction>Program</StartAction>
+    <StartProgram>$(SolutionDir)..\..\DualityLauncher.exe</StartProgram>
+    <StartWorkingDirectory>$(SolutionDir)..\..</StartWorkingDirectory>
+  </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{AE16D0D3-A7CC-4132-BAA0-8A9B13F66E69}</ProjectGuid>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{AFE883F3-72B4-4C7C-A1D1-44EDC09C8F6E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Duality.Plugins.Pathfindax.Tilemaps</RootNamespace>
-    <AssemblyName>Duality.Plugins.Pathfindax.Tilemaps.core</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <RootNamespace>Duality.Plugins.Pathfindax</RootNamespace>
+    <AssemblyName>Duality.Plugins.Pathfindax.core</AssemblyName>
     <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TargetFrameworkProfile>Profile111</TargetFrameworkProfile>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MinimumVisualStudioVersion>11.0</MinimumVisualStudioVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -22,11 +34,9 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\Binaries\Debug\Duality.Plugins.Pathfindax.Tilemaps.xml</DocumentationFile>
+    <DocumentationFile>..\Binaries\Debug\Duality.Plugins.Pathfindax.core.xml</DocumentationFile>
     <NoWarn>1591,1592,1573,1571,1570,1572</NoWarn>
-    <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <TargetFrameworkProfile>Profile111</TargetFrameworkProfile>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -35,39 +45,39 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>Pathfindax.Duality.xml</DocumentationFile>
+    <NoWarn>1591,1592,1573,1571,1570,1572</NoWarn>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Duality, Version=2.9.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Duality">
       <HintPath>..\..\..\Duality.dll</HintPath>
     </Reference>
-    <Reference Include="DualityPrimitives, Version=2.0.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="DualityPrimitives">
       <HintPath>..\..\..\DualityPrimitives.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="Tilemaps.core">
-      <HintPath>..\..\..\Plugins\Tilemaps.core.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Components\TilemapNodeGridGenerator.cs" />
-    <Compile Include="PathfindaxTilemapPlugin.cs" />
+    <Compile Include="Components\Interfaces\IPathfinderComponent.cs" />
+    <Compile Include="Grid\NodeGridRayCaster.cs" />
+    <Compile Include="Grid\NodeGridVisualizer.cs" />
+    <Compile Include="Components\PathfinderComponentBase.cs" />
+    <Compile Include="PathfindaxDualityCorePlugin.cs" />
+    <Compile Include="Components\AStarPathfinderComponent.cs" />
+    <Compile Include="PathfindEngine\PathfinderProxy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Pathfindax.Duality\Pathfindax.Duality.csproj">
-      <Project>{afe883f3-72b4-4c7c-a1d1-44edc09c8f6e}</Project>
-      <Name>Pathfindax.Duality</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Pathfindax\Pathfindax.csproj">
       <Project>{d4dfa287-b394-4d15-97e0-d2a0675d26a6}</Project>
       <Name>Pathfindax</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Pathfindax.Duality.Tilemaps.nuspec" />
+    <None Include="Pathfindax.Duality.nuspec" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>if $(ConfigurationName) == Debug (

@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{47800ABA-D164-43D2-971E-FEC337FD2FCA}</ProjectGuid>
+    <ProjectGuid>{08559459-8E6A-4265-A95D-3E7DA3A83423}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Pathfindax.Duality.Examples</RootNamespace>
-    <AssemblyName>Pathfindax.Duality.Examples.Core</AssemblyName>
+    <RootNamespace>Duality.Plugins.Pathfindax.Tilemaps.Examples</RootNamespace>
+    <AssemblyName>Duality.Plugins.Pathfindax.Tilemaps.Examples.Core</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -21,7 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\Binaries\Debug\Pathfindax.Duality.Examples.xml</DocumentationFile>
+    <DocumentationFile>..\Binaries\Debug\Duality.Plugins.Pathfindax.Tilemap.Examples.core.xml</DocumentationFile>
     <NoWarn>1591,1592,1573,1571,1570,1572</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -40,17 +40,22 @@
       <HintPath>..\..\..\DualityPrimitives.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="Tilemaps.core">
+      <HintPath>..\..\..\Plugins\Tilemaps.core.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Components\PathfindaxPathSpammerComponent.cs" />
-    <Compile Include="Components\SourceNodeNetworkProviderMockupComponent.cs" />
-    <Compile Include="PathfindaxDualityTestCorePlugin.cs" />
+    <Compile Include="PathfindaxTilemapTestPlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Pathfindax.Duality\Pathfindax.Duality.csproj">
+    <ProjectReference Include="..\Duality.Plugins.Pathfindax.Tilemaps\Duality.Plugins.Pathfindax.Tilemaps.csproj">
+      <Project>{ae16d0d3-a7cc-4132-baa0-8a9b13f66e69}</Project>
+      <Name>Duality.Plugins.Pathfindax.Tilemaps</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Duality.Plugins.Pathfindax\Duality.Plugins.Pathfindax.csproj">
       <Project>{afe883f3-72b4-4c7c-a1d1-44edc09c8f6e}</Project>
-      <Name>Pathfindax.Duality</Name>
+      <Name>Duality.Plugins.Pathfindax</Name>
     </ProjectReference>
     <ProjectReference Include="..\Pathfindax\Pathfindax.csproj">
       <Project>{d4dfa287-b394-4d15-97e0-d2a0675d26a6}</Project>

@@ -59,13 +59,13 @@
     <Compile Include="TestHelper.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Pathfindax.Duality.Tilemaps\Pathfindax.Duality.Tilemaps.csproj">
+    <ProjectReference Include="..\Duality.Plugins.Pathfindax.Tilemaps\Duality.Plugins.Pathfindax.Tilemaps.csproj">
       <Project>{ae16d0d3-a7cc-4132-baa0-8a9b13f66e69}</Project>
-      <Name>Pathfindax.Duality.Tilemaps</Name>
+      <Name>Duality.Plugins.Pathfindax.Tilemaps</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Pathfindax.Duality\Pathfindax.Duality.csproj">
+    <ProjectReference Include="..\Duality.Plugins.Pathfindax\Duality.Plugins.Pathfindax.csproj">
       <Project>{afe883f3-72b4-4c7c-a1d1-44edc09c8f6e}</Project>
-      <Name>Pathfindax.Duality</Name>
+      <Name>Duality.Plugins.Pathfindax</Name>
     </ProjectReference>
     <ProjectReference Include="..\Pathfindax\Pathfindax.csproj">
       <Project>{d4dfa287-b394-4d15-97e0-d2a0675d26a6}</Project>
