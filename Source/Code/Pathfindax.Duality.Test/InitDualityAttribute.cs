@@ -77,12 +77,12 @@ namespace Pathfindax.Duality.Test
 				this.dummyWindow = null;
 			}
 
-			// Save local testing memory. As this uses Duality serializers, 
+			/*// Save local testing memory. As this uses Duality serializers, 
 			// it needs to be done before terminating Duality.
 			if (TestContext.CurrentContext.Result.Outcome.Status == TestStatus.Passed && !System.Diagnostics.Debugger.IsAttached)
 			{
 				Serializer.WriteObject(TestHelper.LocalTestMemory, TestHelper.LocalTestMemoryFilePath, typeof(XmlSerializer));
-			}
+			}*/
 
 			try
 			{
