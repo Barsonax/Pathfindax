@@ -4,14 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{47800ABA-D164-43D2-971E-FEC337FD2FCA}</ProjectGuid>
+    <ProjectGuid>{810F944A-9441-413B-B512-313CE77F9FED}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Pathfindax.Duality.Test</RootNamespace>
-    <AssemblyName>Pathfindax.Duality.Test.Core</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <AssemblyName>Pathfindax.Duality.Test</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,8 +20,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>Pathfindax.Duality.Test.xml</DocumentationFile>
-    <NoWarn>1591,1592,1573,1571,1570,1572</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -33,13 +30,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Duality">
+    <Reference Include="Duality, Version=2.9.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Duality.dll</HintPath>
     </Reference>
-    <Reference Include="DualityEditor">
+    <Reference Include="DualityEditor, Version=2.7.16.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\DualityEditor.exe</HintPath>
     </Reference>
-    <Reference Include="DualityPrimitives">
+    <Reference Include="DualityPrimitives, Version=2.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\DualityPrimitives.dll</HintPath>
     </Reference>
     <Reference Include="NSubstitute, Version=1.10.0.0, Culture=neutral, PublicKeyToken=92dd2e9066daa5ca, processorArchitecture=MSIL">
@@ -53,18 +53,16 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Components\PathfindaxPathSpammerComponent.cs" />
-    <Compile Include="Components\SourceNodeNetworkProviderMockupComponent.cs" />
-    <Compile Include="NodeGridRayCasterTest.cs" />
     <Compile Include="InitDualityAttribute.cs" />
-    <Compile Include="PathfindaxDualityTestCorePlugin.cs" />
+    <Compile Include="NodeGridRayCasterTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestHelper.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
+    <ProjectReference Include="..\Pathfindax.Duality.Tilemaps\Pathfindax.Duality.Tilemaps.csproj">
+      <Project>{ae16d0d3-a7cc-4132-baa0-8a9b13f66e69}</Project>
+      <Name>Pathfindax.Duality.Tilemaps</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Pathfindax.Duality\Pathfindax.Duality.csproj">
       <Project>{afe883f3-72b4-4c7c-a1d1-44edc09c8f6e}</Project>
       <Name>Pathfindax.Duality</Name>
@@ -74,14 +72,10 @@
       <Name>Pathfindax</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>if $(ConfigurationName) == Debug (
-mkdir "$(SolutionDir)../../Plugins"
-copy "$(TargetPath)" "$(SolutionDir)../../Plugins"
-copy "$(TargetDir)$(TargetName).pdb" "$(SolutionDir)../../Plugins"
-xcopy /Y "$(TargetDir)*.core.xml" "$(SolutionDir)../../Plugins")</PostBuildEvent>
-  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

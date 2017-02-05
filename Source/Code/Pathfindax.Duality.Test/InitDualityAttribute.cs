@@ -1,25 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
-
 using Duality;
-using Duality.Serialization;
 using Duality.Backend;
-
+using Duality.Serialization;
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
-using Pathfindax.Duality.Test;
 
-
-namespace Duality.Tests
+namespace Pathfindax.Duality.Test
 {
 	[AttributeUsage(AttributeTargets.Assembly, AllowMultiple = false)]
 	public class InitDualityAttribute : Attribute, ITestAction
 	{
 		private string oldEnvDir = null;
-		private CorePlugin unitTestPlugin = null;
 		private INativeWindow dummyWindow = null;
 		private TextWriterLogOutput consoleLogOutput = null;
 
@@ -52,11 +44,6 @@ namespace Duality.Tests
 				DualityApp.ExecutionContext.Game,
 				new DefaultPluginLoader(),
 				null);
-
-			// Manually register pseudo-plugin for the Unit Testing Assembly
-			/*this.unitTestPlugin = DualityApp.PluginManager.LoadPlugin(
-				typeof(PathfindaxDualityTestCorePlugin).Assembly,
-				codeBasePath);*/
 
 			// Create a dummy window, to get access to all the device contexts
 			if (this.dummyWindow == null)
@@ -97,7 +84,15 @@ namespace Duality.Tests
 				Serializer.WriteObject(TestHelper.LocalTestMemory, TestHelper.LocalTestMemoryFilePath, typeof(XmlSerializer));
 			}
 
-			DualityApp.Terminate();
+			try
+			{
+				DualityApp.Terminate();
+			}
+			catch (BackendException e)
+			{
+				
+			}
+			
 			Environment.CurrentDirectory = this.oldEnvDir;
 
 			Console.WriteLine("----- Duality environment teardown complete -----");

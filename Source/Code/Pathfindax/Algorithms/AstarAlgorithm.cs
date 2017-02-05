@@ -5,7 +5,6 @@ using Pathfindax.Collections;
 using Pathfindax.Grid;
 using Pathfindax.Nodes;
 using Pathfindax.PathfindEngine;
-using Pathfindax.Primitives;
 
 namespace Pathfindax.Algorithms
 {

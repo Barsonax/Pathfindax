@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
 using System.IO;
-using System.Text;
+using System.Linq;
 
-namespace Duality.Tests
+namespace Pathfindax.Duality.Test
 {
 	public static class TestHelper
 	{

@@ -5,7 +5,7 @@ using Pathfindax.Nodes;
 using Pathfindax.Primitives;
 using Pathfindax.Utils;
 
-namespace Pathfindax.Duality.Test.Components
+namespace Pathfindax.Duality.Examples.Components
 {
 	/// <summary>
 	/// Provides a simple <see cref="INodeGrid{TNode}"/> for testing/example purposes

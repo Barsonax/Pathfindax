@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using Duality;
-using Duality.Components.Physics;
 using Duality.Drawing;
 using Duality.Editor;
 using Duality.Plugins.Tilemaps;

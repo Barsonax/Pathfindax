@@ -1,6 +1,5 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
-using Pathfindax.Duality.Test;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
@@ -20,7 +19,7 @@ using Pathfindax.Duality.Test;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("810f944a-9441-413b-b512-313ce77f9fed")]
+[assembly: Guid("47800aba-d164-43d2-971e-fec337fd2fca")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -34,4 +33,3 @@ using Pathfindax.Duality.Test;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
-[assembly: InitDuality]

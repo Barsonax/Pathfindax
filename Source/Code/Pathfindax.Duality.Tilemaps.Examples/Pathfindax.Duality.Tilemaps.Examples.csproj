@@ -7,8 +7,8 @@
     <ProjectGuid>{08559459-8E6A-4265-A95D-3E7DA3A83423}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Pathfindax.Duality.Tilemaps.Test</RootNamespace>
-    <AssemblyName>Pathfindax.Duality.Tilemaps.Test.Core</AssemblyName>
+    <RootNamespace>Pathfindax.Duality.Tilemaps.Examples</RootNamespace>
+    <AssemblyName>Pathfindax.Duality.Tilemaps.Examples.Core</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -21,7 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>Pathfindax.Duality.Tilemap.Test.xml</DocumentationFile>
+    <DocumentationFile>..\Binaries\Debug\Pathfindax.Duality.Tilemap.Examples.xml</DocumentationFile>
     <NoWarn>1591,1592,1573,1571,1570,1572</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -39,14 +39,6 @@
     <Reference Include="DualityPrimitives">
       <HintPath>..\..\..\DualityPrimitives.dll</HintPath>
     </Reference>
-    <Reference Include="NSubstitute, Version=1.10.0.0, Culture=neutral, PublicKeyToken=92dd2e9066daa5ca, processorArchitecture=MSIL">
-      <HintPath>..\packages\NSubstitute.1.10.0.0\lib\net45\NSubstitute.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="nunit.framework, Version=3.6.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\packages\NUnit.3.6.0\lib\net45\nunit.framework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="Tilemaps.core">
       <HintPath>..\..\..\Plugins\Tilemaps.core.dll</HintPath>
@@ -55,9 +47,6 @@
   <ItemGroup>
     <Compile Include="PathfindaxTilemapTestPlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Pathfindax.Duality.Tilemaps\Pathfindax.Duality.Tilemaps.csproj">

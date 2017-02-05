@@ -8,7 +8,7 @@ using Pathfindax.PathfindEngine;
 using Pathfindax.Primitives;
 using Pathfindax.Utils;
 
-namespace Pathfindax.Duality.Test.Components
+namespace Pathfindax.Duality.Examples.Components
 {
 	/// <summary>
 	/// Spams path requests as a example
