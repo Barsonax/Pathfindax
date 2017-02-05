@@ -8,8 +8,14 @@
     <owners>$author$</owners>
 	<tags>Duality Pathfindax Tilemaps Plugin</tags>
     <projectUrl>https://github.com/Barsonax/Pathfindax</projectUrl>
+	<iconUrl>https://github.com/Barsonax/Pathfindax/blob/master/Source/Code/Icon.png</iconUrl>
 	<licenseUrl>https://github.com/Barsonax/Pathfindax/blob/master/LICENSE</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
   </metadata>
+      <files>
+    <file src="..\Binaries\Release\Duality.Plugins.Pathfindax.Tilemaps.dll" target="lib" />
+    <file src="..\Binaries\Release\Duality.Plugins.Pathfindax.Tilemaps.pdb" target="lib" />
+    <file src="..\Binaries\Release\Duality.Plugins.Pathfindax.Tilemaps.xml" target="lib" />
+  </files>
 </package>

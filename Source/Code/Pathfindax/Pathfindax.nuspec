@@ -6,9 +6,16 @@
     <title>$title$</title>
     <authors>$author$</authors>
     <owners>$author$</owners>
+	<tags>Pathfindax Pathfinder</tags>
     <projectUrl>https://github.com/Barsonax/Pathfindax</projectUrl>
+	<iconUrl>https://github.com/Barsonax/Pathfindax/blob/master/Source/Code/Icon.png</iconUrl>
 	<licenseUrl>https://github.com/Barsonax/Pathfindax/blob/master/LICENSE</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
   </metadata>
+  <files>
+    <file src="..\Binaries\Release\Pathfindax.dll" target="lib" />
+    <file src="..\Binaries\Release\Pathfindax.pdb" target="lib" />
+    <file src="..\Binaries\Release\Pathfindax.xml" target="lib" />
+  </files>
 </package>
