@@ -1,7 +1,6 @@
-﻿using Duality;
-using Pathfindax.PathfindEngine;
+﻿using Pathfindax.PathfindEngine;
 
-namespace Pathfindax.Duality.Components
+namespace Duality.Plugins.Pathfindax.Components
 {
 	public abstract class PathfinderComponentBase : Component, IPathfinderComponent, ICmpInitializable
 	{

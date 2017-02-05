@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Linq;
-using Duality;
 using Duality.Drawing;
 using Duality.Editor;
+using Duality.Plugins.Pathfindax.Grid;
 using Duality.Plugins.Tilemaps;
-using Pathfindax.Duality.Grid;
 using Pathfindax.Grid;
 using Pathfindax.Nodes;
 using Pathfindax.Primitives;
 using Pathfindax.Utils;
 
-namespace Pathfindax.Duality.Tilemaps.Components
+namespace Duality.Plugins.Pathfindax.Tilemaps.Components
 {
 	[EditorHintCategory(PathfindaxStrings.PathfindaxTilemap)]
 	public class TilemapNodeGridGenerator : Component, ISourceNodeNetworkProvider<INodeGrid<IGridNode>>, ICmpUpdatable

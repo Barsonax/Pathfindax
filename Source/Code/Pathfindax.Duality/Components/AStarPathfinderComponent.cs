@@ -1,15 +1,14 @@
 ﻿using System.Collections.Generic;
-using Duality;
 using Duality.Drawing;
 using Duality.Editor;
+using Duality.Plugins.Pathfindax.Grid;
 using Pathfindax.Algorithms;
-using Pathfindax.Duality.Grid;
 using Pathfindax.Grid;
 using Pathfindax.Nodes;
 using Pathfindax.PathfindEngine;
 using Pathfindax.Utils;
 
-namespace Pathfindax.Duality.Components
+namespace Duality.Plugins.Pathfindax.Components
 {
 	/// <summary>
 	/// Provides a way for other components to request a path from A to B. Uses the A* algorithm.

@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Linq;
-using Duality;
+using Duality.Plugins.Pathfindax.Components;
 using Duality.Resources;
-using Pathfindax.Duality.Components;
 
-namespace Pathfindax.Duality
+namespace Duality.Plugins.Pathfindax
 {
 	/// <summary>
 	/// Defines a Duality core plugin.

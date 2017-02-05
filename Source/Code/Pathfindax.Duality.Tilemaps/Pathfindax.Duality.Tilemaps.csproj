@@ -7,8 +7,8 @@
     <ProjectGuid>{AE16D0D3-A7CC-4132-BAA0-8A9B13F66E69}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Pathfindax.Duality.Tilemaps</RootNamespace>
-    <AssemblyName>Pathfindax.Duality.Tilemaps.core</AssemblyName>
+    <RootNamespace>Duality.Plugins.Pathfindax.Tilemaps</RootNamespace>
+    <AssemblyName>Duality.Plugins.Pathfindax.Tilemaps.core</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile>Profile111</TargetFrameworkProfile>
@@ -22,7 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\Binaries\Debug\Pathfindax.Duality.Tilemaps.xml</DocumentationFile>
+    <DocumentationFile>..\Binaries\Debug\Duality.Plugins.Pathfindax.Tilemaps.xml</DocumentationFile>
     <NoWarn>1591,1592,1573,1571,1570,1572</NoWarn>
     <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TargetFrameworkProfile>Profile111</TargetFrameworkProfile>

@@ -1,9 +1,8 @@
-﻿using Duality;
-using Duality.Drawing;
+﻿using Duality.Drawing;
 using Pathfindax.Grid;
 using Pathfindax.Nodes;
 
-namespace Pathfindax.Duality.Grid
+namespace Duality.Plugins.Pathfindax.Grid
 {
 	/// <summary>
 	/// Class for visualizing a <see cref="INodeGrid{TNode}"/>

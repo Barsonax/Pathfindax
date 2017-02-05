@@ -1,6 +1,4 @@
-﻿using Duality;
-
-namespace Pathfindax.Duality.Tilemaps
+﻿namespace Duality.Plugins.Pathfindax.Tilemaps
 {
 	public class PathfindaxTilemapPlugin : CorePlugin
 	{

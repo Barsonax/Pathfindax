@@ -2,7 +2,7 @@
 using Duality;
 using Duality.Drawing;
 using Duality.Editor;
-using Pathfindax.Duality.PathfindEngine;
+using Duality.Plugins.Pathfindax.PathfindEngine;
 using Pathfindax.Nodes;
 using Pathfindax.PathfindEngine;
 using Pathfindax.Primitives;

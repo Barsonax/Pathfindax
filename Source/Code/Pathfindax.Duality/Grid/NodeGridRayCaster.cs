@@ -1,9 +1,8 @@
 ﻿using System.Linq;
-using Duality;
 using Duality.Components.Physics;
 using Pathfindax.Nodes;
 
-namespace Pathfindax.Duality.Grid
+namespace Duality.Plugins.Pathfindax.Grid
 {
 	public class NodeGridRayCaster
 	{
