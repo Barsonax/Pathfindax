@@ -50,11 +50,21 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Duality">
-      <HintPath>..\..\..\Duality.dll</HintPath>
+    <Reference Include="Duality, Version=2.9.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AdamsLair.Duality.2.9.5\lib\Duality.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="DualityPrimitives">
-      <HintPath>..\..\..\DualityPrimitives.dll</HintPath>
+    <Reference Include="DualityPrimitives, Version=2.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AdamsLair.Duality.Primitives.2.0.3\lib\DualityPrimitives.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FarseerDuality, Version=4.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AdamsLair.FarseerDuality.4.1.1\lib\portable45-net45+win8+wpa81\FarseerDuality.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NVorbis, Version=0.7.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AdamsLair.NVorbis.0.7.5\lib\portable-net45+win+wpa81+MonoAndroid10+xamarinios10+MonoTouch10\NVorbis.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
   </ItemGroup>
@@ -75,9 +85,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Pathfindax.Duality.nuspec" />
+    <None Include="Duality.Plugins.Pathfindax.nuspec" />
+    <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>if $(ConfigurationName) == Debug (
