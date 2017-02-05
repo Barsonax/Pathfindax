@@ -1,18 +1,11 @@
 # git ignore file
 /Source/Packages/
 /Backup/
-/NVorbis.dll
 /OpenTK.GLControl.dll
 /OpenTK.GLControl.xml
-/OpenTK.dll
-/OpenTK.dll.config
 /OpenTK.pdb
-/OpenTK.xml
-/FarseerDuality.xml
 /FarseerDuality.pdb
 /Microsoft.Web.XmlTransform.dll
-/NVorbis.XML
-/FarseerDuality.dll
 /EditorUserData.xml
 /PopupControl.dll
 /PopupControl.pdb
