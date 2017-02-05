@@ -8,7 +8,7 @@
     <owners>$author$</owners>
 	<tags>Duality Pathfindax Plugin</tags>
     <projectUrl>https://github.com/Barsonax/Pathfindax</projectUrl>
-	<iconUrl>https://github.com/Barsonax/Pathfindax/blob/master/Source/Code/Icon.png</iconUrl>
+	<iconUrl>https://raw.githubusercontent.com/Barsonax/Pathfindax/master/Source/Code/Icon.png</iconUrl>
 	<licenseUrl>https://github.com/Barsonax/Pathfindax/blob/master/LICENSE</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
@@ -17,5 +17,8 @@
     <file src="..\Binaries\Release\Duality.Plugins.Pathfindax.core.dll" target="lib" />
     <file src="..\Binaries\Release\Duality.Plugins.Pathfindax.core.pdb" target="lib" />
     <file src="..\Binaries\Release\Duality.Plugins.Pathfindax.core.xml" target="lib" />
+	<file src="..\Binaries\Release\Pathfindax.dll" target="lib" />
+    <file src="..\Binaries\Release\Pathfindax.pdb" target="lib" />
+    <file src="..\Binaries\Release\Pathfindax.xml" target="lib" />
   </files>
 </package>

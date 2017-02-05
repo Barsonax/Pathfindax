@@ -8,7 +8,7 @@
     <owners>$author$</owners>
 	<tags>Duality Pathfindax Tilemaps Plugin</tags>
     <projectUrl>https://github.com/Barsonax/Pathfindax</projectUrl>
-	<iconUrl>https://github.com/Barsonax/Pathfindax/blob/master/Source/Code/Icon.png</iconUrl>
+	<iconUrl>https://raw.githubusercontent.com/Barsonax/Pathfindax/master/Source/Code/Icon.png</iconUrl>
 	<licenseUrl>https://github.com/Barsonax/Pathfindax/blob/master/LICENSE</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
