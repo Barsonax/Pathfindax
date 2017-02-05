@@ -56,7 +56,6 @@ namespace Pathfindax.Duality.Test
 			var collisionCategory = nodeGridRayCaster.GetCollisionCategory(node1, node2);
 			
 			Assert.AreEqual(body.CollisionCategory, (CollisionCategory)collisionCategory);
-			Assert.Fail("Forced fail");
 		}
 	}
 }
