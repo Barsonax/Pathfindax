@@ -56,8 +56,7 @@ namespace Pathfindax.Algorithms
 
 						foreach (var connection in currentNode.Connections)
 						{
-
-							if (((connection.CollisionCategory & collisionCategory) != 0) || !connection.Node.Walkable || closedSet.Contains(connection.Node))
+							if (connection == null || ((connection.CollisionCategory & collisionCategory) != 0) || !connection.Node.Walkable || closedSet.Contains(connection.Node))
 							{
 								continue;
 							}

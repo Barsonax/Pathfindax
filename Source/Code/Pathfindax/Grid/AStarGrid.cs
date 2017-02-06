@@ -1,4 +1,5 @@
-﻿using Pathfindax.Collections;
+﻿using System.Linq;
+using Pathfindax.Collections;
 using Pathfindax.Nodes;
 
 namespace Pathfindax.Grid
@@ -31,7 +32,7 @@ namespace Pathfindax.Grid
 				{
 					var aStarNode = NodeArray[x, y];
 					var sourceNode = source.NodeArray[x, y];
-					foreach (var sourceNodeNeighbour in sourceNode.Connections)
+					foreach (var sourceNodeNeighbour in sourceNode.Connections.Where(n => n != null))
 					{
 						aStarNode.Connections.Add(new NodeConnection<IAStarGridNode>(NodeArray[sourceNodeNeighbour.Node.GridX, sourceNodeNeighbour.Node.GridY], sourceNodeNeighbour.CollisionCategory));
 					}

@@ -1,4 +1,6 @@
-﻿namespace Pathfindax.Nodes
+﻿using System;
+
+namespace Pathfindax.Nodes
 {
 	/// <summary>
 	/// Represents a connection to another node
@@ -19,6 +21,7 @@
 
 		public NodeConnection(TNode node, PathfindaxCollisionCategory collisionCategory = PathfindaxCollisionCategory.None)
 		{
+			if(node == null) throw new ArgumentException("Node cannot be null");
 			Node = node;
 			CollisionCategory = collisionCategory;
 		}

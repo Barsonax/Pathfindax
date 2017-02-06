@@ -19,6 +19,7 @@ namespace Pathfindax.Nodes
 	[DebuggerDisplay("{Position}")]
 	public abstract class GridNodeBase : NodeBase, IGridNodeBase
 	{
+		public IList<GridClearance> Clearances { get; set; }
 		public int GridX { get; }
 		public int GridY { get; }
 
@@ -28,13 +29,6 @@ namespace Pathfindax.Nodes
 			GridX = gridX;
 			GridY = gridY;
 		}
-
-		/*protected GridNodeBase(INodeNetworkBase nodeNetwork, PositionF worldPos, bool walkable = true) : base(nodeNetwork, worldPos, walkable)
-		{
-			Walkable = walkable;
-			GridX = (int)worldPos.X;
-			GridY = (int)worldPos.Y;
-		}*/
 
 		public override string ToString()
 		{

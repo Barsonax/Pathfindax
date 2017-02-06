@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Duality.Components.Physics;
 using Pathfindax.Nodes;
 
@@ -19,7 +20,7 @@ namespace Duality.Plugins.Pathfindax.Grid
 				{
 					pathfindaxCollisionCategory = pathfindaxCollisionCategory | collisionCategory;
 				}
-				return (PathfindaxCollisionCategory) pathfindaxCollisionCategory;
+				return (PathfindaxCollisionCategory)pathfindaxCollisionCategory;
 			}
 			return PathfindaxCollisionCategory.None;
 		}
