@@ -42,12 +42,12 @@ namespace Pathfindax.Grid
 						{
 							if (neighbour != null)
 							{
-								node.Connections.Add(new NodeConnection<IGridNode>(neighbour));
+								node.Connections.Add(new NodeConnection<IGridNode>(node, neighbour));
 							}
 							else
 							{
 								node.Connections.Add(null);
-							}						
+							}
 						}
 					}
 				}
@@ -55,35 +55,46 @@ namespace Pathfindax.Grid
 			return sourceNodeGrid;
 		}
 
-		public IList<GridClearance> CalculateGridNodeClearances(IGridNode from, int maxClearance)
+		public IList<GridClearance> CalculateGridNodeClearances(INodeGrid<IGridNode> nodeGrid, IGridNode from, int maxClearance)
 		{
+			var hashset = new HashSet<PathfindaxCollisionCategory>();
 			var clearances = new List<GridClearance>();
-			var previousNodes = new List<IGridNode>();
-			var currentNodes = new List<IGridNode>();
-			currentNodes.Add(from);
-			for (int i = 1; i < maxClearance; i++)
+			for (int i = 1; i < maxClearance + 2; i++)
 			{
-				var nextConnections = new List<NodeConnection<IGridNode>>();
-				foreach (var currentNode in currentNodes)
+				var nodes = GetNodesForInClearance(nodeGrid, from, i);
+				var maxGridX = from.GridX + i;
+				var maxGridY = from.GridY + i;
+				var collisionCategory = PathfindaxCollisionCategory.None;
+				foreach (var connection in nodes.SelectMany(x => x.Connections))
 				{
-					if (currentNode.Connections[4] != null)
-						nextConnections.Add(currentNode.Connections[4]); //in positive x direction
-					if (currentNode.Connections[7] != null)
-						nextConnections.Add(currentNode.Connections[7]); //in positive x and y direction
-					if (currentNode.Connections[6] != null)
-						nextConnections.Add(currentNode.Connections[6]); //in positive y direction
+					if (connection != null && connection.To.GridX >= from.GridX && connection.To.GridY >= from.GridY && connection.To.GridX < maxGridX && connection.To.GridY < maxGridY)
+					{
+						collisionCategory = collisionCategory | connection.CollisionCategory;
+					}
 				}
-				var pathfindaxCollisionCategory = PathfindaxCollisionCategory.None;
-				foreach (var collisionCategory in nextConnections.Select(x => x.CollisionCategory))
+				if (collisionCategory != PathfindaxCollisionCategory.None && !hashset.Contains(collisionCategory))
 				{
-					pathfindaxCollisionCategory = pathfindaxCollisionCategory | collisionCategory;
+					hashset.Add(collisionCategory);
+					clearances.Add(new GridClearance(collisionCategory, i - 1));
 				}
-				clearances.Add(new GridClearance(pathfindaxCollisionCategory, i));
-				previousNodes.AddRange(currentNodes);
-				currentNodes.Clear();
-				currentNodes.AddRange(nextConnections.Select(x => x.Node));
 			}
 			return clearances;
+		}
+
+		private IList<IGridNode> GetNodesForInClearance(INodeGrid<IGridNode> nodeGrid, IGridNode from, int clearance)
+		{
+			var nodes = new List<IGridNode>();
+			for (int y = 0; y < clearance; y++)
+			{
+				for (int x = 0; x < clearance; x++)
+				{
+					var gridX = from.GridX + x;
+					var gridY = from.GridY + y;
+					if (gridX < nodeGrid.NodeArray.Width && gridY < nodeGrid.NodeArray.Height)
+						nodes.Add(nodeGrid.NodeArray[gridX, gridY]);
+				}
+			}
+			return nodes;
 		}
 
 		private IList<IGridNode> GetNeighbours(Array2D<IGridNode> nodeArray, IGridNodeBase gridNode, GenerateNodeGridConnections generateNodeGridConnections)

@@ -34,7 +34,7 @@ namespace Pathfindax.Grid
 					var sourceNode = source.NodeArray[x, y];
 					foreach (var sourceNodeNeighbour in sourceNode.Connections.Where(n => n != null))
 					{
-						aStarNode.Connections.Add(new NodeConnection<IAStarGridNode>(NodeArray[sourceNodeNeighbour.Node.GridX, sourceNodeNeighbour.Node.GridY], sourceNodeNeighbour.CollisionCategory));
+						aStarNode.Connections.Add(new NodeConnection<IAStarGridNode>(aStarNode, NodeArray[sourceNodeNeighbour.To.GridX, sourceNodeNeighbour.To.GridY], sourceNodeNeighbour.CollisionCategory));
 					}
 				}
 			}

@@ -48,7 +48,7 @@ namespace Duality.Plugins.Pathfindax.Grid
 						{
 							continue;
 						}
-						var vector = (connection.Node.Position - node.Position) * 0.5f;
+						var vector = (connection.To.Position - node.Position) * 0.5f;
 						canvas.DrawDashLine(node.Position.X + _offset.X, node.Position.Y + _offset.Y, node.Position.X + vector.X + _offset.X, node.Position.Y + vector.Y + _offset.Y);
 					}
 				}

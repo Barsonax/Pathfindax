@@ -38,7 +38,7 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Components
 						var node = sourceNodeGrid.NodeArray[x, y];
 						foreach (var nodeConnection in node.Connections)
 						{
-							nodeConnection.CollisionCategory = nodeGridRayCaster.GetCollisionCategory(node, nodeConnection.Node);
+							nodeConnection.CollisionCategory = nodeGridRayCaster.GetCollisionCategory(node, nodeConnection.To);
 						}
 					}
 					_nodeGrid = sourceNodeGrid;

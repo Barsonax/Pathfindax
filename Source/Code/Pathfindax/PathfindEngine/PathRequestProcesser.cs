@@ -37,7 +37,7 @@ namespace Pathfindax.PathfindEngine
 		{
 			var nodeGrid = _nodeNetworks[0]; //TODO implement support for multiple collision layers here
 			var path = _algorithm.FindPath(nodeGrid, pathRequest);
-			if (path == null) return new CompletedPath(null, false, pathRequest.Callback);
+			if (path == null) return new CompletedPath(null, pathRequest.Callback);
 			if (_pathPostProcesses != null)
 			{
 				foreach (var postProcess in _pathPostProcesses)
@@ -45,7 +45,7 @@ namespace Pathfindax.PathfindEngine
 					path = postProcess.Process(path);
 				}
 			}
-			return new CompletedPath(path.Select(x => x.Position + nodeGrid.Offset).ToArray(), true, pathRequest.Callback);
+			return new CompletedPath(path.Select(x => x.Position + nodeGrid.Offset).ToArray(), pathRequest.Callback);
 		}
 	}
 }

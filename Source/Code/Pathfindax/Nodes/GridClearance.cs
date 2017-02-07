@@ -10,5 +10,10 @@
 			CollisionCategory = collisionCategory;
 			Clearance = clearance;
 		}
+
+		public override string ToString()
+		{
+			return $"{CollisionCategory} : {Clearance}";
+		}
 	}
 }

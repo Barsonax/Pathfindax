@@ -56,20 +56,20 @@ namespace Pathfindax.Algorithms
 
 						foreach (var connection in currentNode.Connections)
 						{
-							if (connection == null || ((connection.CollisionCategory & collisionCategory) != 0) || !connection.Node.Walkable || closedSet.Contains(connection.Node))
+							if (connection == null || ((connection.CollisionCategory & collisionCategory) != 0) || !connection.To.Walkable || closedSet.Contains(connection.To))
 							{
 								continue;
 							}
 
-							var newMovementCostToNeighbour = currentNode.GCost + GetDistance(currentNode, connection.Node);
-							if (newMovementCostToNeighbour < connection.Node.GCost || !openSet.Contains(connection.Node))
+							var newMovementCostToNeighbour = currentNode.GCost + GetDistance(currentNode, connection.To);
+							if (newMovementCostToNeighbour < connection.To.GCost || !openSet.Contains(connection.To))
 							{
-								connection.Node.GCost = newMovementCostToNeighbour;
-								connection.Node.HCost = GetDistance(connection.Node, targetGridNode);
-								connection.Node.Parent = currentNode;
+								connection.To.GCost = newMovementCostToNeighbour;
+								connection.To.HCost = GetDistance(connection.To, targetGridNode);
+								connection.To.Parent = currentNode;
 								neighbourUpdates++;
-								if (!openSet.Contains(connection.Node))
-									openSet.Add(connection.Node);
+								if (!openSet.Contains(connection.To))
+									openSet.Add(connection.To);
 							}
 						}
 					}

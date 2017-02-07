@@ -24,9 +24,8 @@ namespace Pathfindax.PathfindEngine
 
 		/// <summary>
 		/// The CollisionLayer. Sometimes you can have multiple nodenetworks. One for agents that have to move over land and one for agents that can move over land and sea for instance.
-		/// WARNING: Currently not used.
 		/// </summary>
-		public PathfindaxCollisionCategory CollsionLayer;
+		public readonly PathfindaxCollisionCategory CollsionLayer;
 
 		/// <summary>
 		/// The callback that will be called after the pathfinder finds a path or cannot find one.
