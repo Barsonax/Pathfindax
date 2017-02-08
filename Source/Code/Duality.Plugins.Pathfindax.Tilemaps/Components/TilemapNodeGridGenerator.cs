@@ -30,18 +30,21 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Components
 				var sourceNodeGridFactory = new SourceNodeGridFactory();
 				var offset = -new Vector2((baseTilemap.Size.X * baseTilemap.Tileset.Res.TileSize.X) - baseTilemap.Tileset.Res.TileSize.X, (baseTilemap.Size.Y * baseTilemap.Tileset.Res.TileSize.Y) - baseTilemap.Tileset.Res.TileSize.Y) / 2;
 				var nodeGridRayCaster = new NodeGridRayCaster();
-				var sourceNodeGrid = sourceNodeGridFactory.GeneratePreFilledArray(baseTilemap.Size.X, baseTilemap.Size.Y, new PositionF(baseTilemap.Tileset.Res.TileSize.X, baseTilemap.Tileset.Res.TileSize.Y), GenerateNodeGridConnections.All, new PositionF(offset.X, offset.Y));
+				_nodeGrid = sourceNodeGridFactory.GeneratePreFilledArray(baseTilemap.Size.X, baseTilemap.Size.Y, new PositionF(baseTilemap.Tileset.Res.TileSize.X, baseTilemap.Tileset.Res.TileSize.Y), GenerateNodeGridConnections.All, new PositionF(offset.X, offset.Y));
 				for (int y = 0; y < baseTilemap.Size.Y; y++)
 				{
 					for (int x = 0; x < baseTilemap.Size.X; x++)
 					{
-						var node = sourceNodeGrid.NodeArray[x, y];
+						var node = _nodeGrid.NodeArray[x, y];
 						foreach (var nodeConnection in node.Connections)
 						{
 							nodeConnection.CollisionCategory = nodeGridRayCaster.GetCollisionCategory(node, nodeConnection.To);
 						}
-					}
-					_nodeGrid = sourceNodeGrid;
+					}				
+				}
+				foreach (var gridNode in _nodeGrid)
+				{
+					gridNode.Clearances = sourceNodeGridFactory.CalculateGridNodeClearances(_nodeGrid,gridNode, 5);
 				}
 				_nodeGridVisualizer = new NodeGridVisualizer(_nodeGrid);
 			}
