@@ -53,7 +53,7 @@
                   <tileData dataType="Struct" type="Duality.Plugins.Tilemaps.TilemapData" id="3782427491" custom="true">
                     <body>
                       <version dataType="Int">3</version>
-                      <data dataType="Array" type="System.Byte[]" id="632110822">H4sIAAAAAAAEAFNgYGAQYaAYXIZQXoxg6jblBg4yMLL89x7Ce02YGioA1X/EU0Msph8Tpt5AqKHpPyLAAOVUEzpT9LY2EEzeg1Dnhh31LhJM/Q8c3tRuCGVNFaoaQtWj2LAfm0XEqyTbLQwowBJMukGocxCqh4FUADG6HMXVe7EajVUl8RaR7FyIknQI9R9CzSXePiiAuDMdxdVzsRqNVSXxFpHsXNr57y7EMGUIZQ2hJCFyz4eB/+5jK6jfQaj3w8B/xFNDxX/KZBZ5ksRbNED+oxsY9R+lGgYWkOm/5yga7tLGbdQARDgXAEHD9iuIEQAA</data>
+                      <data dataType="Array" type="System.Byte[]" id="632110822">H4sIAAAAAAAEAFNgYGAQYaAYXIZQXoxg6jblBg4yMLL89x7Ce02YGioA1X/EU0Msph8Tpt5AqKHpPyLAAOVUEzIpcg2j0FqSqUAweQ9CnRt21LtIMPU/cHhTuyGUNVWoaghVj2LDfmwWEa+SbLcwoABLMOkGoc5BqB4GUgHE6HIUV+/FajRWlcRbRLJzIUrSIdR/CDWXePugAOLOdBRXz8VqNFaVxFtEsnNp57+7EMOUIZQ1hJKEyD0fBv67j62gfgeh3g8D/xFPDRX/KZNZ5EkSb9EA+Y9uYNR/lGoYWECm/56jaLhLG7dRAxDhXADUa6CniBEAAA==</data>
                     </body>
                   </tileData>
                   <tileset dataType="Struct" type="Duality.ContentRef`1[[Duality.Plugins.Tilemaps.Tileset]]">
@@ -219,7 +219,7 @@
                   <tileData dataType="Struct" type="Duality.Plugins.Tilemaps.TilemapData" id="4117116323" custom="true">
                     <body>
                       <version dataType="Int">3</version>
-                      <data dataType="Array" type="System.Byte[]" id="821696358">H4sIAAAAAAAEAO3PMQqAMAyF4RzCA3iQKg7qJVzd7P1nxUyBDgUzPOQPlG9oG94bzWx4zmXvfGSR5Q/9aiDeKfU7Uog7JfqdLTr+1RbxiUQ/0Kc4kzMrREpldTZnV4gEAAAAAJDNDcmn3OWIEQAA</data>
+                      <data dataType="Array" type="System.Byte[]" id="821696358">H4sIAAAAAAAEAO3PMQqAMBBE0T2EB/AgKhbqJWztzP1rg6kWlrCg6Co/EF6RmcC0ItLku8t5LjKG5Q/7kkK/Rdq33oL+M8S+zcLRSxY6EmIfPEdX6C0Gd6+WfJepMFss7l4tCQAAAADwWQ4+7eFYiBEAAA==</data>
                     </body>
                   </tileData>
                   <tileset dataType="Struct" type="Duality.ContentRef`1[[Duality.Plugins.Tilemaps.Tileset]]">
@@ -317,7 +317,7 @@
                   <shapes dataType="Struct" type="System.Collections.Generic.List`1[[Duality.Components.Physics.ShapeInfo]]" id="2417071285">
                     <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="1334378230" length="32" />
                     <_size dataType="Int">0</_size>
-                    <_version dataType="Int">2476</_version>
+                    <_version dataType="Int">2620</_version>
                   </shapes>
                 </item>
                 <item dataType="Struct" type="Duality.Plugins.Tilemaps.TilemapCollider" id="648828488">
@@ -425,7 +425,7 @@
                   <shapes dataType="Struct" type="System.Collections.Generic.List`1[[Duality.Components.Physics.ShapeInfo]]" id="4024139598">
                     <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="2712052432" length="18" />
                     <_size dataType="Int">0</_size>
-                    <_version dataType="Int">158</_version>
+                    <_version dataType="Int">166</_version>
                   </shapes>
                 </item>
                 <item dataType="Struct" type="Duality.Plugins.Tilemaps.TilemapCollider" id="657038561">
@@ -533,7 +533,7 @@
                   <shapes dataType="Struct" type="System.Collections.Generic.List`1[[Duality.Components.Physics.ShapeInfo]]" id="4164727456">
                     <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="2124520668" length="36" />
                     <_size dataType="Int">0</_size>
-                    <_version dataType="Int">174</_version>
+                    <_version dataType="Int">182</_version>
                   </shapes>
                 </item>
                 <item dataType="Struct" type="Duality.Plugins.Tilemaps.TilemapCollider" id="475069083">
@@ -602,6 +602,7 @@
             <_nodeGrid />
             <_nodeGridVisualizer />
             <_x003C_BoundRadius_x003E_k__BackingField dataType="Float">0</_x003C_BoundRadius_x003E_k__BackingField>
+            <_x003C_MaxCalculatedClearance_x003E_k__BackingField dataType="Int">5</_x003C_MaxCalculatedClearance_x003E_k__BackingField>
             <active dataType="Bool">true</active>
             <gameobj dataType="ObjectRef">2787828769</gameobj>
           </item>
@@ -756,6 +757,7 @@
               <Y dataType="Int">308</Y>
             </_x003C_BottomRightCorner_x003E_k__BackingField>
             <_x003C_BoundRadius_x003E_k__BackingField dataType="Float">0</_x003C_BoundRadius_x003E_k__BackingField>
+            <_x003C_Clearance_x003E_k__BackingField dataType="Int">1</_x003C_Clearance_x003E_k__BackingField>
             <_x003C_CollisionCategory_x003E_k__BackingField dataType="Enum" type="Pathfindax.Nodes.PathfindaxCollisionCategory" name="Cat1" value="1" />
             <_x003C_Path_x003E_k__BackingField />
             <_x003C_PathfinderProxy_x003E_k__BackingField dataType="Struct" type="Duality.Plugins.Pathfindax.PathfindEngine.PathfinderProxy" id="527841600">

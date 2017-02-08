@@ -12,7 +12,7 @@
   <startScene dataType="Struct" type="Duality.ContentRef`1[[Duality.Resources.Scene]]">
     <contentPath dataType="String">Data\TilemapPathfinderExample\TilemapPathfinderExample.Scene.res</contentPath>
   </startScene>
-  <version dataType="UInt">517</version>
+  <version dataType="UInt">550</version>
   <websiteUrl dataType="String">http://www.adamslair.net</websiteUrl>
 </root>
 <!-- XmlFormatterBase Document Separator -->

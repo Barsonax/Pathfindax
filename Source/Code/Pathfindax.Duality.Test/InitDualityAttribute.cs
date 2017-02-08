@@ -88,7 +88,7 @@ namespace Pathfindax.Duality.Test
 			{
 				DualityApp.Terminate();
 			}
-			catch (BackendException e)
+			catch (BackendException)
 			{
 				
 			}

@@ -53,14 +53,13 @@
     <Compile Include="Grid\NodeGridBase.cs" />
     <Compile Include="Nodes\GridClearance.cs" />
     <Compile Include="Nodes\GridNode.cs" />
-    <Compile Include="Nodes\IaStarGridNode.cs" />
+    <Compile Include="Nodes\AstarGridNode.cs" />
     <Compile Include="Nodes\Interfaces\IAStarGridNode.cs" />
     <Compile Include="Nodes\Interfaces\IGridNodeBase.cs" />
     <Compile Include="Nodes\Interfaces\INode.cs" />
     <Compile Include="Grid\Interfaces\INodeGrid.cs" />
     <Compile Include="Grid\Interfaces\ISourceNodeNetworkProvider.cs" />
     <Compile Include="Grid\SourceNodeGrid.cs" />
-    <Compile Include="Nodes\Node.cs" />
     <Compile Include="Nodes\NodeConnection.cs" />
     <Compile Include="Nodes\PathfindaxCollisionCategory.cs" />
     <Compile Include="PathfindEngine\CompletedPath.cs" />

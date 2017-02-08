@@ -5,6 +5,7 @@ using Pathfindax.Collections;
 using Pathfindax.Grid;
 using Pathfindax.Nodes;
 using Pathfindax.PathfindEngine;
+using Pathfindax.Utils;
 
 namespace Pathfindax.Algorithms
 {
@@ -18,10 +19,10 @@ namespace Pathfindax.Algorithms
 		{
 			var startNode = nodeGrid.GetNode(pathRequest.PathStart);
 			var endNode = nodeGrid.GetNode(pathRequest.PathEnd);
-			return FindPath(nodeGrid, startNode, endNode, pathRequest.CollsionLayer);
+			return FindPath(nodeGrid, startNode, endNode, pathRequest.CollsionLayer, (int)Math.Ceiling(pathRequest.Clearance));
 		}
 
-		private IList<INode> FindPath(INodeGrid<IAStarGridNode> nodeGrid, IAStarGridNode startGridNode, IAStarGridNode targetGridNode, PathfindaxCollisionCategory collisionCategory)
+		private IList<INode> FindPath(INodeGrid<IAStarGridNode> nodeGrid, IAStarGridNode startGridNode, IAStarGridNode targetGridNode, PathfindaxCollisionCategory collisionCategory, int neededClearance)
 		{
 			try
 			{
@@ -61,15 +62,31 @@ namespace Pathfindax.Algorithms
 								continue;
 							}
 
-							var newMovementCostToNeighbour = currentNode.GCost + GetDistance(currentNode, connection.To);
-							if (newMovementCostToNeighbour < connection.To.GCost || !openSet.Contains(connection.To))
+							var toNodeClearance = -1;
+							if (neededClearance > 1 && connection.To.Clearances != null)
+								foreach (var gridClearance in connection.To.Clearances)
+								{
+									if ((gridClearance.CollisionCategory & collisionCategory) != 0)
+									{
+										if (gridClearance.Clearance < neededClearance)
+										{
+											toNodeClearance = gridClearance.Clearance;
+											break;
+										}
+									}
+								}
+							if (toNodeClearance == -1 || toNodeClearance >= neededClearance)
 							{
-								connection.To.GCost = newMovementCostToNeighbour;
-								connection.To.HCost = GetDistance(connection.To, targetGridNode);
-								connection.To.Parent = currentNode;
-								neighbourUpdates++;
-								if (!openSet.Contains(connection.To))
-									openSet.Add(connection.To);
+								var newMovementCostToNeighbour = currentNode.GCost + GetDistance(currentNode, connection.To);
+								if (newMovementCostToNeighbour < connection.To.GCost || !openSet.Contains(connection.To))
+								{
+									connection.To.GCost = newMovementCostToNeighbour;
+									connection.To.HCost = GetDistance(connection.To, targetGridNode);
+									connection.To.Parent = currentNode;
+									neighbourUpdates++;
+									if (!openSet.Contains(connection.To))
+										openSet.Add(connection.To);
+								}
 							}
 						}
 					}

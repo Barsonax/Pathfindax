@@ -21,7 +21,7 @@ namespace Pathfindax.Grid
 				for (int x = 0; x < source.NodeArray.Width; x++)
 				{
 					var sourceNode = source.NodeArray[x, y];
-					var aStarNode = new AstarGridNode(this, sourceNode);
+					var aStarNode = new AstarGridNode(sourceNode);
 					NodeArray[x, y] = aStarNode;
 				}
 			}

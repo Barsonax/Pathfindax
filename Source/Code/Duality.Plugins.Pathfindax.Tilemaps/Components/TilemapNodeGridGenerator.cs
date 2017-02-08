@@ -14,7 +14,10 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Components
     [EditorHintCategory(PathfindaxStrings.PathfindaxTilemap)]
     public class TilemapNodeGridGenerator : Component, ISourceNodeNetworkProvider<INodeGrid<IGridNode>>, ICmpUpdatable
     {
+		[EditorHintFlags(MemberFlags.Invisible)]
         public float BoundRadius { get; }
+
+		public int MaxCalculatedClearance { get; set; }
         private long _counter;
         private NodeGridVisualizer _nodeGridVisualizer;
         private INodeGrid<IGridNode> _nodeGrid;
@@ -45,7 +48,7 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Components
                 }
 				foreach (var gridNode in _nodeGrid)
 				{
-					gridNode.Clearances = sourceNodeGridFactory.CalculateGridNodeClearances(_nodeGrid, gridNode, 5);
+					gridNode.Clearances = sourceNodeGridFactory.CalculateGridNodeClearances(_nodeGrid, gridNode, MaxCalculatedClearance);
 				}
 				_nodeGridVisualizer = new NodeGridVisualizer(_nodeGrid);
             }
