@@ -44,7 +44,7 @@ namespace Duality.Plugins.Pathfindax.Grid
 					canvas.State.ColorTint = new ColorRgba(199, 21, 133);
 					foreach (var connection in node.Connections)
 					{
-						if ((connection.CollisionCategory & CollisionCategory) != 0)
+						if (connection == null || (connection.CollisionCategory & CollisionCategory) != 0)
 						{
 							continue;
 						}
