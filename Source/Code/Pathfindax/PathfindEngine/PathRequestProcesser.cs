@@ -45,7 +45,7 @@ namespace Pathfindax.PathfindEngine
 					path = postProcess.Process(path);
 				}
 			}
-			return new CompletedPath(path.Select(x => x.Position + nodeGrid.Offset).ToArray(), pathRequest.Callback);
+			return new CompletedPath(path.Select(x => x.WorldPosition).ToArray(), pathRequest.Callback);
 		}
 	}
 }
