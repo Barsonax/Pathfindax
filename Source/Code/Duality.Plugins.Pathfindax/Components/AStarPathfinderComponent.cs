@@ -6,6 +6,7 @@ using Pathfindax.Algorithms;
 using Pathfindax.Grid;
 using Pathfindax.Nodes;
 using Pathfindax.PathfindEngine;
+using Pathfindax.PathfindEngine.PathPostProcesses;
 using Pathfindax.Utils;
 
 namespace Duality.Plugins.Pathfindax.Components
@@ -34,7 +35,7 @@ namespace Duality.Plugins.Pathfindax.Components
 
 		void ICmpRenderer.Draw(IDrawDevice device)
 		{
-			if (ShowNodeGrid &&NodeGridVisualizer != null)
+			if (ShowNodeGrid && NodeGridVisualizer != null)
 				NodeGridVisualizer.Draw(device);
 		}
 
@@ -53,7 +54,10 @@ namespace Duality.Plugins.Pathfindax.Components
 						var nodeGrid = new AStarGrid(SourceNodeGrid);
 						var algorithm = new AStarAlgorithm();
 						NodeGridVisualizer = new NodeGridVisualizer(SourceNodeGrid);
-						MultithreadedPathfinder = new MultithreadedPathfinder<INodeGrid<IAStarGridNode>>(new List<INodeGrid<IAStarGridNode>> { nodeGrid }, algorithm);
+						var clearanceProcess = new ClearanceCompensationProcess(nodeGrid);
+						MultithreadedPathfinder = new MultithreadedPathfinder<INodeGrid<IAStarGridNode>>(new List<INodeGrid<IAStarGridNode>> { nodeGrid }, algorithm,
+							new List<IPathPreProcess> { clearanceProcess }, 
+							new List<IPathPostProcess> { clearanceProcess });
 						MultithreadedPathfinder.Start();
 					}
 				}

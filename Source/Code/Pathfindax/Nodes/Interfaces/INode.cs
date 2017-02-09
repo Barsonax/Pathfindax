@@ -17,7 +17,7 @@ namespace Pathfindax.Nodes
 		/// <summary>
 		/// Is this node traversable or not?
 		/// </summary>
-		bool Walkable { get; set; }
+		PathfindaxCollisionCategory CollisionCategory { get; set; }
 
 		/// <summary>
 		/// The local world position in the grid.

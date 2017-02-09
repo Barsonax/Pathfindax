@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using Pathfindax.Collections;
 using Pathfindax.Grid;
 using Pathfindax.Nodes;
@@ -19,10 +20,10 @@ namespace Pathfindax.Algorithms
 		{
 			var startNode = nodeGrid.GetNode(pathRequest.PathStart);
 			var endNode = nodeGrid.GetNode(pathRequest.PathEnd);
-			return FindPath(nodeGrid, startNode, endNode, pathRequest.CollsionLayer, (int)Math.Ceiling(pathRequest.Clearance));
+			return FindPath(nodeGrid, startNode, endNode, pathRequest.CollsionLayer, (byte)Math.Ceiling(pathRequest.Clearance));
 		}
 
-		private IList<INode> FindPath(INodeGrid<IAStarGridNode> nodeGrid, IAStarGridNode startGridNode, IAStarGridNode targetGridNode, PathfindaxCollisionCategory collisionCategory, int neededClearance)
+		private IList<INode> FindPath(INodeGrid<IAStarGridNode> nodeGrid, IAStarGridNode startGridNode, IAStarGridNode targetGridNode, PathfindaxCollisionCategory collisionCategory, byte neededClearance)
 		{
 			try
 			{
@@ -34,7 +35,7 @@ namespace Pathfindax.Algorithms
 				{
 					return new List<INode> { targetGridNode };
 				}
-				if (startGridNode.Walkable && targetGridNode.Walkable)
+				if ((startGridNode.CollisionCategory & collisionCategory) == 0 && (targetGridNode.CollisionCategory & collisionCategory) == 0)
 				{
 					var openSet = new MinHeap<IAStarGridNode>(nodeGrid.NodeCount);
 					var closedSet = new HashSet<IAStarGridNode>();
@@ -57,7 +58,7 @@ namespace Pathfindax.Algorithms
 
 						foreach (var connection in currentNode.Connections)
 						{
-							if (connection == null || ((connection.CollisionCategory & collisionCategory) != 0) || !connection.To.Walkable || closedSet.Contains(connection.To))
+							if (connection == null || ((connection.CollisionCategory & collisionCategory) != 0) || (connection.To.CollisionCategory & collisionCategory) != 0 || closedSet.Contains(connection.To))
 							{
 								continue;
 							}

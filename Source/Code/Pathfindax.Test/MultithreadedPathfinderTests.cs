@@ -21,7 +21,7 @@ namespace Pathfindax.Test
 		{
 			var algorithm = Substitute.For<IPathFindAlgorithm<INodeGrid<IAStarGridNode>>>();
 			var nodeGrid = Substitute.For<INodeGrid<IAStarGridNode>>();
-			return new MultithreadedPathfinder<INodeGrid<IAStarGridNode>>(new List<INodeGrid<IAStarGridNode>> { nodeGrid }, algorithm, threads);
+			return new MultithreadedPathfinder<INodeGrid<IAStarGridNode>>(new List<INodeGrid<IAStarGridNode>> { nodeGrid }, algorithm, amountOfThreads: threads);
 		}
 
 		[Test]

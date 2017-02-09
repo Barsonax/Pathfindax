@@ -22,11 +22,11 @@ namespace Pathfindax.Nodes
 		public int GridY => SourceGridNode.GridY;
 		public int FCost => GCost + HCost;
 
-		public bool Walkable
+		public PathfindaxCollisionCategory CollisionCategory
 		{
 			get
 			{
-				return SourceGridNode.Walkable;
+				return SourceGridNode.CollisionCategory;
 			}
 			set { throw new NotSupportedException("You can only change this in the source node"); }
 		}
@@ -57,7 +57,7 @@ namespace Pathfindax.Nodes
 
 		public override string ToString()
 		{
-			return $"X:{GridX} Y:{GridY} Walkable: {Walkable}";
+			return $"X:{GridX} Y:{GridY} CollisionCategory: {CollisionCategory}";
 		}
 	}
 }

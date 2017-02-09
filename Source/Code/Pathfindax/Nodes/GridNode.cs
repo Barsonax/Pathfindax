@@ -9,7 +9,7 @@ namespace Pathfindax.Nodes
 	public class GridNode : IGridNode
 	{
 		public INodeNetworkBase NodeNetwork { get; }
-		public bool Walkable { get; set; }
+		public PathfindaxCollisionCategory CollisionCategory { get; set; }
 		public PositionF Position { get; }
 		public PositionF WorldPosition => Position + NodeNetwork.Offset;
 		public IList<GridClearance> Clearances { get; set; }
@@ -17,11 +17,11 @@ namespace Pathfindax.Nodes
 		public int GridY { get; }
 		public IList<NodeConnection<IGridNode>> Connections { get; set; }
 
-		public GridNode(INodeGridBase nodeNetwork, int gridX, int gridY, bool walkable = true)
+		public GridNode(INodeGridBase nodeNetwork, int gridX, int gridY, PathfindaxCollisionCategory collisionCategory = PathfindaxCollisionCategory.None)
 		{
 			NodeNetwork = nodeNetwork;
 			Connections = new List<NodeConnection<IGridNode>>();
-			Walkable = walkable;
+			CollisionCategory = collisionCategory;
 			Position = new PositionF(gridX * nodeNetwork.NodeSize.X, gridY * nodeNetwork.NodeSize.Y);
 			GridX = gridX;
 			GridY = gridY;

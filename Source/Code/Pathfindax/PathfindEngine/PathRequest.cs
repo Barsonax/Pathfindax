@@ -9,12 +9,12 @@ namespace Pathfindax.PathfindEngine
 		/// <summary>
 		/// The position of the start of the path
 		/// </summary>
-		public readonly PositionF PathStart;
+		public PositionF PathStart;
 
 		/// <summary>
 		/// The position of the end of the path
 		/// </summary>
-		public readonly PositionF PathEnd;
+		public PositionF PathEnd;
 
 		/// <summary>
 		/// The amount of clearance needed

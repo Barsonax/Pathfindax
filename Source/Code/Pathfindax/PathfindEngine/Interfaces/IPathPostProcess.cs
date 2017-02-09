@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
-using Pathfindax.Nodes;
+using Pathfindax.Primitives;
 
 namespace Pathfindax.PathfindEngine
 {
     public interface IPathPostProcess
     {
-        IList<INode> Process(IList<INode> path);
+        IList<PositionF> Process(IList<PositionF> path, PathRequest pathRequest);
     }
 }
