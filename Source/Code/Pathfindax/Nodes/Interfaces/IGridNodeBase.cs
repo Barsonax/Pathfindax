@@ -5,12 +5,13 @@ namespace Pathfindax.Nodes
 	public interface IGridNode : INode<IGridNode> , IGridNodeBase
 
 	{
-
+		
 	}
 
 	public interface IGridNodeBase : INode
 	{
-		IList<GridClearance> Clearances { get; set; }
+		bool GetClearance(PathfindaxCollisionCategory collisionCategory, byte neededClearance);
+		List<GridClearance> Clearances { get; set; }
 		int GridX { get; }
 		int GridY { get; }
 	}

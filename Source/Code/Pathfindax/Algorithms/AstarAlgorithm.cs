@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using Pathfindax.Collections;
 using Pathfindax.Grid;
 using Pathfindax.Nodes;
 using Pathfindax.PathfindEngine;
-using Pathfindax.Utils;
 
 namespace Pathfindax.Algorithms
 {
@@ -35,7 +33,7 @@ namespace Pathfindax.Algorithms
 				{
 					return new List<INode> { targetGridNode };
 				}
-				if ((startGridNode.CollisionCategory & collisionCategory) == 0 && (targetGridNode.CollisionCategory & collisionCategory) == 0)
+				if (startGridNode.GetClearance(collisionCategory, neededClearance) && targetGridNode.GetClearance(collisionCategory, neededClearance))
 				{
 					var openSet = new MinHeap<IAStarGridNode>(nodeGrid.NodeCount);
 					var closedSet = new HashSet<IAStarGridNode>();
@@ -58,25 +56,12 @@ namespace Pathfindax.Algorithms
 
 						foreach (var connection in currentNode.Connections)
 						{
-							if (connection == null || ((connection.CollisionCategory & collisionCategory) != 0) || (connection.To.CollisionCategory & collisionCategory) != 0 || closedSet.Contains(connection.To))
+							if (connection == null || ((connection.CollisionCategory & collisionCategory) != 0) || closedSet.Contains(connection.To))
 							{
 								continue;
 							}
 
-							var toNodeClearance = -1;
-							if (neededClearance > 1 && connection.To.Clearances != null)
-								foreach (var gridClearance in connection.To.Clearances)
-								{
-									if ((gridClearance.CollisionCategory & collisionCategory) != 0)
-									{
-										if (gridClearance.Clearance < neededClearance)
-										{
-											toNodeClearance = gridClearance.Clearance;
-											break;
-										}
-									}
-								}
-							if (toNodeClearance == -1 || toNodeClearance >= neededClearance)
+							if (connection.To.GetClearance(collisionCategory, neededClearance))
 							{
 								var newMovementCostToNeighbour = currentNode.GCost + GetDistance(currentNode, connection.To);
 								if (newMovementCostToNeighbour < connection.To.GCost || !openSet.Contains(connection.To))

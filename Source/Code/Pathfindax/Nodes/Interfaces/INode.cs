@@ -9,16 +9,11 @@ namespace Pathfindax.Nodes
 		/// <summary>
 		/// The connections to other nodes.
 		/// </summary>
-		IList<NodeConnection<TNode>> Connections { get; set; }
+		List<NodeConnection<TNode>> Connections { get; set; }
 	}
 
 	public interface INode
 	{
-		/// <summary>
-		/// Is this node traversable or not?
-		/// </summary>
-		PathfindaxCollisionCategory CollisionCategory { get; set; }
-
 		/// <summary>
 		/// The local world position in the grid.
 		/// </summary>

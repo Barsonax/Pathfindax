@@ -55,7 +55,7 @@ namespace Pathfindax.Grid
 			return sourceNodeGrid;
 		}
 
-		public IList<GridClearance> CalculateGridNodeClearances(INodeGrid<IGridNode> nodeGrid, IGridNode from, int maxClearance)
+		public List<GridClearance> CalculateGridNodeClearances(INodeGrid<IGridNode> nodeGrid, IGridNode from, int maxClearance)
 		{
 			var hashset = new HashSet<PathfindaxCollisionCategory>();
 			var clearances = new List<GridClearance>();

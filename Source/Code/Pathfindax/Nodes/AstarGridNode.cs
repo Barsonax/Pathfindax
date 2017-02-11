@@ -12,7 +12,7 @@ namespace Pathfindax.Nodes
 		public int HCost { get; set; }
 		public int GCost { get; set; }
 		public int HeapIndex { get; set; }
-		public IList<NodeConnection<IAStarGridNode>> Connections { get; set; }
+		public List<NodeConnection<IAStarGridNode>> Connections { get; set; }
 
 		public readonly IGridNodeBase SourceGridNode;
 
@@ -22,16 +22,12 @@ namespace Pathfindax.Nodes
 		public int GridY => SourceGridNode.GridY;
 		public int FCost => GCost + HCost;
 
-		public PathfindaxCollisionCategory CollisionCategory
+		public bool GetClearance(PathfindaxCollisionCategory collisionCategory, byte neededClearance)
 		{
-			get
-			{
-				return SourceGridNode.CollisionCategory;
-			}
-			set { throw new NotSupportedException("You can only change this in the source node"); }
+			return SourceGridNode.GetClearance(collisionCategory, neededClearance);
 		}
 
-		public IList<GridClearance> Clearances
+		public List<GridClearance> Clearances
 		{
 			get { return SourceGridNode.Clearances; }
 			set { throw new NotSupportedException("You can only change this in the source node"); }
@@ -57,7 +53,7 @@ namespace Pathfindax.Nodes
 
 		public override string ToString()
 		{
-			return $"X:{GridX} Y:{GridY} CollisionCategory: {CollisionCategory}";
+			return $"X:{GridX} Y:{GridY}";
 		}
 	}
 }

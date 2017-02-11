@@ -1,6 +1,6 @@
 ﻿namespace Pathfindax.Nodes
 {
-	public class GridClearance
+	public struct GridClearance
 	{
 		public int Clearance;
 		public PathfindaxCollisionCategory CollisionCategory;

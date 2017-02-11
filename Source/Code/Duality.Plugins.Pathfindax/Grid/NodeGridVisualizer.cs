@@ -9,6 +9,7 @@ namespace Duality.Plugins.Pathfindax.Grid
 	/// </summary>
 	public class NodeGridVisualizer
 	{
+		public byte AgentSize { get; set; }
 		public PathfindaxCollisionCategory CollisionCategory { get; set; }
 		private readonly INodeGrid<IGridNode> _nodeNetwork;
 		private readonly float _nodeSize;
@@ -33,7 +34,7 @@ namespace Duality.Plugins.Pathfindax.Grid
 				foreach (var node in _nodeNetwork)
 				{
 					canvas.State.ColorTint = ColorRgba.LightGrey;
-					if ((node.CollisionCategory & CollisionCategory) == 0)
+					if (node.GetClearance(CollisionCategory, AgentSize))
 					{
 						canvas.DrawCircle(node.Position.X + _offset.X, node.Position.Y + _offset.Y, _nodeSize);
 					}
