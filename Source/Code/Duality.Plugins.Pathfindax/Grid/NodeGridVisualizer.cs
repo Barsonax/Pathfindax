@@ -9,8 +9,16 @@ namespace Duality.Plugins.Pathfindax.Grid
 	/// </summary>
 	public class NodeGridVisualizer
 	{
+		/// <summary>
+		/// The size of the agent that will be used to draw the nodes that are blocked.
+		/// </summary>
 		public byte AgentSize { get; set; }
+
+		/// <summary>
+		/// The collision category that will be used to draw the nodes that are blocked.
+		/// </summary>
 		public PathfindaxCollisionCategory CollisionCategory { get; set; }
+
 		private readonly INodeGrid<IGridNode> _nodeNetwork;
 		private readonly float _nodeSize;
 		private Vector2 _offset;
@@ -23,7 +31,7 @@ namespace Duality.Plugins.Pathfindax.Grid
 		}
 
 		/// <summary>
-		/// This will draw the <see cref="IGridNode"/> and their connectons to other <see cref="IGridNode"/> in the <see cref="INodeGrid{TNode}"/>
+		/// This will draw the <see cref="IGridNode"/> and their connections to other <see cref="IGridNode"/> in the <see cref="INodeGrid{TNode}"/>
 		/// </summary>
 		public void Draw(IDrawDevice device)
 		{

@@ -10,12 +10,12 @@ namespace Pathfindax.PathfindEngine
 	public class PathRequest
 	{
 		/// <summary>
-		/// The position of the start of the path
+		/// The world position of the start of the path
 		/// </summary>
 		public PositionF PathStart;
 
 		/// <summary>
-		/// The position of the end of the path
+		/// The world position of the end of the path
 		/// </summary>
 		public PositionF PathEnd;
 
