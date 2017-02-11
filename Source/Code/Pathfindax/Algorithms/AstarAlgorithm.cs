@@ -18,7 +18,7 @@ namespace Pathfindax.Algorithms
 		{
 			var startNode = nodeGrid.GetNode(pathRequest.PathStart);
 			var endNode = nodeGrid.GetNode(pathRequest.PathEnd);
-			return FindPath(nodeGrid, startNode, endNode, pathRequest.CollsionLayer, (byte)Math.Ceiling(pathRequest.Clearance));
+			return FindPath(nodeGrid, startNode, endNode, pathRequest.CollsionLayer, pathRequest.AgentSize);
 		}
 
 		private IList<INode> FindPath(INodeGrid<IAStarGridNode> nodeGrid, IAStarGridNode startGridNode, IAStarGridNode targetGridNode, PathfindaxCollisionCategory collisionCategory, byte neededClearance)

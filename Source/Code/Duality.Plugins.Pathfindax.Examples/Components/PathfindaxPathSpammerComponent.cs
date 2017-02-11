@@ -17,7 +17,7 @@ namespace Pathfindax.Duality.Examples.Components
 	[EditorHintCategory(PathfindaxStrings.PathfindaxTest)]
 	public class PathfindaxPathSpammerComponent : Component, ICmpUpdatable, ICmpRenderer
 	{
-		public int Clearance { get; set; }
+		public byte Clearance { get; set; }
 		public PathfindaxCollisionCategory CollisionCategory { get; set; }
 		public Point2 TopLeftCorner { get; set; }
 		public Point2 BottomRightCorner { get; set; }
