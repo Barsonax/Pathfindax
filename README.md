@@ -8,7 +8,7 @@ However you are free to implement the interfaces yourself to use a different alg
 
 While the main goal was to provide a easy way to use pathfinding in duality most of the implementation is in a separate dll which can also be used without duality.
 
-Currently still under construction
+You can find some tutorials on the wiki. The source also contains some examples to show how you can use Pathfindax.
 
 ### Build status: 
 | Branch | Status |
