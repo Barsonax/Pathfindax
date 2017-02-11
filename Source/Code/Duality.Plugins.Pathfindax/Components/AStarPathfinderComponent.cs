@@ -43,7 +43,7 @@ namespace Duality.Plugins.Pathfindax.Components
 		public void OnUpdate()
 		{
 			_counter++;
-			if (_counter == 2)
+			if (_counter == 3)
 			{
 				if (DualityApp.ExecContext == DualityApp.ExecutionContext.Game)
 				{
