@@ -40,14 +40,7 @@ namespace Pathfindax.Grid
 						var neighbours = GetNeighbours(array, node, generateNodeGridConnections);
 						foreach (var neighbour in neighbours)
 						{
-							if (neighbour != null)
-							{
-								node.Connections.Add(new NodeConnection<IGridNode>(node, neighbour));
-							}
-							else
-							{
-								node.Connections.Add(null);
-							}
+							node.Connections.Add(new NodeConnection<IGridNode>(neighbour));
 						}
 					}
 				}
@@ -67,7 +60,7 @@ namespace Pathfindax.Grid
 				var collisionCategory = PathfindaxCollisionCategory.None;
 				foreach (var connection in nodes.SelectMany(x => x.Connections))
 				{
-					if (connection != null && connection.To.GridX >= from.GridX && connection.To.GridY >= from.GridY && connection.To.GridX < maxGridX && connection.To.GridY < maxGridY)
+					if (connection.To.GridX >= from.GridX && connection.To.GridY >= from.GridY && connection.To.GridX < maxGridX && connection.To.GridY < maxGridY)
 					{
 						collisionCategory = collisionCategory | connection.CollisionCategory;
 					}
@@ -122,10 +115,6 @@ namespace Pathfindax.Grid
 						}
 
 						neighbours.Add(nodeArray[checkX, checkY]);
-					}
-					else
-					{
-						neighbours.Add(null);
 					}
 				}
 			}

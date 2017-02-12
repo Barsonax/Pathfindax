@@ -13,8 +13,8 @@ namespace Pathfindax.Duality.Test
 		{
 			var sourceNodeGridFactory = new SourceNodeGridFactory();
 			var sourceNodeGrid = sourceNodeGridFactory.GeneratePreFilledArray(16, 16, new PositionF(1, 1), GenerateNodeGridConnections.All);
-			sourceNodeGrid.NodeArray[2, 2].Connections[5].CollisionCategory = PathfindaxCollisionCategory.Cat1;
-			sourceNodeGrid.NodeArray[3, 3].Connections[6].CollisionCategory = PathfindaxCollisionCategory.Cat2;
+			sourceNodeGrid.NodeArray[2, 2].Connections[5] = new NodeConnection<IGridNode>(sourceNodeGrid.NodeArray[2, 2].Connections[5].To, PathfindaxCollisionCategory.Cat1);
+			sourceNodeGrid.NodeArray[3, 3].Connections[6] = new NodeConnection<IGridNode>(sourceNodeGrid.NodeArray[3, 3].Connections[6].To, PathfindaxCollisionCategory.Cat2);
 			var clearances = sourceNodeGridFactory.CalculateGridNodeClearances(sourceNodeGrid, sourceNodeGrid.NodeArray[0, 0], 5);
 			Assert.AreEqual(true, clearances[0].CollisionCategory == PathfindaxCollisionCategory.Cat1);
 			Assert.AreEqual(true, clearances[0].Clearance == 3);
