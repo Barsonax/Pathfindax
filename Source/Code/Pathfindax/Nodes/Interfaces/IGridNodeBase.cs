@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Pathfindax.Nodes
+﻿namespace Pathfindax.Nodes
 {
 	public interface IGridNode : INode<IGridNode> , IGridNodeBase
 

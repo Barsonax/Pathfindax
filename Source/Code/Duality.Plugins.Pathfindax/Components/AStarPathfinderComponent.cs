@@ -55,7 +55,7 @@ namespace Duality.Plugins.Pathfindax.Components
 						var algorithm = new AStarAlgorithm();
 						NodeGridVisualizer = new NodeGridVisualizer(SourceNodeGrid);
 						var clearanceProcess = new ClearanceCompensationProcess(nodeGrid);
-						MultithreadedPathfinder = new MultithreadedPathfinder<INodeGrid<IAStarGridNode>>(new List<INodeGrid<IAStarGridNode>> { nodeGrid }, algorithm,
+						MultithreadedPathfinder = new MultithreadedPathfinder<INodeGrid<AstarGridNode>>(new List<INodeGrid<AstarGridNode>> { nodeGrid }, algorithm,
 							new List<IPathPreProcess> { clearanceProcess }, 
 							new List<IPathPostProcess> { clearanceProcess });
 						MultithreadedPathfinder.Start();
