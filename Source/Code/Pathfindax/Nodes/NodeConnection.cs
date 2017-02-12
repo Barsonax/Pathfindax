@@ -3,26 +3,31 @@
 namespace Pathfindax.Nodes
 {
 	/// <summary>
-	/// Represents a connection to another node
+	/// Represents a connection to another <typeparamref name="TNode"></typeparamref>
 	/// </summary>
 	/// <typeparam name="TNode"></typeparam>
 	public struct NodeConnection<TNode>
-		where TNode : INode
+		where TNode : class, INode
 	{
 		/// <summary>
-		/// The To where this connection is going to
+		/// The <typeparamref name="TNode"/> where this connection is going to.
 		/// </summary>
-		public TNode To;
+		public readonly TNode To;
 
 		/// <summary>
 		/// The collisions in this connection
 		/// </summary>
-		public PathfindaxCollisionCategory CollisionCategory;
+		public readonly PathfindaxCollisionCategory CollisionCategory;
 
-		public NodeConnection(TNode To, PathfindaxCollisionCategory collisionCategory = PathfindaxCollisionCategory.None)
+		/// <summary>
+		/// Creates a new <see cref="NodeConnection{TNode}"/>.
+		/// </summary>
+		/// <param name="to">The <typeparamref name="TNode"/> where this connection is going to</param>
+		/// <param name="collisionCategory">The <see cref="PathfindaxCollisionCategory"/> of this <see cref="NodeConnection{TNode}"/></param>
+		public NodeConnection(TNode to, PathfindaxCollisionCategory collisionCategory = PathfindaxCollisionCategory.None)
 		{
-			if(To == null) throw new ArgumentException("To cannot be null");
-			this.To = To;
+			if(to == null) throw new ArgumentException("To cannot be null");
+			To = to;
 			CollisionCategory = collisionCategory;
 		}
 

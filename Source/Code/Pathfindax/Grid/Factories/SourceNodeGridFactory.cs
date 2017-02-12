@@ -38,9 +38,11 @@ namespace Pathfindax.Grid
 					{
 						var node = array[x, y];
 						var neighbours = GetNeighbours(array, node, generateNodeGridConnections);
-						foreach (var neighbour in neighbours)
+						node.Connections = new NodeConnection<IGridNode>[neighbours.Count];
+						for (int index = 0; index < neighbours.Count; index++)
 						{
-							node.Connections.Add(new NodeConnection<IGridNode>(neighbour));
+							var neighbour = neighbours[index];
+							node.Connections[index] = new NodeConnection<IGridNode>(neighbour);
 						}
 					}
 				}
@@ -48,7 +50,7 @@ namespace Pathfindax.Grid
 			return sourceNodeGrid;
 		}
 
-		public List<GridClearance> CalculateGridNodeClearances(INodeGrid<IGridNode> nodeGrid, IGridNode from, int maxClearance)
+		public GridClearance[] CalculateGridNodeClearances(INodeGrid<IGridNode> nodeGrid, IGridNode from, int maxClearance)
 		{
 			var hashset = new HashSet<PathfindaxCollisionCategory>();
 			var clearances = new List<GridClearance>();
@@ -71,7 +73,7 @@ namespace Pathfindax.Grid
 					clearances.Add(new GridClearance(collisionCategory, i - 1));
 				}
 			}
-			return clearances;
+			return clearances.ToArray();
 		}
 
 		private IList<IGridNode> GetNodesForInClearance(INodeGrid<IGridNode> nodeGrid, IGridNode from, int clearance)

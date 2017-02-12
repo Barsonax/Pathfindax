@@ -11,15 +11,14 @@ namespace Pathfindax.Nodes
 		public INodeNetworkBase NodeNetwork { get; }
 		public PositionF Position { get; }
 		public PositionF WorldPosition => Position + NodeNetwork.Offset;
-		public List<GridClearance> Clearances { get; set; }
+		public GridClearance[] Clearances { get; set; }
 		public int GridX { get; }
 		public int GridY { get; }
-		public List<NodeConnection<IGridNode>> Connections { get; set; }
+		public NodeConnection<IGridNode>[] Connections { get; set; }
 
 		public GridNode(INodeGridBase nodeNetwork, int gridX, int gridY)
 		{
 			NodeNetwork = nodeNetwork;
-			Connections = new List<NodeConnection<IGridNode>>();
 			Position = new PositionF(gridX * nodeNetwork.NodeSize.X, gridY * nodeNetwork.NodeSize.Y);
 			GridX = gridX;
 			GridY = gridY;

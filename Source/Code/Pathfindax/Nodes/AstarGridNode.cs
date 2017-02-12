@@ -12,7 +12,7 @@ namespace Pathfindax.Nodes
 		public int HCost { get; set; }
 		public int GCost { get; set; }
 		public int HeapIndex { get; set; }
-		public List<NodeConnection<IAStarGridNode>> Connections { get; set; }
+		public NodeConnection<IAStarGridNode>[] Connections { get; set; }
 
 		public readonly IGridNodeBase SourceGridNode;
 
@@ -27,7 +27,7 @@ namespace Pathfindax.Nodes
 			return SourceGridNode.GetClearance(collisionCategory, neededClearance);
 		}
 
-		public List<GridClearance> Clearances
+		public GridClearance[] Clearances
 		{
 			get { return SourceGridNode.Clearances; }
 			set { throw new NotSupportedException("You can only change this in the source node"); }
@@ -35,7 +35,6 @@ namespace Pathfindax.Nodes
 
 		public AstarGridNode(IGridNodeBase source)
 		{
-			Connections = new List<NodeConnection<IAStarGridNode>>();
 			SourceGridNode = source;
 			HCost = -1;
 			GCost = -1;
