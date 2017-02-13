@@ -1,18 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
+using Pathfindax.Collections;
 using Pathfindax.Primitives;
 
 namespace Pathfindax.Nodes
 {
 	[DebuggerDisplay("{Position}")]
-	public class AstarGridNode : IAStarGridNode
+	public class AstarGridNode : IGridNodeBase, IHeapItem<AstarGridNode>, INode<AstarGridNode>
 	{
-		public IAStarGridNode Parent { get; set; }
+		public AstarGridNode Parent { get; set; }
 		public int HCost { get; set; }
 		public int GCost { get; set; }
 		public int HeapIndex { get; set; }
-		public List<NodeConnection<IAStarGridNode>> Connections { get; set; }
+		public NodeConnection<AstarGridNode>[] Connections { get; set; }
 
 		public readonly IGridNodeBase SourceGridNode;
 
@@ -27,7 +27,7 @@ namespace Pathfindax.Nodes
 			return SourceGridNode.GetClearance(collisionCategory, neededClearance);
 		}
 
-		public List<GridClearance> Clearances
+		public GridClearance[] Clearances
 		{
 			get { return SourceGridNode.Clearances; }
 			set { throw new NotSupportedException("You can only change this in the source node"); }
@@ -35,13 +35,12 @@ namespace Pathfindax.Nodes
 
 		public AstarGridNode(IGridNodeBase source)
 		{
-			Connections = new List<NodeConnection<IAStarGridNode>>();
 			SourceGridNode = source;
 			HCost = -1;
 			GCost = -1;
 		}
 
-		public int CompareTo(IAStarGridNode other)
+		public int CompareTo(AstarGridNode other)
 		{
 			var compare = FCost.CompareTo(other.FCost);
 			if (compare == 0)

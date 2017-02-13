@@ -3,35 +3,37 @@
 namespace Pathfindax.Nodes
 {
 	/// <summary>
-	/// Represents a connection to another To
+	/// Represents a connection to another <typeparamref name="TNode"></typeparamref>
 	/// </summary>
 	/// <typeparam name="TNode"></typeparam>
-	public class NodeConnection<TNode>
-		where TNode : INode
+	public struct NodeConnection<TNode>
+		where TNode : class, INode
 	{
-		public TNode From;
-
 		/// <summary>
-		/// The To where this connection is going to
+		/// The <typeparamref name="TNode"/> where this connection is going to.
 		/// </summary>
-		public TNode To;
+		public readonly TNode To;
 
 		/// <summary>
 		/// The collisions in this connection
 		/// </summary>
-		public PathfindaxCollisionCategory CollisionCategory;
+		public readonly PathfindaxCollisionCategory CollisionCategory;
 
-		public NodeConnection(TNode from, TNode To, PathfindaxCollisionCategory collisionCategory = PathfindaxCollisionCategory.None)
+		/// <summary>
+		/// Creates a new <see cref="NodeConnection{TNode}"/>.
+		/// </summary>
+		/// <param name="to">The <typeparamref name="TNode"/> where this connection is going to</param>
+		/// <param name="collisionCategory">The <see cref="PathfindaxCollisionCategory"/> of this <see cref="NodeConnection{TNode}"/></param>
+		public NodeConnection(TNode to, PathfindaxCollisionCategory collisionCategory = PathfindaxCollisionCategory.None)
 		{
-			if(To == null) throw new ArgumentException("To cannot be null");
-			this.To = To;
-			this.From = from;
+			if(to == null) throw new ArgumentException("To cannot be null");
+			To = to;
 			CollisionCategory = collisionCategory;
 		}
 
 		public override string ToString()
 		{
-			return $"Connection from {From.Position} to {To.Position}";
+			return $"Connection to {To.Position}";
 		}
 	}
 }

@@ -11,17 +11,17 @@ namespace Pathfindax.Algorithms
 	/// <summary>
 	/// Class that implements the A* algorithm to find paths
 	/// </summary>
-	public class AStarAlgorithm : IPathFindAlgorithm<INodeGrid<IAStarGridNode>>
+	public class AStarAlgorithm : IPathFindAlgorithm<INodeGrid<AstarGridNode>>
 	{
 		/// <inheritdoc />
-		public IList<INode> FindPath(INodeGrid<IAStarGridNode> nodeGrid, PathRequest pathRequest)
+		public IList<INode> FindPath(INodeGrid<AstarGridNode> nodeGrid, PathRequest pathRequest)
 		{
 			var startNode = nodeGrid.GetNode(pathRequest.PathStart);
 			var endNode = nodeGrid.GetNode(pathRequest.PathEnd);
 			return FindPath(nodeGrid, startNode, endNode, pathRequest.CollsionLayer, pathRequest.AgentSize);
 		}
 
-		private IList<INode> FindPath(INodeGrid<IAStarGridNode> nodeGrid, IAStarGridNode startGridNode, IAStarGridNode targetGridNode, PathfindaxCollisionCategory collisionCategory, byte neededClearance)
+		private IList<INode> FindPath(INodeGrid<AstarGridNode> nodeGrid, AstarGridNode startGridNode, AstarGridNode targetGridNode, PathfindaxCollisionCategory collisionCategory, byte neededClearance)
 		{
 			try
 			{
@@ -35,8 +35,8 @@ namespace Pathfindax.Algorithms
 				}
 				if (startGridNode.GetClearance(collisionCategory, neededClearance) && targetGridNode.GetClearance(collisionCategory, neededClearance))
 				{
-					var openSet = new MinHeap<IAStarGridNode>(nodeGrid.NodeCount);
-					var closedSet = new HashSet<IAStarGridNode>();
+					var openSet = new MinHeap<AstarGridNode>(nodeGrid.NodeCount);
+					var closedSet = new HashSet<AstarGridNode>();
 					var itterations = 0;
 					var neighbourUpdates = 0;
 					openSet.Add(startGridNode);
@@ -56,7 +56,7 @@ namespace Pathfindax.Algorithms
 
 						foreach (var connection in currentNode.Connections)
 						{
-							if (connection == null || ((connection.CollisionCategory & collisionCategory) != 0) || closedSet.Contains(connection.To))
+							if (((connection.CollisionCategory & collisionCategory) != 0) || closedSet.Contains(connection.To))
 							{
 								continue;
 							}
@@ -91,7 +91,7 @@ namespace Pathfindax.Algorithms
 			}
 		}
 
-		private IList<INode> RetracePath(IAStarGridNode startGridNode, IAStarGridNode endGridNode)
+		private IList<INode> RetracePath(AstarGridNode startGridNode, AstarGridNode endGridNode)
 		{
 			var path = new List<INode>();
 			var currentNode = endGridNode;
@@ -106,7 +106,7 @@ namespace Pathfindax.Algorithms
 			return path;
 		}
 
-		private static int GetDistance(IGridNodeBase gridNodeA, IGridNodeBase gridNodeB)
+		private static int GetDistance(AstarGridNode gridNodeA, AstarGridNode gridNodeB)
 		{
 			var dstX = Math.Abs(gridNodeA.GridX - gridNodeB.GridX);
 			var dstY = Math.Abs(gridNodeA.GridY - gridNodeB.GridY);

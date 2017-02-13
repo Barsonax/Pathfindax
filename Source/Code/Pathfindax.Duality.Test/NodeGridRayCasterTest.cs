@@ -6,7 +6,6 @@ using Duality.Plugins.Pathfindax.Grid;
 using Duality.Resources;
 using NSubstitute;
 using NUnit.Framework;
-using Pathfindax.Grid;
 using Pathfindax.Nodes;
 using Pathfindax.Primitives;
 

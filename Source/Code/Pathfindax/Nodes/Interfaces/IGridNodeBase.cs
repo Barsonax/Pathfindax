@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Pathfindax.Nodes
+﻿namespace Pathfindax.Nodes
 {
 	public interface IGridNode : INode<IGridNode> , IGridNodeBase
 
@@ -11,7 +9,7 @@ namespace Pathfindax.Nodes
 	public interface IGridNodeBase : INode
 	{
 		bool GetClearance(PathfindaxCollisionCategory collisionCategory, byte neededClearance);
-		List<GridClearance> Clearances { get; set; }
+		GridClearance[] Clearances { get; set; }
 		int GridX { get; }
 		int GridY { get; }
 	}

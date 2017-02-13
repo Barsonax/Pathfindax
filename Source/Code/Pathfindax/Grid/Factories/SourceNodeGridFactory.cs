@@ -38,16 +38,11 @@ namespace Pathfindax.Grid
 					{
 						var node = array[x, y];
 						var neighbours = GetNeighbours(array, node, generateNodeGridConnections);
-						foreach (var neighbour in neighbours)
+						node.Connections = new NodeConnection<IGridNode>[neighbours.Count];
+						for (int index = 0; index < neighbours.Count; index++)
 						{
-							if (neighbour != null)
-							{
-								node.Connections.Add(new NodeConnection<IGridNode>(node, neighbour));
-							}
-							else
-							{
-								node.Connections.Add(null);
-							}
+							var neighbour = neighbours[index];
+							node.Connections[index] = new NodeConnection<IGridNode>(neighbour);
 						}
 					}
 				}
@@ -55,7 +50,7 @@ namespace Pathfindax.Grid
 			return sourceNodeGrid;
 		}
 
-		public List<GridClearance> CalculateGridNodeClearances(INodeGrid<IGridNode> nodeGrid, IGridNode from, int maxClearance)
+		public GridClearance[] CalculateGridNodeClearances(INodeGrid<IGridNode> nodeGrid, IGridNode from, int maxClearance)
 		{
 			var hashset = new HashSet<PathfindaxCollisionCategory>();
 			var clearances = new List<GridClearance>();
@@ -67,7 +62,7 @@ namespace Pathfindax.Grid
 				var collisionCategory = PathfindaxCollisionCategory.None;
 				foreach (var connection in nodes.SelectMany(x => x.Connections))
 				{
-					if (connection != null && connection.To.GridX >= from.GridX && connection.To.GridY >= from.GridY && connection.To.GridX < maxGridX && connection.To.GridY < maxGridY)
+					if (connection.To.GridX >= from.GridX && connection.To.GridY >= from.GridY && connection.To.GridX < maxGridX && connection.To.GridY < maxGridY)
 					{
 						collisionCategory = collisionCategory | connection.CollisionCategory;
 					}
@@ -78,7 +73,7 @@ namespace Pathfindax.Grid
 					clearances.Add(new GridClearance(collisionCategory, i - 1));
 				}
 			}
-			return clearances;
+			return clearances.ToArray();
 		}
 
 		private IList<IGridNode> GetNodesForInClearance(INodeGrid<IGridNode> nodeGrid, IGridNode from, int clearance)
@@ -122,10 +117,6 @@ namespace Pathfindax.Grid
 						}
 
 						neighbours.Add(nodeArray[checkX, checkY]);
-					}
-					else
-					{
-						neighbours.Add(null);
 					}
 				}
 			}

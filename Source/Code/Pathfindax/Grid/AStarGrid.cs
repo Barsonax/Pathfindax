@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using Pathfindax.Collections;
+﻿using Pathfindax.Collections;
 using Pathfindax.Nodes;
 
 namespace Pathfindax.Grid
@@ -8,13 +7,13 @@ namespace Pathfindax.Grid
 	/// Contains data specific for the A* algorithm.
 	/// Do not share this between threads.
 	/// </summary>
-	public class AStarGrid : NodeGridBase<IAStarGridNode>
+	public class AStarGrid : NodeGridBase<AstarGridNode>
 	{
 		public AStarGrid(INodeGrid<IGridNode> source)
 		{
 			Offset = source.Offset;
 			NodeSize = source.NodeSize;
-			NodeArray = new Array2D<IAStarGridNode>(source.NodeArray.Width, source.NodeArray.Height);
+			NodeArray = new Array2D<AstarGridNode>(source.NodeArray.Width, source.NodeArray.Height);
 			WorldSize = source.WorldSize;
 			for (int y = 0; y < source.NodeArray.Height; y++)
 			{
@@ -32,9 +31,11 @@ namespace Pathfindax.Grid
 				{
 					var aStarNode = NodeArray[x, y];
 					var sourceNode = source.NodeArray[x, y];
-					foreach (var sourceNodeNeighbour in sourceNode.Connections.Where(n => n != null))
+					aStarNode.Connections = new NodeConnection<AstarGridNode>[sourceNode.Connections.Length];
+					for (int index = 0; index < sourceNode.Connections.Length; index++)
 					{
-						aStarNode.Connections.Add(new NodeConnection<IAStarGridNode>(aStarNode, NodeArray[sourceNodeNeighbour.To.GridX, sourceNodeNeighbour.To.GridY], sourceNodeNeighbour.CollisionCategory));
+						var sourceNodeNeighbour = sourceNode.Connections[index];
+						aStarNode.Connections[index] = new NodeConnection<AstarGridNode>(NodeArray[sourceNodeNeighbour.To.GridX, sourceNodeNeighbour.To.GridY], sourceNodeNeighbour.CollisionCategory);
 					}
 				}
 			}
