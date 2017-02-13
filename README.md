@@ -23,4 +23,4 @@ Currently still under construction
 | Duality.Plugins.Pathfindax.core      | [![NuGet](https://img.shields.io/nuget/v/Nuget.Core.svg)](http://nugetstatus.com/packages/Duality.Plugins.Pathfindax.core)|
 | Duality.Plugins.Pathfindax.Tilemaps.core      | [![NuGet](https://img.shields.io/nuget/v/Nuget.Core.svg)](http://nugetstatus.com/packages/Duality.Plugins.Pathfindax.Tilemaps.core)|
 
-[![NuGet Badge](https://buildstats.info/nuget/nunit)](https://www.nuget.org/packages/Pathfindax/)
+[![NuGet Badge](https://buildstats.info/nuget/Pathfindax)](https://www.nuget.org/packages/Pathfindax/)
