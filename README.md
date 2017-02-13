@@ -15,3 +15,6 @@ Currently still under construction
 |-------------|--------|
 | master      | [![Build status](https://ci.appveyor.com/api/projects/status/0h8kc3pk5s0p1jir/branch/master?svg=true)](https://ci.appveyor.com/project/Barsonax/pathfindax/branch/master) |
 | develop      | [![Build status](https://ci.appveyor.com/api/projects/status/0h8kc3pk5s0p1jir/branch/develop?svg=true)](https://ci.appveyor.com/project/Barsonax/pathfindax/branch/develop) |
+
+### Nuget
+[![NuGet Status](http://nugetstatus.com/<package>.png)](https://www.nuget.org/packages/Pathfindax/)
