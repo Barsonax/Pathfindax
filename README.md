@@ -17,4 +17,4 @@ Currently still under construction
 | develop      | [![Build status](https://ci.appveyor.com/api/projects/status/0h8kc3pk5s0p1jir/branch/develop?svg=true)](https://ci.appveyor.com/project/Barsonax/pathfindax/branch/develop) |
 
 ### Nuget
-[![NuGet Status](http://nugetstatus.com/<package>.png)](http://nugetstatus.com/packages/Pathfindax)
+[![NuGet](https://img.shields.io/nuget/v/Nuget.Core.svg)](http://nugetstatus.com/packages/Pathfindax)
