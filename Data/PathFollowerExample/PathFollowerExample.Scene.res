@@ -317,7 +317,7 @@
                   <shapes dataType="Struct" type="System.Collections.Generic.List`1[[Duality.Components.Physics.ShapeInfo]]" id="2933577814">
                     <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="3278345248" length="32" />
                     <_size dataType="Int">0</_size>
-                    <_version dataType="Int">1854</_version>
+                    <_version dataType="Int">2082</_version>
                   </shapes>
                 </item>
                 <item dataType="Struct" type="Duality.Plugins.Tilemaps.TilemapCollider" id="266359049">
@@ -383,6 +383,7 @@
           <item dataType="ObjectRef">3705024726</item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Tilemaps.Components.TilemapNodeGridGenerator" id="1568877053">
             <_counter dataType="Long">0</_counter>
+            <_movementCosts dataType="Array" type="System.Byte[]" id="3153880045">BQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</_movementCosts>
             <_nodeGrid />
             <_nodeGridVisualizer />
             <_x003C_BoundRadius_x003E_k__BackingField dataType="Float">0</_x003C_BoundRadius_x003E_k__BackingField>
@@ -493,7 +494,7 @@
             <_pathIndex dataType="Int">0</_pathIndex>
             <_spriteRenderer />
             <_transform />
-            <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">2</_x003C_AgentSize_x003E_k__BackingField>
+            <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">1</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="Struct" type="Duality.Components.Camera" id="3367475287">
               <active dataType="Bool">true</active>
               <farZ dataType="Float">11000</farZ>
@@ -587,7 +588,7 @@
               <visibilityMask dataType="Enum" type="Duality.Drawing.VisibilityFlag" name="All" value="4294967295" />
             </_x003C_Camera_x003E_k__BackingField>
             <_x003C_CollisionCategory_x003E_k__BackingField dataType="Enum" type="Pathfindax.Nodes.PathfindaxCollisionCategory" name="Cat1" value="1" />
-            <_x003C_TimeBetweenMovements_x003E_k__BackingField dataType="Int">0</_x003C_TimeBetweenMovements_x003E_k__BackingField>
+            <_x003C_TimeBetweenMovements_x003E_k__BackingField dataType="Int">5</_x003C_TimeBetweenMovements_x003E_k__BackingField>
             <active dataType="Bool">true</active>
             <counter dataType="Int">0</counter>
             <gameobj dataType="ObjectRef">3441120025</gameobj>

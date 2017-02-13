@@ -13,24 +13,28 @@ namespace Pathfindax.Nodes
 		public int GCost { get; set; }
 		public int HeapIndex { get; set; }
 		public NodeConnection<AstarGridNode>[] Connections { get; set; }
-
 		public readonly IGridNodeBase SourceGridNode;
-
 		public PositionF Position => SourceGridNode.Position;
 		public PositionF WorldPosition => SourceGridNode.WorldPosition;
 		public int GridX => SourceGridNode.GridX;
 		public int GridY => SourceGridNode.GridY;
 		public int FCost => GCost + HCost;
 
-		public bool GetClearance(PathfindaxCollisionCategory collisionCategory, byte neededClearance)
+		public byte MovementPenalty
 		{
-			return SourceGridNode.GetClearance(collisionCategory, neededClearance);
+			get { return SourceGridNode.MovementPenalty; }
+			set { throw new NotSupportedException("You can only change this in the source node"); }
 		}
 
 		public GridClearance[] Clearances
 		{
 			get { return SourceGridNode.Clearances; }
 			set { throw new NotSupportedException("You can only change this in the source node"); }
+		}
+
+		public bool GetClearance(PathfindaxCollisionCategory collisionCategory, byte neededClearance)
+		{
+			return SourceGridNode.GetClearance(collisionCategory, neededClearance);
 		}
 
 		public AstarGridNode(IGridNodeBase source)

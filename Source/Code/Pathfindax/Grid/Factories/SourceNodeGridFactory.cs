@@ -25,7 +25,7 @@ namespace Pathfindax.Grid
 			{
 				for (int x = 0; x < width; x++)
 				{
-					var node = new GridNode(sourceNodeGrid, x, y);
+					var node = new GridNode(sourceNodeGrid, x, y, 1);
 					array[x, y] = node;
 				}
 			}

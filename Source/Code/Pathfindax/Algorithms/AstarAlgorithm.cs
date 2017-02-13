@@ -63,7 +63,7 @@ namespace Pathfindax.Algorithms
 
 							if (connection.To.GetClearance(collisionCategory, neededClearance))
 							{
-								var newMovementCostToNeighbour = currentNode.GCost + GetDistance(currentNode, connection.To);
+								var newMovementCostToNeighbour = currentNode.GCost + GetDistance(currentNode, connection.To) + currentNode.MovementPenalty;
 								if (newMovementCostToNeighbour < connection.To.GCost || !openSet.Contains(connection.To))
 								{
 									connection.To.GCost = newMovementCostToNeighbour;

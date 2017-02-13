@@ -10,6 +10,7 @@
 	{
 		bool GetClearance(PathfindaxCollisionCategory collisionCategory, byte neededClearance);
 		GridClearance[] Clearances { get; set; }
+		byte MovementPenalty { get; set; }
 		int GridX { get; }
 		int GridY { get; }
 	}

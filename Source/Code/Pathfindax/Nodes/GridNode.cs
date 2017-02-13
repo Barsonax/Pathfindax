@@ -11,16 +11,18 @@ namespace Pathfindax.Nodes
 		public PositionF Position { get; }
 		public PositionF WorldPosition => Position + NodeNetwork.Offset;
 		public GridClearance[] Clearances { get; set; }
+		public byte MovementPenalty { get; set; }
 		public int GridX { get; }
 		public int GridY { get; }
 		public NodeConnection<IGridNode>[] Connections { get; set; }
 
-		public GridNode(INodeGridBase nodeNetwork, int gridX, int gridY)
+		public GridNode(INodeGridBase nodeNetwork, int gridX, int gridY, byte costMultiplier)
 		{
 			NodeNetwork = nodeNetwork;
 			Position = new PositionF(gridX * nodeNetwork.NodeSize.X, gridY * nodeNetwork.NodeSize.Y);
 			GridX = gridX;
 			GridY = gridY;
+			MovementPenalty = costMultiplier;
 		}
 
 		public bool GetClearance(PathfindaxCollisionCategory collisionCategory, byte neededClearance)

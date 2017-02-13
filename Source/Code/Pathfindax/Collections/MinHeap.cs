@@ -3,7 +3,9 @@
 	public class MinHeap<T> where T : IHeapItem<T>
 	{
 		public int Count { get; private set; }
+
 		private readonly T[] _items;
+		
 
 		public MinHeap(int maxHeapSize)
 		{

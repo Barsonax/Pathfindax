@@ -22,6 +22,16 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Components
 		private NodeGridVisualizer _nodeGridVisualizer;
 		private INodeGrid<IGridNode> _nodeGrid;
 
+		private byte[] _movementPenalties;
+		public byte[] MovementPenalties
+		{
+			get { return _movementPenalties; }
+			set
+			{
+				_movementPenalties = value;
+			}
+		}
+
 		public INodeGrid<IGridNode> GenerateGrid2D()
 		{
 			if (_counter < 2) throw new Exception("The nodegrid is not yet initialized please call this later");
@@ -39,9 +49,11 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Components
 					for (int x = 0; x < baseTilemap.Size.X; x++)
 					{
 						var node = _nodeGrid.NodeArray[x, y];
+						if(MovementPenalties != null && baseTilemap.Tiles[x, y].Index < MovementPenalties.Length)
+						node.MovementPenalty = MovementPenalties[baseTilemap.Tiles[x, y].Index];
 						for (int index = 0; index < node.Connections.Length; index++)
 						{
-							node.Connections[index] = new NodeConnection<IGridNode>(node.Connections[index].To, nodeGridRayCaster.GetCollisionCategory(node, node.Connections[index].To));								
+							node.Connections[index] = new NodeConnection<IGridNode>(node.Connections[index].To, nodeGridRayCaster.GetCollisionCategory(node, node.Connections[index].To));
 						}
 					}
 				}
