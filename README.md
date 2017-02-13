@@ -18,6 +18,7 @@ Currently still under construction
 
 ### Nuget
 | Libary | Version |
+|-------------|--------|
 | Pathfindax      | [![NuGet](https://img.shields.io/nuget/v/Nuget.Core.svg)](http://nugetstatus.com/packages/Pathfindax) |
 | Duality.Plugins.Pathfindax.core      | [![NuGet](https://img.shields.io/nuget/v/Nuget.Core.svg)](http://nugetstatus.com/packages/Duality.Plugins.Pathfindax.core)|
 | Duality.Plugins.Pathfindax.Tilemaps.core      | [![NuGet](https://img.shields.io/nuget/v/Nuget.Core.svg)](http://nugetstatus.com/packages/Duality.Plugins.Pathfindax.Tilemaps.core)|
