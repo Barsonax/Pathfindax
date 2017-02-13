@@ -17,4 +17,9 @@ Currently still under construction
 | develop      | [![Build status](https://ci.appveyor.com/api/projects/status/0h8kc3pk5s0p1jir/branch/develop?svg=true)](https://ci.appveyor.com/project/Barsonax/pathfindax/branch/develop) |
 
 ### Nuget
-[![NuGet](https://img.shields.io/nuget/v/Nuget.Core.svg)](http://nugetstatus.com/packages/Pathfindax)
+| Libary | Version |
+| Pathfindax      | [![NuGet](https://img.shields.io/nuget/v/Nuget.Core.svg)](http://nugetstatus.com/packages/Pathfindax) |
+| Duality.Plugins.Pathfindax.core      | [![NuGet](https://img.shields.io/nuget/v/Nuget.Core.svg)](http://nugetstatus.com/packages/Duality.Plugins.Pathfindax.core)|
+| Duality.Plugins.Pathfindax.Tilemaps.core      | [![NuGet](https://img.shields.io/nuget/v/Nuget.Core.svg)](http://nugetstatus.com/packages/Duality.Plugins.Pathfindax.Tilemaps.core)|
+
+
