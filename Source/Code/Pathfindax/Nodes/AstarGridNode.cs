@@ -5,41 +5,70 @@ using Pathfindax.Primitives;
 
 namespace Pathfindax.Nodes
 {
+	/// <summary>
+	/// Represents a gridnode that can be used with the A* algorithm.
+	/// </summary>
 	[DebuggerDisplay("{Position}")]
 	public class AstarGridNode : IGridNodeBase, IHeapItem<AstarGridNode>, INode<AstarGridNode>
 	{
+		/// <summary>
+		/// Used to retrace the path in the A* algorithm.
+		/// </summary>
 		public AstarGridNode Parent { get; set; }
-		public int HCost { get; set; }
-		public int GCost { get; set; }
-		public int HeapIndex { get; set; }
-		public NodeConnection<AstarGridNode>[] Connections { get; set; }
-		public readonly IGridNodeBase SourceGridNode;
-		public PositionF Position => SourceGridNode.Position;
-		public PositionF WorldPosition => SourceGridNode.WorldPosition;
-		public int GridX => SourceGridNode.GridX;
-		public int GridY => SourceGridNode.GridY;
-		public int FCost => GCost + HCost;
 
+		/// <summary>
+		/// The cost calculated by the A* heuristic
+		/// </summary>
+		public int HCost { get; set; }
+
+		/// <summary>
+		/// The cost to the targetnode
+		/// </summary>
+		public int GCost { get; set; }
+
+		/// <inheritdoc />
+		public int HeapIndex { get; set; }
+
+		/// <inheritdoc />
+		public NodeConnection<AstarGridNode>[] Connections { get; set; }
+
+		/// <inheritdoc />
+		public PositionF Position => _sourceGridNode.Position;
+
+		/// <inheritdoc />
+		public PositionF WorldPosition => _sourceGridNode.WorldPosition;
+
+		/// <inheritdoc />
+		public int GridX => _sourceGridNode.GridX;
+
+		/// <inheritdoc />
+		public int GridY => _sourceGridNode.GridY;
+		private int FCost => GCost + HCost;
+		private readonly IGridNodeBase _sourceGridNode;
+
+		/// <inheritdoc />
 		public byte MovementPenalty
 		{
-			get { return SourceGridNode.MovementPenalty; }
+			get { return _sourceGridNode.MovementPenalty; }
 			set { throw new NotSupportedException("You can only change this in the source node"); }
 		}
 
+		/// <inheritdoc />
 		public GridClearance[] Clearances
 		{
-			get { return SourceGridNode.Clearances; }
+			get { return _sourceGridNode.Clearances; }
 			set { throw new NotSupportedException("You can only change this in the source node"); }
 		}
 
-		public bool GetClearance(PathfindaxCollisionCategory collisionCategory, byte neededClearance)
+		/// <inheritdoc />
+		public bool Fits(PathfindaxCollisionCategory collisionCategory, byte neededClearance)
 		{
-			return SourceGridNode.GetClearance(collisionCategory, neededClearance);
+			return _sourceGridNode.Fits(collisionCategory, neededClearance);
 		}
 
 		public AstarGridNode(IGridNodeBase source)
 		{
-			SourceGridNode = source;
+			_sourceGridNode = source;
 			HCost = -1;
 			GCost = -1;
 		}

@@ -11,26 +11,29 @@ using Pathfindax.Utils;
 
 namespace Duality.Plugins.Pathfindax.Tilemaps.Components
 {
+	/// <summary>
+	/// Generates a <see cref="INodeGrid{TNode}"/> from <see cref="Tilemap"/>'s.
+	/// The <see cref="Tilemap"/>'s must be children of the gameobject this component is attached to.
+	/// </summary>
 	[EditorHintCategory(PathfindaxStrings.PathfindaxTilemap)]
 	public class TilemapNodeGridGenerator : Component, ISourceNodeNetworkProvider<INodeGrid<IGridNode>>, ICmpUpdatable
 	{
 		[EditorHintFlags(MemberFlags.Invisible)]
 		public float BoundRadius { get; }
 
+		/// <summary>
+		/// The maximum clearance that will be calculated. For performance reason try to keep this as small as possible and thus should be kept equal to the size of your largest agent in nodes.
+		/// </summary>
 		public int MaxCalculatedClearance { get; set; }
+
+		/// <summary>
+		/// The movement penalties per tile which can be used to make the pathfinder try to avoid certain nodes. The index of the value in the array is equal to the index of the tile.
+		/// </summary>
+		public byte[] MovementPenalties { get; set; }
+
 		private long _counter;
 		private NodeGridVisualizer _nodeGridVisualizer;
 		private INodeGrid<IGridNode> _nodeGrid;
-
-		private byte[] _movementPenalties;
-		public byte[] MovementPenalties
-		{
-			get { return _movementPenalties; }
-			set
-			{
-				_movementPenalties = value;
-			}
-		}
 
 		public INodeGrid<IGridNode> GenerateGrid2D()
 		{

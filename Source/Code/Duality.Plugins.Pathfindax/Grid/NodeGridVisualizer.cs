@@ -42,7 +42,7 @@ namespace Duality.Plugins.Pathfindax.Grid
 				foreach (var node in _nodeNetwork)
 				{
 					canvas.State.ColorTint = ColorRgba.LightGrey;
-					if (node.GetClearance(CollisionCategory, AgentSize))
+					if (node.Fits(CollisionCategory, AgentSize))
 					{
 						canvas.DrawCircle(node.Position.X + _offset.X, node.Position.Y + _offset.Y, _nodeSize);
 					}

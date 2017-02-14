@@ -50,6 +50,13 @@ namespace Pathfindax.Grid
 			return sourceNodeGrid;
 		}
 
+		/// <summary>
+		/// Calculates the clearances up to a maximum <paramref name="maxClearance"/>
+		/// </summary>
+		/// <param name="nodeGrid"></param>
+		/// <param name="from"></param>
+		/// <param name="maxClearance"></param>
+		/// <returns></returns>
 		public GridClearance[] CalculateGridNodeClearances(INodeGrid<IGridNode> nodeGrid, IGridNode from, int maxClearance)
 		{
 			var hashset = new HashSet<PathfindaxCollisionCategory>();

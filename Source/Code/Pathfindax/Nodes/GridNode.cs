@@ -7,25 +7,39 @@ namespace Pathfindax.Nodes
 	[DebuggerDisplay("{Position}")]
 	public class GridNode : IGridNode
 	{
-		public INodeNetworkBase NodeNetwork { get; }
+		/// <inheritdoc />
 		public PositionF Position { get; }
-		public PositionF WorldPosition => Position + NodeNetwork.Offset;
+
+		/// <inheritdoc />
+		public PositionF WorldPosition => Position + _nodeNetwork.Offset;
+
+		/// <inheritdoc />
 		public GridClearance[] Clearances { get; set; }
+
+		/// <inheritdoc />
 		public byte MovementPenalty { get; set; }
+
+		/// <inheritdoc />
 		public int GridX { get; }
+
+		/// <inheritdoc />
 		public int GridY { get; }
+
+		/// <inheritdoc />
 		public NodeConnection<IGridNode>[] Connections { get; set; }
+		private readonly INodeNetworkBase _nodeNetwork;
 
 		public GridNode(INodeGridBase nodeNetwork, int gridX, int gridY, byte costMultiplier)
 		{
-			NodeNetwork = nodeNetwork;
+			_nodeNetwork = nodeNetwork;
 			Position = new PositionF(gridX * nodeNetwork.NodeSize.X, gridY * nodeNetwork.NodeSize.Y);
 			GridX = gridX;
 			GridY = gridY;
 			MovementPenalty = costMultiplier;
 		}
 
-		public bool GetClearance(PathfindaxCollisionCategory collisionCategory, byte neededClearance)
+		/// <inheritdoc />
+		public bool Fits(PathfindaxCollisionCategory collisionCategory, byte neededClearance)
 		{
 			if (neededClearance > 1 && Clearances != null)
 				foreach (var gridClearance in Clearances)

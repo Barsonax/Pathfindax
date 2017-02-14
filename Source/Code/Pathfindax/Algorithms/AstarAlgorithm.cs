@@ -33,7 +33,7 @@ namespace Pathfindax.Algorithms
 				{
 					return new List<INode> { targetGridNode };
 				}
-				if (startGridNode.GetClearance(collisionCategory, neededClearance) && targetGridNode.GetClearance(collisionCategory, neededClearance))
+				if (startGridNode.Fits(collisionCategory, neededClearance) && targetGridNode.Fits(collisionCategory, neededClearance))
 				{
 					var openSet = new MinHeap<AstarGridNode>(nodeGrid.NodeCount);
 					var closedSet = new HashSet<AstarGridNode>();
@@ -61,7 +61,7 @@ namespace Pathfindax.Algorithms
 								continue;
 							}
 
-							if (connection.To.GetClearance(collisionCategory, neededClearance))
+							if (connection.To.Fits(collisionCategory, neededClearance))
 							{
 								var newMovementCostToNeighbour = currentNode.GCost + GetDistance(currentNode, connection.To) + currentNode.MovementPenalty;
 								if (newMovementCostToNeighbour < connection.To.GCost || !openSet.Contains(connection.To))
