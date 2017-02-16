@@ -4,7 +4,6 @@ using Pathfindax.Primitives;
 
 namespace Pathfindax.Nodes
 {
-	[DebuggerDisplay("{WorldPosition}")]
 	public class GridNode : IGridNode
 	{
 		/// <inheritdoc />
@@ -53,7 +52,7 @@ namespace Pathfindax.Nodes
 
 		public override string ToString()
 		{
-			return $"{WorldPosition.X}:{WorldPosition.Y}";
+			return $"WorldPosition: {WorldPosition.X}:{WorldPosition.Y}  GridPosition: {GridX}:{GridY}";
 		}
 	}
 }

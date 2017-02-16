@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using Duality.Drawing;
 using Duality.Editor;
@@ -64,10 +65,14 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Components
                         }
                     }
                 }
+				var watch = new Stopwatch();
+				watch.Start();
                 foreach (var gridNode in _nodeGrid)
                 {
                     gridNode.Clearances = sourceNodeGridFactory.CalculateGridNodeClearances(_nodeGrid, gridNode, MaxCalculatedClearance);
                 }
+				watch.Stop();
+				Debug.WriteLine(watch.ElapsedMilliseconds);
                 _nodeGridVisualizer = new NodeGridVisualizer(_nodeGrid);
             }
             return _nodeGrid;

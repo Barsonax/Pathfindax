@@ -59,17 +59,26 @@ namespace Pathfindax.Grid
 		/// <returns></returns>
 		public GridClearance[] CalculateGridNodeClearances(INodeGrid<IGridNode> nodeGrid, IGridNode from, int maxClearance)
 		{
-			var hashset = new HashSet<PathfindaxCollisionCategory>();
 			var clearances = new List<GridClearance>();
-			for (int i = 1; i < maxClearance + 2; i++)
+			var hashset = new HashSet<PathfindaxCollisionCategory>();
+			for (var i = 1; i < maxClearance; i++)
 			{
-				var nodes = GetNodesForInClearance(nodeGrid, from, i);
-				var maxGridX = from.GridX + i;
-				var maxGridY = from.GridY + i;
+				var nodes = new List<IGridNode>(1 + i * 2);
+				foreach (var gridNode in GetNodesInArea(nodeGrid, 0, i, i + 1, 1))
+				{
+					nodes.Add(gridNode);
+				}
+
+				foreach (var gridNode in GetNodesInArea(nodeGrid, i, 0, 1, i))
+				{
+					nodes.Add(gridNode);
+				}
+				var maxGridX = from.GridX + i + 1;
+				var maxGridY = from.GridY + i + 1;
 				var collisionCategory = PathfindaxCollisionCategory.None;
 				foreach (var connection in nodes.SelectMany(x => x.Connections))
 				{
-					if (connection.To.GridX >= from.GridX && connection.To.GridY >= from.GridY && connection.To.GridX < maxGridX && connection.To.GridY < maxGridY)
+					if (connection.To.GridX >= from.GridX && connection.To.GridY >= from.GridY && connection.To.GridX <= maxGridX && connection.To.GridY <= maxGridY)
 					{
 						collisionCategory = collisionCategory | connection.CollisionCategory;
 					}
@@ -77,24 +86,22 @@ namespace Pathfindax.Grid
 				if (collisionCategory != PathfindaxCollisionCategory.None && !hashset.Contains(collisionCategory))
 				{
 					hashset.Add(collisionCategory);
-					clearances.Add(new GridClearance(collisionCategory, i - 1));
+					clearances.Add(new GridClearance(collisionCategory, i + 1));
 				}
-			}
-		    return clearances.Count > 0 ? clearances.ToArray() : null;
 
+			}
+			return clearances.Count > 0 ? clearances.ToArray() : null;
 		}
 
-		private IList<IGridNode> GetNodesForInClearance(INodeGrid<IGridNode> nodeGrid, IGridNode from, int clearance)
+		private IList<IGridNode> GetNodesInArea(INodeGrid<IGridNode> nodeGrid, int gridX, int gridY, int width, int height)
 		{
 			var nodes = new List<IGridNode>();
-			for (int y = 0; y < clearance; y++)
+			for (int y = gridY; y < gridY + height; y++)
 			{
-				for (int x = 0; x < clearance; x++)
+				for (int x = gridX; x < gridX + width; x++)
 				{
-					var gridX = from.GridX + x;
-					var gridY = from.GridY + y;
-					if (gridX < nodeGrid.NodeArray.Width && gridY < nodeGrid.NodeArray.Height)
-						nodes.Add(nodeGrid.NodeArray[gridX, gridY]);
+					if (x < nodeGrid.NodeArray.Width && y < nodeGrid.NodeArray.Height)
+						nodes.Add(nodeGrid.NodeArray[x, y]);
 				}
 			}
 			return nodes;
