@@ -53,7 +53,7 @@
                   <tileData dataType="Struct" type="Duality.Plugins.Tilemaps.TilemapData" id="2410352058" custom="true">
                     <body>
                       <version dataType="Int">3</version>
-                      <data dataType="Array" type="System.Byte[]" id="1082261504">H4sIAAAAAAAEAFNgYGAQAWJLBhD4DaFsGcgEgWCyHEL9h1B7yTWMFgDiP0FytUN8lI7iv7mUumkQgVH/wYAJNSkijKYOGMnxdwBCHYRQh0g1mkLt1AEj2X8nINRJCHUKQgUzgqkQRoI8rNrpDfD5TwFCKUIoJQhFvP+waqc3wOa/u1A5DQilCaG0SDWaQu3UAdj8d98DTN3zBFPnvCAURPAcvQTfUeozCMDmv/8BKLyggRGk1GcQADFaGUJZQ6kICBUJoaIGRLCaUp+NglEwCkbBKBieAABTZKH2iBEAAA==</data>
+                      <data dataType="Array" type="System.Byte[]" id="1082261504">H4sIAAAAAAAEAO2RQQ7BQBSGp3ewsSs2WCEW6AWwUixwAUfowlmcRCRYYdEb4AauMHh/N00mzJhpKzpf0vky07w/+fNcxljh+TXYC96EWqQtU8WnM4C4/2VKEnTo5F2oR1orp6DRMtZPPSUJsL8N9udhf0XllN/tZwb5fm2Tkog2Q573t4P20EE1WnPcDHnud4RO0BmaOKSp8/EmHE+bd/1cqASVIfl+wvG0EfW7RP+qUA2qq0ZrjptB1O/WJ10HpHAI4TFM6/Gu2wyI+vFR7DbO5lG3GUB0BfIizaA5tMjkcaXbzGKxWCz/yQMSWKDjiBEAAA==</data>
                     </body>
                   </tileData>
                   <tileset dataType="Struct" type="Duality.ContentRef`1[[Duality.Plugins.Tilemaps.Tileset]]">
@@ -136,7 +136,7 @@
                   <tileData dataType="Struct" type="Duality.Plugins.Tilemaps.TilemapData" id="623887338" custom="true">
                     <body>
                       <version dataType="Int">3</version>
-                      <data dataType="Array" type="System.Byte[]" id="4288918816">H4sIAAAAAAAEAO3FQQ0AQAgEsRWBgJOCf1WQ88Cvk0z6ktTe+QEAAAAAAOCIAVoBQEaIEQAA</data>
+                      <data dataType="Array" type="System.Byte[]" id="4288918816">H4sIAAAAAAAEAO3PUQkAIBBEwQ1hAKNcF/t3UPwzwYHMwmO+dyYZp5W7l/oH/wAAAAAAQDcbKeejZYgRAAA=</data>
                     </body>
                   </tileData>
                   <tileset dataType="Struct" type="Duality.ContentRef`1[[Duality.Plugins.Tilemaps.Tileset]]">
@@ -219,7 +219,7 @@
                   <tileData dataType="Struct" type="Duality.Plugins.Tilemaps.TilemapData" id="1195299583" custom="true">
                     <body>
                       <version dataType="Int">3</version>
-                      <data dataType="Array" type="System.Byte[]" id="541296942">H4sIAAAAAAAEAO2W3WrCQBCFN/15gz6Az9FWKVb7ErUQMIKQCHkvL3ujPpVWC/YPKp69GRg2J7vJaqGB5GOWMzszZJeZjjHm5vA+mOPTPiYaokX3RUor18AGeDtp1jymtHIPfACfjUQvGtnFhZJWmgRfIA8Lew90BXrAWMA3ggWR5wJYAqu6EVT3ATAUeKq7NYHA/7AFdsB7CwkGIrC+L+Ab+ImVNY/A+i5xG6+A6yRu8gRSWjkX1i1KuUsqLdU9Gvj+8CqsPpJ/TCot1b192INJ9IdnYAS8RF4kSnEhF0g1iW1EGTARSrmoKsfCgVBmjlx8YeubCkvFTCgLsZg7Fomtc83BtyIVrtMqo5d107UO6lFUAxE357QjsW/v51tW7ZG40XHEt/dntFKOxBfV3bfRceQMe/8ZpvSPv41f6S97TYgRAAA=</data>
+                      <data dataType="Array" type="System.Byte[]" id="541296942">H4sIAAAAAAAEAO2Wb2oCMRDFs9XeoAfwHFaLVOslrLDgCsJa8F792C/qqeo/sFVB8eXLwJB9u8muFiroj4Q3mTeYMNMwxjxdviNz/Uh0SsBYQxmJJDzri2nlN7AC1n6ueXjWN6GVe+AH+A1ifhrkFBdmtNJE+AVSv7QtoC3wAgR9aoTPObAAlnkzqOE94E2gn/doAp7/wwbYArsSDHrCs74DcAROVbnm4VlfDa+xDjxG1ZonENPKT7FqopTnKHOlhlcGvj98idUrzHejzJUaXj7sxST6wwB4B4YVbxKluJAKxJrENqIEGAul3FSVIxFAKBOHl6Kw9U3ESsWHUE7FZurYJI5OtYCiFalw3VaZfZbXrg1Qr6KaiHg5NxqJLYr2fr5l5R6Jg44jRXt/QivlSPyQ3X2DjiN32Pvv0NI//jbOmsmYbogRAAA=</data>
                     </body>
                   </tileData>
                   <tileset dataType="Struct" type="Duality.ContentRef`1[[Duality.Plugins.Tilemaps.Tileset]]">
@@ -317,7 +317,7 @@
                   <shapes dataType="Struct" type="System.Collections.Generic.List`1[[Duality.Components.Physics.ShapeInfo]]" id="2933577814">
                     <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="3278345248" length="32" />
                     <_size dataType="Int">0</_size>
-                    <_version dataType="Int">2400</_version>
+                    <_version dataType="Int">2518</_version>
                   </shapes>
                 </item>
                 <item dataType="Struct" type="Duality.Plugins.Tilemaps.TilemapCollider" id="266359049">
