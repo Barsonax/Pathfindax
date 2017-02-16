@@ -33,7 +33,7 @@ namespace Pathfindax.Nodes
 
 		public override string ToString()
 		{
-			return $"Connection to {To.Position}";
+			return $"Connection to {To.WorldPosition}";
 		}
 	}
 }

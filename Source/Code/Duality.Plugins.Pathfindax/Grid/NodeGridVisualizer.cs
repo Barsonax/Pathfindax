@@ -44,11 +44,11 @@ namespace Duality.Plugins.Pathfindax.Grid
 					canvas.State.ColorTint = ColorRgba.LightGrey;
 					if (node.Fits(CollisionCategory, AgentSize))
 					{
-						canvas.DrawCircle(node.Position.X + _offset.X, node.Position.Y + _offset.Y, _nodeSize);
+						canvas.DrawCircle(node.WorldPosition.X, node.WorldPosition.Y, _nodeSize);
 					}
 					else
 					{
-						canvas.FillCircle(node.Position.X + _offset.X, node.Position.Y + _offset.Y, _nodeSize);
+						canvas.FillCircle(node.WorldPosition.X, node.WorldPosition.Y, _nodeSize);
 					}
 					canvas.State.ColorTint = new ColorRgba(199, 21, 133);
 					foreach (var connection in node.Connections)
@@ -57,8 +57,8 @@ namespace Duality.Plugins.Pathfindax.Grid
 						{
 							continue;
 						}
-						var vector = (connection.To.Position - node.Position) * 0.5f;
-						canvas.DrawDashLine(node.Position.X + _offset.X, node.Position.Y + _offset.Y, node.Position.X + vector.X + _offset.X, node.Position.Y + vector.Y + _offset.Y);
+						var vector = (connection.To.WorldPosition - node.WorldPosition) * 0.5f;
+						canvas.DrawDashLine(node.WorldPosition.X, node.WorldPosition.Y, node.WorldPosition.X + vector.X, node.WorldPosition.Y + vector.Y);
 					}
 				}
 			}

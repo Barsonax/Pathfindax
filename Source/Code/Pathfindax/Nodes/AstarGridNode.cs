@@ -33,9 +33,6 @@ namespace Pathfindax.Nodes
 		public NodeConnection<AstarGridNode>[] Connections { get; set; }
 
 		/// <inheritdoc />
-		public PositionF Position => _sourceGridNode.Position;
-
-		/// <inheritdoc />
 		public PositionF WorldPosition => _sourceGridNode.WorldPosition;
 
 		/// <inheritdoc />

@@ -14,11 +14,6 @@ namespace Pathfindax.Nodes
 	public interface INode
 	{
 		/// <summary>
-		/// The local world position in the grid.
-		/// </summary>
-		PositionF Position { get; }
-
-		/// <summary>
 		/// The absolute world position
 		/// </summary>
 		PositionF WorldPosition { get; }
