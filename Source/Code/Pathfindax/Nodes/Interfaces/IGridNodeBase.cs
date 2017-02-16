@@ -9,10 +9,9 @@
 	public interface IGridNodeBase : INode
 	{
 		/// <summary>
-		/// Calculates the real clearance from the <see cref="Clearances"/> for the given <paramref name="collisionCategory"/> and returns true if this clearance is equal or less than <paramref name="neededClearance"/>
+		/// Calculates the true clearance from the <see cref="Clearances"/> for the given <paramref name="collisionCategory"/> and returns this.
 		/// </summary>
 		/// <param name="collisionCategory"></param>
-		/// <param name="neededClearance"></param>
 		/// <returns></returns>
 		int GetTrueClearance(PathfindaxCollisionCategory collisionCategory);
 
