@@ -57,7 +57,7 @@ namespace Pathfindax.Grid
 		/// <param name="from"></param>
 		/// <param name="maxClearance"></param>
 		/// <returns></returns>
-		public GridClearance[] CalculateGridNodeClearances(INodeGrid<IGridNode> nodeGrid, IGridNode from, int maxClearance)
+		public List<GridClearance> CalculateGridNodeClearances(INodeGrid<IGridNode> nodeGrid, IGridNode from, int maxClearance)
 		{
 			var clearances = new List<GridClearance>();
 			var hashset = new HashSet<PathfindaxCollisionCategory>();
@@ -90,7 +90,7 @@ namespace Pathfindax.Grid
 				}
 
 			}
-			return clearances.Count > 0 ? clearances.ToArray() : null;
+			return clearances;
 		}
 
 		private IList<IGridNode> GetNodesInArea(INodeGrid<IGridNode> nodeGrid, int gridX, int gridY, int width, int height)

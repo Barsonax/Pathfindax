@@ -22,6 +22,7 @@ namespace Duality.Plugins.Pathfindax.Grid
 		{
 			_nodeNetwork = nodeNetwork;
 			_nodeSize = nodeNetwork.NodeSize.X * 0.3f;
+			CollisionCategory = PathfindaxCollisionCategory.Cat1;
 		}
 
 		/// <summary>
@@ -32,20 +33,21 @@ namespace Duality.Plugins.Pathfindax.Grid
 			if (_nodeNetwork != null)
 			{
 				var canvas = new Canvas(device, new CanvasBuffer());
-				canvas.State.ZOffset = -5;
+				canvas.State.ZOffset = -8;
 				foreach (var node in _nodeNetwork)
 				{
 					canvas.State.ColorTint = ColorRgba.LightGrey;
 					var nodePosition = node.WorldPosition;
 					var clearance = node.GetTrueClearance(CollisionCategory);
 					if (clearance == int.MaxValue)
-					{						
+					{
 						canvas.DrawCircle(nodePosition.X, nodePosition.Y, _nodeSize);
 					}
 					else
 					{
-						canvas.DrawText(clearance.ToString(), nodePosition.X, nodePosition.Y, blockAlign: Alignment.Center);
-						canvas.DrawCircle(nodePosition.X, nodePosition.Y, _nodeSize);
+						canvas.FillCircle(nodePosition.X, nodePosition.Y, _nodeSize);
+						canvas.State.ColorTint = ColorRgba.Black;
+						canvas.DrawText(clearance.ToString(), nodePosition.X, nodePosition.Y, -1f, Alignment.Center);
 					}
 					canvas.State.ColorTint = new ColorRgba(199, 21, 133);
 					foreach (var connection in node.Connections)

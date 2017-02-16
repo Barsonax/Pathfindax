@@ -34,7 +34,7 @@ namespace Pathfindax.Duality.Test
 			sourceNodeGrid.NodeArray[3, 3].Connections[6] = new NodeConnection<IGridNode>(sourceNodeGrid.NodeArray[3, 3].Connections[6].To, PathfindaxCollisionCategory.Cat2);
 			sourceNodeGrid.NodeArray[5, 3].Connections[6] = new NodeConnection<IGridNode>(sourceNodeGrid.NodeArray[5, 3].Connections[2].To, PathfindaxCollisionCategory.Cat3);
 			var clearances = sourceNodeGridFactory.CalculateGridNodeClearances(sourceNodeGrid, sourceNodeGrid.NodeArray[0, 0], 5);
-			Assert.AreEqual(clearances.Length, 2);
+			Assert.AreEqual(clearances.Count, 2);
 			Assert.AreEqual(true, clearances[0].CollisionCategory == PathfindaxCollisionCategory.Cat1);
 			Assert.AreEqual(true, clearances[0].Clearance == 3);
 			Assert.AreEqual(true, clearances[1].CollisionCategory == PathfindaxCollisionCategory.Cat2);

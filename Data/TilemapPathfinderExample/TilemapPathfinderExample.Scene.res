@@ -317,7 +317,7 @@
                   <shapes dataType="Struct" type="System.Collections.Generic.List`1[[Duality.Components.Physics.ShapeInfo]]" id="2417071285">
                     <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="1334378230" length="32" />
                     <_size dataType="Int">0</_size>
-                    <_version dataType="Int">2620</_version>
+                    <_version dataType="Int">2692</_version>
                   </shapes>
                 </item>
                 <item dataType="Struct" type="Duality.Plugins.Tilemaps.TilemapCollider" id="648828488">
@@ -425,7 +425,7 @@
                   <shapes dataType="Struct" type="System.Collections.Generic.List`1[[Duality.Components.Physics.ShapeInfo]]" id="4024139598">
                     <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="2712052432" length="18" />
                     <_size dataType="Int">0</_size>
-                    <_version dataType="Int">166</_version>
+                    <_version dataType="Int">172</_version>
                   </shapes>
                 </item>
                 <item dataType="Struct" type="Duality.Plugins.Tilemaps.TilemapCollider" id="657038561">
@@ -533,7 +533,7 @@
                   <shapes dataType="Struct" type="System.Collections.Generic.List`1[[Duality.Components.Physics.ShapeInfo]]" id="4164727456">
                     <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="2124520668" length="36" />
                     <_size dataType="Int">0</_size>
-                    <_version dataType="Int">182</_version>
+                    <_version dataType="Int">188</_version>
                   </shapes>
                 </item>
                 <item dataType="Struct" type="Duality.Plugins.Tilemaps.TilemapCollider" id="475069083">
@@ -603,6 +603,7 @@
             <_nodeGridVisualizer />
             <_x003C_BoundRadius_x003E_k__BackingField dataType="Float">0</_x003C_BoundRadius_x003E_k__BackingField>
             <_x003C_MaxCalculatedClearance_x003E_k__BackingField dataType="Int">5</_x003C_MaxCalculatedClearance_x003E_k__BackingField>
+            <_x003C_MovementPenalties_x003E_k__BackingField />
             <active dataType="Bool">true</active>
             <gameobj dataType="ObjectRef">2787828769</gameobj>
           </item>
@@ -757,7 +758,7 @@
               <Y dataType="Int">308</Y>
             </_x003C_BottomRightCorner_x003E_k__BackingField>
             <_x003C_BoundRadius_x003E_k__BackingField dataType="Float">0</_x003C_BoundRadius_x003E_k__BackingField>
-            <_x003C_Clearance_x003E_k__BackingField dataType="Int">1</_x003C_Clearance_x003E_k__BackingField>
+            <_x003C_Clearance_x003E_k__BackingField dataType="Byte">1</_x003C_Clearance_x003E_k__BackingField>
             <_x003C_CollisionCategory_x003E_k__BackingField dataType="Enum" type="Pathfindax.Nodes.PathfindaxCollisionCategory" name="Cat1" value="1" />
             <_x003C_Path_x003E_k__BackingField />
             <_x003C_PathfinderProxy_x003E_k__BackingField dataType="Struct" type="Duality.Plugins.Pathfindax.PathfindEngine.PathfinderProxy" id="527841600">
