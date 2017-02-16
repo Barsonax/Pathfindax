@@ -34,20 +34,17 @@ namespace Pathfindax.Nodes
 		}
 
 		/// <inheritdoc />
-		public bool Fits(PathfindaxCollisionCategory collisionCategory, byte neededClearance)
+		public int GetTrueClearance(PathfindaxCollisionCategory collisionCategory)
 		{
-			if (neededClearance > 1 && Clearances != null)
+			if (Clearances != null)
 				foreach (var gridClearance in Clearances)
 				{
 					if ((gridClearance.CollisionCategory & collisionCategory) != 0)
 					{
-						if (gridClearance.Clearance < neededClearance)
-						{
-							return gridClearance.Clearance == -1 || gridClearance.Clearance > neededClearance;
-						}
+						return gridClearance.Clearance;
 					}
 				}
-			return true;
+			return int.MaxValue;
 		}
 
 		public override string ToString()

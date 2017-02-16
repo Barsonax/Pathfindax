@@ -38,7 +38,7 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Components
 
         public INodeGrid<IGridNode> GenerateGrid2D()
         {
-            if (_counter < 2) throw new Exception("The nodegrid is not yet initialized please call this later");
+            if (_counter <3) throw new Exception("The nodegrid is not yet initialized please call this later");
             if (_nodeGrid == null)
             {
                 var tilemaps = GameObj.GetComponentsInChildren<Tilemap>().ToArray();
@@ -65,14 +65,10 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Components
                         }
                     }
                 }
-				var watch = new Stopwatch();
-				watch.Start();
                 foreach (var gridNode in _nodeGrid)
                 {
                     gridNode.Clearances = sourceNodeGridFactory.CalculateGridNodeClearances(_nodeGrid, gridNode, MaxCalculatedClearance);
                 }
-				watch.Stop();
-				Debug.WriteLine(watch.ElapsedMilliseconds);
                 _nodeGridVisualizer = new NodeGridVisualizer(_nodeGrid);
             }
             return _nodeGrid;

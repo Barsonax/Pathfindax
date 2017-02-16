@@ -14,11 +14,11 @@
 		/// <param name="collisionCategory"></param>
 		/// <param name="neededClearance"></param>
 		/// <returns></returns>
-		bool Fits(PathfindaxCollisionCategory collisionCategory, byte neededClearance);
+		int GetTrueClearance(PathfindaxCollisionCategory collisionCategory);
 
 		/// <summary>
 		/// The stored clearances. Note that this is not the real clearance but a efficient way of storing them.
-		/// Call <see cref="Fits"/> if you want the real clearance
+		/// Call <see cref="GetTrueClearance"/> if you want the real clearance
 		/// </summary>
 		GridClearance[] Clearances { get; set; }
 

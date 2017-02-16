@@ -58,9 +58,9 @@ namespace Pathfindax.Nodes
 		}
 
 		/// <inheritdoc />
-		public bool Fits(PathfindaxCollisionCategory collisionCategory, byte neededClearance)
+		public int GetTrueClearance(PathfindaxCollisionCategory collisionCategory)
 		{
-			return _sourceGridNode.Fits(collisionCategory, neededClearance);
+			return _sourceGridNode.GetTrueClearance(collisionCategory);
 		}
 
 		public AstarGridNode(IGridNodeBase source)

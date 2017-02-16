@@ -61,15 +61,15 @@ namespace Pathfindax.Grid
 		{
 			var clearances = new List<GridClearance>();
 			var hashset = new HashSet<PathfindaxCollisionCategory>();
-			for (var i = 1; i < maxClearance; i++)
+			for (var i = 0; i < maxClearance; i++)
 			{
-				var nodes = new List<IGridNode>(1 + i * 2);
-				foreach (var gridNode in GetNodesInArea(nodeGrid, 0, i, i + 1, 1))
+				var nodes = new List<IGridNode>(1 + i * 2); //Since we know the amount of nodes that will be in this list we can specify the size beforehand for some extra performance.
+				foreach (var gridNode in GetNodesInArea(nodeGrid, from.GridX, from.GridY + i, i + 1, 1))
 				{
 					nodes.Add(gridNode);
 				}
 
-				foreach (var gridNode in GetNodesInArea(nodeGrid, i, 0, 1, i))
+				foreach (var gridNode in GetNodesInArea(nodeGrid, from.GridX + i, from.GridY, 1, i))
 				{
 					nodes.Add(gridNode);
 				}

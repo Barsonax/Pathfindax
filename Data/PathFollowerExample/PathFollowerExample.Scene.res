@@ -53,7 +53,7 @@
                   <tileData dataType="Struct" type="Duality.Plugins.Tilemaps.TilemapData" id="2410352058" custom="true">
                     <body>
                       <version dataType="Int">3</version>
-                      <data dataType="Array" type="System.Byte[]" id="1082261504">H4sIAAAAAAAEAFNgYGAQYaAWCAST5RDqP4TaSzXTBx5AfJSO4r+5A+Ya6oNR/8GACTUpIoymDhjJ8XcAQh2EUIdINZpC7dQBI9l/JyDUSQh1CkIFM4KpEEaCPKza6Q3w+U8BQilCKCUIRbz/sGqnN8Dmv7tQOQ0IpQmhtEg1mkLt1AHY/HffA0zd8wRT57wgFETwHL0E31HqMwjA5r//ASi8oIERpNRnEAAxWhlCWUOpCAgVCaGiBkSwmlKfjYJRMApGwSgYngAA146c4YgRAAA=</data>
+                      <data dataType="Array" type="System.Byte[]" id="1082261504">H4sIAAAAAAAEAFNgYGAQYYADSzBpykAmCAST5RDqP4TaS65htAAQ/zGSqx3io3QU/82l1E2DCIz6DwZMqEkRYTR1wEiOvwMQ6iCEOkSq0RRqpw4Yyf47AaFOQqhTECoYUlSHMBLkYdVOb4DPfwoQShFCKUEo4v2HVTu9ATb/3YXKaUAoTQilRarRFGqnDsDmv/seYOqeJ5g65wWhIILn6CX4jlKfQQA2//0PQOEFDYwgpT6DAIjRyhDKGkpFQKhICBU1IILVlPpsFIyCUTAKRsHwBAChlL6+iBEAAA==</data>
                     </body>
                   </tileData>
                   <tileset dataType="Struct" type="Duality.ContentRef`1[[Duality.Plugins.Tilemaps.Tileset]]">
@@ -317,7 +317,7 @@
                   <shapes dataType="Struct" type="System.Collections.Generic.List`1[[Duality.Components.Physics.ShapeInfo]]" id="2933577814">
                     <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="3278345248" length="32" />
                     <_size dataType="Int">0</_size>
-                    <_version dataType="Int">2082</_version>
+                    <_version dataType="Int">2240</_version>
                   </shapes>
                 </item>
                 <item dataType="Struct" type="Duality.Plugins.Tilemaps.TilemapCollider" id="266359049">
@@ -383,11 +383,11 @@
           <item dataType="ObjectRef">3705024726</item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Tilemaps.Components.TilemapNodeGridGenerator" id="1568877053">
             <_counter dataType="Long">0</_counter>
-            <_movementCosts dataType="Array" type="System.Byte[]" id="3153880045">BQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</_movementCosts>
             <_nodeGrid />
             <_nodeGridVisualizer />
             <_x003C_BoundRadius_x003E_k__BackingField dataType="Float">0</_x003C_BoundRadius_x003E_k__BackingField>
             <_x003C_MaxCalculatedClearance_x003E_k__BackingField dataType="Int">5</_x003C_MaxCalculatedClearance_x003E_k__BackingField>
+            <_x003C_MovementPenalties_x003E_k__BackingField />
             <active dataType="Bool">true</active>
             <gameobj dataType="ObjectRef">1344709794</gameobj>
           </item>
@@ -498,7 +498,7 @@
             <_x003C_Camera_x003E_k__BackingField dataType="Struct" type="Duality.Components.Camera" id="3367475287">
               <active dataType="Bool">true</active>
               <farZ dataType="Float">11000</farZ>
-              <focusDist dataType="Float">600</focusDist>
+              <focusDist dataType="Float">620</focusDist>
               <gameobj dataType="Struct" type="Duality.GameObject" id="2830199480">
                 <active dataType="Bool">true</active>
                 <children />
@@ -561,7 +561,7 @@
               </gameobj>
               <nearZ dataType="Float">0</nearZ>
               <passes dataType="Struct" type="System.Collections.Generic.List`1[[Duality.Components.Camera+Pass]]" id="973452298">
-                <_items dataType="Array" type="Duality.Components.Camera+Pass[]" id="2913212128" length="4">
+                <_items dataType="Array" type="Duality.Components.Camera+Pass[]" id="2913212128" length="8">
                   <item dataType="Struct" type="Duality.Components.Camera+Pass" id="784111580">
                     <clearColor dataType="Struct" type="Duality.Drawing.ColorRgba" />
                     <clearDepth dataType="Float">1</clearDepth>
@@ -582,7 +582,7 @@
                   </item>
                 </_items>
                 <_size dataType="Int">2</_size>
-                <_version dataType="Int">2</_version>
+                <_version dataType="Int">1314</_version>
               </passes>
               <perspective dataType="Enum" type="Duality.Drawing.PerspectiveMode" name="Flat" value="0" />
               <visibilityMask dataType="Enum" type="Duality.Drawing.VisibilityFlag" name="All" value="4294967295" />

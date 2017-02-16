@@ -1,4 +1,5 @@
-﻿using Duality.Drawing;
+﻿using System.Linq;
+using Duality.Drawing;
 using Pathfindax.Grid;
 using Pathfindax.Nodes;
 
@@ -10,24 +11,17 @@ namespace Duality.Plugins.Pathfindax.Grid
 	public class NodeGridVisualizer
 	{
 		/// <summary>
-		/// The size of the agent that will be used to draw the nodes that are blocked.
-		/// </summary>
-		public byte AgentSize { get; set; }
-
-		/// <summary>
 		/// The collision category that will be used to draw the nodes that are blocked.
 		/// </summary>
 		public PathfindaxCollisionCategory CollisionCategory { get; set; }
 
 		private readonly INodeGrid<IGridNode> _nodeNetwork;
 		private readonly float _nodeSize;
-		private Vector2 _offset;
 
 		public NodeGridVisualizer(INodeGrid<IGridNode> nodeNetwork)
 		{
 			_nodeNetwork = nodeNetwork;
 			_nodeSize = nodeNetwork.NodeSize.X * 0.3f;
-			_offset = new Vector2(nodeNetwork.Offset.X, nodeNetwork.Offset.Y);
 		}
 
 		/// <summary>
@@ -42,13 +36,16 @@ namespace Duality.Plugins.Pathfindax.Grid
 				foreach (var node in _nodeNetwork)
 				{
 					canvas.State.ColorTint = ColorRgba.LightGrey;
-					if (node.Fits(CollisionCategory, AgentSize))
-					{
-						canvas.DrawCircle(node.WorldPosition.X, node.WorldPosition.Y, _nodeSize);
+					var nodePosition = node.WorldPosition;
+					var clearance = node.GetTrueClearance(CollisionCategory);
+					if (clearance == int.MaxValue)
+					{						
+						canvas.DrawCircle(nodePosition.X, nodePosition.Y, _nodeSize);
 					}
 					else
 					{
-						canvas.FillCircle(node.WorldPosition.X, node.WorldPosition.Y, _nodeSize);
+						canvas.DrawText(clearance.ToString(), nodePosition.X, nodePosition.Y, blockAlign: Alignment.Center);
+						canvas.DrawCircle(nodePosition.X, nodePosition.Y, _nodeSize);
 					}
 					canvas.State.ColorTint = new ColorRgba(199, 21, 133);
 					foreach (var connection in node.Connections)
