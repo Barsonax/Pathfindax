@@ -36,10 +36,10 @@ namespace Pathfindax.Nodes
 		public PositionF WorldPosition => _sourceGridNode.WorldPosition;
 
 		/// <inheritdoc />
-		public int GridX => _sourceGridNode.GridX;
+		public ushort GridX => _sourceGridNode.GridX;
 
 		/// <inheritdoc />
-		public int GridY => _sourceGridNode.GridY;
+		public ushort GridY => _sourceGridNode.GridY;
 		private int FCost => GCost + HCost;
 		private readonly IGridNodeBase _sourceGridNode;
 

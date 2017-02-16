@@ -27,14 +27,14 @@
 		/// </summary>
 		byte MovementPenalty { get; set; }
 
-		/// <summary>
-		/// The X position in the grid in nodes
-		/// </summary>
-		int GridX { get; }
+        /// <summary>
+        /// The X position in the grid in nodes
+        /// </summary>
+        ushort GridX { get; }
 
-		/// <summary>
-		/// The Y position in the grid in nodes
-		/// </summary>
-		int GridY { get; }
+        /// <summary>
+        /// The Y position in the grid in nodes
+        /// </summary>
+        ushort GridY { get; }
 	}
 }

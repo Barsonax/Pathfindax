@@ -4,7 +4,7 @@ using Pathfindax.Primitives;
 
 namespace Pathfindax.Nodes
 {
-	[DebuggerDisplay("{Position}")]
+	[DebuggerDisplay("{WorldPosition}")]
 	public class GridNode : IGridNode
 	{
 		/// <inheritdoc />
@@ -17,16 +17,16 @@ namespace Pathfindax.Nodes
 		public byte MovementPenalty { get; set; }
 
 		/// <inheritdoc />
-		public int GridX { get; }
+		public ushort GridX { get; }
 
 		/// <inheritdoc />
-		public int GridY { get; }
+		public ushort GridY { get; }
 
 		/// <inheritdoc />
 		public NodeConnection<IGridNode>[] Connections { get; set; }
 		private readonly INodeGridBase _nodeNetwork;
 
-		public GridNode(INodeGridBase nodeNetwork, int gridX, int gridY, byte costMultiplier)
+		public GridNode(INodeGridBase nodeNetwork, ushort gridX, ushort gridY, byte costMultiplier)
 		{
 			_nodeNetwork = nodeNetwork;
 			GridX = gridX;
