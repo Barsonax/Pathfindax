@@ -80,7 +80,8 @@ namespace Pathfindax.Grid
 					clearances.Add(new GridClearance(collisionCategory, i - 1));
 				}
 			}
-			return clearances.ToArray();
+		    return clearances.Count > 0 ? clearances.ToArray() : null;
+
 		}
 
 		private IList<IGridNode> GetNodesForInClearance(INodeGrid<IGridNode> nodeGrid, IGridNode from, int clearance)
@@ -99,7 +100,7 @@ namespace Pathfindax.Grid
 			return nodes;
 		}
 
-		private IList<IGridNode> GetNeighbours(Array2D<IGridNode> nodeArray, IGridNodeBase gridNode, GenerateNodeGridConnections generateNodeGridConnections)
+		public IList<IGridNode> GetNeighbours(Array2D<IGridNode> nodeArray, IGridNodeBase gridNode, GenerateNodeGridConnections generateNodeGridConnections)
 		{
 			var neighbours = new List<IGridNode>(8);
 
