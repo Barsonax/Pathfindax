@@ -64,8 +64,6 @@ namespace Pathfindax.Nodes
 		public AstarGridNode(IGridNodeBase source)
 		{
 			_sourceGridNode = source;
-			HCost = -1;
-			GCost = -1;
 		}
 
 		public int CompareTo(AstarGridNode other)

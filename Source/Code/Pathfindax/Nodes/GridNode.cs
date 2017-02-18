@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using Pathfindax.Grid;
+﻿using Pathfindax.Grid;
 using Pathfindax.Primitives;
 
 namespace Pathfindax.Nodes

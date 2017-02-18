@@ -10,7 +10,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 	/// Provides a simple <see cref="INodeGrid{TNode}"/> for testing/example purposes
 	/// </summary>
 	[EditorHintCategory(PathfindaxStrings.PathfindaxTest)]
-	public class SourceNodeNetworkProviderMockupComponent : Component, ISourceNodeNetworkProvider<INodeGrid<IGridNode>>
+	public class SourceNodeGridProvderMockupComponent : Component, ISourceNodeNetworkProvider<INodeGrid<IGridNode>>
 	{
 		private INodeGrid<IGridNode> _nodeGrid;
 		public INodeGrid<IGridNode> GenerateGrid2D()

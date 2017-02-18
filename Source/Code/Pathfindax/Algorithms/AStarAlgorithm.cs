@@ -33,7 +33,7 @@ namespace Pathfindax.Algorithms
 				{
 					return new List<INode> { targetNode };
 				}
-				if ((startNode.CollisionCategory & collisionCategory) != 0 && (targetNode.CollisionCategory & collisionCategory) != 0)
+				if ((startNode.CollisionCategory & collisionCategory) == 0 && (targetNode.CollisionCategory & collisionCategory) == 0)
 				{
 					var openSet = new MinHeap<AstarNode>(nodeGrid.NodeCount);
 					var closedSet = new HashSet<AstarNode>();

@@ -46,12 +46,14 @@
     <Compile Include="Collections\Array2D.cs" />
     <Compile Include="Collections\Interfaces\IHeapItem.cs" />
     <Compile Include="Collections\MinHeap.cs" />
-    <Compile Include="Grid\AStarGrid.cs" />
+    <Compile Include="Grid\AstarNodeGrid.cs" />
+    <Compile Include="Grid\AstarNodeNetwork.cs" />
     <Compile Include="Grid\Factories\SourceNodeGridFactory.cs" />
     <Compile Include="Grid\GenerateNodeGridConnections.cs" />
     <Compile Include="Grid\Interfaces\INodeNetwork.cs" />
     <Compile Include="Grid\NodeGridBase.cs" />
     <Compile Include="Algorithms\AStarAlgorithm.cs" />
+    <Compile Include="Grid\SourceNodeNetwork.cs" />
     <Compile Include="Nodes\AstarNode.cs" />
     <Compile Include="Nodes\GridClearance.cs" />
     <Compile Include="Nodes\GridNode.cs" />

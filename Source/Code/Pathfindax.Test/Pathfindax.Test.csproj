@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AstarAlgorithmTests.cs" />
+    <Compile Include="AstarGridAlgorithmTests.cs" />
     <Compile Include="MultithreadedPathfinderTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

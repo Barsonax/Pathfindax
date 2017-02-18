@@ -51,7 +51,7 @@ namespace Duality.Plugins.Pathfindax.Components
 					if (sourceProvider != null)
 					{
 						SourceNodeGrid = sourceProvider.GenerateGrid2D();
-						var nodeGrid = new AStarGrid(SourceNodeGrid);
+						var nodeGrid = new AstarNodeGrid(SourceNodeGrid);
 						var algorithm = new AStarGridAlgorithm();
 						NodeGridVisualizer = new NodeGridVisualizer(SourceNodeGrid);
 						var clearanceProcess = new ClearanceCompensationProcess(nodeGrid);

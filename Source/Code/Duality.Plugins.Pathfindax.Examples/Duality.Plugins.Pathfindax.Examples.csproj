@@ -54,7 +54,7 @@
   <ItemGroup>
     <Compile Include="Components\PathfindaxPathSpammerComponent.cs" />
     <Compile Include="Components\PathFollowerComponent.cs" />
-    <Compile Include="Components\SourceNodeNetworkProviderMockupComponent.cs" />
+    <Compile Include="Components\SourceNodeGridProvderMockupComponent.cs" />
     <Compile Include="PathfindaxDualityTestCorePlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -7,9 +7,9 @@ namespace Pathfindax.Grid
 	/// Contains data specific for the A* algorithm.
 	/// Do not share this between threads.
 	/// </summary>
-	public class AStarGrid : NodeGridBase<AstarGridNode>
+	public class AstarNodeGrid : NodeGridBase<AstarGridNode>
 	{
-		public AStarGrid(INodeGrid<IGridNode> source)
+		public AstarNodeGrid(INodeGrid<IGridNode> source)
 		{
 			Offset = source.Offset;
 			NodeSize = source.NodeSize;

@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using Duality.Drawing;
+﻿using Duality.Drawing;
 using Pathfindax.Grid;
 using Pathfindax.Nodes;
 
