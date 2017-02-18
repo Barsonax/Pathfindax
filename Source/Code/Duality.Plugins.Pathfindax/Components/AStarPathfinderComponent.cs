@@ -52,7 +52,7 @@ namespace Duality.Plugins.Pathfindax.Components
 					{
 						SourceNodeGrid = sourceProvider.GenerateGrid2D();
 						var nodeGrid = new AStarGrid(SourceNodeGrid);
-						var algorithm = new AStarAlgorithm();
+						var algorithm = new AStarGridAlgorithm();
 						NodeGridVisualizer = new NodeGridVisualizer(SourceNodeGrid);
 						var clearanceProcess = new ClearanceCompensationProcess(nodeGrid);
 						MultithreadedPathfinder = new MultithreadedPathfinder<INodeGrid<AstarGridNode>>(new List<INodeGrid<AstarGridNode>> { nodeGrid }, algorithm,

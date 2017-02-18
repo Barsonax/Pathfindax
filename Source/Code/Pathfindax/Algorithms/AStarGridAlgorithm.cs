@@ -9,9 +9,9 @@ using Pathfindax.PathfindEngine;
 namespace Pathfindax.Algorithms
 {
 	/// <summary>
-	/// Class that implements the A* algorithm to find paths
+	/// Class that implements the A* algorithm for grids to find paths
 	/// </summary>
-	public class AStarAlgorithm : IPathFindAlgorithm<INodeGrid<AstarGridNode>>
+	public class AStarGridAlgorithm : IPathFindAlgorithm<INodeGrid<AstarGridNode>>
 	{
 		/// <inheritdoc />
 		public IList<INode> FindPath(INodeGrid<AstarGridNode> nodeGrid, PathRequest pathRequest)

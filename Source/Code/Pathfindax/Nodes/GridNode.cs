@@ -7,7 +7,7 @@ namespace Pathfindax.Nodes
 	public class GridNode : IGridNode
 	{
 		/// <inheritdoc />
-		public PositionF WorldPosition => new PositionF(GridX * _nodeNetwork.NodeSize.X, GridY * _nodeNetwork.NodeSize.Y) + _nodeNetwork.Offset;
+		public PositionF WorldPosition => new PositionF(GridX * _nodeGrid.NodeSize.X, GridY * _nodeGrid.NodeSize.Y) + _nodeGrid.Offset;
 
 		/// <inheritdoc />
 		public GridClearance[] Clearances { get; set; }
@@ -23,11 +23,11 @@ namespace Pathfindax.Nodes
 
 		/// <inheritdoc />
 		public NodeConnection<IGridNode>[] Connections { get; set; }
-		private readonly INodeGridBase _nodeNetwork;
+		private readonly INodeGridBase _nodeGrid;
 
-		public GridNode(INodeGridBase nodeNetwork, ushort gridX, ushort gridY, byte costMultiplier)
+		public GridNode(INodeGridBase nodeGrid, ushort gridX, ushort gridY, byte costMultiplier)
 		{
-			_nodeNetwork = nodeNetwork;
+			_nodeGrid = nodeGrid;
 			GridX = gridX;
 			GridY = gridY;
 			MovementPenalty = costMultiplier;

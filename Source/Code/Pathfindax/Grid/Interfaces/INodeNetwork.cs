@@ -8,6 +8,7 @@ namespace Pathfindax.Grid
 	public interface INodeNetwork<TNode> : IEnumerable<TNode>, INodeNetworkBase
 		where TNode : INode
 	{
+		TNode GetNode(PositionF worldPosition);
 		Array2D<TNode> NodeArray { get; }
 	}
 

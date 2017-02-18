@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using Pathfindax.Collections;
 using Pathfindax.Primitives;
 
@@ -8,7 +7,6 @@ namespace Pathfindax.Nodes
 	/// <summary>
 	/// Represents a gridnode that can be used with the A* algorithm.
 	/// </summary>
-	[DebuggerDisplay("{Position}")]
 	public class AstarGridNode : IGridNodeBase, IHeapItem<AstarGridNode>, INode<AstarGridNode>
 	{
 		/// <summary>

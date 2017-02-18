@@ -41,7 +41,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Algorithms\AstarAlgorithm.cs" />
+    <Compile Include="Algorithms\AStarGridAlgorithm.cs" />
     <Compile Include="Algorithms\Interfaces\IPathFindAlgorithm.cs" />
     <Compile Include="Collections\Array2D.cs" />
     <Compile Include="Collections\Interfaces\IHeapItem.cs" />
@@ -51,6 +51,7 @@
     <Compile Include="Grid\GenerateNodeGridConnections.cs" />
     <Compile Include="Grid\Interfaces\INodeNetwork.cs" />
     <Compile Include="Grid\NodeGridBase.cs" />
+    <Compile Include="Nodes\AstarNode.cs" />
     <Compile Include="Nodes\GridClearance.cs" />
     <Compile Include="Nodes\GridNode.cs" />
     <Compile Include="Nodes\AstarGridNode.cs" />
@@ -59,6 +60,7 @@
     <Compile Include="Grid\Interfaces\INodeGrid.cs" />
     <Compile Include="Grid\Interfaces\ISourceNodeNetworkProvider.cs" />
     <Compile Include="Grid\SourceNodeGrid.cs" />
+    <Compile Include="Nodes\Node.cs" />
     <Compile Include="Nodes\NodeConnection.cs" />
     <Compile Include="Nodes\PathfindaxCollisionCategory.cs" />
     <Compile Include="PathfindEngine\CompletedPath.cs" />
