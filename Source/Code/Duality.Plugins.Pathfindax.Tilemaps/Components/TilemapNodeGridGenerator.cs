@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using Duality.Components.Physics;
 using Duality.Drawing;
 using Duality.Editor;
@@ -44,37 +45,30 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Components
 			if (_nodeGrid == null)
 			{
 				var tilemaps = GameObj.GetComponentsInChildren<Tilemap>().ToArray();
-				var rigidBody = GameObj.GetComponentsInChildren<RigidBody>().FirstOrDefault();
 				var baseTilemap = tilemaps.FirstOrDefault();
 				if (baseTilemap == null) throw new ArgumentException("No tilemaps found in gameobject children!");
 				var sourceNodeGridFactory = new SourceNodeGridFactory();
 				var offset = -new Vector2((baseTilemap.Size.X * baseTilemap.Tileset.Res.TileSize.X) - baseTilemap.Tileset.Res.TileSize.X, (baseTilemap.Size.Y * baseTilemap.Tileset.Res.TileSize.Y) - baseTilemap.Tileset.Res.TileSize.Y) / 2;
 				var nodeGridRayCaster = new NodeGridRayCaster();
 				_nodeGrid = sourceNodeGridFactory.GeneratePreFilledArray(baseTilemap.Size.X, baseTilemap.Size.Y, new PositionF(baseTilemap.Tileset.Res.TileSize.X, baseTilemap.Tileset.Res.TileSize.Y), GenerateNodeGridConnections.None, new PositionF(offset.X, offset.Y));
-				for (int y = 0; y < baseTilemap.Size.Y; y++)
+				foreach (var gridNode in _nodeGrid)
 				{
-					for (int x = 0; x < baseTilemap.Size.X; x++)
+					var neighbours = sourceNodeGridFactory.GetNeighbours(_nodeGrid.NodeArray, gridNode, GenerateNodeGridConnections.All);
+					gridNode.Connections = new NodeConnection<IGridNode>[neighbours.Count];
+					for (int index = 0; index < gridNode.Connections.Length; index++)
 					{
-						var node = _nodeGrid.NodeArray[x, y];
-						if (MovementPenalties != null && baseTilemap.Tiles[x, y].Index < MovementPenalties.Length)
-							node.MovementPenalty = MovementPenalties[baseTilemap.Tiles[x, y].Index];
-
-						var neighbours = sourceNodeGridFactory.GetNeighbours(_nodeGrid.NodeArray, node, GenerateNodeGridConnections.All);
-						node.Connections = new NodeConnection<IGridNode>[neighbours.Count];
-						for (int index = 0; index < node.Connections.Length; index++)
-						{
-							var neighbour = neighbours[index];
-							node.Connections[index] = new NodeConnection<IGridNode>(neighbour, nodeGridRayCaster.GetConnectionCollisionCategory(node, neighbour));
-						}
+						var neighbour = neighbours[index];
+						gridNode.Connections[index] = new NodeConnection<IGridNode>(neighbour, nodeGridRayCaster.GetConnectionCollisionCategory(gridNode, neighbour));
 					}
 				}
 
-				foreach (var gridNode in _nodeGrid)
+				Parallel.ForEach(_nodeGrid, gridNode =>
 				{
-					var clearances = new List<GridClearance>();				
-					
-					var collisionCategory = PathfindaxCollisionCategory.None;
+					if (MovementPenalties != null && baseTilemap.Tiles[gridNode.GridX, gridNode.GridY].Index < MovementPenalties.Length)
+						gridNode.MovementPenalty = MovementPenalties[baseTilemap.Tiles[gridNode.GridX, gridNode.GridY].Index];
 
+					var clearances = new List<GridClearance>();
+					var collisionCategory = PathfindaxCollisionCategory.None;
 					foreach (var tilemap in tilemaps)
 					{
 
@@ -100,8 +94,7 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Components
 					{
 						gridNode.Clearances = clearances.ToArray();
 					}
-
-				}
+				});
 				_nodeGridVisualizer = new NodeGridVisualizer(_nodeGrid);
 			}
 			return _nodeGrid;
