@@ -1,6 +1,4 @@
-﻿using Duality;
-
-namespace Pathfindax.Duality.Examples
+﻿namespace Duality.Plugins.Pathfindax.Examples
 {
 	/// <summary>
 	/// Defines a Duality core plugin.

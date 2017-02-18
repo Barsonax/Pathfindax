@@ -1,5 +1,4 @@
 ﻿using System;
-using Duality;
 using Duality.Drawing;
 using Duality.Editor;
 using Duality.Plugins.Pathfindax.PathfindEngine;
@@ -8,7 +7,7 @@ using Pathfindax.PathfindEngine;
 using Pathfindax.Primitives;
 using Pathfindax.Utils;
 
-namespace Pathfindax.Duality.Examples.Components
+namespace Duality.Plugins.Pathfindax.Examples.Components
 {
 	/// <summary>
 	/// Spams path requests as a example

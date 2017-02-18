@@ -51,6 +51,7 @@
     <Compile Include="Grid\GenerateNodeGridConnections.cs" />
     <Compile Include="Grid\Interfaces\INodeNetwork.cs" />
     <Compile Include="Grid\NodeGridBase.cs" />
+    <Compile Include="Algorithms\AStarAlgorithm.cs" />
     <Compile Include="Nodes\AstarNode.cs" />
     <Compile Include="Nodes\GridClearance.cs" />
     <Compile Include="Nodes\GridNode.cs" />
