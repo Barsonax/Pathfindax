@@ -71,13 +71,8 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Components
 					var collisionCategory = PathfindaxCollisionCategory.None;
 					foreach (var tilemap in tilemaps)
 					{
-
 						var index = tilemap.Tiles[gridNode.GridX, gridNode.GridY].Index;
 						var collisionInfo = tilemap.Tileset.Res.TileData[index].Collision;
-						if (gridNode.GridX == 9 && gridNode.GridY == 3)
-						{
-
-						}
 						for (int i = 0; i < TileCollisionShapes.LayerCount; i++)
 						{
 							if (collisionInfo[i] == TileCollisionShape.Solid || collisionInfo[i] == TileCollisionShape.DiagonalDown || collisionInfo[i] == TileCollisionShape.DiagonalUp)
@@ -86,14 +81,10 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Components
 							}
 						}
 					}
-
 					if (collisionCategory != PathfindaxCollisionCategory.None)
 						clearances.Add(new GridClearance(collisionCategory, 0)); //This node is blocked so it has a clearance of 0.
 					clearances.AddRange(sourceNodeGridFactory.CalculateGridNodeClearances(_nodeGrid, gridNode, MaxCalculatedClearance));
-					if (clearances.Count > 0)
-					{
-						gridNode.Clearances = clearances.ToArray();
-					}
+					if (clearances.Count > 0) gridNode.Clearances = clearances.ToArray();
 				});
 				_nodeGridVisualizer = new NodeGridVisualizer(_nodeGrid);
 			}
@@ -109,8 +100,7 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Components
 
 		public void Draw(IDrawDevice device)
 		{
-			if (_nodeGridVisualizer != null)
-				_nodeGridVisualizer.Draw(device);
+			_nodeGridVisualizer?.Draw(device);
 		}
 
 		public void OnUpdate()
