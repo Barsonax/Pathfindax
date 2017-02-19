@@ -317,7 +317,7 @@
                   <shapes dataType="Struct" type="System.Collections.Generic.List`1[[Duality.Components.Physics.ShapeInfo]]" id="2933577814">
                     <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="3278345248" length="32" />
                     <_size dataType="Int">0</_size>
-                    <_version dataType="Int">2518</_version>
+                    <_version dataType="Int">2558</_version>
                   </shapes>
                 </item>
                 <item dataType="Struct" type="Duality.Plugins.Tilemaps.TilemapCollider" id="266359049">
@@ -391,7 +391,7 @@
             <active dataType="Bool">true</active>
             <gameobj dataType="ObjectRef">1344709794</gameobj>
           </item>
-          <item dataType="Struct" type="Duality.Plugins.Pathfindax.Components.AStarPathfinderComponent" id="728450320">
+          <item dataType="Struct" type="Duality.Plugins.Pathfindax.Components.AStarGridPathfinderComponent" id="2992067624">
             <_counter dataType="Int">0</_counter>
             <_x003C_BoundRadius_x003E_k__BackingField dataType="Float">0</_x003C_BoundRadius_x003E_k__BackingField>
             <_x003C_MultithreadedPathfinder_x003E_k__BackingField />
@@ -404,7 +404,7 @@
           </item>
         </_items>
         <_size dataType="Int">3</_size>
-        <_version dataType="Int">3</_version>
+        <_version dataType="Int">5</_version>
       </compList>
       <compMap dataType="Struct" type="System.Collections.Generic.Dictionary`2[[System.Type],[Duality.Component]]" id="782502712" surrogate="true">
         <header />
@@ -412,12 +412,12 @@
           <keys dataType="Array" type="System.Object[]" id="3151931512">
             <item dataType="ObjectRef">3647081190</item>
             <item dataType="Type" id="1057994092" value="Duality.Plugins.Pathfindax.Tilemaps.Components.TilemapNodeGridGenerator" />
-            <item dataType="Type" id="1024722998" value="Duality.Plugins.Pathfindax.Components.AStarPathfinderComponent" />
+            <item dataType="Type" id="1024722998" value="Duality.Plugins.Pathfindax.Components.AStarGridPathfinderComponent" />
           </keys>
           <values dataType="Array" type="System.Object[]" id="1127802334">
             <item dataType="ObjectRef">3705024726</item>
             <item dataType="ObjectRef">1568877053</item>
-            <item dataType="ObjectRef">728450320</item>
+            <item dataType="ObjectRef">2992067624</item>
           </values>
         </body>
       </compMap>

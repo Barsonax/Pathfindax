@@ -49,6 +49,14 @@
       <HintPath>..\packages\AdamsLair.NVorbis.0.7.5\lib\portable-net45+win+wpa81+MonoAndroid10+xamarinios10+MonoTouch10\NVorbis.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="SnowyPeak.Duality.Frozen.core, Version=2.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SnowyPeak.Duality.Plugin.Frozen.Core.2.0.1\lib\SnowyPeak.Duality.Frozen.core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SnowyPeak.Duality.Frozen.Procedural.core, Version=2.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SnowyPeak.Duality.Plugin.Frozen.Procedural.2.0.1\lib\SnowyPeak.Duality.Frozen.Procedural.core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>

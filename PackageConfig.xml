@@ -20,5 +20,7 @@
     <Package id="AdamsLair.Duality.Editor.Plugins.PackageManagerFrontend" version="2.0.6.0" />
     <Package id="AdamsLair.Duality.Editor.Plugins.Tilemaps" version="1.1.13.0" />
     <Package id="AdamsLair.Duality.Editor.Backend.DefaultOpenTK" version="2.0.4.0" />
+    <Package id="SnowyPeak.Duality.Plugin.Frozen.Core" version="2.0.1.0" />
+    <Package id="SnowyPeak.Duality.Plugin.Frozen.Procedural" version="2.0.1.0" />
   </Packages>
 </PackageConfig>

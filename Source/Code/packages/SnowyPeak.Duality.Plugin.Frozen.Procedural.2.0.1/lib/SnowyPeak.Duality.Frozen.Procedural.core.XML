@@ -1,0 +1,1415 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SnowyPeak.Duality.Frozen.Procedural.core</name>
+    </assembly>
+    <members>
+        <member name="T:SnowyPeak.Duality.Plugin.Frozen.Procedural.NoiseColor">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.NoiseColor.GetValue(System.Int32,System.Int32)">
+             <summary>
+            
+             </summary>
+             <param name="x"></param>
+             <param name="y"></param>
+             <returns></returns>
+        </member>
+        <member name="T:SnowyPeak.Duality.Plugin.Frozen.Procedural.WhiteNoise">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.WhiteNoise.#ctor(System.Int32)">
+             <summary>
+            
+             </summary>
+             <param name="inSamples"></param>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.WhiteNoise.GetValue(System.Int32,System.Int32)">
+             <summary>
+            
+             </summary>
+             <param name="x"></param>
+             <param name="y"></param>
+             <returns></returns>
+        </member>
+        <member name="P:SnowyPeak.Duality.Plugin.Frozen.Procedural.WhiteNoise.Instance">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="T:SnowyPeak.Duality.Plugin.Frozen.Procedural.FrozenProceduralPlugin">
+            <summary>
+            Defines a Duality core plugin.
+            </summary>
+        </member>
+        <member name="T:SnowyPeak.Duality.Plugin.Frozen.Procedural.GraphExtensions">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.GraphExtensions.IsConnected``1(SnowyPeak.Duality.Plugin.Frozen.Procedural.Graph{``0})">
+            <summary>
+            Checks if the graph is connected
+            </summary>
+            <param name="inGraph"></param>
+            <returns></returns>
+        </member>
+        <member name="T:SnowyPeak.Duality.Plugin.Frozen.Procedural.Graph`1">
+            <summary>
+            2D Graph class modeled as a list of Nodes and a list of Directed/Undirected Links between Nodes.
+            Node objects must implement INode interface in order to be able to assign X and Y coordinates that represent
+            the position of the node.
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Graph`1.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Graph`1.IsGraphConnected(System.Collections.Generic.IEnumerable{SnowyPeak.Duality.Plugin.Frozen.Procedural.Link{`0}},System.Int32)">
+            <summary>
+            Checks if the Graph is connected
+            http://en.wikipedia.org/wiki/Breadth-first_search#Finding_connected_components
+            </summary>
+            <param name="inGraph"></param>
+            <param name="inNodesCount"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Graph`1.Triangulate">
+            <summary>
+            Executes Delaunay triangulation on the Nodes and creates the Links accordingly.
+            Note that Links currently existing are not removed by the function.
+            </summary>
+        </member>
+        <member name="P:SnowyPeak.Duality.Plugin.Frozen.Procedural.Graph`1.Links">
+            <summary>
+            The list of Links between Nodes
+            </summary>
+        </member>
+        <member name="P:SnowyPeak.Duality.Plugin.Frozen.Procedural.Graph`1.Nodes">
+            <summary>
+            The list of Nodes
+            </summary>
+        </member>
+        <member name="T:SnowyPeak.Duality.Plugin.Frozen.Procedural.INode">
+            <summary>
+            Interface that should be implemented by a class in order to be used as Node in a Graph
+            </summary>
+        </member>
+        <member name="P:SnowyPeak.Duality.Plugin.Frozen.Procedural.INode.Position">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="T:SnowyPeak.Duality.Plugin.Frozen.Procedural.DefaultNode">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.DefaultNode.#ctor(Duality.Vector2)">
+             <summary>
+            
+             </summary>
+             <param name="v"></param>
+        </member>
+        <member name="P:SnowyPeak.Duality.Plugin.Frozen.Procedural.DefaultNode.Position">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="T:SnowyPeak.Duality.Plugin.Frozen.Procedural.Link`1">
+            <summary>
+            Models a Link between two INodes of a Graph
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Link`1.Equals(System.Object)">
+             <summary>
+            
+             </summary>
+             <param name="obj"></param>
+             <returns></returns>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Link`1.GetHashCode">
+             <summary>
+            
+             </summary>
+             <returns></returns>
+        </member>
+        <member name="P:SnowyPeak.Duality.Plugin.Frozen.Procedural.Link`1.From">
+            <summary>
+            [GET / SET] The starting INode of the Link
+            </summary>
+        </member>
+        <member name="P:SnowyPeak.Duality.Plugin.Frozen.Procedural.Link`1.IsDirected">
+            <summary>
+            [GET / SET] Indicates if the Link is Directed
+            </summary>
+        </member>
+        <member name="P:SnowyPeak.Duality.Plugin.Frozen.Procedural.Link`1.To">
+            <summary>
+            [GET / SET] The ending INode of the Link
+            </summary>
+        </member>
+        <member name="P:SnowyPeak.Duality.Plugin.Frozen.Procedural.Link`1.Weight">
+            <summary>
+            [GET / SET] The Weight of the Link
+            </summary>
+        </member>
+        <member name="T:SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.CellNoise">
+            <summary>
+            A Voronoi-type Noise generator
+            </summary>
+        </member>
+        <member name="T:SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.Noise">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="F:SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.Noise._maxValue">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.Noise._minValue">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="F:SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.Noise._rnd">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.Noise.#ctor">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.Noise.Generate(System.Int32,System.Int32)">
+             <summary>
+            
+             </summary>
+             <param name="inWidth"></param>
+             <param name="inHeight"></param>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.Noise.Normalize">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.Noise.Normalize(System.Single,System.Single)">
+             <summary>
+            
+             </summary>
+             <param name="inNormalizedMin"></param>
+             <param name="inNormalizedMax"></param>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.Noise.ToPixelData(System.Int32,System.Int32,SnowyPeak.Duality.Plugin.Frozen.Core.Data.ColorRange)">
+             <summary>
+            
+             </summary>
+             <param name="inWidth"></param>
+             <param name="inHeight"></param>
+             <param name="inColors"></param>
+             <returns></returns>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.Noise._Generate(System.Int32,System.Int32)">
+             <summary>
+            
+             </summary>
+             <param name="inWidth"></param>
+             <param name="inHeight"></param>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.Noise.OnSeedChange">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.Noise.NoiseMap">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.Noise.Seed">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="T:SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.Noise.Wrap">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.CellNoise.#ctor(System.Int32,System.Boolean)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="inNumPoints"></param>
+            <param name="inWrapping"></param>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.CellNoise.GenerateSites">
+            <summary>
+            Randomly generates the sites
+            </summary>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.CellNoise.SetDistanceFunction(SnowyPeak.Duality.Plugin.Frozen.Procedural.Distance)">
+            <summary>
+            Sets the Distance function to be used for calculation
+            </summary>
+            <param name="inDistance"></param>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.CellNoise._Generate(System.Int32,System.Int32)">
+             <summary>
+            
+             </summary>
+             <param name="inWidth"></param>
+             <param name="inHeight"></param>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.CellNoise.OnSeedChange">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.CellNoise.SitesToBitmap(System.Int32,System.Int32,System.Collections.Generic.IEnumerable{Duality.Drawing.ColorRgba})">
+             <summary>
+            
+             </summary>
+             <param name="inWidth"></param>
+             <param name="inHeight"></param>
+             <param name="inColors"></param>
+             <returns></returns>
+        </member>
+        <member name="P:SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.CellNoise.SitesMap">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.CellNoise.Sites">
+            <summary>
+            [GET / SET] the list of Vector2 acting as generation sites
+            </summary>
+        </member>
+        <member name="T:SnowyPeak.Duality.Plugin.Frozen.Procedural.Chebychev">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="T:SnowyPeak.Duality.Plugin.Frozen.Procedural.Distance">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Distance.GetDistance(Duality.Vector2,Duality.Vector2)">
+             <summary>
+            
+             </summary>
+             <param name="a"></param>
+             <param name="b"></param>
+             <returns></returns>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Chebychev.GetDistance(Duality.Vector2,Duality.Vector2)">
+             <summary>
+            
+             </summary>
+             <param name="a"></param>
+             <param name="b"></param>
+             <returns></returns>
+        </member>
+        <member name="P:SnowyPeak.Duality.Plugin.Frozen.Procedural.Chebychev.Instance">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="T:SnowyPeak.Duality.Plugin.Frozen.Procedural.Euclidean">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Euclidean.GetDistance(Duality.Vector2,Duality.Vector2)">
+             <summary>
+            
+             </summary>
+             <param name="a"></param>
+             <param name="b"></param>
+             <returns></returns>
+        </member>
+        <member name="P:SnowyPeak.Duality.Plugin.Frozen.Procedural.Euclidean.Instance">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="T:SnowyPeak.Duality.Plugin.Frozen.Procedural.EuclideanSquared">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.EuclideanSquared.GetDistance(Duality.Vector2,Duality.Vector2)">
+             <summary>
+            
+             </summary>
+             <param name="a"></param>
+             <param name="b"></param>
+             <returns></returns>
+        </member>
+        <member name="P:SnowyPeak.Duality.Plugin.Frozen.Procedural.EuclideanSquared.Instance">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="T:SnowyPeak.Duality.Plugin.Frozen.Procedural.Manhattan">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Manhattan.GetDistance(Duality.Vector2,Duality.Vector2)">
+             <summary>
+            
+             </summary>
+             <param name="a"></param>
+             <param name="b"></param>
+             <returns></returns>
+        </member>
+        <member name="P:SnowyPeak.Duality.Plugin.Frozen.Procedural.Manhattan.Instance">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="T:SnowyPeak.Duality.Plugin.Frozen.Procedural.Minkowski">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Minkowski.#ctor(System.Single)">
+             <summary>
+            
+             </summary>
+             <param name="coefficient"></param>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Minkowski.GetDistance(Duality.Vector2,Duality.Vector2)">
+             <summary>
+            
+             </summary>
+             <param name="a"></param>
+             <param name="b"></param>
+             <returns></returns>
+        </member>
+        <member name="P:SnowyPeak.Duality.Plugin.Frozen.Procedural.Minkowski.Instance">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="T:SnowyPeak.Duality.Plugin.Frozen.Procedural.Quadratic">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Quadratic.GetDistance(Duality.Vector2,Duality.Vector2)">
+             <summary>
+            
+             </summary>
+             <param name="a"></param>
+             <param name="b"></param>
+             <returns></returns>
+        </member>
+        <member name="P:SnowyPeak.Duality.Plugin.Frozen.Procedural.Quadratic.Instance">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="T:SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.ColoredNoise">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.ColoredNoise.Generate(System.Int32,System.Int32,SnowyPeak.Duality.Plugin.Frozen.Procedural.NoiseColor)">
+             <summary>
+            
+             </summary>
+             <param name="inWidth"></param>
+             <param name="inHeight"></param>
+             <param name="inColor"></param>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.ColoredNoise._Generate(System.Int32,System.Int32)">
+             <summary>
+            
+             </summary>
+             <param name="inWidth"></param>
+             <param name="inHeight"></param>
+        </member>
+        <member name="T:SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.SimplexNoise">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="F:SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.SimplexNoise.CLOUDS">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.SimplexNoise.#ctor(System.Int32,System.Single,System.Single,System.Single,System.Single)">
+             <summary>
+            
+             </summary>
+             <param name="inOctaves"></param>
+             <param name="inGain"></param>
+             <param name="inLacunarity"></param>
+             <param name="inStartFrequency"></param>
+             <param name="inStartAmplitude"></param>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.SimplexNoise.BlurredNoise(System.Single,System.Single,System.Single)">
+             <summary>
+            
+             </summary>
+             <param name="stepSize"></param>
+             <param name="x"></param>
+             <param name="y"></param>
+             <returns></returns>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.SimplexNoise.Noise(System.Single,System.Single)">
+            <summary>
+            2D Simplex Noise
+            </summary>
+            <param name="xin"></param>
+            <param name="yin"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.SimplexNoise.Noise(System.Single,System.Single,System.Single)">
+            <summary>
+            3D Simplex Noise
+            </summary>
+            <param name="xin"></param>
+            <param name="yin"></param>
+            <param name="zin"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.SimplexNoise.Noise(System.Single,System.Single,System.Single,System.Single)">
+            <summary>
+            4D Simplex Noise
+            </summary>
+            <param name="x"></param>
+            <param name="y"></param>
+            <param name="z"></param>
+            <param name="w"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.SimplexNoise.SeamlessNoise(System.Single,System.Single,System.Single,System.Single,System.Single)">
+            <summary>
+            Tileable Noise
+            </summary>
+            <param name="x"></param>
+            <param name="y"></param>
+            <param name="dx"></param>
+            <param name="dy"></param>
+            <param name="xyOffset"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.SimplexNoise._Generate(System.Int32,System.Int32)">
+             <summary>
+            
+             </summary>
+             <param name="inWidth"></param>
+             <param name="inHeight"></param>
+        </member>
+        <member name="T:SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.Add">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="T:SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.Combination">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="F:SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.Combination._a">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="F:SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.Combination._b">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.Combination.#ctor(SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.Noise,SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.Noise)">
+             <summary>
+            
+             </summary>
+             <param name="a"></param>
+             <param name="b"></param>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.Combination._Combine(System.Int32,System.Int32)">
+             <summary>
+            
+             </summary>
+             <param name="x"></param>
+             <param name="y"></param>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.Combination._Generate(System.Int32,System.Int32)">
+             <summary>
+            
+             </summary>
+             <param name="inWidth"></param>
+             <param name="inHeight"></param>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.Combination._Prepare">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.Combination.OnSeedChange">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.Add.#ctor(SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.Noise,SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.Noise)">
+             <summary>
+            
+             </summary>
+             <param name="a"></param>
+             <param name="b"></param>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.Add.#ctor(SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.Noise,System.Single)">
+             <summary>
+            
+             </summary>
+             <param name="a"></param>
+             <param name="b"></param>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.Add._Combine(System.Int32,System.Int32)">
+             <summary>
+            
+             </summary>
+             <param name="x"></param>
+             <param name="y"></param>
+        </member>
+        <member name="T:SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.Max">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.Max.#ctor(SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.Noise,SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.Noise)">
+             <summary>
+            
+             </summary>
+             <param name="a"></param>
+             <param name="b"></param>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.Max.#ctor(SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.Noise,System.Single)">
+             <summary>
+            
+             </summary>
+             <param name="a"></param>
+             <param name="b"></param>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.Max._Combine(System.Int32,System.Int32)">
+             <summary>
+            
+             </summary>
+             <param name="x"></param>
+             <param name="y"></param>
+        </member>
+        <member name="T:SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.Min">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.Min.#ctor(SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.Noise,SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.Noise)">
+             <summary>
+            
+             </summary>
+             <param name="a"></param>
+             <param name="b"></param>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.Min.#ctor(SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.Noise,System.Single)">
+             <summary>
+            
+             </summary>
+             <param name="a"></param>
+             <param name="b"></param>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.Min._Combine(System.Int32,System.Int32)">
+             <summary>
+            
+             </summary>
+             <param name="x"></param>
+             <param name="y"></param>
+        </member>
+        <member name="T:SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.Multiply">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.Multiply.#ctor(SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.Noise,SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.Noise)">
+             <summary>
+            
+             </summary>
+             <param name="a"></param>
+             <param name="b"></param>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.Multiply.#ctor(SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.Noise,System.Single)">
+             <summary>
+            
+             </summary>
+             <param name="a"></param>
+             <param name="b"></param>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.Multiply._Combine(System.Int32,System.Int32)">
+             <summary>
+            
+             </summary>
+             <param name="x"></param>
+             <param name="y"></param>
+        </member>
+        <member name="T:SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.Normalize">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.Normalize.#ctor(SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.Noise)">
+             <summary>
+            
+             </summary>
+             <param name="a"></param>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.Normalize.#ctor(SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.Noise,System.Single,System.Single)">
+             <summary>
+            
+             </summary>
+             <param name="a"></param>
+             <param name="min"></param>
+             <param name="max"></param>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.Normalize._Combine(System.Int32,System.Int32)">
+             <summary>
+            
+             </summary>
+             <param name="x"></param>
+             <param name="y"></param>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.Normalize._Prepare">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="T:SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.Not">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.Not.#ctor(SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.Noise)">
+             <summary>
+            
+             </summary>
+             <param name="a"></param>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.Not._Combine(System.Int32,System.Int32)">
+             <summary>
+            
+             </summary>
+             <param name="x"></param>
+             <param name="y"></param>
+        </member>
+        <member name="T:SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.Subtract">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.Subtract.#ctor(SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.Noise,SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.Noise)">
+             <summary>
+            
+             </summary>
+             <param name="a"></param>
+             <param name="b"></param>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.Subtract.#ctor(SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.Noise,System.Single)">
+             <summary>
+            
+             </summary>
+             <param name="a"></param>
+             <param name="b"></param>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Noise.Subtract._Combine(System.Int32,System.Int32)">
+             <summary>
+            
+             </summary>
+             <param name="x"></param>
+             <param name="y"></param>
+        </member>
+        <member name="T:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.KruskalType">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="T:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.DelaunayHelpers">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.DelaunayHelpers.DelaunayLinesForEdges(System.Collections.Generic.List{SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Edge})">
+             <summary>
+            
+             </summary>
+             <param name="edges"></param>
+             <returns></returns>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.DelaunayHelpers.Kruskal(System.Collections.Generic.List{SnowyPeak.Duality.Plugin.Frozen.Core.Geometry.LineSegment},SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.KruskalType)">
+             <summary>
+            
+             </summary>
+             <param name="lineSegments"></param>
+             <param name="type"></param>
+             <returns></returns>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.DelaunayHelpers.SelectEdgesForSitePoint(Duality.Vector2,System.Collections.Generic.List{SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Edge})">
+             <summary>
+            
+             </summary>
+             <param name="coord"></param>
+             <param name="edgesToTest"></param>
+             <returns></returns>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.DelaunayHelpers.VisibleLineSegments(System.Collections.Generic.List{SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Edge})">
+             <summary>
+            
+             </summary>
+             <param name="edges"></param>
+             <returns></returns>
+        </member>
+        <member name="T:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Node">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="F:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Node.POOL">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Node.Parent">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Node.TreeSize">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="T:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Edge">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="F:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Edge.DELETED">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Edge.CompareSitesDistances(SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Edge,SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Edge)">
+             <summary>
+            
+             </summary>
+             <param name="edge0"></param>
+             <param name="edge1"></param>
+             <returns></returns>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Edge.CompareSitesDistances_MAX(SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Edge,SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Edge)">
+             <summary>
+            
+             </summary>
+             <param name="edge0"></param>
+             <param name="edge1"></param>
+             <returns></returns>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Edge.CreateBisectingEdge(SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Site,SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Site)">
+             <summary>
+            
+             </summary>
+             <param name="site0"></param>
+             <param name="site1"></param>
+             <returns></returns>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Edge.ClipVertices(Duality.Rect)">
+             <summary>
+            
+             </summary>
+             <param name="bounds"></param>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Edge.DelaunayLine">
+             <summary>
+            
+             </summary>
+             <returns></returns>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Edge.Dispose">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Edge.IsPartOfConvexHull">
+             <summary>
+            
+             </summary>
+             <returns></returns>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Edge.SetVertex(SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Side,SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Vertex)">
+             <summary>
+            
+             </summary>
+             <param name="leftRight"></param>
+             <param name="v"></param>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Edge.Site(SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Side)">
+             <summary>
+            
+             </summary>
+             <param name="leftRight"></param>
+             <returns></returns>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Edge.SitesDistance">
+             <summary>
+            
+             </summary>
+             <returns></returns>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Edge.ToString">
+             <summary>
+            
+             </summary>
+             <returns></returns>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Edge.Vertex(SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Side)">
+             <summary>
+            
+             </summary>
+             <param name="leftRight"></param>
+             <returns></returns>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Edge.VoronoiEdge">
+             <summary>
+            
+             </summary>
+             <returns></returns>
+        </member>
+        <member name="P:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Edge.A">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Edge.B">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Edge.C">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Edge.ClippedEnds">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Edge.LeftSite">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Edge.LeftVertex">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Edge.RightSite">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Edge.RightVertex">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Edge.Visible">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.EdgeList.EdgeListLeftNeighbor(Duality.Vector2)">
+             Insert newHalfedge to the right of lb
+             @param lb
+             @param newHalfedge
+            
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.EdgeList.Remove(SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Halfedge)">
+             This function only removes the Halfedge from the left-right list.
+             We cannot dispose it yet because we are still using it.
+             @param halfEdge
+            
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.EdgeList.GetHash(System.Int32)">
+             Find the rightmost Halfedge that is still left of p
+             @param p
+             @return
+            
+        </member>
+        <member name="T:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.VertexOrSite">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.EdgeReorderer.#ctor(System.Collections.Generic.List{SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Edge},SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.VertexOrSite)">
+             <summary>
+            
+             </summary>
+             <param name="origEdges"></param>
+             <param name="criterion"></param>
+        </member>
+        <member name="P:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.EdgeReorderer.edgeOrientations">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.EdgeReorderer.edges">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="T:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Halfedge">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Halfedge.#ctor(SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Edge,System.Nullable{SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Side})">
+             <summary>
+            
+             </summary>
+             <param name="edge"></param>
+             <param name="lr"></param>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Halfedge.Create(SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Edge,System.Nullable{SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Side})">
+             <summary>
+            
+             </summary>
+             <param name="edge"></param>
+             <param name="lr"></param>
+             <returns></returns>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Halfedge.CreateDummy">
+             <summary>
+            
+             </summary>
+             <returns></returns>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Halfedge.Dispose">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Halfedge.ReallyDispose">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Halfedge.ToString">
+             <summary>
+            
+             </summary>
+             <returns></returns>
+        </member>
+        <member name="P:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Halfedge.Edge">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Halfedge.EdgeListLeftNeighbor">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Halfedge.EdgeListRightNeighbor">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Halfedge.LeftRight">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Halfedge.NextInPriorityQueue">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Halfedge.Vertex">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Halfedge.YStar">
+            <summary>
+            the vertex's y-coordinate in the transformed Voronoi space V*
+            </summary>
+        </member>
+        <member name="T:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Side">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="T:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.SideHelper">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.SideHelper.Other(SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Side)">
+             <summary>
+            
+             </summary>
+             <param name="value"></param>
+             <returns></returns>
+        </member>
+        <member name="T:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Site">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Site.Create(SnowyPeak.Duality.Plugin.Frozen.Procedural.INode,System.UInt32,System.Single)">
+             <summary>
+            
+             </summary>
+             <param name="p"></param>
+             <param name="index"></param>
+             <param name="weight"></param>
+             <returns></returns>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Site.AddEdge(SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Edge)">
+             <summary>
+            
+             </summary>
+             <param name="edge"></param>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Site.CompareTo(System.Object)">
+             <summary>
+            
+             </summary>
+             <param name="obj"></param>
+             <returns></returns>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Site.Dispose">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Site.Dist(SnowyPeak.Duality.Plugin.Frozen.Procedural.INode)">
+             <summary>
+            
+             </summary>
+             <param name="p"></param>
+             <returns></returns>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Site.NearestEdge">
+             <summary>
+            
+             </summary>
+             <returns></returns>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Site.NeighborSites">
+             <summary>
+            
+             </summary>
+             <returns></returns>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Site.ToString">
+             <summary>
+            
+             </summary>
+             <returns></returns>
+        </member>
+        <member name="P:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Site.Position">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Site.Weight">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="T:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Site.Bounds">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="T:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.SiteList">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.SiteList.#ctor">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.SiteList.Add(SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Site)">
+             <summary>
+            
+             </summary>
+             <param name="site"></param>
+             <returns></returns>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.SiteList.Circles">
+             <summary>
+            
+             </summary>
+             <returns></returns>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.SiteList.Dispose">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.SiteList.NearestSitePoint(System.Single,System.Single)">
+             <summary>
+            
+             </summary>
+             <param name="x"></param>
+             <param name="y"></param>
+             <returns></returns>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.SiteList.Next">
+             <summary>
+            
+             </summary>
+             <returns></returns>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.SiteList.Regions(Duality.Rect)">
+             <summary>
+            
+             </summary>
+             <param name="plotBounds"></param>
+             <returns></returns>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.SiteList.SiteCoords">
+             <summary>
+            
+             </summary>
+             <returns></returns>
+        </member>
+        <member name="P:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.SiteList.Count">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="T:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Triangle">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Triangle.#ctor(SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Site,SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Site,SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Site)">
+             <summary>
+            
+             </summary>
+             <param name="a"></param>
+             <param name="b"></param>
+             <param name="c"></param>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Triangle.Dispose">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Triangle.sites">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="T:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Vertex">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="F:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Vertex.VERTEX_AT_INFINITY">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Vertex.#ctor(System.Single,System.Single)">
+             <summary>
+            
+             </summary>
+             <param name="x"></param>
+             <param name="y"></param>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Vertex.Intersect(SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Halfedge,SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Halfedge)">
+            <summary>
+            This is the only way to make a Vertex
+            </summary>
+            <param name="halfedge0"></param>
+            <param name="halfedge1"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Vertex.Dispose">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Vertex.SetIndex">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Vertex.ToString">
+             <summary>
+            
+             </summary>
+             <returns></returns>
+        </member>
+        <member name="P:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Vertex.Position">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Vertex.VertexIndex">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="T:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Voronoi">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Voronoi.#ctor(System.Collections.Generic.IEnumerable{SnowyPeak.Duality.Plugin.Frozen.Procedural.INode},Duality.Rect)">
+             <summary>
+            
+             </summary>
+             <param name="points"></param>
+             <param name="plotBounds"></param>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Voronoi.CompareByYThenX(SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Site,SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Site)">
+             <summary>
+            
+             </summary>
+             <param name="s1"></param>
+             <param name="s2"></param>
+             <returns></returns>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Voronoi.CompareByYThenX(SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Site,Duality.Vector2)">
+             <summary>
+            
+             </summary>
+             <param name="s1"></param>
+             <param name="s2"></param>
+             <returns></returns>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Voronoi.Circles">
+             <summary>
+            
+             </summary>
+             <returns></returns>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Voronoi.DelaunayLinesForSite(Duality.Vector2)">
+             <summary>
+            
+             </summary>
+             <param name="coord"></param>
+             <returns></returns>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Voronoi.DelaunayTriangulation">
+             <summary>
+            
+             </summary>
+             <returns></returns>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Voronoi.Dispose">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Voronoi.Edges">
+             <summary>
+            
+             </summary>
+             <returns></returns>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Voronoi.Hull">
+             <summary>
+            
+             </summary>
+             <returns></returns>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Voronoi.HullPointsInOrder">
+             <summary>
+            
+             </summary>
+             <returns></returns>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Voronoi.NearestSitePoint(System.Single,System.Single)">
+             <summary>
+            
+             </summary>
+             <param name="x"></param>
+             <param name="y"></param>
+             <returns></returns>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Voronoi.NeighborSitesForSite(SnowyPeak.Duality.Plugin.Frozen.Procedural.INode)">
+             <summary>
+            
+             </summary>
+             <param name="coord"></param>
+             <returns></returns>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Voronoi.Region(SnowyPeak.Duality.Plugin.Frozen.Procedural.INode)">
+             <summary>
+            
+             </summary>
+             <param name="p"></param>
+             <returns></returns>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Voronoi.Regions">
+             <summary>
+            
+             </summary>
+             <returns></returns>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Voronoi.SiteCoords">
+             <summary>
+            
+             </summary>
+             <returns></returns>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Voronoi.SpanningTree(SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.KruskalType)">
+             <summary>
+            
+             </summary>
+             <param name="type"></param>
+             <returns></returns>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Voronoi.VoronoiBoundaryForSite(Duality.Vector2)">
+             <summary>
+            
+             </summary>
+             <param name="coord"></param>
+             <returns></returns>
+        </member>
+        <member name="M:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Voronoi.VoronoiDiagram">
+             <summary>
+            
+             </summary>
+             <returns></returns>
+        </member>
+        <member name="P:SnowyPeak.Duality.Plugin.Frozen.Procedural.Triangulation.Voronoi.PlotBounds">
+             <summary>
+            
+             </summary>
+        </member>
+    </members>
+</doc>
