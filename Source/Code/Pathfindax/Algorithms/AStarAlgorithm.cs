@@ -16,8 +16,8 @@ namespace Pathfindax.Algorithms
 		/// <inheritdoc />
 		public IList<INode> FindPath(INodeNetwork<AstarNode> nodeGrid, PathRequest pathRequest)
 		{
-			var startNode = nodeGrid.GetNode(pathRequest.PathStart);
-			var endNode = nodeGrid.GetNode(pathRequest.PathEnd);
+			var startNode = pathRequest.PathStart as AstarNode;
+			var endNode = pathRequest.PathEnd as AstarNode;
 			return FindPath(nodeGrid, startNode, endNode, pathRequest.CollsionLayer);
 		}
 

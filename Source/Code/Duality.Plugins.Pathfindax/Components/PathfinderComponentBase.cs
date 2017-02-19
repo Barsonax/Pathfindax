@@ -1,4 +1,6 @@
-﻿using Pathfindax.PathfindEngine;
+﻿using Pathfindax.Grid;
+using Pathfindax.Nodes;
+using Pathfindax.PathfindEngine;
 
 namespace Duality.Plugins.Pathfindax.Components
 {
@@ -7,6 +9,7 @@ namespace Duality.Plugins.Pathfindax.Components
 		protected IMultithreadedPathfinder MultithreadedPathfinder { get; set; }
 
 		public string PathfinderId { get; set; }
+		public abstract INodeNetwork<INode> NodeNetwork { get; protected set; }
 
 		public abstract void OnInit(InitContext context);
 

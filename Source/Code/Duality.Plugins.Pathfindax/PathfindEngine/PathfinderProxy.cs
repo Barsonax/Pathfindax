@@ -11,7 +11,7 @@ namespace Duality.Plugins.Pathfindax.PathfindEngine
 		public string PathfinderId { get; set; }
 
 		private IPathfinderComponent _pathfinderComponent;
-		private IPathfinderComponent PathfinderComponent => _pathfinderComponent ?? (_pathfinderComponent = PathfindaxDualityCorePlugin.GetPathfinder(PathfinderId));
+		public IPathfinderComponent PathfinderComponent => _pathfinderComponent ?? (_pathfinderComponent = PathfindaxDualityCorePlugin.GetPathfinder(PathfinderId));
 
 		/// <summary>
 		/// Creates a new <see cref="PathfinderProxy"/> with no id. This will only work if there is only 1 <see cref="IPathfinderComponent"/> in the scene.

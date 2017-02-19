@@ -43,7 +43,10 @@ namespace Pathfindax.Test
 
 			var astarNodeNetwork = new AstarNodeNetwork(nodeNetwork);
 			var aStarAlgorithm = new AStarAlgorithm();
-			var pathRequest = new PathRequest(null, new PositionF(x1, y1), new PositionF(x2, y2));
+			var start = astarNodeNetwork.GetNode(new PositionF(x1, y1));
+			var end = astarNodeNetwork.GetNode(new PositionF(x2, y2));
+
+			var pathRequest = new PathRequest(null, start, end);
 			var path = aStarAlgorithm.FindPath(astarNodeNetwork, pathRequest);
 			Assert.AreEqual(path.Count > 0, true);
 		}
@@ -52,7 +55,7 @@ namespace Pathfindax.Test
 		{
 			public static IEnumerable FindPathTestCases
 			{
-				get { yield return new TestCaseData(0f,0f,5f,18f); }
+				get { yield return new TestCaseData(0f, 0f, 5f, 18f); }
 			}
 		}
 	}

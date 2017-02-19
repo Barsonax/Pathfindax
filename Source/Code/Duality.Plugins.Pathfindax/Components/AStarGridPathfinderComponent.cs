@@ -17,6 +17,7 @@ namespace Duality.Plugins.Pathfindax.Components
 	[EditorHintCategory(PathfindaxStrings.Pathfindax)]
 	public class AStarGridPathfinderComponent : PathfinderComponentBase, ICmpRenderer, ICmpUpdatable
 	{
+		public override INodeNetwork<INode> NodeNetwork { get; protected set; }
 		public INodeGrid<IGridNode> SourceNodeGrid { get; set; }
 
 		[EditorHintFlags(MemberFlags.Invisible)]
@@ -51,18 +52,16 @@ namespace Duality.Plugins.Pathfindax.Components
 					{
 						SourceNodeGrid = sourceProvider.GenerateGrid2D();
 						var nodeGrid = new AstarNodeGrid(SourceNodeGrid);
+						NodeNetwork = nodeGrid;
 						var algorithm = new AStarGridAlgorithm();
 						NodeGridVisualizer = new NodeGridVisualizer(SourceNodeGrid);
-						var clearanceProcess = new ClearanceCompensationProcess(nodeGrid);
-						MultithreadedPathfinder = new MultithreadedPathfinder<INodeGrid<AstarGridNode>>(new List<INodeGrid<AstarGridNode>> { nodeGrid }, algorithm,
-							new List<IPathPreProcess> { clearanceProcess },
-							new List<IPathPostProcess> { clearanceProcess });
+						MultithreadedPathfinder = new MultithreadedPathfinder<INodeGrid<AstarGridNode>>(new List<INodeGrid<AstarGridNode>> { nodeGrid }, algorithm);
 						MultithreadedPathfinder.Start();
+
 					}
 				}
 			}
 		}
-
 		public override void OnInit(InitContext context) { }
 	}
 }

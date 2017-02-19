@@ -3,6 +3,8 @@ using Duality.Components;
 using Duality.Components.Renderers;
 using Duality.Input;
 using Duality.Plugins.Pathfindax.PathfindEngine;
+using Pathfindax.Algorithms;
+using Pathfindax.Grid;
 using Pathfindax.Nodes;
 using Pathfindax.PathfindEngine;
 using Pathfindax.Primitives;
@@ -40,7 +42,12 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 						_path = null;
 						return;
 					}
-
+					var astarGrid = _pathfinderProxy.PathfinderComponent.NodeNetwork as AstarNodeGrid;
+					if (astarGrid != null)
+					{
+						var offset = GridClearanceHelper.GridNodeOffset(AgentSize, astarGrid.NodeSize.X);
+						target = target + new Vector2(offset, offset);
+					}
 					_transform.MoveToAbs(target);
 					if (MathF.Distance(_transform.Pos.X, _transform.Pos.Y, target.X, target.Y) < 0.1f)
 					{
@@ -63,7 +70,18 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 		private void Mouse_ButtonDown(object sender, MouseButtonEventArgs e)
 		{
 			var targetPos = Camera.GetSpaceCoord(e.Position);
-			var request = new PathRequest(OnRequestCompleted, new PositionF(_transform.Pos.X, _transform.Pos.Y), new PositionF(targetPos.X, targetPos.Y), AgentSize, CollisionCategory);
+			var start = new PositionF(_transform.Pos.X, _transform.Pos.Y);
+			var end = new PositionF(targetPos.X, targetPos.Y);
+			var astarGrid = _pathfinderProxy.PathfinderComponent.NodeNetwork as AstarNodeGrid;
+			if (astarGrid != null)
+			{
+				var offset = -GridClearanceHelper.GridNodeOffset(AgentSize, astarGrid.NodeSize.X);
+				start = new PositionF(start.X + offset, start.Y + offset);
+				end = new PositionF(end.X + offset, end.Y + offset);
+			}
+			var startNode = _pathfinderProxy.PathfinderComponent.NodeNetwork.GetNode(start);
+			var endNode = _pathfinderProxy.PathfinderComponent.NodeNetwork.GetNode(end);
+			var request = new PathRequest(OnRequestCompleted, startNode, endNode, AgentSize, CollisionCategory);
 			_pathfinderProxy.RequestPath(request);
 		}
 

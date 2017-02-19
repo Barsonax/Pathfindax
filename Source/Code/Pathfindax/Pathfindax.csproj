@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Algorithms\AStarGridAlgorithm.cs" />
+    <Compile Include="Algorithms\GridClearanceHelper.cs" />
     <Compile Include="Algorithms\Interfaces\IPathFindAlgorithm.cs" />
     <Compile Include="Collections\Array2D.cs" />
     <Compile Include="Collections\Interfaces\IHeapItem.cs" />
@@ -70,7 +71,6 @@
     <Compile Include="PathfindEngine\Interfaces\IMultithreadedPathfinder.cs" />
     <Compile Include="PathfindEngine\Interfaces\IPathPostProcess.cs" />
     <Compile Include="PathfindEngine\MultithreadedPathfinder.cs" />
-    <Compile Include="PathfindEngine\PathPostProcesses\ClearanceCompensationProcess.cs" />
     <Compile Include="PathfindEngine\PathPostProcesses\IPathPreProcess.cs" />
     <Compile Include="PathfindEngine\PathRequestProcesser.cs" />
     <Compile Include="PathfindEngine\PathRequest.cs" />

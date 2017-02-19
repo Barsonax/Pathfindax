@@ -317,7 +317,7 @@
                   <shapes dataType="Struct" type="System.Collections.Generic.List`1[[Duality.Components.Physics.ShapeInfo]]" id="2933577814">
                     <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="3278345248" length="32" />
                     <_size dataType="Int">0</_size>
-                    <_version dataType="Int">2558</_version>
+                    <_version dataType="Int">2598</_version>
                   </shapes>
                 </item>
                 <item dataType="Struct" type="Duality.Plugins.Tilemaps.TilemapCollider" id="266359049">
@@ -396,6 +396,7 @@
             <_x003C_BoundRadius_x003E_k__BackingField dataType="Float">0</_x003C_BoundRadius_x003E_k__BackingField>
             <_x003C_MultithreadedPathfinder_x003E_k__BackingField />
             <_x003C_NodeGridVisualizer_x003E_k__BackingField />
+            <_x003C_NodeNetwork_x003E_k__BackingField />
             <_x003C_PathfinderId_x003E_k__BackingField />
             <_x003C_ShowNodeGrid_x003E_k__BackingField dataType="Bool">true</_x003C_ShowNodeGrid_x003E_k__BackingField>
             <_x003C_SourceNodeGrid_x003E_k__BackingField />
@@ -492,9 +493,8 @@
             <_path />
             <_pathfinderProxy />
             <_pathIndex dataType="Int">0</_pathIndex>
-            <_spriteRenderer />
             <_transform />
-            <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">1</_x003C_AgentSize_x003E_k__BackingField>
+            <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">3</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="Struct" type="Duality.Components.Camera" id="3367475287">
               <active dataType="Bool">true</active>
               <farZ dataType="Float">11000</farZ>
