@@ -22,24 +22,19 @@ namespace Pathfindax.Test
 			var node4 = new Node(new PositionF(2f, 3f));
 			var node5 = new Node(new PositionF(6f, 25f));
 
-			node1.Connections = new NodeConnection<Node>[2];
-			node1.Connections[0] = new NodeConnection<Node>(node2);
-			node1.Connections[1] = new NodeConnection<Node>(node4);
+			node1.Connections.Add(new NodeConnection<Node>(node2));
+			node1.Connections.Add(new NodeConnection<Node>(node4));
 
-			node2.Connections = new NodeConnection<Node>[2];
-			node2.Connections[0] = new NodeConnection<Node>(node3);
-			node2.Connections[1] = new NodeConnection<Node>(node1);
+			node2.Connections.Add(new NodeConnection<Node>(node3));
+			node2.Connections.Add(new NodeConnection<Node>(node1));
 
-			node3.Connections = new NodeConnection<Node>[2];
-			node3.Connections[0] = new NodeConnection<Node>(node5);
-			node3.Connections[1] = new NodeConnection<Node>(node2);
+			node3.Connections.Add(new NodeConnection<Node>(node5));
+			node3.Connections.Add(new NodeConnection<Node>(node2));
 
-			node4.Connections = new NodeConnection<Node>[2];
-			node4.Connections[0] = new NodeConnection<Node>(node1);
-			node4.Connections[1] = new NodeConnection<Node>(node2);
+			node4.Connections.Add(new NodeConnection<Node>(node1));
+			node4.Connections.Add(new NodeConnection<Node>(node2));
 
-			node5.Connections = new NodeConnection<Node>[1];
-			node5.Connections[0] = new NodeConnection<Node>(node3);
+			node5.Connections.Add(new NodeConnection<Node>(node3));
 			nodeNetwork.AddNode(node1);
 			nodeNetwork.AddNode(node2);
 			nodeNetwork.AddNode(node3);

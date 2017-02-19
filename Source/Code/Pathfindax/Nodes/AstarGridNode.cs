@@ -7,7 +7,7 @@ namespace Pathfindax.Nodes
 	/// <summary>
 	/// Represents a gridnode that can be used with the A* algorithm.
 	/// </summary>
-	public class AstarGridNode : IGridNodeBase, IHeapItem<AstarGridNode>, INode<AstarGridNode>
+	public class AstarGridNode : IGridNodeBase, IHeapItem<AstarGridNode>
 	{
 		/// <summary>
 		/// Used to retrace the path in the A* algorithm.

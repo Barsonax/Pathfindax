@@ -24,8 +24,13 @@ namespace Pathfindax.Grid
 
 			foreach (var astarNode in Nodes)
 			{
-				astarNode.Connections = new NodeConnection<AstarNode>[astarNode.SourceNode.Connections.Length];
-				for (int index = 0; index < astarNode.SourceNode.Connections.Length; index++)
+				if (astarNode.SourceNode.Connections == null)
+				{
+					astarNode.Connections = new NodeConnection<AstarNode>[0];
+					continue;
+				}
+				astarNode.Connections = new NodeConnection<AstarNode>[astarNode.SourceNode.Connections.Count];
+				for (int index = 0; index < astarNode.SourceNode.Connections.Count; index++)
 				{
 					var sourceNodeConnection = astarNode.SourceNode.Connections[index];
 					astarNode.Connections[index] = new NodeConnection<AstarNode>(sourceNodeDictionary[sourceNodeConnection.To], sourceNodeConnection.CollisionCategory);

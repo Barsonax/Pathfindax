@@ -1,9 +1,12 @@
 ﻿namespace Pathfindax.Nodes
 {
-	public interface IGridNode : INode<IGridNode> , IGridNodeBase
+	public interface IGridNode : IGridNodeBase
 
 	{
-		
+		/// <summary>
+		/// The connections to other nodes.
+		/// </summary>
+		NodeConnection<IGridNode>[] Connections { get; set; }
 	}
 
 	public interface IGridNodeBase : INode
