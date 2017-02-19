@@ -6,7 +6,7 @@ namespace Pathfindax.Nodes
 	public class Node : INode
 	{
 		public PositionF WorldPosition { get; }
-		public List<NodeConnection<Node>> Connections { get; set; }
+		public List<NodeConnection<Node>> Connections { get; private set; }
 
 		/// <summary>
 		/// The movement penalty for this node. This can be used to make the pathfinder try to avoid certain nodes.

@@ -22,7 +22,7 @@ namespace Duality.Plugins.Pathfindax.Grid
 		}
 
 		/// <summary>
-		/// This will draw the <see cref="IGridNode"/> and their connections to other <see cref="IGridNode"/> in the <see cref="INodeGrid{TNode}"/>
+		/// This will draw the <see cref="INode"/> and their connections to other <see cref="INode"/> in the <see cref="INodeNetwork{TNode}"/>
 		/// </summary>
 		public void Draw(IDrawDevice device)
 		{
@@ -35,7 +35,7 @@ namespace Duality.Plugins.Pathfindax.Grid
 					canvas.State.ColorTint = ColorRgba.LightGrey;
 					var nodePosition = node.WorldPosition;
 					canvas.FillCircle(nodePosition.X, nodePosition.Y, _nodeSize);
-					canvas.State.ColorTint = ColorRgba.Black;
+					canvas.State.ColorTint = ColorRgba.VeryLightGrey;
 					if (node.Connections != null)
 						foreach (var connection in node.Connections)
 						{
@@ -43,7 +43,7 @@ namespace Duality.Plugins.Pathfindax.Grid
 							{
 								continue;
 							}
-							var vector = (connection.To.WorldPosition - nodePosition) * 0.5f;
+							var vector = (connection.To.WorldPosition - nodePosition) * 0.5f; //Times 0.5f so we can see the connections in both directions.
 							canvas.DrawLine(nodePosition.X, nodePosition.Y, nodePosition.X + vector.X, nodePosition.Y + vector.Y);
 						}
 				}

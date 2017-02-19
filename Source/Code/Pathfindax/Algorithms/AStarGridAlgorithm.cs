@@ -35,7 +35,7 @@ namespace Pathfindax.Algorithms
 				}
 				if (startGridNode.GetTrueClearance(collisionCategory) >= neededClearance && targetGridNode.GetTrueClearance(collisionCategory) >= neededClearance)
 				{
-					var openSet = new MinHeap<AstarGridNode>(nodeGrid.NodeCount);
+					var openSet = new MinHeap<AstarGridNode>(nodeGrid.NodeArray.Length);
 					var closedSet = new HashSet<AstarGridNode>();
 					var itterations = 0;
 					var neighbourUpdates = 0;

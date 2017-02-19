@@ -15,7 +15,6 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 		public byte AgentSize { get; set; }
 		public PathfindaxCollisionCategory CollisionCategory { get; set; }
 		private Transform _transform;
-		private SpriteRenderer _spriteRenderer;
 		private Vector2[] _path;
 		private int _pathIndex;
 		private PathfinderProxy _pathfinderProxy;
@@ -56,7 +55,6 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 			if (context == InitContext.Activate && DualityApp.ExecContext == DualityApp.ExecutionContext.Game)
 			{
 				_transform = GameObj.GetComponent<Transform>();
-				_spriteRenderer = GameObj.GetComponent<SpriteRenderer>();
 				DualityApp.Mouse.ButtonDown += Mouse_ButtonDown;
 				_pathfinderProxy = new PathfinderProxy();
 			}

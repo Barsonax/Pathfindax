@@ -35,11 +35,11 @@ namespace Pathfindax.Test
 			node4.Connections.Add(new NodeConnection<Node>(node2));
 
 			node5.Connections.Add(new NodeConnection<Node>(node3));
-			nodeNetwork.AddNode(node1);
-			nodeNetwork.AddNode(node2);
-			nodeNetwork.AddNode(node3);
-			nodeNetwork.AddNode(node4);
-			nodeNetwork.AddNode(node5);
+			nodeNetwork.Nodes.Add(node1);
+			nodeNetwork.Nodes.Add(node2);
+			nodeNetwork.Nodes.Add(node3);
+			nodeNetwork.Nodes.Add(node4);
+			nodeNetwork.Nodes.Add(node5);
 
 			var astarNodeNetwork = new AstarNodeNetwork(nodeNetwork);
 			var aStarAlgorithm = new AStarAlgorithm();

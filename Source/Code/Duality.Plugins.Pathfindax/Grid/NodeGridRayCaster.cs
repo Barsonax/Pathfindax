@@ -26,9 +26,9 @@ namespace Duality.Plugins.Pathfindax.Grid
 
 		public bool Contains(Vector2 inPoint, Vector2[] vertices)
 		{
-			bool oddNodes = false;
-			int i = 0;
-			int j = vertices.Length - 1;
+			var oddNodes = false;
+			var i = 0;
+			var j = vertices.Length - 1;
 
 			for (i = 0; i < vertices.Length; i++)
 			{

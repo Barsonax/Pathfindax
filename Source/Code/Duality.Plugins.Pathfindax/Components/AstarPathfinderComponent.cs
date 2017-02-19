@@ -49,10 +49,10 @@ namespace Duality.Plugins.Pathfindax.Components
 					if (sourceProvider != null)
 					{
 						SourceNodeGrid = sourceProvider.GenerateGrid2D();
-						var nodeGrid = new AstarNodeNetwork(SourceNodeGrid);
+						var astarNodeNetwork = new AstarNodeNetwork(SourceNodeGrid);
 						var algorithm = new AStarAlgorithm();
 						NodeNetworkVisualizer = new NodeNetworkVisualizer(SourceNodeGrid, 5f);
-						MultithreadedPathfinder = new MultithreadedPathfinder<INodeNetwork<AstarNode>>(new List<INodeNetwork<AstarNode>> { nodeGrid }, algorithm);
+						MultithreadedPathfinder = new MultithreadedPathfinder<INodeNetwork<AstarNode>>(new List<INodeNetwork<AstarNode>> { astarNodeNetwork }, algorithm);
 						MultithreadedPathfinder.Start();
 					}
 				}

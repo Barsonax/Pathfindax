@@ -60,6 +60,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Components\MouseClickPathfinder.cs" />
     <Compile Include="Components\PathfindaxPathSpammerComponent.cs" />
     <Compile Include="Components\PathFollowerComponent.cs" />
     <Compile Include="Components\SourceNodeGridProvderMockupComponent.cs" />

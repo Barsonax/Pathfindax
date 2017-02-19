@@ -11,7 +11,7 @@ namespace Pathfindax.Grid
 		public int NodeCount => Nodes.Count;
 		private List<AstarNode> Nodes { get;  }
 
-		public AstarNodeNetwork(INodeNetwork<Node> sourceNodeNetwork)
+		public AstarNodeNetwork(IEnumerable<Node> sourceNodeNetwork)
 		{
 			Nodes = new List<AstarNode>();
 			var sourceNodeDictionary = new Dictionary<Node, AstarNode>(); //Later used to generate the connections

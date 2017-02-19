@@ -27,7 +27,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 				var node = new Node(new PositionF(random.Next(0, width), random.Next(0, height)));
 				var defaultNode = new DelaunayNode(new Vector2(node.WorldPosition.X, node.WorldPosition.Y));
 				dictionary.Add(defaultNode, node);
-				nodeNetwork.AddNode(node);
+				nodeNetwork.Nodes.Add(node);
 			}
 
 			var graph = new Graph<DelaunayNode>();
