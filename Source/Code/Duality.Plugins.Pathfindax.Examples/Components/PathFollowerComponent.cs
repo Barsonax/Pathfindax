@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using Duality.Components;
-using Duality.Components.Renderers;
 using Duality.Input;
 using Duality.Plugins.Pathfindax.PathfindEngine;
 using Pathfindax.Algorithms;

@@ -37,15 +37,18 @@ namespace Duality.Plugins.Pathfindax.Grid
 					canvas.FillCircle(nodePosition.X, nodePosition.Y, _nodeSize);
 					canvas.State.ColorTint = ColorRgba.VeryLightGrey;
 					if (node.Connections != null)
+					{
+						canvas.State.ColorTint = new ColorRgba(199, 21, 133);
 						foreach (var connection in node.Connections)
 						{
 							if ((connection.CollisionCategory & CollisionCategory) != 0)
 							{
 								continue;
 							}
-							var vector = (connection.To.WorldPosition - nodePosition) * 0.5f; //Times 0.5f so we can see the connections in both directions.
-							canvas.DrawLine(nodePosition.X, nodePosition.Y, nodePosition.X + vector.X, nodePosition.Y + vector.Y);
+							var vector = (connection.To.WorldPosition - nodePosition)*0.5f; //Times 0.5f so we can see the connections in both directions.
+							canvas.DrawDashLine(nodePosition.X, nodePosition.Y, nodePosition.X + vector.X, nodePosition.Y + vector.Y);
 						}
+					}
 				}
 			}
 		}
