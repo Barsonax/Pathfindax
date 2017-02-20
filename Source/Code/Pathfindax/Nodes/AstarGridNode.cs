@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using Pathfindax.Collections;
 using Pathfindax.Primitives;
 
@@ -8,8 +7,7 @@ namespace Pathfindax.Nodes
 	/// <summary>
 	/// Represents a gridnode that can be used with the A* algorithm.
 	/// </summary>
-	[DebuggerDisplay("{Position}")]
-	public class AstarGridNode : IGridNodeBase, IHeapItem<AstarGridNode>, INode<AstarGridNode>
+	public class AstarGridNode : IGridNodeBase, IHeapItem<AstarGridNode>
 	{
 		/// <summary>
 		/// Used to retrace the path in the A* algorithm.
@@ -33,16 +31,13 @@ namespace Pathfindax.Nodes
 		public NodeConnection<AstarGridNode>[] Connections { get; set; }
 
 		/// <inheritdoc />
-		public PositionF Position => _sourceGridNode.Position;
-
-		/// <inheritdoc />
 		public PositionF WorldPosition => _sourceGridNode.WorldPosition;
 
 		/// <inheritdoc />
-		public int GridX => _sourceGridNode.GridX;
+		public ushort GridX => _sourceGridNode.GridX;
 
 		/// <inheritdoc />
-		public int GridY => _sourceGridNode.GridY;
+		public ushort GridY => _sourceGridNode.GridY;
 		private int FCost => GCost + HCost;
 		private readonly IGridNodeBase _sourceGridNode;
 
@@ -61,16 +56,14 @@ namespace Pathfindax.Nodes
 		}
 
 		/// <inheritdoc />
-		public bool Fits(PathfindaxCollisionCategory collisionCategory, byte neededClearance)
+		public int GetTrueClearance(PathfindaxCollisionCategory collisionCategory)
 		{
-			return _sourceGridNode.Fits(collisionCategory, neededClearance);
+			return _sourceGridNode.GetTrueClearance(collisionCategory);
 		}
 
 		public AstarGridNode(IGridNodeBase source)
 		{
 			_sourceGridNode = source;
-			HCost = -1;
-			GCost = -1;
 		}
 
 		public int CompareTo(AstarGridNode other)

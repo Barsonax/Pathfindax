@@ -46,7 +46,7 @@ namespace Pathfindax.PathfindEngine
 			CompletedPath completedPath;
 			while (_multithreadedWorkerQueue.TryDequeue(out completedPath))
 			{
-				completedPath.Callback.Invoke(completedPath);
+				completedPath.PathRequest.Callback.Invoke(completedPath);
 			}
 		}
 

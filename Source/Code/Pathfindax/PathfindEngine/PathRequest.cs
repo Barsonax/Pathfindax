@@ -1,6 +1,5 @@
 ﻿using System;
 using Pathfindax.Nodes;
-using Pathfindax.Primitives;
 
 namespace Pathfindax.PathfindEngine
 {
@@ -12,12 +11,12 @@ namespace Pathfindax.PathfindEngine
 		/// <summary>
 		/// The world position of the start of the path
 		/// </summary>
-		public PositionF PathStart;
+		public INode PathStart;
 
 		/// <summary>
 		/// The world position of the end of the path
 		/// </summary>
-		public PositionF PathEnd;
+		public INode PathEnd;
 
 		/// <summary>
 		/// The size of the agent. 1 is the default value meaning that the agent occupies only 1 node.
@@ -42,7 +41,7 @@ namespace Pathfindax.PathfindEngine
 		/// <param name="end">The worldcoordinates of the end of the path</param>
 		/// <param name="agentSize">The size of the agent in nodes</param>
 		/// <param name="collisionLayer">The collision layers that this agent cannot cross</param>
-		public PathRequest(Action<CompletedPath> callback, PositionF start, PositionF end, byte agentSize = 1, PathfindaxCollisionCategory collisionLayer = PathfindaxCollisionCategory.None)
+		public PathRequest(Action<CompletedPath> callback, INode start, INode end, byte agentSize = 1, PathfindaxCollisionCategory collisionLayer = PathfindaxCollisionCategory.None)
 		{
 			PathStart = start;
 			PathEnd = end;

@@ -10,24 +10,18 @@ namespace Duality.Plugins.Pathfindax.Grid
 	public class NodeGridVisualizer
 	{
 		/// <summary>
-		/// The size of the agent that will be used to draw the nodes that are blocked.
-		/// </summary>
-		public byte AgentSize { get; set; }
-
-		/// <summary>
 		/// The collision category that will be used to draw the nodes that are blocked.
 		/// </summary>
 		public PathfindaxCollisionCategory CollisionCategory { get; set; }
 
 		private readonly INodeGrid<IGridNode> _nodeNetwork;
 		private readonly float _nodeSize;
-		private Vector2 _offset;
 
 		public NodeGridVisualizer(INodeGrid<IGridNode> nodeNetwork)
 		{
 			_nodeNetwork = nodeNetwork;
 			_nodeSize = nodeNetwork.NodeSize.X * 0.3f;
-			_offset = new Vector2(nodeNetwork.Offset.X, nodeNetwork.Offset.Y);
+			CollisionCategory = PathfindaxCollisionCategory.Cat1;
 		}
 
 		/// <summary>
@@ -38,17 +32,21 @@ namespace Duality.Plugins.Pathfindax.Grid
 			if (_nodeNetwork != null)
 			{
 				var canvas = new Canvas(device, new CanvasBuffer());
-				canvas.State.ZOffset = -5;
+				canvas.State.ZOffset = -8;
 				foreach (var node in _nodeNetwork)
 				{
 					canvas.State.ColorTint = ColorRgba.LightGrey;
-					if (node.Fits(CollisionCategory, AgentSize))
+					var nodePosition = node.WorldPosition;
+					var clearance = node.GetTrueClearance(CollisionCategory);
+					if (clearance == int.MaxValue)
 					{
-						canvas.DrawCircle(node.Position.X + _offset.X, node.Position.Y + _offset.Y, _nodeSize);
+						canvas.DrawCircle(nodePosition.X, nodePosition.Y, _nodeSize);
 					}
 					else
 					{
-						canvas.FillCircle(node.Position.X + _offset.X, node.Position.Y + _offset.Y, _nodeSize);
+						canvas.FillCircle(nodePosition.X, nodePosition.Y, _nodeSize);
+						canvas.State.ColorTint = ColorRgba.Black;
+						canvas.DrawText(clearance.ToString(), nodePosition.X, nodePosition.Y, -1f, Alignment.Center);
 					}
 					canvas.State.ColorTint = new ColorRgba(199, 21, 133);
 					foreach (var connection in node.Connections)
@@ -57,8 +55,8 @@ namespace Duality.Plugins.Pathfindax.Grid
 						{
 							continue;
 						}
-						var vector = (connection.To.Position - node.Position) * 0.5f;
-						canvas.DrawDashLine(node.Position.X + _offset.X, node.Position.Y + _offset.Y, node.Position.X + vector.X + _offset.X, node.Position.Y + vector.Y + _offset.Y);
+						var vector = (connection.To.WorldPosition - nodePosition) * 0.5f;
+						canvas.DrawDashLine(nodePosition.X, nodePosition.Y, nodePosition.X + vector.X, nodePosition.Y + vector.Y);
 					}
 				}
 			}

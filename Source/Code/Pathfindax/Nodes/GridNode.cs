@@ -1,17 +1,12 @@
-﻿using System.Diagnostics;
-using Pathfindax.Grid;
+﻿using Pathfindax.Grid;
 using Pathfindax.Primitives;
 
 namespace Pathfindax.Nodes
 {
-	[DebuggerDisplay("{Position}")]
 	public class GridNode : IGridNode
 	{
 		/// <inheritdoc />
-		public PositionF Position { get; }
-
-		/// <inheritdoc />
-		public PositionF WorldPosition => Position + _nodeNetwork.Offset;
+		public PositionF WorldPosition => new PositionF(GridX * _nodeGrid.NodeSize.X, GridY * _nodeGrid.NodeSize.Y) + _nodeGrid.Offset;
 
 		/// <inheritdoc />
 		public GridClearance[] Clearances { get; set; }
@@ -20,44 +15,40 @@ namespace Pathfindax.Nodes
 		public byte MovementPenalty { get; set; }
 
 		/// <inheritdoc />
-		public int GridX { get; }
+		public ushort GridX { get; }
 
 		/// <inheritdoc />
-		public int GridY { get; }
+		public ushort GridY { get; }
 
 		/// <inheritdoc />
 		public NodeConnection<IGridNode>[] Connections { get; set; }
-		private readonly INodeNetworkBase _nodeNetwork;
+		private readonly INodeGridBase _nodeGrid;
 
-		public GridNode(INodeGridBase nodeNetwork, int gridX, int gridY, byte costMultiplier)
+		public GridNode(INodeGridBase nodeGrid, ushort gridX, ushort gridY, byte costMultiplier)
 		{
-			_nodeNetwork = nodeNetwork;
-			Position = new PositionF(gridX * nodeNetwork.NodeSize.X, gridY * nodeNetwork.NodeSize.Y);
+			_nodeGrid = nodeGrid;
 			GridX = gridX;
 			GridY = gridY;
 			MovementPenalty = costMultiplier;
 		}
 
 		/// <inheritdoc />
-		public bool Fits(PathfindaxCollisionCategory collisionCategory, byte neededClearance)
+		public int GetTrueClearance(PathfindaxCollisionCategory collisionCategory)
 		{
-			if (neededClearance > 1 && Clearances != null)
+			if (Clearances != null)
 				foreach (var gridClearance in Clearances)
 				{
 					if ((gridClearance.CollisionCategory & collisionCategory) != 0)
 					{
-						if (gridClearance.Clearance < neededClearance)
-						{
-							return gridClearance.Clearance == -1 || gridClearance.Clearance > neededClearance;
-						}
+						return gridClearance.Clearance;
 					}
 				}
-			return true;
+			return int.MaxValue;
 		}
 
 		public override string ToString()
 		{
-			return $"{GridX}:{GridY}";
+			return $"WorldPosition: {WorldPosition.X}:{WorldPosition.Y}  GridPosition: {GridX}:{GridY}";
 		}
 	}
 }

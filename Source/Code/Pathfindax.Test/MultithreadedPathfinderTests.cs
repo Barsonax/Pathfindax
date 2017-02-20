@@ -37,7 +37,7 @@ namespace Pathfindax.Test
 			{
 				taskCompletionSource.SetResult(true);
 			};
-			multithreadedPathfinder.RequestPath(new PathRequest(success, start, end));
+			multithreadedPathfinder.RequestPath(new PathRequest(success, null, null));
 			var stopWatch = new Stopwatch();
 			stopWatch.Start();
 			while (!taskCompletionSource.Task.IsCompleted)
@@ -65,7 +65,7 @@ namespace Pathfindax.Test
 				var i1 = i;
 				taskCompletionSources[i1] = new TaskCompletionSource<bool>();
 				success[i] = request => taskCompletionSources[i1].SetResult(true);
-				multithreadedPathfinder.RequestPath(new PathRequest(success[i], start, end));
+				multithreadedPathfinder.RequestPath(new PathRequest(success[i], null, null));
 			}
 			var tasks = taskCompletionSources.Select(x => x.Task).ToList();
 			var stopWatch = new Stopwatch();

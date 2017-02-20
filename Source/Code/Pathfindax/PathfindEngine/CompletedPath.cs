@@ -6,19 +6,19 @@ namespace Pathfindax.PathfindEngine
 	public class CompletedPath
 	{
 		/// <summary>
+		/// The request that was made.
+		/// </summary>
+		public PathRequest PathRequest;
+
+		/// <summary>
 		/// The path.
 		/// </summary>
 		public readonly PositionF[] Path;
 
-		/// <summary>
-		/// The callback that will be called after the pathfinder finds a path or cannot find one.
-		/// </summary>
-		public readonly Action<CompletedPath> Callback;
-
-		public CompletedPath(PositionF[] path, Action<CompletedPath> callback)
+		public CompletedPath(PositionF[] path, PathRequest pathRequest)
 		{
 			Path = path;
-			Callback = callback;
+			PathRequest = pathRequest;
 		}
 	}
 }

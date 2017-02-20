@@ -53,7 +53,7 @@
                   <tileData dataType="Struct" type="Duality.Plugins.Tilemaps.TilemapData" id="2410352058" custom="true">
                     <body>
                       <version dataType="Int">3</version>
-                      <data dataType="Array" type="System.Byte[]" id="1082261504">H4sIAAAAAAAEAFNgYGAQYaAWCAST5RDqP4TaSzXTBx5AfJSO4r+5A+Ya6oNR/8GACTUpIoymDhjJ8XcAQh2EUIdINZpC7dQBI9l/JyDUSQh1CkIFM4KpEEaCPKza6Q3w+U8BQilCKCUIRbz/sGqnN8Dmv7tQOQ0IpQmhtEg1mkLt1AHY/HffA0zd8wRT57wgFETwHL0E31HqMwjA5r//ASi8oIERpNRnEAAxWhlCWUOpCAgVCaGiBkSwmlKfjYJRMApGwSgYngAA146c4YgRAAA=</data>
+                      <data dataType="Array" type="System.Byte[]" id="1082261504">H4sIAAAAAAAEAO2RQQ7BQBSGp3ewsSs2WCEW6AWwUixwAUfowlmcRCRYYdEb4AauMHh/N00mzJhpKzpf0vky07w/+fNcxljh+TXYC96EWqQtU8WnM4C4/2VKEnTo5F2oR1orp6DRMtZPPSUJsL8N9udhf0XllN/tZwb5fm2Tkog2Q573t4P20EE1WnPcDHnud4RO0BmaOKSp8/EmHE+bd/1cqASVIfl+wvG0EfW7RP+qUA2qq0ZrjptB1O/WJ10HpHAI4TFM6/Gu2wyI+vFR7DbO5lG3GUB0BfIizaA5tMjkcaXbzGKxWCz/yQMSWKDjiBEAAA==</data>
                     </body>
                   </tileData>
                   <tileset dataType="Struct" type="Duality.ContentRef`1[[Duality.Plugins.Tilemaps.Tileset]]">
@@ -136,7 +136,7 @@
                   <tileData dataType="Struct" type="Duality.Plugins.Tilemaps.TilemapData" id="623887338" custom="true">
                     <body>
                       <version dataType="Int">3</version>
-                      <data dataType="Array" type="System.Byte[]" id="4288918816">H4sIAAAAAAAEAO3FQQ0AQAgEsRWBgJOCf1WQ88Cvk0z6ktTe+QEAAAAAAOCIAVoBQEaIEQAA</data>
+                      <data dataType="Array" type="System.Byte[]" id="4288918816">H4sIAAAAAAAEAO3PUQkAIBBEwQ1hAKNcF/t3UPwzwYHMwmO+dyYZp5W7l/oH/wAAAAAAQDcbKeejZYgRAAA=</data>
                     </body>
                   </tileData>
                   <tileset dataType="Struct" type="Duality.ContentRef`1[[Duality.Plugins.Tilemaps.Tileset]]">
@@ -219,7 +219,7 @@
                   <tileData dataType="Struct" type="Duality.Plugins.Tilemaps.TilemapData" id="1195299583" custom="true">
                     <body>
                       <version dataType="Int">3</version>
-                      <data dataType="Array" type="System.Byte[]" id="541296942">H4sIAAAAAAAEAO2W3WrCQBCFN/15gz6Az9FWKVb7ErUQMIKQCHkvL3ujPpVWC/YPKp69GRg2J7vJaqGB5GOWMzszZJeZjjHm5vA+mOPTPiYaokX3RUor18AGeDtp1jymtHIPfACfjUQvGtnFhZJWmgRfIA8Lew90BXrAWMA3ggWR5wJYAqu6EVT3ATAUeKq7NYHA/7AFdsB7CwkGIrC+L+Ab+ImVNY/A+i5xG6+A6yRu8gRSWjkX1i1KuUsqLdU9Gvj+8CqsPpJ/TCot1b192INJ9IdnYAS8RF4kSnEhF0g1iW1EGTARSrmoKsfCgVBmjlx8YeubCkvFTCgLsZg7Fomtc83BtyIVrtMqo5d107UO6lFUAxE357QjsW/v51tW7ZG40XHEt/dntFKOxBfV3bfRceQMe/8ZpvSPv41f6S97TYgRAAA=</data>
+                      <data dataType="Array" type="System.Byte[]" id="541296942">H4sIAAAAAAAEAO2Wb2oCMRDFs9XeoAfwHFaLVOslrLDgCsJa8F792C/qqeo/sFVB8eXLwJB9u8muFiroj4Q3mTeYMNMwxjxdviNz/Uh0SsBYQxmJJDzri2nlN7AC1n6ueXjWN6GVe+AH+A1ifhrkFBdmtNJE+AVSv7QtoC3wAgR9aoTPObAAlnkzqOE94E2gn/doAp7/wwbYArsSDHrCs74DcAROVbnm4VlfDa+xDjxG1ZonENPKT7FqopTnKHOlhlcGvj98idUrzHejzJUaXj7sxST6wwB4B4YVbxKluJAKxJrENqIEGAul3FSVIxFAKBOHl6Kw9U3ESsWHUE7FZurYJI5OtYCiFalw3VaZfZbXrg1Qr6KaiHg5NxqJLYr2fr5l5R6Jg44jRXt/QivlSPyQ3X2DjiN32Pvv0NI//jbOmsmYbogRAAA=</data>
                     </body>
                   </tileData>
                   <tileset dataType="Struct" type="Duality.ContentRef`1[[Duality.Plugins.Tilemaps.Tileset]]">
@@ -317,7 +317,7 @@
                   <shapes dataType="Struct" type="System.Collections.Generic.List`1[[Duality.Components.Physics.ShapeInfo]]" id="2933577814">
                     <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="3278345248" length="32" />
                     <_size dataType="Int">0</_size>
-                    <_version dataType="Int">2082</_version>
+                    <_version dataType="Int">2598</_version>
                   </shapes>
                 </item>
                 <item dataType="Struct" type="Duality.Plugins.Tilemaps.TilemapCollider" id="266359049">
@@ -383,19 +383,20 @@
           <item dataType="ObjectRef">3705024726</item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Tilemaps.Components.TilemapNodeGridGenerator" id="1568877053">
             <_counter dataType="Long">0</_counter>
-            <_movementCosts dataType="Array" type="System.Byte[]" id="3153880045">BQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</_movementCosts>
             <_nodeGrid />
             <_nodeGridVisualizer />
             <_x003C_BoundRadius_x003E_k__BackingField dataType="Float">0</_x003C_BoundRadius_x003E_k__BackingField>
             <_x003C_MaxCalculatedClearance_x003E_k__BackingField dataType="Int">5</_x003C_MaxCalculatedClearance_x003E_k__BackingField>
+            <_x003C_MovementPenalties_x003E_k__BackingField />
             <active dataType="Bool">true</active>
             <gameobj dataType="ObjectRef">1344709794</gameobj>
           </item>
-          <item dataType="Struct" type="Duality.Plugins.Pathfindax.Components.AStarPathfinderComponent" id="728450320">
+          <item dataType="Struct" type="Duality.Plugins.Pathfindax.Components.AStarGridPathfinderComponent" id="2992067624">
             <_counter dataType="Int">0</_counter>
             <_x003C_BoundRadius_x003E_k__BackingField dataType="Float">0</_x003C_BoundRadius_x003E_k__BackingField>
             <_x003C_MultithreadedPathfinder_x003E_k__BackingField />
             <_x003C_NodeGridVisualizer_x003E_k__BackingField />
+            <_x003C_NodeNetwork_x003E_k__BackingField />
             <_x003C_PathfinderId_x003E_k__BackingField />
             <_x003C_ShowNodeGrid_x003E_k__BackingField dataType="Bool">true</_x003C_ShowNodeGrid_x003E_k__BackingField>
             <_x003C_SourceNodeGrid_x003E_k__BackingField />
@@ -404,7 +405,7 @@
           </item>
         </_items>
         <_size dataType="Int">3</_size>
-        <_version dataType="Int">3</_version>
+        <_version dataType="Int">5</_version>
       </compList>
       <compMap dataType="Struct" type="System.Collections.Generic.Dictionary`2[[System.Type],[Duality.Component]]" id="782502712" surrogate="true">
         <header />
@@ -412,12 +413,12 @@
           <keys dataType="Array" type="System.Object[]" id="3151931512">
             <item dataType="ObjectRef">3647081190</item>
             <item dataType="Type" id="1057994092" value="Duality.Plugins.Pathfindax.Tilemaps.Components.TilemapNodeGridGenerator" />
-            <item dataType="Type" id="1024722998" value="Duality.Plugins.Pathfindax.Components.AStarPathfinderComponent" />
+            <item dataType="Type" id="1024722998" value="Duality.Plugins.Pathfindax.Components.AStarGridPathfinderComponent" />
           </keys>
           <values dataType="Array" type="System.Object[]" id="1127802334">
             <item dataType="ObjectRef">3705024726</item>
             <item dataType="ObjectRef">1568877053</item>
-            <item dataType="ObjectRef">728450320</item>
+            <item dataType="ObjectRef">2992067624</item>
           </values>
         </body>
       </compMap>
@@ -492,13 +493,12 @@
             <_path />
             <_pathfinderProxy />
             <_pathIndex dataType="Int">0</_pathIndex>
-            <_spriteRenderer />
             <_transform />
-            <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">1</_x003C_AgentSize_x003E_k__BackingField>
+            <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">3</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="Struct" type="Duality.Components.Camera" id="3367475287">
               <active dataType="Bool">true</active>
               <farZ dataType="Float">11000</farZ>
-              <focusDist dataType="Float">600</focusDist>
+              <focusDist dataType="Float">620</focusDist>
               <gameobj dataType="Struct" type="Duality.GameObject" id="2830199480">
                 <active dataType="Bool">true</active>
                 <children />
@@ -561,7 +561,7 @@
               </gameobj>
               <nearZ dataType="Float">0</nearZ>
               <passes dataType="Struct" type="System.Collections.Generic.List`1[[Duality.Components.Camera+Pass]]" id="973452298">
-                <_items dataType="Array" type="Duality.Components.Camera+Pass[]" id="2913212128" length="4">
+                <_items dataType="Array" type="Duality.Components.Camera+Pass[]" id="2913212128" length="8">
                   <item dataType="Struct" type="Duality.Components.Camera+Pass" id="784111580">
                     <clearColor dataType="Struct" type="Duality.Drawing.ColorRgba" />
                     <clearDepth dataType="Float">1</clearDepth>
@@ -582,7 +582,7 @@
                   </item>
                 </_items>
                 <_size dataType="Int">2</_size>
-                <_version dataType="Int">2</_version>
+                <_version dataType="Int">1314</_version>
               </passes>
               <perspective dataType="Enum" type="Duality.Drawing.PerspectiveMode" name="Flat" value="0" />
               <visibilityMask dataType="Enum" type="Duality.Drawing.VisibilityFlag" name="All" value="4294967295" />

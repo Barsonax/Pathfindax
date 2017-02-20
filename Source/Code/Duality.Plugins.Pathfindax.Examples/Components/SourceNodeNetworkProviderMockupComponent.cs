@@ -1,39 +1,67 @@
-﻿using Duality;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Duality.Editor;
 using Pathfindax.Grid;
 using Pathfindax.Nodes;
 using Pathfindax.Primitives;
 using Pathfindax.Utils;
+using SnowyPeak.Duality.Plugin.Frozen.Procedural;
+using INode = SnowyPeak.Duality.Plugin.Frozen.Procedural.INode;
+using Node = Pathfindax.Nodes.Node;
 
-namespace Pathfindax.Duality.Examples.Components
+namespace Duality.Plugins.Pathfindax.Examples.Components
 {
-	/// <summary>
-	/// Provides a simple <see cref="INodeGrid{TNode}"/> for testing/example purposes
-	/// </summary>
 	[EditorHintCategory(PathfindaxStrings.PathfindaxTest)]
-	public class SourceNodeNetworkProviderMockupComponent : Component, ISourceNodeNetworkProvider<INodeGrid<IGridNode>>
+	public class SourceNodeNetworkProviderMockupComponent : Component, ISourceNodeNetworkProvider<INodeNetwork<Node>>
 	{
-		private INodeGrid<IGridNode> _nodeGrid;
-		public INodeGrid<IGridNode> GenerateGrid2D()
+		public INodeNetwork<Node> GenerateGrid2D()
 		{
-			if (_nodeGrid == null)
+			var width = 1000;
+			var height = 1000;
+			var random = new Random();
+			var dictionary = new Dictionary<DelaunayNode, Node>();
+			var nodeNetwork = new SourceNodeNetwork();
+			for (int i = 0; i < 100; i++)
 			{
-				var sourceNodeGridFactory = new SourceNodeGridFactory();
-				var nodeGrid = sourceNodeGridFactory.GeneratePreFilledArray(16, 16, new PositionF(32, 32), GenerateNodeGridConnections.All);
-				/*nodeGrid.NodeArray[5, 4].CollisionCategory = PathfindaxCollisionCategory.Cat1;
-				nodeGrid.NodeArray[5, 5].CollisionCategory = PathfindaxCollisionCategory.Cat1;
-				nodeGrid.NodeArray[5, 6].CollisionCategory = PathfindaxCollisionCategory.Cat1;
-				nodeGrid.NodeArray[5, 7].CollisionCategory = PathfindaxCollisionCategory.Cat1;
-				nodeGrid.NodeArray[5, 8].CollisionCategory = PathfindaxCollisionCategory.Cat1;
-
-				nodeGrid.NodeArray[5, 10].CollisionCategory = PathfindaxCollisionCategory.Cat1;
-				nodeGrid.NodeArray[6, 10].CollisionCategory = PathfindaxCollisionCategory.Cat1;
-				nodeGrid.NodeArray[7, 10].CollisionCategory = PathfindaxCollisionCategory.Cat1;
-				nodeGrid.NodeArray[8, 10].CollisionCategory = PathfindaxCollisionCategory.Cat1;
-				nodeGrid.NodeArray[9, 10].CollisionCategory = PathfindaxCollisionCategory.Cat1;*/
-				_nodeGrid = nodeGrid;
+				var node = new Node(new PositionF(random.Next(0, width), random.Next(0, height)));
+				var defaultNode = new DelaunayNode(new Vector2(node.WorldPosition.X, node.WorldPosition.Y));
+				dictionary.Add(defaultNode, node);
+				nodeNetwork.Nodes.Add(node);
 			}
-			return _nodeGrid;
+
+			var graph = new Graph<DelaunayNode>();
+			graph.Nodes.AddRange(dictionary.Keys);
+			graph.Triangulate();
+			
+			foreach (var graphLink in graph.Links.GroupBy(x => x.From))
+			{
+				var from = dictionary[graphLink.Key];
+				var connections = new List<Node>();
+				foreach (var link in graphLink)
+				{				
+					var to = dictionary[link.To];
+					connections.Add(to);
+				}
+
+				foreach (var connection in connections)
+				{
+					from.Connections.Add(new NodeConnection<Node>(connection));
+					connection.Connections.Add(new NodeConnection<Node>(from));
+				}
+			}
+			return nodeNetwork;
 		}
+	}
+
+	public class DelaunayNode : INode
+	{
+		public DelaunayNode() { }
+		public DelaunayNode(Vector2 vector2)
+		{
+			Position = vector2;
+		}
+
+		public Vector2 Position { get; private set; }
 	}
 }

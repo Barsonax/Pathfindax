@@ -108,7 +108,12 @@
       <children />
       <compList dataType="Struct" type="System.Collections.Generic.List`1[[Duality.Component]]" id="1370696648">
         <_items dataType="Array" type="Duality.Component[]" id="1337592428" length="4">
-          <item dataType="Struct" type="Duality.Plugins.Pathfindax.Components.AStarPathfinderComponent" id="3562285132">
+          <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.SourceNodeGridProvderMockupComponent" id="2538474571">
+            <_nodeGrid />
+            <active dataType="Bool">true</active>
+            <gameobj dataType="ObjectRef">4178544606</gameobj>
+          </item>
+          <item dataType="Struct" type="Duality.Plugins.Pathfindax.Components.AStarGridPathfinderComponent" id="1530935140">
             <_counter dataType="Int">0</_counter>
             <_x003C_BoundRadius_x003E_k__BackingField dataType="Float">0</_x003C_BoundRadius_x003E_k__BackingField>
             <_x003C_MultithreadedPathfinder_x003E_k__BackingField />
@@ -119,25 +124,20 @@
             <active dataType="Bool">true</active>
             <gameobj dataType="ObjectRef">4178544606</gameobj>
           </item>
-          <item dataType="Struct" type="Pathfindax.Duality.Examples.Components.SourceNodeNetworkProviderMockupComponent" id="2677313600">
-            <_nodeGrids />
-            <active dataType="Bool">true</active>
-            <gameobj dataType="ObjectRef">4178544606</gameobj>
-          </item>
         </_items>
         <_size dataType="Int">2</_size>
-        <_version dataType="Int">6</_version>
+        <_version dataType="Int">10</_version>
       </compList>
       <compMap dataType="Struct" type="System.Collections.Generic.Dictionary`2[[System.Type],[Duality.Component]]" id="1636012766" surrogate="true">
         <header />
         <body>
           <keys dataType="Array" type="System.Object[]" id="1084007562">
-            <item dataType="Type" id="2136671200" value="Duality.Plugins.Pathfindax.Components.AStarPathfinderComponent" />
-            <item dataType="Type" id="705039246" value="Pathfindax.Duality.Examples.Components.SourceNodeNetworkProviderMockupComponent" />
+            <item dataType="Type" id="2136671200" value="Duality.Plugins.Pathfindax.Examples.Components.SourceNodeGridProvderMockupComponent" />
+            <item dataType="Type" id="705039246" value="Duality.Plugins.Pathfindax.Components.AStarGridPathfinderComponent" />
           </keys>
           <values dataType="Array" type="System.Object[]" id="35239194">
-            <item dataType="ObjectRef">3562285132</item>
-            <item dataType="ObjectRef">2677313600</item>
+            <item dataType="ObjectRef">2538474571</item>
+            <item dataType="ObjectRef">1530935140</item>
           </values>
         </body>
       </compMap>
@@ -158,21 +158,22 @@
       <children />
       <compList dataType="Struct" type="System.Collections.Generic.List`1[[Duality.Component]]" id="3240090790">
         <_items dataType="Array" type="Duality.Component[]" id="4159377920" length="4">
-          <item dataType="Struct" type="Pathfindax.Duality.Examples.Components.PathfindaxPathSpammerComponent" id="2343656864">
+          <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PathfindaxPathSpammerComponent" id="2047323534">
             <_counter dataType="Int">0</_counter>
-            <_randomGenerator dataType="Struct" type="System.Random" id="3446103216">
+            <_randomGenerator dataType="Struct" type="System.Random" id="2162554126">
               <inext dataType="Int">0</inext>
               <inextp dataType="Int">21</inextp>
-              <SeedArray dataType="Array" type="System.Int32[]" id="2577413052">0, 642566450, 474699041, 1563423995, 1590875391, 1228720585, 55132583, 2117708979, 739010703, 1840307123, 744840235, 499069106, 1098974900, 1591308122, 201757061, 884926202, 1867304189, 1998989686, 333310858, 1759290362, 784445648, 1628572313, 1701187676, 529943810, 1135733014, 1266390487, 115399794, 2032472083, 2084373663, 195218753, 1273904552, 1515118629, 89871769, 2086560206, 31096913, 1160438290, 1737507663, 816568464, 253400106, 529643847, 1435709269, 2049333418, 1479448, 987555617, 365279993, 1036945650, 525611094, 276811182, 1661025461, 1314689003, 1133202269, 1281825992, 1006787071, 1050818126, 1791677648, 326360762</SeedArray>
+              <SeedArray dataType="Array" type="System.Int32[]" id="4188167632">0, 1913677982, 195051343, 984369963, 399979191, 1928009724, 489956584, 492085928, 914007529, 587956798, 716377560, 839210581, 1712081260, 37888562, 1967516137, 985794150, 1629849060, 1756352948, 1709525997, 1567527269, 294145154, 1446449498, 2033048504, 1186782606, 1641988831, 221926937, 290614763, 263460979, 461576274, 1813902820, 1628345585, 835872650, 982287757, 1259116771, 307457291, 1378423470, 1447206770, 959069193, 778206994, 1769611824, 23660801, 1456914761, 1754083414, 1215181879, 222358558, 1084850404, 874485330, 951891639, 544642381, 1314253149, 631704427, 2120174446, 1152944166, 1631863689, 1709435207, 1941495191</SeedArray>
             </_randomGenerator>
             <_x003C_BottomRightCorner_x003E_k__BackingField dataType="Struct" type="Duality.Point2">
               <X dataType="Int">480</X>
               <Y dataType="Int">480</Y>
             </_x003C_BottomRightCorner_x003E_k__BackingField>
             <_x003C_BoundRadius_x003E_k__BackingField dataType="Float">0</_x003C_BoundRadius_x003E_k__BackingField>
+            <_x003C_Clearance_x003E_k__BackingField dataType="Byte">0</_x003C_Clearance_x003E_k__BackingField>
             <_x003C_CollisionCategory_x003E_k__BackingField dataType="Enum" type="Pathfindax.Nodes.PathfindaxCollisionCategory" name="None" value="0" />
             <_x003C_Path_x003E_k__BackingField />
-            <_x003C_PathfinderProxy_x003E_k__BackingField dataType="Struct" type="Duality.Plugins.Pathfindax.PathfindEngine.PathfinderProxy" id="66465646">
+            <_x003C_PathfinderProxy_x003E_k__BackingField dataType="Struct" type="Duality.Plugins.Pathfindax.PathfindEngine.PathfinderProxy" id="2269208906">
               <_pathfinderComponent />
               <_x003C_PathfinderId_x003E_k__BackingField />
             </_x003C_PathfinderProxy_x003E_k__BackingField>
@@ -182,16 +183,16 @@
           </item>
         </_items>
         <_size dataType="Int">1</_size>
-        <_version dataType="Int">3</_version>
+        <_version dataType="Int">5</_version>
       </compList>
       <compMap dataType="Struct" type="System.Collections.Generic.Dictionary`2[[System.Type],[Duality.Component]]" id="2208336826" surrogate="true">
         <header />
         <body>
           <keys dataType="Array" type="System.Object[]" id="296592660">
-            <item dataType="Type" id="2007410788" value="Pathfindax.Duality.Examples.Components.PathfindaxPathSpammerComponent" />
+            <item dataType="Type" id="2007410788" value="Duality.Plugins.Pathfindax.Examples.Components.PathfindaxPathSpammerComponent" />
           </keys>
           <values dataType="Array" type="System.Object[]" id="2746678">
-            <item dataType="ObjectRef">2343656864</item>
+            <item dataType="ObjectRef">2047323534</item>
           </values>
         </body>
       </compMap>

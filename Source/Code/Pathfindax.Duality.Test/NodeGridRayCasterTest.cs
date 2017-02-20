@@ -53,7 +53,7 @@ namespace Pathfindax.Duality.Test
 			node1.WorldPosition.Returns(new PositionF(0.5f, 1f));
 			var node2 = Substitute.For<INode>();
 			node2.WorldPosition.Returns(new PositionF(0.5f, -1f));
-			var collisionCategory = nodeGridRayCaster.GetCollisionCategory(node1, node2);
+			var collisionCategory = nodeGridRayCaster.GetConnectionCollisionCategory(node1, node2);
 			
 			Assert.AreEqual(body.CollisionCategory, (CollisionCategory)collisionCategory);
 		}

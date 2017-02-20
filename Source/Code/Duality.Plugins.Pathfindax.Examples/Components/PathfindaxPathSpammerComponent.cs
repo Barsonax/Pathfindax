@@ -1,14 +1,15 @@
 ﻿using System;
-using Duality;
 using Duality.Drawing;
 using Duality.Editor;
 using Duality.Plugins.Pathfindax.PathfindEngine;
+using Pathfindax.Algorithms;
+using Pathfindax.Grid;
 using Pathfindax.Nodes;
 using Pathfindax.PathfindEngine;
 using Pathfindax.Primitives;
 using Pathfindax.Utils;
 
-namespace Pathfindax.Duality.Examples.Components
+namespace Duality.Plugins.Pathfindax.Examples.Components
 {
 	/// <summary>
 	/// Spams path requests as a example
@@ -17,11 +18,14 @@ namespace Pathfindax.Duality.Examples.Components
 	[EditorHintCategory(PathfindaxStrings.PathfindaxTest)]
 	public class PathfindaxPathSpammerComponent : Component, ICmpUpdatable, ICmpRenderer
 	{
-		public byte Clearance { get; set; }
+		public byte AgentSize { get; set; }
 		public PathfindaxCollisionCategory CollisionCategory { get; set; }
 		public Point2 TopLeftCorner { get; set; }
 		public Point2 BottomRightCorner { get; set; }
 		public PositionF[] Path { get; private set; }
+
+		[EditorHintRange(1, 1000)]
+		public int FramesBetweenRequest { get; set; }
 
 		[EditorHintFlags(MemberFlags.Invisible)]
 		public float BoundRadius { get; }
@@ -31,15 +35,30 @@ namespace Pathfindax.Duality.Examples.Components
 
 		private readonly Random _randomGenerator = new Random();
 		private int _counter;
+		private int _frameCounter;
 		void ICmpUpdatable.OnUpdate()
 		{
 			_counter++;
 			if (_counter > 3)
 			{
-				var start = new PositionF(_randomGenerator.Next(TopLeftCorner.X, BottomRightCorner.X), _randomGenerator.Next(TopLeftCorner.Y, BottomRightCorner.Y));
-				var end = new PositionF(_randomGenerator.Next(TopLeftCorner.X, BottomRightCorner.X), _randomGenerator.Next(TopLeftCorner.Y, BottomRightCorner.Y));
-				var request = new PathRequest(PathSolved, start, end, Clearance, CollisionCategory);
-				PathfinderProxy.RequestPath(request);
+				if (_frameCounter >= FramesBetweenRequest)
+				{
+					var start = new PositionF(_randomGenerator.Next(TopLeftCorner.X, BottomRightCorner.X), _randomGenerator.Next(TopLeftCorner.Y, BottomRightCorner.Y));
+					var end = new PositionF(_randomGenerator.Next(TopLeftCorner.X, BottomRightCorner.X), _randomGenerator.Next(TopLeftCorner.Y, BottomRightCorner.Y));
+					var astarGrid = PathfinderProxy.PathfinderComponent.NodeNetwork as AstarNodeGrid;
+					if (astarGrid != null)
+					{
+						var offset = -GridClearanceHelper.GridNodeOffset(AgentSize, astarGrid.NodeSize.X);
+						start = new PositionF(start.X + offset, start.Y + offset);
+						end = new PositionF(end.X + offset, end.Y + offset);
+					}
+					var startNode = PathfinderProxy.PathfinderComponent.NodeNetwork.GetNode(start);
+					var endNode = PathfinderProxy.PathfinderComponent.NodeNetwork.GetNode(end);
+					var request = new PathRequest(PathSolved, startNode, endNode, AgentSize, CollisionCategory);
+					PathfinderProxy.RequestPath(request);
+					_frameCounter = 0;
+				}
+				_frameCounter++;
 			}
 		}
 
@@ -59,12 +78,31 @@ namespace Pathfindax.Duality.Examples.Components
 		{
 			if (Path != null)
 			{
+				var agentSizeCompensation = new Vector2(0, 0);
+				var astarGrid = PathfinderProxy.PathfinderComponent.NodeNetwork as AstarNodeGrid;
+				if (astarGrid != null)
+				{
+					var offset = GridClearanceHelper.GridNodeOffset(AgentSize, astarGrid.NodeSize.X);
+					agentSizeCompensation = new Vector2(offset, offset);
+				}
 				var canvas = new Canvas(device);
 				canvas.State.ZOffset = -10;
-				canvas.State.ColorTint = ColorRgba.Red;
-				foreach (var position in Path)
+
+				for (int index = 0; index < Path.Length; index++)
 				{
-					canvas.FillCircle(position.X, position.Y, 10f);
+					if (index == 0) canvas.State.ColorTint = ColorRgba.Green;
+					else if (index == Path.Length - 1) canvas.State.ColorTint = ColorRgba.Blue;
+					else canvas.State.ColorTint = ColorRgba.Red;
+					var position = Path[index];
+					canvas.FillCircle(position.X + agentSizeCompensation.X, position.Y + agentSizeCompensation.Y, 10f);
+				}
+
+				canvas.State.ColorTint = ColorRgba.Red;
+				for (int i = 1; i < Path.Length; i++)
+				{
+					var from = Path[i - 1];
+					var to = Path[i];
+					canvas.DrawLine(from.X + agentSizeCompensation.X, from.Y + agentSizeCompensation.Y, 0, to.X + agentSizeCompensation.X, to.Y + agentSizeCompensation.Y, 0);
 				}
 			}
 		}

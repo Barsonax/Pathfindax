@@ -46,7 +46,7 @@ namespace Pathfindax.PathfindEngine
 			}
 			var nodeGrid = _nodeNetworks[0]; //TODO implement hierachical pathfinding here here
 			IList<PositionF> path = _algorithm.FindPath(nodeGrid, pathRequest)?.Select(x => x.WorldPosition)?.ToList();
-			if (path == null) return new CompletedPath(null, pathRequest.Callback);
+			if (path == null) return new CompletedPath(null, pathRequest);
 			if (_pathPostProcesses != null)
 			{
 				foreach (var postProcess in _pathPostProcesses)
@@ -54,7 +54,7 @@ namespace Pathfindax.PathfindEngine
 					path = postProcess.Process(path, pathRequest);
 				}
 			}
-			return new CompletedPath(path.ToArray(), pathRequest.Callback);
+			return new CompletedPath(path.ToArray(), pathRequest);
 		}
 	}
 }

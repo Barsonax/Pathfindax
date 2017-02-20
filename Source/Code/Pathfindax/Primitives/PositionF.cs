@@ -1,4 +1,6 @@
-﻿namespace Pathfindax.Primitives
+﻿using System;
+
+namespace Pathfindax.Primitives
 {
 	/// <summary>
 	/// A simple struct to store a x and y coord.
@@ -12,6 +14,13 @@
 		{
 			X = x;
 			Y = y;
+		}
+
+		public float Distance(PositionF position)
+		{
+			var deltaX = position.X - X;
+			var deltaY = position.Y - Y;
+			return (float)Math.Sqrt(deltaX * deltaX + deltaY * deltaY);
 		}
 
 		public static PositionF operator -(PositionF p1, PositionF p2)
