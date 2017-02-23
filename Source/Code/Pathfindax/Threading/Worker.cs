@@ -11,10 +11,20 @@ namespace Pathfindax.Threading
 	/// <typeparam name="TIn"></typeparam>
 	public class Worker<TOut, TIn> : IDisposable
 	{
+		public event EventHandler WorkCompleted;
+
 		/// <summary>
 		/// True if this <see cref="Worker{TOut,TIn}"/> is doing work.
 		/// </summary>
-		public bool IsBusy { get; private set; }
+		public bool IsBusy
+		{
+			get { return _isBusy; }
+			private set
+			{
+				_isBusy = value;
+				WorkCompleted?.Invoke(this, EventArgs.Empty);
+			}
+		}
 
 
 		private bool _disposed;
@@ -23,6 +33,7 @@ namespace Pathfindax.Threading
 		private readonly IProcesser<TOut, TIn> _processer;
 		private TIn _workItem;
 		private Action<TOut> _onCompleted;
+		private bool _isBusy;
 
 		/// <summary>
 		/// Creates a new worker that will start doing its work on a dedicated thread.
