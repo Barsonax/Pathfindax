@@ -1,10 +1,12 @@
 # Pathfindax
-Pathfindax is a pathfinding framework that can be used to get a path from A to B in a network of nodes. By default the framework provides a implementation of the A star algorithm with the following features:  
+Pathfindax is a pathfinding framework that can be used to get a path from A to B in a network of nodes. By default the framework provides a implementation of a grid based A star algorithm with the following features:  
 -Multithreaded  
 -Support for up to 32 collision layers  
 -Support for multiple agent sizes  
 -Support for movement penalties  
--Built in support for the duality tilemap plugin  
+-Built in support for the duality tilemap plugin 
+
+There is also a non grid based A star algorithm which has the above features except for the agent sizes and tilemap support.
 
 However you are free to implement the interfaces yourself to use a different algorithm.
 
