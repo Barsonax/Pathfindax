@@ -30,8 +30,6 @@ namespace Pathfindax.Test
 			var multithreadedPathfinder = SetupMultithreadedPathfinder(1);
 
 			multithreadedPathfinder.Start();
-			var start = new PositionF(0.5f, 0.5f);
-			var end = new PositionF(127.5f, 127.5f);
 			var taskCompletionSource = new TaskCompletionSource<bool>();
 			Action<CompletedPath> success = pathrequest =>
 			{
@@ -54,8 +52,6 @@ namespace Pathfindax.Test
 		{
 			var multithreadedPathfinder = SetupMultithreadedPathfinder(4);
 			multithreadedPathfinder.Start();
-			var start = new PositionF(0.5f, 0.5f);
-			var end = new PositionF(127.5f, 127.5f);
 
 			var pathRequests = new PathRequest[100];
 			var taskCompletionSources = new TaskCompletionSource<bool>[pathRequests.Length];
