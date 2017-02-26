@@ -39,26 +39,21 @@ namespace Duality.Plugins.Pathfindax.Components
 			if (ShowNodeGrid) NodeGridVisualizer?.Draw(device);
 		}
 
-		private int _counter;
 		public void OnUpdate()
 		{
-			_counter++;
-			if (_counter == 3)
+			if (DualityApp.ExecContext == DualityApp.ExecutionContext.Game)
 			{
-				if (DualityApp.ExecContext == DualityApp.ExecutionContext.Game)
+				var sourceProvider = GameObj.GetComponent<ISourceNodeNetworkProvider<INodeGrid<IGridNode>>>();
+				if (sourceProvider != null)
 				{
-					var sourceProvider = GameObj.GetComponent<ISourceNodeNetworkProvider<INodeGrid<IGridNode>>>();
-					if (sourceProvider != null)
-					{
-						SourceNodeGrid = sourceProvider.GenerateGrid2D();
-						var nodeGrid = new AstarNodeGrid(SourceNodeGrid);
-						NodeNetwork = nodeGrid;
-						var algorithm = new AStarGridAlgorithm();
-						NodeGridVisualizer = new NodeGridVisualizer(SourceNodeGrid);
-						MultithreadedPathfinder = new MultithreadedPathfinder<INodeGrid<AstarGridNode>>(new List<INodeGrid<AstarGridNode>> { nodeGrid }, algorithm);
-						MultithreadedPathfinder.Start();
+					SourceNodeGrid = sourceProvider.GenerateGrid2D();
+					var nodeGrid = new AstarNodeGrid(SourceNodeGrid);
+					NodeNetwork = nodeGrid;
+					var algorithm = new AStarGridAlgorithm();
+					NodeGridVisualizer = new NodeGridVisualizer(SourceNodeGrid);
+					MultithreadedPathfinder = new MultithreadedPathfinder<INodeGrid<AstarGridNode>>(new List<INodeGrid<AstarGridNode>> { nodeGrid }, algorithm);
+					MultithreadedPathfinder.Start();
 
-					}
 				}
 			}
 		}
