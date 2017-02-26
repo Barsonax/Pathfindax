@@ -53,7 +53,7 @@
                   <tileData dataType="Struct" type="Duality.Plugins.Tilemaps.TilemapData" id="2410352058" custom="true">
                     <body>
                       <version dataType="Int">3</version>
-                      <data dataType="Array" type="System.Byte[]" id="1082261504">H4sIAAAAAAAEAFNgYGAQYaAWCAST5RDqP4TaSzXTBx5AfJSO4r+5A+Ya6oNR/8GACTUpIoymDhjJ8XcAQh2EUIdINZpC7dQBI9l/JyDUSQh1CkIFM4KpEEaCPKza6Q3w+U8BQilCKCUIRbz/sGqnN8Dmv7tQOQ0IpQmhtEg1mkLt1AHY/HffA0zd8wRT57wgFETwHL0E31HqMwjA5r//ASi8oIERpNRnEAAxWhlCWUOpCAgVCaGiBkSwmlKfjYJRMApGwSgYngAA146c4YgRAAA=</data>
+                      <data dataType="Array" type="System.Byte[]" id="1082261504">H4sIAAAAAAAEAFNgYGAQYaAWCAST5RDqP4TaSzXTKQFOjNQwBeKjdBT/zaWGwYMEjPoPBkyoSRFhNHXASI6/AxDqIIQ6RKrRFGpHBRyQ0oYTQnFBKG4IxYOnJBoq/iMX4PPfCQh1EkKdglDBkMAKYSTIw6qd3gCf/xQglCKEUoJQxPsPq3Z6A2z+uwuV04BQmhBKi1SjKdSOCuQgYSZPaqWPzX/3PcDUPU8wdc4LQkEEz9FL8B2JHsEBsPnvfwAKL2hgBCn1GQRAjFaGUNZQKgJCRUKoqAERrKbUZ6NgFIyCUTAKhicAAB7nmpiIEQAA</data>
                     </body>
                   </tileData>
                   <tileset dataType="Struct" type="Duality.ContentRef`1[[Duality.Plugins.Tilemaps.Tileset]]">
@@ -317,7 +317,7 @@
                   <shapes dataType="Struct" type="System.Collections.Generic.List`1[[Duality.Components.Physics.ShapeInfo]]" id="2933577814">
                     <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="3278345248" length="32" />
                     <_size dataType="Int">0</_size>
-                    <_version dataType="Int">2676</_version>
+                    <_version dataType="Int">3122</_version>
                   </shapes>
                 </item>
                 <item dataType="Struct" type="Duality.Plugins.Tilemaps.TilemapCollider" id="266359049">
@@ -382,7 +382,6 @@
         <_items dataType="Array" type="Duality.Component[]" id="1047420582" length="4">
           <item dataType="ObjectRef">3705024726</item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Tilemaps.Components.TilemapNodeGridGenerator" id="1568877053">
-            <_counter dataType="Long">0</_counter>
             <_nodeGrid />
             <_nodeGridVisualizer />
             <_x003C_BoundRadius_x003E_k__BackingField dataType="Float">0</_x003C_BoundRadius_x003E_k__BackingField>
@@ -392,7 +391,6 @@
             <gameobj dataType="ObjectRef">1344709794</gameobj>
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Components.AStarGridPathfinderComponent" id="2992067624">
-            <_counter dataType="Int">0</_counter>
             <_x003C_BoundRadius_x003E_k__BackingField dataType="Float">0</_x003C_BoundRadius_x003E_k__BackingField>
             <_x003C_MultithreadedPathfinder_x003E_k__BackingField />
             <_x003C_NodeGridVisualizer_x003E_k__BackingField />

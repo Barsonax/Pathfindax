@@ -71,10 +71,14 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Components
 				var tilemapColliderWithBodies = GameObj.GetComponentsInChildren<TilemapCollider>().Select(x => new TilemapColliderWithBody(x)).ToArray();
 				var watch = new Stopwatch();
 				watch.Start();
-				Parallel.ForEach(_nodeGrid, gridNode =>
+				foreach (var gridNode in _nodeGrid)
 				{
 					CalculateGridNodeCollision(tilemapColliderWithBodies, gridNode, _nodeGrid);
-				});
+				}
+				/*Parallel.ForEach(_nodeGrid, gridNode =>
+				{
+					CalculateGridNodeCollision(tilemapColliderWithBodies, gridNode, _nodeGrid);
+				});*/
 
 				Parallel.ForEach(_nodeGrid, gridNode =>
 				{
@@ -178,69 +182,77 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Components
 					var tiles = tilemapCollisionSource.SourceTilemap.Tiles;
 
 					//Self 0
-					var tileCollisionShapes = FlattenTileCollisionShapes(tiles, x, y, tileInfos, tilemapCollisionSource.Layers);
+					var tileCollisionShapesSelf = FlattenTileCollisionShapes(tiles, x, y, tileInfos, tilemapCollisionSource.Layers);
 
-					if (IsSolid(tileCollisionShapes) || (tileCollisionShapes & TileCollisionShape.Right) != 0) MergeNodeCollision(collisionCategories, collisionCategory, 0);
+					if (IsSolid(tileCollisionShapesSelf)) MergeNodeCollision(collisionCategories, collisionCategory, 0);
 
 					//Left 1
 					var tileX = x - 1;
 					var tileY = y;
-					tileCollisionShapes = FlattenTileCollisionShapes(tiles, tileX, tileY, tileInfos, tilemapCollisionSource.Layers);
+					var tileCollisionShapesLeft = FlattenTileCollisionShapes(tiles, tileX, tileY, tileInfos, tilemapCollisionSource.Layers);
 
-					if (IsSolid(tileCollisionShapes) || (tileCollisionShapes & TileCollisionShape.Right) != 0) MergeNodeCollision(collisionCategories, collisionCategory, 1);
+					if (IsSolid(tileCollisionShapesLeft) || (tileCollisionShapesLeft & TileCollisionShape.Right) != 0 || (tileCollisionShapesSelf & TileCollisionShape.Left) != 0) MergeNodeCollision(collisionCategories, collisionCategory, 1);
 
 					//Up 2
 					tileX = x;
 					tileY = y - 1;
-					tileCollisionShapes = FlattenTileCollisionShapes(tiles, tileX, tileY, tileInfos, tilemapCollisionSource.Layers);
+					var tileCollisionShapesUp = FlattenTileCollisionShapes(tiles, tileX, tileY, tileInfos, tilemapCollisionSource.Layers);
 
-					if (IsSolid(tileCollisionShapes) || (tileCollisionShapes & TileCollisionShape.Bottom) != 0) MergeNodeCollision(collisionCategories, collisionCategory, 2);
+					if (IsSolid(tileCollisionShapesUp) || (tileCollisionShapesUp & TileCollisionShape.Bottom) != 0 || (tileCollisionShapesSelf & TileCollisionShape.Top) != 0) MergeNodeCollision(collisionCategories, collisionCategory, 2);
 
 					//Right 3
 					tileX = x + 1;
 					tileY = y;
-					tileCollisionShapes = FlattenTileCollisionShapes(tiles, tileX, tileY, tileInfos, tilemapCollisionSource.Layers);
+					var tileCollisionShapesRight = FlattenTileCollisionShapes(tiles, tileX, tileY, tileInfos, tilemapCollisionSource.Layers);
 
-					if (IsSolid(tileCollisionShapes) || (tileCollisionShapes & TileCollisionShape.Bottom) != 0) MergeNodeCollision(collisionCategories, collisionCategory, 3);
+					if (IsSolid(tileCollisionShapesRight) || (tileCollisionShapesRight & TileCollisionShape.Left) != 0 || (tileCollisionShapesSelf & TileCollisionShape.Right) != 0) MergeNodeCollision(collisionCategories, collisionCategory, 3);
 
 					//Down 4
 					tileX = x;
 					tileY = y + 1;
-					tileCollisionShapes = FlattenTileCollisionShapes(tiles, tileX, tileY, tileInfos, tilemapCollisionSource.Layers);
+					var tileCollisionShapesDown = FlattenTileCollisionShapes(tiles, tileX, tileY, tileInfos, tilemapCollisionSource.Layers);
 
-					if (IsSolid(tileCollisionShapes) || (tileCollisionShapes & TileCollisionShape.Bottom) != 0) MergeNodeCollision(collisionCategories, collisionCategory, 4);
+					if (IsSolid(tileCollisionShapesDown) || (tileCollisionShapesDown & TileCollisionShape.Top) != 0 || (tileCollisionShapesSelf & TileCollisionShape.Bottom) != 0) MergeNodeCollision(collisionCategories, collisionCategory, 4);
 
 					//LeftUp 5
 					tileX = x - 1;
 					tileY = y - 1;
-					tileCollisionShapes = FlattenTileCollisionShapes(tiles, tileX, tileY, tileInfos, tilemapCollisionSource.Layers);
+					var tileCollisionShapes = FlattenTileCollisionShapes(tiles, tileX, tileY, tileInfos, tilemapCollisionSource.Layers);
 
 					if (IsSolid(tileCollisionShapes) || (tileCollisionShapes & TileCollisionShape.Right) != 0 || (tileCollisionShapes & TileCollisionShape.Bottom) != 0 ||
-						collisionCategories[1].PathfindaxCollisionCategory != PathfindaxCollisionCategory.None || collisionCategories[2].PathfindaxCollisionCategory != PathfindaxCollisionCategory.None) MergeNodeCollision(collisionCategories, collisionCategory, 5);
+						collisionCategories[1].PathfindaxCollisionCategory != PathfindaxCollisionCategory.None || collisionCategories[2].PathfindaxCollisionCategory != PathfindaxCollisionCategory.None ||
+						(tileCollisionShapesLeft & TileCollisionShape.Top) != 0 || (tileCollisionShapesUp & TileCollisionShape.Left) != 0
+						) MergeNodeCollision(collisionCategories, collisionCategory, 5);
 
 					//RightUp 6
 					tileX = x + 1;
 					tileY = y - 1;
 					tileCollisionShapes = FlattenTileCollisionShapes(tiles, tileX, tileY, tileInfos, tilemapCollisionSource.Layers);
 
-					if (IsSolid(tileCollisionShapes) || (tileCollisionShapes & TileCollisionShape.Right) != 0 || (tileCollisionShapes & TileCollisionShape.Bottom) != 0 ||
-						collisionCategories[3].PathfindaxCollisionCategory != PathfindaxCollisionCategory.None || collisionCategories[2].PathfindaxCollisionCategory != PathfindaxCollisionCategory.None) MergeNodeCollision(collisionCategories, collisionCategory, 6);
+					if (IsSolid(tileCollisionShapes) || (tileCollisionShapes & TileCollisionShape.Left) != 0 || (tileCollisionShapes & TileCollisionShape.Bottom) != 0 ||
+						collisionCategories[3].PathfindaxCollisionCategory != PathfindaxCollisionCategory.None || collisionCategories[2].PathfindaxCollisionCategory != PathfindaxCollisionCategory.None ||
+						(tileCollisionShapesRight & TileCollisionShape.Top) != 0 || (tileCollisionShapesUp & TileCollisionShape.Right) != 0
+						) MergeNodeCollision(collisionCategories, collisionCategory, 6);
 
 					//RightDown 7
 					tileX = x + 1;
 					tileY = y + 1;
 					tileCollisionShapes = FlattenTileCollisionShapes(tiles, tileX, tileY, tileInfos, tilemapCollisionSource.Layers);
 
-					if (IsSolid(tileCollisionShapes) || (tileCollisionShapes & TileCollisionShape.Right) != 0 || (tileCollisionShapes & TileCollisionShape.Bottom) != 0 ||
-						collisionCategories[3].PathfindaxCollisionCategory != PathfindaxCollisionCategory.None || collisionCategories[4].PathfindaxCollisionCategory != PathfindaxCollisionCategory.None) MergeNodeCollision(collisionCategories, collisionCategory, 7);
+					if (IsSolid(tileCollisionShapes) || (tileCollisionShapes & TileCollisionShape.Right) != 0 || (tileCollisionShapes & TileCollisionShape.Top) != 0 ||
+						collisionCategories[3].PathfindaxCollisionCategory != PathfindaxCollisionCategory.None || collisionCategories[4].PathfindaxCollisionCategory != PathfindaxCollisionCategory.None ||
+						(tileCollisionShapesRight & TileCollisionShape.Bottom) != 0 || (tileCollisionShapesDown & TileCollisionShape.Right) != 0
+						) MergeNodeCollision(collisionCategories, collisionCategory, 7);
 
 					//LeftDown 8
 					tileX = x - 1;
 					tileY = y + 1;
 					tileCollisionShapes = FlattenTileCollisionShapes(tiles, tileX, tileY, tileInfos, tilemapCollisionSource.Layers);
 
-					if (IsSolid(tileCollisionShapes) || (tileCollisionShapes & TileCollisionShape.Right) != 0 || (tileCollisionShapes & TileCollisionShape.Bottom) != 0 ||
-						collisionCategories[1].PathfindaxCollisionCategory != PathfindaxCollisionCategory.None || collisionCategories[4].PathfindaxCollisionCategory != PathfindaxCollisionCategory.None) MergeNodeCollision(collisionCategories, collisionCategory, 8);
+					if (IsSolid(tileCollisionShapes) || (tileCollisionShapes & TileCollisionShape.Left) != 0 || (tileCollisionShapes & TileCollisionShape.Top) != 0 ||
+						collisionCategories[1].PathfindaxCollisionCategory != PathfindaxCollisionCategory.None || collisionCategories[4].PathfindaxCollisionCategory != PathfindaxCollisionCategory.None ||
+						(tileCollisionShapesLeft & TileCollisionShape.Bottom) != 0 || (tileCollisionShapesDown & TileCollisionShape.Left) != 0)
+						MergeNodeCollision(collisionCategories, collisionCategory, 8);
 
 				}
 			}
