@@ -1,12 +1,10 @@
-﻿using System.Collections.Generic;
-using Duality.Drawing;
+﻿using Duality.Drawing;
 using Duality.Editor;
 using Duality.Plugins.Pathfindax.Grid;
 using Pathfindax.Algorithms;
 using Pathfindax.Grid;
 using Pathfindax.Nodes;
 using Pathfindax.PathfindEngine;
-using Pathfindax.PathfindEngine.PathPostProcesses;
 using Pathfindax.Utils;
 
 namespace Duality.Plugins.Pathfindax.Components
@@ -15,7 +13,7 @@ namespace Duality.Plugins.Pathfindax.Components
 	/// Provides a way for other components to request a path from A to B. Uses the A* algorithm.
 	/// </summary>
 	[EditorHintCategory(PathfindaxStrings.Pathfindax)]
-	public class AStarGridPathfinderComponent : PathfinderComponentBase, ICmpRenderer, ICmpUpdatable
+	public class AStarGridPathfinderComponent : PathfinderComponentBase, ICmpRenderer
 	{
 		public override INodeNetwork<INode> NodeNetwork { get; protected set; }
 		public INodeGrid<IGridNode> SourceNodeGrid { get; set; }
@@ -39,9 +37,9 @@ namespace Duality.Plugins.Pathfindax.Components
 			if (ShowNodeGrid) NodeGridVisualizer?.Draw(device);
 		}
 
-		public void OnUpdate()
+		public override void OnInit(InitContext context)
 		{
-			if (DualityApp.ExecContext == DualityApp.ExecutionContext.Game)
+			if (context == InitContext.Activate && DualityApp.ExecContext == DualityApp.ExecutionContext.Game)
 			{
 				var sourceProvider = GameObj.GetComponent<ISourceNodeNetworkProvider<INodeGrid<IGridNode>>>();
 				if (sourceProvider != null)
@@ -51,12 +49,10 @@ namespace Duality.Plugins.Pathfindax.Components
 					NodeNetwork = nodeGrid;
 					var algorithm = new AStarGridAlgorithm();
 					NodeGridVisualizer = new NodeGridVisualizer(SourceNodeGrid);
-					MultithreadedPathfinder = new MultithreadedPathfinder<INodeGrid<AstarGridNode>>(new List<INodeGrid<AstarGridNode>> { nodeGrid }, algorithm);
+					MultithreadedPathfinder = new MultithreadedPathfinder<INodeGrid<AstarGridNode>>(nodeGrid, algorithm);
 					MultithreadedPathfinder.Start();
-
 				}
 			}
 		}
-		public override void OnInit(InitContext context) { }
 	}
 }

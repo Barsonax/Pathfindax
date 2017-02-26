@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Duality.Drawing;
+﻿using Duality.Drawing;
 using Duality.Editor;
 using Duality.Plugins.Pathfindax.Grid;
 using Pathfindax.Algorithms;
@@ -14,7 +13,7 @@ namespace Duality.Plugins.Pathfindax.Components
 	/// Provides a way for other components to request a path from A to B. Uses the A* algorithm.
 	/// </summary>
 	[EditorHintCategory(PathfindaxStrings.Pathfindax)]
-	public class AstarPathfinderComponent : PathfinderComponentBase, ICmpRenderer, ICmpUpdatable
+	public class AstarPathfinderComponent : PathfinderComponentBase, ICmpRenderer
 	{
 		public override INodeNetwork<INode> NodeNetwork { get; protected set; }
 		public INodeNetwork<Node> SourceNodeGrid { get; set; }
@@ -38,9 +37,9 @@ namespace Duality.Plugins.Pathfindax.Components
 			if (ShowNodeGrid) NodeNetworkVisualizer?.Draw(device);
 		}
 
-		public void OnUpdate()
+		public override void OnInit(InitContext context)
 		{
-			if (DualityApp.ExecContext == DualityApp.ExecutionContext.Game)
+			if (context == InitContext.Activate && DualityApp.ExecContext == DualityApp.ExecutionContext.Game)
 			{
 				var sourceProvider = GameObj.GetComponent<ISourceNodeNetworkProvider<INodeNetwork<Node>>>();
 				if (sourceProvider != null)
@@ -50,11 +49,10 @@ namespace Duality.Plugins.Pathfindax.Components
 					NodeNetwork = astarNodeNetwork;
 					var algorithm = new AStarAlgorithm();
 					NodeNetworkVisualizer = new NodeNetworkVisualizer(SourceNodeGrid, 5f);
-					MultithreadedPathfinder = new MultithreadedPathfinder<INodeNetwork<AstarNode>>(new List<INodeNetwork<AstarNode>> { astarNodeNetwork }, algorithm);
+					MultithreadedPathfinder = new MultithreadedPathfinder<INodeNetwork<AstarNode>>(astarNodeNetwork, algorithm);
 					MultithreadedPathfinder.Start();
 				}
 			}
 		}
-		public override void OnInit(InitContext context) { }
 	}
 }

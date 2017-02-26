@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Pathfindax.Algorithms;
 using Pathfindax.Grid;
-using Pathfindax.PathfindEngine.PathPostProcesses;
 using Pathfindax.Threading;
 
 namespace Pathfindax.PathfindEngine
@@ -13,15 +11,12 @@ namespace Pathfindax.PathfindEngine
 	{
 		private readonly MultithreadedWorkerQueue<CompletedPath, PathRequest> _multithreadedWorkerQueue;
 
-		public MultithreadedPathfinder(IList<TNodeNetwork> nodeNetworks, IPathFindAlgorithm<TNodeNetwork> pathFindAlgorithm, IList<IPathPreProcess> pathPreProcesses = null, IList<IPathPostProcess> pathPostProcesses = null, int amountOfThreads = 1)
+		public MultithreadedPathfinder(TNodeNetwork nodeNetwork, IPathFindAlgorithm<TNodeNetwork> pathFindAlgorithm, IList<IPathPostProcess> pathPostProcesses = null, int amountOfThreads = 1)
 		{
-			var firstNodeGrid = nodeNetworks.FirstOrDefault();
-			if (firstNodeGrid == null) throw new ArgumentException("Please provide atleast one nodegrid");
-
 			var pathfinders = new List<IProcesser<CompletedPath, PathRequest>>();
 			for (int i = 0; i < amountOfThreads; i++)
 			{
-				pathfinders.Add(new PathRequestProcesser<TNodeNetwork>(nodeNetworks, pathFindAlgorithm, pathPreProcesses ?? new List<IPathPreProcess>(), pathPostProcesses ?? new List<IPathPostProcess>()));
+				pathfinders.Add(new PathRequestProcesser<TNodeNetwork>(nodeNetwork, pathFindAlgorithm, pathPostProcesses ?? new List<IPathPostProcess>()));
 			}
 			_multithreadedWorkerQueue = new MultithreadedWorkerQueue<CompletedPath, PathRequest>(pathfinders);
 		}

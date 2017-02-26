@@ -1,5 +1,4 @@
-﻿using System;
-using Duality.Components;
+﻿using Duality.Components;
 using Duality.Drawing;
 using Duality.Editor;
 using Duality.Input;

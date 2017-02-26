@@ -34,32 +34,27 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 		private PathfinderProxy PathfinderProxy { get; set; }
 
 		private readonly Random _randomGenerator = new Random();
-		private int _counter;
 		private int _frameCounter;
 		void ICmpUpdatable.OnUpdate()
 		{
-			_counter++;
-			if (_counter > 3)
+			if (_frameCounter >= FramesBetweenRequest)
 			{
-				if (_frameCounter >= FramesBetweenRequest)
+				var start = new PositionF(_randomGenerator.Next(TopLeftCorner.X, BottomRightCorner.X), _randomGenerator.Next(TopLeftCorner.Y, BottomRightCorner.Y));
+				var end = new PositionF(_randomGenerator.Next(TopLeftCorner.X, BottomRightCorner.X), _randomGenerator.Next(TopLeftCorner.Y, BottomRightCorner.Y));
+				var astarGrid = PathfinderProxy.PathfinderComponent.NodeNetwork as AstarNodeGrid;
+				if (astarGrid != null)
 				{
-					var start = new PositionF(_randomGenerator.Next(TopLeftCorner.X, BottomRightCorner.X), _randomGenerator.Next(TopLeftCorner.Y, BottomRightCorner.Y));
-					var end = new PositionF(_randomGenerator.Next(TopLeftCorner.X, BottomRightCorner.X), _randomGenerator.Next(TopLeftCorner.Y, BottomRightCorner.Y));
-					var astarGrid = PathfinderProxy.PathfinderComponent.NodeNetwork as AstarNodeGrid;
-					if (astarGrid != null)
-					{
-						var offset = -GridClearanceHelper.GridNodeOffset(AgentSize, astarGrid.NodeSize.X);
-						start = new PositionF(start.X + offset, start.Y + offset);
-						end = new PositionF(end.X + offset, end.Y + offset);
-					}
-					var startNode = PathfinderProxy.PathfinderComponent.NodeNetwork.GetNode(start);
-					var endNode = PathfinderProxy.PathfinderComponent.NodeNetwork.GetNode(end);
-					var request = new PathRequest(PathSolved, startNode, endNode, AgentSize, CollisionCategory);
-					PathfinderProxy.RequestPath(request);
-					_frameCounter = 0;
+					var offset = -GridClearanceHelper.GridNodeOffset(AgentSize, astarGrid.NodeSize.X);
+					start = new PositionF(start.X + offset, start.Y + offset);
+					end = new PositionF(end.X + offset, end.Y + offset);
 				}
-				_frameCounter++;
+				var startNode = PathfinderProxy.PathfinderComponent.NodeNetwork.GetNode(start);
+				var endNode = PathfinderProxy.PathfinderComponent.NodeNetwork.GetNode(end);
+				var request = new PathRequest(PathSolved, startNode, endNode, AgentSize, CollisionCategory);
+				PathfinderProxy.RequestPath(request);
+				_frameCounter = 0;
 			}
+			_frameCounter++;
 		}
 
 		private void PathSolved(CompletedPath completedPath)

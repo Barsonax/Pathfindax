@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
@@ -10,7 +9,6 @@ using Pathfindax.Algorithms;
 using Pathfindax.Grid;
 using Pathfindax.Nodes;
 using Pathfindax.PathfindEngine;
-using Pathfindax.Primitives;
 
 namespace Pathfindax.Test
 {
@@ -21,7 +19,7 @@ namespace Pathfindax.Test
 		{
 			var algorithm = Substitute.For<IPathFindAlgorithm<INodeGrid<AstarGridNode>>>();
 			var nodeGrid = Substitute.For<INodeGrid<AstarGridNode>>();
-			return new MultithreadedPathfinder<INodeGrid<AstarGridNode>>(new List<INodeGrid<AstarGridNode>> { nodeGrid }, algorithm, amountOfThreads: threads);
+			return new MultithreadedPathfinder<INodeGrid<AstarGridNode>>(nodeGrid, algorithm, amountOfThreads: threads);
 		}
 
 		[Test]
