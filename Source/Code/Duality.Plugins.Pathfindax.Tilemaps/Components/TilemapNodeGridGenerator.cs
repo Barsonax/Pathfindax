@@ -39,6 +39,8 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Components
 		private INodeGrid<IGridNode> _nodeGrid;
 		private static TileCollisionLayer[] _tileCollisionLayers;
 
+		private readonly int[][] _usedLayersCache = new int[16][];
+
 		private static TileCollisionLayer[] TileCollisionLayers
 		{
 			get
@@ -69,21 +71,20 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Components
 				var sourceNodeGridFactory = new SourceNodeGridFactory();
 				_nodeGrid = sourceNodeGridFactory.GeneratePreFilledArray(baseTilemap.Size.X, baseTilemap.Size.Y, new PositionF(baseTilemap.Tileset.Res.TileSize.X, baseTilemap.Tileset.Res.TileSize.Y), GenerateNodeGridConnections.None, new PositionF(offset.X, offset.Y));
 				var tilemapColliderWithBodies = GameObj.GetComponentsInChildren<TilemapCollider>().Select(x => new TilemapColliderWithBody(x)).ToArray();
-				var watch = new Stopwatch();
-				watch.Start();
-				foreach (var gridNode in _nodeGrid)
+				FillUsedLayerCache();
+				Parallel.ForEach(_nodeGrid, gridNode =>
 				{
 					CalculateGridNodeCollision(tilemapColliderWithBodies, gridNode, _nodeGrid);
-				}
-				/*Parallel.ForEach(_nodeGrid, gridNode =>
-				{
-					CalculateGridNodeCollision(tilemapColliderWithBodies, gridNode, _nodeGrid);
-				});*/
+				});
 
 				Parallel.ForEach(_nodeGrid, gridNode =>
 				{
-					if (MovementPenalties != null && baseTilemap.Tiles[gridNode.GridX, gridNode.GridY].Index < MovementPenalties.Length)
-						gridNode.MovementPenalty = MovementPenalties[baseTilemap.Tiles[gridNode.GridX, gridNode.GridY].Index];
+					if (MovementPenalties != null)
+					{
+						var index = baseTilemap.Tiles[gridNode.GridX, gridNode.GridY].Index;
+						if (index < MovementPenalties.Length)
+							gridNode.MovementPenalty = MovementPenalties[index];
+					}
 
 					var clearances = sourceNodeGridFactory.CalculateGridNodeClearances(_nodeGrid, gridNode, MaxCalculatedClearance);
 					if (clearances.Count > 0)
@@ -91,8 +92,6 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Components
 						gridNode.Clearances = gridNode.Clearances == null ? clearances.ToArray() : gridNode.Clearances.Concat(clearances).ToArray();
 					}
 				});
-				watch.Stop();
-				Debug.WriteLine(watch.ElapsedMilliseconds);
 				_nodeGridVisualizer = new NodeGridVisualizer(_nodeGrid);
 			}
 			return _nodeGrid;
@@ -124,7 +123,7 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Components
 			{
 				var tile = tileGrid[x, y];
 				var tileInfo = tileInfos[tile.Index];
-				var usedLayers = GetUsedLayers(tileCollisionLayer);
+				var usedLayers = _usedLayersCache[(int)tileCollisionLayer];
 				var tileCollisionShape = TileCollisionShape.Free;
 				foreach (var usedLayer in usedLayers)
 				{
@@ -132,22 +131,25 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Components
 				}
 				return tileCollisionShape;
 			}
-			return TileCollisionShape.Solid; //Tile coordinates outside the map are seens as solid.
+			return TileCollisionShape.Solid; //Tile coordinates outside the map are seen as solid.
 		}
 
-		private List<int> GetUsedLayers(TileCollisionLayer tileCollisionLayer)
-		{		
-			if (tileCollisionLayer == TileCollisionLayer.All)
+		private void FillUsedLayerCache()
+		{
+			for (int i = 0; i < 16; i++)
 			{
-				return new List<int> { 0, 1, 2, 3 };
+				if (i == 16)
+				{
+					_usedLayersCache[i] = new List<int> { 0, 1, 2, 3 }.ToArray();
+				}
+				var result = new List<int>();
+				for (int index = 1; index < TileCollisionLayers.Length; index++)
+				{
+					var definitionTileCollisionLayer = TileCollisionLayers[index];
+					if (((TileCollisionLayer)i & definitionTileCollisionLayer) != 0) result.Add(index - 1);
+				}
+				_usedLayersCache[i] = result.ToArray();
 			}
-			var result = new List<int>();
-			for (int index = 1; index < TileCollisionLayers.Length; index++)
-			{
-				var definitionTileCollisionLayer = TileCollisionLayers[index];
-				if ((tileCollisionLayer & definitionTileCollisionLayer) != 0) result.Add(index - 1);
-			}
-			return result;
 		}
 
 		private void MergeNodeCollision(NodeCollision[] nodeCollisions, PathfindaxCollisionCategory pathfindaxCollisionCategory, int index)
@@ -157,7 +159,6 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Components
 
 		private NodeCollision[] CalculateNodeCollisionCategories(int x, int y, TilemapColliderWithBody[] tilemapColliderWithBodies)
 		{
-
 			var collisionCategories = new[]
 			{
 				new NodeCollision(PathfindaxCollisionCategory.None, x, y),
