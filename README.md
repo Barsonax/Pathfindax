@@ -1,6 +1,6 @@
 # Pathfindax
 Pathfindax is a pathfinding framework that can be used to get a path from A to B in a network of nodes. By default the framework provides a implementation of a grid based A* algorithm with the following features:  
--Multithreaded  
+-Both pathfinding and nodegrid generation is multithreaded  
 -Support for up to 32 collision layers  
 -Support for multiple agent sizes  
 -Support for movement penalties  
