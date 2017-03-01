@@ -2532,6 +2532,26 @@
             <param name="targetSize"></param>
             <returns></returns>
         </member>
+        <member name="F:Duality.AudioUnit.AngleToDuality">
+            <summary>
+            SI unit: radians
+            </summary>
+        </member>
+        <member name="F:Duality.AudioUnit.LengthToDuality">
+            <summary>
+            SI unit: m
+            </summary>
+        </member>
+        <member name="F:Duality.AudioUnit.TimeToDuality">
+            <summary>
+            SI unit: s
+            </summary>
+        </member>
+        <member name="F:Duality.AudioUnit.VelocityToDuality">
+            <summary>
+            SI unit: m/s
+            </summary>
+        </member>
         <member name="T:Duality.TargetResize">
             <summary>
             Describes how a rectangular object is resized to fit a target size.
@@ -6326,9 +6346,10 @@
         </member>
         <member name="P:Duality.DualityAppData.SpeedOfSound">
             <summary>
-            [GET / SET] The speed of sound. While this is technically a unitless value, you might assume something like "meters per second".
-            It is used to calculate the doppler effect of <see cref="T:Duality.Audio.SoundInstance">SoundInstances</see> that are moving relative to the
-            <see cref="T:Duality.Components.SoundListener"/>.
+            [GET / SET] The speed of sound in "meters per second". Duality units will be converted to SI units that are used in the calculation
+            using the values provided by the static <see cref="T:Duality.AudioUnit"/> class.
+            The speed of sound is used to calculate the doppler effect of <see cref="T:Duality.Audio.SoundInstance">SoundInstances</see> that are 
+            moving relative to the <see cref="T:Duality.Components.SoundListener"/>.
             </summary>
         </member>
         <member name="P:Duality.DualityAppData.SoundDopplerFactor">
@@ -7995,6 +8016,13 @@
             <param name="screenY"></param>
             <returns></returns>
         </member>
+        <member name="M:Duality.VisualLog.DrawPoint(Duality.Vector2)">
+            <summary>
+            Draws a point in screen space.
+            </summary>
+            <param name="screenPos"></param>
+            <returns></returns>
+        </member>
         <member name="M:Duality.VisualLog.DrawPoint(System.Single,System.Single,System.Single)">
             <summary>
             Draws a point in world space. A point has no physical size and is displayed in the same size
@@ -8003,6 +8031,14 @@
             <param name="worldX"></param>
             <param name="worldY"></param>
             <param name="worldZ"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Duality.VisualLog.DrawPoint(Duality.Vector3)">
+            <summary>
+            Draws a point in world space. A point has no physical size and is displayed in the same size
+            regardless of perspective settings or distance to the Camera.
+            </summary>
+            <param name="worldPos"></param>
             <returns></returns>
         </member>
         <member name="M:Duality.VisualLog.DrawCircle(System.Single,System.Single,System.Single)">
@@ -8014,6 +8050,14 @@
             <param name="radius"></param>
             <returns></returns>
         </member>
+        <member name="M:Duality.VisualLog.DrawCircle(Duality.Vector2,System.Single)">
+            <summary>
+            Draws a circle in screen space.
+            </summary>
+            <param name="screenPos"></param>
+            <param name="radius"></param>
+            <returns></returns>
+        </member>
         <member name="M:Duality.VisualLog.DrawCircle(System.Single,System.Single,System.Single,System.Single)">
             <summary>
             Draws a circle in world space.
@@ -8021,6 +8065,14 @@
             <param name="worldX"></param>
             <param name="worldY"></param>
             <param name="worldZ"></param>
+            <param name="radius"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Duality.VisualLog.DrawCircle(Duality.Vector3,System.Single)">
+            <summary>
+            Draws a circle in world space.
+            </summary>
+            <param name="worldPos"></param>
             <param name="radius"></param>
             <returns></returns>
         </member>
@@ -8035,6 +8087,15 @@
             <param name="vectorY">The vector to display.</param>
             <returns></returns>
         </member>
+        <member name="M:Duality.VisualLog.DrawVector(Duality.Vector2,Duality.Vector2)">
+            <summary>
+            Draws a vector in screen space. A vector can be thought of as an arrow pointing in a certain direction.
+            It is useful for displaying velocities or directions.
+            </summary>
+            <param name="screenPos">The vectors screen origin.</param>
+            <param name="vector">The vector to display.</param>
+            <returns></returns>
+        </member>
         <member name="M:Duality.VisualLog.DrawVector(System.Single,System.Single,System.Single,System.Single,System.Single)">
             <summary>
             Draws a vector in world space. A vector can be thought of as an arrow pointing in a certain direction.
@@ -8047,6 +8108,15 @@
             <param name="vectorY">The vector to display.</param>
             <returns></returns>
         </member>
+        <member name="M:Duality.VisualLog.DrawVector(Duality.Vector3,Duality.Vector2)">
+            <summary>
+            Draws a vector in world space. A vector can be thought of as an arrow pointing in a certain direction.
+            It is useful for displaying velocities or directions.
+            </summary>
+            <param name="worldPos">The vectors world origin.</param>
+            <param name="vector">The vector to display.</param>
+            <returns></returns>
+        </member>
         <member name="M:Duality.VisualLog.DrawConnection(System.Single,System.Single,System.Single,System.Single)">
             <summary>
             Draws a connection between two screen space points.
@@ -8055,6 +8125,14 @@
             <param name="screenY1"></param>
             <param name="screenX2"></param>
             <param name="screenY2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Duality.VisualLog.DrawConnection(Duality.Vector2,Duality.Vector2)">
+            <summary>
+            Draws a connection between two screen space points.
+            </summary>
+            <param name="screenPos1"></param>
+            <param name="screenPos2"></param>
             <returns></returns>
         </member>
         <member name="M:Duality.VisualLog.DrawConnection(System.Single,System.Single,System.Single,System.Single,System.Single)">
@@ -8068,12 +8146,28 @@
             <param name="worldY2"></param>
             <returns></returns>
         </member>
+        <member name="M:Duality.VisualLog.DrawConnection(Duality.Vector3,Duality.Vector2)">
+            <summary>
+            Draws a connection between two world space points. Both points need to be on the same Z plane.
+            </summary>
+            <param name="worldPos1"></param>
+            <param name="worldPos2"></param>
+            <returns></returns>
+        </member>
         <member name="M:Duality.VisualLog.DrawPolygon(System.Single,System.Single,Duality.Vector2[])">
             <summary>
             Draws a convex polygon in screen space.
             </summary>
             <param name="screenX"></param>
             <param name="screenY"></param>
+            <param name="polygon"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Duality.VisualLog.DrawPolygon(Duality.Vector2,Duality.Vector2[])">
+            <summary>
+            Draws a convex polygon in screen space.
+            </summary>
+            <param name="screenPos"></param>
             <param name="polygon"></param>
             <returns></returns>
         </member>
@@ -8087,6 +8181,14 @@
             <param name="polygon"></param>
             <returns></returns>
         </member>
+        <member name="M:Duality.VisualLog.DrawPolygon(Duality.Vector3,Duality.Vector2[])">
+            <summary>
+            Draws a convex polygon in world space.
+            </summary>
+            <param name="worldPos"></param>
+            <param name="polygon"></param>
+            <returns></returns>
+        </member>
         <member name="M:Duality.VisualLog.DrawText(System.Single,System.Single,System.String)">
             <summary>
             Draws a text in screen space. Unlike other log entries, texts retain a constant rotation and size.
@@ -8094,6 +8196,15 @@
             </summary>
             <param name="screenX"></param>
             <param name="screenY"></param>
+            <param name="text"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Duality.VisualLog.DrawText(Duality.Vector2,System.String)">
+            <summary>
+            Draws a text in screen space. Unlike other log entries, texts retain a constant rotation and size.
+            Only the point of their origin is transformed regularly.
+            </summary>
+            <param name="screenPos"></param>
             <param name="text"></param>
             <returns></returns>
         </member>
@@ -8105,6 +8216,15 @@
             <param name="worldX"></param>
             <param name="worldY"></param>
             <param name="worldZ"></param>
+            <param name="text"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Duality.VisualLog.DrawText(Duality.Vector3,System.String)">
+            <summary>
+            Draws a text in world space. Unlike other log entries, texts retain a constant rotation and size.
+            Only the point of their origin is transformed regularly.
+            </summary>
+            <param name="worldPos"></param>
             <param name="text"></param>
             <returns></returns>
         </member>

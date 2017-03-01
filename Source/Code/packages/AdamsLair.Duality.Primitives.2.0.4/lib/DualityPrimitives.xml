@@ -4480,6 +4480,38 @@
             <param name="scale">Right operand.</param>
             <param name="result">Result of the operation.</param>
         </member>
+        <member name="M:Duality.Vector4.Min(Duality.Vector4,Duality.Vector4)">
+            <summary>
+            Calculate the component-wise minimum of two vectors
+            </summary>
+            <param name="a">First operand</param>
+            <param name="b">Second operand</param>
+            <returns>The component-wise minimum</returns>
+        </member>
+        <member name="M:Duality.Vector4.Min(Duality.Vector4@,Duality.Vector4@,Duality.Vector4@)">
+            <summary>
+            Calculate the component-wise minimum of two vectors
+            </summary>
+            <param name="a">First operand</param>
+            <param name="b">Second operand</param>
+            <param name="result">The component-wise minimum</param>
+        </member>
+        <member name="M:Duality.Vector4.Max(Duality.Vector4,Duality.Vector4)">
+            <summary>
+            Calculate the component-wise maximum of two vectors
+            </summary>
+            <param name="a">First operand</param>
+            <param name="b">Second operand</param>
+            <returns>The component-wise maximum</returns>
+        </member>
+        <member name="M:Duality.Vector4.Max(Duality.Vector4@,Duality.Vector4@,Duality.Vector4@)">
+            <summary>
+            Calculate the component-wise maximum of two vectors
+            </summary>
+            <param name="a">First operand</param>
+            <param name="b">Second operand</param>
+            <param name="result">The component-wise maximum</param>
+        </member>
         <member name="M:Duality.Vector4.Dot(Duality.Vector4,Duality.Vector4)">
             <summary>
             Calculate the dot product of two vectors
