@@ -7,6 +7,9 @@ using Pathfindax.Nodes;
 
 namespace Duality.Plugins.Pathfindax.Tilemaps.Generators
 {
+	/// <summary>
+	/// Generates connections and base clearances for nodes based upon information from <see cref="TilemapCollisionSource"/>s
+	/// </summary>
 	public class TilemapNodeConnectionGenerator
 	{
 		private readonly int[][] _usedLayersCache = new int[16][];
@@ -33,6 +36,9 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Generators
 
 		private readonly NodeCollision[] _nodeCollisions;
 
+		/// <summary>
+		/// Creates a new <see cref="TilemapNodeConnectionGenerator"/> instance and does some initialization work
+		/// </summary>
 		public TilemapNodeConnectionGenerator()
 		{
 			_nodeCollisions = new[]
@@ -52,6 +58,12 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Generators
 			FillUsedLayerCache();
 		}
 
+		/// <summary>
+		/// Calculates the <see cref="NodeConnection{TNode}"/>s and the base <see cref="GridClearance"/> for the <paramref name="gridNode"/>
+		/// </summary>
+		/// <param name="tilemapColliderWithBodies"></param>
+		/// <param name="gridNode"></param>
+		/// <param name="nodeGrid"></param>
 		public void CalculateGridNodeCollision(TilemapColliderWithBody[] tilemapColliderWithBodies, IGridNode gridNode, INodeGrid<IGridNode> nodeGrid)
 		{
 			CalculateNodeCollisionCategories(gridNode.GridX, gridNode.GridY, tilemapColliderWithBodies);
@@ -242,12 +254,32 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Generators
 		}
 	}
 
+	/// <summary>
+	/// Only purpose of this class is to store the collisions that are later used to generate the <see cref="NodeConnection{TNode}"/>s
+	/// </summary>
 	public class NodeCollision
 	{
+		/// <summary>
+		/// The collision bitmask
+		/// </summary>
 		public PathfindaxCollisionCategory PathfindaxCollisionCategory;
+
+		/// <summary>
+		/// The X grid coordinate of where this connection will be going to
+		/// </summary>
 		public int X;
+
+		/// <summary>
+		/// The Y grid coordinate of where this connection will be going to
+		/// </summary>
 		public int Y;
 
+		/// <summary>
+		/// Creates a new <see cref="NodeCollision"/> instance
+		/// </summary>
+		/// <param name="pathfindaxCollisionCategory"></param>
+		/// <param name="x"></param>
+		/// <param name="y"></param>
 		public NodeCollision(PathfindaxCollisionCategory pathfindaxCollisionCategory, int x, int y)
 		{
 			PathfindaxCollisionCategory = pathfindaxCollisionCategory;
@@ -256,13 +288,35 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Generators
 		}
 	}
 
+	/// <summary>
+	/// Groups the <see cref="TilemapCollider"/> and the <see cref="RigidBody"/> it uses together for easy access.
+	/// </summary>
 	public class TilemapColliderWithBody
 	{
-		public int Width;
-		public int Height;
-		public TilemapCollider TilemapCollider;
-		public RigidBody RigidBody;
+		/// <summary>
+		/// The width of the first <see cref="Tilemap"/> in the first <see cref="TilemapCollisionSource"/> of the <see cref="TilemapCollider"/>
+		/// </summary>
+		public readonly int Width;
 
+		/// <summary>
+		/// The height of the first <see cref="Tilemap"/> in the first <see cref="TilemapCollisionSource"/> of the <see cref="TilemapCollider"/>
+		/// </summary>
+		public readonly int Height;
+
+		/// <summary>
+		/// The <see cref="TilemapCollider"/>
+		/// </summary>
+		public readonly TilemapCollider TilemapCollider;
+
+		/// <summary>
+		/// The <see cref="RigidBody"/> that is on the same <see cref="GameObject"/> as the <see cref="TilemapCollider"/>
+		/// </summary>
+		public readonly RigidBody RigidBody;
+
+		/// <summary>
+		/// Creates a new instance of the <see cref="TilemapCollider"/> and adds the <see cref="RigidBody"/> thats on the same <see cref="GameObject"/>
+		/// </summary>
+		/// <param name="tilemapCollider"></param>
 		public TilemapColliderWithBody(TilemapCollider tilemapCollider)
 		{
 			TilemapCollider = tilemapCollider;

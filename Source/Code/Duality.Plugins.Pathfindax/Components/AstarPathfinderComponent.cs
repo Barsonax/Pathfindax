@@ -15,11 +15,19 @@ namespace Duality.Plugins.Pathfindax.Components
 	[EditorHintCategory(PathfindaxStrings.Pathfindax)]
 	public class AstarPathfinderComponent : PathfinderComponentBase, ICmpRenderer
 	{
+		/// <inheritdoc />
 		public override INodeNetwork<INode> NodeNetwork { get; protected set; }
-		public INodeNetwork<Node> SourceNodeGrid { get; set; }
+		private INodeNetwork<Node> SourceNodeGrid { get; set; }
 
+		/// <summary>
+		/// Not used
+		/// </summary>
 		[EditorHintFlags(MemberFlags.Invisible)]
 		public float BoundRadius { get; }
+
+		/// <summary>
+		/// If <c>True</c> the <see cref="INodeGrid{TNode}"/> will be drawn to the scene using a <see cref="NodeGridVisualizer"/>
+		/// </summary>
 		public bool ShowNodeGrid { get; set; }
 
 		[EditorHintFlags(MemberFlags.Visible)]
@@ -37,6 +45,7 @@ namespace Duality.Plugins.Pathfindax.Components
 			if (ShowNodeGrid) NodeNetworkVisualizer?.Draw(device);
 		}
 
+		/// <inheritdoc />
 		public override void OnInit(InitContext context)
 		{
 			if (context == InitContext.Activate && DualityApp.ExecContext == DualityApp.ExecutionContext.Game)

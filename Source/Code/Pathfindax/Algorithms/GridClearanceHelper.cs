@@ -2,6 +2,9 @@
 
 namespace Pathfindax.Algorithms
 {
+	/// <summary>
+	/// Helper class for grid clearances
+	/// </summary>
 	public static class GridClearanceHelper
 	{
 		/// <summary>

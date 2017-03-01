@@ -9,6 +9,10 @@ namespace Pathfindax.Grid
 	/// </summary>
 	public class AstarNodeGrid : NodeGridBase<AstarGridNode>
 	{
+		/// <summary>
+		/// Creates a new instance of the <see cref="AstarNodeGrid"/>
+		/// </summary>
+		/// <param name="source"></param>
 		public AstarNodeGrid(INodeGrid<IGridNode> source)
 		{
 			Offset = source.Offset;

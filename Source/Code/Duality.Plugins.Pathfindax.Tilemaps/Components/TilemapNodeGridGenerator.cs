@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
+﻿using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using Duality.Components.Physics;
-using Duality.Drawing;
 using Duality.Editor;
-using Duality.Plugins.Pathfindax.Grid;
 using Duality.Plugins.Pathfindax.Tilemaps.Generators;
 using Duality.Plugins.Tilemaps;
 using Pathfindax.Grid;
@@ -24,9 +19,6 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Components
 	[EditorHintCategory(PathfindaxStrings.PathfindaxTilemap)]
 	public class TilemapNodeGridGenerator : Component, ISourceNodeNetworkProvider<INodeGrid<IGridNode>>
 	{
-		[EditorHintFlags(MemberFlags.Invisible)]
-		public float BoundRadius { get; }
-
 		/// <summary>
 		/// The maximum clearance that will be calculated. For performance reason try to keep this as small as possible and thus should be kept equal to the size of your largest agent in nodes.
 		/// </summary>
@@ -37,9 +29,12 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Components
 		/// </summary>
 		public byte[] MovementPenalties { get; set; }
 
-		private NodeGridVisualizer _nodeGridVisualizer;
 		private INodeGrid<IGridNode> _nodeGrid;
 
+		/// <summary>
+		/// Generates a fully initialized <see cref="INodeGrid{IGridNode}"/> that can be used as a source nodegrid for pathfinders.
+		/// </summary>
+		/// <returns></returns>
 		public INodeGrid<IGridNode> GenerateGrid2D()
 		{
 			if (_nodeGrid == null)
@@ -79,21 +74,8 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Components
 						gridNode.Clearances = gridNode.Clearances == null ? clearances.ToArray() : gridNode.Clearances.Concat(clearances).ToArray();
 					}
 				});
-				_nodeGridVisualizer = new NodeGridVisualizer(_nodeGrid);
 			}
 			return _nodeGrid;
-		}
-
-		public bool IsVisible(IDrawDevice device)
-		{
-			return
-(device.VisibilityMask & VisibilityFlag.AllGroups) != VisibilityFlag.None &&
-(device.VisibilityMask & VisibilityFlag.ScreenOverlay) == VisibilityFlag.None;
-		}
-
-		public void Draw(IDrawDevice device)
-		{
-			_nodeGridVisualizer?.Draw(device);
 		}
 	}
 }

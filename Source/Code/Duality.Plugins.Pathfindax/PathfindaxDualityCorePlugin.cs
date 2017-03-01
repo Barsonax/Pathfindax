@@ -12,6 +12,9 @@ namespace Duality.Plugins.Pathfindax
 	{
 		private static IPathfinderComponent[] _pathfinderComponents;
 
+		/// <summary>
+		/// Creates a new <see cref="PathfindaxDualityCorePlugin"/> and does some initialization work
+		/// </summary>
 		public PathfindaxDualityCorePlugin()
 		{
 			Scene.Leaving += Scene_Leaving;
@@ -51,6 +54,7 @@ namespace Duality.Plugins.Pathfindax
 			}
 		}
 
+		/// <inheritdoc />
 		protected override void OnBeforeUpdate()
 		{
 			base.OnBeforeUpdate();
@@ -63,6 +67,7 @@ namespace Duality.Plugins.Pathfindax
 			}
 		}
 
+		/// <inheritdoc />
 		protected override void OnDisposePlugin()
 		{
 			Scene.Leaving -= Scene_Leaving;

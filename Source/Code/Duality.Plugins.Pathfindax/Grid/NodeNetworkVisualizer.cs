@@ -4,6 +4,9 @@ using Pathfindax.Nodes;
 
 namespace Duality.Plugins.Pathfindax.Grid
 {
+	/// <summary>
+	/// Class for visualizing a <see cref="INodeNetwork{TNode}"/>
+	/// </summary>
 	public class NodeNetworkVisualizer
 	{
 		/// <summary>
@@ -14,6 +17,11 @@ namespace Duality.Plugins.Pathfindax.Grid
 		private readonly INodeNetwork<Node> _nodeNetwork;
 		private readonly float _nodeSize;
 
+		/// <summary>
+		/// Creates a new instance of the <see cref="NodeNetworkVisualizer"/>
+		/// </summary>
+		/// <param name="nodeNetwork"></param>
+		/// <param name="nodeSize"></param>
 		public NodeNetworkVisualizer(INodeNetwork<Node> nodeNetwork, float nodeSize)
 		{
 			_nodeNetwork = nodeNetwork;

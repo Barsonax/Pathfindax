@@ -6,6 +6,9 @@ using Pathfindax.Primitives;
 
 namespace Pathfindax.Grid
 {
+	/// <summary>
+	/// A node network for <see cref="AstarNode"/>s
+	/// </summary>
 	public class AstarNodeNetwork : INodeNetwork<AstarNode>
 	{
 		public int NodeCount => Nodes.Count;

@@ -17,6 +17,10 @@ namespace Duality.Plugins.Pathfindax.Grid
 		private readonly INodeGrid<IGridNode> _nodeNetwork;
 		private readonly float _nodeSize;
 
+		/// <summary>
+		/// Creates a new <see cref="NodeGridVisualizer"/> instance
+		/// </summary>
+		/// <param name="nodeNetwork"></param>
 		public NodeGridVisualizer(INodeGrid<IGridNode> nodeNetwork)
 		{
 			_nodeNetwork = nodeNetwork;

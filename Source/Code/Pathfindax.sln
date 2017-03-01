@@ -24,6 +24,11 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pathfindax.Duality.Test", "Pathfindax.Duality.Test\Pathfindax.Duality.Test.csproj", "{810F944A-9441-413B-B512-313CE77F9FED}"
 EndProject
 Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "Documentation", "Documentation\Documentation.shfbproj", "{DA511954-177F-4B53-B7B0-056F139013AF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D4DFA287-B394-4D15-97E0-D2A0675D26A6} = {D4DFA287-B394-4D15-97E0-D2A0675D26A6}
+		{AE16D0D3-A7CC-4132-BAA0-8A9B13F66E69} = {AE16D0D3-A7CC-4132-BAA0-8A9B13F66E69}
+		{AFE883F3-72B4-4C7C-A1D1-44EDC09C8F6E} = {AFE883F3-72B4-4C7C-A1D1-44EDC09C8F6E}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

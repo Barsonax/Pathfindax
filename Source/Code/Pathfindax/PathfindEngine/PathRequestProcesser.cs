@@ -7,6 +7,10 @@ using Pathfindax.Threading;
 
 namespace Pathfindax.PathfindEngine
 {
+	/// <summary>
+	/// Processes a <see cref="PathRequest"/> and returns a <see cref="CompletedPath"/>
+	/// </summary>
+	/// <typeparam name="TNodeNetwork"></typeparam>
 	public class PathRequestProcesser<TNodeNetwork> : IProcesser<CompletedPath, PathRequest>
 		where TNodeNetwork : INodeNetworkBase
 	{
