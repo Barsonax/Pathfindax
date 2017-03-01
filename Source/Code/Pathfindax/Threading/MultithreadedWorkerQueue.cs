@@ -12,8 +12,6 @@ namespace Pathfindax.Threading
 	/// <typeparam name="TOut"></typeparam>
 	/// <typeparam name="TIn"></typeparam>
 	public class MultithreadedWorkerQueue<TOut, TIn> : IDisposable
-		//where TOut : class
-		//where TIn : class
 	{
 		private readonly ConcurrentQueue<WorkItem<TOut, TIn>> _workItemsCompletedQueue = new ConcurrentQueue<WorkItem<TOut, TIn>>();
 		private readonly BlockingQueue<WorkItem<TOut, TIn>> _workItemsQueue = new BlockingQueue<WorkItem<TOut, TIn>>();

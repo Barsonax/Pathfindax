@@ -58,7 +58,7 @@ namespace Duality.Plugins.Pathfindax.Components
 					NodeNetwork = astarNodeNetwork;
 					var algorithm = new AStarAlgorithm();
 					NodeNetworkVisualizer = new NodeNetworkVisualizer(SourceNodeGrid, 5f);
-					MultithreadedPathfinder = new MultithreadedPathfinder<INodeNetwork<AstarNode>>(astarNodeNetwork, algorithm);
+					MultithreadedPathfinder = new MultithreadedPathfinder<INodeNetwork<AstarNode>>(new[] { astarNodeNetwork }, algorithm);
 					MultithreadedPathfinder.Start();
 				}
 			}

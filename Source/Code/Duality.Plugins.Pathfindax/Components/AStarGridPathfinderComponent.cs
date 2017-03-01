@@ -1,4 +1,5 @@
-﻿using Duality.Drawing;
+﻿using System.Collections.Generic;
+using Duality.Drawing;
 using Duality.Editor;
 using Duality.Plugins.Pathfindax.Grid;
 using Pathfindax.Algorithms;
@@ -58,7 +59,7 @@ namespace Duality.Plugins.Pathfindax.Components
 					NodeNetwork = nodeGrid;
 					var algorithm = new AStarGridAlgorithm();
 					NodeGridVisualizer = new NodeGridVisualizer(SourceNodeGrid);
-					MultithreadedPathfinder = new MultithreadedPathfinder<INodeGrid<AstarGridNode>>(nodeGrid, algorithm);
+					MultithreadedPathfinder = new MultithreadedPathfinder<INodeGrid<AstarGridNode>>(new[] { nodeGrid }, algorithm);
 					MultithreadedPathfinder.Start();
 				}
 			}
