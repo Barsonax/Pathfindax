@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Duality.Components.Physics;
 using Duality.Plugins.Tilemaps;
 using Pathfindax.Grid;
@@ -217,7 +218,7 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Generators
 			if (x >= 0 && y >= 0 && x < collisionSources.Width && y < collisionSources.Height)
 			{
 				var tileCollisionShape = TileCollisionShape.Free;
-				foreach (var tilemapCollisionSource in collisionSources.TilemapCollider.CollisionSource)
+				foreach (var tilemapCollisionSource in collisionSources.TilemapCollisionSources)
 				{
 					var tileInfos = tilemapCollisionSource.SourceTilemap.Tileset.Res.TileData;
 					var tileGrid = tilemapCollisionSource.SourceTilemap.Tiles;
@@ -314,6 +315,11 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Generators
 		public readonly RigidBody RigidBody;
 
 		/// <summary>
+		/// Storing the collision sources of the <see cref="TilemapCollider"/> in a array allows for much quicker access than leaving them in the <see cref="IReadOnlyList{T}"/>
+		/// </summary>
+		public readonly TilemapCollisionSource[] TilemapCollisionSources;
+
+		/// <summary>
 		/// Creates a new instance of the <see cref="TilemapCollider"/> and adds the <see cref="RigidBody"/> thats on the same <see cref="GameObject"/>
 		/// </summary>
 		/// <param name="tilemapCollider"></param>
@@ -323,6 +329,7 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Generators
 			RigidBody = tilemapCollider.GameObj.GetComponent<RigidBody>();
 			Width = tilemapCollider.CollisionSource[0].SourceTilemap.Tiles.Width;
 			Height = tilemapCollider.CollisionSource[0].SourceTilemap.Tiles.Height;
+			TilemapCollisionSources = tilemapCollider.CollisionSource.ToArray();
 		}
 	}
 }

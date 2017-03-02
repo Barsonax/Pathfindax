@@ -63,20 +63,20 @@ namespace Pathfindax.Grid
 			var hashset = new HashSet<PathfindaxCollisionCategory>();
 			for (var i = 0; i < maxClearance; i++)
 			{
-				var nodes = new List<IGridNode>(1 + i * 2); //Since we know the amount of nodes that will be in this list we can specify the size beforehand for some extra performance.
+				var nodes = new List<NodeConnection<IGridNode>>(1 + i * 16); //Since we know the amount of connections that will likely be in this list we can specify the size beforehand for some extra performance.
 				foreach (var gridNode in GetNodesInArea(nodeGrid, from.GridX, from.GridY + i, i + 1, 1))
 				{
-					nodes.Add(gridNode);
+					nodes.AddRange(gridNode.Connections);
 				}
 
 				foreach (var gridNode in GetNodesInArea(nodeGrid, from.GridX + i, from.GridY, 1, i))
 				{
-					nodes.Add(gridNode);
+					nodes.AddRange(gridNode.Connections);
 				}
 				var maxGridX = from.GridX + i + 1;
 				var maxGridY = from.GridY + i + 1;
 				var collisionCategory = PathfindaxCollisionCategory.None;
-				foreach (var connection in nodes.SelectMany(x => x.Connections))
+				foreach (var connection in nodes)
 				{
 					if (connection.To.GridX >= from.GridX && connection.To.GridY >= from.GridY && connection.To.GridX <= maxGridX && connection.To.GridY <= maxGridY)
 					{

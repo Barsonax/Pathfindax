@@ -46,8 +46,7 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Components
 				_nodeGrid = sourceNodeGridFactory.GeneratePreFilledArray(baseTilemap.Size.X, baseTilemap.Size.Y, new PositionF(baseTilemap.Tileset.Res.TileSize.X, baseTilemap.Tileset.Res.TileSize.Y), GenerateNodeGridConnections.None, new PositionF(offset.X, offset.Y));
 				var tilemapColliderWithBodies = GameObj.GetComponentsInChildren<TilemapCollider>().Select(x => new TilemapColliderWithBody(x)).ToArray();
 				var partioner = Partitioner.Create(0, _nodeGrid.NodeCount);
-				var watch = new Stopwatch();
-				watch.Start();
+
 				Parallel.ForEach(partioner, range =>
 				{
 					var connectionGenerator = new TilemapNodeConnectionGenerator();
@@ -56,9 +55,9 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Components
 						connectionGenerator.CalculateGridNodeCollision(tilemapColliderWithBodies, _nodeGrid.NodeArray[i], _nodeGrid);
 					}
 				});
-				watch.Stop();
-				Debug.WriteLine(watch.ElapsedMilliseconds);
 
+				var watch = new Stopwatch();
+				watch.Start();
 				Parallel.ForEach(_nodeGrid, gridNode =>
 				{
 					if (MovementPenalties != null)
@@ -74,6 +73,8 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Components
 						gridNode.Clearances = gridNode.Clearances == null ? clearances.ToArray() : gridNode.Clearances.Concat(clearances).ToArray();
 					}
 				});
+				watch.Stop();
+				Debug.WriteLine(watch.ElapsedMilliseconds);
 			}
 			return _nodeGrid;
 		}
