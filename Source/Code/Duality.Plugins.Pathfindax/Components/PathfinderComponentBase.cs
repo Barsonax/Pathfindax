@@ -1,5 +1,4 @@
 ﻿using Pathfindax.Grid;
-using Pathfindax.Nodes;
 using Pathfindax.PathfindEngine;
 
 namespace Duality.Plugins.Pathfindax.Components
@@ -7,7 +6,8 @@ namespace Duality.Plugins.Pathfindax.Components
 	/// <summary>
 	/// Base class for duality pathfinders
 	/// </summary>
-	public abstract class PathfinderComponentBase : Component, IPathfinderComponent, ICmpInitializable
+	public abstract class PathfinderComponentBase<TSourceNodeNetwork> : Component, IPathfinderComponent<TSourceNodeNetwork>, ICmpInitializable
+		where TSourceNodeNetwork : ISourceNodeNetwork
 	{
 		/// <summary>
 		/// The <see cref="IMultithreadedPathfinder"/> that will be doing the pathfinding on separate threads
@@ -18,7 +18,7 @@ namespace Duality.Plugins.Pathfindax.Components
 		public string PathfinderId { get; set; }
 
 		/// <inheritdoc />
-		public abstract INodeNetwork<INode> NodeNetwork { get; protected set; }
+		public abstract TSourceNodeNetwork SourceNodeNetwork { get; protected set; }
 
 		/// <summary>
 		/// Called when initializing the pathfinder

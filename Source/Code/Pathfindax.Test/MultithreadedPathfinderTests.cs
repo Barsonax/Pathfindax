@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
@@ -16,11 +15,11 @@ namespace Pathfindax.Test
 	[TestFixture]
 	public class MultithreadedPathfinderTests
 	{
-		private MultithreadedPathfinder<INodeGrid<AstarGridNode>> SetupMultithreadedPathfinder(int threads)
+		private MultithreadedPathfinder<ISourceNodeGrid<AstarGridNode>> SetupMultithreadedPathfinder(int threads)
 		{
-			var algorithm = Substitute.For<IPathFindAlgorithm<INodeGrid<AstarGridNode>>>();
-			var nodeGrid = Substitute.For<INodeGrid<AstarGridNode>>();
-			return new MultithreadedPathfinder<INodeGrid<AstarGridNode>>(new[] {  nodeGrid }, algorithm);
+			var algorithm = Substitute.For<IPathFindAlgorithm<ISourceNodeGrid<AstarGridNode>>>();
+			var nodeGrid = Substitute.For<ISourceNodeGrid<AstarGridNode>>();
+			return new MultithreadedPathfinder<ISourceNodeGrid<AstarGridNode>>(new[] {  nodeGrid }, algorithm);
 		}
 
 		[Test]

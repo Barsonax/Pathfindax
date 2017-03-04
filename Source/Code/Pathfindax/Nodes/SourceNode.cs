@@ -3,10 +3,10 @@ using Pathfindax.Primitives;
 
 namespace Pathfindax.Nodes
 {
-	public class Node : INode
+	public class SourceNode : ISourceNode
 	{
 		public PositionF WorldPosition { get; }
-		public List<NodeConnection<Node>> Connections { get; private set; }
+		public List<NodeConnection<SourceNode>> Connections { get; private set; }
 
 		/// <summary>
 		/// The movement penalty for this node. This can be used to make the pathfinder try to avoid certain nodes.
@@ -15,10 +15,13 @@ namespace Pathfindax.Nodes
 
 		public PathfindaxCollisionCategory CollisionCategory { get; set; }
 
-		public Node(PositionF worldPosition)
+		public int ArrayIndex { get; }
+
+		public SourceNode(PositionF worldPosition, int arrayIndex)
 		{
 			WorldPosition = worldPosition;
-			Connections = new List<NodeConnection<Node>>();
+			Connections = new List<NodeConnection<SourceNode>>();
+			ArrayIndex = arrayIndex;
 		}
 
 		public override string ToString()

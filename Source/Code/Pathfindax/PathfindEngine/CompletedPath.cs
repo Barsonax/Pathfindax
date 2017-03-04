@@ -7,7 +7,7 @@ namespace Pathfindax.PathfindEngine
 		/// <summary>
 		/// The request that was made.
 		/// </summary>
-		public PathRequest PathRequest;
+		public readonly PathRequest PathRequest;
 
 		/// <summary>
 		/// The path.

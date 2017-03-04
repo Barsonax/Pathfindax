@@ -11,7 +11,7 @@ namespace Pathfindax.PathfindEngine
 	/// </summary>
 	/// <typeparam name="TNodeNetwork"></typeparam>
 	public class MultithreadedPathfinder<TNodeNetwork> : IMultithreadedPathfinder, IDisposable
-		where TNodeNetwork : INodeNetworkBase
+		where TNodeNetwork : INodeNetwork
 	{
 		private readonly MultithreadedWorkerQueue<CompletedPath, PathRequest> _multithreadedWorkerQueue;
 

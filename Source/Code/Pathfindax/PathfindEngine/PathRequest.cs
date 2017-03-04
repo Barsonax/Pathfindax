@@ -6,17 +6,17 @@ namespace Pathfindax.PathfindEngine
 	/// <summary>
 	/// A class with all the information needed to calculate a path from A to B.
 	/// </summary>
-	public class PathRequest
+	public class PathRequest 
 	{
 		/// <summary>
-		/// The world position of the start of the path
+		/// The node start node.
 		/// </summary>
-		public INode PathStart;
+		public readonly ISourceNode PathStart;
 
 		/// <summary>
-		/// The world position of the end of the path
+		/// The end node.
 		/// </summary>
-		public INode PathEnd;
+		public readonly ISourceNode PathEnd;
 
 		/// <summary>
 		/// The size of the agent. 1 is the default value meaning that the agent occupies only 1 node.
@@ -41,7 +41,7 @@ namespace Pathfindax.PathfindEngine
 		/// <param name="end">The worldcoordinates of the end of the path</param>
 		/// <param name="agentSize">The size of the agent in nodes</param>
 		/// <param name="collisionLayer">The collision layers that this agent cannot cross</param>
-		public PathRequest(Action<CompletedPath> callback, INode start, INode end, byte agentSize = 1, PathfindaxCollisionCategory collisionLayer = PathfindaxCollisionCategory.None)
+		public PathRequest(Action<CompletedPath> callback, ISourceNode start, ISourceNode end, byte agentSize = 1, PathfindaxCollisionCategory collisionLayer = PathfindaxCollisionCategory.None)
 		{
 			PathStart = start;
 			PathEnd = end;

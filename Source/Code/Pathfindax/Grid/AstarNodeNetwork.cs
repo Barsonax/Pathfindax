@@ -12,12 +12,13 @@ namespace Pathfindax.Grid
 	public class AstarNodeNetwork : INodeNetwork<AstarNode>
 	{
 		public int NodeCount => Nodes.Count;
+		public AstarNode this[int index] => Nodes[index];
 		private List<AstarNode> Nodes { get;  }
 
-		public AstarNodeNetwork(IEnumerable<Node> sourceNodeNetwork)
+		public AstarNodeNetwork(IEnumerable<SourceNode> sourceNodeNetwork)
 		{
 			Nodes = new List<AstarNode>();
-			var sourceNodeDictionary = new Dictionary<Node, AstarNode>(); //Later used to generate the connections
+			var sourceNodeDictionary = new Dictionary<SourceNode, AstarNode>(); //Later used to generate the connections
 			foreach (var node in sourceNodeNetwork)
 			{
 				var astarNode = new AstarNode(node);
@@ -27,15 +28,15 @@ namespace Pathfindax.Grid
 
 			foreach (var astarNode in Nodes)
 			{
-				if (astarNode.SourceNode.Connections == null)
+				if (astarNode.SourceSourceNode.Connections == null)
 				{
 					astarNode.Connections = new NodeConnection<AstarNode>[0];
 					continue;
 				}
-				astarNode.Connections = new NodeConnection<AstarNode>[astarNode.SourceNode.Connections.Count];
-				for (int index = 0; index < astarNode.SourceNode.Connections.Count; index++)
+				astarNode.Connections = new NodeConnection<AstarNode>[astarNode.SourceSourceNode.Connections.Count];
+				for (int index = 0; index < astarNode.SourceSourceNode.Connections.Count; index++)
 				{
-					var sourceNodeConnection = astarNode.SourceNode.Connections[index];
+					var sourceNodeConnection = astarNode.SourceSourceNode.Connections[index];
 					astarNode.Connections[index] = new NodeConnection<AstarNode>(sourceNodeDictionary[sourceNodeConnection.To], sourceNodeConnection.CollisionCategory);
 				}
 			}	

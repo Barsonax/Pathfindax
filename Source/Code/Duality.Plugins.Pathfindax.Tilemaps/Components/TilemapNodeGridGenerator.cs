@@ -13,11 +13,11 @@ using Pathfindax.Utils;
 namespace Duality.Plugins.Pathfindax.Tilemaps.Components
 {
 	/// <summary>
-	/// Generates a <see cref="INodeGrid{TNode}"/> from <see cref="Tilemap"/>'s.
+	/// Generates a <see cref="ISourceNodeGrid{TNode}"/> from <see cref="Tilemap"/>'s.
 	/// The <see cref="Tilemap"/>'s must be children of the gameobject this component is attached to.
 	/// </summary>
 	[EditorHintCategory(PathfindaxStrings.PathfindaxTilemap)]
-	public class TilemapNodeGridGenerator : Component, ISourceNodeNetworkProvider<INodeGrid<IGridNode>>
+	public class TilemapNodeGridGenerator : Component, ISourceNodeNetworkProvider<ISourceNodeGrid<ISourceGridNode>>
 	{
 		/// <summary>
 		/// The maximum clearance that will be calculated. For performance reason try to keep this as small as possible and thus should be kept equal to the size of your largest agent in nodes.
@@ -29,36 +29,36 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Components
 		/// </summary>
 		public byte[] MovementPenalties { get; set; }
 
-		private INodeGrid<IGridNode> _nodeGrid;
+		private ISourceNodeGrid<ISourceGridNode> _sourceNodeGrid;
 
 		/// <summary>
-		/// Generates a fully initialized <see cref="INodeGrid{IGridNode}"/> that can be used as a source nodegrid for pathfinders.
+		/// Generates a fully initialized <see cref="ISourceNodeGrid{TNode}"/> that can be used as a source nodegrid for pathfinders.
 		/// </summary>
 		/// <returns></returns>
-		public INodeGrid<IGridNode> GenerateGrid2D()
+		public ISourceNodeGrid<ISourceGridNode> GenerateGrid2D()
 		{
-			if (_nodeGrid == null)
+			if (_sourceNodeGrid == null)
 			{
 				var tilemaps = GameObj.GetComponentsInChildren<Tilemap>().ToArray();
 				var baseTilemap = tilemaps.FirstOrDefault();
 				var offset = -new Vector2((baseTilemap.Size.X * baseTilemap.Tileset.Res.TileSize.X) - baseTilemap.Tileset.Res.TileSize.X, (baseTilemap.Size.Y * baseTilemap.Tileset.Res.TileSize.Y) - baseTilemap.Tileset.Res.TileSize.Y) / 2;
 				var sourceNodeGridFactory = new SourceNodeGridFactory();
-				_nodeGrid = sourceNodeGridFactory.GeneratePreFilledArray(baseTilemap.Size.X, baseTilemap.Size.Y, new PositionF(baseTilemap.Tileset.Res.TileSize.X, baseTilemap.Tileset.Res.TileSize.Y), GenerateNodeGridConnections.None, new PositionF(offset.X, offset.Y));
+				_sourceNodeGrid = sourceNodeGridFactory.GeneratePreFilledArray(baseTilemap.Size.X, baseTilemap.Size.Y, new PositionF(baseTilemap.Tileset.Res.TileSize.X, baseTilemap.Tileset.Res.TileSize.Y), GenerateNodeGridConnections.None, new PositionF(offset.X, offset.Y));
 				var tilemapColliderWithBodies = GameObj.GetComponentsInChildren<TilemapCollider>().Select(x => new TilemapColliderWithBody(x)).ToArray();
-				var partioner = Partitioner.Create(0, _nodeGrid.NodeCount);
+				var partioner = Partitioner.Create(0, _sourceNodeGrid.NodeCount);
 
 				Parallel.ForEach(partioner, range =>
 				{
 					var connectionGenerator = new TilemapNodeConnectionGenerator();
 					for (int i = range.Item1; i < range.Item2; i++)
 					{
-						connectionGenerator.CalculateGridNodeCollision(tilemapColliderWithBodies, _nodeGrid.NodeArray[i], _nodeGrid);
+						connectionGenerator.CalculateGridNodeCollision(tilemapColliderWithBodies, _sourceNodeGrid.NodeArray[i], _sourceNodeGrid);
 					}
 				});
 
 				var watch = new Stopwatch();
 				watch.Start();
-				Parallel.ForEach(_nodeGrid, gridNode =>
+				Parallel.ForEach(_sourceNodeGrid, gridNode =>
 				{
 					if (MovementPenalties != null)
 					{
@@ -67,7 +67,7 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Components
 							gridNode.MovementPenalty = MovementPenalties[index];
 					}
 
-					var clearances = sourceNodeGridFactory.CalculateGridNodeClearances(_nodeGrid, gridNode, MaxCalculatedClearance);
+					var clearances = sourceNodeGridFactory.CalculateGridNodeClearances(_sourceNodeGrid, gridNode, MaxCalculatedClearance);
 					if (clearances.Count > 0)
 					{
 						gridNode.Clearances = gridNode.Clearances == null ? clearances.ToArray() : gridNode.Clearances.Concat(clearances).ToArray();
@@ -76,7 +76,7 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Components
 				watch.Stop();
 				Debug.WriteLine(watch.ElapsedMilliseconds);
 			}
-			return _nodeGrid;
+			return _sourceNodeGrid;
 		}
 	}
 }

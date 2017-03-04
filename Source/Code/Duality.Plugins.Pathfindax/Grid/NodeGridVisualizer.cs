@@ -5,7 +5,7 @@ using Pathfindax.Nodes;
 namespace Duality.Plugins.Pathfindax.Grid
 {
 	/// <summary>
-	/// Class for visualizing a <see cref="INodeGrid{TNode}"/>
+	/// Class for visualizing a <see cref="ISourceNodeGrid{TNode}"/>
 	/// </summary>
 	public class NodeGridVisualizer
 	{
@@ -14,30 +14,30 @@ namespace Duality.Plugins.Pathfindax.Grid
 		/// </summary>
 		public PathfindaxCollisionCategory CollisionCategory { get; set; }
 
-		private readonly INodeGrid<IGridNode> _nodeNetwork;
+		private readonly ISourceNodeGrid<ISourceGridNode> _sourceNodeNetwork;
 		private readonly float _nodeSize;
 
 		/// <summary>
 		/// Creates a new <see cref="NodeGridVisualizer"/> instance
 		/// </summary>
-		/// <param name="nodeNetwork"></param>
-		public NodeGridVisualizer(INodeGrid<IGridNode> nodeNetwork)
+		/// <param name="sourceNodeNetwork"></param>
+		public NodeGridVisualizer(ISourceNodeGrid<ISourceGridNode> sourceNodeNetwork)
 		{
-			_nodeNetwork = nodeNetwork;
-			_nodeSize = nodeNetwork.NodeSize.X * 0.3f;
+			_sourceNodeNetwork = sourceNodeNetwork;
+			_nodeSize = sourceNodeNetwork.NodeSize.X * 0.3f;
 			CollisionCategory = PathfindaxCollisionCategory.Cat1;
 		}
 
 		/// <summary>
-		/// This will draw the <see cref="IGridNode"/> and their connections to other <see cref="IGridNode"/> in the <see cref="INodeGrid{TNode}"/>
+		/// This will draw the <see cref="ISourceGridNode"/> and their connections to other <see cref="ISourceGridNode"/> in the <see cref="ISourceNodeGrid{TNode}"/>
 		/// </summary>
 		public void Draw(IDrawDevice device)
 		{
-			if (_nodeNetwork != null)
+			if (_sourceNodeNetwork != null)
 			{
 				var canvas = new Canvas(device, new CanvasBuffer());
 				canvas.State.ZOffset = -8;
-				foreach (var node in _nodeNetwork)
+				foreach (var node in _sourceNodeNetwork)
 				{
 					canvas.State.ColorTint = ColorRgba.LightGrey;
 					var nodePosition = node.WorldPosition;

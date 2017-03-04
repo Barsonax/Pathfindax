@@ -8,16 +8,17 @@ using Pathfindax.Utils;
 
 namespace Pathfindax.Grid
 {
-	public abstract class NodeGridBase<TNode> : INodeGrid<TNode>
+	public abstract class SourceNodeGridBase<TNode> : ISourceNodeGrid<TNode>
 		where TNode : IGridNodeBase
 	{
+		public TNode this[int index] => NodeArray[index];
 		public Array2D<TNode> NodeArray { get; protected set; }
 		public PositionF WorldSize { get; protected set; }
 		public PositionF NodeSize { get; protected set; }
 		public int NodeCount => NodeArray.Length;
 		public PositionF Offset { get; protected set; }
 
-		protected NodeGridBase(Array2D<TNode> grid, PositionF nodeSize, PositionF offset)
+		protected SourceNodeGridBase(Array2D<TNode> grid, PositionF nodeSize, PositionF offset)
 		{
 			NodeArray = grid;
 			WorldSize = new PositionF(NodeArray.Width * nodeSize.X - nodeSize.X, NodeArray.Height * nodeSize.Y - nodeSize.Y);
@@ -25,7 +26,7 @@ namespace Pathfindax.Grid
 			Offset = offset;
 		}
 
-		protected NodeGridBase() { }
+		protected SourceNodeGridBase() { }
 
 		public IEnumerator<TNode> GetEnumerator()
 		{
@@ -52,5 +53,5 @@ namespace Pathfindax.Grid
 
 			return NodeArray[x, y];
 		}
-	}
+		}
 }

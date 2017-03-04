@@ -60,40 +60,40 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Generators
 		}
 
 		/// <summary>
-		/// Calculates the <see cref="NodeConnection{TNode}"/>s and the base <see cref="GridClearance"/> for the <paramref name="gridNode"/>
+		/// Calculates the <see cref="NodeConnection{TNode}"/>s and the base <see cref="GridClearance"/> for the <paramref name="sourceGridNode"/>
 		/// </summary>
 		/// <param name="tilemapColliderWithBodies"></param>
-		/// <param name="gridNode"></param>
-		/// <param name="nodeGrid"></param>
-		public void CalculateGridNodeCollision(TilemapColliderWithBody[] tilemapColliderWithBodies, IGridNode gridNode, INodeGrid<IGridNode> nodeGrid)
+		/// <param name="sourceGridNode"></param>
+		/// <param name="sourceNodeGrid"></param>
+		public void CalculateGridNodeCollision(TilemapColliderWithBody[] tilemapColliderWithBodies, ISourceGridNode sourceGridNode, ISourceNodeGrid<ISourceGridNode> sourceNodeGrid)
 		{
-			CalculateNodeCollisionCategories(gridNode.GridX, gridNode.GridY, tilemapColliderWithBodies);
+			CalculateNodeCollisionCategories(sourceGridNode.GridX, sourceGridNode.GridY, tilemapColliderWithBodies);
 			var selfCollisionCategory = _nodeCollisions[0];
 			if (selfCollisionCategory.PathfindaxCollisionCategory != PathfindaxCollisionCategory.None)
-				gridNode.Clearances = new[] { new GridClearance(selfCollisionCategory.PathfindaxCollisionCategory, 0) }; //This node is blocked so it has a clearance of 0.
+				sourceGridNode.Clearances = new[] { new GridClearance(selfCollisionCategory.PathfindaxCollisionCategory, 0) }; //This node is blocked so it has a clearance of 0.
 
-			if (gridNode.GridX == 0 || gridNode.GridY == 0 || gridNode.GridX == nodeGrid.NodeArray.Width - 1 || gridNode.GridY == nodeGrid.NodeArray.Height - 1)
+			if (sourceGridNode.GridX == 0 || sourceGridNode.GridY == 0 || sourceGridNode.GridX == sourceNodeGrid.NodeArray.Width - 1 || sourceGridNode.GridY == sourceNodeGrid.NodeArray.Height - 1)
 			{
-				var connections = new List<NodeConnection<IGridNode>>(5);
+				var connections = new List<NodeConnection<ISourceGridNode>>(5);
 				for (int index = 1; index < _nodeCollisions.Length; index++)
 				{
 					var collisionCategory = _nodeCollisions[index];
-					if (collisionCategory.X >= 0 && collisionCategory.Y >= 0 && collisionCategory.X < nodeGrid.NodeArray.Width && collisionCategory.Y < nodeGrid.NodeArray.Height)
+					if (collisionCategory.X >= 0 && collisionCategory.Y >= 0 && collisionCategory.X < sourceNodeGrid.NodeArray.Width && collisionCategory.Y < sourceNodeGrid.NodeArray.Height)
 					{
 						//TODO provide option to exclude diagonal neighbours.
-						connections.Add(new NodeConnection<IGridNode>(nodeGrid.NodeArray[collisionCategory.X, collisionCategory.Y], collisionCategory.PathfindaxCollisionCategory));
+						connections.Add(new NodeConnection<ISourceGridNode>(sourceNodeGrid.NodeArray[collisionCategory.X, collisionCategory.Y], collisionCategory.PathfindaxCollisionCategory));
 					}
 				}
-				gridNode.Connections = connections.ToArray();
+				sourceGridNode.Connections = connections.ToArray();
 			}
 			else
 			{
-				gridNode.Connections = new NodeConnection<IGridNode>[8];
+				sourceGridNode.Connections = new NodeConnection<ISourceGridNode>[8];
 				for (int index = 1; index < _nodeCollisions.Length; index++)
 				{
 					var collisionCategory = _nodeCollisions[index];
 					//TODO provide option to exclude diagonal neighbours.
-					gridNode.Connections[index - 1] = new NodeConnection<IGridNode>(nodeGrid.NodeArray[collisionCategory.X, collisionCategory.Y], collisionCategory.PathfindaxCollisionCategory);
+					sourceGridNode.Connections[index - 1] = new NodeConnection<ISourceGridNode>(sourceNodeGrid.NodeArray[collisionCategory.X, collisionCategory.Y], collisionCategory.PathfindaxCollisionCategory);
 				}
 			}
 		}

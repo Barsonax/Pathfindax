@@ -1,11 +1,11 @@
 ﻿namespace Pathfindax.Grid
 {
 	/// <summary>
-	/// Interface for classes that can provide a source <typeparamref name="TNodeNetwork"></typeparamref> to be used for generating the actual <typeparamref name="TNodeNetwork"></typeparamref> for pathfinding
+	/// Interface for classes that can provide <typeparamref name="TNodeNetwork"/> which will be used as base information for other nodenetworks when for pathfinding
 	/// </summary>
 	/// <typeparam name="TNodeNetwork"></typeparam>
 	public interface ISourceNodeNetworkProvider<out TNodeNetwork> 
-		where TNodeNetwork : INodeNetworkBase
+		where TNodeNetwork : INodeNetwork
 	{
 		/// <summary>
 		/// Generates the <typeparamref name="TNodeNetwork"></typeparamref>

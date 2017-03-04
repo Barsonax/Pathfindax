@@ -18,7 +18,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 		private Transform _transform;
 		private Vector2[] _path;
 		private int _pathIndex;
-		private PathfinderProxy _pathfinderProxy;
+		private PathfinderProxy<ISourceNodeGrid<ISourceGridNode>> _gridPathfinderProxy;
 		public Camera Camera { get; set; }
 
 		private int counter;
@@ -41,7 +41,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 						_path = null;
 						return;
 					}
-					var astarGrid = _pathfinderProxy.PathfinderComponent.NodeNetwork as AstarNodeGrid;
+					var astarGrid = _gridPathfinderProxy.PathfinderComponent.SourceNodeNetwork;
 					if (astarGrid != null)
 					{
 						var offset = GridClearanceHelper.GridNodeOffset(AgentSize, astarGrid.NodeSize.X);
@@ -62,7 +62,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 			{
 				_transform = GameObj.GetComponent<Transform>();
 				DualityApp.Mouse.ButtonDown += Mouse_ButtonDown;
-				_pathfinderProxy = new PathfinderProxy();
+				_gridPathfinderProxy = new PathfinderProxy<ISourceNodeGrid<ISourceGridNode>>();
 			}
 		}
 
@@ -71,17 +71,17 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 			var targetPos = Camera.GetSpaceCoord(e.Position);
 			var start = new PositionF(_transform.Pos.X, _transform.Pos.Y);
 			var end = new PositionF(targetPos.X, targetPos.Y);
-			var astarGrid = _pathfinderProxy.PathfinderComponent.NodeNetwork as AstarNodeGrid;
+			var astarGrid = _gridPathfinderProxy.PathfinderComponent.SourceNodeNetwork;
 			if (astarGrid != null)
 			{
 				var offset = -GridClearanceHelper.GridNodeOffset(AgentSize, astarGrid.NodeSize.X);
 				start = new PositionF(start.X + offset, start.Y + offset);
 				end = new PositionF(end.X + offset, end.Y + offset);
 			}
-			var startNode = _pathfinderProxy.PathfinderComponent.NodeNetwork.GetNode(start);
-			var endNode = _pathfinderProxy.PathfinderComponent.NodeNetwork.GetNode(end);
+			var startNode = _gridPathfinderProxy.PathfinderComponent.SourceNodeNetwork.GetNode(start);
+			var endNode = _gridPathfinderProxy.PathfinderComponent.SourceNodeNetwork.GetNode(end);
 			var request = new PathRequest(OnRequestCompleted, startNode, endNode, AgentSize, CollisionCategory);
-			_pathfinderProxy.RequestPath(request);
+			_gridPathfinderProxy.RequestPath(request);
 		}
 
 		private void OnRequestCompleted(CompletedPath completedPath)

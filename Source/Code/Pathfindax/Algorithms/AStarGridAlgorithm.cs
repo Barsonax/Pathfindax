@@ -11,17 +11,17 @@ namespace Pathfindax.Algorithms
 	/// <summary>
 	/// Class that implements the A* algorithm for grids to find paths
 	/// </summary>
-	public class AStarGridAlgorithm : IPathFindAlgorithm<INodeGrid<AstarGridNode>>
+	public class AStarGridAlgorithm : IPathFindAlgorithm<ISourceNodeGrid<AstarGridNode>>
 	{
 		/// <inheritdoc />
-		public IList<INode> FindPath(INodeGrid<AstarGridNode> nodeGrid, PathRequest pathRequest)
+		public IList<INode> FindPath(ISourceNodeGrid<AstarGridNode> nodeGrid, PathRequest pathRequest)
 		{
-			var startNode = pathRequest.PathStart as AstarGridNode;
-			var endNode = pathRequest.PathEnd as AstarGridNode;
+			var startNode = nodeGrid[pathRequest.PathStart.ArrayIndex];
+			var endNode = nodeGrid[pathRequest.PathEnd.ArrayIndex];
 			return FindPath(nodeGrid, startNode, endNode, pathRequest.CollsionLayer, pathRequest.AgentSize);
 		}
 
-		private IList<INode> FindPath(INodeGrid<AstarGridNode> nodeGrid, AstarGridNode startGridNode, AstarGridNode targetGridNode, PathfindaxCollisionCategory collisionCategory, byte neededClearance)
+		private IList<INode> FindPath(ISourceNodeGrid<AstarGridNode> sourceNodeGrid, AstarGridNode startGridNode, AstarGridNode targetGridNode, PathfindaxCollisionCategory collisionCategory, byte neededClearance)
 		{
 			try
 			{
@@ -35,7 +35,7 @@ namespace Pathfindax.Algorithms
 				}
 				if (startGridNode.GetTrueClearance(collisionCategory) >= neededClearance && targetGridNode.GetTrueClearance(collisionCategory) >= neededClearance)
 				{
-					var openSet = new MinHeap<AstarGridNode>(nodeGrid.NodeArray.Length);
+					var openSet = new MinHeap<AstarGridNode>(sourceNodeGrid.NodeArray.Length);
 					var closedSet = new HashSet<AstarGridNode>();
 					var itterations = 0;
 					var neighbourUpdates = 0;

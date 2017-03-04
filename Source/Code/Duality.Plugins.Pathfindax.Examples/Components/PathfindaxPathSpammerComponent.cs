@@ -16,7 +16,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 	/// Use the <see cref="TopLeftCorner"/> and <see cref="BottomRightCorner"/> properties to control where it will spam the path requests.
 	/// </summary>
 	[EditorHintCategory(PathfindaxStrings.PathfindaxTest)]
-	public class PathfindaxPathSpammerComponent : Component, ICmpUpdatable, ICmpRenderer
+	public class PathfindaxPathSpammerComponent : Component, ICmpUpdatable, ICmpRenderer, ICmpInitializable
 	{
 		public byte AgentSize { get; set; }
 		public PathfindaxCollisionCategory CollisionCategory { get; set; }
@@ -30,8 +30,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 		[EditorHintFlags(MemberFlags.Invisible)]
 		public float BoundRadius { get; }
 
-		[EditorHintFlags(MemberFlags.Visible)]
-		private PathfinderProxy PathfinderProxy { get; set; }
+		private PathfinderProxy<ISourceNodeGrid<ISourceGridNode>> _gridPathfinderProxy;
 
 		private readonly Random _randomGenerator = new Random();
 		private int _frameCounter;
@@ -41,17 +40,17 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 			{
 				var start = new PositionF(_randomGenerator.Next(TopLeftCorner.X, BottomRightCorner.X), _randomGenerator.Next(TopLeftCorner.Y, BottomRightCorner.Y));
 				var end = new PositionF(_randomGenerator.Next(TopLeftCorner.X, BottomRightCorner.X), _randomGenerator.Next(TopLeftCorner.Y, BottomRightCorner.Y));
-				var astarGrid = PathfinderProxy.PathfinderComponent.NodeNetwork as AstarNodeGrid;
-				if (astarGrid != null)
+				var nodeGrid = _gridPathfinderProxy.PathfinderComponent.SourceNodeNetwork;
+				if (nodeGrid != null)
 				{
-					var offset = -GridClearanceHelper.GridNodeOffset(AgentSize, astarGrid.NodeSize.X);
+					var offset = -GridClearanceHelper.GridNodeOffset(AgentSize, nodeGrid.NodeSize.X);
 					start = new PositionF(start.X + offset, start.Y + offset);
 					end = new PositionF(end.X + offset, end.Y + offset);
 				}
-				var startNode = PathfinderProxy.PathfinderComponent.NodeNetwork.GetNode(start);
-				var endNode = PathfinderProxy.PathfinderComponent.NodeNetwork.GetNode(end);
+				var startNode = _gridPathfinderProxy.PathfinderComponent.SourceNodeNetwork.GetNode(start);
+				var endNode = _gridPathfinderProxy.PathfinderComponent.SourceNodeNetwork.GetNode(end);
 				var request = new PathRequest(PathSolved, startNode, endNode, AgentSize, CollisionCategory);
-				PathfinderProxy.RequestPath(request);
+				_gridPathfinderProxy.RequestPath(request);
 				_frameCounter = 0;
 			}
 			_frameCounter++;
@@ -74,10 +73,10 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 			if (Path != null)
 			{
 				var agentSizeCompensation = new Vector2(0, 0);
-				var astarGrid = PathfinderProxy.PathfinderComponent.NodeNetwork as AstarNodeGrid;
-				if (astarGrid != null)
+				var nodeGrid = _gridPathfinderProxy.PathfinderComponent.SourceNodeNetwork;
+				if (nodeGrid != null)
 				{
-					var offset = GridClearanceHelper.GridNodeOffset(AgentSize, astarGrid.NodeSize.X);
+					var offset = GridClearanceHelper.GridNodeOffset(AgentSize, nodeGrid.NodeSize.X);
 					agentSizeCompensation = new Vector2(offset, offset);
 				}
 				var canvas = new Canvas(device);
@@ -101,5 +100,15 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 				}
 			}
 		}
+
+		public void OnInit(InitContext context)
+		{
+			if (context == InitContext.Activate && DualityApp.ExecContext == DualityApp.ExecutionContext.Game)
+			{
+				_gridPathfinderProxy = new PathfinderProxy<ISourceNodeGrid<ISourceGridNode>>();
+			}
+		}
+
+		public void OnShutdown(ShutdownContext context) { }
 	}
 }

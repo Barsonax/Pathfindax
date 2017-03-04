@@ -109,18 +109,17 @@
       <compList dataType="Struct" type="System.Collections.Generic.List`1[[Duality.Component]]" id="1370696648">
         <_items dataType="Array" type="Duality.Component[]" id="1337592428" length="4">
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.SourceNodeGridProvderMockupComponent" id="2538474571">
-            <_nodeGrid />
+            <_sourceNodeGrid />
             <active dataType="Bool">true</active>
             <gameobj dataType="ObjectRef">4178544606</gameobj>
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Components.AStarGridPathfinderComponent" id="1530935140">
-            <_counter dataType="Int">0</_counter>
             <_x003C_BoundRadius_x003E_k__BackingField dataType="Float">0</_x003C_BoundRadius_x003E_k__BackingField>
             <_x003C_MultithreadedPathfinder_x003E_k__BackingField />
             <_x003C_NodeGridVisualizer_x003E_k__BackingField />
             <_x003C_PathfinderId_x003E_k__BackingField />
             <_x003C_ShowNodeGrid_x003E_k__BackingField dataType="Bool">true</_x003C_ShowNodeGrid_x003E_k__BackingField>
-            <_x003C_SourceNodeGrid_x003E_k__BackingField />
+            <_x003C_SourceNodeNetwork_x003E_k__BackingField />
             <active dataType="Bool">true</active>
             <gameobj dataType="ObjectRef">4178544606</gameobj>
           </item>
@@ -159,24 +158,22 @@
       <compList dataType="Struct" type="System.Collections.Generic.List`1[[Duality.Component]]" id="3240090790">
         <_items dataType="Array" type="Duality.Component[]" id="4159377920" length="4">
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PathfindaxPathSpammerComponent" id="2047323534">
-            <_counter dataType="Int">0</_counter>
+            <_frameCounter dataType="Int">0</_frameCounter>
             <_randomGenerator dataType="Struct" type="System.Random" id="2162554126">
               <inext dataType="Int">0</inext>
               <inextp dataType="Int">21</inextp>
               <SeedArray dataType="Array" type="System.Int32[]" id="4188167632">0, 1913677982, 195051343, 984369963, 399979191, 1928009724, 489956584, 492085928, 914007529, 587956798, 716377560, 839210581, 1712081260, 37888562, 1967516137, 985794150, 1629849060, 1756352948, 1709525997, 1567527269, 294145154, 1446449498, 2033048504, 1186782606, 1641988831, 221926937, 290614763, 263460979, 461576274, 1813902820, 1628345585, 835872650, 982287757, 1259116771, 307457291, 1378423470, 1447206770, 959069193, 778206994, 1769611824, 23660801, 1456914761, 1754083414, 1215181879, 222358558, 1084850404, 874485330, 951891639, 544642381, 1314253149, 631704427, 2120174446, 1152944166, 1631863689, 1709435207, 1941495191</SeedArray>
             </_randomGenerator>
+            <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_BottomRightCorner_x003E_k__BackingField dataType="Struct" type="Duality.Point2">
               <X dataType="Int">480</X>
               <Y dataType="Int">480</Y>
             </_x003C_BottomRightCorner_x003E_k__BackingField>
             <_x003C_BoundRadius_x003E_k__BackingField dataType="Float">0</_x003C_BoundRadius_x003E_k__BackingField>
-            <_x003C_Clearance_x003E_k__BackingField dataType="Byte">0</_x003C_Clearance_x003E_k__BackingField>
             <_x003C_CollisionCategory_x003E_k__BackingField dataType="Enum" type="Pathfindax.Nodes.PathfindaxCollisionCategory" name="None" value="0" />
+            <_x003C_FramesBetweenRequest_x003E_k__BackingField dataType="Int">0</_x003C_FramesBetweenRequest_x003E_k__BackingField>
+            <_x003C_GridPathfinderProxy_x003E_k__BackingField />
             <_x003C_Path_x003E_k__BackingField />
-            <_x003C_PathfinderProxy_x003E_k__BackingField dataType="Struct" type="Duality.Plugins.Pathfindax.PathfindEngine.PathfinderProxy" id="2269208906">
-              <_pathfinderComponent />
-              <_x003C_PathfinderId_x003E_k__BackingField />
-            </_x003C_PathfinderProxy_x003E_k__BackingField>
             <_x003C_TopLeftCorner_x003E_k__BackingField dataType="Struct" type="Duality.Point2" />
             <active dataType="Bool">true</active>
             <gameobj dataType="ObjectRef">1051322400</gameobj>

@@ -14,7 +14,7 @@ namespace Duality.Plugins.Pathfindax.Grid
 		/// </summary>
 		public PathfindaxCollisionCategory CollisionCategory { get; set; }
 
-		private readonly INodeNetwork<Node> _nodeNetwork;
+		private readonly INodeNetwork<SourceNode> _nodeNetwork;
 		private readonly float _nodeSize;
 
 		/// <summary>
@@ -22,7 +22,7 @@ namespace Duality.Plugins.Pathfindax.Grid
 		/// </summary>
 		/// <param name="nodeNetwork"></param>
 		/// <param name="nodeSize"></param>
-		public NodeNetworkVisualizer(INodeNetwork<Node> nodeNetwork, float nodeSize)
+		public NodeNetworkVisualizer(INodeNetwork<SourceNode> nodeNetwork, float nodeSize)
 		{
 			_nodeNetwork = nodeNetwork;
 			_nodeSize = nodeSize;

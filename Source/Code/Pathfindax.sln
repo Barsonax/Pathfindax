@@ -30,10 +30,11 @@ Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "Documentation", "Documentat
 		{AFE883F3-72B4-4C7C-A1D1-44EDC09C8F6E} = {AFE883F3-72B4-4C7C-A1D1-44EDC09C8F6E}
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{AFC44DC1-306D-4BE6-9B18-8741D05F3677}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{DFCF0817-23D3-4368-8E14-8C442E05F401}"
+EndProject
 Global
-	GlobalSection(Performance) = preSolution
-		HasPerformanceSessions = true
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -70,5 +71,11 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2C152114-2BAD-4B2E-9B53-BB51E66AF9E6} = {AFC44DC1-306D-4BE6-9B18-8741D05F3677}
+		{47800ABA-D164-43D2-971E-FEC337FD2FCA} = {DFCF0817-23D3-4368-8E14-8C442E05F401}
+		{08559459-8E6A-4265-A95D-3E7DA3A83423} = {DFCF0817-23D3-4368-8E14-8C442E05F401}
+		{810F944A-9441-413B-B512-313CE77F9FED} = {AFC44DC1-306D-4BE6-9B18-8741D05F3677}
 	EndGlobalSection
 EndGlobal

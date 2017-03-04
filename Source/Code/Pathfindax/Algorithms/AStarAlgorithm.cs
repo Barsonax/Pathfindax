@@ -14,14 +14,14 @@ namespace Pathfindax.Algorithms
 	public class AStarAlgorithm : IPathFindAlgorithm<INodeNetwork<AstarNode>>
 	{
 		/// <inheritdoc />
-		public IList<INode> FindPath(INodeNetwork<AstarNode> nodeGrid, PathRequest pathRequest)
+		public IList<INode> FindPath(INodeNetwork<AstarNode> nodeNetwork, PathRequest pathRequest)
 		{
-			var startNode = pathRequest.PathStart as AstarNode;
-			var endNode = pathRequest.PathEnd as AstarNode;
-			return FindPath(nodeGrid, startNode, endNode, pathRequest.CollsionLayer);
+			var startNode = nodeNetwork[pathRequest.PathStart.ArrayIndex];
+			var endNode = nodeNetwork[pathRequest.PathEnd.ArrayIndex];
+			return FindPath(nodeNetwork, startNode, endNode, pathRequest.CollsionLayer);
 		}
 
-		private IList<INode> FindPath(INodeNetwork<AstarNode> nodeGrid, AstarNode startNode, AstarNode targetNode, PathfindaxCollisionCategory collisionCategory)
+		private IList<INode> FindPath(INodeNetwork<AstarNode> nodeNetwork, AstarNode startNode, AstarNode targetNode, PathfindaxCollisionCategory collisionCategory)
 		{
 			try
 			{
@@ -35,7 +35,7 @@ namespace Pathfindax.Algorithms
 				}
 				if ((startNode.CollisionCategory & collisionCategory) == 0 && (targetNode.CollisionCategory & collisionCategory) == 0)
 				{
-					var openSet = new MinHeap<AstarNode>(nodeGrid.NodeCount);
+					var openSet = new MinHeap<AstarNode>(nodeNetwork.NodeCount);
 					var closedSet = new HashSet<AstarNode>();
 					var itterations = 0;
 					var neighbourUpdates = 0;
