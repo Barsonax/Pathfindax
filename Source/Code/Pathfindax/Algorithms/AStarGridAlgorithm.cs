@@ -11,17 +11,17 @@ namespace Pathfindax.Algorithms
 	/// <summary>
 	/// Class that implements the A* algorithm for grids to find paths
 	/// </summary>
-	public class AStarGridAlgorithm : IPathFindAlgorithm<ISourceNodeGrid<AstarGridNode>>
+	public class AStarGridAlgorithm : IPathFindAlgorithm<INodeGrid<AstarGridNode>>
 	{
 		/// <inheritdoc />
-		public IList<INode> FindPath(ISourceNodeGrid<AstarGridNode> nodeGrid, PathRequest pathRequest)
+		public IList<INode> FindPath(INodeGrid<AstarGridNode> nodeGrid, PathRequest pathRequest)
 		{
 			var startNode = nodeGrid[pathRequest.PathStart.ArrayIndex];
 			var endNode = nodeGrid[pathRequest.PathEnd.ArrayIndex];
 			return FindPath(nodeGrid, startNode, endNode, pathRequest.CollsionLayer, pathRequest.AgentSize);
 		}
 
-		private IList<INode> FindPath(ISourceNodeGrid<AstarGridNode> sourceNodeGrid, AstarGridNode startGridNode, AstarGridNode targetGridNode, PathfindaxCollisionCategory collisionCategory, byte neededClearance)
+		private IList<INode> FindPath(INodeGrid<AstarGridNode> sourceNodeGrid, AstarGridNode startGridNode, AstarGridNode targetGridNode, PathfindaxCollisionCategory collisionCategory, byte neededClearance)
 		{
 			try
 			{

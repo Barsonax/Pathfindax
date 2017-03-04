@@ -9,7 +9,7 @@ using Pathfindax.Utils;
 namespace Pathfindax.Grid
 {
 	public abstract class SourceNodeGridBase<TNode> : ISourceNodeGrid<TNode>
-		where TNode : IGridNodeBase
+		where TNode : ISourceGridNode
 	{
 		public TNode this[int index] => NodeArray[index];
 		public Array2D<TNode> NodeArray { get; protected set; }

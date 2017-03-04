@@ -42,12 +42,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Algorithms\AStarGridAlgorithm.cs" />
-    <Compile Include="Algorithms\GridClearanceHelper.cs" />
+    <Compile Include="Grid\Interfaces\INodeGrid.cs" />
+    <Compile Include="Grid\NodeGridBase.cs" />
+    <Compile Include="Utils\GridClearanceHelper.cs" />
     <Compile Include="Algorithms\Interfaces\IPathFindAlgorithm.cs" />
     <Compile Include="Collections\Array2D.cs" />
     <Compile Include="Collections\Interfaces\IHeapItem.cs" />
     <Compile Include="Collections\MinHeap.cs" />
-    <Compile Include="Grid\AstarSourceNodeGrid.cs" />
+    <Compile Include="Grid\AstarNodeGrid.cs" />
     <Compile Include="Grid\AstarNodeNetwork.cs" />
     <Compile Include="Grid\Factories\SourceNodeGridFactory.cs" />
     <Compile Include="Grid\GenerateNodeGridConnections.cs" />

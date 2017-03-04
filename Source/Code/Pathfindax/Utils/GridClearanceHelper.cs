@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Pathfindax.Algorithms
+namespace Pathfindax.Utils
 {
 	/// <summary>
 	/// Helper class for grid clearances

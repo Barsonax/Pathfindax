@@ -35,7 +35,7 @@ namespace Pathfindax.PathfindEngine
 		/// Solves a <see cref="PathRequest"/>
 		/// </summary>
 		/// <param name="pathRequest"></param>
-		/// <returns>A <see cref="CompletedPath"/> object containing the solved path if succesfull/></returns>
+		/// <returns>A <see cref="CompletedPath"/> object containing the solved path if succesful/></returns>
 		public CompletedPath Process(PathRequest pathRequest)
 		{
 			IList<PositionF> path = _algorithm.FindPath(_nodeNetwork, pathRequest)?.Select(x => x.WorldPosition)?.ToList();

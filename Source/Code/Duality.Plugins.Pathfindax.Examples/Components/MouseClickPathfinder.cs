@@ -3,11 +3,11 @@ using Duality.Drawing;
 using Duality.Editor;
 using Duality.Input;
 using Duality.Plugins.Pathfindax.PathfindEngine;
-using Pathfindax.Algorithms;
 using Pathfindax.Grid;
 using Pathfindax.Nodes;
 using Pathfindax.PathfindEngine;
 using Pathfindax.Primitives;
+using Pathfindax.Utils;
 
 namespace Duality.Plugins.Pathfindax.Examples.Components
 {
@@ -111,7 +111,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 			{
 				var mouseWorldPosition = Camera.GetSpaceCoord(e.Position);
 				var pathEnd = new PositionF(mouseWorldPosition.X, mouseWorldPosition.Y);				
-				if (OnGrid)
+				if (OnGrid) //Implementation for nodegrid pathfinding
 				{
 					var offset = -GridClearanceHelper.GridNodeOffset(AgentSize, _gridPathfinderProxy.PathfinderComponent.SourceNodeNetwork.NodeSize.X);
 					var start = new PositionF(_pathStart.Value.X + offset, _pathStart.Value.Y + offset);
@@ -121,7 +121,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 					var request = new PathRequest(PathSolved, startNode, endNode, AgentSize, CollisionCategory);
 					_gridPathfinderProxy.RequestPath(request);
 				}
-				else
+				else //Implementation for non grid pathfinding
 				{
 					var startNode = _nonGridPathfinderProxy.PathfinderComponent.SourceNodeNetwork.GetNode(_pathStart.Value);
 					var endNode = _nonGridPathfinderProxy.PathfinderComponent.SourceNodeNetwork.GetNode(pathEnd);

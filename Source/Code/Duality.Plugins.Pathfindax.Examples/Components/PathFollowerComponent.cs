@@ -2,11 +2,11 @@
 using Duality.Components;
 using Duality.Input;
 using Duality.Plugins.Pathfindax.PathfindEngine;
-using Pathfindax.Algorithms;
 using Pathfindax.Grid;
 using Pathfindax.Nodes;
 using Pathfindax.PathfindEngine;
 using Pathfindax.Primitives;
+using Pathfindax.Utils;
 
 namespace Duality.Plugins.Pathfindax.Examples.Components
 {
