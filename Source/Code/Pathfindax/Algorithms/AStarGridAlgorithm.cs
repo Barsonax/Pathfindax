@@ -14,14 +14,14 @@ namespace Pathfindax.Algorithms
 	public class AStarGridAlgorithm : IPathFindAlgorithm<INodeGrid<AstarGridNode>>
 	{
 		/// <inheritdoc />
-		public IList<INode> FindPath(INodeGrid<AstarGridNode> nodeGrid, PathRequest pathRequest)
+		public IList<ISourceNode> FindPath(INodeGrid<AstarGridNode> nodeGrid, PathRequest pathRequest)
 		{
 			var startNode = nodeGrid[pathRequest.PathStart.ArrayIndex];
 			var endNode = nodeGrid[pathRequest.PathEnd.ArrayIndex];
 			return FindPath(nodeGrid, startNode, endNode, pathRequest.CollsionLayer, pathRequest.AgentSize);
 		}
 
-		private IList<INode> FindPath(INodeGrid<AstarGridNode> sourceNodeGrid, AstarGridNode startGridNode, AstarGridNode targetGridNode, PathfindaxCollisionCategory collisionCategory, byte neededClearance)
+		private IList<ISourceNode> FindPath(INodeGrid<AstarGridNode> sourceNodeGrid, AstarGridNode startGridNode, AstarGridNode targetGridNode, PathfindaxCollisionCategory collisionCategory, byte neededClearance)
 		{
 			try
 			{
@@ -31,7 +31,7 @@ namespace Pathfindax.Algorithms
 				var pathSucces = false;
 				if (startGridNode == targetGridNode)
 				{
-					return new List<INode> { targetGridNode };
+					return new List<ISourceNode> { targetGridNode.SourceGridNode };
 				}
 				if (startGridNode.GetTrueClearance(collisionCategory) >= neededClearance && targetGridNode.GetTrueClearance(collisionCategory) >= neededClearance)
 				{
@@ -91,14 +91,14 @@ namespace Pathfindax.Algorithms
 			}
 		}
 
-		private IList<INode> RetracePath(AstarGridNode startGridNode, AstarGridNode endGridNode)
+		private IList<ISourceNode> RetracePath(AstarGridNode startGridNode, AstarGridNode endGridNode)
 		{
-			var path = new List<INode>();
+			var path = new List<ISourceNode>();
 			var currentNode = endGridNode;
 
 			while (true)
 			{
-				path.Add(currentNode);
+				path.Add(currentNode.SourceGridNode);
 				if (currentNode == startGridNode) break;
 				currentNode = currentNode.Parent;
 			}

@@ -7,19 +7,17 @@ namespace Pathfindax.Duality.Test
 {
 	public static class TestHelper
 	{
-		private static TestMemory localTestMemory = null;
+		private static TestMemory _localTestMemory = null;
 
-		public static string EmbeddedResourcesDir
-		{
-			get { return Path.Combine("..", "EmbeddedResources"); }
-		}
+		private static string EmbeddedResourcesDir => Path.Combine("..", "EmbeddedResources");
+
 		public static string LocalTestMemoryFilePath
 		{
 			get
 			{
-				string appDataDir = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-				string testingDir = Path.Combine(appDataDir, "Duality", "UnitTesting");
-				string testingFile = "DualityTests";
+				var appDataDir = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+				var testingDir = Path.Combine(appDataDir, "Duality", "UnitTesting");
+				var testingFile = "DualityTests";
 #if DEBUG
 				testingFile += "Debug";
 #else
@@ -31,34 +29,34 @@ namespace Pathfindax.Duality.Test
 		}
 		public static TestMemory LocalTestMemory
 		{
-			get { return localTestMemory; }
-			internal set { localTestMemory = value ?? new TestMemory(); }
+			get { return _localTestMemory; }
+			internal set { _localTestMemory = value ?? new TestMemory(); }
 		}
 
 		public static string GetEmbeddedResourcePath(string resName, string resEnding)
 		{
-			return Path.Combine(TestHelper.EmbeddedResourcesDir, resName + resEnding);
+			return Path.Combine(EmbeddedResourcesDir, resName + resEnding);
 		}
 		public static void LogNumericTestResult(object testFixture, string testName, long resultValue, string unit)
 		{
 			if (!string.IsNullOrEmpty(unit)) unit = " " + unit;
 
 			List<long> lastValueList;
-			if (!TestHelper.LocalTestMemory.GetValue(testFixture, testName, out lastValueList))
+			if (!LocalTestMemory.GetValue(testFixture, testName, out lastValueList))
 			{
 				lastValueList = new List<long>();
 			}
 			lastValueList.Add(resultValue);
 			if (lastValueList.Count > 10) lastValueList.RemoveAt(0);
-			TestHelper.LocalTestMemory.SetValue(testFixture, testName, lastValueList);
+			LocalTestMemory.SetValue(testFixture, testName, lastValueList);
 
-			long localAverage = (long)lastValueList.Average();
+			var localAverage = (long)lastValueList.Average();
 
-			string nameStr = (testFixture.GetType().Name + "." + testName);
-			string newValueStr = string.Format("{0}{1}", resultValue, unit);
-			string lastValueStr = string.Format("{0}{1}", localAverage, unit);
+			var nameStr = (testFixture.GetType().Name + "." + testName);
+			var newValueStr = $"{resultValue}{unit}";
+			var lastValueStr = $"{localAverage}{unit}";
 
-			double relativeChange = ((double)resultValue - (double)localAverage) / (double)localAverage;
+			var relativeChange = (resultValue - (double)localAverage) / localAverage;
 			LogNumericTestResult(nameStr, newValueStr, lastValueStr, relativeChange);
 		}
 		public static void LogNumericTestResult(object testFixture, string testName, double resultValue, string unit)
@@ -66,38 +64,32 @@ namespace Pathfindax.Duality.Test
 			if (!string.IsNullOrEmpty(unit)) unit = " " + unit;
 
 			List<double> lastValueList;
-			if (!TestHelper.LocalTestMemory.GetValue(testFixture, testName, out lastValueList))
+			if (!LocalTestMemory.GetValue(testFixture, testName, out lastValueList))
 			{
 				lastValueList = new List<double>();
 			}
 			lastValueList.Add(resultValue);
 			if (lastValueList.Count > 10) lastValueList.RemoveAt(0);
-			TestHelper.LocalTestMemory.SetValue(testFixture, testName, lastValueList);
+			LocalTestMemory.SetValue(testFixture, testName, lastValueList);
 
-			double localAverage = lastValueList.Average();
+			var localAverage = lastValueList.Average();
 
-			string nameStr = (testFixture.GetType().Name + "." + testName);
-			string newValueStr = string.Format("{0:F}{1}", resultValue, unit);
-			string lastValueStr = string.Format("{0:F}{1}", localAverage, unit);
+			var nameStr = (testFixture.GetType().Name + "." + testName);
+			var newValueStr = $"{resultValue:F}{unit}";
+			var lastValueStr = $"{localAverage:F}{unit}";
 
-			double relativeChange = ((double)resultValue - (double)localAverage) / (double)localAverage;
+			var relativeChange = (resultValue - localAverage) / localAverage;
 			LogNumericTestResult(nameStr, newValueStr, lastValueStr, relativeChange);
 		}
 		private static void LogNumericTestResult(string nameStr, string newValueStr, string lastValueStr, double relativeChange)
 		{
 			if (Math.Abs(relativeChange) > 0.03)
 			{
-				Console.WriteLine(string.Format("{0}: {2} --> {1} Changed by {3}%",
-					nameStr.PadRight(50),
-					newValueStr.PadRight(12),
-					lastValueStr.PadRight(12),
-					(int)Math.Round(100.0d * relativeChange)));
+				Console.WriteLine("{0}: {2} --> {1} Changed by {3}%", nameStr.PadRight(50), newValueStr.PadRight(12), lastValueStr.PadRight(12), (int)Math.Round(100.0d * relativeChange));
 			}
 			else
 			{
-				Console.WriteLine(string.Format("{0}: {1}",
-					nameStr.PadRight(50),
-					newValueStr));
+				Console.WriteLine($"{nameStr.PadRight(50)}: {newValueStr}");
 			}
 		}
 	}
@@ -108,8 +100,8 @@ namespace Pathfindax.Duality.Test
 
 		public bool SwitchValue<T>(object testFixture, string key, out T oldValue, T newValue)
 		{
-			bool result = this.GetValue(testFixture, key, out oldValue);
-			this.SetValue(testFixture, key, newValue);
+			var result = GetValue(testFixture, key, out oldValue);
+			SetValue(testFixture, key, newValue);
 			return result;
 		}
 		public void SetValue<T>(object testFixture, string key, T value)
@@ -118,7 +110,7 @@ namespace Pathfindax.Duality.Test
 			{
 				key = testFixture.GetType().Name + "_" + key;
 			}
-			this.data[key] = value;
+			data[key] = value;
 		}
 		public bool GetValue<T>(object testFixture, string key, out T value)
 		{
@@ -127,7 +119,7 @@ namespace Pathfindax.Duality.Test
 				key = testFixture.GetType().Name + "_" + key;
 			}
 			object valueObj;
-			if (this.data.TryGetValue(key, out valueObj) && valueObj is T)
+			if (data.TryGetValue(key, out valueObj) && valueObj is T)
 			{
 				value = (T)valueObj;
 				return true;

@@ -18,7 +18,7 @@ namespace Pathfindax.Threading
 		private readonly IList<Worker<TOut, TIn>> _workers;
 		private readonly ManualResetEvent _stopManualResetEvent = new ManualResetEvent(false);
 		private readonly AutoResetEvent _autoResetEvent = new AutoResetEvent(false);
-		private bool _disposed = false;
+		private bool _disposed;
 
 		/// <summary>
 		/// Initializes a new <see cref="MultithreadedWorkerQueue{TOut,TIn}"/>
@@ -72,7 +72,7 @@ namespace Pathfindax.Threading
 
 		public bool TryDequeue(out TOut result)
 		{
-			WorkItem<TOut, TIn> completedWorkitem = null;
+			WorkItem<TOut, TIn> completedWorkitem;
 			if (_workItemsCompletedQueue.TryDequeue(out completedWorkitem))
 			{
 				result = completedWorkitem.Result;

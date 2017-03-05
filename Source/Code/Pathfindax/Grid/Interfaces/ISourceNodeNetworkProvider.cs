@@ -5,7 +5,7 @@
 	/// </summary>
 	/// <typeparam name="TNodeNetwork"></typeparam>
 	public interface ISourceNodeNetworkProvider<out TNodeNetwork> 
-		where TNodeNetwork : INodeNetwork
+		where TNodeNetwork : ISourceNodeNetwork
 	{
 		/// <summary>
 		/// Generates the <typeparamref name="TNodeNetwork"></typeparamref>

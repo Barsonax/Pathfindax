@@ -75,7 +75,7 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Generators
 			if (sourceGridNode.GridX == 0 || sourceGridNode.GridY == 0 || sourceGridNode.GridX == sourceNodeGrid.NodeArray.Width - 1 || sourceGridNode.GridY == sourceNodeGrid.NodeArray.Height - 1)
 			{
 				var connections = new List<NodeConnection<ISourceGridNode>>(5);
-				for (int index = 1; index < _nodeCollisions.Length; index++)
+				for (var index = 1; index < _nodeCollisions.Length; index++)
 				{
 					var collisionCategory = _nodeCollisions[index];
 					if (collisionCategory.X >= 0 && collisionCategory.Y >= 0 && collisionCategory.X < sourceNodeGrid.NodeArray.Width && collisionCategory.Y < sourceNodeGrid.NodeArray.Height)
@@ -89,7 +89,7 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Generators
 			else
 			{
 				sourceGridNode.Connections = new NodeConnection<ISourceGridNode>[8];
-				for (int index = 1; index < _nodeCollisions.Length; index++)
+				for (var index = 1; index < _nodeCollisions.Length; index++)
 				{
 					var collisionCategory = _nodeCollisions[index];
 					//TODO provide option to exclude diagonal neighbours.
@@ -238,14 +238,14 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Generators
 
 		private void FillUsedLayerCache()
 		{
-			for (int i = 0; i < 16; i++)
+			for (var i = 0; i < 16; i++)
 			{
 				if (i == 16)
 				{
 					_usedLayersCache[i] = new List<int> { 0, 1, 2, 3 }.ToArray();
 				}
 				var result = new List<int>();
-				for (int index = 1; index < TileCollisionLayers.Length; index++)
+				for (var index = 1; index < TileCollisionLayers.Length; index++)
 				{
 					var definitionTileCollisionLayer = TileCollisionLayers[index];
 					if (((TileCollisionLayer)i & definitionTileCollisionLayer) != 0) result.Add(index - 1);

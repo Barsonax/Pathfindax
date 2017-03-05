@@ -8,7 +8,7 @@ namespace Pathfindax.Grid
 	/// </summary>
 	/// <typeparam name="TNode"></typeparam>
 	public interface ISourceNodeNetwork<out TNode> : INodeNetwork<TNode>, ISourceNodeNetwork
-		where TNode : INode
+		where TNode : ISourceNode
 	{
 		/// <summary>
 		/// Gets the node closest to this position

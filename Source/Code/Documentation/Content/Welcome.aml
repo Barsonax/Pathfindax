@@ -2,8 +2,7 @@
 <topic id="b093189b-7eca-47ef-8358-efdd2310007b" revisionNumber="1">
 	<developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
 		<introduction>
-			<para>This is a sample conceptual topic.  You can use this as a starting point for adding more conceptual
-content to your help project.</para>
+			<para>Pathfindax is a framework that can be used to get a path from A to B in a network of nodes</para>
 		</introduction>
 
 		<section>

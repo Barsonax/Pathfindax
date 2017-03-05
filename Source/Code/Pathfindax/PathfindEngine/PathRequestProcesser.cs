@@ -2,7 +2,6 @@
 using System.Linq;
 using Pathfindax.Algorithms;
 using Pathfindax.Grid;
-using Pathfindax.Primitives;
 using Pathfindax.Threading;
 
 namespace Pathfindax.PathfindEngine
@@ -38,7 +37,7 @@ namespace Pathfindax.PathfindEngine
 		/// <returns>A <see cref="CompletedPath"/> object containing the solved path if succesful/></returns>
 		public CompletedPath Process(PathRequest pathRequest)
 		{
-			IList<PositionF> path = _algorithm.FindPath(_nodeNetwork, pathRequest)?.Select(x => x.WorldPosition)?.ToList();
+			var path = _algorithm.FindPath(_nodeNetwork, pathRequest);
 			if (path == null) return new CompletedPath(null, pathRequest);
 			if (_pathPostProcesses != null)
 			{

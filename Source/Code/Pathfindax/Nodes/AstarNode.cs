@@ -26,21 +26,21 @@ namespace Pathfindax.Nodes
 		private float FCost => GCost + HCost;
 
 		public int HeapIndex { get; set; }
-		public PositionF WorldPosition => SourceSourceNode.WorldPosition;
+		public PositionF WorldPosition => SourceNode.WorldPosition;
 		public NodeConnection<AstarNode>[] Connections { get; set; }
 
 		/// <summary>
 		/// The movement penalty for this node. This can be used to make the pathfinder try to avoid certain nodes.
 		/// </summary>
-		public byte MovementPenalty => SourceSourceNode.MovementPenalty;
+		public byte MovementPenalty => SourceNode.MovementPenalty;
 
-		public PathfindaxCollisionCategory CollisionCategory => SourceSourceNode.CollisionCategory;
+		public PathfindaxCollisionCategory CollisionCategory => SourceNode.CollisionCategory;
 
-		public SourceNode SourceSourceNode { get; private set; }
+		public SourceNode SourceNode { get; }
 
-		public AstarNode(SourceNode sourceSourceNode)
+		public AstarNode(SourceNode sourceNode)
 		{
-			this.SourceSourceNode = sourceSourceNode;
+			SourceNode = sourceNode;
 		}
 
 		public int CompareTo(AstarNode other)

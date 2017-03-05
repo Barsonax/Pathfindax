@@ -72,6 +72,7 @@
   <ItemGroup>
     <Compile Include="Components\AstarPathfinderComponent.cs" />
     <Compile Include="Components\Interfaces\IPathfinderComponent.cs" />
+    <Compile Include="Extensions\PositionFExtensions.cs" />
     <Compile Include="Grid\NodeGridRayCaster.cs" />
     <Compile Include="Grid\NodeGridVisualizer.cs" />
     <Compile Include="Components\PathfinderComponentBase.cs" />

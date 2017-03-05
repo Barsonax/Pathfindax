@@ -4,7 +4,7 @@ using System.Threading;
 
 namespace Pathfindax.Threading
 {
-	internal class BlockingQueue<T> : IQueueReader<T>, IQueueWriter<T>, IDisposable
+	internal class BlockingQueue<T> : IQueueReader<T>, IQueueWriter<T>
 	{
 		// use a .NET queue to store the data
 		private readonly Queue<T> _mQueue = new Queue<T>();

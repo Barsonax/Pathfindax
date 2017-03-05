@@ -2,7 +2,7 @@
 
 namespace Pathfindax.Threading
 {
-	internal interface IQueueWriter<T> : IDisposable
+	internal interface IQueueWriter<in T> : IDisposable
 	{
 		void Enqueue(T data);
 	}

@@ -8,7 +8,7 @@ namespace Pathfindax.Grid
 	public class SourceNodeGridFactory
 	{
 		/// <summary>
-		/// Returns a preconfigured <see cref="Array2D{TItem}"/> which can be used to make a <see cref="SourceSourceNodeGrid"/>
+		/// Returns a preconfigured <see cref="Array2D{TItem}"/> which can be used to make a <see cref="SourceNodeGrid"/>
 		/// </summary>
 		/// <param name="width"></param>
 		/// <param name="height"></param>
@@ -16,10 +16,10 @@ namespace Pathfindax.Grid
 		/// <param name="generateNodeGridConnections"></param>
 		/// <param name="offset"></param>
 		/// <returns></returns>
-		public SourceSourceNodeGrid GeneratePreFilledArray(int width, int height, PositionF nodeSize, GenerateNodeGridConnections generateNodeGridConnections, PositionF offset = default(PositionF))
+		public SourceNodeGrid GeneratePreFilledArray(int width, int height, PositionF nodeSize, GenerateNodeGridConnections generateNodeGridConnections, PositionF offset = default(PositionF))
 		{
 			var array = new Array2D<ISourceGridNode>(width, height);
-			var sourceNodeGrid = new SourceSourceNodeGrid(array, nodeSize, offset);
+			var sourceNodeGrid = new SourceNodeGrid(array, nodeSize, offset);
 			for (ushort y = 0; y < height; y++)
 			{
 				for (ushort x = 0; x < width; x++)
@@ -31,14 +31,14 @@ namespace Pathfindax.Grid
 
 			if (generateNodeGridConnections != GenerateNodeGridConnections.None)
 			{
-				for (int y = 0; y < height; y++)
+				for (var y = 0; y < height; y++)
 				{
-					for (int x = 0; x < width; x++)
+					for (var x = 0; x < width; x++)
 					{
 						var node = array[x, y];
 						var neighbours = GetNeighbours(array, node, generateNodeGridConnections);
 						node.Connections = new NodeConnection<ISourceGridNode>[neighbours.Count];
-						for (int index = 0; index < neighbours.Count; index++)
+						for (var index = 0; index < neighbours.Count; index++)
 						{
 							var neighbour = neighbours[index];
 							node.Connections[index] = new NodeConnection<ISourceGridNode>(neighbour);
@@ -95,9 +95,9 @@ namespace Pathfindax.Grid
 		private IList<ISourceGridNode> GetNodesInArea(ISourceNodeGrid<ISourceGridNode> sourceNodeGrid, int gridX, int gridY, int width, int height)
 		{
 			var nodes = new List<ISourceGridNode>();
-			for (int y = gridY; y < gridY + height; y++)
+			for (var y = gridY; y < gridY + height; y++)
 			{
-				for (int x = gridX; x < gridX + width; x++)
+				for (var x = gridX; x < gridX + width; x++)
 				{
 					if (x < sourceNodeGrid.NodeArray.Width && y < sourceNodeGrid.NodeArray.Height)
 						nodes.Add(sourceNodeGrid.NodeArray[x, y]);
@@ -106,7 +106,7 @@ namespace Pathfindax.Grid
 			return nodes;
 		}
 
-		public IList<ISourceGridNode> GetNeighbours(Array2D<ISourceGridNode> nodeArray, IGridNodeBase gridNode, GenerateNodeGridConnections generateNodeGridConnections)
+		public IList<ISourceGridNode> GetNeighbours(Array2D<ISourceGridNode> nodeArray, IGridNode gridNode, GenerateNodeGridConnections generateNodeGridConnections)
 		{
 			var neighbours = new List<ISourceGridNode>(8);
 

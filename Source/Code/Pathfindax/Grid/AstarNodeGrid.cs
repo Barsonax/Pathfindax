@@ -15,31 +15,32 @@ namespace Pathfindax.Grid
 		/// <param name="sourceNodeGrid"></param>
 		public AstarNodeGrid(ISourceNodeGrid<ISourceGridNode> sourceNodeGrid) : base(sourceNodeGrid)
 		{
-			NodeArray = new Array2D<AstarGridNode>(sourceNodeGrid.NodeArray.Width, sourceNodeGrid.NodeArray.Height);
-			for (int y = 0; y < sourceNodeGrid.NodeArray.Height; y++)
+			var nodeArray = new Array2D<AstarGridNode>(sourceNodeGrid.NodeArray.Width, sourceNodeGrid.NodeArray.Height);
+			for (var y = 0; y < sourceNodeGrid.NodeArray.Height; y++)
 			{
-				for (int x = 0; x < sourceNodeGrid.NodeArray.Width; x++)
+				for (var x = 0; x < sourceNodeGrid.NodeArray.Width; x++)
 				{
 					var sourceNode = sourceNodeGrid.NodeArray[x, y];
 					var aStarNode = new AstarGridNode(sourceNode);
-					NodeArray[x, y] = aStarNode;
+					nodeArray[x, y] = aStarNode;
 				}
 			}
 
-			for (int y = 0; y < sourceNodeGrid.NodeArray.Height; y++)
+			for (var y = 0; y < sourceNodeGrid.NodeArray.Height; y++)
 			{
-				for (int x = 0; x < sourceNodeGrid.NodeArray.Width; x++)
+				for (var x = 0; x < sourceNodeGrid.NodeArray.Width; x++)
 				{
-					var aStarNode = NodeArray[x, y];
+					var aStarNode = nodeArray[x, y];
 					var sourceNode = sourceNodeGrid.NodeArray[x, y];
 					aStarNode.Connections = new NodeConnection<AstarGridNode>[sourceNode.Connections.Length];
-					for (int index = 0; index < sourceNode.Connections.Length; index++)
+					for (var index = 0; index < sourceNode.Connections.Length; index++)
 					{
 						var sourceNodeNeighbour = sourceNode.Connections[index];
-						aStarNode.Connections[index] = new NodeConnection<AstarGridNode>(NodeArray[sourceNodeNeighbour.To.GridX, sourceNodeNeighbour.To.GridY], sourceNodeNeighbour.CollisionCategory);
+						aStarNode.Connections[index] = new NodeConnection<AstarGridNode>(nodeArray[sourceNodeNeighbour.To.ArrayIndex], sourceNodeNeighbour.CollisionCategory);
 					}
 				}
 			}
+			NodeArray = nodeArray;
 		}
 	}
 }

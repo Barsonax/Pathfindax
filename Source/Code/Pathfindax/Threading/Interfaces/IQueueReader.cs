@@ -2,7 +2,7 @@
 
 namespace Pathfindax.Threading
 {
-	internal interface IQueueReader<T> : IDisposable
+	internal interface IQueueReader<out T> : IDisposable
 	{
 		T Dequeue();
 		void ReleaseReader();

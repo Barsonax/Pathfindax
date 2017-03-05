@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Duality.Components;
 using Duality.Input;
+using Duality.Plugins.Pathfindax.Extensions;
 using Duality.Plugins.Pathfindax.PathfindEngine;
 using Pathfindax.Grid;
 using Pathfindax.Nodes;
@@ -21,13 +22,13 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 		private PathfinderProxy<ISourceNodeGrid<ISourceGridNode>> _gridPathfinderProxy;
 		public Camera Camera { get; set; }
 
-		private int counter;
+		private int _counter;
 		public void OnUpdate()
 		{
-			counter++;
-			if (counter > TimeBetweenMovements)
+			_counter++;
+			if (_counter > TimeBetweenMovements)
 			{
-				counter = 0;
+				_counter = 0;
 				if (_path != null)
 				{
 					Vector2 target;
@@ -87,7 +88,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 		private void OnRequestCompleted(CompletedPath completedPath)
 		{
 			if (completedPath.Path != null)
-				_path = completedPath.Path.Select(pos => new Vector2(pos.X, pos.Y)).ToArray();
+				_path = completedPath.Path.Select(x => x.WorldPosition.ToVector2()).ToArray();
 		}
 
 		public void OnShutdown(ShutdownContext context)

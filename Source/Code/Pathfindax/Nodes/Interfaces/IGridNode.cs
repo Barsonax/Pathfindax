@@ -1,15 +1,6 @@
 ﻿namespace Pathfindax.Nodes
 {
-	public interface ISourceGridNode : IGridNodeBase, ISourceNode
-
-	{
-		/// <summary>
-		/// The connections to other nodes.
-		/// </summary>
-		NodeConnection<ISourceGridNode>[] Connections { get; set; }
-	}
-
-	public interface IGridNodeBase : INode
+	public interface IGridNode : INode
 	{
 		/// <summary>
 		/// Calculates the true clearance from the <see cref="Clearances"/> for the given <paramref name="collisionCategory"/> and returns this.

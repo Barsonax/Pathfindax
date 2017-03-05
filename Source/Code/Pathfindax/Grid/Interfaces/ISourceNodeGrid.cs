@@ -3,9 +3,9 @@ using Pathfindax.Nodes;
 
 namespace Pathfindax.Grid
 {
-	public interface ISourceNodeGrid<TNode> : ISourceNodeNetwork<TNode> , INodeGrid
-		where TNode : IGridNodeBase
+	public interface ISourceNodeGrid<out TNode> : ISourceNodeNetwork<TNode> , INodeGrid
+		where TNode : ISourceGridNode
 	{
-		Array2D<TNode> NodeArray { get; }
+		IReadOnlyArray2D<TNode> NodeArray { get; }
 	}
 }

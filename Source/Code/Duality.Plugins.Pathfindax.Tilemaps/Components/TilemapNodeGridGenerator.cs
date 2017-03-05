@@ -1,5 +1,4 @@
 ﻿using System.Collections.Concurrent;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Duality.Editor;
@@ -20,7 +19,7 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Components
 	public class TilemapNodeGridGenerator : Component, ISourceNodeNetworkProvider<ISourceNodeGrid<ISourceGridNode>>
 	{
 		/// <summary>
-		/// The maximum clearance that will be calculated. For performance reason try to keep this as small as possible and thus should be kept equal to the size of your largest agent in nodes.
+		/// The maximum clearance that will be calculated. For performance reasons try to keep this as small as possible. This should be no larger than the size of your largest agent in nodes.
 		/// </summary>
 		public int MaxCalculatedClearance { get; set; }
 
@@ -50,14 +49,12 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Components
 				Parallel.ForEach(partioner, range =>
 				{
 					var connectionGenerator = new TilemapNodeConnectionGenerator();
-					for (int i = range.Item1; i < range.Item2; i++)
+					for (var i = range.Item1; i < range.Item2; i++)
 					{
 						connectionGenerator.CalculateGridNodeCollision(tilemapColliderWithBodies, _sourceNodeGrid.NodeArray[i], _sourceNodeGrid);
 					}
 				});
 
-				var watch = new Stopwatch();
-				watch.Start();
 				Parallel.ForEach(_sourceNodeGrid, gridNode =>
 				{
 					if (MovementPenalties != null)
@@ -73,8 +70,6 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Components
 						gridNode.Clearances = gridNode.Clearances == null ? clearances.ToArray() : gridNode.Clearances.Concat(clearances).ToArray();
 					}
 				});
-				watch.Stop();
-				Debug.WriteLine(watch.ElapsedMilliseconds);
 			}
 			return _sourceNodeGrid;
 		}

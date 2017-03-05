@@ -1,7 +1,9 @@
-﻿using Duality.Components;
+﻿using System.Linq;
+using Duality.Components;
 using Duality.Drawing;
 using Duality.Editor;
 using Duality.Input;
+using Duality.Plugins.Pathfindax.Extensions;
 using Duality.Plugins.Pathfindax.PathfindEngine;
 using Pathfindax.Grid;
 using Pathfindax.Nodes;
@@ -17,7 +19,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 		private PathfinderProxy<ISourceNodeNetwork<ISourceNode>> _nonGridPathfinderProxy;
 		public byte AgentSize { get; set; }
 		public PathfindaxCollisionCategory CollisionCategory { get; set; }
-		public PositionF[] Path { get; private set; }
+		public Vector2[] Path { get; private set; }
 		public bool OnGrid { get; set; }
 
 		[EditorHintFlags(MemberFlags.Invisible)]
@@ -27,7 +29,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 
 		private void PathSolved(CompletedPath completedPath)
 		{
-			Path = completedPath.Path;
+			Path = completedPath.Path.Select(x => x.WorldPosition.ToVector2()).ToArray();
 		}
 
 		bool ICmpRenderer.IsVisible(IDrawDevice device)
@@ -54,7 +56,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 				var canvas = new Canvas(device);
 				canvas.State.ZOffset = -10;
 
-				for (int index = 0; index < Path.Length; index++)
+				for (var index = 0; index < Path.Length; index++)
 				{
 					if (index == 0) canvas.State.ColorTint = ColorRgba.Green;
 					else if (index == Path.Length - 1) canvas.State.ColorTint = ColorRgba.Blue;
@@ -64,7 +66,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 				}
 
 				canvas.State.ColorTint = ColorRgba.Red;
-				for (int i = 1; i < Path.Length; i++)
+				for (var i = 1; i < Path.Length; i++)
 				{
 					var from = Path[i - 1];
 					var to = Path[i];

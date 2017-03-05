@@ -42,8 +42,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Algorithms\AStarGridAlgorithm.cs" />
+    <Compile Include="Collections\Interfaces\IReadOnlyArray2D.cs" />
+    <Compile Include="Collections\Interfaces\IWriteOnlyArray2D.cs" />
     <Compile Include="Grid\Interfaces\INodeGrid.cs" />
-    <Compile Include="Grid\NodeGridBase.cs" />
+    <Compile Include="Grid\Abstract\NodeGridBase.cs" />
+    <Compile Include="Nodes\Interfaces\ISourceGridNode.cs" />
+    <Compile Include="Nodes\Interfaces\ISourceNode.cs" />
     <Compile Include="Utils\GridClearanceHelper.cs" />
     <Compile Include="Algorithms\Interfaces\IPathFindAlgorithm.cs" />
     <Compile Include="Collections\Array2D.cs" />
@@ -52,24 +56,24 @@
     <Compile Include="Grid\AstarNodeGrid.cs" />
     <Compile Include="Grid\AstarNodeNetwork.cs" />
     <Compile Include="Grid\Factories\SourceNodeGridFactory.cs" />
-    <Compile Include="Grid\GenerateNodeGridConnections.cs" />
+    <Compile Include="Grid\Enums\GenerateNodeGridConnections.cs" />
     <Compile Include="Grid\Interfaces\INodeNetwork.cs" />
     <Compile Include="Grid\Interfaces\ISourceNodeNetwork.cs" />
-    <Compile Include="Grid\SourceNodeGridBase.cs" />
+    <Compile Include="Grid\Abstract\SourceNodeGridBase.cs" />
     <Compile Include="Algorithms\AStarAlgorithm.cs" />
     <Compile Include="Grid\SourceNodeNetwork.cs" />
     <Compile Include="Nodes\AstarNode.cs" />
     <Compile Include="Nodes\GridClearance.cs" />
-    <Compile Include="Nodes\GridNode.cs" />
+    <Compile Include="Nodes\SourceGridNode.cs" />
     <Compile Include="Nodes\AstarGridNode.cs" />
-    <Compile Include="Nodes\Interfaces\IGridNodeBase.cs" />
+    <Compile Include="Nodes\Interfaces\IGridNode.cs" />
     <Compile Include="Nodes\Interfaces\INode.cs" />
     <Compile Include="Grid\Interfaces\ISourceNodeGrid.cs" />
     <Compile Include="Grid\Interfaces\ISourceNodeNetworkProvider.cs" />
-    <Compile Include="Grid\SourceSourceNodeGrid.cs" />
+    <Compile Include="Grid\SourceNodeGrid.cs" />
     <Compile Include="Nodes\SourceNode.cs" />
     <Compile Include="Nodes\NodeConnection.cs" />
-    <Compile Include="Nodes\PathfindaxCollisionCategory.cs" />
+    <Compile Include="Nodes\Enums\PathfindaxCollisionCategory.cs" />
     <Compile Include="PathfindEngine\CompletedPath.cs" />
     <Compile Include="PathfindEngine\Interfaces\IMultithreadedPathfinder.cs" />
     <Compile Include="PathfindEngine\Interfaces\IPathPostProcess.cs" />

@@ -26,7 +26,6 @@ namespace Pathfindax.Threading
 			}
 		}
 
-
 		private bool _disposed;
 
 		private readonly ManualResetEvent _waitHandle = new ManualResetEvent(false);
@@ -67,7 +66,7 @@ namespace Pathfindax.Threading
 		/// <param name="taskCompletionSource">The work item</param>
 		/// <param name="onCompleted"></param>
 		/// <returns>True if the worker was not busy and the work was accepted</returns>
-		public bool DoWork(TIn taskCompletionSource, Action<TOut> onCompleted)
+		public void DoWork(TIn taskCompletionSource, Action<TOut> onCompleted)
 		{
 			if (!IsBusy)
 			{
@@ -75,9 +74,7 @@ namespace Pathfindax.Threading
 				_workItem = taskCompletionSource;
 				_onCompleted = onCompleted;
 				_waitHandle.Set();
-				return true;
 			}
-			return false;
 		}
 
 		/// <inheritdoc />

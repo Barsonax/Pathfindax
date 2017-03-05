@@ -4,11 +4,11 @@ using Pathfindax.Primitives;
 
 namespace Pathfindax.Grid
 {
-	public interface INodeGrid<TNode> : INodeGrid
+	public interface INodeGrid<out TNode> : INodeGrid
 		where TNode : INode
 	{
 		ISourceNodeGrid<ISourceGridNode> SourceSourceNodeGrid { get; }
-		Array2D<TNode> NodeArray { get; }
+		IReadOnlyArray2D<TNode> NodeArray { get; }
 		TNode this[int index] { get; }
 	}
 

@@ -7,7 +7,7 @@ namespace Pathfindax.Nodes
 	/// <summary>
 	/// Represents a gridnode that can be used with the A* algorithm.
 	/// </summary>
-	public class AstarGridNode : IGridNodeBase, IHeapItem<AstarGridNode>
+	public class AstarGridNode : IGridNode, IHeapItem<AstarGridNode>
 	{
 		/// <summary>
 		/// Used to retrace the path in the A* algorithm.
@@ -31,39 +31,39 @@ namespace Pathfindax.Nodes
 		public NodeConnection<AstarGridNode>[] Connections { get; set; }
 
 		/// <inheritdoc />
-		public PositionF WorldPosition => _sourceGridNode.WorldPosition;
+		public PositionF WorldPosition => SourceGridNode.WorldPosition;
 
 		/// <inheritdoc />
-		public ushort GridX => _sourceGridNode.GridX;
+		public ushort GridX => SourceGridNode.GridX;
 
 		/// <inheritdoc />
-		public ushort GridY => _sourceGridNode.GridY;
+		public ushort GridY => SourceGridNode.GridY;
 		private int FCost => GCost + HCost;
-		private readonly IGridNodeBase _sourceGridNode;
+		public ISourceGridNode SourceGridNode { get; }
 
 		/// <inheritdoc />
 		public byte MovementPenalty
 		{
-			get { return _sourceGridNode.MovementPenalty; }
+			get { return SourceGridNode.MovementPenalty; }
 			set { throw new NotSupportedException("You can only change this in the source node"); }
 		}
 
 		/// <inheritdoc />
 		public GridClearance[] Clearances
 		{
-			get { return _sourceGridNode.Clearances; }
+			get { return SourceGridNode.Clearances; }
 			set { throw new NotSupportedException("You can only change this in the source node"); }
 		}
 
 		/// <inheritdoc />
 		public int GetTrueClearance(PathfindaxCollisionCategory collisionCategory)
 		{
-			return _sourceGridNode.GetTrueClearance(collisionCategory);
+			return SourceGridNode.GetTrueClearance(collisionCategory);
 		}
 
-		public AstarGridNode(IGridNodeBase source)
+		public AstarGridNode(ISourceGridNode source)
 		{
-			_sourceGridNode = source;
+			SourceGridNode = source;
 		}
 
 		public int CompareTo(AstarGridNode other)
