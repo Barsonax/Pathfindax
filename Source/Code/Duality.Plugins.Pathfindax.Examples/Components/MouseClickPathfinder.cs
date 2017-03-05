@@ -1,23 +1,26 @@
-﻿using Duality.Components;
+﻿using System.Linq;
+using Duality.Components;
 using Duality.Drawing;
 using Duality.Editor;
 using Duality.Input;
+using Duality.Plugins.Pathfindax.Extensions;
 using Duality.Plugins.Pathfindax.PathfindEngine;
-using Pathfindax.Algorithms;
 using Pathfindax.Grid;
 using Pathfindax.Nodes;
 using Pathfindax.PathfindEngine;
 using Pathfindax.Primitives;
+using Pathfindax.Utils;
 
 namespace Duality.Plugins.Pathfindax.Examples.Components
 {
 	public class MouseClickPathfinder : Component, ICmpRenderer, ICmpInitializable
 	{
-		private PathfinderProxy _pathfinderProxy;
+		private PathfinderProxy<ISourceNodeGrid<ISourceGridNode>> _gridPathfinderProxy;
+		private PathfinderProxy<ISourceNodeNetwork<ISourceNode>> _nonGridPathfinderProxy;
 		public byte AgentSize { get; set; }
 		public PathfindaxCollisionCategory CollisionCategory { get; set; }
-		public PositionF[] Path { get; private set; }
-
+		public Vector2[] Path { get; private set; }
+		public bool OnGrid { get; set; }
 
 		[EditorHintFlags(MemberFlags.Invisible)]
 		public float BoundRadius { get; }
@@ -26,7 +29,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 
 		private void PathSolved(CompletedPath completedPath)
 		{
-			Path = completedPath.Path;
+			Path = completedPath.Path.Select(x => x.WorldPosition.ToVector2()).ToArray();
 		}
 
 		bool ICmpRenderer.IsVisible(IDrawDevice device)
@@ -41,16 +44,19 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 			if (Path != null)
 			{
 				var agentSizeCompensation = new Vector2(0, 0);
-				var astarGrid = _pathfinderProxy.PathfinderComponent.NodeNetwork as AstarNodeGrid;
-				if (astarGrid != null)
+				if (OnGrid)
 				{
-					var offset = GridClearanceHelper.GridNodeOffset(AgentSize, astarGrid.NodeSize.X);
-					agentSizeCompensation = new Vector2(offset, offset);
+					var sourceNodes = _gridPathfinderProxy.PathfinderComponent.SourceNodeNetwork;
+					if (sourceNodes != null)
+					{
+						var offset = GridClearanceHelper.GridNodeOffset(AgentSize, sourceNodes.NodeSize.X);
+						agentSizeCompensation = new Vector2(offset, offset);
+					}
 				}
 				var canvas = new Canvas(device);
 				canvas.State.ZOffset = -10;
 
-				for (int index = 0; index < Path.Length; index++)
+				for (var index = 0; index < Path.Length; index++)
 				{
 					if (index == 0) canvas.State.ColorTint = ColorRgba.Green;
 					else if (index == Path.Length - 1) canvas.State.ColorTint = ColorRgba.Blue;
@@ -60,7 +66,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 				}
 
 				canvas.State.ColorTint = ColorRgba.Red;
-				for (int i = 1; i < Path.Length; i++)
+				for (var i = 1; i < Path.Length; i++)
 				{
 					var from = Path[i - 1];
 					var to = Path[i];
@@ -75,7 +81,14 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 			{
 				DualityApp.Mouse.Move += Mouse_Move;
 				DualityApp.Mouse.ButtonDown += Mouse_ButtonDown;
-				_pathfinderProxy = new PathfinderProxy();
+				if (OnGrid)
+				{
+					_gridPathfinderProxy = new PathfinderProxy<ISourceNodeGrid<ISourceGridNode>>();
+				}
+				else
+				{
+					_nonGridPathfinderProxy = new PathfinderProxy<ISourceNodeNetwork<ISourceNode>>();
+				}
 			}
 		}
 
@@ -99,24 +112,23 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 			if (_pathStart != null)
 			{
 				var mouseWorldPosition = Camera.GetSpaceCoord(e.Position);
-				var pathEnd = new PositionF(mouseWorldPosition.X, mouseWorldPosition.Y);
-				var astarGrid = _pathfinderProxy.PathfinderComponent.NodeNetwork as AstarNodeGrid;
-				if (astarGrid != null)
+				var pathEnd = new PositionF(mouseWorldPosition.X, mouseWorldPosition.Y);				
+				if (OnGrid) //Implementation for nodegrid pathfinding
 				{
-					var offset = -GridClearanceHelper.GridNodeOffset(AgentSize, astarGrid.NodeSize.X);
+					var offset = -GridClearanceHelper.GridNodeOffset(AgentSize, _gridPathfinderProxy.PathfinderComponent.SourceNodeNetwork.NodeSize.X);
 					var start = new PositionF(_pathStart.Value.X + offset, _pathStart.Value.Y + offset);
 					var end = new PositionF(pathEnd.X + offset, pathEnd.Y + offset);
-					var startNode = _pathfinderProxy.PathfinderComponent.NodeNetwork.GetNode(start);
-					var endNode = _pathfinderProxy.PathfinderComponent.NodeNetwork.GetNode(end);
+					var startNode = _gridPathfinderProxy.PathfinderComponent.SourceNodeNetwork.GetNode(start);
+					var endNode = _gridPathfinderProxy.PathfinderComponent.SourceNodeNetwork.GetNode(end);
 					var request = new PathRequest(PathSolved, startNode, endNode, AgentSize, CollisionCategory);
-					_pathfinderProxy.RequestPath(request);
+					_gridPathfinderProxy.RequestPath(request);
 				}
-				else
+				else //Implementation for non grid pathfinding
 				{
-					var startNode = _pathfinderProxy.PathfinderComponent.NodeNetwork.GetNode(_pathStart.Value);
-					var endNode = _pathfinderProxy.PathfinderComponent.NodeNetwork.GetNode(pathEnd);
+					var startNode = _nonGridPathfinderProxy.PathfinderComponent.SourceNodeNetwork.GetNode(_pathStart.Value);
+					var endNode = _nonGridPathfinderProxy.PathfinderComponent.SourceNodeNetwork.GetNode(pathEnd);
 					var request = new PathRequest(PathSolved, startNode, endNode, AgentSize, CollisionCategory);
-					_pathfinderProxy.RequestPath(request);
+					_nonGridPathfinderProxy.RequestPath(request);
 				}
 			}
 		}

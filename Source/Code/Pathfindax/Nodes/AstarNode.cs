@@ -36,11 +36,11 @@ namespace Pathfindax.Nodes
 
 		public PathfindaxCollisionCategory CollisionCategory => SourceNode.CollisionCategory;
 
-		public Node SourceNode { get; private set; }
+		public SourceNode SourceNode { get; }
 
-		public AstarNode(Node sourceNode)
+		public AstarNode(SourceNode sourceNode)
 		{
-			this.SourceNode = sourceNode;
+			SourceNode = sourceNode;
 		}
 
 		public int CompareTo(AstarNode other)

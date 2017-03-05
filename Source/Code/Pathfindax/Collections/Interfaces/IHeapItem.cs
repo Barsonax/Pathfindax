@@ -2,6 +2,10 @@
 
 namespace Pathfindax.Collections
 {
+	/// <summary>
+	/// Interface for objects that will be used in a <see cref="MinHeap{T}"/>
+	/// </summary>
+	/// <typeparam name="T"></typeparam>
 	public interface IHeapItem<in T> : IComparable<T>
 	{
 		/// <summary>

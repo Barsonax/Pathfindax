@@ -17,7 +17,7 @@ namespace Pathfindax.Test
 			{
 				var a = 1;
 				var b = 2;
-				for (int i = 0; i < 20000000; i++) //Simulates some work.
+				for (var i = 0; i < 20000000; i++) //Simulates some work.
 				{
 					var c = a + b;
 				}
@@ -28,7 +28,7 @@ namespace Pathfindax.Test
 			{
 				var a = 1;
 				var b = 2;
-				for (int i = 0; i < 20000000; i++) //Simulates some work.
+				for (var i = 0; i < 20000000; i++) //Simulates some work.
 				{
 					var c = a + b;
 				}
@@ -37,7 +37,7 @@ namespace Pathfindax.Test
 			var workerQueue = new MultithreadedWorkerQueue<bool, bool>(new List<IProcesser<bool, bool>> { worker1, worker2 });
 			workerQueue.Start();
 			var amountOfItterations = 50;
-			for (int i = 0; i < amountOfItterations; i++)
+			for (var i = 0; i < amountOfItterations; i++)
 			{
 				workerQueue.Enqueue(false);
 			}

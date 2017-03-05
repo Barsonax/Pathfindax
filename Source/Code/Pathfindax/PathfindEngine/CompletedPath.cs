@@ -1,4 +1,4 @@
-﻿using Pathfindax.Primitives;
+﻿using Pathfindax.Nodes;
 
 namespace Pathfindax.PathfindEngine
 {
@@ -7,14 +7,14 @@ namespace Pathfindax.PathfindEngine
 		/// <summary>
 		/// The request that was made.
 		/// </summary>
-		public PathRequest PathRequest;
+		public readonly PathRequest PathRequest;
 
 		/// <summary>
 		/// The path.
 		/// </summary>
-		public readonly PositionF[] Path;
+		public readonly ISourceNode[] Path;
 
-		public CompletedPath(PositionF[] path, PathRequest pathRequest)
+		public CompletedPath(ISourceNode[] path, PathRequest pathRequest)
 		{
 			Path = path;
 			PathRequest = pathRequest;

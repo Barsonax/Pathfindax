@@ -4,8 +4,17 @@ using Pathfindax.Nodes;
 
 namespace Duality.Plugins.Pathfindax.Grid
 {
+	/// <summary>
+	/// Not used
+	/// </summary>
 	public class NodeGridRayCaster
 	{
+		/// <summary>
+		/// Not used
+		/// </summary>
+		/// <param name="from"></param>
+		/// <param name="to"></param>
+		/// <returns></returns>
 		public PathfindaxCollisionCategory GetConnectionCollisionCategory(INode from, INode to)
 		{
 			RawList<RayCastData> hits;
@@ -24,7 +33,7 @@ namespace Duality.Plugins.Pathfindax.Grid
 			return PathfindaxCollisionCategory.None;
 		}
 
-		public bool Contains(Vector2 inPoint, Vector2[] vertices)
+		/*public bool Contains(Vector2 inPoint, Vector2[] vertices)
 		{
 			var oddNodes = false;
 			var i = 0;
@@ -41,7 +50,7 @@ namespace Duality.Plugins.Pathfindax.Grid
 			}
 
 			return oddNodes;
-		}
+		}*/
 	}
 }
 

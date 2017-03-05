@@ -2,6 +2,7 @@
 using System.Linq;
 using Duality.Plugins.Pathfindax.Components;
 using Duality.Resources;
+using Pathfindax.Grid;
 
 namespace Duality.Plugins.Pathfindax
 {
@@ -12,18 +13,22 @@ namespace Duality.Plugins.Pathfindax
 	{
 		private static IPathfinderComponent[] _pathfinderComponents;
 
+		/// <summary>
+		/// Creates a new <see cref="PathfindaxDualityCorePlugin"/> and does some initialization work
+		/// </summary>
 		public PathfindaxDualityCorePlugin()
 		{
 			Scene.Leaving += Scene_Leaving;
 		}
 
 		/// <summary>
-		/// Gets the <see cref="IPathfinderComponent"/> with the same id. If the <paramref name="id"/> parameter is null then the first pathfinder will be returned.
-		/// If there are multiple pathfinders and no id was supplied this will throw a exception.
+		/// Gets the <see cref="IPathfinderComponent"/> with the same id and type. If the <paramref name="id"/> parameter is null then the first pathfinder will be returned.
+		/// If there are multiple pathfinders of the same type and no id was supplied this will throw a exception.
 		/// </summary>
 		/// <param name="id"></param>
 		/// <returns></returns>
-		internal static IPathfinderComponent GetPathfinder(string id = null)
+		internal static IPathfinderComponent<TSourceNodeNetwork> GetPathfinder<TSourceNodeNetwork>(string id = null)
+			where TSourceNodeNetwork : class, ISourceNodeNetwork
 		{
 			if (_pathfinderComponents == null)
 			{
@@ -38,7 +43,7 @@ namespace Duality.Plugins.Pathfindax
 			{
 				try
 				{
-					return _pathfinderComponents.SingleOrDefault();
+					return (IPathfinderComponent<TSourceNodeNetwork>)_pathfinderComponents.SingleOrDefault(x => x is IPathfinderComponent<TSourceNodeNetwork>);
 				}
 				catch (Exception ex)
 				{
@@ -47,10 +52,11 @@ namespace Duality.Plugins.Pathfindax
 			}
 			else
 			{
-				return _pathfinderComponents.FirstOrDefault(x => x.PathfinderId == id);
+				return (IPathfinderComponent<TSourceNodeNetwork>)_pathfinderComponents.FirstOrDefault(x => x.PathfinderId == id && x is IPathfinderComponent<TSourceNodeNetwork>);
 			}
 		}
 
+		/// <inheritdoc />
 		protected override void OnBeforeUpdate()
 		{
 			base.OnBeforeUpdate();
@@ -63,6 +69,7 @@ namespace Duality.Plugins.Pathfindax
 			}
 		}
 
+		/// <inheritdoc />
 		protected override void OnDisposePlugin()
 		{
 			Scene.Leaving -= Scene_Leaving;

@@ -12,15 +12,13 @@ namespace Pathfindax.Threading
 	/// <typeparam name="TOut"></typeparam>
 	/// <typeparam name="TIn"></typeparam>
 	public class MultithreadedWorkerQueue<TOut, TIn> : IDisposable
-		//where TOut : class
-		//where TIn : class
 	{
 		private readonly ConcurrentQueue<WorkItem<TOut, TIn>> _workItemsCompletedQueue = new ConcurrentQueue<WorkItem<TOut, TIn>>();
 		private readonly BlockingQueue<WorkItem<TOut, TIn>> _workItemsQueue = new BlockingQueue<WorkItem<TOut, TIn>>();
 		private readonly IList<Worker<TOut, TIn>> _workers;
 		private readonly ManualResetEvent _stopManualResetEvent = new ManualResetEvent(false);
 		private readonly AutoResetEvent _autoResetEvent = new AutoResetEvent(false);
-		private bool _disposed = false;
+		private bool _disposed;
 
 		/// <summary>
 		/// Initializes a new <see cref="MultithreadedWorkerQueue{TOut,TIn}"/>
@@ -74,7 +72,7 @@ namespace Pathfindax.Threading
 
 		public bool TryDequeue(out TOut result)
 		{
-			WorkItem<TOut, TIn> completedWorkitem = null;
+			WorkItem<TOut, TIn> completedWorkitem;
 			if (_workItemsCompletedQueue.TryDequeue(out completedWorkitem))
 			{
 				result = completedWorkitem.Result;

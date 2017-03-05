@@ -5,7 +5,7 @@ namespace Pathfindax.Primitives
 	/// <summary>
 	/// A simple struct to store a x and y coord.
 	/// </summary>
-	public struct PositionF
+	public struct PositionF : IEquatable<PositionF>
 	{
 		public readonly float X;
 		public readonly float Y;

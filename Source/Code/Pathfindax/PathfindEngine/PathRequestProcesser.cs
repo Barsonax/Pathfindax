@@ -2,15 +2,18 @@
 using System.Linq;
 using Pathfindax.Algorithms;
 using Pathfindax.Grid;
-using Pathfindax.Primitives;
 using Pathfindax.Threading;
 
 namespace Pathfindax.PathfindEngine
 {
+	/// <summary>
+	/// Processes a <see cref="PathRequest"/> and returns a <see cref="CompletedPath"/>
+	/// </summary>
+	/// <typeparam name="TNodeNetwork"></typeparam>
 	public class PathRequestProcesser<TNodeNetwork> : IProcesser<CompletedPath, PathRequest>
-		where TNodeNetwork : INodeNetworkBase
+		where TNodeNetwork : INodeNetwork
 	{
-		private readonly TNodeNetwork _nodeNetworks;
+		private readonly TNodeNetwork _nodeNetwork;
 		private readonly IPathFindAlgorithm<TNodeNetwork> _algorithm;
 		private readonly IList<IPathPostProcess> _pathPostProcesses;
 
@@ -24,17 +27,17 @@ namespace Pathfindax.PathfindEngine
 		{
 			_algorithm = pathFindAlgorithm;
 			_pathPostProcesses = pathPostProcesses;
-			_nodeNetworks = nodeNetwork;
+			_nodeNetwork = nodeNetwork;
 		}
 
 		/// <summary>
 		/// Solves a <see cref="PathRequest"/>
 		/// </summary>
 		/// <param name="pathRequest"></param>
-		/// <returns>A <see cref="CompletedPath"/> object containing the solved path if succesfull/></returns>
+		/// <returns>A <see cref="CompletedPath"/> object containing the solved path if succesful/></returns>
 		public CompletedPath Process(PathRequest pathRequest)
 		{
-			IList<PositionF> path = _algorithm.FindPath(_nodeNetworks, pathRequest)?.Select(x => x.WorldPosition)?.ToList();
+			var path = _algorithm.FindPath(_nodeNetwork, pathRequest);
 			if (path == null) return new CompletedPath(null, pathRequest);
 			if (_pathPostProcesses != null)
 			{

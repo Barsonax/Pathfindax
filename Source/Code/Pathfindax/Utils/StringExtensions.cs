@@ -4,9 +4,9 @@
 	{
 		public static string GetIntBinaryString(this int n)
 		{
-			char[] b = new char[32];
-			int pos = 31;
-			int i = 0;
+			var b = new char[32];
+			var pos = 31;
+			var i = 0;
 
 			while (i < 32)
 			{

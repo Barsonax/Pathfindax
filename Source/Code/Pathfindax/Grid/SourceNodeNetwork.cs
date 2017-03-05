@@ -6,15 +6,15 @@ using Pathfindax.Primitives;
 
 namespace Pathfindax.Grid
 {
-	public class SourceNodeNetwork : INodeNetwork<Node>
+	public class SourceNodeNetwork : ISourceNodeNetwork<SourceNode>
 	{
 		public int NodeCount => Nodes.Count;
-
-		public List<Node> Nodes { get; private set; }
+		public SourceNode this[int index] => Nodes[index];
+		public List<SourceNode> Nodes { get; private set; }
 
 		public SourceNodeNetwork()
 		{
-			Nodes = new List<Node>();
+			Nodes = new List<SourceNode>();
 		}
 
 		/// <summary>
@@ -22,12 +22,12 @@ namespace Pathfindax.Grid
 		/// </summary>
 		/// <param name="worldPosition"></param>
 		/// <returns></returns>
-		public Node GetNode(PositionF worldPosition)
+		public SourceNode GetNode(PositionF worldPosition)
 		{
 			return Nodes.OrderBy(x => worldPosition.Distance(x.WorldPosition)).FirstOrDefault(); //TODO this does not scale well with more nodes in the network.
 		}
 
-		public IEnumerator<Node> GetEnumerator()
+		public IEnumerator<SourceNode> GetEnumerator()
 		{
 			foreach (var node in Nodes)
 			{

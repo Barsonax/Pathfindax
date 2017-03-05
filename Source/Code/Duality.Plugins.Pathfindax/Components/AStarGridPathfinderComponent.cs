@@ -13,13 +13,20 @@ namespace Duality.Plugins.Pathfindax.Components
 	/// Provides a way for other components to request a path from A to B. Uses the A* algorithm.
 	/// </summary>
 	[EditorHintCategory(PathfindaxStrings.Pathfindax)]
-	public class AStarGridPathfinderComponent : PathfinderComponentBase, ICmpRenderer
+	public class AStarGridPathfinderComponent : PathfinderComponentBase<ISourceNodeGrid<ISourceGridNode>>, ICmpRenderer
 	{
-		public override INodeNetwork<INode> NodeNetwork { get; protected set; }
-		public INodeGrid<IGridNode> SourceNodeGrid { get; set; }
+		/// <inheritdoc />
+		public override ISourceNodeGrid<ISourceGridNode> SourceNodeNetwork { get; protected set; }
 
+		/// <summary>
+		/// Not used
+		/// </summary>
 		[EditorHintFlags(MemberFlags.Invisible)]
 		public float BoundRadius { get; }
+
+		/// <summary>
+		/// If <c>True</c> the <see cref="ISourceNodeGrid{TNode}"/> will be drawn to the scene using a <see cref="NodeGridVisualizer"/>
+		/// </summary>
 		public bool ShowNodeGrid { get; set; }
 
 		[EditorHintFlags(MemberFlags.Visible)]
@@ -37,19 +44,19 @@ namespace Duality.Plugins.Pathfindax.Components
 			if (ShowNodeGrid) NodeGridVisualizer?.Draw(device);
 		}
 
+		/// <inheritdoc />
 		public override void OnInit(InitContext context)
 		{
 			if (context == InitContext.Activate && DualityApp.ExecContext == DualityApp.ExecutionContext.Game)
 			{
-				var sourceProvider = GameObj.GetComponent<ISourceNodeNetworkProvider<INodeGrid<IGridNode>>>();
+				var sourceProvider = GameObj.GetComponent<ISourceNodeNetworkProvider<ISourceNodeGrid<ISourceGridNode>>>();
 				if (sourceProvider != null)
 				{
-					SourceNodeGrid = sourceProvider.GenerateGrid2D();
-					var nodeGrid = new AstarNodeGrid(SourceNodeGrid);
-					NodeNetwork = nodeGrid;
+					SourceNodeNetwork = sourceProvider.GenerateGrid2D();
+					var nodeGrid = new AstarNodeGrid(SourceNodeNetwork);
 					var algorithm = new AStarGridAlgorithm();
-					NodeGridVisualizer = new NodeGridVisualizer(SourceNodeGrid);
-					MultithreadedPathfinder = new MultithreadedPathfinder<INodeGrid<AstarGridNode>>(nodeGrid, algorithm);
+					NodeGridVisualizer = new NodeGridVisualizer(SourceNodeNetwork);
+					MultithreadedPathfinder = new MultithreadedPathfinder<INodeGrid<AstarGridNode>>(new[] { nodeGrid }, algorithm);
 					MultithreadedPathfinder.Start();
 				}
 			}

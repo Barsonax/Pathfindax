@@ -6,15 +6,19 @@ using Pathfindax.Primitives;
 
 namespace Pathfindax.Grid
 {
+	/// <summary>
+	/// A node network for <see cref="AstarNode"/>s
+	/// </summary>
 	public class AstarNodeNetwork : INodeNetwork<AstarNode>
 	{
 		public int NodeCount => Nodes.Count;
+		public AstarNode this[int index] => Nodes[index];
 		private List<AstarNode> Nodes { get;  }
 
-		public AstarNodeNetwork(IEnumerable<Node> sourceNodeNetwork)
+		public AstarNodeNetwork(IEnumerable<SourceNode> sourceNodeNetwork)
 		{
 			Nodes = new List<AstarNode>();
-			var sourceNodeDictionary = new Dictionary<Node, AstarNode>(); //Later used to generate the connections
+			var sourceNodeDictionary = new Dictionary<SourceNode, AstarNode>(); //Later used to generate the connections
 			foreach (var node in sourceNodeNetwork)
 			{
 				var astarNode = new AstarNode(node);
@@ -30,7 +34,7 @@ namespace Pathfindax.Grid
 					continue;
 				}
 				astarNode.Connections = new NodeConnection<AstarNode>[astarNode.SourceNode.Connections.Count];
-				for (int index = 0; index < astarNode.SourceNode.Connections.Count; index++)
+				for (var index = 0; index < astarNode.SourceNode.Connections.Count; index++)
 				{
 					var sourceNodeConnection = astarNode.SourceNode.Connections[index];
 					astarNode.Connections[index] = new NodeConnection<AstarNode>(sourceNodeDictionary[sourceNodeConnection.To], sourceNodeConnection.CollisionCategory);

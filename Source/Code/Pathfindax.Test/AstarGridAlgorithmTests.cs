@@ -12,13 +12,13 @@ namespace Pathfindax.Test
 	{
 		[Test, TestCaseSource(typeof(AstarGridAlgorithmCases), nameof(AstarGridAlgorithmCases.FindPathTestCases))]
 		[MaxTime(2000)]
-		public void FindPath_InitializedNodegrid_PathLengthIsNot0(AstarNodeGrid nodeGrid, float x1, float y1, float x2, float y2)
+		public void FindPath_InitializedNodegrid_PathLengthIsNot0(AstarNodeGrid sourceNodeGrid, float x1, float y1, float x2, float y2)
 		{
 			var aStarAlgorithm = new AStarGridAlgorithm();
-			var start = nodeGrid.GetNode(new PositionF(x1, y1));
-			var end = nodeGrid.GetNode(new PositionF(x2, y2));
+			var start = sourceNodeGrid.SourceSourceNodeGrid.GetNode(new PositionF(x1, y1));
+			var end = sourceNodeGrid.SourceSourceNodeGrid.GetNode(new PositionF(x2, y2));
 			var pathRequest = new PathRequest(null, start, end);
-			var path = aStarAlgorithm.FindPath(nodeGrid, pathRequest);
+			var path = aStarAlgorithm.FindPath(sourceNodeGrid, pathRequest);
 			Assert.AreEqual(path.Count > 0, true);
 		}
 

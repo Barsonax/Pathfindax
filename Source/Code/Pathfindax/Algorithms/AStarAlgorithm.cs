@@ -14,14 +14,14 @@ namespace Pathfindax.Algorithms
 	public class AStarAlgorithm : IPathFindAlgorithm<INodeNetwork<AstarNode>>
 	{
 		/// <inheritdoc />
-		public IList<INode> FindPath(INodeNetwork<AstarNode> nodeGrid, PathRequest pathRequest)
+		public IList<ISourceNode> FindPath(INodeNetwork<AstarNode> nodeNetwork, PathRequest pathRequest)
 		{
-			var startNode = pathRequest.PathStart as AstarNode;
-			var endNode = pathRequest.PathEnd as AstarNode;
-			return FindPath(nodeGrid, startNode, endNode, pathRequest.CollsionLayer);
+			var startNode = nodeNetwork[pathRequest.PathStart.ArrayIndex];
+			var endNode = nodeNetwork[pathRequest.PathEnd.ArrayIndex];
+			return FindPath(nodeNetwork, startNode, endNode, pathRequest.CollsionLayer);
 		}
 
-		private IList<INode> FindPath(INodeNetwork<AstarNode> nodeGrid, AstarNode startNode, AstarNode targetNode, PathfindaxCollisionCategory collisionCategory)
+		private IList<ISourceNode> FindPath(INodeNetwork<AstarNode> nodeNetwork, AstarNode startNode, AstarNode targetNode, PathfindaxCollisionCategory collisionCategory)
 		{
 			try
 			{
@@ -31,11 +31,11 @@ namespace Pathfindax.Algorithms
 				var pathSucces = false;
 				if (startNode == targetNode)
 				{
-					return new List<INode> { targetNode };
+					return new List<ISourceNode> { targetNode.SourceNode };
 				}
 				if ((startNode.CollisionCategory & collisionCategory) == 0 && (targetNode.CollisionCategory & collisionCategory) == 0)
 				{
-					var openSet = new MinHeap<AstarNode>(nodeGrid.NodeCount);
+					var openSet = new MinHeap<AstarNode>(nodeNetwork.NodeCount);
 					var closedSet = new HashSet<AstarNode>();
 					var itterations = 0;
 					var neighbourUpdates = 0;
@@ -87,14 +87,14 @@ namespace Pathfindax.Algorithms
 			}
 		}
 
-		private IList<INode> RetracePath(AstarNode startGridNode, AstarNode endGridNode)
+		private IList<ISourceNode> RetracePath(AstarNode startGridNode, AstarNode endGridNode)
 		{
-			var path = new List<INode>();
+			var path = new List<ISourceNode>();
 			var currentNode = endGridNode;
 
 			while (true)
 			{
-				path.Add(currentNode);
+				path.Add(currentNode.SourceNode);
 				if (currentNode == startGridNode) break;
 				currentNode = currentNode.Parent;
 			}
