@@ -1,19 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Topics>
-  <Topic id="b093189b-7eca-47ef-8358-efdd2310007b" visible="True" isDefault="true" isSelected="true" title="Welcome to the pathfindax documentation">
-    <HelpKeywords>
-      <HelpKeyword index="K" term="Welcome" />
-    </HelpKeywords>
-  </Topic>
-  <Topic id="63392b30-cd57-428e-bd77-3dee6259d856" visible="True" />
-  <Topic id="b9966ba3-170f-435d-8177-76d6801097e8" visible="True" isExpanded="true" title="Version History">
-    <HelpKeywords>
-      <HelpKeyword index="K" term="version, history" />
-    </HelpKeywords>
-    <Topic id="9dd90029-95e8-466e-9c3d-1dee595e1692" visible="True" title="Version 1.0.0.0">
-      <HelpKeywords>
-        <HelpKeyword index="K" term="version, 1.0.0.0" />
-      </HelpKeywords>
-    </Topic>
-  </Topic>
+  <Topic id="63392b30-cd57-428e-bd77-3dee6259d856" visible="True" isDefault="true" isSelected="true" />
 </Topics>
