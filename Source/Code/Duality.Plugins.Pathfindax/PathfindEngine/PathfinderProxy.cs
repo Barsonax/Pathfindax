@@ -30,6 +30,7 @@ namespace Duality.Plugins.Pathfindax.PathfindEngine
 	/// <example>
 	/// <img src="../media/PathfindProxyDiagram.png" />
 	/// </example>
+	/// <typeparam name="TSourceNodeNetwork">The type of source network the pathfinder uses</typeparam>
 	public class PathfinderProxy<TSourceNodeNetwork>
 		where TSourceNodeNetwork : class, ISourceNodeNetwork
 	{
