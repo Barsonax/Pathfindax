@@ -112,6 +112,12 @@
       <Private>True</Private>
     </Reference>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="media\PathfindProxyDiagram.png">
+      <ImageId>PathfindProxyDiagram</ImageId>
+      <AlternateText>Pathfind Proxy Diagram</AlternateText>
+    </Content>
+  </ItemGroup>
   <!-- Import the SHFB build targets -->
   <Import Project="$(SHFBROOT)\SandcastleHelpFileBuilder.targets" />
   <!-- The pre-build and post-build event properties must appear *after* the targets file import in order to be

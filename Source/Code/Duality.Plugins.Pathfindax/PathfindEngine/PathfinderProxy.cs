@@ -6,9 +6,30 @@ using Pathfindax.PathfindEngine;
 namespace Duality.Plugins.Pathfindax.PathfindEngine
 {
 	/// <summary>
-	/// Provides access to the pathfinder
+	/// Provides access to the pathfinder.
 	/// </summary>
-	/// <typeparam name="TSourceNodeNetwork">The source node network type of the pathfinder</typeparam>
+	/// <example>
+	/// <code>			
+	/// public class PathfinderProxyExample : Component, ICmpInitializable
+	///	{
+	///		private PathfinderProxy&lt;ISourceNodeGrid&lt;ISourceGridNode&gt;&gt; _pathfinderProxy;
+	///
+	///		public void OnInit(InitContext context)
+	///		{
+	///		    if (context == InitContext.Activate &amp;&amp; DualityApp.ExecContext == DualityApp.ExecutionContext.Game)
+	///		    {
+	///		        _pathfinderProxy = new PathfinderProxy&lt;ISourceNodeGrid&lt;ISourceGridNode&gt;&gt;();
+	///		    	//Now you can use _pathfinderProxy.RequestPath(PathRequest) to request a path from the pathfinder
+	///		    }
+	///		}
+	///		
+	///		public void OnShutdown(ShutdownContext context) { }
+	/// }  
+	/// </code>
+	/// </example>
+	/// <example>
+	/// <img src="../media/PathfindProxyDiagram.png" />
+	/// </example>
 	public class PathfinderProxy<TSourceNodeNetwork>
 		where TSourceNodeNetwork : class, ISourceNodeNetwork
 	{

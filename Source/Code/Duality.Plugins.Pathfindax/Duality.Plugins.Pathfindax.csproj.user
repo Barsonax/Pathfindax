@@ -3,4 +3,14 @@
   <PropertyGroup>
     <ProjectView>ProjectFiles</ProjectView>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <StartProgram>C:\Users\Rick-\Documents\Visual Studio 2015\Projects\Pathfindax\Source\Code\..\..\DualityLauncher.exe</StartProgram>
+    <StartWorkingDirectory>C:\Users\Rick-\Documents\Visual Studio 2015\Projects\Pathfindax\Source\Code\..\..</StartWorkingDirectory>
+    <StartAction>Program</StartAction>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <StartProgram>C:\Users\Rick-\Documents\Visual Studio 2015\Projects\Pathfindax\Source\Code\..\..\DualityLauncher.exe</StartProgram>
+    <StartWorkingDirectory>C:\Users\Rick-\Documents\Visual Studio 2015\Projects\Pathfindax\Source\Code\..\..</StartWorkingDirectory>
+    <StartAction>Program</StartAction>
+  </PropertyGroup>
 </Project>
