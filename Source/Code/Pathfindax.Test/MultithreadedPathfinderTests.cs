@@ -29,7 +29,7 @@ namespace Pathfindax.Test
 
 			multithreadedPathfinder.Start();
 			var taskCompletionSource = new TaskCompletionSource<bool>();
-			Action<CompletedPath> success = pathrequest =>
+			Action<PathRequest> success = pathrequest =>
 			{
 				taskCompletionSource.SetResult(true);
 			};
@@ -53,7 +53,7 @@ namespace Pathfindax.Test
 
 			var pathRequests = new PathRequest[100];
 			var taskCompletionSources = new TaskCompletionSource<bool>[pathRequests.Length];
-			var success = new Action<CompletedPath>[pathRequests.Length];
+			var success = new Action<PathRequest>[pathRequests.Length];
 			for (var i = 0; i < pathRequests.Length; i++)
 			{
 				var i1 = i;

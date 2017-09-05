@@ -85,10 +85,10 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 			_gridPathfinderProxy.RequestPath(request);
 		}
 
-		private void OnRequestCompleted(CompletedPath completedPath)
+		private void OnRequestCompleted(PathRequest pathRequest)
 		{
-			if (completedPath.Path != null)
-				_path = completedPath.Path.Select(x => x.WorldPosition.ToVector2()).ToArray();
+			if (pathRequest.Path != null)
+				_path = pathRequest.Path.Select(x => x.WorldPosition.ToVector2()).ToArray();
 		}
 
 		public void OnShutdown(ShutdownContext context)

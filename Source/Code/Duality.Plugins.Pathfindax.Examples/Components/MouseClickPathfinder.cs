@@ -27,9 +27,9 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 
 		public Camera Camera { get; set; }
 
-		private void PathSolved(CompletedPath completedPath)
+		private void PathSolved(PathRequest pathRequest)
 		{
-			Path = completedPath.Path.Select(x => x.WorldPosition.ToVector2()).ToArray();
+			Path = pathRequest.Path.Select(x => x.WorldPosition.ToVector2()).ToArray();
 		}
 
 		bool ICmpRenderer.IsVisible(IDrawDevice device)

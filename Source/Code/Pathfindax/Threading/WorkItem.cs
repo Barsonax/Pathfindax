@@ -1,9 +1,8 @@
 ﻿namespace Pathfindax.Threading
 {
-	public class WorkItem<TOut, TIn>
+	public class WorkItem<TIn>
 	{
 		public readonly TIn Work;
-		public TOut Result;
 
 		public WorkItem(TIn work)
 		{

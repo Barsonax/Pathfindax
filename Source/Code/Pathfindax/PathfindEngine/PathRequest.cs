@@ -1,5 +1,6 @@
 ﻿using System;
 using Pathfindax.Nodes;
+using System.Threading.Tasks;
 
 namespace Pathfindax.PathfindEngine
 {
@@ -31,17 +32,31 @@ namespace Pathfindax.PathfindEngine
 		/// <summary>
 		/// The callback that will be called after the pathfinder finds a path or cannot find one.
 		/// </summary>
-		public readonly Action<CompletedPath> Callback;
+		public readonly Action<PathRequest> Callback;
 
-		/// <summary>
-		/// Creates a new <see cref="PathRequest"/>
-		/// </summary>
-		/// <param name="callback">The callback that will be called with the <see cref="CompletedPath"/> when the pathfinder has finished this <see cref="PathRequest"/></param>
-		/// <param name="start">The worldcoordinates of the start of the path</param>
-		/// <param name="end">The worldcoordinates of the end of the path</param>
-		/// <param name="agentSize">The size of the agent in nodes</param>
-		/// <param name="collisionLayer">The collision layers that this agent cannot cross</param>
-		public PathRequest(Action<CompletedPath> callback, ISourceNode start, ISourceNode end, byte agentSize = 1, PathfindaxCollisionCategory collisionLayer = PathfindaxCollisionCategory.None)
+        public ISourceNode[] Path;
+        public TaskStatus TaskStatus { get; private set; }
+
+        public void SetPath(ISourceNode[] path)
+        {
+            Path = path;
+            TaskStatus = Path != null ? TaskStatus.RanToCompletion : TaskStatus.Faulted;
+        }
+
+        internal void SetFaulted()
+        {
+            TaskStatus = TaskStatus.Faulted;
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="PathRequest"/>
+        /// </summary>
+        /// <param name="callback">The callback that will be called with the <see cref="PathRequest"/> when the pathfinder has finished this <see cref="PathRequest"/></param>
+        /// <param name="start">The worldcoordinates of the start of the path</param>
+        /// <param name="end">The worldcoordinates of the end of the path</param>
+        /// <param name="agentSize">The size of the agent in nodes</param>
+        /// <param name="collisionLayer">The collision layers that this agent cannot cross</param>
+        public PathRequest(Action<PathRequest> callback, ISourceNode start, ISourceNode end, byte agentSize = 1, PathfindaxCollisionCategory collisionLayer = PathfindaxCollisionCategory.None)
 		{
 			PathStart = start;
 			PathEnd = end;
