@@ -18,7 +18,7 @@ namespace Pathfindax.Algorithms
 		{
 			var startNode = nodeNetwork[pathRequest.PathStart.ArrayIndex];
 			var endNode = nodeNetwork[pathRequest.PathEnd.ArrayIndex];
-			return FindPath(nodeNetwork, startNode, endNode, pathRequest.CollsionLayer);
+			return FindPath(nodeNetwork, startNode, endNode, pathRequest.CollisionLayer);
 		}
 
 		private IList<ISourceNode> FindPath(INodeNetwork<AstarNode> nodeNetwork, AstarNode startNode, AstarNode targetNode, PathfindaxCollisionCategory collisionCategory)

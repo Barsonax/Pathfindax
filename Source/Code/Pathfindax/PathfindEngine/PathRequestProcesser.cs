@@ -31,25 +31,21 @@ namespace Pathfindax.PathfindEngine
 		}
 
 		/// <summary>
-		/// Solves a <see cref="PathRequest"/>
+		/// Processes a <see cref="PathRequest"/>
 		/// </summary>
 		/// <param name="pathRequest"></param>
 		public void Process(PathRequest pathRequest)
 		{
+
 			var path = _algorithm.FindPath(_nodeNetwork, pathRequest);
-            if (path == null)
-            {
-                pathRequest.SetFaulted();
-                return;
-            }
-			if (_pathPostProcesses != null)
+			if (_pathPostProcesses != null && path != null)
 			{
 				foreach (var postProcess in _pathPostProcesses)
 				{					
 					path = postProcess.Process(path, pathRequest);
 				}
 			}
-            pathRequest.SetPath(path.ToArray());
+            pathRequest.FinishSolvePath(path?.ToArray());
 		}
 	}
 }

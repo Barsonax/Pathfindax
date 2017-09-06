@@ -120,15 +120,17 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 					var end = new PositionF(pathEnd.X + offset, pathEnd.Y + offset);
 					var startNode = _gridPathfinderProxy.PathfinderComponent.SourceNodeNetwork.GetNode(start);
 					var endNode = _gridPathfinderProxy.PathfinderComponent.SourceNodeNetwork.GetNode(end);
-					var request = new PathRequest(PathSolved, startNode, endNode, AgentSize, CollisionCategory);
+					var request = new PathRequest(startNode, endNode, AgentSize, CollisionCategory);
+                    request.AddCallback(PathSolved);
 					_gridPathfinderProxy.RequestPath(request);
 				}
 				else //Implementation for non grid pathfinding
 				{
 					var startNode = _nonGridPathfinderProxy.PathfinderComponent.SourceNodeNetwork.GetNode(_pathStart.Value);
 					var endNode = _nonGridPathfinderProxy.PathfinderComponent.SourceNodeNetwork.GetNode(pathEnd);
-					var request = new PathRequest(PathSolved, startNode, endNode, AgentSize, CollisionCategory);
-					_nonGridPathfinderProxy.RequestPath(request);
+					var request = new PathRequest(startNode, endNode, AgentSize, CollisionCategory);
+                    request.AddCallback(PathSolved);
+                    _nonGridPathfinderProxy.RequestPath(request);
 				}
 			}
 		}

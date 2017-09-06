@@ -50,7 +50,8 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 				}
 				var startNode = _gridPathfinderProxy.PathfinderComponent.SourceNodeNetwork.GetNode(start);
 				var endNode = _gridPathfinderProxy.PathfinderComponent.SourceNodeNetwork.GetNode(end);
-				var request = new PathRequest(PathSolved, startNode, endNode, AgentSize, CollisionCategory);
+				var request = new PathRequest(startNode, endNode, AgentSize, CollisionCategory);
+                request.AddCallback(PathSolved);
 				_gridPathfinderProxy.RequestPath(request);
 				_frameCounter = 0;
 			}

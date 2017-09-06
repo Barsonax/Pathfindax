@@ -17,7 +17,7 @@ namespace Pathfindax.Test
 			var aStarAlgorithm = new AStarGridAlgorithm();
 			var start = sourceNodeGrid.SourceSourceNodeGrid.GetNode(new PositionF(x1, y1));
 			var end = sourceNodeGrid.SourceSourceNodeGrid.GetNode(new PositionF(x2, y2));
-			var pathRequest = new PathRequest(null, start, end);
+			var pathRequest = new PathRequest(start, end);
 			var path = aStarAlgorithm.FindPath(sourceNodeGrid, pathRequest);
 			Assert.AreEqual(path.Count > 0, true);
 		}

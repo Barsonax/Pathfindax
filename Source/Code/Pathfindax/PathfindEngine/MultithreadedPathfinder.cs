@@ -63,7 +63,7 @@ namespace Pathfindax.PathfindEngine
 		{
 			while (_multithreadedWorkerQueue.TryDequeue(out var pathRequest))
 			{
-				pathRequest.Callback.Invoke(pathRequest);
+                pathRequest.CallCallbacks();
 			}
 		}
 

@@ -1,68 +1,88 @@
 ﻿using System;
 using Pathfindax.Nodes;
-using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace Pathfindax.PathfindEngine
 {
-	/// <summary>
-	/// A class with all the information needed to calculate a path from A to B.
-	/// </summary>
-	public class PathRequest 
-	{
-		/// <summary>
-		/// The node start node.
-		/// </summary>
-		public readonly ISourceNode PathStart;
+    /// <summary>
+    /// A class with all the information needed to calculate a path from A to B.
+    /// </summary>
+    public class PathRequest
+    {
+        /// <summary>
+        /// The node start node.
+        /// </summary>
+        public readonly ISourceNode PathStart;
 
-		/// <summary>
-		/// The end node.
-		/// </summary>
-		public readonly ISourceNode PathEnd;
+        /// <summary>
+        /// The end node.
+        /// </summary>
+        public readonly ISourceNode PathEnd;
 
-		/// <summary>
-		/// The size of the agent. 1 is the default value meaning that the agent occupies only 1 node.
-		/// </summary>
-		public readonly byte AgentSize;
+        /// <summary>
+        /// The size of the agent. 1 is the default value meaning that the agent occupies only 1 node.
+        /// </summary>
+        public readonly byte AgentSize;
 
-		/// <summary>
-		/// The CollisionLayer. Sometimes you can have multiple nodenetworks. One for agents that have to move over land and one for agents that can move over land and sea for instance.
-		/// </summary>
-		public readonly PathfindaxCollisionCategory CollsionLayer;
+        /// <summary>
+        /// The CollisionLayer. Sometimes you can have multiple nodenetworks. One for agents that have to move over land and one for agents that can move over land and sea for instance.
+        /// </summary>
+        public readonly PathfindaxCollisionCategory CollisionLayer;
 
-		/// <summary>
-		/// The callback that will be called after the pathfinder finds a path or cannot find one.
-		/// </summary>
-		public readonly Action<PathRequest> Callback;
+        /// <summary>
+        /// The callback that will be called after the pathfinder finds a path or cannot find one.
+        /// </summary>
+        private readonly List<Action<PathRequest>> Callbacks = new List<Action<PathRequest>>();
 
-        public ISourceNode[] Path;
-        public TaskStatus TaskStatus { get; private set; }
+        public ISourceNode[] Path { get; private set; }
+        public PathRequestStatus Status { get; private set; }
 
-        public void SetPath(ISourceNode[] path)
+        /// <summary>
+        /// Starts solving the path using the provided <paramref name="pathfinder"/>.
+        /// </summary>
+        /// <param name="pathfinder"></param>
+        public void StartSolvePath(IPathfinder pathfinder)
         {
-            Path = path;
-            TaskStatus = Path != null ? TaskStatus.RanToCompletion : TaskStatus.Faulted;
+            Status = PathRequestStatus.Solving;
+            pathfinder.RequestPath(this);
         }
 
-        internal void SetFaulted()
+        internal void FinishSolvePath(ISourceNode[] path)
         {
-            TaskStatus = TaskStatus.Faulted;
+            Path = path;
+            Status = Path != null ? PathRequestStatus.Solved : PathRequestStatus.NoPathFound;
+        }
+
+        internal void CallCallbacks()
+        {
+            foreach (var callback in Callbacks)
+            {
+                callback.Invoke(this);
+            }
+        }
+
+        /// <summary>
+        /// Adds a new callback to this <see cref="PathRequest"/>
+        /// </summary>
+        /// <param name="callback">The callback that will be called when the pathfinder has solved this <see cref="PathRequest"/></param>
+        public void AddCallback(Action<PathRequest> callback)
+        {
+            Callbacks.Add(callback);
         }
 
         /// <summary>
         /// Creates a new <see cref="PathRequest"/>
         /// </summary>
-        /// <param name="callback">The callback that will be called with the <see cref="PathRequest"/> when the pathfinder has finished this <see cref="PathRequest"/></param>
         /// <param name="start">The worldcoordinates of the start of the path</param>
         /// <param name="end">The worldcoordinates of the end of the path</param>
         /// <param name="agentSize">The size of the agent in nodes</param>
         /// <param name="collisionLayer">The collision layers that this agent cannot cross</param>
-        public PathRequest(Action<PathRequest> callback, ISourceNode start, ISourceNode end, byte agentSize = 1, PathfindaxCollisionCategory collisionLayer = PathfindaxCollisionCategory.None)
-		{
-			PathStart = start;
-			PathEnd = end;
-			AgentSize = agentSize;
-			CollsionLayer = collisionLayer;
-			Callback = callback;
-		}
-	}
+        public PathRequest(ISourceNode start, ISourceNode end, byte agentSize = 1, PathfindaxCollisionCategory collisionLayer = PathfindaxCollisionCategory.None)
+        {
+            PathStart = start;
+            PathEnd = end;
+            AgentSize = agentSize;
+            CollisionLayer = collisionLayer;
+        }
+    }
 }

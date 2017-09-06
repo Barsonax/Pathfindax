@@ -65,7 +65,7 @@ namespace Duality.Plugins.Pathfindax.PathfindEngine
 		/// <param name="pathRequest"></param>
 		public void RequestPath(PathRequest pathRequest)
 		{
-			PathfinderComponent.RequestPath(pathRequest);
+            pathRequest.StartSolvePath(PathfinderComponent);
 		}
 	}
 }
