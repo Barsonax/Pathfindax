@@ -24,5 +24,10 @@ namespace Pathfindax.Grid
 			NodeSize = sourceNodeGrid.NodeSize;
 			WorldSize = sourceNodeGrid.WorldSize;
 		}
-	}
+
+        public override string ToString()
+        {
+            return $"{NodeArray.Height}x{NodeArray.Width} grid";
+        }
+    }
 }
