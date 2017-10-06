@@ -18,7 +18,7 @@ namespace Pathfindax.Algorithms
 		{
 			var startNode = nodeGrid[pathRequest.PathStart.ArrayIndex];
 			var endNode = nodeGrid[pathRequest.PathEnd.ArrayIndex];
-			return FindPath(nodeGrid, startNode, endNode, pathRequest.CollsionLayer, pathRequest.AgentSize);
+			return FindPath(nodeGrid, startNode, endNode, pathRequest.CollisionLayer, pathRequest.AgentSize);
 		}
 
 		private IList<ISourceNode> FindPath(INodeGrid<AstarGridNode> sourceNodeGrid, AstarGridNode startGridNode, AstarGridNode targetGridNode, PathfindaxCollisionCategory collisionCategory, byte neededClearance)
@@ -56,7 +56,7 @@ namespace Pathfindax.Algorithms
 
 						foreach (var connection in currentNode.Connections)
 						{
-							if (((connection.CollisionCategory & collisionCategory) != 0) || closedSet.Contains(connection.To))
+							if ((connection.CollisionCategory & collisionCategory) != 0 || closedSet.Contains(connection.To))
 							{
 								continue;
 							}
