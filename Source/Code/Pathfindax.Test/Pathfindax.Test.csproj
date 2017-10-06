@@ -64,9 +64,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AstarAlgorithmTests.cs" />
+    <Compile Include="AstarGridAlgorithmCases.cs" />
     <Compile Include="AstarGridAlgorithmTests.cs" />
+    <Compile Include="MultithreadedPathfinderSetup.cs" />
     <Compile Include="MultithreadedPathfinderTests.cs" />
     <Compile Include="MultithreadedWorkerQueueTests.cs" />
+    <Compile Include="PathRequestTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

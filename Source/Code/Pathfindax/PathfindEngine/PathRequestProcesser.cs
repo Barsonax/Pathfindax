@@ -36,7 +36,6 @@ namespace Pathfindax.PathfindEngine
 		/// <param name="pathRequest"></param>
 		public void Process(PathRequest pathRequest)
 		{
-
 			var path = _algorithm.FindPath(_nodeNetwork, pathRequest);
 			if (_pathPostProcesses != null && path != null)
 			{

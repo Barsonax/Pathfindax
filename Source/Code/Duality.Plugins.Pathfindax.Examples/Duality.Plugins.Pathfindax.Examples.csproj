@@ -82,6 +82,7 @@
   <ItemGroup>
     <Compile Include="Components\MouseClickPathfinder.cs" />
     <Compile Include="Components\PathfindaxPathSpammerComponent.cs" />
+    <Compile Include="Components\PathfindProxyExample.cs" />
     <Compile Include="Components\PathFollowerComponent.cs" />
     <Compile Include="Components\SourceNodeGridProvderMockupComponent.cs" />
     <Compile Include="Components\SourceNodeNetworkProviderMockupComponent.cs" />

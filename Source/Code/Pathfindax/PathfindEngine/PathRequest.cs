@@ -32,9 +32,13 @@ namespace Pathfindax.PathfindEngine
         /// <summary>
         /// The callback that will be called after the pathfinder finds a path or cannot find one.
         /// </summary>
-        private readonly List<Action<PathRequest>> Callbacks = new List<Action<PathRequest>>();
+        private readonly List<Action<PathRequest>> _callbacks = new List<Action<PathRequest>>();
 
+        /// <summary>
+        /// The calculated path. Will be null unless the <see cref="Status"/> is equal to <see cref="PathRequestStatus.Solved"/>
+        /// </summary>
         public ISourceNode[] Path { get; private set; }
+
         public PathRequestStatus Status { get; private set; }
 
         /// <summary>
@@ -43,22 +47,9 @@ namespace Pathfindax.PathfindEngine
         /// <param name="pathfinder"></param>
         public void StartSolvePath(IPathfinder pathfinder)
         {
+            if (Status != PathRequestStatus.Created) throw new InvalidOperationException("This path request is already being processed or processed");
             Status = PathRequestStatus.Solving;
             pathfinder.RequestPath(this);
-        }
-
-        internal void FinishSolvePath(ISourceNode[] path)
-        {
-            Path = path;
-            Status = Path != null ? PathRequestStatus.Solved : PathRequestStatus.NoPathFound;
-        }
-
-        internal void CallCallbacks()
-        {
-            foreach (var callback in Callbacks)
-            {
-                callback.Invoke(this);
-            }
         }
 
         /// <summary>
@@ -67,7 +58,14 @@ namespace Pathfindax.PathfindEngine
         /// <param name="callback">The callback that will be called when the pathfinder has solved this <see cref="PathRequest"/></param>
         public void AddCallback(Action<PathRequest> callback)
         {
-            Callbacks.Add(callback);
+            if (Status > PathRequestStatus.Solved)
+            {
+                callback.Invoke(this);
+            }
+            else
+            {
+                _callbacks.Add(callback);
+            }          
         }
 
         /// <summary>
@@ -83,6 +81,20 @@ namespace Pathfindax.PathfindEngine
             PathEnd = end;
             AgentSize = agentSize;
             CollisionLayer = collisionLayer;
+        }
+
+        internal void FinishSolvePath(ISourceNode[] path)
+        {
+            Path = path;
+            Status = Path != null ? PathRequestStatus.Solved : PathRequestStatus.NoPathFound;
+        }
+
+        internal void CallCallbacks()
+        {
+            foreach (var callback in _callbacks)
+            {
+                callback.Invoke(this);
+            }
         }
     }
 }
