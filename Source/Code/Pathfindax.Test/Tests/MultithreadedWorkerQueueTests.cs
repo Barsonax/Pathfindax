@@ -4,7 +4,7 @@ using NSubstitute;
 using NUnit.Framework;
 using Pathfindax.Threading;
 
-namespace Pathfindax.Test
+namespace Pathfindax.Test.Tests
 {
 	[TestFixture]
 	public class MultithreadedWorkerQueueTests
@@ -12,7 +12,7 @@ namespace Pathfindax.Test
 		[Test]
 		public void WaitForAllWorkToBeDone_WorkersBusyAllTheTime_Passes()
 		{
-			var worker1 = Substitute.For<IProcesser<bool, bool>>();
+			var worker1 = Substitute.For<IProcesser<bool>>();
 			worker1.When(x => x.Process(false)).Do(x =>
 			{
 				var a = 1;
@@ -23,7 +23,7 @@ namespace Pathfindax.Test
 				}
 			});
 
-			var worker2 = Substitute.For<IProcesser<bool, bool>>();
+			var worker2 = Substitute.For<IProcesser<bool>>();
 			worker2.When(x => x.Process(false)).Do(x =>
 			{
 				var a = 1;
@@ -34,7 +34,7 @@ namespace Pathfindax.Test
 				}
 			});
 
-			var workerQueue = new MultithreadedWorkerQueue<bool, bool>(new List<IProcesser<bool, bool>> { worker1, worker2 });
+			var workerQueue = new MultithreadedWorkerQueue<bool>(new List<IProcesser<bool>> { worker1, worker2 });
 			workerQueue.Start();
 			var amountOfItterations = 50;
 			for (var i = 0; i < amountOfItterations; i++)

@@ -61,10 +61,13 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AstarAlgorithmTests.cs" />
-    <Compile Include="AstarGridAlgorithmTests.cs" />
-    <Compile Include="MultithreadedPathfinderTests.cs" />
-    <Compile Include="MultithreadedWorkerQueueTests.cs" />
+    <Compile Include="Tests\AstarAlgorithmTests.cs" />
+    <Compile Include="Setup\AstarGridAlgorithmCases.cs" />
+    <Compile Include="Tests\AstarGridAlgorithmTests.cs" />
+    <Compile Include="Setup\MultithreadedPathfinderSetup.cs" />
+    <Compile Include="Tests\MultithreadedPathfinderTests.cs" />
+    <Compile Include="Tests\MultithreadedWorkerQueueTests.cs" />
+    <Compile Include="Tests\PathRequestTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,6 @@
 # Pathfindax
 Pathfindax is a pathfinding framework that can be used to get a path from A to B in a network of nodes. By default the framework provides a implementation of a grid based A* algorithm with the following features:  
--Multithreaded  
+-Both pathfinding and nodegrid generation is multithreaded  
 -Support for up to 32 collision layers  
 -Support for multiple agent sizes  
 -Support for movement penalties  
@@ -12,7 +12,7 @@ However you are free to implement the interfaces yourself to use a different alg
 
 While the main goal was to provide a easy way to use pathfinding in duality most of the implementation is in a separate dll which can also be used without duality.
 
-You can find some tutorials on the [wiki](https://github.com/Barsonax/Pathfindax/wiki). The source also contains some examples to show how you can use Pathfindax.
+You can find some tutorials on the [documentation](https://barsonax.github.io/html/63392b30-cd57-428e-bd77-3dee6259d856.htm). The source also contains some examples to show how you can use Pathfindax. More will be added in the future.
   
 ### Build status: 
 | Branch | Status |

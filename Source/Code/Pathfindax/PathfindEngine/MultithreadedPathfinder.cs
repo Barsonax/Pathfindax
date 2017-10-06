@@ -13,7 +13,7 @@ namespace Pathfindax.PathfindEngine
 	public class MultithreadedPathfinder<TNodeNetwork> : IMultithreadedPathfinder, IDisposable
 		where TNodeNetwork : INodeNetwork
 	{
-		private readonly MultithreadedWorkerQueue<CompletedPath, PathRequest> _multithreadedWorkerQueue;
+		private readonly MultithreadedWorkerQueue<PathRequest> _multithreadedWorkerQueue;
 
 		/// <summary>
 		/// Creates a new <see cref="MultithreadedPathfinder{TNodeNetwork}"/>
@@ -23,12 +23,12 @@ namespace Pathfindax.PathfindEngine
 		/// <param name="pathPostProcesses">The post processes that will be applied after the path has been found</param>
 		public MultithreadedPathfinder(IEnumerable<TNodeNetwork> nodeNetworks, IPathFindAlgorithm<TNodeNetwork> pathFindAlgorithm, IList<IPathPostProcess> pathPostProcesses = null)
 		{
-			var pathfinders = new List<IProcesser<CompletedPath, PathRequest>>();
+			var pathfinders = new List<IProcesser<PathRequest>>();
 			foreach (var nodeNetwork in nodeNetworks)
 			{
 				pathfinders.Add(new PathRequestProcesser<TNodeNetwork>(nodeNetwork, pathFindAlgorithm, pathPostProcesses ?? new List<IPathPostProcess>()));
 			}
-			_multithreadedWorkerQueue = new MultithreadedWorkerQueue<CompletedPath, PathRequest>(pathfinders);
+			_multithreadedWorkerQueue = new MultithreadedWorkerQueue<PathRequest>(pathfinders);
 		}
 
 		/// <summary>
@@ -57,14 +57,13 @@ namespace Pathfindax.PathfindEngine
 		}
 
 		/// <summary>
-		/// Calls the callbacks on the <see cref="CompletedPath"/>s and removes them from the completed queue.
+		/// Calls the callbacks on the <see cref="PathRequest"/>s and removes them from the completed queue.
 		/// </summary>
 		public void ProcessCompletedPaths()
 		{
-			CompletedPath completedPath;
-			while (_multithreadedWorkerQueue.TryDequeue(out completedPath))
+			while (_multithreadedWorkerQueue.TryDequeue(out var pathRequest))
 			{
-				completedPath.PathRequest.Callback.Invoke(completedPath);
+                pathRequest.CallCallbacks();
 			}
 		}
 
