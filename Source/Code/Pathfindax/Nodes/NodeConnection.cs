@@ -26,8 +26,7 @@ namespace Pathfindax.Nodes
 		/// <param name="collisionCategory">The <see cref="PathfindaxCollisionCategory"/> of this <see cref="NodeConnection{TNode}"/></param>
 		public NodeConnection(TNode to, PathfindaxCollisionCategory collisionCategory = PathfindaxCollisionCategory.None)
 		{
-			if(to == null) throw new ArgumentException("To cannot be null");
-			To = to;
+		    To = to ?? throw new ArgumentException("To cannot be null");
 			CollisionCategory = collisionCategory;
 		}
 

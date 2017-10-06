@@ -17,8 +17,8 @@ namespace Pathfindax.Threading
 		/// </summary>
 		public bool IsBusy
 		{
-			get { return _isBusy; }
-			private set
+			get => _isBusy;
+		    private set
 			{
 				_isBusy = value;
 				WorkCompleted?.Invoke(this, EventArgs.Empty);
