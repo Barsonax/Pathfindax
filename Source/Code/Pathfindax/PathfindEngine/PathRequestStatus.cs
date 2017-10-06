@@ -3,12 +3,12 @@
     public enum PathRequestStatus
     {
         /// <summary>
-        /// The <see cref="PathRequest"/> is created but no pathfinder is solving it.
+        /// The <see cref="PathRequest"/> is created but no <see cref="IPathfinder"/> is solving it.
         /// </summary>
         Created,
 
         /// <summary>
-        /// A pathfinder is solving this <see cref="PathRequest"/> or its waiting in the queue.
+        /// A <see cref="IPathfinder"/> is solving this <see cref="PathRequest"/> or its waiting in the queue.
         /// </summary>
         Solving,
 

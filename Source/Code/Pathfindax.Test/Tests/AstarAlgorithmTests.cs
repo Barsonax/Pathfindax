@@ -6,7 +6,7 @@ using Pathfindax.Nodes;
 using Pathfindax.PathfindEngine;
 using Pathfindax.Primitives;
 
-namespace Pathfindax.Test
+namespace Pathfindax.Test.Tests
 {
 	[TestFixture]
 	public class AstarAlgorithmTests

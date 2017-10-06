@@ -46,7 +46,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 				var agentSizeCompensation = new Vector2(0, 0);
 				if (OnGrid)
 				{
-					var sourceNodes = _gridPathfinderProxy.PathfinderComponent.SourceNodeNetwork;
+					var sourceNodes = _gridPathfinderProxy.Pathfinder.SourceNodeNetwork;
 					if (sourceNodes != null)
 					{
 						var offset = GridClearanceHelper.GridNodeOffset(AgentSize, sourceNodes.NodeSize.X);
@@ -115,22 +115,20 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 				var pathEnd = new PositionF(mouseWorldPosition.X, mouseWorldPosition.Y);				
 				if (OnGrid) //Implementation for nodegrid pathfinding
 				{
-					var offset = -GridClearanceHelper.GridNodeOffset(AgentSize, _gridPathfinderProxy.PathfinderComponent.SourceNodeNetwork.NodeSize.X);
+					var offset = -GridClearanceHelper.GridNodeOffset(AgentSize, _gridPathfinderProxy.Pathfinder.SourceNodeNetwork.NodeSize.X);
 					var start = new PositionF(_pathStart.Value.X + offset, _pathStart.Value.Y + offset);
 					var end = new PositionF(pathEnd.X + offset, pathEnd.Y + offset);
-					var startNode = _gridPathfinderProxy.PathfinderComponent.SourceNodeNetwork.GetNode(start);
-					var endNode = _gridPathfinderProxy.PathfinderComponent.SourceNodeNetwork.GetNode(end);
-					var request = new PathRequest(startNode, endNode, AgentSize, CollisionCategory);
+					var startNode = _gridPathfinderProxy.Pathfinder.SourceNodeNetwork.GetNode(start);
+					var endNode = _gridPathfinderProxy.Pathfinder.SourceNodeNetwork.GetNode(end);
+					var request = new PathRequest(_gridPathfinderProxy.Pathfinder, startNode, endNode, AgentSize, CollisionCategory);
                     request.AddCallback(PathSolved);
-					_gridPathfinderProxy.RequestPath(request);
 				}
 				else //Implementation for non grid pathfinding
 				{
-					var startNode = _nonGridPathfinderProxy.PathfinderComponent.SourceNodeNetwork.GetNode(_pathStart.Value);
-					var endNode = _nonGridPathfinderProxy.PathfinderComponent.SourceNodeNetwork.GetNode(pathEnd);
-					var request = new PathRequest(startNode, endNode, AgentSize, CollisionCategory);
+					var startNode = _nonGridPathfinderProxy.Pathfinder.SourceNodeNetwork.GetNode(_pathStart.Value);
+					var endNode = _nonGridPathfinderProxy.Pathfinder.SourceNodeNetwork.GetNode(pathEnd);
+					var request = new PathRequest(_nonGridPathfinderProxy.Pathfinder, startNode, endNode, AgentSize, CollisionCategory);
                     request.AddCallback(PathSolved);
-                    _nonGridPathfinderProxy.RequestPath(request);
 				}
 			}
 		}

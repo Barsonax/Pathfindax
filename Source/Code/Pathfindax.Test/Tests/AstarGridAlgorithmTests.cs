@@ -3,8 +3,9 @@ using Pathfindax.Algorithms;
 using Pathfindax.Grid;
 using Pathfindax.PathfindEngine;
 using Pathfindax.Primitives;
+using Pathfindax.Test.Setup;
 
-namespace Pathfindax.Test
+namespace Pathfindax.Test.Tests
 {
 	[TestFixture]
 	public class AstarGridAlgorithmTests

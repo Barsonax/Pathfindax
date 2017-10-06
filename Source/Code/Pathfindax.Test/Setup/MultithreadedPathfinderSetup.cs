@@ -1,9 +1,8 @@
-﻿using NSubstitute;
-using Pathfindax.Algorithms;
+﻿using Pathfindax.Algorithms;
 using Pathfindax.Grid;
 using Pathfindax.PathfindEngine;
 
-namespace Pathfindax.Test
+namespace Pathfindax.Test.Setup
 {
     public static class MultithreadedPathfinderSetup
     {

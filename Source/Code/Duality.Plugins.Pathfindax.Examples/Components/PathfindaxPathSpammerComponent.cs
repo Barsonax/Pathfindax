@@ -41,18 +41,17 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 			{
 				var start = new PositionF(_randomGenerator.Next(TopLeftCorner.X, BottomRightCorner.X), _randomGenerator.Next(TopLeftCorner.Y, BottomRightCorner.Y));
 				var end = new PositionF(_randomGenerator.Next(TopLeftCorner.X, BottomRightCorner.X), _randomGenerator.Next(TopLeftCorner.Y, BottomRightCorner.Y));
-				var nodeGrid = _gridPathfinderProxy.PathfinderComponent.SourceNodeNetwork;
+				var nodeGrid = _gridPathfinderProxy.Pathfinder.SourceNodeNetwork;
 				if (nodeGrid != null)
 				{
 					var offset = -GridClearanceHelper.GridNodeOffset(AgentSize, nodeGrid.NodeSize.X);
 					start = new PositionF(start.X + offset, start.Y + offset);
 					end = new PositionF(end.X + offset, end.Y + offset);
 				}
-				var startNode = _gridPathfinderProxy.PathfinderComponent.SourceNodeNetwork.GetNode(start);
-				var endNode = _gridPathfinderProxy.PathfinderComponent.SourceNodeNetwork.GetNode(end);
-				var request = new PathRequest(startNode, endNode, AgentSize, CollisionCategory);
+				var startNode = _gridPathfinderProxy.Pathfinder.SourceNodeNetwork.GetNode(start);
+				var endNode = _gridPathfinderProxy.Pathfinder.SourceNodeNetwork.GetNode(end);
+				var request = new PathRequest(_gridPathfinderProxy.Pathfinder, startNode, endNode, AgentSize, CollisionCategory);
                 request.AddCallback(PathSolved);
-				_gridPathfinderProxy.RequestPath(request);
 				_frameCounter = 0;
 			}
 			_frameCounter++;
@@ -75,7 +74,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 			if (Path != null)
 			{
 				var agentSizeCompensation = new Vector2(0, 0);
-				var nodeGrid = _gridPathfinderProxy.PathfinderComponent.SourceNodeNetwork;
+				var nodeGrid = _gridPathfinderProxy.Pathfinder.SourceNodeNetwork;
 				if (nodeGrid != null)
 				{
 					var offset = GridClearanceHelper.GridNodeOffset(AgentSize, nodeGrid.NodeSize.X);

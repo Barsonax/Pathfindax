@@ -43,7 +43,7 @@ namespace Duality.Plugins.Pathfindax.PathfindEngine
 		/// <summary>
 		/// The actual pathfinder
 		/// </summary>
-		public IPathfinderComponent<TSourceNodeNetwork> PathfinderComponent => _pathfinderComponent ?? (_pathfinderComponent = PathfindaxDualityCorePlugin.GetPathfinder<TSourceNodeNetwork>(PathfinderId));
+		public IPathfinderComponent<TSourceNodeNetwork> Pathfinder => _pathfinderComponent ?? (_pathfinderComponent = PathfindaxDualityCorePlugin.GetPathfinder<TSourceNodeNetwork>(PathfinderId));
 
 		/// <summary>
 		/// Creates a new <see cref="PathfinderProxy{TSourceNodeNetwork}"/> with no id. This will only work if there is only 1 <see cref="IPathfinderComponent"/> in the scene.
@@ -65,7 +65,7 @@ namespace Duality.Plugins.Pathfindax.PathfindEngine
 		/// <param name="pathRequest"></param>
 		public void RequestPath(PathRequest pathRequest)
 		{
-            pathRequest.StartSolvePath(PathfinderComponent);
+            pathRequest.StartSolvePath(Pathfinder);
 		}
 	}
 }

@@ -3,7 +3,7 @@ using NUnit.Framework;
 using Pathfindax.Grid;
 using Pathfindax.Primitives;
 
-namespace Pathfindax.Test
+namespace Pathfindax.Test.Setup
 {
     public class AstarGridAlgorithmCases
     {

@@ -1,10 +1,10 @@
-﻿using System;
-using System.Diagnostics;
-using System.Linq;
+﻿using System.Linq;
+using System.Threading;
 using NUnit.Framework;
 using Pathfindax.PathfindEngine;
+using Pathfindax.Test.Setup;
 
-namespace Pathfindax.Test
+namespace Pathfindax.Test.Tests
 {
     [TestFixture]
     public class MultithreadedPathfinderTests
@@ -15,14 +15,8 @@ namespace Pathfindax.Test
             var multithreadedPathfinder = MultithreadedPathfinderSetup.Substitute(1);
             multithreadedPathfinder.Start();
 
-            var pathRequest = new PathRequest(null, null);
-            pathRequest.StartSolvePath(multithreadedPathfinder);
-
-            var stopWatch = Stopwatch.StartNew();
-            while (pathRequest.Status == PathRequestStatus.Solving)
-            {
-                if (stopWatch.ElapsedMilliseconds > 2000) throw new TimeoutException();
-            }
+            var pathRequest = new PathRequest(multithreadedPathfinder, null, null);
+            pathRequest.WaitHandle.WaitOne(1000);
 
             Assert.AreEqual(pathRequest.Status, PathRequestStatus.Solved);
         }
@@ -33,18 +27,13 @@ namespace Pathfindax.Test
             var multithreadedPathfinder = MultithreadedPathfinderSetup.Substitute(4);
             multithreadedPathfinder.Start();
 
-            var pathRequests = new PathRequest[100];
+            var pathRequests = new PathRequest[64];
             for (var i = 0; i < pathRequests.Length; i++)
             {
-                pathRequests[i] = new PathRequest(null, null);
-                pathRequests[i].StartSolvePath(multithreadedPathfinder);
+                pathRequests[i] = new PathRequest(multithreadedPathfinder, null, null);
             }
 
-            var stopWatch = Stopwatch.StartNew();
-            while (pathRequests.Any(x => x.Status == PathRequestStatus.Solving))
-            {
-                if (stopWatch.ElapsedMilliseconds > 2000) throw new TimeoutException();
-            }
+            WaitHandle.WaitAll(pathRequests.Select(x => x.WaitHandle).ToArray(), 2000);
 
             foreach (var pathRequest in pathRequests)
             {
