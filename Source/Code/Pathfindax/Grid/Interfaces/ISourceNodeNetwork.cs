@@ -1,5 +1,4 @@
 ﻿using Pathfindax.Nodes;
-using Pathfindax.Primitives;
 
 namespace Pathfindax.Grid
 {
@@ -10,13 +9,12 @@ namespace Pathfindax.Grid
 	public interface ISourceNodeNetwork<out TNode> : INodeNetwork<TNode>, ISourceNodeNetwork
 		where TNode : ISourceNode
 	{
-		/// <summary>
-		/// Gets the node closest to this position
-		/// </summary>
-		/// <param name="worldPosition"></param>
-		/// <returns></returns>
-		TNode GetNode(PositionF worldPosition);
-	}
+        /// <summary>
+        /// Gets the node closest to this position
+        /// </summary>
+        /// <returns></returns>
+        TNode GetNode(float worldX, float worldY);
+    }
 
 	/// <summary>
 	/// Interface for sourcenodenetworks

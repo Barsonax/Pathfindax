@@ -5,7 +5,6 @@ using Pathfindax.Algorithms;
 using Pathfindax.Factories;
 using Pathfindax.Grid;
 using Pathfindax.Nodes;
-using Pathfindax.PathfindEngine;
 using Pathfindax.Utils;
 
 namespace Duality.Plugins.Pathfindax.Components

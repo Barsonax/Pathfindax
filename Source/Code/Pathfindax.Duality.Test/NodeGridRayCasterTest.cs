@@ -2,12 +2,8 @@
 using Duality;
 using Duality.Components;
 using Duality.Components.Physics;
-using Duality.Plugins.Pathfindax.Grid;
 using Duality.Resources;
-using NSubstitute;
 using NUnit.Framework;
-using Pathfindax.Nodes;
-using Pathfindax.Primitives;
 
 namespace Pathfindax.Duality.Test
 {

@@ -2,7 +2,6 @@
 using Pathfindax.Algorithms;
 using Pathfindax.Grid;
 using Pathfindax.PathfindEngine;
-using Pathfindax.Primitives;
 using Pathfindax.Test.Setup;
 
 namespace Pathfindax.Test.Tests
@@ -15,8 +14,8 @@ namespace Pathfindax.Test.Tests
 		public void FindPath_InitializedNodegrid_PathLengthIsNot0(AstarNodeGrid sourceNodeGrid, float x1, float y1, float x2, float y2)
 		{
 			var aStarAlgorithm = new AStarGridAlgorithm();
-			var start = sourceNodeGrid.SourceSourceNodeGrid.GetNode(new PositionF(x1, y1));
-			var end = sourceNodeGrid.SourceSourceNodeGrid.GetNode(new PositionF(x2, y2));
+			var start = sourceNodeGrid.SourceSourceNodeGrid.GetNode(x1, y1);
+			var end = sourceNodeGrid.SourceSourceNodeGrid.GetNode(x2, y2);
 			var pathRequest = new PathRequest(start, end);
 			var path = aStarAlgorithm.FindPath(sourceNodeGrid, pathRequest);
 			Assert.AreEqual(path.Count > 0, true);

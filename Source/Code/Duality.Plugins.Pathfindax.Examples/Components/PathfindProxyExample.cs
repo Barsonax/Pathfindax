@@ -1,6 +1,4 @@
 using Duality.Plugins.Pathfindax.PathfindEngine;
-using Pathfindax.Grid;
-using Pathfindax.Nodes;
 
 namespace Duality.Plugins.Pathfindax.Examples.Components
 {

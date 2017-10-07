@@ -3,11 +3,8 @@ using Duality.Components;
 using Duality.Input;
 using Duality.Plugins.Pathfindax.Extensions;
 using Duality.Plugins.Pathfindax.PathfindEngine;
-using Pathfindax.Grid;
 using Pathfindax.Nodes;
 using Pathfindax.PathfindEngine;
-using Pathfindax.Primitives;
-using Pathfindax.Utils;
 
 namespace Duality.Plugins.Pathfindax.Examples.Components
 {
@@ -63,10 +60,8 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 
 		private void Mouse_ButtonDown(object sender, MouseButtonEventArgs e)
 		{
-			var targetPos = Camera.GetSpaceCoord(e.Position);
-			var start = new PositionF(_transform.Pos.X, _transform.Pos.Y);
-			var end = new PositionF(targetPos.X, targetPos.Y);       
-			var request = _gridPathfinderProxy.RequestPath(start, end, AgentSize, CollisionCategory);
+			var targetPos = Camera.GetSpaceCoord(e.Position);    
+			var request = _gridPathfinderProxy.RequestPath(_transform.Pos, targetPos, AgentSize, CollisionCategory);
             request.AddCallback(OnRequestCompleted);
 		}
 
