@@ -43,10 +43,10 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 					connections.Add(to);
 				}
 
-				foreach (var connection in connections)
+				foreach (var to in connections)
 				{
-					from.Connections.Add(new NodeConnection<SourceNode>(connection));
-					connection.Connections.Add(new NodeConnection<SourceNode>(from));
+					from.Connections.Add(new NodeConnection<SourceNode>(to));
+					to.Connections.Add(new NodeConnection<SourceNode>(from));
 				}
 			}
 			return nodeNetwork;

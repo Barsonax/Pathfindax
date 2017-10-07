@@ -37,14 +37,28 @@ namespace Pathfindax.PathfindEngine
 		public void Process(PathRequest pathRequest)
 		{
 			var path = _algorithm.FindPath(_nodeNetwork, pathRequest);
-			if (_pathPostProcesses != null && path != null)
-			{
-				foreach (var postProcess in _pathPostProcesses)
-				{					
-					path = postProcess.Process(path, pathRequest);
-				}
-			}
-            pathRequest.FinishSolvePath(path?.ToArray());
+            if (path == null)
+            {
+                pathRequest.FinishSolvePath(null);
+            }
+            else
+            {
+                if (_pathPostProcesses != null)
+                {
+                    foreach (var postProcess in _pathPostProcesses)
+                    {
+                        path = postProcess.Process(path, pathRequest);
+                    }
+                }
+                if (_nodeNetwork is INodeGrid nodeGrid)
+                {                  
+                    pathRequest.FinishSolvePath(new CompletedGridPath(path.ToArray(), nodeGrid.NodeSize.X, pathRequest.AgentSize));
+                }
+                else
+                {
+                    pathRequest.FinishSolvePath(new CompletedPath(path.ToArray()));
+                }
+            }           
 		}
 	}
 }
