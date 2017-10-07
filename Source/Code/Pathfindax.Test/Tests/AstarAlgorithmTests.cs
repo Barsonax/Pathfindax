@@ -45,8 +45,8 @@ namespace Pathfindax.Test.Tests
 
 			var astarNodeNetwork = new AstarNodeNetwork(nodeNetwork);
 			var aStarAlgorithm = new AStarAlgorithm();
-			var start = nodeNetwork.GetNode(new PositionF(x1, y1));
-			var end = nodeNetwork.GetNode(new PositionF(x2, y2));
+			var start = nodeNetwork.GetNode(x1, y1);
+			var end = nodeNetwork.GetNode(x2, y2);
 
 			var pathRequest = new PathRequest(start, end);
 			var path = aStarAlgorithm.FindPath(astarNodeNetwork, pathRequest);

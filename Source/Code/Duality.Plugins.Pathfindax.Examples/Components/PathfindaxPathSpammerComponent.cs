@@ -4,7 +4,6 @@ using Duality.Drawing;
 using Duality.Editor;
 using Duality.Plugins.Pathfindax.Extensions;
 using Duality.Plugins.Pathfindax.PathfindEngine;
-using Pathfindax.Grid;
 using Pathfindax.Nodes;
 using Pathfindax.PathfindEngine;
 using Pathfindax.Primitives;

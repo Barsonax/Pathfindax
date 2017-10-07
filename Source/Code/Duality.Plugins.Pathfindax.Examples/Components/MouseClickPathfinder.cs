@@ -5,11 +5,8 @@ using Duality.Editor;
 using Duality.Input;
 using Duality.Plugins.Pathfindax.Extensions;
 using Duality.Plugins.Pathfindax.PathfindEngine;
-using Pathfindax.Grid;
 using Pathfindax.Nodes;
 using Pathfindax.PathfindEngine;
-using Pathfindax.Primitives;
-using Pathfindax.Utils;
 
 namespace Duality.Plugins.Pathfindax.Examples.Components
 {
@@ -82,13 +79,12 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
             }
         }
 
-        private PositionF? _pathStart;
+        private Vector3? _pathStart;
         private void Mouse_ButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (_pathStart == null)
             {
-                var mouseWorldPosition = Camera.GetSpaceCoord(e.Position);
-                _pathStart = new PositionF(mouseWorldPosition.X, mouseWorldPosition.Y);
+                _pathStart = Camera.GetSpaceCoord(e.Position);
             }
             else
             {
@@ -100,9 +96,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
         private void Mouse_Move(object sender, MouseMoveEventArgs e)
         {
             if (_pathStart != null)
-            {
-                var mouseWorldPosition = Camera.GetSpaceCoord(e.Position);
-                var pathEnd = new PositionF(mouseWorldPosition.X, mouseWorldPosition.Y);
+            {                
                 if (OnGrid) //Implementation for nodegrid pathfinding
                 {
                     var request = _gridPathfinderProxy.RequestPath(_pathStart.Value, _pathStart.Value, AgentSize, CollisionCategory);
@@ -110,7 +104,8 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
                 }
                 else //Implementation for non grid pathfinding
                 {
-                    var request = _nonGridPathfinderProxy.RequestPath(_pathStart.Value, pathEnd, AgentSize, CollisionCategory);
+                    var mouseWorldPosition = Camera.GetSpaceCoord(e.Position);
+                    var request = _nonGridPathfinderProxy.RequestPath(_pathStart.Value, mouseWorldPosition, AgentSize, CollisionCategory);
                     request.AddCallback(PathSolved);
                 }
             }
