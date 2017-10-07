@@ -1,7 +1,7 @@
 ﻿namespace Pathfindax.Threading
 {
-	public interface IProcesser<out TOut, in TIn>
+	public interface IProcesser<in TIn>
 	{
-		TOut Process(TIn itemToProcess);
+		void Process(TIn itemToProcess);
 	}
 }

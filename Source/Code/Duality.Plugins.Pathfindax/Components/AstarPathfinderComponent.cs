@@ -2,9 +2,9 @@
 using Duality.Editor;
 using Duality.Plugins.Pathfindax.Grid;
 using Pathfindax.Algorithms;
+using Pathfindax.Factories;
 using Pathfindax.Grid;
 using Pathfindax.Nodes;
-using Pathfindax.PathfindEngine;
 using Pathfindax.Utils;
 
 namespace Duality.Plugins.Pathfindax.Components
@@ -56,8 +56,9 @@ namespace Duality.Plugins.Pathfindax.Components
 					var astarNodeNetwork = new AstarNodeNetwork(SourceNodeNetwork);
 					var algorithm = new AStarAlgorithm();
 					NodeNetworkVisualizer = new NodeNetworkVisualizer(SourceNodeNetwork, 5f);
-					MultithreadedPathfinder = new MultithreadedPathfinder<INodeNetwork<AstarNode>>(new[] { astarNodeNetwork }, algorithm);
-					MultithreadedPathfinder.Start();
+                    
+                    MultithreadedPathfinder = PathfinderFactory.Create(new[] { astarNodeNetwork }, algorithm);
+                    MultithreadedPathfinder.Start();
 				}
 			}
 		}

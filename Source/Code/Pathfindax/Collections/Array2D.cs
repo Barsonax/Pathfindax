@@ -33,8 +33,8 @@ namespace Pathfindax.Collections
 		/// <param name="y"></param>
 		public TItem this[int x, int y]
 		{
-			get { return _items[x + y * Width]; }
-			set { _items[x + y * Width] = value; }
+			get => _items[x + y * Width];
+		    set => _items[x + y * Width] = value;
 		}
 
 		/// <summary>
@@ -43,8 +43,8 @@ namespace Pathfindax.Collections
 		/// <param name="i"></param>
 		public TItem this[int i]
 		{
-			get { return _items[i]; }
-			set { _items[i] = value; }
+			get => _items[i];
+		    set => _items[i] = value;
 		}
 
 		/// <summary>

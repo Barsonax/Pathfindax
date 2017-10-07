@@ -29,8 +29,8 @@ namespace Pathfindax.Duality.Test
 		}
 		public static TestMemory LocalTestMemory
 		{
-			get { return _localTestMemory; }
-			internal set { _localTestMemory = value ?? new TestMemory(); }
+			get => _localTestMemory;
+		    internal set => _localTestMemory = value ?? new TestMemory();
 		}
 
 		public static string GetEmbeddedResourcePath(string resName, string resEnding)
@@ -52,7 +52,7 @@ namespace Pathfindax.Duality.Test
 
 			var localAverage = (long)lastValueList.Average();
 
-			var nameStr = (testFixture.GetType().Name + "." + testName);
+			var nameStr = testFixture.GetType().Name + "." + testName;
 			var newValueStr = $"{resultValue}{unit}";
 			var lastValueStr = $"{localAverage}{unit}";
 
@@ -74,7 +74,7 @@ namespace Pathfindax.Duality.Test
 
 			var localAverage = lastValueList.Average();
 
-			var nameStr = (testFixture.GetType().Name + "." + testName);
+			var nameStr = testFixture.GetType().Name + "." + testName;
 			var newValueStr = $"{resultValue:F}{unit}";
 			var lastValueStr = $"{localAverage:F}{unit}";
 

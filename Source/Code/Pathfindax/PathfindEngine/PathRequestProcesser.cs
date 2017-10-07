@@ -6,11 +6,11 @@ using Pathfindax.Threading;
 
 namespace Pathfindax.PathfindEngine
 {
-	/// <summary>
-	/// Processes a <see cref="PathRequest"/> and returns a <see cref="CompletedPath"/>
-	/// </summary>
-	/// <typeparam name="TNodeNetwork"></typeparam>
-	public class PathRequestProcesser<TNodeNetwork> : IProcesser<CompletedPath, PathRequest>
+    /// <summary>
+    /// Processes a <see cref="PathRequest"/>
+    /// </summary>
+    /// <typeparam name="TNodeNetwork"></typeparam>
+    public class PathRequestProcesser<TNodeNetwork> : IProcesser<PathRequest>
 		where TNodeNetwork : INodeNetwork
 	{
 		private readonly TNodeNetwork _nodeNetwork;
@@ -31,22 +31,34 @@ namespace Pathfindax.PathfindEngine
 		}
 
 		/// <summary>
-		/// Solves a <see cref="PathRequest"/>
+		/// Processes a <see cref="PathRequest"/>
 		/// </summary>
 		/// <param name="pathRequest"></param>
-		/// <returns>A <see cref="CompletedPath"/> object containing the solved path if succesful/></returns>
-		public CompletedPath Process(PathRequest pathRequest)
+		public void Process(PathRequest pathRequest)
 		{
 			var path = _algorithm.FindPath(_nodeNetwork, pathRequest);
-			if (path == null) return new CompletedPath(null, pathRequest);
-			if (_pathPostProcesses != null)
-			{
-				foreach (var postProcess in _pathPostProcesses)
-				{					
-					path = postProcess.Process(path, pathRequest);
-				}
-			}
-			return new CompletedPath(path.ToArray(), pathRequest);
+            if (path == null)
+            {
+                pathRequest.FinishSolvePath(null);
+            }
+            else
+            {
+                if (_pathPostProcesses != null)
+                {
+                    foreach (var postProcess in _pathPostProcesses)
+                    {
+                        path = postProcess.Process(path, pathRequest);
+                    }
+                }
+                if (_nodeNetwork is INodeGrid nodeGrid)
+                {                  
+                    pathRequest.FinishSolvePath(new CompletedGridPath(path.ToArray(), nodeGrid.NodeSize.X, pathRequest.AgentSize));
+                }
+                else
+                {
+                    pathRequest.FinishSolvePath(new CompletedPath(path.ToArray()));
+                }
+            }           
 		}
 	}
 }

@@ -42,5 +42,5 @@ namespace Pathfindax.Grid
 			}
 			NodeArray = nodeArray;
 		}
-	}
+    }
 }

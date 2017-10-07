@@ -7,19 +7,18 @@ namespace Pathfindax.Threading
 	/// <summary>
 	/// Class for doing work on a dedicated thread
 	/// </summary>
-	/// <typeparam name="TOut"></typeparam>
 	/// <typeparam name="TIn"></typeparam>
-	public class Worker<TOut, TIn> : IDisposable
+	public class Worker<TIn> : IDisposable
 	{
 		public event EventHandler WorkCompleted;
 
 		/// <summary>
-		/// True if this <see cref="Worker{TOut,TIn}"/> is doing work.
+		/// True if this <see cref="Worker{TIn}"/> is doing work.
 		/// </summary>
 		public bool IsBusy
 		{
-			get { return _isBusy; }
-			private set
+			get => _isBusy;
+		    private set
 			{
 				_isBusy = value;
 				WorkCompleted?.Invoke(this, EventArgs.Empty);
@@ -29,16 +28,16 @@ namespace Pathfindax.Threading
 		private bool _disposed;
 
 		private readonly ManualResetEvent _waitHandle = new ManualResetEvent(false);
-		private readonly IProcesser<TOut, TIn> _processer;
+		private readonly IProcesser<TIn> _processer;
 		private TIn _workItem;
-		private Action<TOut> _onCompleted;
+		private Action<TIn> _onCompleted;
 		private bool _isBusy;
 
 		/// <summary>
 		/// Creates a new worker that will start doing its work on a dedicated thread.
 		/// </summary>
 		/// <param name="processer"></param>
-		public Worker(IProcesser<TOut, TIn> processer)
+		public Worker(IProcesser<TIn> processer)
 		{
 			_processer = processer;
 			Task.Factory.StartNew(Start, TaskCreationOptions.LongRunning);
@@ -53,8 +52,8 @@ namespace Pathfindax.Threading
 			while (!_disposed)
 			{
 				_waitHandle.WaitOne();
-				var result = _processer.Process(_workItem);
-				_onCompleted?.Invoke(result);
+				_processer.Process(_workItem);
+				_onCompleted?.Invoke(_workItem);
 				_waitHandle.Reset();
 				IsBusy = false;
 			}
@@ -66,7 +65,7 @@ namespace Pathfindax.Threading
 		/// <param name="taskCompletionSource">The work item</param>
 		/// <param name="onCompleted"></param>
 		/// <returns>True if the worker was not busy and the work was accepted</returns>
-		public void DoWork(TIn taskCompletionSource, Action<TOut> onCompleted)
+		public void DoWork(TIn taskCompletionSource, Action<TIn> onCompleted)
 		{
 			if (!IsBusy)
 			{

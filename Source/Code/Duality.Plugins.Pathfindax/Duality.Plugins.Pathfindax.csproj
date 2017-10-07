@@ -72,17 +72,15 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Duality, Version=2.9.8.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\AdamsLair.Duality.2.9.8\lib\Duality.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Duality, Version=2.13.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AdamsLair.Duality.2.13.3\lib\Duality.dll</HintPath>
     </Reference>
     <Reference Include="DualityPrimitives, Version=2.0.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\AdamsLair.Duality.Primitives.2.0.4\lib\DualityPrimitives.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="FarseerDuality, Version=4.1.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\AdamsLair.FarseerDuality.4.1.1\lib\portable45-net45+win8+wpa81\FarseerDuality.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="FarseerDuality, Version=4.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AdamsLair.FarseerDuality.4.1.4\lib\portable45-net45+win8+wpa81\FarseerDuality.dll</HintPath>
     </Reference>
     <Reference Include="NVorbis, Version=0.7.5.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\AdamsLair.NVorbis.0.7.5\lib\portable-net45+win+wpa81+MonoAndroid10+xamarinios10+MonoTouch10\NVorbis.dll</HintPath>
@@ -94,12 +92,13 @@
     <Compile Include="Components\AstarPathfinderComponent.cs" />
     <Compile Include="Components\Interfaces\IPathfinderComponent.cs" />
     <Compile Include="Extensions\PositionFExtensions.cs" />
-    <Compile Include="Grid\NodeGridRayCaster.cs" />
     <Compile Include="Grid\NodeGridVisualizer.cs" />
     <Compile Include="Components\PathfinderComponentBase.cs" />
     <Compile Include="Grid\NodeNetworkVisualizer.cs" />
     <Compile Include="PathfindaxDualityCorePlugin.cs" />
     <Compile Include="Components\AStarGridPathfinderComponent.cs" />
+    <Compile Include="PathfindEngine\GridPathfinderProxy.cs" />
+    <Compile Include="PathfindEngine\NonGridPathfinderProxy.cs" />
     <Compile Include="PathfindEngine\PathfinderProxy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

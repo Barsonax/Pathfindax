@@ -3,11 +3,8 @@ using Duality.Components;
 using Duality.Input;
 using Duality.Plugins.Pathfindax.Extensions;
 using Duality.Plugins.Pathfindax.PathfindEngine;
-using Pathfindax.Grid;
 using Pathfindax.Nodes;
 using Pathfindax.PathfindEngine;
-using Pathfindax.Primitives;
-using Pathfindax.Utils;
 
 namespace Duality.Plugins.Pathfindax.Examples.Components
 {
@@ -19,7 +16,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 		private Transform _transform;
 		private Vector2[] _path;
 		private int _pathIndex;
-		private PathfinderProxy<ISourceNodeGrid<ISourceGridNode>> _gridPathfinderProxy;
+		private GridPathfinderProxy _gridPathfinderProxy;
 		public Camera Camera { get; set; }
 
 		private int _counter;
@@ -42,12 +39,6 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 						_path = null;
 						return;
 					}
-					var astarGrid = _gridPathfinderProxy.PathfinderComponent.SourceNodeNetwork;
-					if (astarGrid != null)
-					{
-						var offset = GridClearanceHelper.GridNodeOffset(AgentSize, astarGrid.NodeSize.X);
-						target = target + new Vector2(offset, offset);
-					}
 					_transform.MoveToAbs(target);
 					if (MathF.Distance(_transform.Pos.X, _transform.Pos.Y, target.X, target.Y) < 0.1f)
 					{
@@ -63,53 +54,26 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 			{
 				_transform = GameObj.GetComponent<Transform>();
 				DualityApp.Mouse.ButtonDown += Mouse_ButtonDown;
-				_gridPathfinderProxy = new PathfinderProxy<ISourceNodeGrid<ISourceGridNode>>();
+				_gridPathfinderProxy = new GridPathfinderProxy();
 			}
 		}
 
 		private void Mouse_ButtonDown(object sender, MouseButtonEventArgs e)
 		{
-			var targetPos = Camera.GetSpaceCoord(e.Position);
-			var start = new PositionF(_transform.Pos.X, _transform.Pos.Y);
-			var end = new PositionF(targetPos.X, targetPos.Y);
-			var astarGrid = _gridPathfinderProxy.PathfinderComponent.SourceNodeNetwork;
-			if (astarGrid != null)
-			{
-				var offset = -GridClearanceHelper.GridNodeOffset(AgentSize, astarGrid.NodeSize.X);
-				start = new PositionF(start.X + offset, start.Y + offset);
-				end = new PositionF(end.X + offset, end.Y + offset);
-			}
-			var startNode = _gridPathfinderProxy.PathfinderComponent.SourceNodeNetwork.GetNode(start);
-			var endNode = _gridPathfinderProxy.PathfinderComponent.SourceNodeNetwork.GetNode(end);
-			var request = new PathRequest(OnRequestCompleted, startNode, endNode, AgentSize, CollisionCategory);
-			_gridPathfinderProxy.RequestPath(request);
+			var targetPos = Camera.GetSpaceCoord(e.Position);    
+			var request = _gridPathfinderProxy.RequestPath(_transform.Pos, targetPos, AgentSize, CollisionCategory);
+            request.AddCallback(OnRequestCompleted);
 		}
 
-		private void OnRequestCompleted(CompletedPath completedPath)
+		private void OnRequestCompleted(PathRequest pathRequest)
 		{
-			if (completedPath.Path != null)
-				_path = completedPath.Path.Select(x => x.WorldPosition.ToVector2()).ToArray();
+			if (pathRequest.CompletedPath != null)
+				_path = pathRequest.CompletedPath.Path.Select(p => p.ToVector2()).ToArray();
 		}
 
 		public void OnShutdown(ShutdownContext context)
 		{
 			DualityApp.Mouse.ButtonDown -= Mouse_ButtonDown;
 		}
-	}
-
-	public class PathfindProxyExample : Component, ICmpInitializable
-	{
-		private PathfinderProxy<ISourceNodeGrid<ISourceGridNode>> _pathfinderProxy;
-
-		public void OnInit(InitContext context)
-		{
-			if (context == InitContext.Activate && DualityApp.ExecContext == DualityApp.ExecutionContext.Game)
-			{
-				_pathfinderProxy = new PathfinderProxy<ISourceNodeGrid<ISourceGridNode>>();
-				//Now you can use _pathfinderProxy.RequestPath(PathRequest) to request a path from the pathfinder
-			}
-		}
-
-		public void OnShutdown(ShutdownContext context) { }
 	}
 }

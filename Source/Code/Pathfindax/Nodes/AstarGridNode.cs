@@ -44,15 +44,15 @@ namespace Pathfindax.Nodes
 		/// <inheritdoc />
 		public byte MovementPenalty
 		{
-			get { return SourceGridNode.MovementPenalty; }
-			set { throw new NotSupportedException("You can only change this in the source node"); }
+			get => SourceGridNode.MovementPenalty;
+		    set => throw new NotSupportedException("You can only change this in the source node");
 		}
 
 		/// <inheritdoc />
 		public GridClearance[] Clearances
 		{
-			get { return SourceGridNode.Clearances; }
-			set { throw new NotSupportedException("You can only change this in the source node"); }
+			get => SourceGridNode.Clearances;
+		    set => throw new NotSupportedException("You can only change this in the source node");
 		}
 
 		/// <inheritdoc />

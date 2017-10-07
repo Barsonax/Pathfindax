@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Pathfindax.Nodes;
-using Pathfindax.Primitives;
 
 namespace Pathfindax.Grid
 {
@@ -20,11 +19,10 @@ namespace Pathfindax.Grid
 		/// <summary>
 		/// Returns the node closest to this position
 		/// </summary>
-		/// <param name="worldPosition"></param>
 		/// <returns></returns>
-		public SourceNode GetNode(PositionF worldPosition)
+		public SourceNode GetNode(float worldX, float worldY)
 		{
-			return Nodes.OrderBy(x => worldPosition.Distance(x.WorldPosition)).FirstOrDefault(); //TODO this does not scale well with more nodes in the network.
+			return Nodes.OrderBy(x => x.WorldPosition.Distance(worldX, worldY)).FirstOrDefault(); //TODO this does not scale well with more nodes in the network.
 		}
 
 		public IEnumerator<SourceNode> GetEnumerator()
