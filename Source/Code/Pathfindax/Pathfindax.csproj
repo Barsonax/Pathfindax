@@ -67,10 +67,15 @@
     <Compile Include="Algorithms\AStarGridAlgorithm.cs" />
     <Compile Include="Collections\Interfaces\IReadOnlyArray2D.cs" />
     <Compile Include="Collections\Interfaces\IWriteOnlyArray2D.cs" />
+    <Compile Include="Factories\NodeFactory.cs" />
     <Compile Include="Grid\Interfaces\INodeGrid.cs" />
     <Compile Include="Grid\Abstract\NodeGridBase.cs" />
     <Compile Include="Nodes\Interfaces\ISourceGridNode.cs" />
     <Compile Include="Nodes\Interfaces\ISourceNode.cs" />
+    <Compile Include="Factories\PathfinderFactory.cs" />
+    <Compile Include="PathfindEngine\CompletedGridPath.cs" />
+    <Compile Include="PathfindEngine\CompletedPath.cs" />
+    <Compile Include="PathfindEngine\Interfaces\ICompletedPath.cs" />
     <Compile Include="PathfindEngine\PathRequestStatus.cs" />
     <Compile Include="Utils\GridClearanceHelper.cs" />
     <Compile Include="Algorithms\Interfaces\IPathFindAlgorithm.cs" />

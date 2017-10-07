@@ -19,7 +19,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 		private Transform _transform;
 		private Vector2[] _path;
 		private int _pathIndex;
-		private PathfinderProxy<ISourceNodeGrid<ISourceGridNode>> _gridPathfinderProxy;
+		private GridPathfinderProxy _gridPathfinderProxy;
 		public Camera Camera { get; set; }
 
 		private int _counter;
@@ -42,12 +42,6 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 						_path = null;
 						return;
 					}
-					var astarGrid = _gridPathfinderProxy.Pathfinder.SourceNodeNetwork;
-					if (astarGrid != null)
-					{
-						var offset = GridClearanceHelper.GridNodeOffset(AgentSize, astarGrid.NodeSize.X);
-						target = target + new Vector2(offset, offset);
-					}
 					_transform.MoveToAbs(target);
 					if (MathF.Distance(_transform.Pos.X, _transform.Pos.Y, target.X, target.Y) < 0.1f)
 					{
@@ -63,7 +57,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 			{
 				_transform = GameObj.GetComponent<Transform>();
 				DualityApp.Mouse.ButtonDown += Mouse_ButtonDown;
-				_gridPathfinderProxy = new PathfinderProxy<ISourceNodeGrid<ISourceGridNode>>();
+				_gridPathfinderProxy = new GridPathfinderProxy();
 			}
 		}
 
@@ -71,24 +65,15 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 		{
 			var targetPos = Camera.GetSpaceCoord(e.Position);
 			var start = new PositionF(_transform.Pos.X, _transform.Pos.Y);
-			var end = new PositionF(targetPos.X, targetPos.Y);
-			var astarGrid = _gridPathfinderProxy.Pathfinder.SourceNodeNetwork;
-			if (astarGrid != null)
-			{
-				var offset = -GridClearanceHelper.GridNodeOffset(AgentSize, astarGrid.NodeSize.X);
-				start = new PositionF(start.X + offset, start.Y + offset);
-				end = new PositionF(end.X + offset, end.Y + offset);
-			}
-			var startNode = _gridPathfinderProxy.Pathfinder.SourceNodeNetwork.GetNode(start);
-			var endNode = _gridPathfinderProxy.Pathfinder.SourceNodeNetwork.GetNode(end);
-			var request = new PathRequest(_gridPathfinderProxy.Pathfinder, startNode, endNode, AgentSize, CollisionCategory);
+			var end = new PositionF(targetPos.X, targetPos.Y);       
+			var request = _gridPathfinderProxy.RequestPath(start, end, AgentSize, CollisionCategory);
             request.AddCallback(OnRequestCompleted);
 		}
 
 		private void OnRequestCompleted(PathRequest pathRequest)
 		{
-			if (pathRequest.Path != null)
-				_path = pathRequest.Path.Select(x => x.WorldPosition.ToVector2()).ToArray();
+			if (pathRequest.CompletedPath != null)
+				_path = pathRequest.CompletedPath.Path.Select(p => p.ToVector2()).ToArray();
 		}
 
 		public void OnShutdown(ShutdownContext context)

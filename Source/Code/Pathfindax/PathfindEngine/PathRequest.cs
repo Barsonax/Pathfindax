@@ -2,6 +2,7 @@
 using Pathfindax.Nodes;
 using System.Collections.Generic;
 using System.Threading;
+using Pathfindax.PathfindEngine.Interfaces;
 
 namespace Pathfindax.PathfindEngine
 {
@@ -38,7 +39,7 @@ namespace Pathfindax.PathfindEngine
         /// <summary>
         /// The calculated path. Will be null unless the <see cref="Status"/> is equal to <see cref="PathRequestStatus.Solved"/>
         /// </summary>
-        public ISourceNode[] Path { get; private set; }
+        public ICompletedPath CompletedPath { get; private set; }
 
         /// <summary>
         /// The status of this <see cref="PathRequest"/>. See <see cref="PathRequestStatus"/> for more info.
@@ -110,10 +111,10 @@ namespace Pathfindax.PathfindEngine
             }
         }
 
-        internal void FinishSolvePath(ISourceNode[] path)
+        internal void FinishSolvePath(ICompletedPath path)
         {
-            Path = path;
-            Status = Path != null ? PathRequestStatus.Solved : PathRequestStatus.NoPathFound;
+            CompletedPath = path;
+            Status = CompletedPath != null ? PathRequestStatus.Solved : PathRequestStatus.NoPathFound;
             _manualResetEvent.Set();
         }
 

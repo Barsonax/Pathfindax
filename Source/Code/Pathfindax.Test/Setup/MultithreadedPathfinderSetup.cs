@@ -1,4 +1,5 @@
 ﻿using Pathfindax.Algorithms;
+using Pathfindax.Factories;
 using Pathfindax.Grid;
 using Pathfindax.PathfindEngine;
 
@@ -14,7 +15,8 @@ namespace Pathfindax.Test.Setup
             {
                 nodeGrids[i] = NSubstitute.Substitute.For<INodeNetwork>();
             }
-            return new MultithreadedPathfinder<INodeNetwork>(nodeGrids, algorithm);
+            
+            return PathfinderFactory.Create(nodeGrids, algorithm);
         }
     }
 }
