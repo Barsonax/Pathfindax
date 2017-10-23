@@ -1,7 +1,7 @@
 ﻿using Pathfindax.Nodes;
 using Pathfindax.Primitives;
 
-namespace Pathfindax.PathfindEngine.Interfaces
+namespace Pathfindax.PathfindEngine
 {
     public interface ICompletedPath
     {

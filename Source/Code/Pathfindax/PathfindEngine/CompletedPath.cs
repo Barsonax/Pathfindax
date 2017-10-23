@@ -1,5 +1,4 @@
-﻿using Pathfindax.PathfindEngine.Interfaces;
-using Pathfindax.Nodes;
+﻿using Pathfindax.Nodes;
 using Pathfindax.Primitives;
 
 namespace Pathfindax.PathfindEngine

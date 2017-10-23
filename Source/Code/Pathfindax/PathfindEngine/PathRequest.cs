@@ -2,7 +2,6 @@
 using Pathfindax.Nodes;
 using System.Collections.Generic;
 using System.Threading;
-using Pathfindax.PathfindEngine.Interfaces;
 
 namespace Pathfindax.PathfindEngine
 {
