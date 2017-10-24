@@ -12,74 +12,65 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 {
     public class MouseClickPathfinder : Component, ICmpRenderer, ICmpInitializable
     {
-        private GridPathfinderProxy _gridPathfinderProxy;
-        private NonGridPathfinderProxy _nonGridPathfinderProxy;
+		/// <summary>
+		/// The size of the agent in nodes. Bigger agents won't fit in nodes whose clearance is smaller than this.
+		/// </summary>
         public byte AgentSize { get; set; }
+
+		/// <summary>
+		/// What collision categories will the agent collide with? These categories will be avoided when calculating a path.
+		/// </summary>
         public PathfindaxCollisionCategory CollisionCategory { get; set; }
+
+		/// <summary>
+		/// The currently calculated path
+		/// </summary>
         public Vector2[] Path { get; private set; }
         public bool OnGrid { get; set; }
 
-        [EditorHintFlags(MemberFlags.Invisible)]
+		/// <summary>
+		/// A reference to the camera thats used to convert the screen coordinates from mouseclicks to world coordinates.
+		/// </summary>
+	    public Camera Camera { get; set; }
+
+		/// <summary>
+		/// Only needed in order to implement <see cref="ICmpRenderer"/>
+		/// </summary>
+		[EditorHintFlags(MemberFlags.Invisible)]
         public float BoundRadius { get; }
 
-        public Camera Camera { get; set; }
+	    private Vector3? _pathStart;
+	    private GridPathfinderProxy _gridPathfinderProxy;
+	    private NonGridPathfinderProxy _nonGridPathfinderProxy;
 
-        private void PathSolved(PathRequest pathRequest)
+	    void ICmpInitializable.OnInit(InitContext context)
+	    {
+		    if (context == InitContext.Activate && DualityApp.ExecContext == DualityApp.ExecutionContext.Game)
+		    {
+			    DualityApp.Mouse.Move += Mouse_Move;
+			    DualityApp.Mouse.ButtonDown += Mouse_ButtonDown;
+			    if (OnGrid)
+			    {
+				    _gridPathfinderProxy = new GridPathfinderProxy();
+			    }
+			    else
+			    {
+				    _nonGridPathfinderProxy = new NonGridPathfinderProxy();
+			    }
+		    }
+	    }
+
+		void ICmpInitializable.OnShutdown(ShutdownContext context)
+	    {
+		    DualityApp.Mouse.ButtonDown -= Mouse_ButtonDown;
+		    DualityApp.Mouse.Move -= Mouse_Move;
+	    }
+
+		private void PathSolved(PathRequest pathRequest)
         {
             Path = pathRequest.CompletedPath.Path.Select(p => p.ToVector2()).ToArray();
         }
 
-        bool ICmpRenderer.IsVisible(IDrawDevice device)
-        {
-            return
-    (device.VisibilityMask & VisibilityFlag.AllGroups) != VisibilityFlag.None &&
-    (device.VisibilityMask & VisibilityFlag.ScreenOverlay) == VisibilityFlag.None;
-        }
-
-        void ICmpRenderer.Draw(IDrawDevice device)
-        {
-            if (Path != null)
-            {
-                var canvas = new Canvas(device);
-                canvas.State.ZOffset = -10;
-
-                for (var index = 0; index < Path.Length; index++)
-                {
-                    if (index == 0) canvas.State.ColorTint = ColorRgba.Green;
-                    else if (index == Path.Length - 1) canvas.State.ColorTint = ColorRgba.Blue;
-                    else canvas.State.ColorTint = ColorRgba.Red;
-                    var position = Path[index];
-                    canvas.FillCircle(position.X, position.Y, 10f);
-                }
-
-                canvas.State.ColorTint = ColorRgba.Red;
-                for (var i = 1; i < Path.Length; i++)
-                {
-                    var from = Path[i - 1];
-                    var to = Path[i];
-                    canvas.DrawLine(from.X, from.Y, 0, to.X, to.Y, 0);
-                }
-            }
-        }
-
-        public void OnInit(InitContext context)
-        {
-            if (context == InitContext.Activate && DualityApp.ExecContext == DualityApp.ExecutionContext.Game)
-            {
-                DualityApp.Mouse.Move += Mouse_Move;
-                DualityApp.Mouse.ButtonDown += Mouse_ButtonDown;
-                if (OnGrid)
-                {
-                    _gridPathfinderProxy = new GridPathfinderProxy();
-                }
-                else
-                {
-                    _nonGridPathfinderProxy = new NonGridPathfinderProxy();
-                }
-            }
-        }
-
-        private Vector3? _pathStart;
         private void Mouse_ButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (_pathStart == null)
@@ -111,10 +102,37 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
             }
         }
 
-        public void OnShutdown(ShutdownContext context)
-        {
-            DualityApp.Mouse.ButtonDown -= Mouse_ButtonDown;
-            DualityApp.Mouse.Move -= Mouse_Move;
-        }
-    }
+	    bool ICmpRenderer.IsVisible(IDrawDevice device)
+	    {
+		    return
+			    (device.VisibilityMask & VisibilityFlag.AllGroups) != VisibilityFlag.None &&
+			    (device.VisibilityMask & VisibilityFlag.ScreenOverlay) == VisibilityFlag.None;
+	    }
+
+	    void ICmpRenderer.Draw(IDrawDevice device)
+	    {
+		    if (Path != null)
+		    {
+			    var canvas = new Canvas(device);
+			    canvas.State.ZOffset = -10;
+
+			    for (var index = 0; index < Path.Length; index++)
+			    {
+				    if (index == 0) canvas.State.ColorTint = ColorRgba.Green;
+				    else if (index == Path.Length - 1) canvas.State.ColorTint = ColorRgba.Blue;
+				    else canvas.State.ColorTint = ColorRgba.Red;
+				    var position = Path[index];
+				    canvas.FillCircle(position.X, position.Y, 10f);
+			    }
+
+			    canvas.State.ColorTint = ColorRgba.Red;
+			    for (var i = 1; i < Path.Length; i++)
+			    {
+				    var from = Path[i - 1];
+				    var to = Path[i];
+				    canvas.DrawLine(from.X, from.Y, 0, to.X, to.Y, 0);
+			    }
+		    }
+	    }
+	}
 }

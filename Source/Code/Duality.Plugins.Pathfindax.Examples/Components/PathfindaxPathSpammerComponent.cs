@@ -27,14 +27,28 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
         [EditorHintRange(1, 1000)]
         public int FramesBetweenRequest { get; set; }
 
-        [EditorHintFlags(MemberFlags.Invisible)]
+	    /// <summary>
+	    /// Only needed in order to implement <see cref="ICmpRenderer"/>
+	    /// </summary>
+		[EditorHintFlags(MemberFlags.Invisible)]
         public float BoundRadius { get; }
 
         private GridPathfinderProxy _gridPathfinderProxy;
 
         private readonly Random _randomGenerator = new Random();
         private int _frameCounter;
-        void ICmpUpdatable.OnUpdate()
+
+	    void ICmpInitializable.OnInit(InitContext context)
+	    {
+		    if (context == InitContext.Activate && DualityApp.ExecContext == DualityApp.ExecutionContext.Game)
+		    {
+			    _gridPathfinderProxy = new GridPathfinderProxy();
+		    }
+	    }
+
+	    void ICmpInitializable.OnShutdown(ShutdownContext context) { }
+
+		void ICmpUpdatable.OnUpdate()
         {
             if (_frameCounter >= FramesBetweenRequest)
             {
@@ -84,15 +98,5 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
                 }
             }
         }
-
-        public void OnInit(InitContext context)
-        {
-            if (context == InitContext.Activate && DualityApp.ExecContext == DualityApp.ExecutionContext.Game)
-            {
-                _gridPathfinderProxy = new GridPathfinderProxy();
-            }
-        }
-
-        public void OnShutdown(ShutdownContext context) { }
     }
 }
