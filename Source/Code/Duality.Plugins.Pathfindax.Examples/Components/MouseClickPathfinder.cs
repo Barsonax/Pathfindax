@@ -26,10 +26,11 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 		/// The currently calculated path
 		/// </summary>
         public Vector2[] Path { get; private set; }
+
         public bool OnGrid { get; set; }
 
 		/// <summary>
-		/// A reference to the camera thats used to convert the screen coordinates from mouseclicks to world coordinates.
+		/// A reference to the <see cref="Duality.Components.Camera"/> thats used to convert the screen coordinates from mouseclicks to world coordinates.
 		/// </summary>
 	    public Camera Camera { get; set; }
 
