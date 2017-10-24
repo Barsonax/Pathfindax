@@ -1,13 +1,16 @@
 ﻿using System.Linq;
 using Duality.Components;
+using Duality.Editor;
 using Duality.Input;
 using Duality.Plugins.Pathfindax.Extensions;
 using Duality.Plugins.Pathfindax.PathfindEngine;
 using Pathfindax.Nodes;
 using Pathfindax.PathfindEngine;
+using Pathfindax.Utils;
 
 namespace Duality.Plugins.Pathfindax.Examples.Components
 {
+	[EditorHintCategory(PathfindaxStrings.PathfindaxTest)]
 	public class PathFollowerComponent : Component, ICmpUpdatable, ICmpInitializable
 	{
 		public int TimeBetweenMovements { get; set; }
