@@ -5,47 +5,43 @@
     <Y dataType="Float">33</Y>
   </globalGravity>
   <serializeObj dataType="Array" type="Duality.GameObject[]" id="427169525">
-    <item dataType="Struct" type="Duality.GameObject" id="2947802992">
+    <item dataType="Struct" type="Duality.GameObject" id="2586665865">
       <active dataType="Bool">true</active>
       <children />
-      <compList dataType="Struct" type="System.Collections.Generic.List`1[[Duality.Component]]" id="4225078614">
-        <_items dataType="Array" type="Duality.Component[]" id="3622944288" length="4">
-          <item dataType="Struct" type="Duality.Plugins.Pathfindax.Components.AstarPathfinderComponent" id="1847461438">
-            <_counter dataType="Int">0</_counter>
+      <compList dataType="Struct" type="System.Collections.Generic.List`1[[Duality.Component]]" id="101739723">
+        <_items dataType="Array" type="Duality.Component[]" id="2012713974">
+          <item dataType="Struct" type="Duality.Plugins.Pathfindax.Components.AstarPathfinderComponent" id="378963951">
             <_x003C_BoundRadius_x003E_k__BackingField dataType="Float">0</_x003C_BoundRadius_x003E_k__BackingField>
             <_x003C_MultithreadedPathfinder_x003E_k__BackingField />
             <_x003C_NodeNetworkVisualizer_x003E_k__BackingField />
             <_x003C_PathfinderId_x003E_k__BackingField />
             <_x003C_ShowNodeGrid_x003E_k__BackingField dataType="Bool">true</_x003C_ShowNodeGrid_x003E_k__BackingField>
-            <_x003C_SourceNodeGrid_x003E_k__BackingField />
+            <_x003C_SourceNodeNetwork_x003E_k__BackingField />
             <active dataType="Bool">true</active>
-            <gameobj dataType="ObjectRef">2947802992</gameobj>
+            <gameobj dataType="ObjectRef">2586665865</gameobj>
           </item>
-          <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.SourceNodeNetworkProviderMockupComponent" id="1799567436">
-            <active dataType="Bool">true</active>
-            <gameobj dataType="ObjectRef">2947802992</gameobj>
-          </item>
-          <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.MouseClickPathfinder" id="454929248">
-            <_pathfinderProxy />
+          <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.NonGridMouseClickPathfinder" id="1982292920">
+            <_nonGridPathfinderProxy />
             <_pathStart />
+            <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_BoundRadius_x003E_k__BackingField dataType="Float">0</_x003C_BoundRadius_x003E_k__BackingField>
-            <_x003C_Camera_x003E_k__BackingField dataType="Struct" type="Duality.Components.Camera" id="4105497301">
+            <_x003C_Camera_x003E_k__BackingField dataType="Struct" type="Duality.Components.Camera" id="1673634481">
               <active dataType="Bool">true</active>
               <farZ dataType="Float">10000</farZ>
               <focusDist dataType="Float">500</focusDist>
-              <gameobj dataType="Struct" type="Duality.GameObject" id="3568221494">
+              <gameobj dataType="Struct" type="Duality.GameObject" id="127248004">
                 <active dataType="Bool">true</active>
                 <children />
-                <compList dataType="Struct" type="System.Collections.Generic.List`1[[Duality.Component]]" id="1775054497">
-                  <_items dataType="Array" type="Duality.Component[]" id="3330606190" length="4">
-                    <item dataType="Struct" type="Duality.Components.Transform" id="1633569130">
+                <compList dataType="Struct" type="System.Collections.Generic.List`1[[Duality.Component]]" id="2922131195">
+                  <_items dataType="Array" type="Duality.Component[]" id="749461078" length="4">
+                    <item dataType="Struct" type="Duality.Components.Transform" id="184525222">
                       <active dataType="Bool">true</active>
                       <angle dataType="Float">0</angle>
                       <angleAbs dataType="Float">0</angleAbs>
                       <angleVel dataType="Float">0</angleVel>
                       <angleVelAbs dataType="Float">0</angleVelAbs>
                       <deriveAngle dataType="Bool">true</deriveAngle>
-                      <gameobj dataType="ObjectRef">3568221494</gameobj>
+                      <gameobj dataType="ObjectRef">127248004</gameobj>
                       <ignoreParent dataType="Bool">false</ignoreParent>
                       <parentTransform />
                       <pos dataType="Struct" type="Duality.Vector3">
@@ -63,28 +59,27 @@
                       <vel dataType="Struct" type="Duality.Vector3" />
                       <velAbs dataType="Struct" type="Duality.Vector3" />
                     </item>
-                    <item dataType="ObjectRef">4105497301</item>
+                    <item dataType="ObjectRef">1673634481</item>
                   </_items>
                   <_size dataType="Int">2</_size>
-                  <_version dataType="Int">2</_version>
                 </compList>
-                <compMap dataType="Struct" type="System.Collections.Generic.Dictionary`2[[System.Type],[Duality.Component]]" id="117803808" surrogate="true">
+                <compMap dataType="Struct" type="System.Collections.Generic.Dictionary`2[[System.Type],[Duality.Component]]" id="4198308776" surrogate="true">
                   <header />
                   <body>
-                    <keys dataType="Array" type="System.Object[]" id="426395563">
-                      <item dataType="Type" id="2234952950" value="Duality.Components.Transform" />
-                      <item dataType="Type" id="918892058" value="Duality.Components.Camera" />
+                    <keys dataType="Array" type="System.Object[]" id="1165923089">
+                      <item dataType="Type" id="3506868974" value="Duality.Components.Transform" />
+                      <item dataType="Type" id="6192586" value="Duality.Components.Camera" />
                     </keys>
-                    <values dataType="Array" type="System.Object[]" id="2253356360">
-                      <item dataType="ObjectRef">1633569130</item>
-                      <item dataType="ObjectRef">4105497301</item>
+                    <values dataType="Array" type="System.Object[]" id="447824800">
+                      <item dataType="ObjectRef">184525222</item>
+                      <item dataType="ObjectRef">1673634481</item>
                     </values>
                   </body>
                 </compMap>
-                <compTransform dataType="ObjectRef">1633569130</compTransform>
+                <compTransform dataType="ObjectRef">184525222</compTransform>
                 <identifier dataType="Struct" type="System.Guid" surrogate="true">
                   <header>
-                    <data dataType="Array" type="System.Byte[]" id="2792685985">efoiT4xJU0e/LtJhe6G1HA==</data>
+                    <data dataType="Array" type="System.Byte[]" id="3940348547">efoiT4xJU0e/LtJhe6G1HA==</data>
                   </header>
                   <body />
                 </identifier>
@@ -94,9 +89,9 @@
                 <prefabLink />
               </gameobj>
               <nearZ dataType="Float">0</nearZ>
-              <passes dataType="Struct" type="System.Collections.Generic.List`1[[Duality.Components.Camera+Pass]]" id="932041461">
-                <_items dataType="Array" type="Duality.Components.Camera+Pass[]" id="3166548598" length="4">
-                  <item dataType="Struct" type="Duality.Components.Camera+Pass" id="427816928">
+              <passes dataType="Struct" type="System.Collections.Generic.List`1[[Duality.Components.Camera+Pass]]" id="659140733">
+                <_items dataType="Array" type="Duality.Components.Camera+Pass[]" id="2741714726" length="4">
+                  <item dataType="Struct" type="Duality.Components.Camera+Pass" id="3210282240">
                     <clearColor dataType="Struct" type="Duality.Drawing.ColorRgba" />
                     <clearDepth dataType="Float">1</clearDepth>
                     <clearFlags dataType="Enum" type="Duality.Drawing.ClearFlag" name="All" value="3" />
@@ -105,7 +100,7 @@
                     <output dataType="Struct" type="Duality.ContentRef`1[[Duality.Resources.RenderTarget]]" />
                     <visibilityMask dataType="Enum" type="Duality.Drawing.VisibilityFlag" name="AllGroups" value="2147483647" />
                   </item>
-                  <item dataType="Struct" type="Duality.Components.Camera+Pass" id="2830734222">
+                  <item dataType="Struct" type="Duality.Components.Camera+Pass" id="3937919438">
                     <clearColor dataType="Struct" type="Duality.Drawing.ColorRgba" />
                     <clearDepth dataType="Float">1</clearDepth>
                     <clearFlags dataType="Enum" type="Duality.Drawing.ClearFlag" name="None" value="0" />
@@ -116,40 +111,50 @@
                   </item>
                 </_items>
                 <_size dataType="Int">2</_size>
-                <_version dataType="Int">2</_version>
               </passes>
               <perspective dataType="Enum" type="Duality.Drawing.PerspectiveMode" name="Flat" value="0" />
+              <priority dataType="Int">0</priority>
               <visibilityMask dataType="Enum" type="Duality.Drawing.VisibilityFlag" name="All" value="4294967295" />
             </_x003C_Camera_x003E_k__BackingField>
-            <_x003C_Clearance_x003E_k__BackingField dataType="Byte">0</_x003C_Clearance_x003E_k__BackingField>
-            <_x003C_CollisionCategory_x003E_k__BackingField dataType="Enum" type="Pathfindax.Nodes.PathfindaxCollisionCategory" name="None" value="0" />
+            <_x003C_CollisionCategory_x003E_k__BackingField dataType="Enum" type="Pathfindax.Nodes.PathfindaxCollisionCategory" name="Cat1" value="1" />
             <_x003C_Path_x003E_k__BackingField />
             <active dataType="Bool">true</active>
-            <gameobj dataType="ObjectRef">2947802992</gameobj>
+            <gameobj dataType="ObjectRef">2586665865</gameobj>
+          </item>
+          <item dataType="Struct" type="Duality.Plugins.Pathfindax.Components.PathVisualizer" id="4019338063">
+            <_x003C_BoundRadius_x003E_k__BackingField dataType="Float">0</_x003C_BoundRadius_x003E_k__BackingField>
+            <_x003C_Visualize_x003E_k__BackingField dataType="Bool">true</_x003C_Visualize_x003E_k__BackingField>
+            <active dataType="Bool">true</active>
+            <gameobj dataType="ObjectRef">2586665865</gameobj>
+          </item>
+          <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.SourceNodeNetworkProviderMockupComponent" id="2031197431">
+            <active dataType="Bool">true</active>
+            <gameobj dataType="ObjectRef">2586665865</gameobj>
           </item>
         </_items>
-        <_size dataType="Int">3</_size>
-        <_version dataType="Int">7</_version>
+        <_size dataType="Int">4</_size>
       </compList>
-      <compMap dataType="Struct" type="System.Collections.Generic.Dictionary`2[[System.Type],[Duality.Component]]" id="1994780890" surrogate="true">
+      <compMap dataType="Struct" type="System.Collections.Generic.Dictionary`2[[System.Type],[Duality.Component]]" id="2040561736" surrogate="true">
         <header />
         <body>
-          <keys dataType="Array" type="System.Object[]" id="2124087588">
-            <item dataType="Type" id="1471973060" value="Duality.Plugins.Pathfindax.Components.AstarPathfinderComponent" />
-            <item dataType="Type" id="4110205846" value="Duality.Plugins.Pathfindax.Examples.Components.SourceNodeNetworkProviderMockupComponent" />
-            <item dataType="Type" id="3403430784" value="Duality.Plugins.Pathfindax.Examples.Components.MouseClickPathfinder" />
+          <keys dataType="Array" type="System.Object[]" id="2764448481">
+            <item dataType="Type" id="1272785774" value="Duality.Plugins.Pathfindax.Components.AstarPathfinderComponent" />
+            <item dataType="Type" id="1615501770" value="Duality.Plugins.Pathfindax.Examples.Components.SourceNodeNetworkProviderMockupComponent" />
+            <item dataType="Type" id="697156958" value="Duality.Plugins.Pathfindax.Examples.Components.NonGridMouseClickPathfinder" />
+            <item dataType="Type" id="350779226" value="Duality.Plugins.Pathfindax.Components.PathVisualizer" />
           </keys>
-          <values dataType="Array" type="System.Object[]" id="3789210902">
-            <item dataType="ObjectRef">1847461438</item>
-            <item dataType="ObjectRef">1799567436</item>
-            <item dataType="ObjectRef">454929248</item>
+          <values dataType="Array" type="System.Object[]" id="3972132384">
+            <item dataType="ObjectRef">378963951</item>
+            <item dataType="ObjectRef">2031197431</item>
+            <item dataType="ObjectRef">1982292920</item>
+            <item dataType="ObjectRef">4019338063</item>
           </values>
         </body>
       </compMap>
       <compTransform />
       <identifier dataType="Struct" type="System.Guid" surrogate="true">
         <header>
-          <data dataType="Array" type="System.Byte[]" id="791662368">UKTAh3N4e0OazFAn+MkMWw==</data>
+          <data dataType="Array" type="System.Byte[]" id="1457369203">UKTAh3N4e0OazFAn+MkMWw==</data>
         </header>
         <body />
       </identifier>
@@ -158,7 +163,7 @@
       <parent />
       <prefabLink />
     </item>
-    <item dataType="ObjectRef">3568221494</item>
+    <item dataType="ObjectRef">127248004</item>
   </serializeObj>
   <visibilityStrategy dataType="Struct" type="Duality.Components.DefaultRendererVisibilityStrategy" id="2035693768" />
 </root>

@@ -62,8 +62,8 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Duality, Version=2.13.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\AdamsLair.Duality.2.13.3\lib\Duality.dll</HintPath>
+    <Reference Include="Duality, Version=2.14.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AdamsLair.Duality.2.14.0\lib\Duality.dll</HintPath>
     </Reference>
     <Reference Include="DualityPrimitives, Version=2.0.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\AdamsLair.Duality.Primitives.2.0.4\lib\DualityPrimitives.dll</HintPath>
