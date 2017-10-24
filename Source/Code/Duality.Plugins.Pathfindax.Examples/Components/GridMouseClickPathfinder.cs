@@ -34,12 +34,6 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 		/// </summary>
 		public Camera Camera { get; set; }
 
-		/// <summary>
-		/// Only needed in order to implement <see cref="ICmpRenderer"/>
-		/// </summary>
-		[EditorHintFlags(MemberFlags.Invisible)]
-		public float BoundRadius { get; }
-
 		private Vector3? _pathStart;
 		private GridPathfinderProxy _gridPathfinderProxy;
 
