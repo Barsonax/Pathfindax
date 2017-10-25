@@ -15,6 +15,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 		/// <summary>
 		/// The size of the agent in nodes. Bigger agents won't fit in nodes whose clearance is smaller than this.
 		/// </summary>
+		[EditorHintRange(1, byte.MaxValue)]
 		public byte AgentSize { get; set; }
 
 		/// <summary>

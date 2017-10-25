@@ -11,7 +11,10 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 	[EditorHintCategory(PathfindaxStrings.PathfindaxTest)]
 	public class PathFollowerComponent : Component, ICmpUpdatable, ICmpInitializable
 	{
+		[EditorHintRange(1, int.MaxValue)]
 		public int TimeBetweenMovements { get; set; }
+
+		[EditorHintRange(1, byte.MaxValue)]
 		public byte AgentSize { get; set; }
 		public PathfindaxCollisionCategory CollisionCategory { get; set; }
 		public Camera Camera { get; set; }
