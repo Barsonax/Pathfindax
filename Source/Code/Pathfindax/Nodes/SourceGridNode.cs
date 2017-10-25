@@ -1,12 +1,12 @@
-﻿using Pathfindax.Grid;
-using Pathfindax.Primitives;
+﻿using Duality;
+using Pathfindax.Grid;
 
 namespace Pathfindax.Nodes
 {
 	public class SourceGridNode : ISourceGridNode
 	{
 		/// <inheritdoc />
-		public PositionF WorldPosition => new PositionF(GridX * _sourceNodeGrid.NodeSize.X, GridY * _sourceNodeGrid.NodeSize.Y) + _sourceNodeGrid.Offset;
+		public Vector2 WorldPosition => new Vector2(GridX * _sourceNodeGrid.NodeSize.X, GridY * _sourceNodeGrid.NodeSize.Y) + _sourceNodeGrid.Offset;
 
 		/// <inheritdoc />
 		public GridClearance[] Clearances { get; set; }

@@ -1,11 +1,11 @@
-﻿using Pathfindax.Nodes;
-using Pathfindax.Primitives;
+﻿using Duality;
+using Pathfindax.Nodes;
 
 namespace Pathfindax.PathfindEngine
 {
     public interface ICompletedPath
     {
-        PositionF[] Path { get; }
+	    Vector2[] Path { get; }
         ISourceNode[] NodePath { get; }
     }
 }

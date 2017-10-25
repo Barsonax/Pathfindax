@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Linq;
 using Duality.Editor;
 using Duality.Plugins.Pathfindax.Components;
-using Duality.Plugins.Pathfindax.Extensions;
 using Duality.Plugins.Pathfindax.PathfindEngine;
 using Pathfindax.Nodes;
 using Pathfindax.PathfindEngine;
@@ -46,7 +44,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
             {
                 var start = new Vector2(_randomGenerator.Next(TopLeftCorner.X, BottomRightCorner.X), _randomGenerator.Next(TopLeftCorner.Y, BottomRightCorner.Y));
                 var end = new Vector2(_randomGenerator.Next(TopLeftCorner.X, BottomRightCorner.X), _randomGenerator.Next(TopLeftCorner.Y, BottomRightCorner.Y));
-                var request = _gridPathfinderProxy.RequestPath(start, end, AgentSize, CollisionCategory);
+                var request = _gridPathfinderProxy.RequestPath(start, end, CollisionCategory, AgentSize);
                 request.AddCallback(PathSolved);
                 _frameCounter = 0;
             }
@@ -55,7 +53,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 
         private void PathSolved(PathRequest pathRequest)
         {
-            Path = pathRequest.CompletedPath?.Path.Select(p => p.ToVector2()).ToArray();
+            Path = pathRequest.CompletedPath?.Path;
         }
     }
 }

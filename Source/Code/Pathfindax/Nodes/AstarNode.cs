@@ -1,5 +1,5 @@
-﻿using Pathfindax.Collections;
-using Pathfindax.Primitives;
+﻿using Duality;
+using Pathfindax.Collections;
 
 namespace Pathfindax.Nodes
 {
@@ -26,7 +26,7 @@ namespace Pathfindax.Nodes
 		private float FCost => GCost + HCost;
 
 		public int HeapIndex { get; set; }
-		public PositionF WorldPosition => SourceNode.WorldPosition;
+		public Vector2 WorldPosition => SourceNode.WorldPosition;
 		public NodeConnection<AstarNode>[] Connections { get; set; }
 
 		/// <summary>

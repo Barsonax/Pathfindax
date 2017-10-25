@@ -1,6 +1,6 @@
-﻿using Pathfindax.Collections;
+﻿using Duality;
+using Pathfindax.Collections;
 using Pathfindax.Nodes;
-using Pathfindax.Primitives;
 
 namespace Pathfindax.Grid
 {
@@ -8,9 +8,9 @@ namespace Pathfindax.Grid
 		where TNode : IGridNode
 	{
 		public int NodeCount => NodeArray.Length;
-		public PositionF Offset { get; }
-		public PositionF WorldSize { get; }
-		public PositionF NodeSize { get; }
+		public Vector2 Offset { get; }
+		public Vector2 WorldSize { get; }
+		public Vector2 NodeSize { get; }
 		public ISourceNodeGrid<ISourceGridNode> SourceSourceNodeGrid { get; }
 		public IReadOnlyArray2D<TNode> NodeArray { get; protected set; }
 

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Duality;
 using Pathfindax.Nodes;
 
 namespace Pathfindax.Grid
@@ -21,8 +22,8 @@ namespace Pathfindax.Grid
 		/// </summary>
 		/// <returns></returns>
 		public SourceNode GetNode(float worldX, float worldY)
-		{
-			return Nodes.OrderBy(x => x.WorldPosition.Distance(worldX, worldY)).FirstOrDefault(); //TODO this does not scale well with more nodes in the network.
+		{			
+			return Nodes.OrderBy(x => MathF.Distance(x.WorldPosition.X, x.WorldPosition.Y, worldX, worldY)).FirstOrDefault(); //TODO this does not scale well with more nodes in the network.
 		}
 
 		public IEnumerator<SourceNode> GetEnumerator()

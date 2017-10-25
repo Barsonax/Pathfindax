@@ -1,6 +1,6 @@
-﻿using Pathfindax.Collections;
+﻿using Duality;
+using Pathfindax.Collections;
 using Pathfindax.Nodes;
-using Pathfindax.Primitives;
 
 namespace Pathfindax.Grid
 {
@@ -9,7 +9,7 @@ namespace Pathfindax.Grid
 	/// </summary>
 	public class SourceNodeGrid : SourceNodeGridBase<ISourceGridNode>
 	{
-		public SourceNodeGrid(Array2D<ISourceGridNode> grid, PositionF nodeSize, PositionF offset) : base(grid, nodeSize, offset)
+		public SourceNodeGrid(Array2D<ISourceGridNode> grid, Vector2 nodeSize, Vector2 offset) : base(grid, nodeSize, offset)
 		{
 
 		}

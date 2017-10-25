@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
-using Pathfindax.Primitives;
+using Duality;
 
 namespace Pathfindax.Nodes
 {
 	public class SourceNode : ISourceNode
 	{
-		public PositionF WorldPosition { get; }
+		public Vector2 WorldPosition { get; }
 		public List<NodeConnection<SourceNode>> Connections { get; private set; }
 
 		/// <summary>
@@ -17,7 +17,7 @@ namespace Pathfindax.Nodes
 
 		public int ArrayIndex { get; }
 
-		public SourceNode(PositionF worldPosition, int arrayIndex)
+		public SourceNode(Vector2 worldPosition, int arrayIndex)
 		{
 			WorldPosition = worldPosition;
 			Connections = new List<NodeConnection<SourceNode>>();

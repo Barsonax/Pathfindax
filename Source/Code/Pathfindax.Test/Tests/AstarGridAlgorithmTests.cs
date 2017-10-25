@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using Pathfindax.Algorithms;
 using Pathfindax.Grid;
+using Pathfindax.Nodes;
 using Pathfindax.PathfindEngine;
 using Pathfindax.Test.Setup;
 

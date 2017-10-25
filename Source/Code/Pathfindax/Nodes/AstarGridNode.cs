@@ -1,6 +1,6 @@
 ﻿using System;
+using Duality;
 using Pathfindax.Collections;
-using Pathfindax.Primitives;
 
 namespace Pathfindax.Nodes
 {
@@ -31,7 +31,7 @@ namespace Pathfindax.Nodes
 		public NodeConnection<AstarGridNode>[] Connections { get; set; }
 
 		/// <inheritdoc />
-		public PositionF WorldPosition => SourceGridNode.WorldPosition;
+		public Vector2 WorldPosition => SourceGridNode.WorldPosition;
 
 		/// <inheritdoc />
 		public ushort GridX => SourceGridNode.GridX;

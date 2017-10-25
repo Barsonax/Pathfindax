@@ -1,9 +1,7 @@
-﻿using System.Linq;
-using Duality.Components;
+﻿using Duality.Components;
 using Duality.Editor;
 using Duality.Input;
 using Duality.Plugins.Pathfindax.Components;
-using Duality.Plugins.Pathfindax.Extensions;
 using Duality.Plugins.Pathfindax.PathfindEngine;
 using Pathfindax.Nodes;
 using Pathfindax.PathfindEngine;
@@ -55,7 +53,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 
 		private void PathSolved(PathRequest pathRequest)
 		{
-			Path = pathRequest.CompletedPath.Path.Select(p => p.ToVector2()).ToArray();
+			Path = pathRequest.CompletedPath.Path;
 		}
 
 		private void Mouse_ButtonDown(object sender, MouseButtonEventArgs e)
@@ -76,7 +74,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 			if (_pathStart != null)
 			{
 				var mouseWorldPosition = Camera.GetSpaceCoord(e.Position);
-				var request = _nonGridPathfinderProxy.RequestPath(_pathStart.Value, mouseWorldPosition, AgentSize, CollisionCategory);
+				var request = _nonGridPathfinderProxy.RequestPath(_pathStart.Value, mouseWorldPosition, CollisionCategory, AgentSize);
 				request.AddCallback(PathSolved);
 			}
 		}

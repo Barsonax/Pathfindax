@@ -79,10 +79,6 @@
       <HintPath>..\packages\AdamsLair.Duality.Primitives.2.0.4\lib\DualityPrimitives.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="NVorbis, Version=0.7.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\AdamsLair.NVorbis.0.7.5\lib\portable-net45+win+wpa81+MonoAndroid10+xamarinios10+MonoTouch10\NVorbis.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
@@ -90,7 +86,6 @@
     <Compile Include="Components\Interfaces\IPathfinderComponent.cs" />
     <Compile Include="Components\Interfaces\IPathProvider.cs" />
     <Compile Include="Components\PathVisualizer.cs" />
-    <Compile Include="Extensions\PositionFExtensions.cs" />
     <Compile Include="Grid\NodeGridVisualizer.cs" />
     <Compile Include="Components\PathfinderComponentBase.cs" />
     <Compile Include="Grid\NodeNetworkVisualizer.cs" />
@@ -110,6 +105,9 @@
   <ItemGroup>
     <None Include="Duality.Plugins.Pathfindax.nuspec" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Extensions\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <PropertyGroup>

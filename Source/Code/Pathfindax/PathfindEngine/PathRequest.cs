@@ -58,7 +58,7 @@ namespace Pathfindax.PathfindEngine
         /// <param name="end">The worldcoordinates of the end of the path</param>
         /// <param name="agentSize">The size of the agent in nodes</param>
         /// <param name="collisionLayer">The collision layers that this agent cannot cross</param>
-        public PathRequest(ISourceNode start, ISourceNode end, byte agentSize = 1, PathfindaxCollisionCategory collisionLayer = PathfindaxCollisionCategory.None)
+        public PathRequest(ISourceNode start, ISourceNode end, PathfindaxCollisionCategory collisionLayer = PathfindaxCollisionCategory.None, byte agentSize = 1)
         {
             PathStart = start;
             PathEnd = end;
@@ -74,7 +74,7 @@ namespace Pathfindax.PathfindEngine
         /// <param name="end">The worldcoordinates of the end of the path</param>
         /// <param name="agentSize">The size of the agent in nodes</param>
         /// <param name="collisionLayer">The collision layers that this agent cannot cross</param>
-        public PathRequest(IPathfinder pathfinder, ISourceNode start, ISourceNode end, byte agentSize = 1, PathfindaxCollisionCategory collisionLayer = PathfindaxCollisionCategory.None)
+        public PathRequest(IPathfinder pathfinder, ISourceNode start, ISourceNode end, PathfindaxCollisionCategory collisionLayer = PathfindaxCollisionCategory.None, byte agentSize = 1)
         {
             PathStart = start;
             PathEnd = end;

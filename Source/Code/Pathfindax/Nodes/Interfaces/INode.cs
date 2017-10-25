@@ -1,4 +1,4 @@
-﻿using Pathfindax.Primitives;
+﻿using Duality;
 
 namespace Pathfindax.Nodes
 {
@@ -7,6 +7,6 @@ namespace Pathfindax.Nodes
 		/// <summary>
 		/// The absolute world position
 		/// </summary>
-		PositionF WorldPosition { get; }
+		Vector2 WorldPosition { get; }
 	}
 }

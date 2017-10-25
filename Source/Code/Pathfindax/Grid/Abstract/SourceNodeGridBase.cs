@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Duality;
 using Pathfindax.Collections;
 using Pathfindax.Nodes;
-using Pathfindax.Primitives;
 using Pathfindax.Utils;
 
 namespace Pathfindax.Grid
@@ -13,15 +13,15 @@ namespace Pathfindax.Grid
     {
         public TNode this[int index] => NodeArray[index];
         public IReadOnlyArray2D<TNode> NodeArray { get; protected set; }
-        public PositionF WorldSize { get; protected set; }
-        public PositionF NodeSize { get; protected set; }
+        public Vector2 WorldSize { get; protected set; }
+        public Vector2 NodeSize { get; protected set; }
         public int NodeCount => NodeArray.Length;
-        public PositionF Offset { get; protected set; }
+        public Vector2 Offset { get; protected set; }
 
-        protected SourceNodeGridBase(IReadOnlyArray2D<TNode> grid, PositionF nodeSize, PositionF offset)
+        protected SourceNodeGridBase(IReadOnlyArray2D<TNode> grid, Vector2 nodeSize, Vector2 offset)
         {
             NodeArray = grid;
-            WorldSize = new PositionF(NodeArray.Width * nodeSize.X - nodeSize.X, NodeArray.Height * nodeSize.Y - nodeSize.Y);
+            WorldSize = new Vector2(NodeArray.Width * nodeSize.X - nodeSize.X, NodeArray.Height * nodeSize.Y - nodeSize.Y);
             NodeSize = nodeSize;
             Offset = offset;
         }

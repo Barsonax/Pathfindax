@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Duality;
 using Pathfindax.Nodes;
-using Pathfindax.Primitives;
 
 namespace Pathfindax.Grid
 {
@@ -47,9 +47,9 @@ namespace Pathfindax.Grid
 		/// </summary>
 		/// <param name="worldPosition"></param>
 		/// <returns></returns>
-		public AstarNode GetNode(PositionF worldPosition)
-		{
-			return Nodes.OrderBy(x => worldPosition.Distance(x.WorldPosition)).FirstOrDefault();
+		public AstarNode GetNode(Vector2 worldPosition)
+		{			
+			return Nodes.OrderBy(x => MathF.Distance(worldPosition.X, worldPosition.Y, x.WorldPosition.X, x.WorldPosition.Y)).FirstOrDefault();
 		}
 
 		public IEnumerator<AstarNode> GetEnumerator()

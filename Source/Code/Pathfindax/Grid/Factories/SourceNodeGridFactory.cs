@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
+using Duality;
 using Pathfindax.Collections;
 using Pathfindax.Nodes;
-using Pathfindax.Primitives;
 
 namespace Pathfindax.Grid
 {
@@ -16,7 +16,7 @@ namespace Pathfindax.Grid
 		/// <param name="generateNodeGridConnections"></param>
 		/// <param name="offset"></param>
 		/// <returns></returns>
-		public SourceNodeGrid GeneratePreFilledArray(int width, int height, PositionF nodeSize, GenerateNodeGridConnections generateNodeGridConnections, PositionF offset = default(PositionF))
+		public SourceNodeGrid GeneratePreFilledArray(int width, int height, Vector2 nodeSize, GenerateNodeGridConnections generateNodeGridConnections, Vector2 offset = default(Vector2))
 		{
 			var array = new Array2D<ISourceGridNode>(width, height);
 			var sourceNodeGrid = new SourceNodeGrid(array, nodeSize, offset);

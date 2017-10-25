@@ -4,7 +4,6 @@ using System.Linq;
 using Duality.Editor;
 using Pathfindax.Grid;
 using Pathfindax.Nodes;
-using Pathfindax.Primitives;
 using Pathfindax.Utils;
 using SnowyPeak.Duality.Plugin.Frozen.Procedural;
 using INode = SnowyPeak.Duality.Plugin.Frozen.Procedural.INode;
@@ -23,7 +22,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 			var nodeNetwork = new SourceNodeNetwork();
 			for (var i = 0; i < 100; i++)
 			{
-				var node = new SourceNode(new PositionF(random.Next(0, width), random.Next(0, height)), i);
+				var node = new SourceNode(new Vector2(random.Next(0, width), random.Next(0, height)), i);
 				var defaultNode = new DelaunayNode(new Vector2(node.WorldPosition.X, node.WorldPosition.Y));
 				dictionary.Add(defaultNode, node);
 				nodeNetwork.Nodes.Add(node);

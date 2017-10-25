@@ -1,7 +1,6 @@
 ﻿using Pathfindax.Grid;
 using Pathfindax.Nodes;
 using Pathfindax.PathfindEngine;
-using Pathfindax.Primitives;
 using Pathfindax.Utils;
 
 namespace Duality.Plugins.Pathfindax.PathfindEngine
@@ -19,9 +18,9 @@ namespace Duality.Plugins.Pathfindax.PathfindEngine
 		/// <param name="agentSize"></param>
 		/// <param name="collisionLayer"></param>
 		/// <returns></returns>
-		public PathRequest RequestPath(Vector3 start, Vector3 end, byte agentSize = 1, PathfindaxCollisionCategory collisionLayer = PathfindaxCollisionCategory.None)
+		public PathRequest RequestPath(Vector3 start, Vector3 end, PathfindaxCollisionCategory collisionLayer = PathfindaxCollisionCategory.None, byte agentSize = 1)
         {
-            return RequestPath(start.X, start.Y, end.X, end.Y, agentSize, collisionLayer);
+            return RequestPath(start.X, start.Y, end.X, end.Y, collisionLayer, agentSize);
         }
 
 		/// <summary>
@@ -32,22 +31,9 @@ namespace Duality.Plugins.Pathfindax.PathfindEngine
 		/// <param name="agentSize"></param>
 		/// <param name="collisionLayer"></param>
 		/// <returns></returns>
-		public PathRequest RequestPath(Vector2 start, Vector2 end, byte agentSize = 1, PathfindaxCollisionCategory collisionLayer = PathfindaxCollisionCategory.None)
+		public PathRequest RequestPath(Vector2 start, Vector2 end, PathfindaxCollisionCategory collisionLayer = PathfindaxCollisionCategory.None, byte agentSize = 1)
         {
-            return RequestPath(start.X, start.Y, end.X, end.Y, agentSize, collisionLayer);
-        }
-
-		/// <summary>
-		/// Requests a new path
-		/// </summary>
-		/// <param name="start"></param>
-		/// <param name="end"></param>
-		/// <param name="agentSize"></param>
-		/// <param name="collisionLayer"></param>
-		/// <returns></returns>
-		public PathRequest RequestPath(PositionF start, PositionF end, byte agentSize = 1, PathfindaxCollisionCategory collisionLayer = PathfindaxCollisionCategory.None)
-        {
-            return RequestPath(start.X, start.Y, end.X, end.Y, agentSize, collisionLayer);
+            return RequestPath(start.X, start.Y, end.X, end.Y, collisionLayer, agentSize);
         }
 
 		/// <summary>
@@ -60,12 +46,12 @@ namespace Duality.Plugins.Pathfindax.PathfindEngine
 		/// <param name="agentSize"></param>
 		/// <param name="collisionLayer"></param>
 		/// <returns></returns>
-		public PathRequest RequestPath(float x1, float y1, float x2, float y2, byte agentSize = 1, PathfindaxCollisionCategory collisionLayer = PathfindaxCollisionCategory.None)
+		public PathRequest RequestPath(float x1, float y1, float x2, float y2, PathfindaxCollisionCategory collisionLayer = PathfindaxCollisionCategory.None, byte agentSize = 1)
         {           
             var offset = -GridClearanceHelper.GridNodeOffset(agentSize, Pathfinder.SourceNodeNetwork.NodeSize.X);
             var startNode = Pathfinder.SourceNodeNetwork.GetNode(x1 + offset, y1 + offset);
             var endNode = Pathfinder.SourceNodeNetwork.GetNode(x2 + offset, y2 + offset);
-            return new PathRequest(Pathfinder, startNode, endNode, agentSize, collisionLayer);
+	        return RequestPath(startNode, endNode, collisionLayer,agentSize);
         }
 
         /// <summary>
@@ -75,9 +61,9 @@ namespace Duality.Plugins.Pathfindax.PathfindEngine
         /// <param name="end"></param>
         /// <param name="agentSize"></param>
         /// <param name="collisionLayer"></param>
-        public PathRequest RequestPath(ISourceNode start, ISourceNode end, byte agentSize = 1, PathfindaxCollisionCategory collisionLayer = PathfindaxCollisionCategory.None)
+        public PathRequest RequestPath(ISourceNode start, ISourceNode end, PathfindaxCollisionCategory collisionLayer = PathfindaxCollisionCategory.None, byte agentSize = 1)
         {
-            return new PathRequest(Pathfinder, start, end, agentSize, collisionLayer);
+            return new PathRequest(Pathfinder, start, end, collisionLayer, agentSize);
         }
     }
 }
