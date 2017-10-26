@@ -20,13 +20,13 @@ namespace Duality.Plugins.Pathfindax.PathfindEngine
         /// <summary>
         /// The id of the pathfinder. You can keep this empty if you only have 1 pathfinder in a <see cref="Scene"/>
         /// </summary>
-        public string PathfinderId { get; private set; }
+        public string PathfinderId { get; }
 
         private IPathfinderComponent<TSourceNodeNetwork> _pathfinderComponent;
         /// <summary>
         /// The actual pathfinder
         /// </summary>
-        public IPathfinderComponent<TSourceNodeNetwork> Pathfinder => _pathfinderComponent ?? (_pathfinderComponent = PathfindaxDualityCorePlugin.GetPathfinder<TSourceNodeNetwork>(PathfinderId));
+        public IPathfinderComponent<TSourceNodeNetwork> PathfinderComponent => _pathfinderComponent ?? (_pathfinderComponent = PathfindaxDualityCorePlugin.GetPathfinder<TSourceNodeNetwork>(PathfinderId));
 
         /// <summary>
         /// Creates a new <see cref="PathfinderProxy{TNode,TSourceNodeNetwork}"/>. The id has to be supplied if there is more than 1 <see cref="IPathfinderComponent"/> in the scene.

@@ -9,22 +9,11 @@
       <active dataType="Bool">true</active>
       <children />
       <compList dataType="Struct" type="System.Collections.Generic.List`1[[Duality.Component]]" id="101739723">
-        <_items dataType="Array" type="Duality.Component[]" id="2012713974">
-          <item dataType="Struct" type="Duality.Plugins.Pathfindax.Components.AstarPathfinderComponent" id="378963951">
-            <_x003C_BoundRadius_x003E_k__BackingField dataType="Float">0</_x003C_BoundRadius_x003E_k__BackingField>
-            <_x003C_MultithreadedPathfinder_x003E_k__BackingField />
-            <_x003C_NodeNetworkVisualizer_x003E_k__BackingField />
-            <_x003C_PathfinderId_x003E_k__BackingField />
-            <_x003C_ShowNodeGrid_x003E_k__BackingField dataType="Bool">true</_x003C_ShowNodeGrid_x003E_k__BackingField>
-            <_x003C_SourceNodeNetwork_x003E_k__BackingField />
-            <active dataType="Bool">true</active>
-            <gameobj dataType="ObjectRef">2586665865</gameobj>
-          </item>
+        <_items dataType="Array" type="Duality.Component[]" id="2012713974" length="8">
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.NonGridMouseClickPathfinder" id="1982292920">
             <_nonGridPathfinderProxy />
             <_pathStart />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
-            <_x003C_BoundRadius_x003E_k__BackingField dataType="Float">0</_x003C_BoundRadius_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="Struct" type="Duality.Components.Camera" id="1673634481">
               <active dataType="Bool">true</active>
               <farZ dataType="Float">10000</farZ>
@@ -131,8 +120,23 @@
             <active dataType="Bool">true</active>
             <gameobj dataType="ObjectRef">2586665865</gameobj>
           </item>
+          <item dataType="Struct" type="Duality.Plugins.Pathfindax.Components.AstarPathfinderComponent" id="378963951">
+            <_x003C_MultithreadedPathfinder_x003E_k__BackingField />
+            <_x003C_PathfinderId_x003E_k__BackingField />
+            <_x003C_SourceNodeNetwork_x003E_k__BackingField />
+            <active dataType="Bool">true</active>
+            <gameobj dataType="ObjectRef">2586665865</gameobj>
+          </item>
+          <item dataType="Struct" type="Duality.Plugins.Pathfindax.Components.NodeNetworkVisualizer" id="2498494768">
+            <_x003C_BoundRadius_x003E_k__BackingField dataType="Float">0</_x003C_BoundRadius_x003E_k__BackingField>
+            <_x003C_CollisionCategory_x003E_k__BackingField dataType="Enum" type="Pathfindax.Nodes.PathfindaxCollisionCategory" name="Cat1" value="1" />
+            <_x003C_NodeSize_x003E_k__BackingField dataType="Float">5</_x003C_NodeSize_x003E_k__BackingField>
+            <_x003C_Visualize_x003E_k__BackingField dataType="Bool">true</_x003C_Visualize_x003E_k__BackingField>
+            <active dataType="Bool">true</active>
+            <gameobj dataType="ObjectRef">2586665865</gameobj>
+          </item>
         </_items>
-        <_size dataType="Int">4</_size>
+        <_size dataType="Int">5</_size>
       </compList>
       <compMap dataType="Struct" type="System.Collections.Generic.Dictionary`2[[System.Type],[Duality.Component]]" id="2040561736" surrogate="true">
         <header />
@@ -142,12 +146,14 @@
             <item dataType="Type" id="1615501770" value="Duality.Plugins.Pathfindax.Examples.Components.SourceNodeNetworkProviderMockupComponent" />
             <item dataType="Type" id="697156958" value="Duality.Plugins.Pathfindax.Examples.Components.NonGridMouseClickPathfinder" />
             <item dataType="Type" id="350779226" value="Duality.Plugins.Pathfindax.Components.PathVisualizer" />
+            <item dataType="Type" id="595368718" value="Duality.Plugins.Pathfindax.Components.NodeNetworkVisualizer" />
           </keys>
           <values dataType="Array" type="System.Object[]" id="3972132384">
             <item dataType="ObjectRef">378963951</item>
             <item dataType="ObjectRef">2031197431</item>
             <item dataType="ObjectRef">1982292920</item>
             <item dataType="ObjectRef">4019338063</item>
+            <item dataType="ObjectRef">2498494768</item>
           </values>
         </body>
       </compMap>

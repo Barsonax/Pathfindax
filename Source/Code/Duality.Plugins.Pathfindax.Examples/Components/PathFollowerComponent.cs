@@ -78,7 +78,10 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 		private void OnRequestCompleted(PathRequest pathRequest)
 		{
 			if (pathRequest.CompletedPath != null)
+			{
 				_path = pathRequest.CompletedPath.Path;
+				_pathIndex = 0;
+			}
 		}
 	}
 }

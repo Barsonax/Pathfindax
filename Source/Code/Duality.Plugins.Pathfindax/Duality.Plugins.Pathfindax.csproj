@@ -86,9 +86,9 @@
     <Compile Include="Components\Interfaces\IPathfinderComponent.cs" />
     <Compile Include="Components\Interfaces\IPathProvider.cs" />
     <Compile Include="Components\PathVisualizer.cs" />
-    <Compile Include="Grid\NodeGridVisualizer.cs" />
+    <Compile Include="Components\NodeGridVisualizer.cs" />
     <Compile Include="Components\PathfinderComponentBase.cs" />
-    <Compile Include="Grid\NodeNetworkVisualizer.cs" />
+    <Compile Include="Components\NodeNetworkVisualizer.cs" />
     <Compile Include="PathfindaxDualityCorePlugin.cs" />
     <Compile Include="Components\AStarGridPathfinderComponent.cs" />
     <Compile Include="PathfindEngine\GridPathfinderProxy.cs" />
@@ -106,9 +106,7 @@
     <None Include="Duality.Plugins.Pathfindax.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Extensions\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>if $(ConfigurationName) == Debug (

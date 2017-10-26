@@ -1,7 +1,9 @@
 ﻿namespace Pathfindax.PathfindEngine
 {
-	public interface IMultithreadedPathfinder : IPathfinder
+	public interface IPathfinder<out TSourceNodeNetwork> : IPathfinder
 	{
+		TSourceNodeNetwork SourceNodeNetwork { get; }
+
 		/// <summary>
 		/// This will process any completedpaths.
 		/// </summary>

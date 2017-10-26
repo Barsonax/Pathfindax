@@ -9,16 +9,11 @@ namespace Duality.Plugins.Pathfindax.Components
 	public abstract class PathfinderComponentBase<TSourceNodeNetwork> : Component, IPathfinderComponent<TSourceNodeNetwork>, ICmpInitializable
 		where TSourceNodeNetwork : ISourceNodeNetwork
 	{
-		/// <summary>
-		/// The <see cref="IMultithreadedPathfinder"/> that will be doing the pathfinding on separate threads
-		/// </summary>
-		protected IMultithreadedPathfinder MultithreadedPathfinder { get; set; }
+		/// <inheritdoc />
+		public IPathfinder<TSourceNodeNetwork> Pathfinder { get; protected set; }
 
 		/// <inheritdoc />
 		public string PathfinderId { get; set; }
-
-		/// <inheritdoc />
-		public abstract TSourceNodeNetwork SourceNodeNetwork { get; protected set; }
 
 		/// <summary>
 		/// Called when initializing the pathfinder
@@ -28,13 +23,13 @@ namespace Duality.Plugins.Pathfindax.Components
 
 		void ICmpInitializable.OnShutdown(ShutdownContext context)
 		{
-			MultithreadedPathfinder?.Stop();
+			Pathfinder?.Stop();
 		}
 
 		/// <inheritdoc />
 		public void ProcessPaths()
 		{
-			MultithreadedPathfinder.ProcessCompletedPaths();
+			Pathfinder.ProcessCompletedPaths();
 		}
 
 		/// <summary>
@@ -43,7 +38,7 @@ namespace Duality.Plugins.Pathfindax.Components
 		/// <param name="pathRequest"></param>
 		public void RequestPath(PathRequest pathRequest)
 		{
-			MultithreadedPathfinder.RequestPath(pathRequest);
+			Pathfinder.RequestPath(pathRequest);
 		}
 	}
 }

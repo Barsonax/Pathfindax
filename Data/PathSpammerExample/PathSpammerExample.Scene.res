@@ -107,23 +107,27 @@
       <children />
       <compList dataType="Struct" type="System.Collections.Generic.List`1[[Duality.Component]]" id="3392138034">
         <_items dataType="Array" type="Duality.Component[]" id="2720956368" length="4">
-          <item dataType="Struct" type="Duality.Plugins.Pathfindax.Components.AStarGridPathfinderComponent" id="1180704140">
-            <_x003C_BoundRadius_x003E_k__BackingField dataType="Float">0</_x003C_BoundRadius_x003E_k__BackingField>
-            <_x003C_MultithreadedPathfinder_x003E_k__BackingField />
-            <_x003C_NodeGridVisualizer_x003E_k__BackingField />
-            <_x003C_PathfinderId_x003E_k__BackingField />
-            <_x003C_ShowNodeGrid_x003E_k__BackingField dataType="Bool">true</_x003C_ShowNodeGrid_x003E_k__BackingField>
-            <_x003C_SourceNodeNetwork_x003E_k__BackingField />
-            <active dataType="Bool">true</active>
-            <gameobj dataType="ObjectRef">2532558428</gameobj>
-          </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.SourceNodeGridProvderMockupComponent" id="2682946987">
             <_sourceNodeGrid />
             <active dataType="Bool">true</active>
             <gameobj dataType="ObjectRef">2532558428</gameobj>
           </item>
+          <item dataType="Struct" type="Duality.Plugins.Pathfindax.Components.AStarGridPathfinderComponent" id="1180704140">
+            <_x003C_MultithreadedPathfinder_x003E_k__BackingField />
+            <_x003C_PathfinderId_x003E_k__BackingField />
+            <_x003C_SourceNodeNetwork_x003E_k__BackingField />
+            <active dataType="Bool">true</active>
+            <gameobj dataType="ObjectRef">2532558428</gameobj>
+          </item>
+          <item dataType="Struct" type="Duality.Plugins.Pathfindax.Components.NodeGridVisualizer" id="3481057795">
+            <_x003C_BoundRadius_x003E_k__BackingField dataType="Float">0</_x003C_BoundRadius_x003E_k__BackingField>
+            <_x003C_CollisionCategory_x003E_k__BackingField dataType="Enum" type="Pathfindax.Nodes.PathfindaxCollisionCategory" name="Cat1" value="1" />
+            <_x003C_Visualize_x003E_k__BackingField dataType="Bool">true</_x003C_Visualize_x003E_k__BackingField>
+            <active dataType="Bool">true</active>
+            <gameobj dataType="ObjectRef">2532558428</gameobj>
+          </item>
         </_items>
-        <_size dataType="Int">2</_size>
+        <_size dataType="Int">3</_size>
       </compList>
       <compMap dataType="Struct" type="System.Collections.Generic.Dictionary`2[[System.Type],[Duality.Component]]" id="2036453194" surrogate="true">
         <header />
@@ -131,10 +135,12 @@
           <keys dataType="Array" type="System.Object[]" id="2719137832">
             <item dataType="Type" id="1819430316" value="Duality.Plugins.Pathfindax.Examples.Components.SourceNodeGridProvderMockupComponent" />
             <item dataType="Type" id="145425334" value="Duality.Plugins.Pathfindax.Components.AStarGridPathfinderComponent" />
+            <item dataType="Type" id="1121442296" value="Duality.Plugins.Pathfindax.Components.NodeGridVisualizer" />
           </keys>
           <values dataType="Array" type="System.Object[]" id="4045265566">
             <item dataType="ObjectRef">2682946987</item>
             <item dataType="ObjectRef">1180704140</item>
+            <item dataType="ObjectRef">3481057795</item>
           </values>
         </body>
       </compMap>
