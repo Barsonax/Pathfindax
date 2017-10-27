@@ -203,12 +203,12 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Generators
 			_nodeCollisions[index].PathfindaxCollisionCategory = PathfindaxCollisionCategory.None;
 		}
 
-		private bool IsSolid(TileCollisionShape tileCollisionShape)
+		private static bool IsSolid(TileCollisionShape tileCollisionShape)
 		{
 			return tileCollisionShape == TileCollisionShape.Solid || tileCollisionShape == TileCollisionShape.DiagonalDown || tileCollisionShape == TileCollisionShape.DiagonalUp;
 		}
 
-		private void MergeNodeCollision(NodeCollision[] nodeCollisions, PathfindaxCollisionCategory pathfindaxCollisionCategory, int index)
+		private static void MergeNodeCollision(NodeCollision[] nodeCollisions, PathfindaxCollisionCategory pathfindaxCollisionCategory, int index)
 		{
 			nodeCollisions[index].PathfindaxCollisionCategory = nodeCollisions[index].PathfindaxCollisionCategory | pathfindaxCollisionCategory;
 		}

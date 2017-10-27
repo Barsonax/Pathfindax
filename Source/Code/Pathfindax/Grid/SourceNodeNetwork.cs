@@ -10,7 +10,7 @@ namespace Pathfindax.Grid
 	{
 		public int NodeCount => Nodes.Count;
 		public SourceNode this[int index] => Nodes[index];
-		public List<SourceNode> Nodes { get; private set; }
+		public List<SourceNode> Nodes { get; }
 
 		public SourceNodeNetwork()
 		{

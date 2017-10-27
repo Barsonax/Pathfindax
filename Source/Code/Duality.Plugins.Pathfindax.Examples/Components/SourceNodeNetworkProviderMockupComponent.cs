@@ -15,8 +15,8 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 	{
 		public ISourceNodeNetwork<SourceNode> GenerateGrid2D()
 		{
-			var width = 1000;
-			var height = 1000;
+			const int width = 1000;
+			const int height = 1000;
 			var random = new Random();
 			var dictionary = new Dictionary<DelaunayNode, SourceNode>();
 			var nodeNetwork = new SourceNodeNetwork();
@@ -60,6 +60,6 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 			Position = vector2;
 		}
 
-		public Vector2 Position { get; private set; }
+		public Vector2 Position { get; }
 	}
 }

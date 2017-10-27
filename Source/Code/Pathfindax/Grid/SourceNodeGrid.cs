@@ -9,7 +9,7 @@ namespace Pathfindax.Grid
 	/// </summary>
 	public class SourceNodeGrid : SourceNodeGridBase<ISourceGridNode>
 	{
-		public SourceNodeGrid(Array2D<ISourceGridNode> grid, Vector2 nodeSize, Vector2 offset) : base(grid, nodeSize, offset)
+		public SourceNodeGrid(IReadOnlyArray2D<ISourceGridNode> grid, Vector2 nodeSize, Vector2 offset) : base(grid, nodeSize, offset)
 		{
 
 		}

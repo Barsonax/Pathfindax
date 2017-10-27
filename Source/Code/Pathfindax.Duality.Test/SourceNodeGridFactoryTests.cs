@@ -1,5 +1,6 @@
 ﻿using Duality;
 using NUnit.Framework;
+using Pathfindax.Factories;
 using Pathfindax.Grid;
 using Pathfindax.Nodes;
 

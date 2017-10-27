@@ -17,8 +17,8 @@ namespace Pathfindax.Test.Tests
 				var processer = Substitute.For<IProcesser<bool>>();
 				processer.When(x => x.Process(false)).Do(x =>
 				{
-					var a = 1;
-					var b = 2;
+					const int a = 1;
+					const int b = 2;
 					for (var i = 0; i < 20000000; i++) //Simulates some work.
 					{
 						var c = a + b;
@@ -28,7 +28,7 @@ namespace Pathfindax.Test.Tests
 			}, 2);
 
 			workerQueue.Start();
-			var amountOfItterations = 50;
+			const int amountOfItterations = 50;
 			for (var i = 0; i < amountOfItterations; i++)
 			{
 				workerQueue.Enqueue(false);

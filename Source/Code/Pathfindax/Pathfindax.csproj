@@ -87,7 +87,7 @@
     <Compile Include="Collections\MinHeap.cs" />
     <Compile Include="Grid\AstarNodeGrid.cs" />
     <Compile Include="Grid\AstarNodeNetwork.cs" />
-    <Compile Include="Grid\Factories\SourceNodeGridFactory.cs" />
+    <Compile Include="Factories\SourceNodeGridFactory.cs" />
     <Compile Include="Grid\Enums\GenerateNodeGridConnections.cs" />
     <Compile Include="Grid\Interfaces\INodeNetwork.cs" />
     <Compile Include="Grid\Interfaces\ISourceNodeNetwork.cs" />

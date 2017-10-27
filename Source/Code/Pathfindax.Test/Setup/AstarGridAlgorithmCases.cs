@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using Duality;
 using NUnit.Framework;
+using Pathfindax.Factories;
 using Pathfindax.Grid;
 
 namespace Pathfindax.Test.Setup

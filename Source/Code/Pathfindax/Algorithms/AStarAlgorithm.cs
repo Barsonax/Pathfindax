@@ -21,7 +21,7 @@ namespace Pathfindax.Algorithms
 			return FindPath(nodeNetwork, startNode, endNode, pathRequest.CollisionLayer);
 		}
 
-		private IList<ISourceNode> FindPath(INodeNetwork<AstarNode> nodeNetwork, AstarNode startNode, AstarNode targetNode, PathfindaxCollisionCategory collisionCategory)
+		private static IList<ISourceNode> FindPath(INodeNetwork<AstarNode> nodeNetwork, AstarNode startNode, AstarNode targetNode, PathfindaxCollisionCategory collisionCategory)
 		{
 			try
 			{
@@ -87,7 +87,7 @@ namespace Pathfindax.Algorithms
 			}
 		}
 
-		private IList<ISourceNode> RetracePath(AstarNode startGridNode, AstarNode endGridNode)
+		private static IList<ISourceNode> RetracePath(AstarNode startGridNode, AstarNode endGridNode)
 		{
 			var path = new List<ISourceNode>();
 			var currentNode = endGridNode;

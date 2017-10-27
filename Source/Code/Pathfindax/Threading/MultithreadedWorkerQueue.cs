@@ -19,24 +19,6 @@ namespace Pathfindax.Threading
         private readonly AutoResetEvent _autoResetEvent = new AutoResetEvent(false);
         private bool _disposed;
 
-        /// <summary>
-        /// Initializes a new <see cref="MultithreadedWorkerQueue{TIn}"/>
-        /// </summary>
-        /// <param name="processers">A list with IProcessers that will do the actual work. The max amount of threads used it equal to the amount of <see cref="IProcesser{TIn}"/></param> in the list.
-        [Obsolete]
-        public MultithreadedWorkerQueue(IList<IProcesser<TIn>> processers)
-        {
-            if (processers.Count == 0) throw new ArgumentException($"Provide atleast one {nameof(IProcesser<TIn>)}");
-            _workers = new List<Worker<TIn>>();
-            foreach (var processer in processers)
-            {
-                var worker = new Worker<TIn>(processer);
-                worker.WorkCompleted += Worker_WorkCompleted;
-                _workers.Add(worker);
-            }
-            Task.Factory.StartNew(TryProcessNext, TaskCreationOptions.LongRunning);
-        }
-
 	    public MultithreadedWorkerQueue(Func<IProcesser<TIn>> processerConstructor, int threads = 1)
 	    {
 		    if (threads < 1) throw new ArgumentException("There is a minimum of 1 thread");

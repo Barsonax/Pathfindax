@@ -32,7 +32,7 @@ namespace Duality.Plugins.Pathfindax.PathfindEngine
         /// Creates a new <see cref="PathfinderProxy{TNode,TSourceNodeNetwork}"/>. The id has to be supplied if there is more than 1 <see cref="IPathfinderComponent"/> in the scene.
         /// </summary>
         public PathfinderProxy(string pathfinderId = null)
-{
+		{
             PathfinderId = pathfinderId;
         }
     }

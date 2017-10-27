@@ -27,7 +27,7 @@ namespace Duality.Plugins.Pathfindax.Components
 		/// Only needed in order to implement <see cref="ICmpRenderer"/>
 		/// </summary>
 		[EditorHintFlags(MemberFlags.Invisible)]
-		public float BoundRadius { get; }
+		public float BoundRadius { get; } = 0;
 
 		bool ICmpRenderer.IsVisible(IDrawDevice device)
 		{

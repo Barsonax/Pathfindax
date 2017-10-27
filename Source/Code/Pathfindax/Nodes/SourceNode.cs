@@ -6,7 +6,7 @@ namespace Pathfindax.Nodes
 	public class SourceNode : ISourceNode
 	{
 		public Vector2 WorldPosition { get; }
-		public List<NodeConnection<SourceNode>> Connections { get; private set; }
+		public List<NodeConnection<SourceNode>> Connections { get; }
 
 		/// <summary>
 		/// The movement penalty for this node. This can be used to make the pathfinder try to avoid certain nodes.

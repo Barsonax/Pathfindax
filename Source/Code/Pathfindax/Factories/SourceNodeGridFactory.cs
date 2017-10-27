@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using Duality;
 using Pathfindax.Collections;
+using Pathfindax.Grid;
 using Pathfindax.Nodes;
 
-namespace Pathfindax.Grid
+namespace Pathfindax.Factories
 {
 	public class SourceNodeGridFactory
 	{
@@ -18,7 +19,7 @@ namespace Pathfindax.Grid
 		/// <returns></returns>
 		public SourceNodeGrid GeneratePreFilledArray(int width, int height, Vector2 nodeSize, GenerateNodeGridConnections generateNodeGridConnections, Vector2 offset = default(Vector2))
 		{
-			var array = new Array2D<ISourceGridNode>(width, height);
+			var array = new Array2D<SourceGridNode>(width, height);
 			var sourceNodeGrid = new SourceNodeGrid(array, nodeSize, offset);
 			for (ushort y = 0; y < height; y++)
 			{
@@ -92,7 +93,7 @@ namespace Pathfindax.Grid
 			return clearances;
 		}
 
-		private IList<ISourceGridNode> GetNodesInArea(ISourceNodeGrid<ISourceGridNode> sourceNodeGrid, int gridX, int gridY, int width, int height)
+		private static List<ISourceGridNode> GetNodesInArea(ISourceNodeGrid<ISourceGridNode> sourceNodeGrid, int gridX, int gridY, int width, int height)
 		{
 			var nodes = new List<ISourceGridNode>();
 			for (var y = gridY; y < gridY + height; y++)
@@ -106,7 +107,7 @@ namespace Pathfindax.Grid
 			return nodes;
 		}
 
-		public IList<ISourceGridNode> GetNeighbours(Array2D<ISourceGridNode> nodeArray, IGridNode gridNode, GenerateNodeGridConnections generateNodeGridConnections)
+		private static IList<ISourceGridNode> GetNeighbours(IReadOnlyArray2D<ISourceGridNode> nodeArray, IGridNode gridNode, GenerateNodeGridConnections generateNodeGridConnections)
 		{
 			var neighbours = new List<ISourceGridNode>(8);
 
