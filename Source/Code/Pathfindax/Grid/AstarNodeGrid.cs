@@ -1,4 +1,5 @@
-﻿using Pathfindax.Collections;
+﻿using System.Runtime.InteropServices.ComTypes;
+using Pathfindax.Collections;
 using Pathfindax.Nodes;
 
 namespace Pathfindax.Grid
@@ -13,19 +14,13 @@ namespace Pathfindax.Grid
 		/// Creates a new instance of the <see cref="AstarNodeGrid"/>
 		/// </summary>
 		/// <param name="sourceNodeGrid"></param>
-		public AstarNodeGrid(ISourceNodeGrid<ISourceGridNode> sourceNodeGrid) : base(sourceNodeGrid)
+		public AstarNodeGrid(ISourceNodeGrid<SourceGridNode> sourceNodeGrid) : base(sourceNodeGrid)
 		{
-			var nodeArray = new Array2D<AstarGridNode>(sourceNodeGrid.NodeArray.Width, sourceNodeGrid.NodeArray.Height);
-			for (var y = 0; y < sourceNodeGrid.NodeArray.Height; y++)
+			NodeArray = new Array2D<AstarGridNode>(sourceNodeGrid.NodeArray.Width, sourceNodeGrid.NodeArray.Height);
+			for (var i = 0; i < NodeArray.Length; i++)
 			{
-				for (var x = 0; x < sourceNodeGrid.NodeArray.Width; x++)
-				{
-					var sourceNode = sourceNodeGrid.NodeArray[x, y];
-					var aStarNode = new AstarGridNode(sourceNode);
-					nodeArray[x, y] = aStarNode;
-				}
+				NodeArray[i] = new AstarGridNode(sourceNodeGrid.NodeArray[i]);
 			}
-			NodeArray = nodeArray;
 		}
     }
 }

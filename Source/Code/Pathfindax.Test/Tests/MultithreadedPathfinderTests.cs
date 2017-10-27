@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using System.Threading;
 using NUnit.Framework;
-using Pathfindax.Nodes;
 using Pathfindax.PathfindEngine;
 using Pathfindax.Test.Setup;
 

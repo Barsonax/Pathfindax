@@ -26,14 +26,12 @@ namespace Pathfindax.Nodes
 		/// <inheritdoc />
 		public int HeapIndex { get; set; }
 
-		public ISourceGridNode SourceGridNode { get; }
-
-		/// <inheritdoc />
-		public Vector2 WorldPosition => SourceGridNode.WorldPosition;
+		public SourceGridNode SourceGridNode { get; }
+		ISourceGridNode IGridNode.SourceGridNode => SourceGridNode;
 
 		private int FCost => GCost + HCost;
 
-		public AstarGridNode(ISourceGridNode source)
+		public AstarGridNode(SourceGridNode source)
 		{
 			SourceGridNode = source;
 			Parent = -1;

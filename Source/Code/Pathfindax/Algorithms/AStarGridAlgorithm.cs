@@ -33,8 +33,9 @@ namespace Pathfindax.Algorithms
 				{
 					return new List<ISourceNode> { targetGridNode.SourceGridNode };
 				}
+				var array = nodeGrid.NodeArray.Array;
 				if (startGridNode.SourceGridNode.GetTrueClearance(collisionCategory) >= neededClearance && targetGridNode.SourceGridNode.GetTrueClearance(collisionCategory) >= neededClearance)
-				{
+				{					
 					var openSet = new MinHeap<AstarGridNode>(nodeGrid.NodeArray.Length);
 					var closedSet = new HashSet<AstarGridNode>();
 					var itterations = 0;
@@ -56,7 +57,7 @@ namespace Pathfindax.Algorithms
 
 						foreach (var connection in currentNode.SourceGridNode.Connections)
 						{
-							var toNode = nodeGrid.NodeArray[connection.To];
+							var toNode = array[connection.To];
 							if ((connection.CollisionCategory & collisionCategory) != 0 || closedSet.Contains(toNode))
 							{
 								continue;
@@ -80,7 +81,7 @@ namespace Pathfindax.Algorithms
 				}
 				if (pathSucces)
 				{
-					return RetracePath(nodeGrid ,startGridNode, targetGridNode);
+					return RetracePath(array, startGridNode, targetGridNode);
 				}
 				Debug.WriteLine("Did not find a path :(");
 				return null;
@@ -92,7 +93,7 @@ namespace Pathfindax.Algorithms
 			}
 		}
 
-		private static IList<ISourceNode> RetracePath(INodeGrid<AstarGridNode> nodeGrid, AstarGridNode startGridNode, AstarGridNode endGridNode)
+		private static IList<ISourceNode> RetracePath(AstarGridNode[] nodeArray, AstarGridNode startGridNode, AstarGridNode endGridNode)
 		{
 			var path = new List<ISourceNode>();
 			var currentNode = endGridNode;
@@ -101,13 +102,13 @@ namespace Pathfindax.Algorithms
 			{
 				path.Add(currentNode.SourceGridNode);
 				if (currentNode == startGridNode) break;
-				currentNode = nodeGrid.NodeArray[currentNode.Parent];
+				currentNode = nodeArray[currentNode.Parent];
 			}
 			path.Reverse();
 			return path;
 		}
 
-		private static int GetDistance(ISourceGridNode gridNodeA, ISourceGridNode gridNodeB)
+		private static int GetDistance(SourceGridNode gridNodeA, SourceGridNode gridNodeB)
 		{
 			var dstX = Math.Abs(gridNodeA.GridX - gridNodeB.GridX);
 			var dstY = Math.Abs(gridNodeA.GridY - gridNodeB.GridY);

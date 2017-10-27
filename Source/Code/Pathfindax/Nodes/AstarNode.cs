@@ -11,7 +11,7 @@ namespace Pathfindax.Nodes
 		/// <summary>
 		/// Used to retrace the path in the A* algorithm.
 		/// </summary>
-		public AstarNode Parent { get; set; }
+		public int Parent { get; set; }
 
 		/// <summary>
 		/// The cost calculated by the A* heuristic
@@ -26,7 +26,6 @@ namespace Pathfindax.Nodes
 		private float FCost => GCost + HCost;
 
 		public int HeapIndex { get; set; }
-		public Vector2 WorldPosition => SourceNode.WorldPosition;
 
 		public SourceNode SourceNode { get; }
 
@@ -47,7 +46,7 @@ namespace Pathfindax.Nodes
 
 		public override string ToString()
 		{
-			return $"{WorldPosition.X}:{WorldPosition.Y}";
+			return $"{SourceNode.WorldPosition.X}:{SourceNode.WorldPosition.Y}";
 		}
 	}
 }

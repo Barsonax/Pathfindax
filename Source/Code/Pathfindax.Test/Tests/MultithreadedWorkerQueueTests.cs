@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading;
+﻿using System.Threading;
 using NSubstitute;
 using NUnit.Framework;
 using Pathfindax.Threading;

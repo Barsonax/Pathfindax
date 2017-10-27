@@ -15,7 +15,7 @@ namespace Pathfindax.Factories
             return new Pathfinder<TSourceNodeNetwork, TNodeNetwork>(sourceNodeNetwork, processerConstructor, threads);
         }
 
-	    public static PathRequestProcesser<TNodeNetwork> CreateRequestProcesser<TNodeNetwork>(TNodeNetwork nodeNetwork, IPathFindAlgorithm<TNodeNetwork> pathFindAlgorithm, IList<IPathPostProcess> pathPostProcesses = null)
+		public static PathRequestProcesser<TNodeNetwork> CreateRequestProcesser<TNodeNetwork>(TNodeNetwork nodeNetwork, IPathFindAlgorithm<TNodeNetwork> pathFindAlgorithm, IList<IPathPostProcess> pathPostProcesses = null)
 		    where TNodeNetwork : INodeNetwork
 	    {
 		    return new PathRequestProcesser<TNodeNetwork>(nodeNetwork, pathFindAlgorithm, pathPostProcesses);

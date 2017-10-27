@@ -11,25 +11,23 @@ namespace Duality.Plugins.Pathfindax.Components
 	/// Provides a way for other components to request a path from A to B. Uses the A* algorithm.
 	/// </summary>
 	[EditorHintCategory(PathfindaxStrings.Pathfindax)]
-	[RequiredComponent(typeof(ISourceNodeNetworkProvider<ISourceNodeGrid<ISourceGridNode>>))]
-	public class AStarGridPathfinderComponent : PathfinderComponentBase<ISourceNodeGrid<ISourceGridNode>>
+	[RequiredComponent(typeof(ISourceNodeNetworkProvider<ISourceNodeGrid<SourceGridNode>>))]
+	public class AStarGridPathfinderComponent : PathfinderComponentBase<ISourceNodeGrid<SourceGridNode>>
 	{
 		/// <inheritdoc />
 		public override void OnInit(InitContext context)
 		{
 			if (context == InitContext.Activate && DualityApp.ExecContext == DualityApp.ExecutionContext.Game)
 			{
-				var sourceProvider = GameObj.GetComponent<ISourceNodeNetworkProvider<ISourceNodeGrid<ISourceGridNode>>>();
-				if (sourceProvider != null)
+				var sourceNodeGrid = GetSourceNodeNetwork();
+				if (sourceNodeGrid == null) return;
+				Pathfinder = PathfinderFactory.CreatePathfinder(sourceNodeGrid, s =>
 				{
-					Pathfinder = PathfinderFactory.CreatePathfinder(sourceProvider.GenerateGrid2D(), sourceNodeGrid =>
-					{
-						var nodeGrid = new AstarNodeGrid(sourceNodeGrid);
-						var algorithm = new AStarGridAlgorithm();
-						return PathfinderFactory.CreateRequestProcesser(nodeGrid, algorithm);
-					});
-					Pathfinder.Start();
-				}
+					var nodeGrid = new AstarNodeGrid(s);
+					var algorithm = new AStarGridAlgorithm();
+					return PathfinderFactory.CreateRequestProcesser(nodeGrid, algorithm);
+				});
+				Pathfinder.Start();
 			}
 		}
 	}

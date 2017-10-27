@@ -38,7 +38,12 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Components
 			if (_sourceNodeGrid == null)
 			{
 				var tilemaps = GameObj.GetComponentsInChildren<Tilemap>().ToArray();
-				var baseTilemap = tilemaps.First();
+				var baseTilemap = tilemaps.FirstOrDefault();
+				if (baseTilemap == null)
+				{
+					Log.Game.WriteWarning($"{nameof(TilemapNodeGridGenerator)}: Could not find any {nameof(Tilemap)}s. Be sure to add a gameobject with a {nameof(Tilemap)} component as a child. Skipping nodegrid generation.");
+					return null;
+				}
 				var offset = -new Vector2(baseTilemap.Size.X * baseTilemap.Tileset.Res.TileSize.X - baseTilemap.Tileset.Res.TileSize.X, baseTilemap.Size.Y * baseTilemap.Tileset.Res.TileSize.Y - baseTilemap.Tileset.Res.TileSize.Y) / 2;
 				var sourceNodeGridFactory = new SourceNodeGridFactory();
 				_sourceNodeGrid = sourceNodeGridFactory.GeneratePreFilledArray(baseTilemap.Size.X, baseTilemap.Size.Y, new Vector2(baseTilemap.Tileset.Res.TileSize.X, baseTilemap.Tileset.Res.TileSize.Y), GenerateNodeGridConnections.None, new Vector2(offset.X, offset.Y));

@@ -19,17 +19,15 @@ namespace Duality.Plugins.Pathfindax.Components
 		{
 			if (context == InitContext.Activate && DualityApp.ExecContext == DualityApp.ExecutionContext.Game)
 			{
-				var sourceProvider = GameObj.GetComponent<ISourceNodeNetworkProvider<ISourceNodeNetwork<SourceNode>>>();
-				if (sourceProvider != null)
-				{             
-					Pathfinder = PathfinderFactory.CreatePathfinder(sourceProvider.GenerateGrid2D(), sourceNodeNetwork =>
-					{
-						var astarNodeNetwork = new AstarNodeNetwork(sourceNodeNetwork);
-						var algorithm = new AStarAlgorithm();
-						return PathfinderFactory.CreateRequestProcesser(astarNodeNetwork, algorithm);
-					});
-					Pathfinder.Start();
-				}
+				var sourceNodeNetwork = GetSourceNodeNetwork();
+				if (sourceNodeNetwork == null) return;
+				Pathfinder = PathfinderFactory.CreatePathfinder(sourceNodeNetwork, s =>
+				{
+					var astarNodeNetwork = new AstarNodeNetwork(s);
+					var algorithm = new AStarAlgorithm();
+					return PathfinderFactory.CreateRequestProcesser(astarNodeNetwork, algorithm);
+				});
+				Pathfinder.Start();
 			}
 		}
 	}

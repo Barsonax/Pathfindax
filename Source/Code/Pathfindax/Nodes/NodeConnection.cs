@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Pathfindax.Nodes
+﻿namespace Pathfindax.Nodes
 {
 	/// <summary>
 	/// Represents a connection to another node.

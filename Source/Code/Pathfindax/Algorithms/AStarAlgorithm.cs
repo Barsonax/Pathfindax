@@ -61,12 +61,12 @@ namespace Pathfindax.Algorithms
 							{
 								continue;
 							}
-							var newMovementCostToNeighbour = currentNode.GCost + GetDistance(currentNode, toNode) + currentNode.SourceNode.MovementPenalty;
+							var newMovementCostToNeighbour = currentNode.GCost + GetDistance(currentNode.SourceNode, toNode.SourceNode) + currentNode.SourceNode.MovementPenalty;
 							if (newMovementCostToNeighbour < toNode.GCost || !openSet.Contains(toNode))
 							{
 								toNode.GCost = newMovementCostToNeighbour;
-								toNode.HCost = GetDistance(toNode, targetNode);
-								toNode.Parent = currentNode;
+								toNode.HCost = GetDistance(toNode.SourceNode, targetNode.SourceNode);
+								toNode.Parent = currentNode.SourceNode.ArrayIndex;
 								neighbourUpdates++;
 								if (!openSet.Contains(toNode))
 									openSet.Add(toNode);
@@ -76,7 +76,7 @@ namespace Pathfindax.Algorithms
 				}
 				if (pathSucces)
 				{
-					return RetracePath(startNode, targetNode);
+					return RetracePath(nodeNetwork, startNode, targetNode);
 				}
 				Debug.WriteLine("Did not find a path :(");
 				return null;
@@ -88,7 +88,7 @@ namespace Pathfindax.Algorithms
 			}
 		}
 
-		private static IList<ISourceNode> RetracePath(AstarNode startGridNode, AstarNode endGridNode)
+		private static IList<ISourceNode> RetracePath(INodeNetwork<AstarNode> nodeNetwork, AstarNode startGridNode, AstarNode endGridNode)
 		{
 			var path = new List<ISourceNode>();
 			var currentNode = endGridNode;
@@ -97,16 +97,16 @@ namespace Pathfindax.Algorithms
 			{
 				path.Add(currentNode.SourceNode);
 				if (currentNode == startGridNode) break;
-				currentNode = currentNode.Parent;
+				currentNode = nodeNetwork[currentNode.Parent];
 			}
 			path.Reverse();
 			return path;
 		}
 
-		private static float GetDistance(AstarNode gridNodeA, AstarNode gridNodeB)
+		private static float GetDistance(SourceNode sourceNodeA, SourceNode sourceNodeB)
 		{
-			var dstX = Math.Abs(gridNodeA.WorldPosition.X - gridNodeB.WorldPosition.X);
-			var dstY = Math.Abs(gridNodeA.WorldPosition.Y - gridNodeB.WorldPosition.Y);
+			var dstX = Math.Abs(sourceNodeA.WorldPosition.X - sourceNodeB.WorldPosition.X);
+			var dstY = Math.Abs(sourceNodeA.WorldPosition.Y - sourceNodeB.WorldPosition.Y);
 			return dstY + dstX;
 		}
 	}

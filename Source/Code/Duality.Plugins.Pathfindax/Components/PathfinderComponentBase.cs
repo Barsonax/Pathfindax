@@ -7,13 +7,30 @@ namespace Duality.Plugins.Pathfindax.Components
 	/// Base class for duality pathfinders
 	/// </summary>
 	public abstract class PathfinderComponentBase<TSourceNodeNetwork> : Component, IPathfinderComponent<TSourceNodeNetwork>, ICmpInitializable
-		where TSourceNodeNetwork : ISourceNodeNetwork
+		where TSourceNodeNetwork : class, ISourceNodeNetwork
 	{
 		/// <inheritdoc />
 		public IPathfinder<TSourceNodeNetwork> Pathfinder { get; protected set; }
 
 		/// <inheritdoc />
 		public string PathfinderId { get; set; }
+
+		protected TSourceNodeNetwork GetSourceNodeNetwork()
+		{
+			var sourceProvider = GameObj.GetComponent<ISourceNodeNetworkProvider<TSourceNodeNetwork>>();
+			if (sourceProvider == null)
+			{
+				Log.Game.WriteError($"{GetType()}: Could not find a component that implements {nameof(ISourceNodeNetworkProvider<TSourceNodeNetwork>)}.");
+				return null;
+			}
+			var sourceNodeNetwork = sourceProvider.GenerateGrid2D();
+			if (sourceNodeNetwork == null)
+			{
+				Log.Game.WriteError($"{GetType()}: Found a component that implements {nameof(ISourceNodeNetworkProvider<TSourceNodeNetwork>)} but it could not generate a nodenetwork.");
+				return null;
+			}
+			return sourceNodeNetwork;
+		}
 
 		/// <summary>
 		/// Called when initializing the pathfinder
