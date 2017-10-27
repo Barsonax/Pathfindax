@@ -20,13 +20,13 @@ namespace Duality.Plugins.Pathfindax.Components
 			var sourceProvider = GameObj.GetComponent<ISourceNodeNetworkProvider<TSourceNodeNetwork>>();
 			if (sourceProvider == null)
 			{
-				Log.Game.WriteError($"{GetType()}: Could not find a component that implements {nameof(ISourceNodeNetworkProvider<TSourceNodeNetwork>)}.");
+				Log.Game.WriteError($"{GetType()}: Could not find a component that implements {typeof(ISourceNodeNetworkProvider<TSourceNodeNetwork>)}.");
 				return null;
 			}
 			var sourceNodeNetwork = sourceProvider.GenerateGrid2D();
 			if (sourceNodeNetwork == null)
 			{
-				Log.Game.WriteError($"{GetType()}: Found a component that implements {nameof(ISourceNodeNetworkProvider<TSourceNodeNetwork>)} but it could not generate a nodenetwork.");
+				Log.Game.WriteError($"{GetType()}: Found a component that implements {typeof(ISourceNodeNetworkProvider<TSourceNodeNetwork>)} but it could not generate a nodenetwork.");
 				return null;
 			}
 			return sourceNodeNetwork;
