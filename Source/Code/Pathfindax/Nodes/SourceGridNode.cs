@@ -1,4 +1,5 @@
 ﻿using Duality;
+using Microsoft.VisualBasic.CompilerServices;
 using Pathfindax.Grid;
 
 namespace Pathfindax.Nodes
@@ -24,7 +25,7 @@ namespace Pathfindax.Nodes
 		public int ArrayIndex => _sourceNodeGrid.NodeArray.Width * GridY + GridX;
 
 		/// <inheritdoc />
-		public NodeConnection<ISourceGridNode>[] Connections { get; set; }
+		public NodeConnection[] Connections { get; set; }
 		private readonly ISourceNodeGrid<ISourceGridNode> _sourceNodeGrid;
 
 		public SourceGridNode(ISourceNodeGrid<ISourceGridNode> sourceNodeGrid, ushort gridX, ushort gridY, byte costMultiplier)

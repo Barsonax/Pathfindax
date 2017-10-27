@@ -67,7 +67,8 @@ namespace Duality.Plugins.Pathfindax.Components
 						{
 							continue;
 						}
-						var vector = (connection.To.WorldPosition - nodePosition) * 0.5f;
+						var toNode = pathfinderComponent.Pathfinder.SourceNodeNetwork[connection.To];
+						var vector = (toNode.WorldPosition - nodePosition) * 0.5f;
 						canvas.DrawDashLine(nodePosition.X, nodePosition.Y, nodePosition.X + vector.X, nodePosition.Y + vector.Y);
 					}
 				}

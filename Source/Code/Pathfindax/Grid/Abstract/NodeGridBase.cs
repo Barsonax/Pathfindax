@@ -12,7 +12,7 @@ namespace Pathfindax.Grid
 		public Vector2 WorldSize { get; }
 		public Vector2 NodeSize { get; }
 		public ISourceNodeGrid<ISourceGridNode> SourceSourceNodeGrid { get; }
-		public IReadOnlyArray2D<TNode> NodeArray { get; protected set; }
+		public Array2D<TNode> NodeArray { get; protected set; }
 
 		public TNode this[int index] => NodeArray[index];
 

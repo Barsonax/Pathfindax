@@ -27,14 +27,6 @@ namespace Pathfindax.Nodes
 
 		public int HeapIndex { get; set; }
 		public Vector2 WorldPosition => SourceNode.WorldPosition;
-		public NodeConnection<AstarNode>[] Connections { get; set; }
-
-		/// <summary>
-		/// The movement penalty for this node. This can be used to make the pathfinder try to avoid certain nodes.
-		/// </summary>
-		public byte MovementPenalty => SourceNode.MovementPenalty;
-
-		public PathfindaxCollisionCategory CollisionCategory => SourceNode.CollisionCategory;
 
 		public SourceNode SourceNode { get; }
 

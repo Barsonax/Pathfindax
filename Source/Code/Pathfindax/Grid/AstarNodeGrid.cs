@@ -25,21 +25,6 @@ namespace Pathfindax.Grid
 					nodeArray[x, y] = aStarNode;
 				}
 			}
-
-			for (var y = 0; y < sourceNodeGrid.NodeArray.Height; y++)
-			{
-				for (var x = 0; x < sourceNodeGrid.NodeArray.Width; x++)
-				{
-					var aStarNode = nodeArray[x, y];
-					var sourceNode = sourceNodeGrid.NodeArray[x, y];
-					aStarNode.Connections = new NodeConnection<AstarGridNode>[sourceNode.Connections.Length];
-					for (var index = 0; index < sourceNode.Connections.Length; index++)
-					{
-						var sourceNodeNeighbour = sourceNode.Connections[index];
-						aStarNode.Connections[index] = new NodeConnection<AstarGridNode>(nodeArray[sourceNodeNeighbour.To.ArrayIndex], sourceNodeNeighbour.CollisionCategory);
-					}
-				}
-			}
 			NodeArray = nodeArray;
 		}
     }

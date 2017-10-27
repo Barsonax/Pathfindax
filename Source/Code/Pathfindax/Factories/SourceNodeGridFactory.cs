@@ -38,11 +38,11 @@ namespace Pathfindax.Factories
 					{
 						var node = array[x, y];
 						var neighbours = GetNeighbours(array, node, generateNodeGridConnections);
-						node.Connections = new NodeConnection<ISourceGridNode>[neighbours.Count];
+						node.Connections = new NodeConnection[neighbours.Count];
 						for (var index = 0; index < neighbours.Count; index++)
 						{
 							var neighbour = neighbours[index];
-							node.Connections[index] = new NodeConnection<ISourceGridNode>(neighbour);
+							node.Connections[index] = new NodeConnection(neighbour.ArrayIndex);
 						}
 					}
 				}
@@ -63,7 +63,7 @@ namespace Pathfindax.Factories
 			var hashset = new HashSet<PathfindaxCollisionCategory>();
 			for (var i = 0; i < maxClearance; i++)
 			{
-				var nodes = new List<NodeConnection<ISourceGridNode>>(1 + i * 16); //Since we know the amount of connections that will likely be in this list we can specify the size beforehand for some extra performance.
+				var nodes = new List<NodeConnection>(1 + i * 16); //Since we know the amount of connections that will likely be in this list we can specify the size beforehand for some extra performance.
 				foreach (var gridNode in GetNodesInArea(sourceNodeGrid, from.GridX, from.GridY + i, i + 1, 1))
 				{
 					nodes.AddRange(gridNode.Connections);
@@ -78,7 +78,8 @@ namespace Pathfindax.Factories
 				var collisionCategory = PathfindaxCollisionCategory.None;
 				foreach (var connection in nodes)
 				{
-					if (connection.To.GridX >= from.GridX && connection.To.GridY >= from.GridY && connection.To.GridX <= maxGridX && connection.To.GridY <= maxGridY)
+					var toNode = sourceNodeGrid.NodeArray[connection.To];
+					if (toNode.GridX >= from.GridX && toNode.GridY >= from.GridY && toNode.GridX <= maxGridX && toNode.GridY <= maxGridY)
 					{
 						collisionCategory = collisionCategory | connection.CollisionCategory;
 					}
@@ -107,7 +108,7 @@ namespace Pathfindax.Factories
 			return nodes;
 		}
 
-		private static IList<ISourceGridNode> GetNeighbours(IReadOnlyArray2D<ISourceGridNode> nodeArray, IGridNode gridNode, GenerateNodeGridConnections generateNodeGridConnections)
+		private static IList<ISourceGridNode> GetNeighbours(IReadOnlyArray2D<ISourceGridNode> nodeArray, ISourceGridNode gridNode, GenerateNodeGridConnections generateNodeGridConnections)
 		{
 			var neighbours = new List<ISourceGridNode>(8);
 

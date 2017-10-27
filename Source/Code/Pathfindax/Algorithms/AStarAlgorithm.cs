@@ -33,7 +33,7 @@ namespace Pathfindax.Algorithms
 				{
 					return new List<ISourceNode> { targetNode.SourceNode };
 				}
-				if ((startNode.CollisionCategory & collisionCategory) == 0 && (targetNode.CollisionCategory & collisionCategory) == 0)
+				if ((startNode.SourceNode.CollisionCategory & collisionCategory) == 0 && (targetNode.SourceNode.CollisionCategory & collisionCategory) == 0)
 				{
 					var openSet = new MinHeap<AstarNode>(nodeNetwork.NodeCount);
 					var closedSet = new HashSet<AstarNode>();
@@ -54,21 +54,22 @@ namespace Pathfindax.Algorithms
 							break;
 						}
 
-						foreach (var connection in currentNode.Connections)
+						foreach (var connection in currentNode.SourceNode.Connections)
 						{
-							if ((connection.CollisionCategory & collisionCategory) != 0 || (connection.To.CollisionCategory & collisionCategory) != 0 || closedSet.Contains(connection.To))
+							var toNode = nodeNetwork[connection.To];
+							if ((connection.CollisionCategory & collisionCategory) != 0 || (toNode.SourceNode.CollisionCategory & collisionCategory) != 0 || closedSet.Contains(toNode))
 							{
 								continue;
 							}
-							var newMovementCostToNeighbour = currentNode.GCost + GetDistance(currentNode, connection.To) + currentNode.MovementPenalty;
-							if (newMovementCostToNeighbour < connection.To.GCost || !openSet.Contains(connection.To))
+							var newMovementCostToNeighbour = currentNode.GCost + GetDistance(currentNode, toNode) + currentNode.SourceNode.MovementPenalty;
+							if (newMovementCostToNeighbour < toNode.GCost || !openSet.Contains(toNode))
 							{
-								connection.To.GCost = newMovementCostToNeighbour;
-								connection.To.HCost = GetDistance(connection.To, targetNode);
-								connection.To.Parent = currentNode;
+								toNode.GCost = newMovementCostToNeighbour;
+								toNode.HCost = GetDistance(toNode, targetNode);
+								toNode.Parent = currentNode;
 								neighbourUpdates++;
-								if (!openSet.Contains(connection.To))
-									openSet.Add(connection.To);
+								if (!openSet.Contains(toNode))
+									openSet.Add(toNode);
 							}
 						}
 					}

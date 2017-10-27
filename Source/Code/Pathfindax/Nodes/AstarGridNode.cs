@@ -1,5 +1,4 @@
-﻿using System;
-using Duality;
+﻿using Duality;
 using Pathfindax.Collections;
 
 namespace Pathfindax.Nodes
@@ -12,7 +11,7 @@ namespace Pathfindax.Nodes
 		/// <summary>
 		/// Used to retrace the path in the A* algorithm.
 		/// </summary>
-		public AstarGridNode Parent { get; set; }
+		public int Parent { get; set; }
 
 		/// <summary>
 		/// The cost calculated by the A* heuristic
@@ -27,43 +26,17 @@ namespace Pathfindax.Nodes
 		/// <inheritdoc />
 		public int HeapIndex { get; set; }
 
-		/// <inheritdoc />
-		public NodeConnection<AstarGridNode>[] Connections { get; set; }
+		public ISourceGridNode SourceGridNode { get; }
 
 		/// <inheritdoc />
 		public Vector2 WorldPosition => SourceGridNode.WorldPosition;
 
-		/// <inheritdoc />
-		public ushort GridX => SourceGridNode.GridX;
-
-		/// <inheritdoc />
-		public ushort GridY => SourceGridNode.GridY;
 		private int FCost => GCost + HCost;
-		public ISourceGridNode SourceGridNode { get; }
-
-		/// <inheritdoc />
-		public byte MovementPenalty
-		{
-			get => SourceGridNode.MovementPenalty;
-		    set => throw new NotSupportedException("You can only change this in the source node");
-		}
-
-		/// <inheritdoc />
-		public GridClearance[] Clearances
-		{
-			get => SourceGridNode.Clearances;
-		    set => throw new NotSupportedException("You can only change this in the source node");
-		}
-
-		/// <inheritdoc />
-		public int GetTrueClearance(PathfindaxCollisionCategory collisionCategory)
-		{
-			return SourceGridNode.GetTrueClearance(collisionCategory);
-		}
 
 		public AstarGridNode(ISourceGridNode source)
 		{
 			SourceGridNode = source;
+			Parent = -1;
 		}
 
 		public int CompareTo(AstarGridNode other)
@@ -78,7 +51,7 @@ namespace Pathfindax.Nodes
 
 		public override string ToString()
 		{
-			return $"X:{GridX} Y:{GridY}";
+			return $"X:{SourceGridNode.GridX} Y:{SourceGridNode.GridY}";
 		}
 	}
 }
