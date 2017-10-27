@@ -71,6 +71,8 @@
     <Compile Include="Collections\Interfaces\IReadOnlyArray2D.cs" />
     <Compile Include="Collections\Interfaces\IWriteOnlyArray2D.cs" />
     <Compile Include="Factories\NodeFactory.cs" />
+    <Compile Include="Grid\Abstract\NodeNetworkBase.cs" />
+    <Compile Include="Grid\Abstract\SourceNodeNetworkBase.cs" />
     <Compile Include="Grid\Interfaces\INodeGrid.cs" />
     <Compile Include="Grid\Abstract\NodeGridBase.cs" />
     <Compile Include="Nodes\Interfaces\ISourceGridNode.cs" />

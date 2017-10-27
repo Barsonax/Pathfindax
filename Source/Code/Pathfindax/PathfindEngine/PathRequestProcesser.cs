@@ -51,8 +51,8 @@ namespace Pathfindax.PathfindEngine
                     }
                 }
                 if (_nodeNetwork is INodeGrid nodeGrid)
-                {                  
-                    pathRequest.FinishSolvePath(new CompletedGridPath(path.ToArray(), nodeGrid.NodeSize.X, pathRequest.AgentSize));
+                {
+					pathRequest.FinishSolvePath(new CompletedGridPath(path.ToArray(), nodeGrid.SourceNodeGrid.NodeSize.X, pathRequest.AgentSize));
                 }
                 else
                 {

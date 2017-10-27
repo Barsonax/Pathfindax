@@ -35,7 +35,7 @@ namespace Pathfindax.Algorithms
 				}
 				if ((startNode.SourceNode.CollisionCategory & collisionCategory) == 0 && (targetNode.SourceNode.CollisionCategory & collisionCategory) == 0)
 				{
-					var openSet = new MinHeap<AstarNode>(nodeNetwork.NodeCount);
+					var openSet = new MinHeap<AstarNode>(nodeNetwork.SourceNodeNetwork.NodeCount);
 					var closedSet = new HashSet<AstarNode>();
 					var itterations = 0;
 					var neighbourUpdates = 0;

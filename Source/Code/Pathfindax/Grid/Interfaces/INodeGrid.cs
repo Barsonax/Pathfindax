@@ -1,21 +1,17 @@
-﻿using Duality;
-using Pathfindax.Collections;
+﻿using Pathfindax.Collections;
 using Pathfindax.Nodes;
 
 namespace Pathfindax.Grid
 {
-	public interface INodeGrid<TNode> : INodeGrid
+	public interface INodeGrid<TNode> : INodeNetwork<TNode>, INodeGrid
 		where TNode : INode
 	{
-		ISourceNodeGrid<ISourceGridNode> SourceSourceNodeGrid { get; }
+		new ISourceNodeGrid<ISourceGridNode> SourceNodeGrid { get; }
 		Array2D<TNode> NodeArray { get; }
-		TNode this[int index] { get; }
 	}
 
 	public interface INodeGrid : INodeNetwork
 	{
-		Vector2 Offset { get; }
-		Vector2 WorldSize { get; }
-		Vector2 NodeSize { get; }
+		ISourceNodeGrid SourceNodeGrid { get; }
 	}
 }

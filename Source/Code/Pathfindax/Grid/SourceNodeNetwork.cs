@@ -11,10 +11,12 @@ namespace Pathfindax.Grid
 		public int NodeCount => Nodes.Count;
 		public SourceNode this[int index] => Nodes[index];
 		public List<SourceNode> Nodes { get; }
+		public Vector2 Offset { get; protected set; }
 
-		public SourceNodeNetwork()
+		public SourceNodeNetwork(Vector2 offset)
 		{
 			Nodes = new List<SourceNode>();
+			Offset = offset;
 		}
 
 		/// <summary>

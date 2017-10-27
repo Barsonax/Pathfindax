@@ -1,6 +1,9 @@
-﻿namespace Pathfindax.PathfindEngine
+﻿using Pathfindax.Grid;
+
+namespace Pathfindax.PathfindEngine
 {
 	public interface IPathfinder<out TSourceNodeNetwork> : IPathfinder
+		where TSourceNodeNetwork : ISourceNodeNetwork
 	{
 		TSourceNodeNetwork SourceNodeNetwork { get; }
 

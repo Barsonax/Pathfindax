@@ -1,4 +1,6 @@
-﻿using Pathfindax.Nodes;
+﻿using System.Collections.Generic;
+using Duality;
+using Pathfindax.Nodes;
 
 namespace Pathfindax.Grid
 {
@@ -6,7 +8,7 @@ namespace Pathfindax.Grid
 	/// Generic interface for sourcenodenetworks
 	/// </summary>
 	/// <typeparam name="TNode"></typeparam>
-	public interface ISourceNodeNetwork<out TNode> : INodeNetwork<TNode>, ISourceNodeNetwork
+	public interface ISourceNodeNetwork<out TNode> : ISourceNodeNetwork, IEnumerable<TNode>
 		where TNode : ISourceNode
 	{
         /// <summary>
@@ -14,13 +16,17 @@ namespace Pathfindax.Grid
         /// </summary>
         /// <returns></returns>
         TNode GetNode(float worldX, float worldY);
-    }
+
+		TNode this[int index] { get; }
+	}
 
 	/// <summary>
 	/// Interface for sourcenodenetworks
 	/// </summary>
 	public interface ISourceNodeNetwork
 	{
+		Vector2 Offset { get; }
 
+		int NodeCount { get; }
 	}
 }

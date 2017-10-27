@@ -28,19 +28,6 @@ namespace Pathfindax.Grid
 
         protected SourceNodeGridBase() { }
 
-        public IEnumerator<TNode> GetEnumerator()
-        {
-            foreach (var gridNode in NodeArray)
-            {
-                yield return gridNode;
-            }
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
-
         public TNode GetNode(float worldX, float worldY)
         {
             var percentX = (worldX - Offset.X) / WorldSize.X;
@@ -53,5 +40,18 @@ namespace Pathfindax.Grid
 
             return NodeArray[x, y];
         }
-    }
+
+	    public IEnumerator<TNode> GetEnumerator()
+	    {
+		    foreach (var gridNode in NodeArray)
+		    {
+			    yield return gridNode;
+		    }
+	    }
+
+	    IEnumerator IEnumerable.GetEnumerator()
+	    {
+		    return GetEnumerator();
+	    }
+	}
 }
