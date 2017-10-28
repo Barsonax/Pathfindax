@@ -7,16 +7,14 @@ namespace Pathfindax.Test.Setup
 {
     public static class MultithreadedPathfinderSetup
     {
-        public static MultithreadedPathfinder<INodeNetwork> Substitute(int threads)
+        public static Pathfinder<ISourceNodeNetwork, INodeNetwork> Substitute(int threads)
         {
-            var algorithm = NSubstitute.Substitute.For<IPathFindAlgorithm<INodeNetwork>>();
-            var nodeGrids = new INodeNetwork[threads];
-            for (int i = 0; i < nodeGrids.Length; i++)
+			return PathfinderFactory.CreatePathfinder(NSubstitute.Substitute.For<ISourceNodeNetwork>(), sourceNodeNetwork =>
             {
-                nodeGrids[i] = NSubstitute.Substitute.For<INodeNetwork>();
-            }
-            
-            return PathfinderFactory.Create(nodeGrids, algorithm);
+	            var nodeGrid = NSubstitute.Substitute.For<INodeNetwork>();
+				var algorithm = NSubstitute.Substitute.For<IPathFindAlgorithm<INodeNetwork>>();
+	            return PathfinderFactory.CreateRequestProcesser(nodeGrid, algorithm);
+            }, threads);
         }
     }
 }

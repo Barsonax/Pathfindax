@@ -1,24 +1,23 @@
-﻿using Pathfindax.Nodes;
-using Pathfindax.PathfindEngine.Interfaces;
-using Pathfindax.Primitives;
+﻿using Duality;
+using Pathfindax.Nodes;
 using Pathfindax.Utils;
 
 namespace Pathfindax.PathfindEngine
 {
     public class CompletedGridPath : ICompletedPath
     {
-        public PositionF[] Path { get; }
+        public Vector2[] Path { get; }
         public ISourceNode[] NodePath { get; }
 
         public CompletedGridPath(ISourceNode[] nodePath, float nodeSize, int agentSize)
         {
             NodePath = nodePath;
             var offset = GridClearanceHelper.GridNodeOffset(agentSize, nodeSize);
-            Path = new PositionF[NodePath.Length];
+            Path = new Vector2[NodePath.Length];
             for (int i = 0; i < NodePath.Length; i++)
             {
                 var nodePosition = NodePath[i].WorldPosition;
-                Path[i] = new PositionF(nodePosition.X + offset, nodePosition.Y + offset);
+                Path[i] = new Vector2(nodePosition.X + offset, nodePosition.Y + offset);
             }
         }
     }

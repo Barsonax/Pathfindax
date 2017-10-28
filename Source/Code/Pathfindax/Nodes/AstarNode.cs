@@ -1,5 +1,5 @@
-﻿using Pathfindax.Collections;
-using Pathfindax.Primitives;
+﻿using Duality;
+using Pathfindax.Collections;
 
 namespace Pathfindax.Nodes
 {
@@ -11,7 +11,7 @@ namespace Pathfindax.Nodes
 		/// <summary>
 		/// Used to retrace the path in the A* algorithm.
 		/// </summary>
-		public AstarNode Parent { get; set; }
+		public int Parent { get; set; }
 
 		/// <summary>
 		/// The cost calculated by the A* heuristic
@@ -26,15 +26,6 @@ namespace Pathfindax.Nodes
 		private float FCost => GCost + HCost;
 
 		public int HeapIndex { get; set; }
-		public PositionF WorldPosition => SourceNode.WorldPosition;
-		public NodeConnection<AstarNode>[] Connections { get; set; }
-
-		/// <summary>
-		/// The movement penalty for this node. This can be used to make the pathfinder try to avoid certain nodes.
-		/// </summary>
-		public byte MovementPenalty => SourceNode.MovementPenalty;
-
-		public PathfindaxCollisionCategory CollisionCategory => SourceNode.CollisionCategory;
 
 		public SourceNode SourceNode { get; }
 
@@ -55,7 +46,7 @@ namespace Pathfindax.Nodes
 
 		public override string ToString()
 		{
-			return $"{WorldPosition.X}:{WorldPosition.Y}";
+			return $"{SourceNode.WorldPosition.X}:{SourceNode.WorldPosition.Y}";
 		}
 	}
 }

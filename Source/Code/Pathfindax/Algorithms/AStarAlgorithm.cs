@@ -21,7 +21,7 @@ namespace Pathfindax.Algorithms
 			return FindPath(nodeNetwork, startNode, endNode, pathRequest.CollisionLayer);
 		}
 
-		private IList<ISourceNode> FindPath(INodeNetwork<AstarNode> nodeNetwork, AstarNode startNode, AstarNode targetNode, PathfindaxCollisionCategory collisionCategory)
+		private static IList<ISourceNode> FindPath(INodeNetwork<AstarNode> nodeNetwork, AstarNode startNode, AstarNode targetNode, PathfindaxCollisionCategory collisionCategory)
 		{
 			try
 			{
@@ -33,9 +33,9 @@ namespace Pathfindax.Algorithms
 				{
 					return new List<ISourceNode> { targetNode.SourceNode };
 				}
-				if ((startNode.CollisionCategory & collisionCategory) == 0 && (targetNode.CollisionCategory & collisionCategory) == 0)
+				if ((startNode.SourceNode.CollisionCategory & collisionCategory) == 0 && (targetNode.SourceNode.CollisionCategory & collisionCategory) == 0)
 				{
-					var openSet = new MinHeap<AstarNode>(nodeNetwork.NodeCount);
+					var openSet = new MinHeap<AstarNode>(nodeNetwork.SourceNodeNetwork.NodeCount);
 					var closedSet = new HashSet<AstarNode>();
 					var itterations = 0;
 					var neighbourUpdates = 0;
@@ -54,28 +54,29 @@ namespace Pathfindax.Algorithms
 							break;
 						}
 
-						foreach (var connection in currentNode.Connections)
+						foreach (var connection in currentNode.SourceNode.Connections)
 						{
-							if ((connection.CollisionCategory & collisionCategory) != 0 || (connection.To.CollisionCategory & collisionCategory) != 0 || closedSet.Contains(connection.To))
+							var toNode = nodeNetwork[connection.To];
+							if ((connection.CollisionCategory & collisionCategory) != 0 || (toNode.SourceNode.CollisionCategory & collisionCategory) != 0 || closedSet.Contains(toNode))
 							{
 								continue;
 							}
-							var newMovementCostToNeighbour = currentNode.GCost + GetDistance(currentNode, connection.To) + currentNode.MovementPenalty;
-							if (newMovementCostToNeighbour < connection.To.GCost || !openSet.Contains(connection.To))
+							var newMovementCostToNeighbour = currentNode.GCost + GetDistance(currentNode.SourceNode, toNode.SourceNode) + currentNode.SourceNode.MovementPenalty;
+							if (newMovementCostToNeighbour < toNode.GCost || !openSet.Contains(toNode))
 							{
-								connection.To.GCost = newMovementCostToNeighbour;
-								connection.To.HCost = GetDistance(connection.To, targetNode);
-								connection.To.Parent = currentNode;
+								toNode.GCost = newMovementCostToNeighbour;
+								toNode.HCost = GetDistance(toNode.SourceNode, targetNode.SourceNode);
+								toNode.Parent = currentNode.SourceNode.ArrayIndex;
 								neighbourUpdates++;
-								if (!openSet.Contains(connection.To))
-									openSet.Add(connection.To);
+								if (!openSet.Contains(toNode))
+									openSet.Add(toNode);
 							}
 						}
 					}
 				}
 				if (pathSucces)
 				{
-					return RetracePath(startNode, targetNode);
+					return RetracePath(nodeNetwork, startNode, targetNode);
 				}
 				Debug.WriteLine("Did not find a path :(");
 				return null;
@@ -87,7 +88,7 @@ namespace Pathfindax.Algorithms
 			}
 		}
 
-		private IList<ISourceNode> RetracePath(AstarNode startGridNode, AstarNode endGridNode)
+		private static IList<ISourceNode> RetracePath(INodeNetwork<AstarNode> nodeNetwork, AstarNode startGridNode, AstarNode endGridNode)
 		{
 			var path = new List<ISourceNode>();
 			var currentNode = endGridNode;
@@ -96,16 +97,16 @@ namespace Pathfindax.Algorithms
 			{
 				path.Add(currentNode.SourceNode);
 				if (currentNode == startGridNode) break;
-				currentNode = currentNode.Parent;
+				currentNode = nodeNetwork[currentNode.Parent];
 			}
 			path.Reverse();
 			return path;
 		}
 
-		private static float GetDistance(AstarNode gridNodeA, AstarNode gridNodeB)
+		private static float GetDistance(SourceNode sourceNodeA, SourceNode sourceNodeB)
 		{
-			var dstX = Math.Abs(gridNodeA.WorldPosition.X - gridNodeB.WorldPosition.X);
-			var dstY = Math.Abs(gridNodeA.WorldPosition.Y - gridNodeB.WorldPosition.Y);
+			var dstX = Math.Abs(sourceNodeA.WorldPosition.X - sourceNodeB.WorldPosition.X);
+			var dstY = Math.Abs(sourceNodeA.WorldPosition.Y - sourceNodeB.WorldPosition.Y);
 			return dstY + dstX;
 		}
 	}

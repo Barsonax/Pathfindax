@@ -1,8 +1,11 @@
+using Duality.Editor;
 using Duality.Plugins.Pathfindax.PathfindEngine;
+using Pathfindax.Utils;
 
 namespace Duality.Plugins.Pathfindax.Examples.Components
 {
-    public class PathfindProxyExample : Component, ICmpInitializable
+	[EditorHintCategory(PathfindaxStrings.PathfindaxTest)]
+	public class PathfindProxyExample : Component, ICmpInitializable
     {
         private GridPathfinderProxy _pathfinderProxy;
 

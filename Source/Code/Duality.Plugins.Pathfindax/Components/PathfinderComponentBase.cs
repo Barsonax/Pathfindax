@@ -7,18 +7,30 @@ namespace Duality.Plugins.Pathfindax.Components
 	/// Base class for duality pathfinders
 	/// </summary>
 	public abstract class PathfinderComponentBase<TSourceNodeNetwork> : Component, IPathfinderComponent<TSourceNodeNetwork>, ICmpInitializable
-		where TSourceNodeNetwork : ISourceNodeNetwork
+		where TSourceNodeNetwork : class, ISourceNodeNetwork
 	{
-		/// <summary>
-		/// The <see cref="IMultithreadedPathfinder"/> that will be doing the pathfinding on separate threads
-		/// </summary>
-		protected IMultithreadedPathfinder MultithreadedPathfinder { get; set; }
+		/// <inheritdoc />
+		public IPathfinder<TSourceNodeNetwork> Pathfinder { get; protected set; }
 
 		/// <inheritdoc />
 		public string PathfinderId { get; set; }
 
-		/// <inheritdoc />
-		public abstract TSourceNodeNetwork SourceNodeNetwork { get; protected set; }
+		protected TSourceNodeNetwork GetSourceNodeNetwork()
+		{
+			var sourceProvider = GameObj.GetComponent<ISourceNodeNetworkProvider<TSourceNodeNetwork>>();
+			if (sourceProvider == null)
+			{
+				Log.Game.WriteError($"{GetType()}: Could not find a component that implements {typeof(ISourceNodeNetworkProvider<TSourceNodeNetwork>)}.");
+				return null;
+			}
+			var sourceNodeNetwork = sourceProvider.GenerateGrid2D();
+			if (sourceNodeNetwork == null)
+			{
+				Log.Game.WriteError($"{GetType()}: Found a component that implements {typeof(ISourceNodeNetworkProvider<TSourceNodeNetwork>)} but it could not generate a nodenetwork.");
+				return null;
+			}
+			return sourceNodeNetwork;
+		}
 
 		/// <summary>
 		/// Called when initializing the pathfinder
@@ -28,13 +40,13 @@ namespace Duality.Plugins.Pathfindax.Components
 
 		void ICmpInitializable.OnShutdown(ShutdownContext context)
 		{
-			MultithreadedPathfinder?.Stop();
+			Pathfinder?.Stop();
 		}
 
 		/// <inheritdoc />
 		public void ProcessPaths()
 		{
-			MultithreadedPathfinder.ProcessCompletedPaths();
+			Pathfinder.ProcessCompletedPaths();
 		}
 
 		/// <summary>
@@ -43,7 +55,7 @@ namespace Duality.Plugins.Pathfindax.Components
 		/// <param name="pathRequest"></param>
 		public void RequestPath(PathRequest pathRequest)
 		{
-			MultithreadedPathfinder.RequestPath(pathRequest);
+			Pathfinder.RequestPath(pathRequest);
 		}
 	}
 }

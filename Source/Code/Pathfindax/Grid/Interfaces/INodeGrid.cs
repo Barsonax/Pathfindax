@@ -1,21 +1,17 @@
 ﻿using Pathfindax.Collections;
 using Pathfindax.Nodes;
-using Pathfindax.Primitives;
 
 namespace Pathfindax.Grid
 {
-	public interface INodeGrid<out TNode> : INodeGrid
+	public interface INodeGrid<TNode> : INodeNetwork<TNode>, INodeGrid
 		where TNode : INode
 	{
-		ISourceNodeGrid<ISourceGridNode> SourceSourceNodeGrid { get; }
-		IReadOnlyArray2D<TNode> NodeArray { get; }
-		TNode this[int index] { get; }
+		new ISourceNodeGrid<ISourceGridNode> SourceNodeGrid { get; }
+		Array2D<TNode> NodeArray { get; }
 	}
 
 	public interface INodeGrid : INodeNetwork
 	{
-		PositionF Offset { get; }
-		PositionF WorldSize { get; }
-		PositionF NodeSize { get; }
+		ISourceNodeGrid SourceNodeGrid { get; }
 	}
 }

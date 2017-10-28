@@ -7,6 +7,7 @@ namespace Pathfindax.Collections
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
 	public interface IHeapItem<in T> : IComparable<T>
+		where T : class
 	{
 		/// <summary>
 		/// The index of the item in the <see cref="MinHeap{T}"/>

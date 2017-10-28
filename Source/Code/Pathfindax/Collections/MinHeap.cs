@@ -6,7 +6,8 @@ namespace Pathfindax.Collections
 	/// A fast minheap that is used as a priority queue for pathfinding.
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
-	public class MinHeap<T> where T : IHeapItem<T>
+	public class MinHeap<T> 
+		where T : class, IHeapItem<T>
 	{
 		/// <summary>
 		/// The current amount of items in the heap.

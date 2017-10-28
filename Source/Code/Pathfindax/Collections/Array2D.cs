@@ -12,7 +12,7 @@ namespace Pathfindax.Collections
 		/// <summary>
 		/// The length of the internal array
 		/// </summary>
-		public int Length => _items.Length;
+		public int Length => Array.Length;
 
 		/// <summary>
 		/// The width of the array in items
@@ -24,7 +24,7 @@ namespace Pathfindax.Collections
 		/// </summary>
 		public int Height { get; }
 
-		private readonly TItem[] _items;
+		public TItem[] Array { get; }
 
 		/// <summary>
 		/// Provides access to the internal array with a 2-dimensional indexer
@@ -33,8 +33,8 @@ namespace Pathfindax.Collections
 		/// <param name="y"></param>
 		public TItem this[int x, int y]
 		{
-			get => _items[x + y * Width];
-		    set => _items[x + y * Width] = value;
+			get => Array[x + y * Width];
+		    set => Array[x + y * Width] = value;
 		}
 
 		/// <summary>
@@ -43,8 +43,8 @@ namespace Pathfindax.Collections
 		/// <param name="i"></param>
 		public TItem this[int i]
 		{
-			get => _items[i];
-		    set => _items[i] = value;
+			get => Array[i];
+		    set => Array[i] = value;
 		}
 
 		/// <summary>
@@ -56,13 +56,13 @@ namespace Pathfindax.Collections
 		{
 			Width = width;
 			Height = height;
-			_items = new TItem[width * height];
+			Array = new TItem[width * height];
 		}
 
 		/// <inheritdoc />
 		public IEnumerator<TItem> GetEnumerator()
 		{
-			foreach (var item in _items)
+			foreach (var item in Array)
 			{
 				yield return item;
 			}

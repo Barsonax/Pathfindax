@@ -1,7 +1,12 @@
-﻿namespace Pathfindax.PathfindEngine
+﻿using Pathfindax.Grid;
+
+namespace Pathfindax.PathfindEngine
 {
-	public interface IMultithreadedPathfinder : IPathfinder
+	public interface IPathfinder<out TSourceNodeNetwork> : IPathfinder
+		where TSourceNodeNetwork : ISourceNodeNetwork
 	{
+		TSourceNodeNetwork SourceNodeNetwork { get; }
+
 		/// <summary>
 		/// This will process any completedpaths.
 		/// </summary>

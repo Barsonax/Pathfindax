@@ -74,26 +74,26 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Generators
 
 			if (sourceGridNode.GridX == 0 || sourceGridNode.GridY == 0 || sourceGridNode.GridX == sourceNodeGrid.NodeArray.Width - 1 || sourceGridNode.GridY == sourceNodeGrid.NodeArray.Height - 1)
 			{
-				var connections = new List<NodeConnection<ISourceGridNode>>(5);
+				var connections = new List<NodeConnection>(5);
 				for (var index = 1; index < _nodeCollisions.Length; index++)
 				{
 					var collisionCategory = _nodeCollisions[index];
 					if (collisionCategory.X >= 0 && collisionCategory.Y >= 0 && collisionCategory.X < sourceNodeGrid.NodeArray.Width && collisionCategory.Y < sourceNodeGrid.NodeArray.Height)
 					{
 						//TODO provide option to exclude diagonal neighbours.
-						connections.Add(new NodeConnection<ISourceGridNode>(sourceNodeGrid.NodeArray[collisionCategory.X, collisionCategory.Y], collisionCategory.PathfindaxCollisionCategory));
+						connections.Add(new NodeConnection(sourceNodeGrid.NodeArray[collisionCategory.X, collisionCategory.Y].ArrayIndex, collisionCategory.PathfindaxCollisionCategory));
 					}
 				}
 				sourceGridNode.Connections = connections.ToArray();
 			}
 			else
 			{
-				sourceGridNode.Connections = new NodeConnection<ISourceGridNode>[8];
+				sourceGridNode.Connections = new NodeConnection[8];
 				for (var index = 1; index < _nodeCollisions.Length; index++)
 				{
 					var collisionCategory = _nodeCollisions[index];
 					//TODO provide option to exclude diagonal neighbours.
-					sourceGridNode.Connections[index - 1] = new NodeConnection<ISourceGridNode>(sourceNodeGrid.NodeArray[collisionCategory.X, collisionCategory.Y], collisionCategory.PathfindaxCollisionCategory);
+					sourceGridNode.Connections[index - 1] = new NodeConnection(sourceNodeGrid.NodeArray[collisionCategory.X, collisionCategory.Y].ArrayIndex, collisionCategory.PathfindaxCollisionCategory);
 				}
 			}
 		}
@@ -203,12 +203,12 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Generators
 			_nodeCollisions[index].PathfindaxCollisionCategory = PathfindaxCollisionCategory.None;
 		}
 
-		private bool IsSolid(TileCollisionShape tileCollisionShape)
+		private static bool IsSolid(TileCollisionShape tileCollisionShape)
 		{
 			return tileCollisionShape == TileCollisionShape.Solid || tileCollisionShape == TileCollisionShape.DiagonalDown || tileCollisionShape == TileCollisionShape.DiagonalUp;
 		}
 
-		private void MergeNodeCollision(NodeCollision[] nodeCollisions, PathfindaxCollisionCategory pathfindaxCollisionCategory, int index)
+		private static void MergeNodeCollision(NodeCollision[] nodeCollisions, PathfindaxCollisionCategory pathfindaxCollisionCategory, int index)
 		{
 			nodeCollisions[index].PathfindaxCollisionCategory = nodeCollisions[index].PathfindaxCollisionCategory | pathfindaxCollisionCategory;
 		}

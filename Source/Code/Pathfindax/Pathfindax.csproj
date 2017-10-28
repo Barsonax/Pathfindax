@@ -61,6 +61,9 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DualityPrimitives, Version=2.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AdamsLair.Duality.Primitives.2.0.4\lib\DualityPrimitives.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
@@ -68,6 +71,8 @@
     <Compile Include="Collections\Interfaces\IReadOnlyArray2D.cs" />
     <Compile Include="Collections\Interfaces\IWriteOnlyArray2D.cs" />
     <Compile Include="Factories\NodeFactory.cs" />
+    <Compile Include="Grid\Abstract\NodeNetworkBase.cs" />
+    <Compile Include="Grid\Abstract\SourceNodeNetworkBase.cs" />
     <Compile Include="Grid\Interfaces\INodeGrid.cs" />
     <Compile Include="Grid\Abstract\NodeGridBase.cs" />
     <Compile Include="Nodes\Interfaces\ISourceGridNode.cs" />
@@ -84,7 +89,7 @@
     <Compile Include="Collections\MinHeap.cs" />
     <Compile Include="Grid\AstarNodeGrid.cs" />
     <Compile Include="Grid\AstarNodeNetwork.cs" />
-    <Compile Include="Grid\Factories\SourceNodeGridFactory.cs" />
+    <Compile Include="Factories\SourceNodeGridFactory.cs" />
     <Compile Include="Grid\Enums\GenerateNodeGridConnections.cs" />
     <Compile Include="Grid\Interfaces\INodeNetwork.cs" />
     <Compile Include="Grid\Interfaces\ISourceNodeNetwork.cs" />
@@ -108,7 +113,6 @@
     <Compile Include="PathfindEngine\MultithreadedPathfinder.cs" />
     <Compile Include="PathfindEngine\PathRequestProcesser.cs" />
     <Compile Include="PathfindEngine\PathRequest.cs" />
-    <Compile Include="Primitives\PositionF.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Threading\BlockingQueue.cs" />
     <Compile Include="Threading\Interfaces\IProcesser.cs" />
@@ -123,9 +127,12 @@
     <Compile Include="Utils\StringExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
     <None Include="Pathfindax.nuspec" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Primitives\" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>if $(ConfigurationName) == Debug (

@@ -13,9 +13,9 @@ namespace Duality.Plugins.Pathfindax.Components
 		where TSourceNodeNetwork : ISourceNodeNetwork
 	{
 		/// <summary>
-		/// The <see cref="INodeNetwork{TNode}"/> that is used for pathfinding
+		/// The <see cref="IPathfinder{TSourceNodeNetwork}"/> that is used for pathfinding
 		/// </summary>
-		TSourceNodeNetwork SourceNodeNetwork { get; }
+		IPathfinder<TSourceNodeNetwork> Pathfinder { get; }
 	}
 
 	/// <summary>

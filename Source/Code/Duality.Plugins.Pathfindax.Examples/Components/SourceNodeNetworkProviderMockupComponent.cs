@@ -4,7 +4,6 @@ using System.Linq;
 using Duality.Editor;
 using Pathfindax.Grid;
 using Pathfindax.Nodes;
-using Pathfindax.Primitives;
 using Pathfindax.Utils;
 using SnowyPeak.Duality.Plugin.Frozen.Procedural;
 using INode = SnowyPeak.Duality.Plugin.Frozen.Procedural.INode;
@@ -16,14 +15,14 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 	{
 		public ISourceNodeNetwork<SourceNode> GenerateGrid2D()
 		{
-			var width = 1000;
-			var height = 1000;
+			const int width = 1000;
+			const int height = 1000;
 			var random = new Random();
 			var dictionary = new Dictionary<DelaunayNode, SourceNode>();
-			var nodeNetwork = new SourceNodeNetwork();
+			var nodeNetwork = new SourceNodeNetwork(new Vector2(0, 0));
 			for (var i = 0; i < 100; i++)
 			{
-				var node = new SourceNode(new PositionF(random.Next(0, width), random.Next(0, height)), i);
+				var node = new SourceNode(new Vector2(random.Next(0, width), random.Next(0, height)), i);
 				var defaultNode = new DelaunayNode(new Vector2(node.WorldPosition.X, node.WorldPosition.Y));
 				dictionary.Add(defaultNode, node);
 				nodeNetwork.Nodes.Add(node);
@@ -43,10 +42,11 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 					connections.Add(to);
 				}
 
-				foreach (var to in connections)
+				for (var i = 0; i < connections.Count; i++)
 				{
-					from.Connections.Add(new NodeConnection<SourceNode>(to));
-					to.Connections.Add(new NodeConnection<SourceNode>(from));
+					var to = connections[i];
+					from.Connections.Add(new NodeConnection(to.ArrayIndex));
+					to.Connections.Add(new NodeConnection(from.ArrayIndex));
 				}
 			}
 			return nodeNetwork;
@@ -61,6 +61,6 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 			Position = vector2;
 		}
 
-		public Vector2 Position { get; private set; }
+		public Vector2 Position { get; }
 	}
 }

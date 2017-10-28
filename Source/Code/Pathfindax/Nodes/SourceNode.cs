@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
-using Pathfindax.Primitives;
+using Duality;
 
 namespace Pathfindax.Nodes
 {
 	public class SourceNode : ISourceNode
 	{
-		public PositionF WorldPosition { get; }
-		public List<NodeConnection<SourceNode>> Connections { get; private set; }
+		public Vector2 WorldPosition { get; }
+		public List<NodeConnection> Connections { get; }
 
 		/// <summary>
 		/// The movement penalty for this node. This can be used to make the pathfinder try to avoid certain nodes.
@@ -17,10 +17,10 @@ namespace Pathfindax.Nodes
 
 		public int ArrayIndex { get; }
 
-		public SourceNode(PositionF worldPosition, int arrayIndex)
+		public SourceNode(Vector2 worldPosition, int arrayIndex)
 		{
 			WorldPosition = worldPosition;
-			Connections = new List<NodeConnection<SourceNode>>();
+			Connections = new List<NodeConnection>();
 			ArrayIndex = arrayIndex;
 		}
 

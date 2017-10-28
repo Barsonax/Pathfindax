@@ -96,7 +96,7 @@ namespace Pathfindax.Duality.Test
 
 	public class TestMemory
 	{
-		private Dictionary<string, object> data = new Dictionary<string, object>();
+		private readonly Dictionary<string, object> _data = new Dictionary<string, object>();
 
 		public bool SwitchValue<T>(object testFixture, string key, out T oldValue, T newValue)
 		{
@@ -110,7 +110,7 @@ namespace Pathfindax.Duality.Test
 			{
 				key = testFixture.GetType().Name + "_" + key;
 			}
-			data[key] = value;
+			_data[key] = value;
 		}
 		public bool GetValue<T>(object testFixture, string key, out T value)
 		{
@@ -119,7 +119,7 @@ namespace Pathfindax.Duality.Test
 				key = testFixture.GetType().Name + "_" + key;
 			}
 			object valueObj;
-			if (data.TryGetValue(key, out valueObj) && valueObj is T)
+			if (_data.TryGetValue(key, out valueObj) && valueObj is T)
 			{
 				value = (T)valueObj;
 				return true;
