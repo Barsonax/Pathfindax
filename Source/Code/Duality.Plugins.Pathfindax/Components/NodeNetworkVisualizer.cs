@@ -64,7 +64,7 @@ namespace Duality.Plugins.Pathfindax.Components
 							{
 								continue;
 							}
-							var toNode = pathfinderComponent.Pathfinder.SourceNodeNetwork[connection.To];
+							var toNode = NodePointer.Dereference(connection.To, pathfinderComponent.Pathfinder.SourceNodeNetwork);
 							var vector = (toNode.WorldPosition - nodePosition) * 0.5f; //Times 0.5f so we can see the connections in both directions.
 							canvas.DrawDashLine(nodePosition.X, nodePosition.Y, nodePosition.X + vector.X, nodePosition.Y + vector.Y);
 						}

@@ -1,5 +1,4 @@
-﻿using Duality;
-using Pathfindax.Collections;
+﻿using Pathfindax.Collections;
 
 namespace Pathfindax.Nodes
 {
@@ -9,32 +8,33 @@ namespace Pathfindax.Nodes
 	public class AstarGridNode : IGridNode, IHeapItem<AstarGridNode>
 	{
 		/// <summary>
-		/// Used to retrace the path in the A* algorithm.
+		/// Used to retrace the path in the A* algorithm. 
 		/// </summary>
-		public int Parent { get; set; }
+		public NodePointer Parent { get; set; }
 
 		/// <summary>
 		/// The cost calculated by the A* heuristic
 		/// </summary>
-		public int HCost { get; set; }
+		public float HCost { get; set; }
 
 		/// <summary>
 		/// The cost to the targetnode
 		/// </summary>
-		public int GCost { get; set; }
+		public float GCost { get; set; }
 
 		/// <inheritdoc />
 		public int HeapIndex { get; set; }
 
 		public SourceGridNode SourceGridNode { get; }
 		ISourceGridNode IGridNode.SourceGridNode => SourceGridNode;
+		ISourceNode INode.SourceNode => SourceGridNode;
 
-		private int FCost => GCost + HCost;
+		private float FCost => GCost + HCost;
 
 		public AstarGridNode(SourceGridNode source)
 		{
 			SourceGridNode = source;
-			Parent = -1;
+			Parent = NodePointer.NullPointer;
 		}
 
 		public int CompareTo(AstarGridNode other)
@@ -50,6 +50,6 @@ namespace Pathfindax.Nodes
 		public override string ToString()
 		{
 			return $"X:{SourceGridNode.GridX} Y:{SourceGridNode.GridY}";
-		}
+		}		
 	}
 }

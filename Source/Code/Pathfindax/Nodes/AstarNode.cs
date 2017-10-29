@@ -1,17 +1,16 @@
-﻿using Duality;
-using Pathfindax.Collections;
+﻿using Pathfindax.Collections;
 
 namespace Pathfindax.Nodes
 {
 	/// <summary>
 	/// Represents a node that can be used with the A* algorithm.
 	/// </summary>
-	public class AstarNode : IHeapItem<AstarNode>, INode
+	public class AstarNode : INode, IHeapItem<AstarNode>
 	{
 		/// <summary>
 		/// Used to retrace the path in the A* algorithm.
 		/// </summary>
-		public int Parent { get; set; }
+		public NodePointer Parent { get; set; }
 
 		/// <summary>
 		/// The cost calculated by the A* heuristic
@@ -28,6 +27,8 @@ namespace Pathfindax.Nodes
 		public int HeapIndex { get; set; }
 
 		public SourceNode SourceNode { get; }
+
+		ISourceNode INode.SourceNode => SourceNode;
 
 		public AstarNode(SourceNode sourceNode)
 		{

@@ -49,16 +49,19 @@ namespace Duality.Plugins.Pathfindax.Components
 				{
 					canvas.State.ColorTint = ColorRgba.LightGrey;
 					var nodePosition = node.WorldPosition;
-					var clearance = node.GetTrueClearance(CollisionCategory);
-					if (clearance == int.MaxValue)
+					if (node is SourceGridNode sourceGridNode)
 					{
-						canvas.DrawCircle(nodePosition.X, nodePosition.Y, nodeSize);
-					}
-					else
-					{
-						canvas.FillCircle(nodePosition.X, nodePosition.Y, nodeSize);
-						canvas.State.ColorTint = ColorRgba.Black;
-						canvas.DrawText(clearance.ToString(), nodePosition.X, nodePosition.Y, -1f, Alignment.Center);
+						var clearance = sourceGridNode.GetTrueClearance(CollisionCategory);
+						if (clearance == int.MaxValue)
+						{
+							canvas.DrawCircle(nodePosition.X, nodePosition.Y, nodeSize);
+						}
+						else
+						{
+							canvas.FillCircle(nodePosition.X, nodePosition.Y, nodeSize);
+							canvas.State.ColorTint = ColorRgba.Black;
+							canvas.DrawText(clearance.ToString(), nodePosition.X, nodePosition.Y, -1f, Alignment.Center);
+						}
 					}
 					canvas.State.ColorTint = new ColorRgba(199, 21, 133);
 					foreach (var connection in node.Connections)
@@ -67,7 +70,7 @@ namespace Duality.Plugins.Pathfindax.Components
 						{
 							continue;
 						}
-						var toNode = pathfinderComponent.Pathfinder.SourceNodeNetwork[connection.To];
+						var toNode = NodePointer.Dereference(connection.To, pathfinderComponent.Pathfinder.SourceNodeNetwork);
 						var vector = (toNode.WorldPosition - nodePosition) * 0.5f;
 						canvas.DrawDashLine(nodePosition.X, nodePosition.Y, nodePosition.X + vector.X, nodePosition.Y + vector.Y);
 					}

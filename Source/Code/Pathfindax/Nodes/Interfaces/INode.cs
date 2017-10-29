@@ -1,9 +1,7 @@
-﻿using Duality;
-
-namespace Pathfindax.Nodes
+﻿namespace Pathfindax.Nodes
 {
 	public interface INode
 	{
-
+		ISourceNode SourceNode { get; }
 	}
 }

@@ -16,8 +16,8 @@ namespace Pathfindax.Algorithms
 		/// <inheritdoc />
 		public IList<ISourceNode> FindPath(INodeNetwork<AstarNode> nodeNetwork, PathRequest pathRequest)
 		{
-			var startNode = nodeNetwork[pathRequest.PathStart.ArrayIndex];
-			var endNode = nodeNetwork[pathRequest.PathEnd.ArrayIndex];
+			var startNode = NodePointer.Dereference(pathRequest.PathStart.Index, nodeNetwork);
+			var endNode = NodePointer.Dereference(pathRequest.PathEnd.Index, nodeNetwork);
 			return FindPath(nodeNetwork, startNode, endNode, pathRequest.CollisionLayer);
 		}
 
@@ -56,7 +56,7 @@ namespace Pathfindax.Algorithms
 
 						foreach (var connection in currentNode.SourceNode.Connections)
 						{
-							var toNode = nodeNetwork[connection.To];
+							var toNode = NodePointer.Dereference(connection.To, nodeNetwork);
 							if ((connection.CollisionCategory & collisionCategory) != 0 || (toNode.SourceNode.CollisionCategory & collisionCategory) != 0 || closedSet.Contains(toNode))
 							{
 								continue;
@@ -66,7 +66,7 @@ namespace Pathfindax.Algorithms
 							{
 								toNode.GCost = newMovementCostToNeighbour;
 								toNode.HCost = GetDistance(toNode.SourceNode, targetNode.SourceNode);
-								toNode.Parent = currentNode.SourceNode.ArrayIndex;
+								toNode.Parent = currentNode.SourceNode.Index;
 								neighbourUpdates++;
 								if (!openSet.Contains(toNode))
 									openSet.Add(toNode);
@@ -97,7 +97,7 @@ namespace Pathfindax.Algorithms
 			{
 				path.Add(currentNode.SourceNode);
 				if (currentNode == startGridNode) break;
-				currentNode = nodeNetwork[currentNode.Parent];
+				currentNode = NodePointer.Dereference(currentNode.Parent, nodeNetwork);
 			}
 			path.Reverse();
 			return path;

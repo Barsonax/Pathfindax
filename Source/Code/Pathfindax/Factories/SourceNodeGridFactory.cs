@@ -38,11 +38,10 @@ namespace Pathfindax.Factories
 					{
 						var node = array[x, y];
 						var neighbours = GetNeighbours(array, node, generateNodeGridConnections);
-						node.Connections = new NodeConnection[neighbours.Count];
 						for (var index = 0; index < neighbours.Count; index++)
 						{
 							var neighbour = neighbours[index];
-							node.Connections[index] = new NodeConnection(neighbour.ArrayIndex);
+							node.Connections.Add(new NodeConnection(neighbour.Index));
 						}
 					}
 				}
@@ -78,7 +77,7 @@ namespace Pathfindax.Factories
 				var collisionCategory = PathfindaxCollisionCategory.None;
 				foreach (var connection in nodes)
 				{
-					var toNode = sourceNodeGrid.NodeArray[connection.To];
+					var toNode = NodePointer.Dereference(connection.To, sourceNodeGrid);
 					if (toNode.GridX >= from.GridX && toNode.GridY >= from.GridY && toNode.GridX <= maxGridX && toNode.GridY <= maxGridY)
 					{
 						collisionCategory = collisionCategory | connection.CollisionCategory;
@@ -108,9 +107,9 @@ namespace Pathfindax.Factories
 			return nodes;
 		}
 
-		private static IList<ISourceGridNode> GetNeighbours(IReadOnlyArray2D<ISourceGridNode> nodeArray, ISourceGridNode gridNode, GenerateNodeGridConnections generateNodeGridConnections)
+		private static List<SourceGridNode> GetNeighbours(IReadOnlyArray2D<SourceGridNode> nodeArray, ISourceGridNode gridNode, GenerateNodeGridConnections generateNodeGridConnections)
 		{
-			var neighbours = new List<ISourceGridNode>(8);
+			var neighbours = new List<SourceGridNode>(8);
 
 			for (var y = -1; y <= 1; y++)
 			{
