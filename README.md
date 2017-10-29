@@ -10,7 +10,7 @@ There is also a non grid based A* algorithm which has the above features except 
 
 However you are free to implement the interfaces yourself to use a different algorithm.
 
-While the main goal was to provide a easy way to use pathfinding in duality most of the implementation is in a separate dll which can also be used without duality.
+While the main goal was to provide a easy way to use pathfinding in duality most of the implementation is in a separate dll which can also be used without duality and only depends on the DualityPrimitives package.
 
 You can find some tutorials on the [documentation](https://barsonax.github.io/html/63392b30-cd57-428e-bd77-3dee6259d856.htm). The source also contains some examples to show how you can use Pathfindax. More will be added in the future.
   
