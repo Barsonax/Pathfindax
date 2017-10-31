@@ -13,7 +13,7 @@ namespace Pathfindax.Test.Tests
         public void Integration_StatusFlowToSolved()
         {
             var pathfinder = MultithreadedPathfinderSetup.Substitute(1);
-            var request = new PathRequest(Substitute.For<ISourceNode>(), Substitute.For<ISourceNode>());
+            var request = new PathRequest(Substitute.For<IDefinitionNode>(), Substitute.For<IDefinitionNode>());
 
             Assert.AreEqual(PathRequestStatus.Created, request.Status);
             request.StartSolvePath(pathfinder);
@@ -28,7 +28,7 @@ namespace Pathfindax.Test.Tests
         {
             var pathfinder = MultithreadedPathfinderSetup.Substitute(1);
             pathfinder.Start();
-            var request = new PathRequest(pathfinder, Substitute.For<ISourceNode>(), Substitute.For<ISourceNode>());
+            var request = new PathRequest(pathfinder, Substitute.For<IDefinitionNode>(), Substitute.For<IDefinitionNode>());
             request.WaitHandle.WaitOne(1000);
             bool done = false;
             request.AddCallback(x =>

@@ -43,13 +43,13 @@ namespace Pathfindax.PathfindEngine
             }
             else
             {
-                if (_pathPostProcesses != null)
-                {
-                    foreach (var postProcess in _pathPostProcesses)
-                    {
-                        path = postProcess.Process(path, pathRequest);
-                    }
-                }
+                //if (_pathPostProcesses != null)
+                //{
+                //    foreach (var postProcess in _pathPostProcesses)
+                //    {
+                //        path = postProcess.Process(path, pathRequest);
+                //    }
+                //}
                 if (_nodeNetwork is INodeGrid nodeGrid)
                 {
 					pathRequest.FinishSolvePath(new CompletedGridPath(path.ToArray(), nodeGrid.SourceNodeGrid.NodeSize.X, pathRequest.AgentSize));

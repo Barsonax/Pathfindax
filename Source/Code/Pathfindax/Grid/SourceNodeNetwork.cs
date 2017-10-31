@@ -19,6 +19,13 @@ namespace Pathfindax.Grid
 			Offset = offset;
 		}
 
+		public DefinitionNode AddNode(Vector2 position, byte movementPenalty = 0)
+		{
+			var definitionNode = new DefinitionNode(DefinitionNodes.Count, position, movementPenalty);
+			DefinitionNodes.Add(definitionNode);
+			return definitionNode;
+		}
+
 		/// <summary>
 		/// Returns the node closest to this position
 		/// </summary>

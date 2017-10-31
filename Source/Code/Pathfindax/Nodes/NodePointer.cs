@@ -35,16 +35,15 @@ namespace Pathfindax.Nodes
 			return nodeArray[p.Index];
 		}
 
-		public static T Dereference<T>(NodePointer p, INodeNetwork<T> nodeArray)
-			where T : INode
-		{
-			return nodeArray[p.Index];
-		}
-
 		public static DefinitionNode Dereference<T>(NodePointer p, ISourceNodeNetwork<T> nodeArray) 
 			where T : ISourceNode
 		{
 			return nodeArray[p.Index];
+		}
+
+		public override string ToString()
+		{
+			return Index.ToString();
 		}
 	}
 }

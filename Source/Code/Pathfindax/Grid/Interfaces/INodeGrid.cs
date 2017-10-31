@@ -1,4 +1,5 @@
-﻿using Pathfindax.Nodes;
+﻿using Pathfindax.Collections;
+using Pathfindax.Nodes;
 
 namespace Pathfindax.Grid
 {
@@ -6,6 +7,7 @@ namespace Pathfindax.Grid
 		where TNode : INode
 	{
 		new ISourceNodeGrid<ISourceNode> SourceNodeGrid { get; }
+		IReadOnlyArray2D<TNode> GetPathfindingGrid(PathfindaxCollisionCategory collisionCategory);
 	}
 
 	public interface INodeGrid : INodeNetwork

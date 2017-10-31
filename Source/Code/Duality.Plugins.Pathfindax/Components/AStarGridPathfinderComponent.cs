@@ -11,7 +11,7 @@ namespace Duality.Plugins.Pathfindax.Components
 	/// Provides a way for other components to request a path from A to B. Uses the A* algorithm.
 	/// </summary>
 	[EditorHintCategory(PathfindaxStrings.Pathfindax)]
-	[RequiredComponent(typeof(ISourceNodeNetworkProvider<ISourceNodeGrid<SourceGridNode>>))]
+	[RequiredComponent(typeof(ISourceNodeNetworkProvider<ISourceNodeGrid<SourceNode>>))]
 	public class AStarGridPathfinderComponent : PathfinderComponentBase<SourceNodeGrid>
 	{
 		/// <inheritdoc />

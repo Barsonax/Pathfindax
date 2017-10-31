@@ -66,27 +66,23 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Generators
 		/// <param name="tilemapColliderWithBodies"></param>
 		/// <param name="sourceGridNode"></param>
 		/// <param name="sourceNodeGrid"></param>
-		public void CalculateGridNodeCollision(TilemapColliderWithBody[] tilemapColliderWithBodies, SourceGridNode sourceGridNode, ISourceNodeGrid<SourceGridNode> sourceNodeGrid)
+		public void CalculateGridNodeCollision(TilemapColliderWithBody[] tilemapColliderWithBodies, DefinitionNode sourceGridNode, SourceNodeGrid sourceNodeGrid)
 		{
-			var nodeGridCoordinates = sourceNodeGrid.NodeArray.GetCoordinates(sourceGridNode.Index.Index);
+			var nodeGridCoordinates = sourceNodeGrid.DefinitionNodeArray.GetCoordinates(sourceGridNode.Index.Index);
 			CalculateNodeCollisionCategories(nodeGridCoordinates.X, nodeGridCoordinates.Y, tilemapColliderWithBodies);
-			var selfCollisionCategory = _nodeCollisions[0];
-			if (selfCollisionCategory.PathfindaxCollisionCategory != PathfindaxCollisionCategory.None)
-				sourceGridNode.Clearances = new[] { new GridClearance(selfCollisionCategory.PathfindaxCollisionCategory, 0) }; //This node is blocked so it has a clearance of 0.
-			if (nodeGridCoordinates.X == 0 || nodeGridCoordinates.Y == 0 || nodeGridCoordinates.X == sourceNodeGrid.NodeArray.Width - 1 || nodeGridCoordinates.Y == sourceNodeGrid.NodeArray.Height - 1)
+
+			if (nodeGridCoordinates.X == 0 || nodeGridCoordinates.Y == 0 || nodeGridCoordinates.X == sourceNodeGrid.DefinitionNodeArray.Width - 1 || nodeGridCoordinates.Y == sourceNodeGrid.DefinitionNodeArray.Height - 1)
 			{
-				var connections = new List<NodeConnection>(5);
 				for (var index = 1; index < _nodeCollisions.Length; index++)
 				{
 					var collisionCategory = _nodeCollisions[index];
-					if (collisionCategory.X >= 0 && collisionCategory.Y >= 0 && collisionCategory.X < sourceNodeGrid.NodeArray.Width && collisionCategory.Y < sourceNodeGrid.NodeArray.Height)
+					if (collisionCategory.X >= 0 && collisionCategory.Y >= 0 && collisionCategory.X < sourceNodeGrid.DefinitionNodeArray.Width && collisionCategory.Y < sourceNodeGrid.DefinitionNodeArray.Height)
 					{
 						//TODO provide option to exclude diagonal neighbours.
-						var toNode = sourceNodeGrid.NodeArray[collisionCategory.X, collisionCategory.Y];
-						connections.Add(new NodeConnection(toNode.Index,collisionCategory.PathfindaxCollisionCategory));
+						var toNode = sourceNodeGrid.DefinitionNodeArray[collisionCategory.X, collisionCategory.Y];
+						sourceGridNode.Connections.Add(new NodeConnection(toNode.Index,collisionCategory.PathfindaxCollisionCategory));
 					}
 				}
-				sourceGridNode.Connections = connections;
 			}
 			else
 			{
@@ -94,7 +90,7 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Generators
 				{
 					var collisionCategory = _nodeCollisions[index];
 					//TODO provide option to exclude diagonal neighbours.
-					var toNode = sourceNodeGrid.NodeArray[collisionCategory.X, collisionCategory.Y];
+					var toNode = sourceNodeGrid.DefinitionNodeArray[collisionCategory.X, collisionCategory.Y];
 					sourceGridNode.Connections.Add(new NodeConnection(toNode.Index, collisionCategory.PathfindaxCollisionCategory));
 				}
 			}

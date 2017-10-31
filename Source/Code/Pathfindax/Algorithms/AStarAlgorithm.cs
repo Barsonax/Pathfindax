@@ -15,12 +15,13 @@ namespace Pathfindax.Algorithms
 	{
 		public List<DefinitionNode> FindPath(INodeNetwork<AstarNode> nodeNetwork, PathRequest pathRequest)
 		{
-			var startNode = NodePointer.Dereference(pathRequest.PathStart.Index, nodeNetwork);
-			var endNode = NodePointer.Dereference(pathRequest.PathEnd.Index, nodeNetwork);
-			return FindPath(nodeNetwork, startNode, endNode, pathRequest.AgentSize);
+			var pathfindingNetwork = nodeNetwork.GetPathfindingNetwork(pathRequest.CollisionLayer);
+			var startNode = NodePointer.Dereference(pathRequest.PathStart.Index, pathfindingNetwork);
+			var endNode = NodePointer.Dereference(pathRequest.PathEnd.Index, pathfindingNetwork);
+			return FindPath(pathfindingNetwork, startNode, endNode, pathRequest.AgentSize);
 		}
 
-		private static List<DefinitionNode> FindPath(INodeNetwork<AstarNode> nodeNetwork, AstarNode startNode, AstarNode targetNode, byte neededClearance)
+		private static List<DefinitionNode> FindPath(AstarNode[] pathfindingNetwork, AstarNode startNode, AstarNode targetNode, byte neededClearance)
 		{
 			try
 			{
@@ -34,7 +35,7 @@ namespace Pathfindax.Algorithms
 				}
 				if (startNode.SourceNode.Clearance >= neededClearance && targetNode.SourceNode.Clearance >= neededClearance)
 				{
-					var openSet = new MinHeap<AstarNode>(nodeNetwork.SourceNodeNetwork.NodeCount);
+					var openSet = new MinHeap<AstarNode>(pathfindingNetwork.Length);
 					var closedSet = new HashSet<AstarNode>();
 					var itterations = 0;
 					var neighbourUpdates = 0;
@@ -55,7 +56,7 @@ namespace Pathfindax.Algorithms
 
 						foreach (var connection in currentNode.SourceNode.Connections)
 						{
-							var toNode = NodePointer.Dereference(connection, nodeNetwork);
+							var toNode = NodePointer.Dereference(connection, pathfindingNetwork);
 							if (closedSet.Contains(toNode)) continue;
 
 							var newMovementCostToNeighbour = currentNode.GCost + GetDistance(currentNode.SourceNode.DefinitionNode, toNode.SourceNode.DefinitionNode) + currentNode.SourceNode.DefinitionNode.MovementPenalty;
@@ -73,7 +74,7 @@ namespace Pathfindax.Algorithms
 				}
 				if (pathSucces)
 				{
-					return RetracePath(nodeNetwork, startNode, targetNode);
+					return RetracePath(pathfindingNetwork, startNode, targetNode);
 				}
 				Debug.WriteLine("Did not find a path :(");
 				return null;
@@ -85,7 +86,7 @@ namespace Pathfindax.Algorithms
 			}
 		}
 
-		private static List<DefinitionNode> RetracePath(INodeNetwork<AstarNode> nodeNetwork, AstarNode startGridNode, AstarNode endGridNode)
+		private static List<DefinitionNode> RetracePath(AstarNode[] pathfindingNetwork, AstarNode startGridNode, AstarNode endGridNode)
 		{
 			var path = new List<DefinitionNode>();
 			var currentNode = endGridNode;
@@ -94,7 +95,7 @@ namespace Pathfindax.Algorithms
 			{
 				path.Add(currentNode.SourceNode.DefinitionNode);
 				if (currentNode == startGridNode) break;
-				currentNode = NodePointer.Dereference(currentNode.Parent, nodeNetwork);
+				currentNode = NodePointer.Dereference(currentNode.Parent, pathfindingNetwork);
 			}
 			path.Reverse();
 			return path;

@@ -17,11 +17,11 @@ namespace Pathfindax.Test.Tests
 		public void FindPath_InitializedNodegrid_PathLengthIsNot0(float x1, float y1, float x2, float y2)
 		{
 			var nodeNetwork = new SourceNodeNetwork(new Vector2(0, 0));
-			var node1 = new SourceNode(new Vector2(0f, 0f), 0);
-			var node2 = new SourceNode(new Vector2(5f, 8f), 1);
-			var node3 = new SourceNode(new Vector2(15f, 13f), 2);
-			var node4 = new SourceNode(new Vector2(2f, 3f), 3);
-			var node5 = new SourceNode(new Vector2(6f, 25f), 4);
+			var node1 = nodeNetwork.AddNode(new Vector2(0f, 0f));
+			var node2 = nodeNetwork.AddNode(new Vector2(5f, 8f));
+			var node3 = nodeNetwork.AddNode(new Vector2(15f, 13f));
+			var node4 = nodeNetwork.AddNode(new Vector2(2f, 3f));
+			var node5 = nodeNetwork.AddNode(new Vector2(6f, 25f));
 
 			NodeFactory.CreateConnection(node1, node2);
 			NodeFactory.CreateConnection(node1, node4);
@@ -36,12 +36,6 @@ namespace Pathfindax.Test.Tests
 			NodeFactory.CreateConnection(node4, node2);
 
 			NodeFactory.CreateConnection(node5, node3);
-
-			nodeNetwork.Nodes.Add(node1);
-			nodeNetwork.Nodes.Add(node2);
-			nodeNetwork.Nodes.Add(node3);
-			nodeNetwork.Nodes.Add(node4);
-			nodeNetwork.Nodes.Add(node5);
 
 			var astarNodeNetwork = new AstarNodeNetwork(nodeNetwork);
 			var aStarAlgorithm = new AStarAlgorithm();

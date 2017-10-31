@@ -10,7 +10,7 @@ namespace Duality.Plugins.Pathfindax.Components
 	/// Class for visualizing a <see cref="ISourceNodeGrid{TNode}"/>
 	/// </summary>
 	[EditorHintCategory(PathfindaxStrings.Pathfindax)]
-	[RequiredComponent(typeof(IPathfinderComponent<ISourceNodeGrid<ISourceGridNode>>))]
+	[RequiredComponent(typeof(IPathfinderComponent<ISourceNodeGrid<ISourceNode>>))]
 	public class NodeGridVisualizer : Component, ICmpRenderer
 	{
 		/// <summary>
@@ -39,30 +39,31 @@ namespace Duality.Plugins.Pathfindax.Components
 		void ICmpRenderer.Draw(IDrawDevice device)
 		{
 			if (!Visualize) return;
-			var pathfinderComponent = GameObj.GetComponent<IPathfinderComponent<ISourceNodeGrid<ISourceGridNode>>>();
+			var pathfinderComponent = GameObj.GetComponent<IPathfinderComponent<ISourceNodeGrid<ISourceNode>>>();
 			if (pathfinderComponent?.Pathfinder?.SourceNodeNetwork != null)
 			{
 				var nodeSize = pathfinderComponent.Pathfinder.SourceNodeNetwork.NodeSize.X * 0.3f;
 				var canvas = new Canvas(device, new CanvasBuffer());
 				canvas.State.ZOffset = -8;
-				foreach (var node in pathfinderComponent.Pathfinder.SourceNodeNetwork)
+				for (int i = 0; i < pathfinderComponent.Pathfinder.SourceNodeNetwork.NodeCount; i++)
 				{
+					var node = pathfinderComponent.Pathfinder.SourceNodeNetwork[i];
 					canvas.State.ColorTint = ColorRgba.LightGrey;
-					var nodePosition = node.WorldPosition;
-					if (node is SourceGridNode sourceGridNode)
-					{
-						var clearance = sourceGridNode.GetTrueClearance(CollisionCategory);
-						if (clearance == int.MaxValue)
-						{
-							canvas.DrawCircle(nodePosition.X, nodePosition.Y, nodeSize);
-						}
-						else
-						{
-							canvas.FillCircle(nodePosition.X, nodePosition.Y, nodeSize);
-							canvas.State.ColorTint = ColorRgba.Black;
-							canvas.DrawText(clearance.ToString(), nodePosition.X, nodePosition.Y, -1f, Alignment.Center);
-						}
-					}
+					var nodePosition = node.Position;
+					//if (node is SourceNode sourceGridNode)
+					//{
+					//	var clearance = sourceGridNode.GetTrueClearance(CollisionCategory);
+					//	if (clearance == int.MaxValue)
+					//	{
+					//		canvas.DrawCircle(nodePosition.X, nodePosition.Y, nodeSize);
+					//	}
+					//	else
+					//	{
+					//		canvas.FillCircle(nodePosition.X, nodePosition.Y, nodeSize);
+					//		canvas.State.ColorTint = ColorRgba.Black;
+					//		canvas.DrawText(clearance.ToString(), nodePosition.X, nodePosition.Y, -1f, Alignment.Center);
+					//	}
+					//}
 					canvas.State.ColorTint = new ColorRgba(199, 21, 133);
 					foreach (var connection in node.Connections)
 					{
@@ -71,7 +72,7 @@ namespace Duality.Plugins.Pathfindax.Components
 							continue;
 						}
 						var toNode = NodePointer.Dereference(connection.To, pathfinderComponent.Pathfinder.SourceNodeNetwork);
-						var vector = (toNode.WorldPosition - nodePosition) * 0.5f;
+						var vector = (toNode.Position - nodePosition) * 0.5f;
 						canvas.DrawDashLine(nodePosition.X, nodePosition.Y, nodePosition.X + vector.X, nodePosition.Y + vector.Y);
 					}
 				}

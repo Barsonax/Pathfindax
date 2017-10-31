@@ -5,10 +5,9 @@ namespace Pathfindax.Factories
 {
     public static class NodeFactory
     {
-        public static void CreateConnection<T>(T from, SourceNode to)
-            where T : DefinitionNode
+        public static void CreateConnection(DefinitionNode from, DefinitionNode to)
         {
-            from.Connections.Add(new NodeConnection(to));
+            from.Connections.Add(new NodeConnection(to.Index));
         }
     }
 }

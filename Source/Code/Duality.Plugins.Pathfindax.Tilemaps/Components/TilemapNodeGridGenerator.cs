@@ -56,24 +56,16 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Components
 					var connectionGenerator = new TilemapNodeConnectionGenerator();
 					for (var i = range.Item1; i < range.Item2; i++)
 					{
-						connectionGenerator.CalculateGridNodeCollision(tilemapColliderWithBodies, _sourceNodeGrid.NodeArray[i], _sourceNodeGrid);
-					}
-				});
+						var definitionNode = _sourceNodeGrid.DefinitionNodeArray[i];
+						connectionGenerator.CalculateGridNodeCollision(tilemapColliderWithBodies, _sourceNodeGrid.DefinitionNodeArray[i], _sourceNodeGrid);
 
-				Parallel.ForEach(_sourceNodeGrid, gridNode =>
-				{					
-					if (MovementPenalties != null)
-					{
-						var nodeGridCoordinates = _sourceNodeGrid.NodeArray.GetCoordinates(gridNode.Index.Index);
-						var index = baseTilemap.Tiles[nodeGridCoordinates.X, nodeGridCoordinates.Y].Index;
-						if (index < MovementPenalties.Length)
-							gridNode.MovementPenalty = MovementPenalties[index];
-					}
-
-					var clearances = sourceNodeGridFactory.CalculateGridNodeClearances(_sourceNodeGrid, gridNode, MaxCalculatedClearance);
-					if (clearances.Count > 0)
-					{
-						gridNode.Clearances = gridNode.Clearances?.Concat(clearances).ToArray() ?? clearances.ToArray();
+						if (MovementPenalties != null)
+						{
+							var nodeGridCoordinates = _sourceNodeGrid.DefinitionNodeArray.GetCoordinates(definitionNode.Index.Index);
+							var index = baseTilemap.Tiles[nodeGridCoordinates.X, nodeGridCoordinates.Y].Index;
+							if (index < MovementPenalties.Length)
+								definitionNode.MovementPenalty = MovementPenalties[index];
+						}
 					}
 				});
 			}

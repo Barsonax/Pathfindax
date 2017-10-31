@@ -1,5 +1,4 @@
 ﻿using Duality;
-using Pathfindax.Collections;
 using Pathfindax.Nodes;
 
 namespace Pathfindax.Grid

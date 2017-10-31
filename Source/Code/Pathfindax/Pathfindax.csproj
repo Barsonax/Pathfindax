@@ -73,7 +73,9 @@
     <Compile Include="Factories\NodeFactory.cs" />
     <Compile Include="Grid\Abstract\NodeNetworkBase.cs" />
     <Compile Include="Grid\Abstract\SourceNodeNetworkBase.cs" />
+    <Compile Include="Nodes\DefinitionNode.cs" />
     <Compile Include="Grid\Interfaces\INodeGrid.cs" />
+    <Compile Include="Nodes\IDefinitionNode.cs" />
     <Compile Include="Nodes\Interfaces\ISourceNode.cs" />
     <Compile Include="Factories\PathfinderFactory.cs" />
     <Compile Include="Nodes\NodePointer.cs" />

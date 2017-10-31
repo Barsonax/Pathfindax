@@ -18,7 +18,7 @@ namespace Pathfindax.Test.Tests
             var pathRequest = new PathRequest(multithreadedPathfinder, null, null);
             pathRequest.WaitHandle.WaitOne(1000);
 
-            Assert.AreEqual(pathRequest.Status, PathRequestStatus.Solved);
+            Assert.AreEqual(PathRequestStatus.Solved, pathRequest.Status);
         }
 
         [Test]
@@ -37,7 +37,7 @@ namespace Pathfindax.Test.Tests
 
             foreach (var pathRequest in pathRequests)
             {
-                Assert.AreEqual(pathRequest.Status, PathRequestStatus.Solved);
+                Assert.AreEqual(PathRequestStatus.Solved, pathRequest.Status);
             }
         }
     }

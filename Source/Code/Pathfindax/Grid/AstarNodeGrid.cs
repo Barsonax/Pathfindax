@@ -35,6 +35,8 @@ namespace Pathfindax.Grid
 			}
 			return nodegrid;
 		}
+		IReadOnlyArray2D<AstarNode> INodeGrid<AstarNode>.GetPathfindingGrid(PathfindaxCollisionCategory collisionCategory) => GetPathfindingGrid(collisionCategory);
+		public AstarNode[] GetPathfindingNetwork(PathfindaxCollisionCategory collisionCategory) => throw new System.NotImplementedException();
 
 		private Array2D<AstarNode> GenerateNodeGrid(Array2D<SourceNode> sourceNodeGrid)
 		{

@@ -24,8 +24,8 @@ namespace Pathfindax.Algorithms
 
 		private static List<DefinitionNode> FindPath(Array2D<AstarNode> pathfindingGrid, AstarNode startGridNode, AstarNode targetGridNode, byte neededClearance)
 		{
-			try
-			{
+			//try
+			//{
 				var sw = new Stopwatch();
 				sw.Start();
 
@@ -82,15 +82,15 @@ namespace Pathfindax.Algorithms
 				}
 				Debug.WriteLine("Did not find a path :(");
 				return null;
-			}
-			catch (Exception ex)
-			{
-				Debug.WriteLine(ex);
-				return null;
-			}
+			//}
+			//catch (Exception ex)
+			//{
+			//	Debug.WriteLine(ex);
+			//	return null;
+			//}
 		}
 
-		private static List<DefinitionNode> RetracePath(Array2D<AstarNode> nodeArray, AstarNode startGridNode, AstarNode endGridNode)
+		private static List<DefinitionNode> RetracePath(Array2D<AstarNode> pathfindingGrid, AstarNode startGridNode, AstarNode endGridNode)
 		{
 			var path = new List<DefinitionNode>();
 			var currentNode = endGridNode;
@@ -99,7 +99,7 @@ namespace Pathfindax.Algorithms
 			{
 				path.Add(currentNode.SourceNode.DefinitionNode);
 				if (currentNode == startGridNode) break;
-				currentNode = NodePointer.Dereference(currentNode.Parent, nodeArray);
+				currentNode = NodePointer.Dereference(currentNode.Parent, pathfindingGrid);
 			}
 			path.Reverse();
 			return path;

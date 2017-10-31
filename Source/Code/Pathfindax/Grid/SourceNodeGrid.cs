@@ -7,30 +7,6 @@ using Pathfindax.Utils;
 
 namespace Pathfindax.Grid
 {
-	public class DefinitionNode
-	{
-		public NodePointer Index { get; }
-
-		/// <summary>
-		/// The position in the <see cref="ISourceNodeNetwork"/>
-		/// </summary>
-		public Vector2 Position { get; set; }
-
-		/// <summary>
-		/// The movement penalty for this node. This can be used to make the pathfinder try to avoid certain nodes.
-		/// </summary>
-		public byte MovementPenalty { get; set; }
-
-		public List<NodeConnection> Connections { get; } = new List<NodeConnection>();
-
-		public DefinitionNode(int index, Vector2 position, byte movementPenalty)
-		{
-			Index = new NodePointer(index);
-			Position = position;
-			MovementPenalty = movementPenalty;
-		}
-	}
-
 	/// <summary>
 	/// Class that holds nodegrid data which wont change and is safe to share between threads
 	/// </summary>

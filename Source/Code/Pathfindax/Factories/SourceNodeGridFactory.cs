@@ -71,7 +71,7 @@ namespace Pathfindax.Factories
 								continue;
 							}
 						}
-						var p = new NodePointer(nodeArray.Width * checkX + checkY);
+						var p = new NodePointer(nodeArray.Width * checkY + checkX);
 						neighbours.Add(p);
 					}
 				}

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Pathfindax.Nodes;
+﻿using Pathfindax.Nodes;
 
 namespace Pathfindax.Grid
 {
@@ -11,6 +10,7 @@ namespace Pathfindax.Grid
 		where TNode : INode
 	{
 		new ISourceNodeNetwork<ISourceNode> SourceNodeNetwork { get; }
+		TNode[] GetPathfindingNetwork(PathfindaxCollisionCategory collisionCategory);
 	}
 
 	/// <summary>

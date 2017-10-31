@@ -10,13 +10,7 @@ namespace Pathfindax.Grid
 	public interface ISourceNodeNetwork<out TNode> : ISourceNodeNetwork
 		where TNode : ISourceNode
 	{
-		/// <summary>
-		/// Gets the node closest to this position
-		/// </summary>
-		/// <returns></returns>
-		DefinitionNode GetNode(float worldX, float worldY);
 
-		DefinitionNode this[int index] { get; }
 	}
 
 	/// <summary>
@@ -24,6 +18,14 @@ namespace Pathfindax.Grid
 	/// </summary>
 	public interface ISourceNodeNetwork
 	{
+		/// <summary>
+		/// Gets the node closest to this position
+		/// </summary>
+		/// <returns></returns>
+		DefinitionNode GetNode(float worldX, float worldY);
+
+		DefinitionNode this[int index] { get; }
+
 		Vector2 Offset { get; }
 
 		int NodeCount { get; }

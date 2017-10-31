@@ -1,6 +1,9 @@
-﻿using Pathfindax.Algorithms;
+﻿using System.Collections.Generic;
+using NSubstitute;
+using Pathfindax.Algorithms;
 using Pathfindax.Factories;
 using Pathfindax.Grid;
+using Pathfindax.Nodes;
 using Pathfindax.PathfindEngine;
 
 namespace Pathfindax.Test.Setup
@@ -13,6 +16,7 @@ namespace Pathfindax.Test.Setup
             {
 	            var nodeGrid = NSubstitute.Substitute.For<INodeNetwork>();
 				var algorithm = NSubstitute.Substitute.For<IPathFindAlgorithm<INodeNetwork>>();
+	            algorithm.FindPath(null, null).ReturnsForAnyArgs(new List<DefinitionNode>());
 	            return PathfinderFactory.CreateRequestProcesser(nodeGrid, algorithm);
             }, threads);
         }

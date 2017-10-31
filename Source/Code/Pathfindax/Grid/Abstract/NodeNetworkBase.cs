@@ -11,6 +11,11 @@ namespace Pathfindax.Grid
 		protected List<TNode> Nodes { get; }
 
 		public ISourceNodeNetwork<ISourceNode> SourceNodeNetwork { get; }
+		public TNode[] GetPathfindingNetwork(PathfindaxCollisionCategory collisionCategory)
+		{
+			throw new System.NotImplementedException();
+		}
+
 		ISourceNodeNetwork INodeNetwork.SourceNodeNetwork => SourceNodeNetwork;
 		ISourceNodeNetwork<ISourceNode> INodeNetwork<TNode>.SourceNodeNetwork => SourceNodeNetwork;
 
@@ -18,19 +23,6 @@ namespace Pathfindax.Grid
 		{
 			SourceNodeNetwork = sourceNodeNetwork;
 			Nodes = new List<TNode>();
-		}
-
-		public IEnumerator<TNode> GetEnumerator()
-		{
-			foreach (var node in Nodes)
-			{
-				yield return node;
-			}
-		}
-
-		IEnumerator IEnumerable.GetEnumerator()
-		{
-			return GetEnumerator();
 		}
 	}
 }
