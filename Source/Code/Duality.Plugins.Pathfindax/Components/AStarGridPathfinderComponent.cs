@@ -12,7 +12,7 @@ namespace Duality.Plugins.Pathfindax.Components
 	/// </summary>
 	[EditorHintCategory(PathfindaxStrings.Pathfindax)]
 	[RequiredComponent(typeof(ISourceNodeNetworkProvider<ISourceNodeGrid<SourceGridNode>>))]
-	public class AStarGridPathfinderComponent : PathfinderComponentBase<ISourceNodeGrid<SourceGridNode>>
+	public class AStarGridPathfinderComponent : PathfinderComponentBase<SourceNodeGrid>
 	{
 		/// <inheritdoc />
 		public override void OnInit(InitContext context)

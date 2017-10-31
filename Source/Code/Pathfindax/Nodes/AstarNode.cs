@@ -21,18 +21,15 @@ namespace Pathfindax.Nodes
 		/// The cost to the targetnode
 		/// </summary>
 		public float GCost { get; set; }
-
 		private float FCost => GCost + HCost;
-
 		public int HeapIndex { get; set; }
-
 		public SourceNode SourceNode { get; }
-
 		ISourceNode INode.SourceNode => SourceNode;
 
 		public AstarNode(SourceNode sourceNode)
 		{
 			SourceNode = sourceNode;
+			Parent = NodePointer.NullPointer;
 		}
 
 		public int CompareTo(AstarNode other)
@@ -47,7 +44,7 @@ namespace Pathfindax.Nodes
 
 		public override string ToString()
 		{
-			return $"{SourceNode.WorldPosition.X}:{SourceNode.WorldPosition.Y}";
+			return SourceNode.ToString();
 		}
 	}
 }

@@ -2,6 +2,7 @@
 using Pathfindax.Nodes;
 using System.Collections.Generic;
 using System.Threading;
+using Pathfindax.Grid;
 
 namespace Pathfindax.PathfindEngine
 {
@@ -13,12 +14,12 @@ namespace Pathfindax.PathfindEngine
         /// <summary>
         /// The node start node.
         /// </summary>
-        public readonly ISourceNode PathStart;
+        public readonly DefinitionNode PathStart;
 
         /// <summary>
         /// The end node.
         /// </summary>
-        public readonly ISourceNode PathEnd;
+        public readonly DefinitionNode PathEnd;
 
         /// <summary>
         /// The size of the agent. 1 is the default value meaning that the agent occupies only 1 node.
@@ -58,7 +59,7 @@ namespace Pathfindax.PathfindEngine
         /// <param name="end">The worldcoordinates of the end of the path</param>
         /// <param name="agentSize">The size of the agent in nodes</param>
         /// <param name="collisionLayer">The collision layers that this agent cannot cross</param>
-        public PathRequest(ISourceNode start, ISourceNode end, PathfindaxCollisionCategory collisionLayer = PathfindaxCollisionCategory.None, byte agentSize = 1)
+        public PathRequest(DefinitionNode start, DefinitionNode end, PathfindaxCollisionCategory collisionLayer = PathfindaxCollisionCategory.None, byte agentSize = 1)
         {
             PathStart = start;
             PathEnd = end;
@@ -74,7 +75,7 @@ namespace Pathfindax.PathfindEngine
         /// <param name="end">The worldcoordinates of the end of the path</param>
         /// <param name="agentSize">The size of the agent in nodes</param>
         /// <param name="collisionLayer">The collision layers that this agent cannot cross</param>
-        public PathRequest(IPathfinder pathfinder, ISourceNode start, ISourceNode end, PathfindaxCollisionCategory collisionLayer = PathfindaxCollisionCategory.None, byte agentSize = 1)
+        public PathRequest(IPathfinder pathfinder, DefinitionNode start, DefinitionNode end, PathfindaxCollisionCategory collisionLayer = PathfindaxCollisionCategory.None, byte agentSize = 1)
         {
             PathStart = start;
             PathEnd = end;

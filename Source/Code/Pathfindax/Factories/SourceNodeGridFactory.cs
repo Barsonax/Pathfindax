@@ -19,13 +19,15 @@ namespace Pathfindax.Factories
 		/// <returns></returns>
 		public SourceNodeGrid GeneratePreFilledArray(int width, int height, Vector2 nodeSize, GenerateNodeGridConnections generateNodeGridConnections, Vector2 offset = default(Vector2))
 		{
-			var array = new Array2D<SourceGridNode>(width, height);
+			var array = new Array2D<DefinitionNode>(width, height);
 			var sourceNodeGrid = new SourceNodeGrid(array, nodeSize, offset);
 			for (ushort y = 0; y < height; y++)
 			{
 				for (ushort x = 0; x < width; x++)
 				{
-					var node = new SourceGridNode(sourceNodeGrid, x, y, 1);
+					var worldPosition = new Vector2(x * sourceNodeGrid.NodeSize.X, y * sourceNodeGrid.NodeSize.Y) + sourceNodeGrid.Offset;
+					var i = width * y + x;
+					var node = new DefinitionNode(i, worldPosition, 1);
 					array[x, y] = node;
 				}
 			}
@@ -37,11 +39,10 @@ namespace Pathfindax.Factories
 					for (var x = 0; x < width; x++)
 					{
 						var node = array[x, y];
-						var neighbours = GetNeighbours(array, node, generateNodeGridConnections);
-						for (var index = 0; index < neighbours.Count; index++)
+						var neighbours = GetNeighbours(array, x, y, generateNodeGridConnections);
+						foreach (var neighbour in neighbours)
 						{
-							var neighbour = neighbours[index];
-							node.Connections.Add(new NodeConnection(neighbour.Index));
+							node.Connections.Add(new NodeConnection(neighbour));
 						}
 					}
 				}
@@ -49,76 +50,17 @@ namespace Pathfindax.Factories
 			return sourceNodeGrid;
 		}
 
-		/// <summary>
-		/// Calculates the clearances up to a maximum <paramref name="maxClearance"/>
-		/// </summary>
-		/// <param name="sourceNodeGrid"></param>
-		/// <param name="from"></param>
-		/// <param name="maxClearance"></param>
-		/// <returns></returns>
-		public List<GridClearance> CalculateGridNodeClearances(ISourceNodeGrid<ISourceGridNode> sourceNodeGrid, ISourceGridNode from, int maxClearance)
+		private static List<NodePointer> GetNeighbours(IReadOnlyArray2D<DefinitionNode> nodeArray, int gridX, int gridY, GenerateNodeGridConnections generateNodeGridConnections)
 		{
-			var clearances = new List<GridClearance>();
-			var hashset = new HashSet<PathfindaxCollisionCategory>();
-			for (var i = 0; i < maxClearance; i++)
-			{
-				var nodes = new List<NodeConnection>(1 + i * 16); //Since we know the amount of connections that will likely be in this list we can specify the size beforehand for some extra performance.
-				foreach (var gridNode in GetNodesInArea(sourceNodeGrid, from.GridX, from.GridY + i, i + 1, 1))
-				{
-					nodes.AddRange(gridNode.Connections);
-				}
-
-				foreach (var gridNode in GetNodesInArea(sourceNodeGrid, from.GridX + i, from.GridY, 1, i))
-				{
-					nodes.AddRange(gridNode.Connections);
-				}
-				var maxGridX = from.GridX + i + 1;
-				var maxGridY = from.GridY + i + 1;
-				var collisionCategory = PathfindaxCollisionCategory.None;
-				foreach (var connection in nodes)
-				{
-					var toNode = NodePointer.Dereference(connection.To, sourceNodeGrid);
-					if (toNode.GridX >= from.GridX && toNode.GridY >= from.GridY && toNode.GridX <= maxGridX && toNode.GridY <= maxGridY)
-					{
-						collisionCategory = collisionCategory | connection.CollisionCategory;
-					}
-				}
-				if (collisionCategory != PathfindaxCollisionCategory.None && !hashset.Contains(collisionCategory))
-				{
-					hashset.Add(collisionCategory);
-					clearances.Add(new GridClearance(collisionCategory, i + 1));
-				}
-
-			}
-			return clearances;
-		}
-
-		private static List<ISourceGridNode> GetNodesInArea(ISourceNodeGrid<ISourceGridNode> sourceNodeGrid, int gridX, int gridY, int width, int height)
-		{
-			var nodes = new List<ISourceGridNode>();
-			for (var y = gridY; y < gridY + height; y++)
-			{
-				for (var x = gridX; x < gridX + width; x++)
-				{
-					if (x < sourceNodeGrid.NodeArray.Width && y < sourceNodeGrid.NodeArray.Height)
-						nodes.Add(sourceNodeGrid.NodeArray[x, y]);
-				}
-			}
-			return nodes;
-		}
-
-		private static List<SourceGridNode> GetNeighbours(IReadOnlyArray2D<SourceGridNode> nodeArray, ISourceGridNode gridNode, GenerateNodeGridConnections generateNodeGridConnections)
-		{
-			var neighbours = new List<SourceGridNode>(8);
-
+			var neighbours = new List<NodePointer>();
 			for (var y = -1; y <= 1; y++)
 			{
 				for (var x = -1; x <= 1; x++)
 				{
 					if (x == 0 && y == 0) continue; //Skip the center since this is the node we are adding neighbours to.
 
-					var checkX = gridNode.GridX + x;
-					var checkY = gridNode.GridY + y;
+					var checkX = gridX + x;
+					var checkY = gridY + y;
 
 					if (checkX >= 0 && checkX < nodeArray.Width && checkY >= 0 && checkY < nodeArray.Height)
 					{
@@ -126,12 +68,11 @@ namespace Pathfindax.Factories
 						{
 							if (x == 1 && y == 1 || x == -1 && y == 1 || x == -1 && y == -1 || x == 1 && y == -1)
 							{
-								neighbours.Add(null);
 								continue;
 							}
 						}
-
-						neighbours.Add(nodeArray[checkX, checkY]);
+						var p = new NodePointer(nodeArray.Width * checkX + checkY);
+						neighbours.Add(p);
 					}
 				}
 			}

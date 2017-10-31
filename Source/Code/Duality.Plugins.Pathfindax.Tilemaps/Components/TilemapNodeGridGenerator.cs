@@ -61,10 +61,11 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Components
 				});
 
 				Parallel.ForEach(_sourceNodeGrid, gridNode =>
-				{
+				{					
 					if (MovementPenalties != null)
 					{
-						var index = baseTilemap.Tiles[gridNode.GridX, gridNode.GridY].Index;
+						var nodeGridCoordinates = _sourceNodeGrid.NodeArray.GetCoordinates(gridNode.Index.Index);
+						var index = baseTilemap.Tiles[nodeGridCoordinates.X, nodeGridCoordinates.Y].Index;
 						if (index < MovementPenalties.Length)
 							gridNode.MovementPenalty = MovementPenalties[index];
 					}

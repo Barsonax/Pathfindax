@@ -9,9 +9,9 @@ namespace Pathfindax.Grid
 	/// </summary>
 	/// <typeparam name="TNode"></typeparam>
 	public interface ISourceNodeGrid<out TNode> : ISourceNodeNetwork<TNode>, ISourceNodeGrid
-		where TNode : ISourceGridNode
+		where TNode : ISourceNode
 	{
-		IReadOnlyArray2D<TNode> NodeArray { get; }
+
 	}
 
 	/// <summary>

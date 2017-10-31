@@ -7,11 +7,10 @@ namespace Pathfindax.Grid
 	/// Generic interface for nodenetworks
 	/// </summary>
 	/// <typeparam name="TNode"></typeparam>
-	public interface INodeNetwork<out TNode> : INodeNetwork, IEnumerable<TNode>
+	public interface INodeNetwork<out TNode> : INodeNetwork
 		where TNode : INode
 	{
 		new ISourceNodeNetwork<ISourceNode> SourceNodeNetwork { get; }
-		TNode this[int index] { get; }
 	}
 
 	/// <summary>

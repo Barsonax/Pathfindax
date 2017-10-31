@@ -59,7 +59,7 @@ namespace Duality.Plugins.Pathfindax.PathfindEngine
 		/// <param name="end"></param>
 		/// <param name="agentSize"></param>
 		/// <param name="collisionLayer"></param>
-		public PathRequest RequestPath(ISourceNode start, ISourceNode end, PathfindaxCollisionCategory collisionLayer = PathfindaxCollisionCategory.None, byte agentSize = 1)
+		public PathRequest RequestPath(DefinitionNode start, DefinitionNode end, PathfindaxCollisionCategory collisionLayer = PathfindaxCollisionCategory.None, byte agentSize = 1)
 		{
 			return new PathRequest(PathfinderComponent, start, end, collisionLayer, agentSize);
 		}

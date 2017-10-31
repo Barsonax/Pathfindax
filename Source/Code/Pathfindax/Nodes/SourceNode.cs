@@ -1,30 +1,23 @@
 ﻿using System.Collections.Generic;
 using Duality;
+using Pathfindax.Grid;
 
 namespace Pathfindax.Nodes
 {
 	public class SourceNode : ISourceNode
 	{
-		public NodePointer Index { get; }
-		public Vector2 WorldPosition { get; }
-		public List<NodeConnection> Connections { get; set; } = new List<NodeConnection>();
+		public DefinitionNode DefinitionNode { get; }
+		public NodePointer[] Connections { get; set; }
+		public float Clearance { get; set; }
 
-		/// <summary>
-		/// The movement penalty for this node. This can be used to make the pathfinder try to avoid certain nodes.
-		/// </summary>
-		public byte MovementPenalty { get; set; }
-
-		public PathfindaxCollisionCategory CollisionCategory { get; set; }
-
-		public SourceNode(Vector2 worldPosition, int arrayIndex)
+		public SourceNode(DefinitionNode definitionNode)
 		{
-			WorldPosition = worldPosition;
-			Index = new NodePointer(arrayIndex);
+			DefinitionNode = definitionNode;
 		}
 
 		public override string ToString()
 		{
-			return $"{WorldPosition.X}:{WorldPosition.Y}";
+			return DefinitionNode.ToString();
 		}
 	}
 }

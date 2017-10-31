@@ -5,6 +5,7 @@ using Duality.Components.Physics;
 using Duality.Plugins.Tilemaps;
 using Pathfindax.Grid;
 using Pathfindax.Nodes;
+using Pathfindax.Utils;
 
 namespace Duality.Plugins.Pathfindax.Tilemaps.Generators
 {
@@ -67,12 +68,12 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Generators
 		/// <param name="sourceNodeGrid"></param>
 		public void CalculateGridNodeCollision(TilemapColliderWithBody[] tilemapColliderWithBodies, SourceGridNode sourceGridNode, ISourceNodeGrid<SourceGridNode> sourceNodeGrid)
 		{
-			CalculateNodeCollisionCategories(sourceGridNode.GridX, sourceGridNode.GridY, tilemapColliderWithBodies);
+			var nodeGridCoordinates = sourceNodeGrid.NodeArray.GetCoordinates(sourceGridNode.Index.Index);
+			CalculateNodeCollisionCategories(nodeGridCoordinates.X, nodeGridCoordinates.Y, tilemapColliderWithBodies);
 			var selfCollisionCategory = _nodeCollisions[0];
 			if (selfCollisionCategory.PathfindaxCollisionCategory != PathfindaxCollisionCategory.None)
 				sourceGridNode.Clearances = new[] { new GridClearance(selfCollisionCategory.PathfindaxCollisionCategory, 0) }; //This node is blocked so it has a clearance of 0.
-
-			if (sourceGridNode.GridX == 0 || sourceGridNode.GridY == 0 || sourceGridNode.GridX == sourceNodeGrid.NodeArray.Width - 1 || sourceGridNode.GridY == sourceNodeGrid.NodeArray.Height - 1)
+			if (nodeGridCoordinates.X == 0 || nodeGridCoordinates.Y == 0 || nodeGridCoordinates.X == sourceNodeGrid.NodeArray.Width - 1 || nodeGridCoordinates.Y == sourceNodeGrid.NodeArray.Height - 1)
 			{
 				var connections = new List<NodeConnection>(5);
 				for (var index = 1; index < _nodeCollisions.Length; index++)

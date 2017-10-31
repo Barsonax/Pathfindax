@@ -74,8 +74,6 @@
     <Compile Include="Grid\Abstract\NodeNetworkBase.cs" />
     <Compile Include="Grid\Abstract\SourceNodeNetworkBase.cs" />
     <Compile Include="Grid\Interfaces\INodeGrid.cs" />
-    <Compile Include="Grid\Abstract\NodeGridBase.cs" />
-    <Compile Include="Nodes\Interfaces\ISourceGridNode.cs" />
     <Compile Include="Nodes\Interfaces\ISourceNode.cs" />
     <Compile Include="Factories\PathfinderFactory.cs" />
     <Compile Include="Nodes\NodePointer.cs" />
@@ -83,6 +81,7 @@
     <Compile Include="PathfindEngine\CompletedPath.cs" />
     <Compile Include="PathfindEngine\Interfaces\ICompletedPath.cs" />
     <Compile Include="PathfindEngine\PathRequestStatus.cs" />
+    <Compile Include="Utils\Extensions\ReadOnlyArrayExtensions.cs" />
     <Compile Include="Utils\GridClearanceHelper.cs" />
     <Compile Include="Algorithms\Interfaces\IPathFindAlgorithm.cs" />
     <Compile Include="Collections\Array2D.cs" />
@@ -94,14 +93,9 @@
     <Compile Include="Grid\Enums\GenerateNodeGridConnections.cs" />
     <Compile Include="Grid\Interfaces\INodeNetwork.cs" />
     <Compile Include="Grid\Interfaces\ISourceNodeNetwork.cs" />
-    <Compile Include="Grid\Abstract\SourceNodeGridBase.cs" />
     <Compile Include="Algorithms\AStarAlgorithm.cs" />
     <Compile Include="Grid\SourceNodeNetwork.cs" />
     <Compile Include="Nodes\AstarNode.cs" />
-    <Compile Include="Nodes\GridClearance.cs" />
-    <Compile Include="Nodes\SourceGridNode.cs" />
-    <Compile Include="Nodes\AstarGridNode.cs" />
-    <Compile Include="Nodes\Interfaces\IGridNode.cs" />
     <Compile Include="Nodes\Interfaces\INode.cs" />
     <Compile Include="Grid\Interfaces\ISourceNodeGrid.cs" />
     <Compile Include="Grid\Interfaces\ISourceNodeNetworkProvider.cs" />
@@ -122,7 +116,8 @@
     <Compile Include="Threading\MultithreadedWorkerQueue.cs" />
     <Compile Include="Threading\Worker.cs" />
     <Compile Include="Threading\WorkItem.cs" />
-    <Compile Include="Utils\Extenstions\ListExtensions.cs" />
+    <Compile Include="Utils\Extensions\ListExtensions.cs" />
+    <Compile Include="Utils\GridMath.cs" />
     <Compile Include="Utils\Mathf.cs" />
     <Compile Include="Utils\PathfindaxStrings.cs" />
     <Compile Include="Utils\StringExtensions.cs" />
@@ -131,9 +126,7 @@
     <None Include="packages.config" />
     <None Include="Pathfindax.nuspec" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Primitives\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>if $(ConfigurationName) == Debug (

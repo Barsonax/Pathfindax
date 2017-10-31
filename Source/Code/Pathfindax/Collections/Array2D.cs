@@ -7,12 +7,17 @@ namespace Pathfindax.Collections
 	/// A array class that provides both single dimensional and 2-dimensional access to a array.
 	/// </summary>
 	/// <typeparam name="TItem"></typeparam>
-	public class Array2D<TItem> : IReadOnlyArray2D<TItem>, IWriteOnlyArray2D<TItem>
+	public class Array2D<TItem> : IReadOnlyArray2D<TItem>, IWriteOnlyArray2D<TItem>, IReadOnlyList<TItem>
 	{
 		/// <summary>
 		/// The length of the internal array
 		/// </summary>
 		public int Length => Array.Length;
+
+		/// <summary>
+		/// The length of the internal array
+		/// </summary>
+		public int Count => Array.Length;
 
 		/// <summary>
 		/// The width of the array in items
@@ -34,7 +39,7 @@ namespace Pathfindax.Collections
 		public TItem this[int x, int y]
 		{
 			get => Array[x + y * Width];
-		    set => Array[x + y * Width] = value;
+			set => Array[x + y * Width] = value;
 		}
 
 		/// <summary>
@@ -44,7 +49,7 @@ namespace Pathfindax.Collections
 		public TItem this[int i]
 		{
 			get => Array[i];
-		    set => Array[i] = value;
+			set => Array[i] = value;
 		}
 
 		/// <summary>

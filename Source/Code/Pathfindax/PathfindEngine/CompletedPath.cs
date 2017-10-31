@@ -1,4 +1,5 @@
 ﻿using Duality;
+using Pathfindax.Grid;
 using Pathfindax.Nodes;
 
 namespace Pathfindax.PathfindEngine
@@ -6,15 +7,15 @@ namespace Pathfindax.PathfindEngine
     public class CompletedPath : ICompletedPath
     {
         public Vector2[] Path { get; }
-        public ISourceNode[] NodePath { get; }
+        public DefinitionNode[] NodePath { get; }
 
-        public CompletedPath(ISourceNode[] nodePath)
+        public CompletedPath(DefinitionNode[] nodePath)
         {
             NodePath = nodePath;
             Path = new Vector2[NodePath.Length];
             for (int i = 0; i < NodePath.Length; i++)
             {
-                Path[i] = NodePath[i].WorldPosition;
+                Path[i] = NodePath[i].Position;
             }
         }
     }

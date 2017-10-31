@@ -9,10 +9,7 @@ namespace Pathfindax.Grid
 	{
 		public AstarNodeNetwork(ISourceNodeNetwork<SourceNode> sourceNodeNetwork) : base(sourceNodeNetwork)
 		{
-			foreach (var node in sourceNodeNetwork)
-			{
-				Nodes.Add(new AstarNode(node));
-			}
+
 		}
 	}
 }

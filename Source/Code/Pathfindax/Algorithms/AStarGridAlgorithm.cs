@@ -5,23 +5,24 @@ using Pathfindax.Collections;
 using Pathfindax.Grid;
 using Pathfindax.Nodes;
 using Pathfindax.PathfindEngine;
+using Pathfindax.Utils;
 
 namespace Pathfindax.Algorithms
 {
 	/// <summary>
 	/// Class that implements the A* algorithm for grids to find paths
 	/// </summary>
-	public class AStarGridAlgorithm : IPathFindAlgorithm<INodeGrid<AstarGridNode>>
+	public class AStarGridAlgorithm : IPathFindAlgorithm<AstarNodeGrid>
 	{
-		/// <inheritdoc />
-		public IList<ISourceNode> FindPath(INodeGrid<AstarGridNode> nodeGrid, PathRequest pathRequest)
+		public List<DefinitionNode> FindPath(AstarNodeGrid nodeGrid, PathRequest pathRequest)
 		{
-			var startNode = NodePointer.Dereference(pathRequest.PathStart.Index, nodeGrid.NodeArray);
-			var endNode = NodePointer.Dereference(pathRequest.PathEnd.Index, nodeGrid.NodeArray);
-			return FindPath(nodeGrid, startNode, endNode, pathRequest.CollisionLayer, pathRequest.AgentSize);
+			var pathfindingGrid = nodeGrid.GetPathfindingGrid(pathRequest.CollisionLayer);
+			var startNode = NodePointer.Dereference(pathRequest.PathStart.Index, pathfindingGrid);
+			var endNode = NodePointer.Dereference(pathRequest.PathEnd.Index, pathfindingGrid);
+			return FindPath(pathfindingGrid, startNode, endNode, pathRequest.AgentSize);
 		}
 
-		private static IList<ISourceNode> FindPath(INodeGrid<AstarGridNode> nodeGrid, AstarGridNode startGridNode, AstarGridNode targetGridNode, PathfindaxCollisionCategory collisionCategory, byte neededClearance)
+		private static List<DefinitionNode> FindPath(Array2D<AstarNode> pathfindingGrid, AstarNode startGridNode, AstarNode targetGridNode, byte neededClearance)
 		{
 			try
 			{
@@ -31,13 +32,12 @@ namespace Pathfindax.Algorithms
 				var pathSucces = false;
 				if (startGridNode == targetGridNode)
 				{
-					return new List<ISourceNode> { targetGridNode.SourceGridNode };
+					return new List<DefinitionNode> { targetGridNode.SourceNode.DefinitionNode };
 				}
-				var array = nodeGrid.NodeArray.Array;
-				if (startGridNode.SourceGridNode.GetTrueClearance(collisionCategory) >= neededClearance && targetGridNode.SourceGridNode.GetTrueClearance(collisionCategory) >= neededClearance)
-				{					
-					var openSet = new MinHeap<AstarGridNode>(nodeGrid.NodeArray.Length);
-					var closedSet = new HashSet<AstarGridNode>();
+				if (startGridNode.SourceNode.Clearance >= neededClearance && targetGridNode.SourceNode.Clearance >= neededClearance)
+				{
+					var openSet = new MinHeap<AstarNode>(pathfindingGrid.Length);
+					var closedSet = new HashSet<AstarNode>();
 					var itterations = 0;
 					var neighbourUpdates = 0;
 					openSet.Add(startGridNode);
@@ -55,22 +55,19 @@ namespace Pathfindax.Algorithms
 							break;
 						}
 
-						foreach (var connection in currentNode.SourceGridNode.Connections)
+						foreach (var connection in currentNode.SourceNode.Connections)
 						{
-							var toNode = NodePointer.Dereference(connection.To, array);
-							if ((connection.CollisionCategory & collisionCategory) != 0 || closedSet.Contains(toNode))
-							{
-								continue;
-							}
+							var toNode = NodePointer.Dereference(connection, pathfindingGrid);
+							if (closedSet.Contains(toNode)) continue;
 
-							if (toNode.SourceGridNode.GetTrueClearance(collisionCategory) >= neededClearance)
+							if (toNode.SourceNode.Clearance >= neededClearance)
 							{
-								var newMovementCostToNeighbour = currentNode.GCost + GetDistance(currentNode.SourceGridNode, toNode.SourceGridNode) + currentNode.SourceGridNode.MovementPenalty;
+								var newMovementCostToNeighbour = currentNode.GCost + GetDistance(pathfindingGrid.Width, currentNode.SourceNode, toNode.SourceNode) + currentNode.SourceNode.DefinitionNode.MovementPenalty;
 								if (newMovementCostToNeighbour < toNode.GCost || !openSet.Contains(toNode))
 								{
 									toNode.GCost = newMovementCostToNeighbour;
-									toNode.HCost = GetDistance(toNode.SourceGridNode, targetGridNode.SourceGridNode);
-									toNode.Parent = currentNode.SourceGridNode.Index;
+									toNode.HCost = GetDistance(pathfindingGrid.Width, toNode.SourceNode, targetGridNode.SourceNode);
+									toNode.Parent = currentNode.SourceNode.DefinitionNode.Index;
 									neighbourUpdates++;
 									if (!openSet.Contains(toNode))
 										openSet.Add(toNode);
@@ -81,7 +78,7 @@ namespace Pathfindax.Algorithms
 				}
 				if (pathSucces)
 				{
-					return RetracePath(array, startGridNode, targetGridNode);
+					return RetracePath(pathfindingGrid, startGridNode, targetGridNode);
 				}
 				Debug.WriteLine("Did not find a path :(");
 				return null;
@@ -93,14 +90,14 @@ namespace Pathfindax.Algorithms
 			}
 		}
 
-		private static IList<ISourceNode> RetracePath(AstarGridNode[] nodeArray, AstarGridNode startGridNode, AstarGridNode endGridNode)
+		private static List<DefinitionNode> RetracePath(Array2D<AstarNode> nodeArray, AstarNode startGridNode, AstarNode endGridNode)
 		{
-			var path = new List<ISourceNode>();
+			var path = new List<DefinitionNode>();
 			var currentNode = endGridNode;
 
 			while (true)
 			{
-				path.Add(currentNode.SourceGridNode);
+				path.Add(currentNode.SourceNode.DefinitionNode);
 				if (currentNode == startGridNode) break;
 				currentNode = NodePointer.Dereference(currentNode.Parent, nodeArray);
 			}
@@ -108,10 +105,12 @@ namespace Pathfindax.Algorithms
 			return path;
 		}
 
-		private static int GetDistance(SourceGridNode gridNodeA, SourceGridNode gridNodeB)
+		private static int GetDistance(int width, SourceNode gridNodeA, SourceNode gridNodeB)
 		{
-			var dstX = Math.Abs(gridNodeA.GridX - gridNodeB.GridX);
-			var dstY = Math.Abs(gridNodeA.GridY - gridNodeB.GridY);
+			var gridNodeACoords = GridMath.TransformToGridCoords(width, gridNodeA.DefinitionNode.Index.Index);
+			var gridNodeBCoords = GridMath.TransformToGridCoords(width, gridNodeB.DefinitionNode.Index.Index);
+			var dstX = Math.Abs(gridNodeACoords.X - gridNodeBCoords.X);
+			var dstY = Math.Abs(gridNodeACoords.Y - gridNodeBCoords.Y);
 			return dstY + dstX;
 		}
 	}

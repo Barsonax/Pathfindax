@@ -1,21 +1,21 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Duality;
+using Pathfindax.Collections;
 using Pathfindax.Nodes;
 
 namespace Pathfindax.Grid
 {
 	public class SourceNodeNetwork : ISourceNodeNetwork<SourceNode>
 	{
-		public int NodeCount => Nodes.Count;
-		public SourceNode this[int index] => Nodes[index];
-		public List<SourceNode> Nodes { get; }
+		public DefinitionNode this[int index] => DefinitionNodes[index];
+		public List<DefinitionNode> DefinitionNodes { get; } = new List<DefinitionNode>();
+		public int NodeCount => DefinitionNodes.Count;
 		public Vector2 Offset { get; protected set; }
+		private readonly Dictionary<PathfindaxCollisionCategory, List<SourceNode>> _nodeNetworks = new Dictionary<PathfindaxCollisionCategory, List<SourceNode>>();
 
 		public SourceNodeNetwork(Vector2 offset)
 		{
-			Nodes = new List<SourceNode>();
 			Offset = offset;
 		}
 
@@ -23,22 +23,63 @@ namespace Pathfindax.Grid
 		/// Returns the node closest to this position
 		/// </summary>
 		/// <returns></returns>
-		public SourceNode GetNode(float worldX, float worldY)
+		public DefinitionNode GetNode(float worldX, float worldY)
 		{			
-			return Nodes.OrderBy(x => MathF.Distance(x.WorldPosition.X, x.WorldPosition.Y, worldX, worldY)).FirstOrDefault(); //TODO this does not scale well with more nodes in the network.
+			return DefinitionNodes.OrderBy(x => MathF.Distance(x.Position.X, x.Position.Y, worldX, worldY)).FirstOrDefault(); //TODO this does not scale well with more nodes in the network.
 		}
 
-		public IEnumerator<SourceNode> GetEnumerator()
+		public List<SourceNode> GetSourceGrid(PathfindaxCollisionCategory collisionCategory)
 		{
-			foreach (var node in Nodes)
+			if (!_nodeNetworks.TryGetValue(collisionCategory, out var sourceNodeGrid))
 			{
-				yield return node;
+				sourceNodeGrid = GenerateSourceNodeGrid(collisionCategory);
+				_nodeNetworks.Add(collisionCategory, sourceNodeGrid);
+			}
+			return sourceNodeGrid;
+		}
+
+		private List<SourceNode> GenerateSourceNodeGrid(PathfindaxCollisionCategory collisionCategory)
+		{
+			var sourceNodeGrid = GenerateNodes();
+			GenerateConnections(sourceNodeGrid, collisionCategory);
+			GenerateClearances(sourceNodeGrid, collisionCategory);
+			return sourceNodeGrid;
+		}
+
+		private List<SourceNode> GenerateNodes()
+		{
+			var sourceNodeGrid = new List<SourceNode>();
+			for (var i = 0; i < DefinitionNodes.Count; i++)
+			{
+				sourceNodeGrid[i] = new SourceNode(DefinitionNodes[i]);
+			}
+			return sourceNodeGrid;
+		}
+
+		private void GenerateConnections(List<SourceNode> sourceNodeGrid, PathfindaxCollisionCategory collisionCategory)
+		{
+			for (var i = 0; i < DefinitionNodes.Count; i++)
+			{
+				var definitionNode = DefinitionNodes[i];
+				var nodeConnections = new List<NodePointer>();
+				foreach (var nodeDefinitionConnection in definitionNode.Connections)
+				{
+					if ((nodeDefinitionConnection.CollisionCategory & collisionCategory) == 0)
+					{
+						nodeConnections.Add(nodeDefinitionConnection.To);
+					}
+				}
+				sourceNodeGrid[i].Connections = nodeConnections.ToArray(); ;
 			}
 		}
 
-		IEnumerator IEnumerable.GetEnumerator()
+		private void GenerateClearances(List<SourceNode> sourceNodeGrid, PathfindaxCollisionCategory collisionCategory)
 		{
-			return GetEnumerator();
+			for (var i = 0; i < sourceNodeGrid.Count; i++)
+			{
+				var clearance = int.MaxValue; //CalculateGridNodeClearances(i, collisionCategory, 5);
+				sourceNodeGrid[i].Clearance = clearance;
+			}
 		}
 	}
 }

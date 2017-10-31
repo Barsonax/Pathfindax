@@ -25,6 +25,11 @@ namespace Pathfindax.Nodes
 			return nodeArray[p.Index];
 		}
 
+		public static T Dereference<T>(NodePointer p, IReadOnlyArray2D<T> nodeArray)
+		{
+			return nodeArray[p.Index];
+		}
+
 		public static T Dereference<T>(NodePointer p, Array2D<T> nodeArray)
 		{
 			return nodeArray[p.Index];
@@ -36,7 +41,7 @@ namespace Pathfindax.Nodes
 			return nodeArray[p.Index];
 		}
 
-		public static  T Dereference<T>(NodePointer p, ISourceNodeNetwork<T> nodeArray)
+		public static DefinitionNode Dereference<T>(NodePointer p, ISourceNodeNetwork<T> nodeArray) 
 			where T : ISourceNode
 		{
 			return nodeArray[p.Index];

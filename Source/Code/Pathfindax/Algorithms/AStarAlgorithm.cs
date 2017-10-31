@@ -13,15 +13,14 @@ namespace Pathfindax.Algorithms
 	/// </summary>
 	public class AStarAlgorithm : IPathFindAlgorithm<INodeNetwork<AstarNode>>
 	{
-		/// <inheritdoc />
-		public IList<ISourceNode> FindPath(INodeNetwork<AstarNode> nodeNetwork, PathRequest pathRequest)
+		public List<DefinitionNode> FindPath(INodeNetwork<AstarNode> nodeNetwork, PathRequest pathRequest)
 		{
 			var startNode = NodePointer.Dereference(pathRequest.PathStart.Index, nodeNetwork);
 			var endNode = NodePointer.Dereference(pathRequest.PathEnd.Index, nodeNetwork);
-			return FindPath(nodeNetwork, startNode, endNode, pathRequest.CollisionLayer);
+			return FindPath(nodeNetwork, startNode, endNode, pathRequest.AgentSize);
 		}
 
-		private static IList<ISourceNode> FindPath(INodeNetwork<AstarNode> nodeNetwork, AstarNode startNode, AstarNode targetNode, PathfindaxCollisionCategory collisionCategory)
+		private static List<DefinitionNode> FindPath(INodeNetwork<AstarNode> nodeNetwork, AstarNode startNode, AstarNode targetNode, byte neededClearance)
 		{
 			try
 			{
@@ -31,9 +30,9 @@ namespace Pathfindax.Algorithms
 				var pathSucces = false;
 				if (startNode == targetNode)
 				{
-					return new List<ISourceNode> { targetNode.SourceNode };
+					return new List<DefinitionNode> { targetNode.SourceNode.DefinitionNode };
 				}
-				if ((startNode.SourceNode.CollisionCategory & collisionCategory) == 0 && (targetNode.SourceNode.CollisionCategory & collisionCategory) == 0)
+				if (startNode.SourceNode.Clearance >= neededClearance && targetNode.SourceNode.Clearance >= neededClearance)
 				{
 					var openSet = new MinHeap<AstarNode>(nodeNetwork.SourceNodeNetwork.NodeCount);
 					var closedSet = new HashSet<AstarNode>();
@@ -56,17 +55,15 @@ namespace Pathfindax.Algorithms
 
 						foreach (var connection in currentNode.SourceNode.Connections)
 						{
-							var toNode = NodePointer.Dereference(connection.To, nodeNetwork);
-							if ((connection.CollisionCategory & collisionCategory) != 0 || (toNode.SourceNode.CollisionCategory & collisionCategory) != 0 || closedSet.Contains(toNode))
-							{
-								continue;
-							}
-							var newMovementCostToNeighbour = currentNode.GCost + GetDistance(currentNode.SourceNode, toNode.SourceNode) + currentNode.SourceNode.MovementPenalty;
+							var toNode = NodePointer.Dereference(connection, nodeNetwork);
+							if (closedSet.Contains(toNode)) continue;
+
+							var newMovementCostToNeighbour = currentNode.GCost + GetDistance(currentNode.SourceNode.DefinitionNode, toNode.SourceNode.DefinitionNode) + currentNode.SourceNode.DefinitionNode.MovementPenalty;
 							if (newMovementCostToNeighbour < toNode.GCost || !openSet.Contains(toNode))
 							{
 								toNode.GCost = newMovementCostToNeighbour;
-								toNode.HCost = GetDistance(toNode.SourceNode, targetNode.SourceNode);
-								toNode.Parent = currentNode.SourceNode.Index;
+								toNode.HCost = GetDistance(toNode.SourceNode.DefinitionNode, targetNode.SourceNode.DefinitionNode);
+								toNode.Parent = currentNode.SourceNode.DefinitionNode.Index;
 								neighbourUpdates++;
 								if (!openSet.Contains(toNode))
 									openSet.Add(toNode);
@@ -88,14 +85,14 @@ namespace Pathfindax.Algorithms
 			}
 		}
 
-		private static IList<ISourceNode> RetracePath(INodeNetwork<AstarNode> nodeNetwork, AstarNode startGridNode, AstarNode endGridNode)
+		private static List<DefinitionNode> RetracePath(INodeNetwork<AstarNode> nodeNetwork, AstarNode startGridNode, AstarNode endGridNode)
 		{
-			var path = new List<ISourceNode>();
+			var path = new List<DefinitionNode>();
 			var currentNode = endGridNode;
 
 			while (true)
 			{
-				path.Add(currentNode.SourceNode);
+				path.Add(currentNode.SourceNode.DefinitionNode);
 				if (currentNode == startGridNode) break;
 				currentNode = NodePointer.Dereference(currentNode.Parent, nodeNetwork);
 			}
@@ -103,10 +100,10 @@ namespace Pathfindax.Algorithms
 			return path;
 		}
 
-		private static float GetDistance(SourceNode sourceNodeA, SourceNode sourceNodeB)
+		private static float GetDistance(DefinitionNode sourceNodeA, DefinitionNode sourceNodeB)
 		{
-			var dstX = Math.Abs(sourceNodeA.WorldPosition.X - sourceNodeB.WorldPosition.X);
-			var dstY = Math.Abs(sourceNodeA.WorldPosition.Y - sourceNodeB.WorldPosition.Y);
+			var dstX = Math.Abs(sourceNodeA.Position.X - sourceNodeB.Position.X);
+			var dstY = Math.Abs(sourceNodeA.Position.Y - sourceNodeB.Position.Y);
 			return dstY + dstX;
 		}
 	}

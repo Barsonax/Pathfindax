@@ -18,6 +18,6 @@ namespace Pathfindax.Algorithms
 		/// <param name="nodeNetwork">The <typeparamref name="TNodeNetwork"/> in which the pathfinding will be done</param>
 		/// <param name="pathRequest">The <see cref="PathRequest"/> that contains the info needed such as the start and end of the path</param>
 		/// <returns>A list of nodes in the defining the path</returns>
-		IList<ISourceNode> FindPath(TNodeNetwork nodeNetwork, PathRequest pathRequest);
+		List<DefinitionNode> FindPath(TNodeNetwork nodeNetwork, PathRequest pathRequest);
 	}
 }
