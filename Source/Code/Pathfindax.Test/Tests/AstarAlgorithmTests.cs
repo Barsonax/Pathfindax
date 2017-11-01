@@ -3,7 +3,6 @@ using Duality;
 using NUnit.Framework;
 using Pathfindax.Algorithms;
 using Pathfindax.Grid;
-using Pathfindax.Nodes;
 using Pathfindax.PathfindEngine;
 using Pathfindax.Factories;
 
@@ -14,7 +13,7 @@ namespace Pathfindax.Test.Tests
 	{
 		[Test, TestCaseSource(typeof(AstarAlgorithmCases), nameof(AstarAlgorithmCases.FindPathTestCases))]
 		[MaxTime(2000)]
-		public void FindPath_InitializedNodegrid_PathLengthIsNot0(float x1, float y1, float x2, float y2)
+		public void FindPath_InitializedNodenetwork_PathLengthIsNot0(float x1, float y1, float x2, float y2)
 		{
 			var nodeNetwork = new SourceNodeNetwork(new Vector2(0, 0));
 			var node1 = nodeNetwork.AddNode(new Vector2(0f, 0f));

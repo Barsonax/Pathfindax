@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Pathfindax.Algorithms;
 using Pathfindax.Grid;
 using Pathfindax.Threading;
@@ -43,22 +42,15 @@ namespace Pathfindax.PathfindEngine
             }
             else
             {
-                //if (_pathPostProcesses != null)
-                //{
-                //    foreach (var postProcess in _pathPostProcesses)
-                //    {
-                //        path = postProcess.Process(path, pathRequest);
-                //    }
-                //}
-                if (_nodeNetwork is INodeGrid nodeGrid)
-                {
-					pathRequest.FinishSolvePath(new CompletedGridPath(path.ToArray(), nodeGrid.SourceNodeGrid.NodeSize.X, pathRequest.AgentSize));
-                }
-                else
-                {
-                    pathRequest.FinishSolvePath(new CompletedPath(path.ToArray()));
-                }
-            }           
+				//if (_pathPostProcesses != null)
+				//{
+				//    foreach (var postProcess in _pathPostProcesses)
+				//    {
+				//        path = postProcess.Process(path, pathRequest);
+				//    }
+				//}
+				pathRequest.FinishSolvePath(new CompletedPath(path.ToArray()));
+			}           
 		}
 	}
 }

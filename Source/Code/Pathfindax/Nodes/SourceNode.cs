@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using Duality;
-using Pathfindax.Grid;
-
-namespace Pathfindax.Nodes
+﻿namespace Pathfindax.Nodes
 {
 	public class SourceNode : ISourceNode
 	{

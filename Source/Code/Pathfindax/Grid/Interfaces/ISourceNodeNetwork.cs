@@ -10,7 +10,7 @@ namespace Pathfindax.Grid
 	public interface ISourceNodeNetwork<out TNode> : ISourceNodeNetwork
 		where TNode : ISourceNode
 	{
-
+		TNode[] GetSourceNetwork(PathfindaxCollisionCategory collisionCategory);
 	}
 
 	/// <summary>

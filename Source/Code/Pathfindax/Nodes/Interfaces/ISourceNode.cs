@@ -1,6 +1,4 @@
-﻿using Pathfindax.Grid;
-
-namespace Pathfindax.Nodes
+﻿namespace Pathfindax.Nodes
 {
 	public interface ISourceNode
 	{

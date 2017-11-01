@@ -64,7 +64,7 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Components
 							var nodeGridCoordinates = _sourceNodeGrid.DefinitionNodeArray.GetCoordinates(definitionNode.Index.Index);
 							var index = baseTilemap.Tiles[nodeGridCoordinates.X, nodeGridCoordinates.Y].Index;
 							if (index < MovementPenalties.Length)
-								definitionNode.MovementPenalty = MovementPenalties[index];
+								definitionNode.MovementCostModifier = MovementPenalties[index];
 						}
 					}
 				});

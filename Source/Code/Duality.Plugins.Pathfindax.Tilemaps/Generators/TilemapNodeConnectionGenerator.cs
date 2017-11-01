@@ -61,7 +61,7 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Generators
 		}
 
 		/// <summary>
-		/// Calculates the <see cref="NodeConnection"/>s and the base <see cref="GridClearance"/> for the <paramref name="sourceGridNode"/>
+		/// Calculates the <see cref="NodeConnection"/>s for the <paramref name="sourceGridNode"/>
 		/// </summary>
 		/// <param name="tilemapColliderWithBodies"></param>
 		/// <param name="sourceGridNode"></param>

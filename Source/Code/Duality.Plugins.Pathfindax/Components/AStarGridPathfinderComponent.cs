@@ -23,8 +23,8 @@ namespace Duality.Plugins.Pathfindax.Components
 				if (sourceNodeGrid == null) return;
 				Pathfinder = PathfinderFactory.CreatePathfinder(sourceNodeGrid, s =>
 				{
-					var nodeGrid = new AstarNodeGrid(s);
-					var algorithm = new AStarGridAlgorithm();
+					var nodeGrid = new AstarNodeNetwork(s);
+					var algorithm = new AStarAlgorithm();
 					return PathfinderFactory.CreateRequestProcesser(nodeGrid, algorithm);
 				});
 				Pathfinder.Start();

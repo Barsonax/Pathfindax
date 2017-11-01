@@ -1,5 +1,4 @@
-﻿using Pathfindax.Grid;
-using Pathfindax.Nodes;
+﻿using Pathfindax.Nodes;
 
 namespace Pathfindax.Factories
 {

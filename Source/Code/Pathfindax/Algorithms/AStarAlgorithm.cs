@@ -21,7 +21,7 @@ namespace Pathfindax.Algorithms
 			return FindPath(pathfindingNetwork, startNode, endNode, pathRequest.AgentSize);
 		}
 
-		private static List<DefinitionNode> FindPath(AstarNode[] pathfindingNetwork, AstarNode startNode, AstarNode targetNode, byte neededClearance)
+		private static List<DefinitionNode> FindPath(AstarNode[] pathfindingNetwork, AstarNode startNode, AstarNode targetNode, float neededClearance)
 		{
 			try
 			{
@@ -59,15 +59,18 @@ namespace Pathfindax.Algorithms
 							var toNode = NodePointer.Dereference(connection, pathfindingNetwork);
 							if (closedSet.Contains(toNode)) continue;
 
-							var newMovementCostToNeighbour = currentNode.GCost + GetDistance(currentNode.SourceNode.DefinitionNode, toNode.SourceNode.DefinitionNode) + currentNode.SourceNode.DefinitionNode.MovementPenalty;
-							if (newMovementCostToNeighbour < toNode.GCost || !openSet.Contains(toNode))
+							if (toNode.SourceNode.Clearance >= neededClearance)
 							{
-								toNode.GCost = newMovementCostToNeighbour;
-								toNode.HCost = GetDistance(toNode.SourceNode.DefinitionNode, targetNode.SourceNode.DefinitionNode);
-								toNode.Parent = currentNode.SourceNode.DefinitionNode.Index;
-								neighbourUpdates++;
-								if (!openSet.Contains(toNode))
-									openSet.Add(toNode);
+								var newMovementCostToNeighbour = currentNode.GCost + GetDistance(currentNode.SourceNode.DefinitionNode, toNode.SourceNode.DefinitionNode) + currentNode.SourceNode.DefinitionNode.MovementCostModifier;
+								if (newMovementCostToNeighbour < toNode.GCost || !openSet.Contains(toNode))
+								{
+									toNode.GCost = newMovementCostToNeighbour;
+									toNode.HCost = GetDistance(toNode.SourceNode.DefinitionNode, targetNode.SourceNode.DefinitionNode);
+									toNode.Parent = currentNode.SourceNode.DefinitionNode.Index;
+									neighbourUpdates++;
+									if (!openSet.Contains(toNode))
+										openSet.Add(toNode);
+								}
 							}
 						}
 					}
@@ -82,6 +85,7 @@ namespace Pathfindax.Algorithms
 			catch (Exception ex)
 			{
 				Debug.WriteLine(ex);
+				Debugger.Break();
 				return null;
 			}
 		}

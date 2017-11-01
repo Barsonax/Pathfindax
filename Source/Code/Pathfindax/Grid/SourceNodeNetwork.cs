@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Duality;
-using Pathfindax.Collections;
 using Pathfindax.Nodes;
 
 namespace Pathfindax.Grid
@@ -12,7 +11,7 @@ namespace Pathfindax.Grid
 		public List<DefinitionNode> DefinitionNodes { get; } = new List<DefinitionNode>();
 		public int NodeCount => DefinitionNodes.Count;
 		public Vector2 Offset { get; protected set; }
-		private readonly Dictionary<PathfindaxCollisionCategory, List<SourceNode>> _nodeNetworks = new Dictionary<PathfindaxCollisionCategory, List<SourceNode>>();
+		private readonly Dictionary<PathfindaxCollisionCategory, SourceNode[]> _nodeNetworks = new Dictionary<PathfindaxCollisionCategory, SourceNode[]>();
 
 		public SourceNodeNetwork(Vector2 offset)
 		{
@@ -35,7 +34,7 @@ namespace Pathfindax.Grid
 			return DefinitionNodes.OrderBy(x => MathF.Distance(x.Position.X, x.Position.Y, worldX, worldY)).FirstOrDefault(); //TODO this does not scale well with more nodes in the network.
 		}
 
-		public List<SourceNode> GetSourceGrid(PathfindaxCollisionCategory collisionCategory)
+		public SourceNode[] GetSourceNetwork(PathfindaxCollisionCategory collisionCategory)
 		{
 			if (!_nodeNetworks.TryGetValue(collisionCategory, out var sourceNodeGrid))
 			{
@@ -45,7 +44,7 @@ namespace Pathfindax.Grid
 			return sourceNodeGrid;
 		}
 
-		private List<SourceNode> GenerateSourceNodeGrid(PathfindaxCollisionCategory collisionCategory)
+		private SourceNode[] GenerateSourceNodeGrid(PathfindaxCollisionCategory collisionCategory)
 		{
 			var sourceNodeGrid = GenerateNodes();
 			GenerateConnections(sourceNodeGrid, collisionCategory);
@@ -53,9 +52,9 @@ namespace Pathfindax.Grid
 			return sourceNodeGrid;
 		}
 
-		private List<SourceNode> GenerateNodes()
+		private SourceNode[] GenerateNodes()
 		{
-			var sourceNodeGrid = new List<SourceNode>();
+			var sourceNodeGrid = new SourceNode[DefinitionNodes.Count];
 			for (var i = 0; i < DefinitionNodes.Count; i++)
 			{
 				sourceNodeGrid[i] = new SourceNode(DefinitionNodes[i]);
@@ -63,7 +62,7 @@ namespace Pathfindax.Grid
 			return sourceNodeGrid;
 		}
 
-		private void GenerateConnections(List<SourceNode> sourceNodeGrid, PathfindaxCollisionCategory collisionCategory)
+		private void GenerateConnections(SourceNode[] sourceNodeGrid, PathfindaxCollisionCategory collisionCategory)
 		{
 			for (var i = 0; i < DefinitionNodes.Count; i++)
 			{
@@ -80,9 +79,9 @@ namespace Pathfindax.Grid
 			}
 		}
 
-		private void GenerateClearances(List<SourceNode> sourceNodeGrid, PathfindaxCollisionCategory collisionCategory)
+		private void GenerateClearances(SourceNode[] sourceNodeGrid, PathfindaxCollisionCategory collisionCategory)
 		{
-			for (var i = 0; i < sourceNodeGrid.Count; i++)
+			for (var i = 0; i < sourceNodeGrid.Length; i++)
 			{
 				var clearance = int.MaxValue; //CalculateGridNodeClearances(i, collisionCategory, 5);
 				sourceNodeGrid[i].Clearance = clearance;

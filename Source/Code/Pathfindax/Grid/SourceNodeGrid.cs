@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Duality;
 using Pathfindax.Collections;
 using Pathfindax.Nodes;
@@ -13,13 +14,13 @@ namespace Pathfindax.Grid
 	public class SourceNodeGrid : ISourceNodeGrid<SourceNode>
 	{
 		public DefinitionNode this[int index] => DefinitionNodeArray[index];
-		public IReadOnlyArray2D<DefinitionNode> DefinitionNodeArray { get; }
+		public Array2D<DefinitionNode> DefinitionNodeArray { get; }
 		public Vector2 WorldSize { get; protected set; }
 		public Vector2 NodeSize { get; protected set; }
 		public int NodeCount => DefinitionNodeArray.Length;
 		public Vector2 Offset { get; protected set; }
-		private readonly Dictionary<PathfindaxCollisionCategory, Array2D<SourceNode>> _nodeGrids = new Dictionary<PathfindaxCollisionCategory, Array2D<SourceNode>>();
-		public SourceNodeGrid(IReadOnlyArray2D<DefinitionNode> grid, Vector2 nodeSize, Vector2 offset)
+		private readonly Dictionary<PathfindaxCollisionCategory, SourceNode[]> _nodeNetworks = new Dictionary<PathfindaxCollisionCategory, SourceNode[]>();
+		public SourceNodeGrid(Array2D<DefinitionNode> grid, Vector2 nodeSize, Vector2 offset)
 		{
 			DefinitionNodeArray = grid;
 			WorldSize = new Vector2(DefinitionNodeArray.Width * nodeSize.X - nodeSize.X, DefinitionNodeArray.Height * nodeSize.Y - nodeSize.Y);
@@ -27,17 +28,19 @@ namespace Pathfindax.Grid
 			Offset = offset;
 		}
 
-		public Array2D<SourceNode> GetSourceGrid(PathfindaxCollisionCategory collisionCategory)
+		public SourceNode[] GetSourceNetwork(PathfindaxCollisionCategory collisionCategory)
 		{
-			if (!_nodeGrids.TryGetValue(collisionCategory, out var sourceNodeGrid))
+			if (!_nodeNetworks.TryGetValue(collisionCategory, out var sourceNodeGrid))
 			{
+				var watch = Stopwatch.StartNew();
 				sourceNodeGrid = GenerateSourceNodeGrid(collisionCategory);
-				_nodeGrids.Add(collisionCategory, sourceNodeGrid);
+				Debug.WriteLine($"Generated source nodenetwork in {watch.ElapsedMilliseconds} ms");
+				_nodeNetworks.Add(collisionCategory, sourceNodeGrid);
 			}
 			return sourceNodeGrid;
 		}
 
-		private Array2D<SourceNode> GenerateSourceNodeGrid(PathfindaxCollisionCategory collisionCategory)
+		private SourceNode[] GenerateSourceNodeGrid(PathfindaxCollisionCategory collisionCategory)
 		{
 			var sourceNodeGrid = GenerateNodes();
 			GenerateConnections(sourceNodeGrid, collisionCategory);
@@ -45,9 +48,9 @@ namespace Pathfindax.Grid
 			return sourceNodeGrid;
 		}
 
-		private Array2D<SourceNode> GenerateNodes()
+		private SourceNode[] GenerateNodes()
 		{
-			var sourceNodeGrid = new Array2D<SourceNode>(DefinitionNodeArray.Width, DefinitionNodeArray.Height);
+			var sourceNodeGrid = new SourceNode[DefinitionNodeArray.Length];
 			for (var i = 0; i < DefinitionNodeArray.Length; i++)
 			{
 				sourceNodeGrid[i] = new SourceNode(DefinitionNodeArray[i]);
@@ -55,7 +58,7 @@ namespace Pathfindax.Grid
 			return sourceNodeGrid;
 		}
 
-		private void GenerateConnections(Array2D<SourceNode> sourceNodeGrid, PathfindaxCollisionCategory collisionCategory)
+		private void GenerateConnections(SourceNode[] sourceNodeGrid, PathfindaxCollisionCategory collisionCategory)
 		{
 			for (var i = 0; i < DefinitionNodeArray.Length; i++)
 			{
@@ -72,7 +75,7 @@ namespace Pathfindax.Grid
 			}
 		}
 
-		private void GenerateClearances(Array2D<SourceNode> sourceNodeGrid, PathfindaxCollisionCategory collisionCategory)
+		private void GenerateClearances(SourceNode[] sourceNodeGrid, PathfindaxCollisionCategory collisionCategory)
 		{
 			for (var i = 0; i < sourceNodeGrid.Length; i++)
 			{

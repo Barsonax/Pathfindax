@@ -29,6 +29,9 @@ namespace Pathfindax.Collections
 		/// </summary>
 		public int Height { get; }
 
+		/// <summary>
+		/// The internal single dimensional array thats used to store the <typeparamref name="TItem"/>s
+		/// </summary>
 		public TItem[] Array { get; }
 
 		/// <summary>

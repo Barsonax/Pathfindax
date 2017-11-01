@@ -7,7 +7,7 @@ namespace Pathfindax.Nodes
 	{
 		List<NodeConnection> Connections { get; }
 		NodePointer Index { get; }
-		byte MovementPenalty { get; set; }
+		float MovementCostModifier { get; set; }
 		Vector2 Position { get; set; }
 
 		string ToString();

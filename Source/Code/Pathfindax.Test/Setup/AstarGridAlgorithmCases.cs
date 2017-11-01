@@ -8,11 +8,11 @@ namespace Pathfindax.Test.Setup
 {
     public class AstarGridAlgorithmCases
     {
-        public static AstarNodeGrid InitializeNodeGrid(int width, int height, Vector2 nodeSize)
+        public static AstarNodeNetwork InitializeNodeGrid(int width, int height, Vector2 nodeSize)
         {
             var sourceNodeGridFactory = new SourceNodeGridFactory();
             var sourceNodeGrid = sourceNodeGridFactory.GeneratePreFilledArray(width, height, nodeSize, GenerateNodeGridConnections.All);
-            return new AstarNodeGrid(sourceNodeGrid);
+            return new AstarNodeNetwork(sourceNodeGrid);
         }
 
         public static IEnumerable FindPathTestCases

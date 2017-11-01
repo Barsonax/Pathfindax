@@ -9,7 +9,6 @@ namespace Pathfindax.Grid
 	public interface INodeNetwork<out TNode> : INodeNetwork
 		where TNode : INode
 	{
-		new ISourceNodeNetwork<ISourceNode> SourceNodeNetwork { get; }
 		TNode[] GetPathfindingNetwork(PathfindaxCollisionCategory collisionCategory);
 	}
 
@@ -18,6 +17,5 @@ namespace Pathfindax.Grid
 	/// </summary>
 	public interface INodeNetwork
 	{
-		ISourceNodeNetwork SourceNodeNetwork { get; }
 	}
 }

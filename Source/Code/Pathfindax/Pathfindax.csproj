@@ -67,14 +67,10 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Algorithms\AStarGridAlgorithm.cs" />
     <Compile Include="Collections\Interfaces\IReadOnlyArray2D.cs" />
     <Compile Include="Collections\Interfaces\IWriteOnlyArray2D.cs" />
     <Compile Include="Factories\NodeFactory.cs" />
-    <Compile Include="Grid\Abstract\NodeNetworkBase.cs" />
-    <Compile Include="Grid\Abstract\SourceNodeNetworkBase.cs" />
     <Compile Include="Nodes\DefinitionNode.cs" />
-    <Compile Include="Grid\Interfaces\INodeGrid.cs" />
     <Compile Include="Nodes\IDefinitionNode.cs" />
     <Compile Include="Nodes\Interfaces\ISourceNode.cs" />
     <Compile Include="Factories\PathfinderFactory.cs" />
@@ -89,7 +85,6 @@
     <Compile Include="Collections\Array2D.cs" />
     <Compile Include="Collections\Interfaces\IHeapItem.cs" />
     <Compile Include="Collections\MinHeap.cs" />
-    <Compile Include="Grid\AstarNodeGrid.cs" />
     <Compile Include="Grid\AstarNodeNetwork.cs" />
     <Compile Include="Factories\SourceNodeGridFactory.cs" />
     <Compile Include="Grid\Enums\GenerateNodeGridConnections.cs" />
@@ -128,7 +123,9 @@
     <None Include="packages.config" />
     <None Include="Pathfindax.nuspec" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Grid\Abstract\" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>if $(ConfigurationName) == Debug (
