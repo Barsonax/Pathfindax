@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using Pathfindax.Nodes;
 
 namespace Pathfindax.Grid
@@ -6,7 +7,7 @@ namespace Pathfindax.Grid
 	/// <summary>
 	/// A node network for <see cref="AstarNode"/>s
 	/// </summary>
-	public class AstarNodeNetwork : INodeNetwork<AstarNode>
+	public class AstarNodeNetwork : IPathfindNodeNetwork<AstarNode>
 	{
 		private Dictionary<PathfindaxCollisionCategory, AstarNode[]> NodeNetworks { get; } = new Dictionary<PathfindaxCollisionCategory, AstarNode[]>();
 		public ISourceNodeNetwork<SourceNode> SourceNodeNetwork { get; }
@@ -24,8 +25,11 @@ namespace Pathfindax.Grid
 		{
 			if (!NodeNetworks.TryGetValue(collisionCategory, out var nodegrid))
 			{
+				
 				var sourceNodeNetwork = SourceNodeNetwork.GetSourceNetwork(collisionCategory);
+				var watch = Stopwatch.StartNew();
 				nodegrid = GenerateNodeGrid(sourceNodeNetwork);
+				Debug.WriteLine($"Generated pathfind nodenetwork in {watch.ElapsedMilliseconds} ms");
 				NodeNetworks.Add(collisionCategory, nodegrid);
 			}
 			return nodegrid;

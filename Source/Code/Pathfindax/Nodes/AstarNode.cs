@@ -29,7 +29,6 @@ namespace Pathfindax.Nodes
 		public AstarNode(SourceNode sourceNode)
 		{
 			SourceNode = sourceNode;
-			Parent = NodePointer.NullPointer;
 		}
 
 		public int CompareTo(AstarNode other)

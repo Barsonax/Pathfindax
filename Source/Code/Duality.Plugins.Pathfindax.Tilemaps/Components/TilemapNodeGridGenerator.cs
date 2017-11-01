@@ -1,5 +1,6 @@
 ﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Duality.Editor;
@@ -37,7 +38,8 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Components
 		public SourceNodeGrid GenerateGrid2D()
 		{
 			if (_sourceNodeGrid == null)
-			{				
+			{
+				var watch = Stopwatch.StartNew();
 				var tilemaps = SearchTilemaps().ToArray();
 				var baseTilemap = tilemaps.FirstOrDefault();
 				if (baseTilemap == null)
@@ -68,6 +70,7 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Components
 						}
 					}
 				});
+				Debug.WriteLine($"Generated definition nodegrid for tilemap in {watch.ElapsedMilliseconds} ms");
 			}
 			return _sourceNodeGrid;
 		}

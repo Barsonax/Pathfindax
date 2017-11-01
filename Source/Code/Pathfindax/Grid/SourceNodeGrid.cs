@@ -63,15 +63,27 @@ namespace Pathfindax.Grid
 			for (var i = 0; i < DefinitionNodeArray.Length; i++)
 			{
 				var definitionNode = DefinitionNodeArray[i];
-				var nodeConnections = new List<NodePointer>();
+
+				var count = 0;
 				foreach (var nodeDefinitionConnection in definitionNode.Connections)
 				{
 					if ((nodeDefinitionConnection.CollisionCategory & collisionCategory) == 0)
 					{
-						nodeConnections.Add(nodeDefinitionConnection.To);
+						count++;
 					}
 				}
-				sourceNodeGrid[i].Connections = nodeConnections.ToArray(); ;
+
+				var j = 0;
+				var nodeConnections = new NodePointer[count];
+				foreach (var nodeDefinitionConnection in definitionNode.Connections)
+				{
+					if ((nodeDefinitionConnection.CollisionCategory & collisionCategory) == 0)
+					{
+						nodeConnections[j] = nodeDefinitionConnection.To;
+						j++;
+					}
+				}
+				sourceNodeGrid[i].Connections = nodeConnections;
 			}
 		}
 
@@ -96,36 +108,41 @@ namespace Pathfindax.Grid
 			var fromGridCoordinates = DefinitionNodeArray.GetCoordinates(index);
 			for (var i = 0; i < maxClearance; i++)
 			{
-				var nodeConnections = new List<NodeConnection>(1 + i * 16); //Since we know the amount of connections that will likely be in this list we can specify the size beforehand for some extra performance.
-				foreach (var gridNode in GetNodesInArea(fromGridCoordinates.X, fromGridCoordinates.Y + i, i + 1, 1))
+				foreach (var definitionNode in GetNodesInArea(fromGridCoordinates.X, fromGridCoordinates.Y + i, i + 1, 1))
 				{
-					nodeConnections.AddRange(gridNode.Connections);
+					foreach (var nodeConnection in definitionNode.Connections)
+					{
+						if ((nodeConnection.CollisionCategory & collisionCategory) != 0) return i;
+					}
 				}
 
-				foreach (var gridNode in GetNodesInArea(fromGridCoordinates.X + i, fromGridCoordinates.Y, 1, i))
+				foreach (var definitionNode in GetNodesInArea(fromGridCoordinates.X + i, fromGridCoordinates.Y, 1, i))
 				{
-					nodeConnections.AddRange(gridNode.Connections);
-				}
-				foreach (var nodeConnection in nodeConnections)
-				{
-					if ((nodeConnection.CollisionCategory & collisionCategory) != 0) return i;
+					foreach (var nodeConnection in definitionNode.Connections)
+					{
+						if ((nodeConnection.CollisionCategory & collisionCategory) != 0) return i;
+					}
 				}
 			}
 			return maxClearance;
 		}
 
-		private List<DefinitionNode> GetNodesInArea(int gridX, int gridY, int width, int height)
+		private IEnumerable<DefinitionNode> GetNodesInArea(int gridX, int gridY, int width, int height)
 		{
-			var nodes = new List<DefinitionNode>();
-			for (var y = gridY; y < gridY + height; y++)
+			if (gridX >= DefinitionNodeArray.Width || gridY >= DefinitionNodeArray.Height) return new DefinitionNode[0];
+			var gridX2 = MathF.Clamp(gridX + width, 0, DefinitionNodeArray.Width - 1);
+			var gridY2 = MathF.Clamp(gridY + height, 0, DefinitionNodeArray.Height - 1);
+			var definitionNodes = new DefinitionNode[(gridX2 - gridX) * (gridY2 - gridY)];
+			var i = 0;
+			for (var y = gridY; y < gridY2; y++)
 			{
-				for (var x = gridX; x < gridX + width; x++)
+				for (var x = gridX; x < gridX2; x++)
 				{
-					if (x < DefinitionNodeArray.Width && y < DefinitionNodeArray.Height)
-						nodes.Add(DefinitionNodeArray[x, y]);
+					definitionNodes[i] = DefinitionNodeArray[x, y];
+					i++;
 				}
 			}
-			return nodes;
+			return definitionNodes;
 		}
 
 		public DefinitionNode GetNode(float worldX, float worldY)

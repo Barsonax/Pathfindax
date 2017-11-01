@@ -7,7 +7,7 @@ using Pathfindax.Utils;
 namespace Duality.Plugins.Pathfindax.Components
 {
 	/// <summary>
-	/// Class for visualizing a <see cref="INodeNetwork{TNode}"/>
+	/// Class for visualizing a <see cref="IPathfindNodeNetwork{TNode}"/>
 	/// </summary>
 	[EditorHintCategory(PathfindaxStrings.Pathfindax)]
 	[RequiredComponent(typeof(IPathfinderComponent<ISourceNodeNetwork<SourceNode>>))]

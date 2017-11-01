@@ -11,9 +11,9 @@ namespace Pathfindax.Algorithms
 	/// <summary>
 	/// Class that implements the A* algorithm to find paths
 	/// </summary>
-	public class AStarAlgorithm : IPathFindAlgorithm<INodeNetwork<AstarNode>>
+	public class AStarAlgorithm : IPathFindAlgorithm<IPathfindNodeNetwork<AstarNode>>
 	{
-		public List<DefinitionNode> FindPath(INodeNetwork<AstarNode> nodeNetwork, PathRequest pathRequest)
+		public List<DefinitionNode> FindPath(IPathfindNodeNetwork<AstarNode> nodeNetwork, PathRequest pathRequest)
 		{
 			var pathfindingNetwork = nodeNetwork.GetPathfindingNetwork(pathRequest.CollisionLayer);
 			var startNode = NodePointer.Dereference(pathRequest.PathStart.Index, pathfindingNetwork);

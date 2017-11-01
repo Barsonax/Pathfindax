@@ -1,5 +1,4 @@
-﻿using Pathfindax.Collections;
-using Pathfindax.Grid;
+﻿using Pathfindax.Grid;
 
 namespace Pathfindax.Nodes
 {
@@ -21,16 +20,6 @@ namespace Pathfindax.Nodes
 		}
 
 		public static T Dereference<T>(NodePointer p, T[] nodeArray)
-		{
-			return nodeArray[p.Index];
-		}
-
-		public static T Dereference<T>(NodePointer p, IReadOnlyArray2D<T> nodeArray)
-		{
-			return nodeArray[p.Index];
-		}
-
-		public static T Dereference<T>(NodePointer p, Array2D<T> nodeArray)
 		{
 			return nodeArray[p.Index];
 		}
