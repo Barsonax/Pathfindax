@@ -109,41 +109,51 @@ namespace Pathfindax.Grid
 		private float CalculateGridNodeClearances(int index, PathfindaxCollisionCategory collisionCategory, int maxClearance)
 		{
 			var fromCoordinates = DefinitionNodeArray.GetCoordinates(index);
-			//if (fromCoordinates.X == 2 && fromCoordinates.Y == 0)
-			//{
-			for (var checkClearance = 0; checkClearance < maxClearance; checkClearance++)
+			if (fromCoordinates.X == 0 && fromCoordinates.Y == 1 || true)
 			{
-				var nextClearanceIsBlocked = false;
-				var maxCoordinates = new Point2(fromCoordinates.X + checkClearance, fromCoordinates.Y + checkClearance);
-				for (var x = 0; x < checkClearance + 1; x++)
+				for (var checkClearance = 0; checkClearance < maxClearance; checkClearance++)
 				{
-					switch (IsBlocked(x + fromCoordinates.X, checkClearance + fromCoordinates.Y, collisionCategory, fromCoordinates, maxCoordinates))
+					var nextClearanceIsBlocked = false;
+					for (var x = 0; x < checkClearance + 1; x++)
 					{
-						case BlockType.Current:
-							return checkClearance;
-						case BlockType.Next:
-							nextClearanceIsBlocked = true;
-							break;
-					}						
-				}
+						switch (IsBlocked(x + fromCoordinates.X, checkClearance + fromCoordinates.Y, collisionCategory, fromCoordinates))
+						{
+							case BlockType.Current:
+								return checkClearance;
+							case BlockType.Next:
+								nextClearanceIsBlocked = true;
+								break;
+						}
+					}
 
-				for (var y = 0; y < checkClearance; y++)
-				{
-					switch (IsBlocked(checkClearance + fromCoordinates.X, y + fromCoordinates.Y, collisionCategory, fromCoordinates, maxCoordinates))
+					for (var y = 0; y < checkClearance; y++)
 					{
-						case BlockType.Current:
-							return checkClearance;
-						case BlockType.Next:
-							nextClearanceIsBlocked = true;
-							break;
+						switch (IsBlocked(checkClearance + fromCoordinates.X, y + fromCoordinates.Y, collisionCategory, fromCoordinates))
+						{
+							case BlockType.Current:
+								return checkClearance;
+							case BlockType.Next:
+								nextClearanceIsBlocked = true;
+								break;
+						}
+					}
+					if (nextClearanceIsBlocked)
+					{
+						var definitionNode = DefinitionNodeArray[index];
+						var isBlocked = true;
+						for (int i = 0; i < definitionNode.Connections.Count; i++)
+						{
+							if ((definitionNode.Connections[i].CollisionCategory & collisionCategory) == 0) isBlocked = false;
+						}
+						
+						return isBlocked ? checkClearance : checkClearance + 1;
 					}
 				}
-				if (nextClearanceIsBlocked) return checkClearance + 1;
 			}
 			return float.NaN;
 		}
 
-		private BlockType IsBlocked(int x, int y, PathfindaxCollisionCategory collisionCategory, Point2 fromCoordinates, Point2 maxCoordinates)
+		private BlockType IsBlocked(int x, int y, PathfindaxCollisionCategory collisionCategory, Point2 fromCoordinates)
 		{
 			if (x >= DefinitionNodeArray.Width || y >= DefinitionNodeArray.Height)
 				return BlockType.Current;
@@ -155,7 +165,7 @@ namespace Pathfindax.Grid
 					var toCoordinates = DefinitionNodeArray.GetCoordinates(nodeConnection.To.Index);
 					if (toCoordinates.X >= fromCoordinates.X && toCoordinates.Y >= fromCoordinates.Y)
 					{
-						if (toCoordinates.X > maxCoordinates.X || toCoordinates.Y > maxCoordinates.Y)
+						if (toCoordinates.X >= x && toCoordinates.Y >= y)
 						{
 							return BlockType.Next;
 						}

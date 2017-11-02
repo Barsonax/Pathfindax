@@ -53,7 +53,7 @@
                   <tileData dataType="Struct" type="Duality.Plugins.Tilemaps.TilemapData" id="577409533" custom="true">
                     <body>
                       <version dataType="Int">3</version>
-                      <data dataType="Array" type="System.Byte[]" id="3824240934">H4sIAAAAAAAEAFNgYGAQYaAWCAST5RDqP4TaSzXTKQFOjNQwBeKjdBT/zaWGwYMEjPoPBkyoSRFhNHXASI6/AxDqIIQ6RKrRFGpHBRyQ0oYTQnFBKG4IxYOnJBoq/iMX4PPfCQh1EkKdglDBkMAKYSTIw6qd3gCf/xQglCKEUoJQxPsPq3Z6A2z+uwuV04BQmhBKi1SjKdSOCuQgYSZPaqWPzX/3PcDUPU8wdc4LQkEEz9FL8B2JHsEBsPnvfwAKL2hgBCn1GQRAjFaGUNZQKgJCRUKoqAERrKbUZ6NgFIyCUTAKhicAAB7nmpiIEQAA</data>
+                      <data dataType="Array" type="System.Byte[]" id="3824240934">H4sIAAAAAAAEAFNgYGAQAeICBmqAQDBZDqH+Q6i9VDGZSoBCb0J8lI7iv7mUGTmowKj/YMCEmhQRRlMHjOT4OwChDkKoQ6QaTaF2VMDBCKY4IRQXhOKGUDyMuPUNFf+RC/D57wSEOgmhTkGoYEhghTAS5GHVTm+Az38KEEoRQilBKOL9h1U7vQE2/92FymlAKE0IpUWq0RRqRwVykDCTx5PVsAJs/rvvAabueYKpc14QCiJ4jl6C70j0CA6AzX//A1B4QQMjSKnPIABitDKEsoZSERAqEkJFDYhgNaU+GwWjYBSMglEwPAEAOCIAqogRAAA=</data>
                     </body>
                   </tileData>
                   <tileset dataType="Struct" type="Duality.ContentRef`1[[Duality.Plugins.Tilemaps.Tileset]]">
