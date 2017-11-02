@@ -109,45 +109,43 @@ namespace Pathfindax.Grid
 		private float CalculateGridNodeClearances(int index, PathfindaxCollisionCategory collisionCategory, int maxClearance)
 		{
 			var fromCoordinates = DefinitionNodeArray.GetCoordinates(index);
-			if (fromCoordinates.X == 0 && fromCoordinates.Y == 1 || true)
+			for (var checkClearance = 0; checkClearance < maxClearance; checkClearance++)
 			{
-				for (var checkClearance = 0; checkClearance < maxClearance; checkClearance++)
+				var nextClearanceIsBlocked = false;
+				for (var x = 0; x < checkClearance + 1; x++)
 				{
-					var nextClearanceIsBlocked = false;
-					for (var x = 0; x < checkClearance + 1; x++)
+					switch (IsBlocked(x + fromCoordinates.X, checkClearance + fromCoordinates.Y, collisionCategory, fromCoordinates))
 					{
-						switch (IsBlocked(x + fromCoordinates.X, checkClearance + fromCoordinates.Y, collisionCategory, fromCoordinates))
-						{
-							case BlockType.Current:
-								return checkClearance;
-							case BlockType.Next:
-								nextClearanceIsBlocked = true;
-								break;
-						}
+						case BlockType.Current:
+							return checkClearance;
+						case BlockType.Next:
+							nextClearanceIsBlocked = true;
+							break;
+					}
+				}
+
+				for (var y = 0; y < checkClearance; y++)
+				{
+					switch (IsBlocked(checkClearance + fromCoordinates.X, y + fromCoordinates.Y, collisionCategory, fromCoordinates))
+					{
+						case BlockType.Current:
+							return checkClearance;
+						case BlockType.Next:
+							nextClearanceIsBlocked = true;
+							break;
+					}
+				}
+
+				if (nextClearanceIsBlocked)
+				{
+					var definitionNode = DefinitionNodeArray[index];
+					var isBlocked = true;
+					for (int i = 0; i < definitionNode.Connections.Count; i++)
+					{
+						if ((definitionNode.Connections[i].CollisionCategory & collisionCategory) == 0) isBlocked = false;
 					}
 
-					for (var y = 0; y < checkClearance; y++)
-					{
-						switch (IsBlocked(checkClearance + fromCoordinates.X, y + fromCoordinates.Y, collisionCategory, fromCoordinates))
-						{
-							case BlockType.Current:
-								return checkClearance;
-							case BlockType.Next:
-								nextClearanceIsBlocked = true;
-								break;
-						}
-					}
-					if (nextClearanceIsBlocked)
-					{
-						var definitionNode = DefinitionNodeArray[index];
-						var isBlocked = true;
-						for (int i = 0; i < definitionNode.Connections.Count; i++)
-						{
-							if ((definitionNode.Connections[i].CollisionCategory & collisionCategory) == 0) isBlocked = false;
-						}
-						
-						return isBlocked ? checkClearance : checkClearance + 1;
-					}
+					return isBlocked ? checkClearance : checkClearance + 1;
 				}
 			}
 			return float.NaN;
