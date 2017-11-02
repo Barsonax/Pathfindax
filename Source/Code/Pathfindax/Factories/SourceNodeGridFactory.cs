@@ -15,12 +15,13 @@ namespace Pathfindax.Factories
 		/// <param name="height"></param>
 		/// <param name="nodeSize"></param>
 		/// <param name="generateNodeGridConnections"></param>
+		/// <param name="maxClearance"></param>
 		/// <param name="offset"></param>
 		/// <returns></returns>
-		public SourceNodeGrid GeneratePreFilledArray(int width, int height, Vector2 nodeSize, GenerateNodeGridConnections generateNodeGridConnections, Vector2 offset = default(Vector2))
+		public SourceNodeGrid GeneratePreFilledArray(int width, int height, Vector2 nodeSize, GenerateNodeGridConnections generateNodeGridConnections, int maxClearance, Vector2 offset = default(Vector2))
 		{
 			var array = new Array2D<DefinitionNode>(width, height);
-			var sourceNodeGrid = new SourceNodeGrid(array, nodeSize, offset);
+			var sourceNodeGrid = new SourceNodeGrid(array, nodeSize, offset, maxClearance);
 			for (ushort y = 0; y < height; y++)
 			{
 				for (ushort x = 0; x < width; x++)

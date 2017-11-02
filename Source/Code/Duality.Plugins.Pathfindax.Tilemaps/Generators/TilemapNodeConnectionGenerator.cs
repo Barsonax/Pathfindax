@@ -285,6 +285,11 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Generators
 			X = x;
 			Y = y;
 		}
+
+		public override string ToString()
+		{
+			return $"Coords: {X}:{Y} Collision: {PathfindaxCollisionCategory}";
+		}
 	}
 
 	/// <summary>

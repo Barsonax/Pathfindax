@@ -13,7 +13,7 @@
 
 		public override string ToString()
 		{
-			return DefinitionNode.ToString();
+			return $"{DefinitionNode} Clearance: {Clearance}";
 		}
 	}
 }

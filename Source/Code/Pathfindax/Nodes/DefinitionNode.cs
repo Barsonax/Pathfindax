@@ -27,6 +27,11 @@ namespace Pathfindax.Nodes
 			MovementCostModifier = movementCostModifier;
 		}
 
+		public void SetConnectionCollision(int index, PathfindaxCollisionCategory collisionCategory)
+		{
+			Connections[index] = new NodeConnection(Connections[index].To, collisionCategory);
+		}
+
 		public override string ToString()
 		{
 			return $"Index: {Index} Position: {Position}";

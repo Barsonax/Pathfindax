@@ -86,7 +86,6 @@
     <Compile Include="Components\Interfaces\IPathfinderComponent.cs" />
     <Compile Include="Components\Interfaces\IPathProvider.cs" />
     <Compile Include="Components\PathVisualizer.cs" />
-    <Compile Include="Components\NodeGridVisualizer.cs" />
     <Compile Include="Components\PathfinderComponentBase.cs" />
     <Compile Include="Components\NodeNetworkVisualizer.cs" />
     <Compile Include="PathfindaxDualityCorePlugin.cs" />

@@ -20,12 +20,14 @@ namespace Pathfindax.Grid
 		public int NodeCount => DefinitionNodeArray.Length;
 		public Vector2 Offset { get; protected set; }
 		private readonly Dictionary<PathfindaxCollisionCategory, SourceNode[]> _nodeNetworks = new Dictionary<PathfindaxCollisionCategory, SourceNode[]>();
-		public SourceNodeGrid(Array2D<DefinitionNode> grid, Vector2 nodeSize, Vector2 offset)
+		private readonly int _maxClearance;
+		public SourceNodeGrid(Array2D<DefinitionNode> grid, Vector2 nodeSize, Vector2 offset, int maxClearance)
 		{
 			DefinitionNodeArray = grid;
 			WorldSize = new Vector2(DefinitionNodeArray.Width * nodeSize.X - nodeSize.X, DefinitionNodeArray.Height * nodeSize.Y - nodeSize.Y);
 			NodeSize = nodeSize;
 			Offset = offset;
+			_maxClearance = maxClearance;
 		}
 
 		public SourceNode[] GetSourceNetwork(PathfindaxCollisionCategory collisionCategory)
@@ -91,7 +93,8 @@ namespace Pathfindax.Grid
 		{
 			for (var i = 0; i < sourceNodeGrid.Length; i++)
 			{
-				var clearance = CalculateGridNodeClearances(i, collisionCategory, 5);
+				var clearance = CalculateGridNodeClearances(i, collisionCategory, _maxClearance);
+
 				sourceNodeGrid[i].Clearance = clearance;
 			}
 		}
@@ -103,46 +106,71 @@ namespace Pathfindax.Grid
 		/// <param name="collisionCategory"></param>
 		/// <param name="maxClearance"></param>
 		/// <returns></returns>
-		private int CalculateGridNodeClearances(int index, PathfindaxCollisionCategory collisionCategory, int maxClearance)
+		private float CalculateGridNodeClearances(int index, PathfindaxCollisionCategory collisionCategory, int maxClearance)
 		{
-			var fromGridCoordinates = DefinitionNodeArray.GetCoordinates(index);
-			for (var i = 0; i < maxClearance; i++)
+			var fromCoordinates = DefinitionNodeArray.GetCoordinates(index);
+			//if (fromCoordinates.X == 2 && fromCoordinates.Y == 0)
+			//{
+			for (var checkClearance = 0; checkClearance < maxClearance; checkClearance++)
 			{
-				foreach (var definitionNode in GetNodesInArea(fromGridCoordinates.X, fromGridCoordinates.Y + i, i + 1, 1))
+				var nextClearanceIsBlocked = false;
+				var maxCoordinates = new Point2(fromCoordinates.X + checkClearance, fromCoordinates.Y + checkClearance);
+				for (var x = 0; x < checkClearance + 1; x++)
 				{
-					foreach (var nodeConnection in definitionNode.Connections)
+					switch (IsBlocked(x + fromCoordinates.X, checkClearance + fromCoordinates.Y, collisionCategory, fromCoordinates, maxCoordinates))
 					{
-						if ((nodeConnection.CollisionCategory & collisionCategory) != 0) return i;
-					}
+						case BlockType.Current:
+							return checkClearance;
+						case BlockType.Next:
+							nextClearanceIsBlocked = true;
+							break;
+					}						
 				}
 
-				foreach (var definitionNode in GetNodesInArea(fromGridCoordinates.X + i, fromGridCoordinates.Y, 1, i))
+				for (var y = 0; y < checkClearance; y++)
 				{
-					foreach (var nodeConnection in definitionNode.Connections)
+					switch (IsBlocked(checkClearance + fromCoordinates.X, y + fromCoordinates.Y, collisionCategory, fromCoordinates, maxCoordinates))
 					{
-						if ((nodeConnection.CollisionCategory & collisionCategory) != 0) return i;
+						case BlockType.Current:
+							return checkClearance;
+						case BlockType.Next:
+							nextClearanceIsBlocked = true;
+							break;
 					}
 				}
+				if (nextClearanceIsBlocked) return checkClearance + 1;
 			}
-			return maxClearance;
+			return float.NaN;
 		}
 
-		private IEnumerable<DefinitionNode> GetNodesInArea(int gridX, int gridY, int width, int height)
+		private BlockType IsBlocked(int x, int y, PathfindaxCollisionCategory collisionCategory, Point2 fromCoordinates, Point2 maxCoordinates)
 		{
-			if (gridX >= DefinitionNodeArray.Width || gridY >= DefinitionNodeArray.Height) return new DefinitionNode[0];
-			var gridX2 = MathF.Clamp(gridX + width, 0, DefinitionNodeArray.Width - 1);
-			var gridY2 = MathF.Clamp(gridY + height, 0, DefinitionNodeArray.Height - 1);
-			var definitionNodes = new DefinitionNode[(gridX2 - gridX) * (gridY2 - gridY)];
-			var i = 0;
-			for (var y = gridY; y < gridY2; y++)
+			if (x >= DefinitionNodeArray.Width || y >= DefinitionNodeArray.Height)
+				return BlockType.Current;
+			var definitionNode = DefinitionNodeArray[x, y];
+			foreach (var nodeConnection in definitionNode.Connections)
 			{
-				for (var x = gridX; x < gridX2; x++)
+				if ((nodeConnection.CollisionCategory & collisionCategory) != 0)
 				{
-					definitionNodes[i] = DefinitionNodeArray[x, y];
-					i++;
+					var toCoordinates = DefinitionNodeArray.GetCoordinates(nodeConnection.To.Index);
+					if (toCoordinates.X >= fromCoordinates.X && toCoordinates.Y >= fromCoordinates.Y)
+					{
+						if (toCoordinates.X > maxCoordinates.X || toCoordinates.Y > maxCoordinates.Y)
+						{
+							return BlockType.Next;
+						}
+						return BlockType.Current;
+					}
 				}
 			}
-			return definitionNodes;
+			return BlockType.None;
+		}
+
+		public enum BlockType
+		{
+			None,
+			Current,
+			Next
 		}
 
 		public DefinitionNode GetNode(float worldX, float worldY)

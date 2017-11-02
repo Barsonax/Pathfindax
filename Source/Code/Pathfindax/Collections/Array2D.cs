@@ -1,5 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
+using Pathfindax.Nodes;
 
 namespace Pathfindax.Collections
 {
@@ -41,8 +44,25 @@ namespace Pathfindax.Collections
 		/// <param name="y"></param>
 		public TItem this[int x, int y]
 		{
-			get => Array[x + y * Width];
-			set => Array[x + y * Width] = value;
+			get
+			{
+				if (x > Width)
+				{
+					Debugger.Break();
+					throw new IndexOutOfRangeException();
+				}
+
+				return Array[x + y * Width];
+			}
+			set
+			{
+				if (x > Width)
+				{
+					Debugger.Break();
+					throw new IndexOutOfRangeException();
+				}
+				Array[x + y * Width] = value;
+			}
 		}
 
 		/// <summary>
@@ -65,6 +85,14 @@ namespace Pathfindax.Collections
 			Width = width;
 			Height = height;
 			Array = new TItem[width * height];
+		}
+
+		public Array2D(TItem[] array, int width, int height)
+		{
+			if (width * height != array.Length) throw new ArgumentException("The length of the array is not equal to width * height");
+			Width = width;
+			Height = height;
+			Array = array;
 		}
 
 		/// <inheritdoc />

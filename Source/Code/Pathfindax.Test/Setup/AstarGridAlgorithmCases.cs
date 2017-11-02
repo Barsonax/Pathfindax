@@ -11,7 +11,7 @@ namespace Pathfindax.Test.Setup
         public static AstarNodeNetwork InitializeNodeGrid(int width, int height, Vector2 nodeSize)
         {
             var sourceNodeGridFactory = new SourceNodeGridFactory();
-            var sourceNodeGrid = sourceNodeGridFactory.GeneratePreFilledArray(width, height, nodeSize, GenerateNodeGridConnections.All);
+            var sourceNodeGrid = sourceNodeGridFactory.GeneratePreFilledArray(width, height, nodeSize, GenerateNodeGridConnections.All, 5);
             return new AstarNodeNetwork(sourceNodeGrid);
         }
 

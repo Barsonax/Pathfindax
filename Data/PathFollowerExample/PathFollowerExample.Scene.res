@@ -384,15 +384,15 @@
             <gameobj dataType="ObjectRef">3952684871</gameobj>
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Components.AStarGridPathfinderComponent" id="2600830583">
-            <_x003C_MultithreadedPathfinder_x003E_k__BackingField />
+            <_x003C_Pathfinder_x003E_k__BackingField />
             <_x003C_PathfinderId_x003E_k__BackingField />
-            <_x003C_SourceNodeNetwork_x003E_k__BackingField />
             <active dataType="Bool">true</active>
             <gameobj dataType="ObjectRef">3952684871</gameobj>
           </item>
-          <item dataType="Struct" type="Duality.Plugins.Pathfindax.Components.NodeGridVisualizer" id="606216942">
+          <item dataType="Struct" type="Duality.Plugins.Pathfindax.Components.NodeNetworkVisualizer" id="3864513774">
             <_x003C_BoundRadius_x003E_k__BackingField dataType="Float">0</_x003C_BoundRadius_x003E_k__BackingField>
             <_x003C_CollisionCategory_x003E_k__BackingField dataType="Enum" type="Pathfindax.Nodes.PathfindaxCollisionCategory" name="Cat1" value="1" />
+            <_x003C_NodeSize_x003E_k__BackingField dataType="Float">10</_x003C_NodeSize_x003E_k__BackingField>
             <_x003C_Visualize_x003E_k__BackingField dataType="Bool">true</_x003C_Visualize_x003E_k__BackingField>
             <active dataType="Bool">true</active>
             <gameobj dataType="ObjectRef">3952684871</gameobj>
@@ -407,13 +407,13 @@
             <item dataType="ObjectRef">4173822160</item>
             <item dataType="Type" id="2821304260" value="Duality.Plugins.Pathfindax.Tilemaps.Components.TilemapNodeGridGenerator" />
             <item dataType="Type" id="2365687190" value="Duality.Plugins.Pathfindax.Components.AStarGridPathfinderComponent" />
-            <item dataType="Type" id="1200435840" value="Duality.Plugins.Pathfindax.Components.NodeGridVisualizer" />
+            <item dataType="Type" id="1200435840" value="Duality.Plugins.Pathfindax.Components.NodeNetworkVisualizer" />
           </keys>
           <values dataType="Array" type="System.Object[]" id="2498106902">
             <item dataType="ObjectRef">4009962089</item>
             <item dataType="ObjectRef">828666520</item>
             <item dataType="ObjectRef">2600830583</item>
-            <item dataType="ObjectRef">606216942</item>
+            <item dataType="ObjectRef">3864513774</item>
           </values>
         </body>
       </compMap>
