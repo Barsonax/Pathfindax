@@ -28,7 +28,7 @@ namespace Duality.Plugins.Pathfindax
 		/// <param name="id"></param>
 		/// <returns></returns>
 		internal static IPathfinderComponent<TSourceNodeNetwork> GetPathfinder<TSourceNodeNetwork>(string id = null)
-			where TSourceNodeNetwork : class, ISourceNodeNetwork
+			where TSourceNodeNetwork : class, IDefinitionNodeNetwork
 		{
 			if (_pathfinderComponents == null)
 			{

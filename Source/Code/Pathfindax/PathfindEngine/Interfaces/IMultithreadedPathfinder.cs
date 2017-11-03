@@ -1,9 +1,11 @@
-﻿using Pathfindax.Grid;
+﻿using System.Collections.Generic;
+using Pathfindax.Grid;
+using Pathfindax.Threading;
 
 namespace Pathfindax.PathfindEngine
 {
 	public interface IPathfinder<out TSourceNodeNetwork> : IPathfinder
-		where TSourceNodeNetwork : ISourceNodeNetwork
+		where TSourceNodeNetwork : IDefinitionNodeNetwork
 	{
 		TSourceNodeNetwork SourceNodeNetwork { get; }
 

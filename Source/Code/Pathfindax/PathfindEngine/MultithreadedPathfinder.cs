@@ -10,7 +10,7 @@ namespace Pathfindax.PathfindEngine
 	/// <typeparam name="TSourceNodeNetwork"></typeparam>
 	/// <typeparam name="TThreadNodeNetwork"></typeparam>
 	public class Pathfinder<TSourceNodeNetwork, TThreadNodeNetwork> : IPathfinder<TSourceNodeNetwork>, IDisposable
-		where TSourceNodeNetwork : ISourceNodeNetwork
+		where TSourceNodeNetwork : IDefinitionNodeNetwork
 		where TThreadNodeNetwork : IPathfindNodeNetwork
 	{
 		public TSourceNodeNetwork SourceNodeNetwork { get; }

@@ -6,19 +6,9 @@ using Pathfindax.PathfindEngine;
 namespace Pathfindax.Grid
 {
 	/// <summary>
-	/// Generic interface for sourcenodenetworks
-	/// </summary>
-	/// <typeparam name="TNode"></typeparam>
-	public interface ISourceNodeNetwork<out TNode> : ISourceNodeNetwork
-		where TNode : ISourceNode
-	{
-		TNode[] GetSourceNetwork(PathfindaxCollisionCategory collisionCategory);
-	}
-
-	/// <summary>
 	/// Interface for sourcenodenetworks
 	/// </summary>
-	public interface ISourceNodeNetwork
+	public interface IDefinitionNodeNetwork
 	{
 		PathRequest CreatePathRequest(IPathfinder pathfinder, float x1, float y1, float x2, float y2, PathfindaxCollisionCategory collisionLayer, byte agentSize);
 

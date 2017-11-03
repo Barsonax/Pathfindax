@@ -10,9 +10,11 @@ namespace Duality.Plugins.Pathfindax.Components
 	/// Class for visualizing a <see cref="IPathfindNodeNetwork{TNode}"/>
 	/// </summary>
 	[EditorHintCategory(PathfindaxStrings.Pathfindax)]
-	[RequiredComponent(typeof(IPathfinderComponent<ISourceNodeNetwork<SourceNode>>))]
+	[RequiredComponent(typeof(AstarPathfinderComponent))]
 	public class NodeNetworkVisualizer : Component, ICmpRenderer
 	{
+		public int Thread { get; set; }
+
 		/// <summary>
 		/// The collision category that will be used to draw the nodes that are blocked.
 		/// </summary>
@@ -44,10 +46,11 @@ namespace Duality.Plugins.Pathfindax.Components
 		void ICmpRenderer.Draw(IDrawDevice device)
 		{
 			if (!Visualize) return;
-			var pathfinderComponent = GameObj.GetComponent<IPathfinderComponent<ISourceNodeNetwork<SourceNode>>>();
+			var pathfinderComponent = GameObj.GetComponent<AstarPathfinderComponent>();
 			if (pathfinderComponent?.Pathfinder?.SourceNodeNetwork != null)
 			{
-				var network = pathfinderComponent.Pathfinder.SourceNodeNetwork.GetSourceNetwork(CollisionCategory);
+				if (Thread > pathfinderComponent.AstarNodeNetworks.Count) return;
+				var network = pathfinderComponent.AstarNodeNetworks[Thread].GetPathfindingNetwork(CollisionCategory);
 				var canvas = new Canvas(device, new CanvasBuffer());
 				canvas.State.ZOffset = -8;
 				for (int i = 0; i < pathfinderComponent.Pathfinder.SourceNodeNetwork.NodeCount; i++)

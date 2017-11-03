@@ -10,9 +10,9 @@ namespace Pathfindax.Test.Setup
 {
     public static class MultithreadedPathfinderSetup
     {
-        public static Pathfinder<ISourceNodeNetwork, IPathfindNodeNetwork> Substitute(int threads)
+        public static Pathfinder<IDefinitionNodeNetwork, IPathfindNodeNetwork> Substitute(int threads)
         {
-			return PathfinderFactory.CreatePathfinder(NSubstitute.Substitute.For<ISourceNodeNetwork>(), sourceNodeNetwork =>
+			return PathfinderFactory.CreatePathfinder(NSubstitute.Substitute.For<IDefinitionNodeNetwork>(), sourceNodeNetwork =>
             {
 	            var nodeGrid = NSubstitute.Substitute.For<IPathfindNodeNetwork>();
 				var algorithm = NSubstitute.Substitute.For<IPathFindAlgorithm<IPathfindNodeNetwork>>();

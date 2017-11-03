@@ -8,10 +8,10 @@ namespace Pathfindax.Test.Setup
 {
 	public class AstarAlgorithmCases
 	{
-		public static SourceNodeGrid InitializeNodeGrid(int width, int height, Vector2 nodeSize)
+		public static DefinitionNodeGrid InitializeNodeGrid(int width, int height, Vector2 nodeSize)
 		{
 			var sourceNodeGridFactory = new SourceNodeGridFactory();
-			var sourceNodeGrid = sourceNodeGridFactory.GeneratePreFilledArray(width, height, nodeSize, GenerateNodeGridConnections.All, 5);
+			var sourceNodeGrid = sourceNodeGridFactory.GeneratePreFilledArray(width, height, nodeSize, GenerateNodeGridConnections.All);
 			return sourceNodeGrid;
 		}
 

@@ -31,10 +31,10 @@ namespace Pathfindax.Algorithms
 				var pathSucces = false;
 				if (startNode == targetNode)
 				{
-					return new List<DefinitionNode> { targetNode.SourceNode.DefinitionNode };
+					return new List<DefinitionNode> { targetNode.DefinitionNode };
 				}
-				if ((float.IsNaN(startNode.SourceNode.Clearance) || startNode.SourceNode.Clearance >= neededClearance) && 
-					(float.IsNaN(targetNode.SourceNode.Clearance) || targetNode.SourceNode.Clearance >= neededClearance))
+				if ((float.IsNaN(startNode.Clearance) || startNode.Clearance >= neededClearance) && 
+					(float.IsNaN(targetNode.Clearance) || targetNode.Clearance >= neededClearance))
 				{
 					var openSet = new MinHeap<AstarNode>(pathfindingNetwork.Length);
 					var closedSet = new HashSet<AstarNode>();
@@ -55,19 +55,19 @@ namespace Pathfindax.Algorithms
 							break;
 						}
 
-						foreach (var connection in currentNode.SourceNode.DefinitionNode.Connections)
+						foreach (var connection in currentNode.DefinitionNode.Connections)
 						{
 							var toNode = NodePointer.Dereference(connection.To, pathfindingNetwork);
 							if ((connection.CollisionCategory & collisionCategory) != 0 || closedSet.Contains(toNode)) continue;
 
-							if (float.IsNaN(toNode.SourceNode.Clearance) || toNode.SourceNode.Clearance >= neededClearance)
+							if (float.IsNaN(toNode.Clearance) || toNode.Clearance >= neededClearance)
 							{
-								var newMovementCostToNeighbour = currentNode.GCost + GetDistance(currentNode.SourceNode.DefinitionNode, toNode.SourceNode.DefinitionNode) * currentNode.SourceNode.DefinitionNode.MovementCostModifier;
+								var newMovementCostToNeighbour = currentNode.GCost + GetDistance(currentNode.DefinitionNode, toNode.DefinitionNode) * currentNode.DefinitionNode.MovementCostModifier;
 								if (newMovementCostToNeighbour < toNode.GCost || !openSet.Contains(toNode))
 								{
 									toNode.GCost = newMovementCostToNeighbour;
-									toNode.HCost = GetDistance(toNode.SourceNode.DefinitionNode, targetNode.SourceNode.DefinitionNode) * currentNode.SourceNode.DefinitionNode.MovementCostModifier;
-									toNode.Parent = currentNode.SourceNode.DefinitionNode.Index;
+									toNode.HCost = GetDistance(toNode.DefinitionNode, targetNode.DefinitionNode) * currentNode.DefinitionNode.MovementCostModifier;
+									toNode.Parent = currentNode.DefinitionNode.Index;
 									neighbourUpdates++;
 									if (!openSet.Contains(toNode))
 										openSet.Add(toNode);
@@ -98,7 +98,7 @@ namespace Pathfindax.Algorithms
 
 			while (true)
 			{
-				path.Add(currentNode.SourceNode.DefinitionNode);
+				path.Add(currentNode.DefinitionNode);
 				if (currentNode == startGridNode) break;
 				currentNode = NodePointer.Dereference(currentNode.Parent, pathfindingNetwork);
 			}

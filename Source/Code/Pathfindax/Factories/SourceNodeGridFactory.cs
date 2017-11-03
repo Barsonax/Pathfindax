@@ -9,7 +9,7 @@ namespace Pathfindax.Factories
 	public class SourceNodeGridFactory
 	{
 		/// <summary>
-		/// Returns a preconfigured <see cref="Array2D{TItem}"/> which can be used to make a <see cref="SourceNodeGrid"/>
+		/// Returns a preconfigured <see cref="Array2D{TItem}"/> which can be used to make a <see cref="DefinitionNodeGrid"/>
 		/// </summary>
 		/// <param name="width"></param>
 		/// <param name="height"></param>
@@ -18,10 +18,10 @@ namespace Pathfindax.Factories
 		/// <param name="maxClearance"></param>
 		/// <param name="offset"></param>
 		/// <returns></returns>
-		public SourceNodeGrid GeneratePreFilledArray(int width, int height, Vector2 nodeSize, GenerateNodeGridConnections generateNodeGridConnections, int maxClearance, Vector2 offset = default(Vector2))
+		public DefinitionNodeGrid GeneratePreFilledArray(int width, int height, Vector2 nodeSize, GenerateNodeGridConnections generateNodeGridConnections, Vector2 offset = default(Vector2))
 		{
 			var array = new Array2D<DefinitionNode>(width, height);
-			var sourceNodeGrid = new SourceNodeGrid(array, nodeSize, offset, maxClearance);
+			var sourceNodeGrid = new DefinitionNodeGrid(array, nodeSize, offset);
 			for (ushort y = 0; y < height; y++)
 			{
 				for (ushort x = 0; x < width; x++)

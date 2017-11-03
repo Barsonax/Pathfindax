@@ -35,6 +35,10 @@
             <vel dataType="Struct" type="Duality.Vector3" />
             <velAbs dataType="Struct" type="Duality.Vector3" />
           </item>
+          <item dataType="Struct" type="Duality.Components.SoundListener" id="284460017">
+            <active dataType="Bool">true</active>
+            <gameobj dataType="ObjectRef">2546774786</gameobj>
+          </item>
           <item dataType="Struct" type="Duality.Components.Camera" id="4093161263">
             <active dataType="Bool">true</active>
             <farZ dataType="Float">10000</farZ>
@@ -67,10 +71,6 @@
             <perspective dataType="Enum" type="Duality.Drawing.PerspectiveMode" name="Flat" value="0" />
             <priority dataType="Int">0</priority>
             <visibilityMask dataType="Enum" type="Duality.Drawing.VisibilityFlag" name="All" value="4294967295" />
-          </item>
-          <item dataType="Struct" type="Duality.Components.SoundListener" id="284460017">
-            <active dataType="Bool">true</active>
-            <gameobj dataType="ObjectRef">2546774786</gameobj>
           </item>
         </_items>
         <_size dataType="Int">3</_size>
@@ -107,30 +107,46 @@
       <children />
       <compList dataType="Struct" type="System.Collections.Generic.List`1[[Duality.Component]]" id="3392138034">
         <_items dataType="Array" type="Duality.Component[]" id="2720956368" length="4">
-          <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.SourceNodeGridProvderMockupComponent" id="2682946987">
-            <_sourceNodeGrid />
+          <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.DefinitionNodeGridProvderMockupComponent" id="1427648155">
+            <_definitionNodeGrid />
             <active dataType="Bool">true</active>
             <gameobj dataType="ObjectRef">2532558428</gameobj>
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Components.AstarPathfinderComponent" id="324856514">
+            <_astarNodeNetworks dataType="Struct" type="System.Collections.Generic.List`1[[Pathfindax.Grid.AstarNodeNetwork]]" id="3803477850">
+              <_items dataType="Array" type="Pathfindax.Grid.AstarNodeNetwork[]" id="3042558464" length="0" />
+              <_size dataType="Int">0</_size>
+            </_astarNodeNetworks>
+            <_x003C_MaxClearance_x003E_k__BackingField dataType="Int">5</_x003C_MaxClearance_x003E_k__BackingField>
             <_x003C_Pathfinder_x003E_k__BackingField />
             <_x003C_PathfinderId_x003E_k__BackingField />
             <active dataType="Bool">true</active>
             <gameobj dataType="ObjectRef">2532558428</gameobj>
           </item>
+          <item dataType="Struct" type="Duality.Plugins.Pathfindax.Components.NodeNetworkVisualizer" id="2444387331">
+            <_x003C_BoundRadius_x003E_k__BackingField dataType="Float">0</_x003C_BoundRadius_x003E_k__BackingField>
+            <_x003C_CollisionCategory_x003E_k__BackingField dataType="Enum" type="Pathfindax.Nodes.PathfindaxCollisionCategory" name="Cat1" value="1" />
+            <_x003C_NodeSize_x003E_k__BackingField dataType="Float">10</_x003C_NodeSize_x003E_k__BackingField>
+            <_x003C_Thread_x003E_k__BackingField dataType="Int">0</_x003C_Thread_x003E_k__BackingField>
+            <_x003C_Visualize_x003E_k__BackingField dataType="Bool">true</_x003C_Visualize_x003E_k__BackingField>
+            <active dataType="Bool">true</active>
+            <gameobj dataType="ObjectRef">2532558428</gameobj>
+          </item>
         </_items>
-        <_size dataType="Int">2</_size>
+        <_size dataType="Int">3</_size>
       </compList>
       <compMap dataType="Struct" type="System.Collections.Generic.Dictionary`2[[System.Type],[Duality.Component]]" id="2036453194" surrogate="true">
         <header />
         <body>
           <keys dataType="Array" type="System.Object[]" id="2719137832">
-            <item dataType="Type" id="1819430316" value="Duality.Plugins.Pathfindax.Examples.Components.SourceNodeGridProvderMockupComponent" />
-            <item dataType="Type" id="145425334" value="Duality.Plugins.Pathfindax.Components.AstarPathfinderComponent" />
+            <item dataType="Type" id="1819430316" value="Duality.Plugins.Pathfindax.Components.AstarPathfinderComponent" />
+            <item dataType="Type" id="145425334" value="Duality.Plugins.Pathfindax.Examples.Components.DefinitionNodeGridProvderMockupComponent" />
+            <item dataType="Type" id="1121442296" value="Duality.Plugins.Pathfindax.Components.NodeNetworkVisualizer" />
           </keys>
           <values dataType="Array" type="System.Object[]" id="4045265566">
-            <item dataType="ObjectRef">2682946987</item>
             <item dataType="ObjectRef">324856514</item>
+            <item dataType="ObjectRef">1427648155</item>
+            <item dataType="ObjectRef">2444387331</item>
           </values>
         </body>
       </compMap>
@@ -153,7 +169,7 @@
         <_items dataType="Array" type="Duality.Component[]" id="4252602870" length="4">
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PathfindaxPathSpammerComponent" id="3274627541">
             <_frameCounter dataType="Int">0</_frameCounter>
-            <_gridPathfinderProxy />
+            <_pathfinderProxy />
             <_randomGenerator dataType="Struct" type="System.Random" id="2433592613">
               <inext dataType="Int">0</inext>
               <inextp dataType="Int">21</inextp>

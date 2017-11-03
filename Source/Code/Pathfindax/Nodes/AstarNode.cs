@@ -23,12 +23,12 @@ namespace Pathfindax.Nodes
 		public float GCost { get; set; }
 		private float FCost => GCost + HCost;
 		public int HeapIndex { get; set; }
-		public SourceNode SourceNode { get; }
-		ISourceNode INode.SourceNode => SourceNode;
+		public DefinitionNode DefinitionNode { get; }
+		public float Clearance { get; set; }
 
-		public AstarNode(SourceNode sourceNode)
+		public AstarNode(DefinitionNode definitionNode)
 		{
-			SourceNode = sourceNode;
+			DefinitionNode = definitionNode;
 		}
 
 		public int CompareTo(AstarNode other)
@@ -43,7 +43,7 @@ namespace Pathfindax.Nodes
 
 		public override string ToString()
 		{
-			return SourceNode.ToString();
+			return DefinitionNode.ToString();
 		}
 	}
 }

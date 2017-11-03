@@ -10,38 +10,43 @@ namespace Pathfindax.Grid
 	public class AstarNodeNetwork : IPathfindNodeNetwork<AstarNode>
 	{
 		private Dictionary<PathfindaxCollisionCategory, AstarNode[]> NodeNetworks { get; } = new Dictionary<PathfindaxCollisionCategory, AstarNode[]>();
-		public ISourceNodeNetwork<SourceNode> SourceNodeNetwork { get; }
-		ISourceNodeNetwork IPathfindNodeNetwork.SourceNodeNetwork => SourceNodeNetwork;
+		public IDefinitionNodeNetwork DefinitionNodeNetwork { get; }
+		IDefinitionNodeNetwork IPathfindNodeNetwork.DefinitionNodeNetwork => DefinitionNodeNetwork;
+		private readonly IPathfindNodeGenerator<AstarNode>[] _pathfindNodeGenerators;
 
 		/// <summary>
 		/// Creates a new instance of the <see cref="AstarNodeNetwork"/>
 		/// </summary>
-		/// <param name="sourceNodeNetwork"></param>
-		public AstarNodeNetwork(ISourceNodeNetwork<SourceNode> sourceNodeNetwork)
+		/// <param name="definitionNodeNetwork"></param>
+		/// <param name="pathfindNodeGenerators"></param>
+		public AstarNodeNetwork(IDefinitionNodeNetwork definitionNodeNetwork, params IPathfindNodeGenerator<AstarNode>[] pathfindNodeGenerators)
 		{
-			SourceNodeNetwork = sourceNodeNetwork;
+			DefinitionNodeNetwork = definitionNodeNetwork;
+			_pathfindNodeGenerators = pathfindNodeGenerators;
 		}
 
 		public AstarNode[] GetPathfindingNetwork(PathfindaxCollisionCategory collisionCategory)
 		{
-			if (!NodeNetworks.TryGetValue(collisionCategory, out var nodegrid))
-			{
-				
-				var sourceNodeNetwork = SourceNodeNetwork.GetSourceNetwork(collisionCategory);
+			if (!NodeNetworks.TryGetValue(collisionCategory, out var pathfindingNetwork))
+			{				
 				var watch = Stopwatch.StartNew();
-				nodegrid = GenerateNodeNetwork(sourceNodeNetwork);
+				pathfindingNetwork = GenerateNodeNetwork(DefinitionNodeNetwork);
+				foreach (var pathfindNodeGenerator in _pathfindNodeGenerators)
+				{
+					pathfindNodeGenerator.Generate(pathfindingNetwork, collisionCategory);
+				}
 				Debug.WriteLine($"Generated pathfind nodenetwork in {watch.ElapsedMilliseconds} ms");
-				NodeNetworks.Add(collisionCategory, nodegrid);
+				NodeNetworks.Add(collisionCategory, pathfindingNetwork);
 			}
-			return nodegrid;
+			return pathfindingNetwork;
 		}
 
-		private static AstarNode[] GenerateNodeNetwork(SourceNode[] sourceNodeGrid)
+		private static AstarNode[] GenerateNodeNetwork(IDefinitionNodeNetwork definitionNodeNetwork)
 		{
-			var nodeNetwork = new AstarNode[sourceNodeGrid.Length];
-			for (var i = 0; i < sourceNodeGrid.Length; i++)
+			var nodeNetwork = new AstarNode[definitionNodeNetwork.NodeCount];
+			for (var i = 0; i < definitionNodeNetwork.NodeCount; i++)
 			{
-				nodeNetwork[i] = new AstarNode(sourceNodeGrid[i]);
+				nodeNetwork[i] = new AstarNode(definitionNodeNetwork[i]);
 			}
 			return nodeNetwork;
 		}

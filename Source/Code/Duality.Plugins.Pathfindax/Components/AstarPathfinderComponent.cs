@@ -1,4 +1,5 @@
-﻿using Duality.Editor;
+﻿using System.Collections.Generic;
+using Duality.Editor;
 using Pathfindax.Algorithms;
 using Pathfindax.Factories;
 using Pathfindax.Grid;
@@ -11,9 +12,13 @@ namespace Duality.Plugins.Pathfindax.Components
 	/// Provides a way for other components to request a path from A to B. Uses the A* algorithm.
 	/// </summary>
 	[EditorHintCategory(PathfindaxStrings.Pathfindax)]
-	[RequiredComponent(typeof(ISourceNodeNetworkProvider<ISourceNodeNetwork<SourceNode>>))]
-	public class AstarPathfinderComponent : PathfinderComponentBase<ISourceNodeNetwork<SourceNode>>
+	[RequiredComponent(typeof(IDefinitionNodeNetworkProvider<IDefinitionNodeNetwork>))]
+	public class AstarPathfinderComponent : PathfinderComponentBase<IDefinitionNodeNetwork>
 	{
+		private readonly List<AstarNodeNetwork> _astarNodeNetworks = new List<AstarNodeNetwork>();
+		public IReadOnlyList<AstarNodeNetwork> AstarNodeNetworks => _astarNodeNetworks;
+		public int MaxClearance { get; set; } = 5;
+
 		/// <inheritdoc />
 		public override void OnInit(InitContext context)
 		{
@@ -23,7 +28,11 @@ namespace Duality.Plugins.Pathfindax.Components
 				if (sourceNodeNetwork == null) return;
 				Pathfinder = PathfinderFactory.CreatePathfinder(sourceNodeNetwork, s =>
 				{
-					var astarNodeNetwork = new AstarNodeNetwork(s);
+					var nodeGenerators = new List<IPathfindNodeGenerator<AstarNode>>();
+					if (s is IDefinitionNodeGrid sourceNodeGrid)
+						nodeGenerators.Add(new GridClearanceGenerator(sourceNodeGrid, MaxClearance));
+					var astarNodeNetwork = new AstarNodeNetwork(s, nodeGenerators.ToArray());
+					_astarNodeNetworks.Add(astarNodeNetwork);
 					var algorithm = new AStarAlgorithm();
 					return PathfinderFactory.CreateRequestProcesser(astarNodeNetwork, algorithm);
 				});

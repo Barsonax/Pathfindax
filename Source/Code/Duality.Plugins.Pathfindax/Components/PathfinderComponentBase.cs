@@ -7,7 +7,7 @@ namespace Duality.Plugins.Pathfindax.Components
 	/// Base class for duality pathfinders
 	/// </summary>
 	public abstract class PathfinderComponentBase<TSourceNodeNetwork> : Component, IPathfinderComponent<TSourceNodeNetwork>, ICmpInitializable
-		where TSourceNodeNetwork : class, ISourceNodeNetwork
+		where TSourceNodeNetwork : class, IDefinitionNodeNetwork
 	{
 		/// <inheritdoc />
 		public IPathfinder<TSourceNodeNetwork> Pathfinder { get; protected set; }
@@ -15,18 +15,22 @@ namespace Duality.Plugins.Pathfindax.Components
 		/// <inheritdoc />
 		public string PathfinderId { get; set; }
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns></returns>
 		protected TSourceNodeNetwork GetSourceNodeNetwork()
 		{
-			var sourceProvider = GameObj.GetComponent<ISourceNodeNetworkProvider<TSourceNodeNetwork>>();
+			var sourceProvider = GameObj.GetComponent<IDefinitionNodeNetworkProvider<TSourceNodeNetwork>>();
 			if (sourceProvider == null)
 			{
-				Log.Game.WriteError($"{GetType()}: Could not find a component that implements {typeof(ISourceNodeNetworkProvider<TSourceNodeNetwork>)}.");
+				Log.Game.WriteError($"{GetType()}: Could not find a component that implements {typeof(IDefinitionNodeNetworkProvider<TSourceNodeNetwork>)}.");
 				return null;
 			}
 			var sourceNodeNetwork = sourceProvider.GenerateGrid2D();
 			if (sourceNodeNetwork == null)
 			{
-				Log.Game.WriteError($"{GetType()}: Found a component that implements {typeof(ISourceNodeNetworkProvider<TSourceNodeNetwork>)} but it could not generate a nodenetwork.");
+				Log.Game.WriteError($"{GetType()}: Found a component that implements {typeof(IDefinitionNodeNetworkProvider<TSourceNodeNetwork>)} but it could not generate a nodenetwork.");
 				return null;
 			}
 			return sourceNodeNetwork;

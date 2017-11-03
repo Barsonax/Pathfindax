@@ -5,9 +5,9 @@ using Pathfindax.PathfindEngine;
 namespace Duality.Plugins.Pathfindax.PathfindEngine
 {
 	/// <summary>
-	/// Proxy for pathfinding on a <see cref="ISourceNodeNetwork{ISourceNode}"/>
+	/// Proxy for pathfinding on a <see cref="IDefinitionNodeNetwork"/>
 	/// </summary>
-	public class PathfinderProxy : PathfinderProxyBase<SourceNode, ISourceNodeNetwork<SourceNode>>
+	public class PathfinderProxy : PathfinderProxyBase<IDefinitionNodeNetwork>
 	{
 		/// <summary>
 		/// Requests a new path

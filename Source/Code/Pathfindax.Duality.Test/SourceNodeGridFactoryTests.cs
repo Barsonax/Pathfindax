@@ -1,4 +1,5 @@
-﻿using Duality;
+﻿using System.Collections.Generic;
+using Duality;
 using NUnit.Framework;
 using Pathfindax.Collections;
 using Pathfindax.Factories;
@@ -16,13 +17,14 @@ namespace Pathfindax.Duality.Test
 			var sourceNodeGridFactory = new SourceNodeGridFactory();
 			const int width = 4;
 			const int height = 4;
-			var sourceNodeGrid = sourceNodeGridFactory.GeneratePreFilledArray(width, height, new Vector2(1, 1), GenerateNodeGridConnections.All, 5);
+			var sourceNodeGrid = sourceNodeGridFactory.GeneratePreFilledArray(width, height, new Vector2(1, 1), GenerateNodeGridConnections.All);
 			//sourceNodeGrid.DefinitionNodeArray[0, 0].SetConnectionCollision(2, PathfindaxCollisionCategory.Cat1);
 			//sourceNodeGrid.DefinitionNodeArray[2, 2].SetConnectionCollision(5, PathfindaxCollisionCategory.Cat1);
 			//sourceNodeGrid.DefinitionNodeArray[1, 1].SetConnectionCollision(6, PathfindaxCollisionCategory.Cat2);
 			//sourceNodeGrid.DefinitionNodeArray[0, 0].SetConnectionCollision(6, PathfindaxCollisionCategory.Cat3);
-
-			var sourceNodeNetworkCat1 = new Array2D<SourceNode>(sourceNodeGrid.GetSourceNetwork(PathfindaxCollisionCategory.Cat1), width, height);
+			var astarNodeNetwork = new AstarNodeNetwork(sourceNodeGrid, new GridClearanceGenerator(sourceNodeGrid, 5));
+			
+			var sourceNodeNetworkCat1 = new Array2D<AstarNode>(astarNodeNetwork.GetPathfindingNetwork(PathfindaxCollisionCategory.Cat1), width, height);
 			Assert.AreEqual(4, sourceNodeNetworkCat1[0, 0].Clearance);
 			Assert.AreEqual(3, sourceNodeNetworkCat1[1, 0].Clearance);
 			Assert.AreEqual(2, sourceNodeNetworkCat1[2, 0].Clearance);

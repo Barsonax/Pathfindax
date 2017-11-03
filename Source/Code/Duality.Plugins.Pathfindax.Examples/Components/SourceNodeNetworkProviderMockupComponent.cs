@@ -11,18 +11,18 @@ using INode = SnowyPeak.Duality.Plugin.Frozen.Procedural.INode;
 namespace Duality.Plugins.Pathfindax.Examples.Components
 {
 	[EditorHintCategory(PathfindaxStrings.PathfindaxTest)]
-	public class SourceNodeNetworkProviderMockupComponent : Component, ISourceNodeNetworkProvider<ISourceNodeNetwork<SourceNode>>
+	public class DefinitionNodeNetworkProviderMockupComponent : Component, IDefinitionNodeNetworkProvider<IDefinitionNodeNetwork>
 	{
-		public ISourceNodeNetwork<SourceNode> GenerateGrid2D()
+		public IDefinitionNodeNetwork GenerateGrid2D()
 		{
 			const int width = 1000;
 			const int height = 1000;
 			var random = new Random();
 			var dictionary = new Dictionary<DelaunayNode, DefinitionNode>();
-			var nodeNetwork = new SourceNodeNetwork(new Vector2(0, 0));
+			var nodeNetwork = new DefinitionNodeNetwork(new Vector2(0, 0));
 			for (var i = 0; i < 100; i++)
 			{
-				var node = new DefinitionNode(i ,new Vector2(random.Next(0, width), random.Next(0, height)), 0);
+				var node = new DefinitionNode(i ,new Vector2(random.Next(0, width), random.Next(0, height)));
 				var defaultNode = new DelaunayNode(new Vector2(node.Position.X, node.Position.Y));
 				dictionary.Add(defaultNode, node);
 				nodeNetwork.DefinitionNodes.Add(node);

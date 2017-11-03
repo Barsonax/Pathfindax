@@ -2,6 +2,6 @@
 {
 	public interface INode
 	{
-		ISourceNode SourceNode { get; }
+		DefinitionNode DefinitionNode { get; }
 	}
 }

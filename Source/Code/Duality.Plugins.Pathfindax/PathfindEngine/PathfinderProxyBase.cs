@@ -12,10 +12,8 @@ namespace Duality.Plugins.Pathfindax.PathfindEngine
 	/// <img src="../media/PathfindProxyDiagram.png" />
 	/// </example>
 	/// <typeparam name="TSourceNodeNetwork">The type of source network the pathfinder uses</typeparam>
-	/// <typeparam name="TNode">The type of node</typeparam>
-	public abstract class PathfinderProxyBase<TNode, TSourceNodeNetwork>
-		where TSourceNodeNetwork : class, ISourceNodeNetwork<TNode>
-		where TNode : ISourceNode
+	public abstract class PathfinderProxyBase<TSourceNodeNetwork>
+		where TSourceNodeNetwork : class, IDefinitionNodeNetwork
 	{
 		/// <summary>
 		/// The id of the pathfinder. You can keep this empty if you only have 1 pathfinder in a <see cref="Scene"/>
@@ -47,7 +45,7 @@ namespace Duality.Plugins.Pathfindax.PathfindEngine
 		}
 
 		/// <summary>
-		/// Creates a new <see cref="PathfinderProxyBaseBase{TNode,TSourceNodeNetwork}"/>. The id has to be supplied if there is more than 1 <see cref="IPathfinderComponent"/> in the scene.
+		/// Creates a new <see cref="PathfinderProxyBase{TSourceNodeNetwork}"/>. The id has to be supplied if there is more than 1 <see cref="IPathfinderComponent"/> in the scene.
 		/// </summary>
 		public PathfinderProxyBase(string pathfinderId = null)
 		{

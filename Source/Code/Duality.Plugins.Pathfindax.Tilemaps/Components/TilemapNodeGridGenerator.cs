@@ -14,11 +14,11 @@ using Pathfindax.Utils;
 namespace Duality.Plugins.Pathfindax.Tilemaps.Components
 {
 	/// <summary>
-	/// Generates a <see cref="SourceNodeGrid"/> from <see cref="Tilemap"/>'s.
+	/// Generates a <see cref="DefinitionNodeGrid"/> from <see cref="Tilemap"/>'s.
 	/// The <see cref="Tilemap"/>'s must be children of the gameobject this component is attached to.
 	/// </summary>
 	[EditorHintCategory(PathfindaxStrings.PathfindaxTilemap)]
-	public class TilemapNodeGridGenerator : Component, ISourceNodeNetworkProvider<SourceNodeGrid>
+	public class TilemapNodeGridGenerator : Component, IDefinitionNodeNetworkProvider<DefinitionNodeGrid>
 	{
 		private float[] _movementPenalties;
 		/// <summary>
@@ -39,13 +39,13 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Components
 			}
 		}
 
-		private SourceNodeGrid _sourceNodeGrid;
+		private DefinitionNodeGrid _sourceNodeGrid;
 
 		/// <summary>
-		/// Generates a fully initialized <see cref="ISourceNodeGrid{TNode}"/> that can be used as a source nodegrid for pathfinders.
+		/// Generates a fully initialized <see cref="IDefinitionNodeGridDefinitionNodeGrid"/> that can be used as a source nodegrid for pathfinders.
 		/// </summary>
 		/// <returns></returns>
-		public SourceNodeGrid GenerateGrid2D()
+		public DefinitionNodeGrid GenerateGrid2D()
 		{
 			if (_sourceNodeGrid == null)
 			{
@@ -59,7 +59,7 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Components
 				}
 				var offset = -new Vector2(baseTilemap.Size.X * baseTilemap.Tileset.Res.TileSize.X - baseTilemap.Tileset.Res.TileSize.X, baseTilemap.Size.Y * baseTilemap.Tileset.Res.TileSize.Y - baseTilemap.Tileset.Res.TileSize.Y) / 2;
 				var sourceNodeGridFactory = new SourceNodeGridFactory();
-				_sourceNodeGrid = sourceNodeGridFactory.GeneratePreFilledArray(baseTilemap.Size.X, baseTilemap.Size.Y, new Vector2(baseTilemap.Tileset.Res.TileSize.X, baseTilemap.Tileset.Res.TileSize.Y), GenerateNodeGridConnections.None, 10, new Vector2(offset.X, offset.Y));
+				_sourceNodeGrid = sourceNodeGridFactory.GeneratePreFilledArray(baseTilemap.Size.X, baseTilemap.Size.Y, new Vector2(baseTilemap.Tileset.Res.TileSize.X, baseTilemap.Tileset.Res.TileSize.Y), GenerateNodeGridConnections.None, new Vector2(offset.X, offset.Y));
 				var tilemapColliderWithBodies = GameObj.GetComponentsInChildren<TilemapCollider>().Select(x => new TilemapColliderWithBody(x)).ToArray();
 				var partioner = Partitioner.Create(0, _sourceNodeGrid.NodeCount);
 

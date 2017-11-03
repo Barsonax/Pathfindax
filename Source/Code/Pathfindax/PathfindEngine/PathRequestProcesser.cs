@@ -11,7 +11,7 @@ namespace Pathfindax.PathfindEngine
     public class PathRequestProcesser<TNodeNetwork> : IProcesser<PathRequest>
 		where TNodeNetwork : IPathfindNodeNetwork
 	{
-		private readonly TNodeNetwork _nodeNetwork;
+		public readonly TNodeNetwork NodeNetwork;
 		private readonly IPathFindAlgorithm<TNodeNetwork> _algorithm;
 
 		/// <summary>
@@ -22,7 +22,7 @@ namespace Pathfindax.PathfindEngine
 		public PathRequestProcesser(TNodeNetwork nodeNetwork, IPathFindAlgorithm<TNodeNetwork> pathFindAlgorithm)
 		{
 			_algorithm = pathFindAlgorithm;
-			_nodeNetwork = nodeNetwork;
+			NodeNetwork = nodeNetwork;
 		}
 
 		/// <summary>
@@ -31,14 +31,14 @@ namespace Pathfindax.PathfindEngine
 		/// <param name="pathRequest"></param>
 		public void Process(PathRequest pathRequest)
 		{
-			var path = _algorithm.FindPath(_nodeNetwork, pathRequest);
+			var path = _algorithm.FindPath(NodeNetwork, pathRequest);
             if (path == null)
             {
                 pathRequest.FinishSolvePath(null);
             }
             else
             {				
-				pathRequest.FinishSolvePath(_nodeNetwork.SourceNodeNetwork.CreateCompletedPath(pathRequest, path));
+				pathRequest.FinishSolvePath(NodeNetwork.DefinitionNodeNetwork.CreateCompletedPath(pathRequest, path));
 			}           
 		}
 	}

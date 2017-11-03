@@ -9,7 +9,7 @@ namespace Pathfindax.Nodes
 		public NodePointer Index { get; }
 
 		/// <summary>
-		/// The position in the <see cref="ISourceNodeNetwork"/>
+		/// The position in the <see cref="IDefinitionNodeNetwork"/>
 		/// </summary>
 		public Vector2 Position { get; set; }
 

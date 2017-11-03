@@ -10,6 +10,10 @@
       <children />
       <compList dataType="Struct" type="System.Collections.Generic.List`1[[Duality.Component]]" id="101739723">
         <_items dataType="Array" type="Duality.Component[]" id="2012713974" length="8">
+          <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.DefinitionNodeNetworkProviderMockupComponent" id="2677810919">
+            <active dataType="Bool">true</active>
+            <gameobj dataType="ObjectRef">2586665865</gameobj>
+          </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.NonGridMouseClickPathfinder" id="1982292920">
             <_nonGridPathfinderProxy />
             <_pathStart />
@@ -116,14 +120,14 @@
             <active dataType="Bool">true</active>
             <gameobj dataType="ObjectRef">2586665865</gameobj>
           </item>
-          <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.SourceNodeNetworkProviderMockupComponent" id="2031197431">
-            <active dataType="Bool">true</active>
-            <gameobj dataType="ObjectRef">2586665865</gameobj>
-          </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Components.AstarPathfinderComponent" id="378963951">
-            <_x003C_MultithreadedPathfinder_x003E_k__BackingField />
+            <_astarNodeNetworks dataType="Struct" type="System.Collections.Generic.List`1[[Pathfindax.Grid.AstarNodeNetwork]]" id="3913524751">
+              <_items dataType="Array" type="Pathfindax.Grid.AstarNodeNetwork[]" id="41517998" length="0" />
+              <_size dataType="Int">0</_size>
+            </_astarNodeNetworks>
+            <_x003C_MaxClearance_x003E_k__BackingField dataType="Int">5</_x003C_MaxClearance_x003E_k__BackingField>
+            <_x003C_Pathfinder_x003E_k__BackingField />
             <_x003C_PathfinderId_x003E_k__BackingField />
-            <_x003C_SourceNodeNetwork_x003E_k__BackingField />
             <active dataType="Bool">true</active>
             <gameobj dataType="ObjectRef">2586665865</gameobj>
           </item>
@@ -131,6 +135,7 @@
             <_x003C_BoundRadius_x003E_k__BackingField dataType="Float">0</_x003C_BoundRadius_x003E_k__BackingField>
             <_x003C_CollisionCategory_x003E_k__BackingField dataType="Enum" type="Pathfindax.Nodes.PathfindaxCollisionCategory" name="Cat1" value="1" />
             <_x003C_NodeSize_x003E_k__BackingField dataType="Float">5</_x003C_NodeSize_x003E_k__BackingField>
+            <_x003C_Thread_x003E_k__BackingField dataType="Int">0</_x003C_Thread_x003E_k__BackingField>
             <_x003C_Visualize_x003E_k__BackingField dataType="Bool">true</_x003C_Visualize_x003E_k__BackingField>
             <active dataType="Bool">true</active>
             <gameobj dataType="ObjectRef">2586665865</gameobj>
@@ -143,17 +148,17 @@
         <body>
           <keys dataType="Array" type="System.Object[]" id="2764448481">
             <item dataType="Type" id="1272785774" value="Duality.Plugins.Pathfindax.Components.AstarPathfinderComponent" />
-            <item dataType="Type" id="1615501770" value="Duality.Plugins.Pathfindax.Examples.Components.SourceNodeNetworkProviderMockupComponent" />
-            <item dataType="Type" id="697156958" value="Duality.Plugins.Pathfindax.Examples.Components.NonGridMouseClickPathfinder" />
-            <item dataType="Type" id="350779226" value="Duality.Plugins.Pathfindax.Components.PathVisualizer" />
-            <item dataType="Type" id="595368718" value="Duality.Plugins.Pathfindax.Components.NodeNetworkVisualizer" />
+            <item dataType="Type" id="1615501770" value="Duality.Plugins.Pathfindax.Examples.Components.NonGridMouseClickPathfinder" />
+            <item dataType="Type" id="697156958" value="Duality.Plugins.Pathfindax.Components.PathVisualizer" />
+            <item dataType="Type" id="350779226" value="Duality.Plugins.Pathfindax.Components.NodeNetworkVisualizer" />
+            <item dataType="Type" id="595368718" value="Duality.Plugins.Pathfindax.Examples.Components.DefinitionNodeNetworkProviderMockupComponent" />
           </keys>
           <values dataType="Array" type="System.Object[]" id="3972132384">
             <item dataType="ObjectRef">378963951</item>
-            <item dataType="ObjectRef">2031197431</item>
             <item dataType="ObjectRef">1982292920</item>
             <item dataType="ObjectRef">4019338063</item>
             <item dataType="ObjectRef">2498494768</item>
+            <item dataType="ObjectRef">2677810919</item>
           </values>
         </body>
       </compMap>

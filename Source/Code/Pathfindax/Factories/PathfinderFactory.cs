@@ -9,7 +9,7 @@ namespace Pathfindax.Factories
     public static class PathfinderFactory
     {
         public static Pathfinder<TSourceNodeNetwork, TNodeNetwork> CreatePathfinder<TSourceNodeNetwork, TNodeNetwork>(TSourceNodeNetwork sourceNodeNetwork, Func<TSourceNodeNetwork, PathRequestProcesser<TNodeNetwork>> processerConstructor, int threads = 1)
-            where TSourceNodeNetwork : ISourceNodeNetwork
+            where TSourceNodeNetwork : IDefinitionNodeNetwork
 			where TNodeNetwork : IPathfindNodeNetwork
         {
             return new Pathfinder<TSourceNodeNetwork, TNodeNetwork>(sourceNodeNetwork, processerConstructor, threads);

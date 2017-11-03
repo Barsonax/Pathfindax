@@ -17,6 +17,6 @@ namespace Pathfindax.Grid
 	/// </summary>
 	public interface IPathfindNodeNetwork
 	{
-		ISourceNodeNetwork SourceNodeNetwork { get; }
+		IDefinitionNodeNetwork DefinitionNodeNetwork { get; }
 	}
 }

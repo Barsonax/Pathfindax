@@ -24,8 +24,7 @@ namespace Pathfindax.Nodes
 			return nodeArray[p.Index];
 		}
 
-		public static DefinitionNode Dereference<T>(NodePointer p, ISourceNodeNetwork<T> nodeArray) 
-			where T : ISourceNode
+		public static DefinitionNode Dereference(NodePointer p, IDefinitionNodeNetwork nodeArray)
 		{
 			return nodeArray[p.Index];
 		}

@@ -10,7 +10,7 @@ namespace Duality.Plugins.Pathfindax.Components
 	/// </summary>
 	/// <typeparam name="TSourceNodeNetwork"></typeparam>
 	public interface IPathfinderComponent<out TSourceNodeNetwork> : IPathfinderComponent
-		where TSourceNodeNetwork : ISourceNodeNetwork
+		where TSourceNodeNetwork : IDefinitionNodeNetwork
 	{
 		/// <summary>
 		/// The <see cref="IPathfinder{TSourceNodeNetwork}"/> that is used for pathfinding
