@@ -100,7 +100,6 @@
     <Compile Include="Nodes\NodeConnection.cs" />
     <Compile Include="Nodes\Enums\PathfindaxCollisionCategory.cs" />
     <Compile Include="PathfindEngine\Interfaces\IMultithreadedPathfinder.cs" />
-    <Compile Include="PathfindEngine\Interfaces\IPathPostProcess.cs" />
     <Compile Include="PathfindEngine\MultithreadedPathfinder.cs" />
     <Compile Include="PathfindEngine\PathRequestProcesser.cs" />
     <Compile Include="PathfindEngine\PathRequest.cs" />
