@@ -10,7 +10,7 @@ namespace Pathfindax.Test.Setup
 	{
 		public static DefinitionNodeGrid InitializeNodeGrid(int width, int height, Vector2 nodeSize)
 		{
-			var sourceNodeGridFactory = new SourceNodeGridFactory();
+			var sourceNodeGridFactory = new DefinitionNodeGridFactory();
 			var sourceNodeGrid = sourceNodeGridFactory.GeneratePreFilledArray(width, height, nodeSize, GenerateNodeGridConnections.All);
 			return sourceNodeGrid;
 		}

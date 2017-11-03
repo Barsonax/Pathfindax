@@ -17,6 +17,11 @@ namespace Duality.Plugins.Pathfindax.Components
 	{
 		private readonly List<AstarNodeNetwork> _astarNodeNetworks = new List<AstarNodeNetwork>();
 		public IReadOnlyList<AstarNodeNetwork> AstarNodeNetworks => _astarNodeNetworks;
+
+		/// <summary>
+		/// The max calculated clearance. Any clearance value higher than will be set to this. 
+		/// Try to keep this as low as possible to prevent wasting time calculating clearance values that will never be used.
+		/// </summary>
 		public int MaxClearance { get; set; } = 5;
 
 		/// <inheritdoc />

@@ -1,5 +1,4 @@
-﻿using Duality.Plugins.Pathfindax.PathfindEngine;
-using Duality.Resources;
+﻿using Duality.Resources;
 using Pathfindax.Grid;
 using Pathfindax.PathfindEngine;
 

@@ -9,7 +9,8 @@ using Pathfindax.Utils;
 namespace Pathfindax.Grid
 {
 	/// <summary>
-	/// Class that holds nodegrid data which wont change and is safe to share between threads
+	/// Class that holds the definition data for the nodegrid.
+	/// The nodegrid will be shared between multiple threads so do not make changes to it after you start pathfinding on it.
 	/// </summary>
 	public class DefinitionNodeGrid : IDefinitionNodeGrid
 	{

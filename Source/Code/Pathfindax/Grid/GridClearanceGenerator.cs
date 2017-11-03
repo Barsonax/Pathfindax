@@ -73,7 +73,7 @@ namespace Pathfindax.Grid
 					return isBlocked ? checkClearance : checkClearance + 1;
 				}
 			}
-			return float.NaN;
+			return maxClearance;
 		}
 
 		private BlockType IsBlocked(int x, int y, PathfindaxCollisionCategory collisionCategory, Point2 fromCoordinates)

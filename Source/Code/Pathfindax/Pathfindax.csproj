@@ -69,7 +69,6 @@
   <ItemGroup>
     <Compile Include="Collections\Interfaces\IReadOnlyArray2D.cs" />
     <Compile Include="Collections\Interfaces\IWriteOnlyArray2D.cs" />
-    <Compile Include="Factories\NodeFactory.cs" />
     <Compile Include="Grid\GridClearanceGenerator.cs" />
     <Compile Include="Grid\Interfaces\IPathfindNodeGenerator.cs" />
     <Compile Include="Nodes\DefinitionNode.cs" />
@@ -115,15 +114,12 @@
     <Compile Include="Utils\GridMath.cs" />
     <Compile Include="Utils\Mathf.cs" />
     <Compile Include="Utils\PathfindaxStrings.cs" />
-    <Compile Include="Utils\StringExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="Pathfindax.nuspec" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Grid\Abstract\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>if $(ConfigurationName) == Debug (

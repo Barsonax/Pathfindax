@@ -32,6 +32,11 @@ namespace Pathfindax.Nodes
 			Connections[index] = new NodeConnection(Connections[index].To, collisionCategory);
 		}
 
+		public void AddConnection(DefinitionNode to, PathfindaxCollisionCategory collisionCategory = PathfindaxCollisionCategory.None)
+		{
+			Connections.Add(new NodeConnection(to.Index, collisionCategory));
+		}
+
 		public override string ToString()
 		{
 			return $"Index: {Index} Position: {Position}";

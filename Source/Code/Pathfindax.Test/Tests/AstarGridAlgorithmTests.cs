@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using Pathfindax.Algorithms;
 using Pathfindax.Grid;
 using Pathfindax.PathfindEngine;

@@ -15,7 +15,7 @@ namespace Pathfindax.Algorithms
 	{
 		public List<DefinitionNode> FindPath(IPathfindNodeNetwork<AstarNode> nodeNetwork, PathRequest pathRequest)
 		{
-			var pathfindingNetwork = nodeNetwork.GetPathfindingNetwork(pathRequest.CollisionCategory);
+			var pathfindingNetwork = nodeNetwork.GetCollisionLayerNetwork(pathRequest.CollisionCategory);
 			var startNode = NodePointer.Dereference(pathRequest.PathStart.Index, pathfindingNetwork);
 			var endNode = NodePointer.Dereference(pathRequest.PathEnd.Index, pathfindingNetwork);
 			return FindPath(pathfindingNetwork, startNode, endNode, pathRequest.AgentSize, pathRequest.CollisionCategory);

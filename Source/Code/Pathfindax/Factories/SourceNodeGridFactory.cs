@@ -6,7 +6,7 @@ using Pathfindax.Nodes;
 
 namespace Pathfindax.Factories
 {
-	public class SourceNodeGridFactory
+	public class DefinitionNodeGridFactory
 	{
 		/// <summary>
 		/// Returns a preconfigured <see cref="Array2D{TItem}"/> which can be used to make a <see cref="DefinitionNodeGrid"/>
@@ -15,7 +15,6 @@ namespace Pathfindax.Factories
 		/// <param name="height"></param>
 		/// <param name="nodeSize"></param>
 		/// <param name="generateNodeGridConnections"></param>
-		/// <param name="maxClearance"></param>
 		/// <param name="offset"></param>
 		/// <returns></returns>
 		public DefinitionNodeGrid GeneratePreFilledArray(int width, int height, Vector2 nodeSize, GenerateNodeGridConnections generateNodeGridConnections, Vector2 offset = default(Vector2))

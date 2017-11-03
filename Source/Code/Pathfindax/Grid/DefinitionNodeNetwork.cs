@@ -6,6 +6,10 @@ using Pathfindax.PathfindEngine;
 
 namespace Pathfindax.Grid
 {
+	/// <summary>
+	/// Class that holds the definition data for the nodenetwork.
+	/// The nodenetwork will be shared between multiple threads so do not make changes to it after you start pathfinding on it.
+	/// </summary>
 	public class DefinitionNodeNetwork : IDefinitionNodeNetwork
 	{
 		public DefinitionNode this[int index] => DefinitionNodes[index];

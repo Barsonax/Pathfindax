@@ -50,7 +50,7 @@ namespace Duality.Plugins.Pathfindax.Components
 			if (pathfinderComponent?.Pathfinder?.SourceNodeNetwork != null)
 			{
 				if (Thread > pathfinderComponent.AstarNodeNetworks.Count) return;
-				var network = pathfinderComponent.AstarNodeNetworks[Thread].GetPathfindingNetwork(CollisionCategory);
+				var network = pathfinderComponent.AstarNodeNetworks[Thread].GetCollisionLayerNetwork(CollisionCategory);
 				var canvas = new Canvas(device, new CanvasBuffer());
 				canvas.State.ZOffset = -8;
 				for (int i = 0; i < pathfinderComponent.Pathfinder.SourceNodeNetwork.NodeCount; i++)

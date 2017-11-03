@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using Pathfindax.Grid;
-using Pathfindax.Threading;
+﻿using Pathfindax.Grid;
 
 namespace Pathfindax.PathfindEngine
 {

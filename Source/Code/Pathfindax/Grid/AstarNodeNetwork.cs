@@ -9,9 +9,10 @@ namespace Pathfindax.Grid
 	/// </summary>
 	public class AstarNodeNetwork : IPathfindNodeNetwork<AstarNode>
 	{
-		private Dictionary<PathfindaxCollisionCategory, AstarNode[]> NodeNetworks { get; } = new Dictionary<PathfindaxCollisionCategory, AstarNode[]>();
 		public IDefinitionNodeNetwork DefinitionNodeNetwork { get; }
 		IDefinitionNodeNetwork IPathfindNodeNetwork.DefinitionNodeNetwork => DefinitionNodeNetwork;
+
+		private readonly Dictionary<PathfindaxCollisionCategory, AstarNode[]> _nodeNetworks = new Dictionary<PathfindaxCollisionCategory, AstarNode[]>();
 		private readonly IPathfindNodeGenerator<AstarNode>[] _pathfindNodeGenerators;
 
 		/// <summary>
@@ -25,9 +26,9 @@ namespace Pathfindax.Grid
 			_pathfindNodeGenerators = pathfindNodeGenerators;
 		}
 
-		public AstarNode[] GetPathfindingNetwork(PathfindaxCollisionCategory collisionCategory)
+		public AstarNode[] GetCollisionLayerNetwork(PathfindaxCollisionCategory collisionCategory)
 		{
-			if (!NodeNetworks.TryGetValue(collisionCategory, out var pathfindingNetwork))
+			if (!_nodeNetworks.TryGetValue(collisionCategory, out var pathfindingNetwork))
 			{				
 				var watch = Stopwatch.StartNew();
 				pathfindingNetwork = GenerateNodeNetwork(DefinitionNodeNetwork);
@@ -36,7 +37,7 @@ namespace Pathfindax.Grid
 					pathfindNodeGenerator.Generate(pathfindingNetwork, collisionCategory);
 				}
 				Debug.WriteLine($"Generated pathfind nodenetwork in {watch.ElapsedMilliseconds} ms");
-				NodeNetworks.Add(collisionCategory, pathfindingNetwork);
+				_nodeNetworks.Add(collisionCategory, pathfindingNetwork);
 			}
 			return pathfindingNetwork;
 		}
