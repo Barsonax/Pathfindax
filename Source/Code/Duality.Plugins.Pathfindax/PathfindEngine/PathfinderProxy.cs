@@ -1,57 +1,65 @@
-﻿using Duality.Plugins.Pathfindax.Components;
-using Duality.Resources;
-using Pathfindax.Grid;
+﻿using Pathfindax.Grid;
 using Pathfindax.Nodes;
+using Pathfindax.PathfindEngine;
 
 namespace Duality.Plugins.Pathfindax.PathfindEngine
 {
 	/// <summary>
-	/// Provides access to the pathfinder.
+	/// Proxy for pathfinding on a <see cref="ISourceNodeNetwork{ISourceNode}"/>
 	/// </summary>
-	/// <example>
-	/// <img src="../media/PathfindProxyDiagram.png" />
-	/// </example>
-	/// <typeparam name="TSourceNodeNetwork">The type of source network the pathfinder uses</typeparam>
-	/// <typeparam name="TNode">The type of node</typeparam>
-	public abstract class PathfinderProxy<TNode, TSourceNodeNetwork>
-		where TSourceNodeNetwork : class, ISourceNodeNetwork<TNode>
-		where TNode : ISourceNode
+	public class PathfinderProxy : PathfinderProxyBase<SourceNode, ISourceNodeNetwork<SourceNode>>
 	{
 		/// <summary>
-		/// The id of the pathfinder. You can keep this empty if you only have 1 pathfinder in a <see cref="Scene"/>
+		/// Requests a new path
 		/// </summary>
-		public string PathfinderId { get; }
-
-		private IPathfinderComponent<TSourceNodeNetwork> _pathfinderComponent;
-		/// <summary>
-		/// The actual pathfinder
-		/// </summary>
-		public IPathfinderComponent<TSourceNodeNetwork> PathfinderComponent
+		/// <param name="start"></param>
+		/// <param name="end"></param>
+		/// <param name="agentSize"></param>
+		/// <param name="collisionLayer"></param>
+		/// <returns></returns>
+		public PathRequest RequestPath(Vector3 start, Vector3 end, PathfindaxCollisionCategory collisionLayer = PathfindaxCollisionCategory.None, byte agentSize = 1)
 		{
-			get
-			{
-				if (_pathfinderComponent != null)
-				{
-					return _pathfinderComponent;
-				}
-				var pathfinderComponent = PathfindaxDualityCorePlugin.GetPathfinder<TSourceNodeNetwork>(PathfinderId);
-				if (pathfinderComponent == null)
-				{
-					Log.Game.WriteWarning(PathfinderId == null
-						? $"{GetType()}: Could not find a pathfinder of type: {typeof(TSourceNodeNetwork)}"
-						: $"{GetType()}: Could not find a pathfinder of type: {typeof(TSourceNodeNetwork)} with id: {PathfinderId}");
-				}
-				_pathfinderComponent = pathfinderComponent;
-				return _pathfinderComponent;
-			}
+			return RequestPath(start.X, start.Y, end.X, end.Y, collisionLayer, agentSize);
 		}
 
 		/// <summary>
-		/// Creates a new <see cref="PathfinderProxy{TNode,TSourceNodeNetwork}"/>. The id has to be supplied if there is more than 1 <see cref="IPathfinderComponent"/> in the scene.
+		/// Requests a new path
 		/// </summary>
-		public PathfinderProxy(string pathfinderId = null)
+		/// <param name="start"></param>
+		/// <param name="end"></param>
+		/// <param name="agentSize"></param>
+		/// <param name="collisionLayer"></param>
+		/// <returns></returns>
+		public PathRequest RequestPath(Vector2 start, Vector2 end, PathfindaxCollisionCategory collisionLayer = PathfindaxCollisionCategory.None, byte agentSize = 1)
 		{
-			PathfinderId = pathfinderId;
+			return RequestPath(start.X, start.Y, end.X, end.Y, collisionLayer, agentSize);
+		}
+
+		/// <summary>
+		/// Requests a new path
+		/// </summary>
+		/// <param name="x1"></param>
+		/// <param name="y1"></param>
+		/// <param name="x2"></param>
+		/// <param name="y2"></param>
+		/// <param name="agentSize"></param>
+		/// <param name="collisionLayer"></param>
+		/// <returns></returns>
+		public PathRequest RequestPath(float x1, float y1, float x2, float y2, PathfindaxCollisionCategory collisionLayer = PathfindaxCollisionCategory.None, byte agentSize = 1)
+		{
+			return PathfinderComponent.Pathfinder.SourceNodeNetwork.CreatePathRequest(PathfinderComponent.Pathfinder, x1, y1, x2, y2, collisionLayer, agentSize);
+		}
+
+		/// <summary>
+		/// Requests a new path
+		/// </summary>
+		/// <param name="start"></param>
+		/// <param name="end"></param>
+		/// <param name="agentSize"></param>
+		/// <param name="collisionLayer"></param>
+		public PathRequest RequestPath(DefinitionNode start, DefinitionNode end, PathfindaxCollisionCategory collisionLayer = PathfindaxCollisionCategory.None, byte agentSize = 1)
+		{
+			return new PathRequest(PathfinderComponent, start, end, collisionLayer, agentSize);
 		}
 	}
 }

@@ -89,10 +89,8 @@
     <Compile Include="Components\PathfinderComponentBase.cs" />
     <Compile Include="Components\NodeNetworkVisualizer.cs" />
     <Compile Include="PathfindaxDualityCorePlugin.cs" />
-    <Compile Include="Components\AStarGridPathfinderComponent.cs" />
-    <Compile Include="PathfindEngine\GridPathfinderProxy.cs" />
-    <Compile Include="PathfindEngine\NonGridPathfinderProxy.cs" />
     <Compile Include="PathfindEngine\PathfinderProxy.cs" />
+    <Compile Include="PathfindEngine\PathfinderProxyBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

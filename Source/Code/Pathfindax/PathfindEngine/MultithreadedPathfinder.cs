@@ -11,7 +11,7 @@ namespace Pathfindax.PathfindEngine
 	/// <typeparam name="TThreadNodeNetwork"></typeparam>
 	public class Pathfinder<TSourceNodeNetwork, TThreadNodeNetwork> : IPathfinder<TSourceNodeNetwork>, IDisposable
 		where TSourceNodeNetwork : ISourceNodeNetwork
-		where TThreadNodeNetwork : INodeNetwork
+		where TThreadNodeNetwork : IPathfindNodeNetwork
 	{
 		public TSourceNodeNetwork SourceNodeNetwork { get; }
 		private readonly MultithreadedWorkerQueue<PathRequest> _multithreadedWorkerQueue;

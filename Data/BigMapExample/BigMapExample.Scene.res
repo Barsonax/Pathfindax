@@ -383,7 +383,7 @@
             <active dataType="Bool">true</active>
             <gameobj dataType="ObjectRef">612087133</gameobj>
           </item>
-          <item dataType="Struct" type="Duality.Plugins.Pathfindax.Components.AStarGridPathfinderComponent" id="3555200141">
+          <item dataType="Struct" type="Duality.Plugins.Pathfindax.Components.AstarPathfinderComponent" id="2699352515">
             <_x003C_Pathfinder_x003E_k__BackingField />
             <_x003C_PathfinderId_x003E_k__BackingField />
             <active dataType="Bool">true</active>
@@ -398,12 +398,12 @@
           <keys dataType="Array" type="System.Object[]" id="2965197860">
             <item dataType="ObjectRef">36306304</item>
             <item dataType="Type" id="2098338500" value="Duality.Plugins.Pathfindax.Tilemaps.Components.TilemapNodeGridGenerator" />
-            <item dataType="Type" id="3087176598" value="Duality.Plugins.Pathfindax.Components.AStarGridPathfinderComponent" />
+            <item dataType="Type" id="3087176598" value="Duality.Plugins.Pathfindax.Components.AstarPathfinderComponent" />
           </keys>
           <values dataType="Array" type="System.Object[]" id="1798908182">
             <item dataType="ObjectRef">669364351</item>
             <item dataType="ObjectRef">1783036078</item>
-            <item dataType="ObjectRef">3555200141</item>
+            <item dataType="ObjectRef">2699352515</item>
           </values>
         </body>
       </compMap>

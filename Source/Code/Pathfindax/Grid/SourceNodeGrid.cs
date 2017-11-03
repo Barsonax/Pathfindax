@@ -4,6 +4,7 @@ using System.Diagnostics;
 using Duality;
 using Pathfindax.Collections;
 using Pathfindax.Nodes;
+using Pathfindax.PathfindEngine;
 using Pathfindax.Utils;
 
 namespace Pathfindax.Grid
@@ -21,6 +22,7 @@ namespace Pathfindax.Grid
 		public Vector2 Offset { get; protected set; }
 		private readonly Dictionary<PathfindaxCollisionCategory, SourceNode[]> _nodeNetworks = new Dictionary<PathfindaxCollisionCategory, SourceNode[]>();
 		private readonly int _maxClearance;
+
 		public SourceNodeGrid(Array2D<DefinitionNode> grid, Vector2 nodeSize, Vector2 offset, int maxClearance)
 		{
 			DefinitionNodeArray = grid;
@@ -156,6 +158,7 @@ namespace Pathfindax.Grid
 			if (x >= DefinitionNodeArray.Width || y >= DefinitionNodeArray.Height)
 				return BlockType.Current;
 			var definitionNode = DefinitionNodeArray[x, y];
+			var blockType = BlockType.None;
 			foreach (var nodeConnection in definitionNode.Connections)
 			{
 				if ((nodeConnection.CollisionCategory & collisionCategory) != 0)
@@ -163,26 +166,44 @@ namespace Pathfindax.Grid
 					var toCoordinates = DefinitionNodeArray.GetCoordinates(nodeConnection.To.Index);
 					if (toCoordinates.X >= fromCoordinates.X && toCoordinates.Y >= fromCoordinates.Y)
 					{
-						if (toCoordinates.X >= x && toCoordinates.Y >= y)
+						if (toCoordinates.X >= x || toCoordinates.Y >= y)
 						{
-							return BlockType.Next;
+							blockType = BlockType.Next;
 						}
-						return BlockType.Current;
+						else
+						{
+							return BlockType.Current;
+						}
 					}
 				}
 			}
-			return BlockType.None;
+			return blockType;
 		}
 
 		public enum BlockType
 		{
 			None,
+			Next,
 			Current,
-			Next
+		}
+
+		public PathRequest CreatePathRequest(IPathfinder pathfinder, float x1, float y1, float x2, float y2, PathfindaxCollisionCategory collisionLayer = PathfindaxCollisionCategory.None, byte agentSize = 1)
+		{
+			var offset = -GridClearanceHelper.GridNodeOffset(agentSize, NodeSize);
+			var startNode = GetNode(x1 + offset.X, y1 + offset.Y);
+			var endNode = GetNode(x2 + offset.X, y2 + offset.Y);
+			return new PathRequest(pathfinder, startNode, endNode, collisionLayer, agentSize);
+		}
+
+		public ICompletedPath CreateCompletedPath(PathRequest pathRequest, List<DefinitionNode> path)
+		{
+			var offset = GridClearanceHelper.GridNodeOffset(pathRequest.AgentSize, NodeSize);
+			return new CompletedPath(path.ToArray(), offset);
 		}
 
 		public DefinitionNode GetNode(float worldX, float worldY)
 		{
+			
 			var percentX = (worldX - Offset.X) / WorldSize.X;
 			var percentY = (worldY - Offset.Y) / WorldSize.Y;
 			percentX = Mathf.Clamp(percentX, 0, 1);
@@ -190,7 +211,7 @@ namespace Pathfindax.Grid
 
 			var x = (int)Math.Round((DefinitionNodeArray.Width - 1) * percentX);
 			var y = (int)Math.Round((DefinitionNodeArray.Height - 1) * percentY);
-
+			Debug.WriteLine($"{x}:{y}");
 			return DefinitionNodeArray[x, y];
 		}
 	}

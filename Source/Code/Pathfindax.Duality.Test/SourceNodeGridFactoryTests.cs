@@ -23,15 +23,15 @@ namespace Pathfindax.Duality.Test
 			//sourceNodeGrid.DefinitionNodeArray[0, 0].SetConnectionCollision(6, PathfindaxCollisionCategory.Cat3);
 
 			var sourceNodeNetworkCat1 = new Array2D<SourceNode>(sourceNodeGrid.GetSourceNetwork(PathfindaxCollisionCategory.Cat1), width, height);
-			Assert.AreEqual(3, sourceNodeNetworkCat1[0, 0].Clearance);
+			Assert.AreEqual(4, sourceNodeNetworkCat1[0, 0].Clearance);
 			Assert.AreEqual(3, sourceNodeNetworkCat1[1, 0].Clearance);
-			Assert.AreEqual(1, sourceNodeNetworkCat1[2, 0].Clearance);
-			Assert.AreEqual(0, sourceNodeNetworkCat1[3, 0].Clearance);
+			Assert.AreEqual(2, sourceNodeNetworkCat1[2, 0].Clearance);
+			Assert.AreEqual(1, sourceNodeNetworkCat1[3, 0].Clearance);
 
-			Assert.AreEqual(1, sourceNodeNetworkCat1[0, 1].Clearance);
-			Assert.AreEqual(1, sourceNodeNetworkCat1[1, 1].Clearance);
-			Assert.AreEqual(float.NaN, sourceNodeNetworkCat1[2, 1].Clearance);
-			Assert.AreEqual(float.NaN, sourceNodeNetworkCat1[3, 1].Clearance);
+			Assert.AreEqual(3, sourceNodeNetworkCat1[0, 1].Clearance);
+			Assert.AreEqual(3, sourceNodeNetworkCat1[1, 1].Clearance);
+			Assert.AreEqual(2, sourceNodeNetworkCat1[2, 1].Clearance);
+			Assert.AreEqual(1, sourceNodeNetworkCat1[3, 1].Clearance);
 
 			//var sourceNodeNetworkCat2 = sourceNodeGrid.GetSourceNetwork(PathfindaxCollisionCategory.Cat2);
 			//Assert.AreEqual(3, sourceNodeNetworkCat2[0].Clearance);

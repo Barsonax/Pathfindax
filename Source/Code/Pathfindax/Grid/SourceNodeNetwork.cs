@@ -2,6 +2,7 @@
 using System.Linq;
 using Duality;
 using Pathfindax.Nodes;
+using Pathfindax.PathfindEngine;
 
 namespace Pathfindax.Grid
 {
@@ -42,6 +43,18 @@ namespace Pathfindax.Grid
 				_nodeNetworks.Add(collisionCategory, sourceNodeGrid);
 			}
 			return sourceNodeGrid;
+		}
+
+		public PathRequest CreatePathRequest(IPathfinder pathfinder, float x1, float y1, float x2, float y2, PathfindaxCollisionCategory collisionLayer, byte agentSize)
+		{
+			var startNode = GetNode(x1, y1);
+			var endNode = GetNode(x2, y2);
+			return new PathRequest(pathfinder, startNode, endNode, collisionLayer, agentSize);
+		}
+
+		public ICompletedPath CreateCompletedPath(PathRequest pathRequest, List<DefinitionNode> path)
+		{
+			return new CompletedPath(path.ToArray());
 		}
 
 		private SourceNode[] GenerateSourceNodeGrid(PathfindaxCollisionCategory collisionCategory)

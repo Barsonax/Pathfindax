@@ -25,7 +25,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 		[EditorHintRange(1, 1000)]
 		public int FramesBetweenRequest { get; set; }
 
-		private GridPathfinderProxy _gridPathfinderProxy;
+		private PathfinderProxy _pathfinderProxy;
 		private readonly Random _randomGenerator = new Random();
 		private int _frameCounter;
 
@@ -33,7 +33,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 		{
 			if (context == InitContext.Activate && DualityApp.ExecContext == DualityApp.ExecutionContext.Game)
 			{
-				_gridPathfinderProxy = new GridPathfinderProxy();
+				_pathfinderProxy = new PathfinderProxy();
 			}
 		}
 
@@ -45,7 +45,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 			{
 				var start = new Vector2(_randomGenerator.Next(TopLeftCorner.X, BottomRightCorner.X), _randomGenerator.Next(TopLeftCorner.Y, BottomRightCorner.Y));
 				var end = new Vector2(_randomGenerator.Next(TopLeftCorner.X, BottomRightCorner.X), _randomGenerator.Next(TopLeftCorner.Y, BottomRightCorner.Y));
-				var request = _gridPathfinderProxy.RequestPath(start, end, CollisionCategory, AgentSize);
+				var request = _pathfinderProxy.RequestPath(start, end, CollisionCategory, AgentSize);
 				request.AddCallback(PathSolved);
 				_frameCounter = 0;
 			}

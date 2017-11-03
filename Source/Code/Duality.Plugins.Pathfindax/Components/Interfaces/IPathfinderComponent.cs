@@ -24,7 +24,7 @@ namespace Duality.Plugins.Pathfindax.Components
 	public interface IPathfinderComponent : IPathfinder
 	{
 		/// <summary>
-		/// The id of the pathfinder. This is used by the <see cref="PathfinderProxy{TNode,TSourceNodeNetwork}"/> to get the correct pathfinder if there are multiple pathfinders in the <see cref="Scene"/>
+		/// The id of the pathfinder. This is used by the <see cref="PathfinderProxyBaseBase{TNode,TSourceNodeNetwork}"/> to get the correct pathfinder if there are multiple pathfinders in the <see cref="Scene"/>
 		/// </summary>
 		string PathfinderId { get; }
 

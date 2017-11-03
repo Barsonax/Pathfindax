@@ -64,7 +64,6 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Tests\AstarAlgorithmTests.cs" />
     <Compile Include="Setup\AstarGridAlgorithmCases.cs" />
     <Compile Include="Tests\AstarGridAlgorithmTests.cs" />
     <Compile Include="Setup\MultithreadedPathfinderSetup.cs" />

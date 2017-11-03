@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Pathfindax.Algorithms;
+﻿using Pathfindax.Algorithms;
 using Pathfindax.Grid;
 using Pathfindax.Threading;
 
@@ -10,22 +9,19 @@ namespace Pathfindax.PathfindEngine
     /// </summary>
     /// <typeparam name="TNodeNetwork"></typeparam>
     public class PathRequestProcesser<TNodeNetwork> : IProcesser<PathRequest>
-		where TNodeNetwork : INodeNetwork
+		where TNodeNetwork : IPathfindNodeNetwork
 	{
 		private readonly TNodeNetwork _nodeNetwork;
 		private readonly IPathFindAlgorithm<TNodeNetwork> _algorithm;
-		private readonly IList<IPathPostProcess> _pathPostProcesses;
 
 		/// <summary>
 		/// Initialises a new <see cref="PathRequestProcesser{TNodeNetwork}"/> with a <see cref="IPathFindAlgorithm{TNodeNetwork}"/> and optional post processing steps.
 		/// </summary>
 		/// <param name="nodeNetwork">The <typeparamref name="TNodeNetwork"/> that will be used to solve paths</param>
 		/// <param name="pathFindAlgorithm">The <see cref="IPathFindAlgorithm{TNodeNetwork}"/> that will be used to solve paths</param>
-		/// <param name="pathPostProcesses">The post processing steps that will be applied after the <see cref="IPathFindAlgorithm{TNodeNetwork}"/> found a path</param>
-		public PathRequestProcesser(TNodeNetwork nodeNetwork, IPathFindAlgorithm<TNodeNetwork> pathFindAlgorithm, IList<IPathPostProcess> pathPostProcesses = null)
+		public PathRequestProcesser(TNodeNetwork nodeNetwork, IPathFindAlgorithm<TNodeNetwork> pathFindAlgorithm)
 		{
 			_algorithm = pathFindAlgorithm;
-			_pathPostProcesses = pathPostProcesses;
 			_nodeNetwork = nodeNetwork;
 		}
 
@@ -41,15 +37,8 @@ namespace Pathfindax.PathfindEngine
                 pathRequest.FinishSolvePath(null);
             }
             else
-            {
-				//if (_pathPostProcesses != null)
-				//{
-				//    foreach (var postProcess in _pathPostProcesses)
-				//    {
-				//        path = postProcess.Process(path, pathRequest);
-				//    }
-				//}
-				pathRequest.FinishSolvePath(new CompletedPath(path.ToArray()));
+            {				
+				pathRequest.FinishSolvePath(_nodeNetwork.SourceNodeNetwork.CreateCompletedPath(pathRequest, path));
 			}           
 		}
 	}

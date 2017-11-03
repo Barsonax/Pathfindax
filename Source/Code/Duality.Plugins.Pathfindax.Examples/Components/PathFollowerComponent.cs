@@ -22,7 +22,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 		private Transform _transform;
 		private Vector2[] _path;
 		private int _pathIndex;
-		private GridPathfinderProxy _gridPathfinderProxy;
+		private PathfinderProxy _pathfinderProxy;
 		private int _counter;
 
 		void ICmpInitializable.OnInit(InitContext context)
@@ -31,7 +31,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 			{
 				_transform = GameObj.GetComponent<Transform>();
 				DualityApp.Mouse.ButtonDown += Mouse_ButtonDown;
-				_gridPathfinderProxy = new GridPathfinderProxy();
+				_pathfinderProxy = new PathfinderProxy();
 			}
 		}
 
@@ -71,7 +71,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 		private void Mouse_ButtonDown(object sender, MouseButtonEventArgs e)
 		{
 			var targetPos = Camera.GetSpaceCoord(e.Position);    
-			var request = _gridPathfinderProxy.RequestPath(_transform.Pos, targetPos, CollisionCategory, AgentSize);
+			var request = _pathfinderProxy.RequestPath(_transform.Pos, targetPos, CollisionCategory, AgentSize);
             request.AddCallback(OnRequestCompleted);
 		}
 

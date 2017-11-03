@@ -6,7 +6,7 @@ namespace Pathfindax.Grid
 	/// Generic interface for nodenetworks
 	/// </summary>
 	/// <typeparam name="TNode"></typeparam>
-	public interface IPathfindNodeNetwork<out TNode> : INodeNetwork
+	public interface IPathfindNodeNetwork<out TNode> : IPathfindNodeNetwork
 		where TNode : INode
 	{
 		TNode[] GetPathfindingNetwork(PathfindaxCollisionCategory collisionCategory);
@@ -15,7 +15,8 @@ namespace Pathfindax.Grid
 	/// <summary>
 	/// Interface for nodenetworks
 	/// </summary>
-	public interface INodeNetwork
+	public interface IPathfindNodeNetwork
 	{
+		ISourceNodeNetwork SourceNodeNetwork { get; }
 	}
 }

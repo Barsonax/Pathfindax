@@ -34,7 +34,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 		public Camera Camera { get; set; }
 
 		private Vector3? _pathStart;
-		private GridPathfinderProxy _gridPathfinderProxy;
+		private PathfinderProxy _pathfinderProxy;
 
 		void ICmpInitializable.OnInit(InitContext context)
 		{
@@ -42,7 +42,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 			{
 				DualityApp.Mouse.Move += Mouse_Move;
 				DualityApp.Mouse.ButtonDown += Mouse_ButtonDown;
-				_gridPathfinderProxy = new GridPathfinderProxy();
+				_pathfinderProxy = new PathfinderProxy();
 			}
 		}
 
@@ -73,7 +73,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 		{
 			if (_pathStart != null)
 			{
-				var request = _gridPathfinderProxy.RequestPath(_pathStart.Value, _pathStart.Value, CollisionCategory, AgentSize);
+				var request = _pathfinderProxy.RequestPath(_pathStart.Value, _pathStart.Value, CollisionCategory, AgentSize);
 				request.AddCallback(PathSolved);
 			}
 		}

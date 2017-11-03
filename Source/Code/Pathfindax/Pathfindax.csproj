@@ -75,7 +75,6 @@
     <Compile Include="Nodes\Interfaces\ISourceNode.cs" />
     <Compile Include="Factories\PathfinderFactory.cs" />
     <Compile Include="Nodes\NodePointer.cs" />
-    <Compile Include="PathfindEngine\CompletedGridPath.cs" />
     <Compile Include="PathfindEngine\CompletedPath.cs" />
     <Compile Include="PathfindEngine\Interfaces\ICompletedPath.cs" />
     <Compile Include="PathfindEngine\PathRequestStatus.cs" />

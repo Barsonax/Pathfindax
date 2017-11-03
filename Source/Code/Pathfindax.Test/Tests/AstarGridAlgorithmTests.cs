@@ -7,17 +7,20 @@ using Pathfindax.Test.Setup;
 namespace Pathfindax.Test.Tests
 {
 	[TestFixture]
-	public class AstarGridAlgorithmTests
+	public class AstarAlgorithmTests
 	{
-		[Test, TestCaseSource(typeof(AstarGridAlgorithmCases), nameof(AstarGridAlgorithmCases.FindPathTestCases))]
+		[Test, TestCaseSource(typeof(AstarAlgorithmCases), nameof(AstarAlgorithmCases.FindPathTestCases))]
 		[MaxTime(2000)]
-		public void FindPath_InitializedNodegrid_PathLengthIsNot0(AstarNodeNetwork sourceNodeGrid, float x1, float y1, float x2, float y2)
+		public void FindPath_InitializedNodegrid_PathLengthIsNot0(SourceNodeGrid sourceNodeGrid, int x1, int y1, int x2, int y2)
 		{
 			var aStarAlgorithm = new AStarAlgorithm();
-			var start = sourceNodeGrid.SourceNodeNetwork.GetNode(x1, y1);
-			var end = sourceNodeGrid.SourceNodeNetwork.GetNode(x2, y2);
+			
+			var start = sourceNodeGrid.DefinitionNodeArray[x1, y1];
+			var end = sourceNodeGrid.DefinitionNodeArray[x1, y1];
+
+			var pathfindingNetwork = new AstarNodeNetwork(sourceNodeGrid);
 			var pathRequest = new PathRequest(start, end);
-			var path = aStarAlgorithm.FindPath(sourceNodeGrid, pathRequest);
+			var path = aStarAlgorithm.FindPath(pathfindingNetwork, pathRequest);
 			Assert.AreEqual(path.Count > 0, true);
 		}
 	}

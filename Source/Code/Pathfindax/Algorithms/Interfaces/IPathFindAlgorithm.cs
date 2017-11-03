@@ -10,7 +10,7 @@ namespace Pathfindax.Algorithms
 	/// </summary>
 	/// <typeparam name="TNodeNetwork"></typeparam>
 	public interface IPathFindAlgorithm<in TNodeNetwork>
-		where TNodeNetwork : INodeNetwork
+		where TNodeNetwork : IPathfindNodeNetwork
 	{
 		/// <summary>
 		/// Finds a path from <paramref name="pathRequest"></paramref>.PathStart to <paramref name="pathRequest"></paramref>.PathEnd using the <paramref name="nodeNetwork"></paramref> and returns this as a list of <see cref="INode"/>.

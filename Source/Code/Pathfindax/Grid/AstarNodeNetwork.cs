@@ -11,6 +11,7 @@ namespace Pathfindax.Grid
 	{
 		private Dictionary<PathfindaxCollisionCategory, AstarNode[]> NodeNetworks { get; } = new Dictionary<PathfindaxCollisionCategory, AstarNode[]>();
 		public ISourceNodeNetwork<SourceNode> SourceNodeNetwork { get; }
+		ISourceNodeNetwork IPathfindNodeNetwork.SourceNodeNetwork => SourceNodeNetwork;
 
 		/// <summary>
 		/// Creates a new instance of the <see cref="AstarNodeNetwork"/>

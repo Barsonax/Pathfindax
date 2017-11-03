@@ -53,7 +53,7 @@
                   <tileData dataType="Struct" type="Duality.Plugins.Tilemaps.TilemapData" id="577409533" custom="true">
                     <body>
                       <version dataType="Int">3</version>
-                      <data dataType="Array" type="System.Byte[]" id="3824240934">H4sIAAAAAAAEAFNgYGAQAeICBmqAQDBZDqH+Q6i9VDGZSoBCb0J8lI7iv7mUGTmowKj/YMCEmhQRRlMHjOT4OwChDkKoQ6QaTaF2VMDBCKY4IRQXhOKGUDyMuPUNFf+RC/D57wSEOgmhTkGoYEhghTAS5GHVTm+Az38KEEoRQilBKOL9h1U7vQE2/92FymlAKE0IpUWq0RRqRwVykDCTx5PVsAJs/rvvAabueYKpc14QCiJ4jl6C70j0CA6AzX//A1B4QQMjSKnPIABitDKEsoZSERAqEkJFDYhgNaU+GwWjYBSMglEwPAEAOCIAqogRAAA=</data>
+                      <data dataType="Array" type="System.Byte[]" id="3824240934">H4sIAAAAAAAEAFNgYGAQYUAHBRgixIFAMFkOof5DqL1kmjUYAcRH6Sj+mztgrqE+GPUfDJhQkyLCaOqAkRx/ByDUQQh1iFSjKdSOCjgYwRQnhOKCUNwQiocRt76h4j9yAT7/nYBQJyHUKQgVDAmsEEaCPKza6Q3w+U8BQilCKCUIRbz/sGqnN8Dmv7tQOQ0IpQmhtEg1mkLtqEAOEmbyeLIaVoDNf/c9wNQ9TzB1zgtCQQTP0UvwHYkewQGw+e9/AAovaGAEKfUZBECMVoZQ1lAqAkJFQqioARGsptRno2AUjIJRMAqGJwAA+5AIv4gRAAA=</data>
                     </body>
                   </tileData>
                   <tileset dataType="Struct" type="Duality.ContentRef`1[[Duality.Plugins.Tilemaps.Tileset]]">
@@ -383,7 +383,7 @@
             <active dataType="Bool">true</active>
             <gameobj dataType="ObjectRef">3952684871</gameobj>
           </item>
-          <item dataType="Struct" type="Duality.Plugins.Pathfindax.Components.AStarGridPathfinderComponent" id="2600830583">
+          <item dataType="Struct" type="Duality.Plugins.Pathfindax.Components.AstarPathfinderComponent" id="1744982957">
             <_x003C_Pathfinder_x003E_k__BackingField />
             <_x003C_PathfinderId_x003E_k__BackingField />
             <active dataType="Bool">true</active>
@@ -406,14 +406,14 @@
           <keys dataType="Array" type="System.Object[]" id="122282212">
             <item dataType="ObjectRef">4173822160</item>
             <item dataType="Type" id="2821304260" value="Duality.Plugins.Pathfindax.Tilemaps.Components.TilemapNodeGridGenerator" />
-            <item dataType="Type" id="2365687190" value="Duality.Plugins.Pathfindax.Components.AStarGridPathfinderComponent" />
-            <item dataType="Type" id="1200435840" value="Duality.Plugins.Pathfindax.Components.NodeNetworkVisualizer" />
+            <item dataType="Type" id="2365687190" value="Duality.Plugins.Pathfindax.Components.NodeNetworkVisualizer" />
+            <item dataType="Type" id="1200435840" value="Duality.Plugins.Pathfindax.Components.AstarPathfinderComponent" />
           </keys>
           <values dataType="Array" type="System.Object[]" id="2498106902">
             <item dataType="ObjectRef">4009962089</item>
             <item dataType="ObjectRef">828666520</item>
-            <item dataType="ObjectRef">2600830583</item>
             <item dataType="ObjectRef">3864513774</item>
+            <item dataType="ObjectRef">1744982957</item>
           </values>
         </body>
       </compMap>

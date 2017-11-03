@@ -35,10 +35,6 @@
             <vel dataType="Struct" type="Duality.Vector3" />
             <velAbs dataType="Struct" type="Duality.Vector3" />
           </item>
-          <item dataType="Struct" type="Duality.Components.SoundListener" id="284460017">
-            <active dataType="Bool">true</active>
-            <gameobj dataType="ObjectRef">2546774786</gameobj>
-          </item>
           <item dataType="Struct" type="Duality.Components.Camera" id="4093161263">
             <active dataType="Bool">true</active>
             <farZ dataType="Float">10000</farZ>
@@ -71,6 +67,10 @@
             <perspective dataType="Enum" type="Duality.Drawing.PerspectiveMode" name="Flat" value="0" />
             <priority dataType="Int">0</priority>
             <visibilityMask dataType="Enum" type="Duality.Drawing.VisibilityFlag" name="All" value="4294967295" />
+          </item>
+          <item dataType="Struct" type="Duality.Components.SoundListener" id="284460017">
+            <active dataType="Bool">true</active>
+            <gameobj dataType="ObjectRef">2546774786</gameobj>
           </item>
         </_items>
         <_size dataType="Int">3</_size>
@@ -112,35 +112,25 @@
             <active dataType="Bool">true</active>
             <gameobj dataType="ObjectRef">2532558428</gameobj>
           </item>
-          <item dataType="Struct" type="Duality.Plugins.Pathfindax.Components.AStarGridPathfinderComponent" id="1180704140">
-            <_x003C_MultithreadedPathfinder_x003E_k__BackingField />
+          <item dataType="Struct" type="Duality.Plugins.Pathfindax.Components.AstarPathfinderComponent" id="324856514">
+            <_x003C_Pathfinder_x003E_k__BackingField />
             <_x003C_PathfinderId_x003E_k__BackingField />
-            <_x003C_SourceNodeNetwork_x003E_k__BackingField />
-            <active dataType="Bool">true</active>
-            <gameobj dataType="ObjectRef">2532558428</gameobj>
-          </item>
-          <item dataType="Struct" type="Duality.Plugins.Pathfindax.Components.NodeGridVisualizer" id="3481057795">
-            <_x003C_BoundRadius_x003E_k__BackingField dataType="Float">0</_x003C_BoundRadius_x003E_k__BackingField>
-            <_x003C_CollisionCategory_x003E_k__BackingField dataType="Enum" type="Pathfindax.Nodes.PathfindaxCollisionCategory" name="Cat1" value="1" />
-            <_x003C_Visualize_x003E_k__BackingField dataType="Bool">true</_x003C_Visualize_x003E_k__BackingField>
             <active dataType="Bool">true</active>
             <gameobj dataType="ObjectRef">2532558428</gameobj>
           </item>
         </_items>
-        <_size dataType="Int">3</_size>
+        <_size dataType="Int">2</_size>
       </compList>
       <compMap dataType="Struct" type="System.Collections.Generic.Dictionary`2[[System.Type],[Duality.Component]]" id="2036453194" surrogate="true">
         <header />
         <body>
           <keys dataType="Array" type="System.Object[]" id="2719137832">
             <item dataType="Type" id="1819430316" value="Duality.Plugins.Pathfindax.Examples.Components.SourceNodeGridProvderMockupComponent" />
-            <item dataType="Type" id="145425334" value="Duality.Plugins.Pathfindax.Components.AStarGridPathfinderComponent" />
-            <item dataType="Type" id="1121442296" value="Duality.Plugins.Pathfindax.Components.NodeGridVisualizer" />
+            <item dataType="Type" id="145425334" value="Duality.Plugins.Pathfindax.Components.AstarPathfinderComponent" />
           </keys>
           <values dataType="Array" type="System.Object[]" id="4045265566">
             <item dataType="ObjectRef">2682946987</item>
-            <item dataType="ObjectRef">1180704140</item>
-            <item dataType="ObjectRef">3481057795</item>
+            <item dataType="ObjectRef">324856514</item>
           </values>
         </body>
       </compMap>

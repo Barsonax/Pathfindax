@@ -34,7 +34,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 		public Camera Camera { get; set; }
 
 		private Vector3? _pathStart;
-		private NonGridPathfinderProxy _nonGridPathfinderProxy;
+		private PathfinderProxy _nonGridPathfinderProxy;
 
 		void ICmpInitializable.OnInit(InitContext context)
 		{
@@ -42,7 +42,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 			{
 				DualityApp.Mouse.Move += Mouse_Move;
 				DualityApp.Mouse.ButtonDown += Mouse_ButtonDown;
-				_nonGridPathfinderProxy = new NonGridPathfinderProxy();
+				_nonGridPathfinderProxy = new PathfinderProxy();
 			}
 		}
 

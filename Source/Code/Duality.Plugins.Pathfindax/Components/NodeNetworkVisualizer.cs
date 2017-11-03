@@ -21,7 +21,7 @@ namespace Duality.Plugins.Pathfindax.Components
 		/// <summary>
 		/// The draw size of the nodes.
 		/// </summary>
-		public float NodeSize { get; set; } = 5f;
+		public float NodeSize { get; set; } = 10f;
 
 		/// <summary>
 		/// If true the nodenetwork will be drawn.
