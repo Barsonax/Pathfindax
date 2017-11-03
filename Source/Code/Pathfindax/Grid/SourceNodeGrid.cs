@@ -47,7 +47,6 @@ namespace Pathfindax.Grid
 		private SourceNode[] GenerateSourceNodeGrid(PathfindaxCollisionCategory collisionCategory)
 		{
 			var sourceNodeGrid = GenerateNodes();
-			GenerateConnections(sourceNodeGrid, collisionCategory);
 			GenerateClearances(sourceNodeGrid, collisionCategory);
 			return sourceNodeGrid;
 		}
@@ -62,41 +61,11 @@ namespace Pathfindax.Grid
 			return sourceNodeGrid;
 		}
 
-		private void GenerateConnections(SourceNode[] sourceNodeGrid, PathfindaxCollisionCategory collisionCategory)
-		{
-			for (var i = 0; i < DefinitionNodeArray.Length; i++)
-			{
-				var definitionNode = DefinitionNodeArray[i];
-
-				var count = 0;
-				foreach (var nodeDefinitionConnection in definitionNode.Connections)
-				{
-					if ((nodeDefinitionConnection.CollisionCategory & collisionCategory) == 0)
-					{
-						count++;
-					}
-				}
-
-				var j = 0;
-				var nodeConnections = new NodePointer[count];
-				foreach (var nodeDefinitionConnection in definitionNode.Connections)
-				{
-					if ((nodeDefinitionConnection.CollisionCategory & collisionCategory) == 0)
-					{
-						nodeConnections[j] = nodeDefinitionConnection.To;
-						j++;
-					}
-				}
-				sourceNodeGrid[i].Connections = nodeConnections;
-			}
-		}
-
 		private void GenerateClearances(SourceNode[] sourceNodeGrid, PathfindaxCollisionCategory collisionCategory)
 		{
 			for (var i = 0; i < sourceNodeGrid.Length; i++)
 			{
 				var clearance = CalculateGridNodeClearances(i, collisionCategory, _maxClearance);
-
 				sourceNodeGrid[i].Clearance = clearance;
 			}
 		}
@@ -202,8 +171,7 @@ namespace Pathfindax.Grid
 		}
 
 		public DefinitionNode GetNode(float worldX, float worldY)
-		{
-			
+		{			
 			var percentX = (worldX - Offset.X) / WorldSize.X;
 			var percentY = (worldY - Offset.Y) / WorldSize.Y;
 			percentX = Mathf.Clamp(percentX, 0, 1);
@@ -211,7 +179,7 @@ namespace Pathfindax.Grid
 
 			var x = (int)Math.Round((DefinitionNodeArray.Width - 1) * percentX);
 			var y = (int)Math.Round((DefinitionNodeArray.Height - 1) * percentY);
-			Debug.WriteLine($"{x}:{y}");
+
 			return DefinitionNodeArray[x, y];
 		}
 	}

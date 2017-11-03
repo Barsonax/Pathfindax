@@ -60,7 +60,6 @@ namespace Pathfindax.Grid
 		private SourceNode[] GenerateSourceNodeGrid(PathfindaxCollisionCategory collisionCategory)
 		{
 			var sourceNodeGrid = GenerateNodes();
-			GenerateConnections(sourceNodeGrid, collisionCategory);
 			GenerateClearances(sourceNodeGrid, collisionCategory);
 			return sourceNodeGrid;
 		}
@@ -75,24 +74,7 @@ namespace Pathfindax.Grid
 			return sourceNodeGrid;
 		}
 
-		private void GenerateConnections(SourceNode[] sourceNodeGrid, PathfindaxCollisionCategory collisionCategory)
-		{
-			for (var i = 0; i < DefinitionNodes.Count; i++)
-			{
-				var definitionNode = DefinitionNodes[i];
-				var nodeConnections = new List<NodePointer>();
-				foreach (var nodeDefinitionConnection in definitionNode.Connections)
-				{
-					if ((nodeDefinitionConnection.CollisionCategory & collisionCategory) == 0)
-					{
-						nodeConnections.Add(nodeDefinitionConnection.To);
-					}
-				}
-				sourceNodeGrid[i].Connections = nodeConnections.ToArray(); ;
-			}
-		}
-
-		private void GenerateClearances(SourceNode[] sourceNodeGrid, PathfindaxCollisionCategory collisionCategory)
+		private static void GenerateClearances(SourceNode[] sourceNodeGrid, PathfindaxCollisionCategory collisionCategory)
 		{
 			for (var i = 0; i < sourceNodeGrid.Length; i++)
 			{

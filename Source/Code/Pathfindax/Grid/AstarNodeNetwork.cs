@@ -29,14 +29,14 @@ namespace Pathfindax.Grid
 				
 				var sourceNodeNetwork = SourceNodeNetwork.GetSourceNetwork(collisionCategory);
 				var watch = Stopwatch.StartNew();
-				nodegrid = GenerateNodeGrid(sourceNodeNetwork);
+				nodegrid = GenerateNodeNetwork(sourceNodeNetwork);
 				Debug.WriteLine($"Generated pathfind nodenetwork in {watch.ElapsedMilliseconds} ms");
 				NodeNetworks.Add(collisionCategory, nodegrid);
 			}
 			return nodegrid;
 		}
 
-		private AstarNode[] GenerateNodeGrid(SourceNode[] sourceNodeGrid)
+		private static AstarNode[] GenerateNodeNetwork(SourceNode[] sourceNodeGrid)
 		{
 			var nodeNetwork = new AstarNode[sourceNodeGrid.Length];
 			for (var i = 0; i < sourceNodeGrid.Length; i++)

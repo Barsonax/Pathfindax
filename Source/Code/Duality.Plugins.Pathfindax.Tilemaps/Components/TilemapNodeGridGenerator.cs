@@ -1,4 +1,5 @@
-﻿using System.Collections.Concurrent;
+﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -19,15 +20,24 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Components
 	[EditorHintCategory(PathfindaxStrings.PathfindaxTilemap)]
 	public class TilemapNodeGridGenerator : Component, ISourceNodeNetworkProvider<SourceNodeGrid>
 	{
-		/// <summary>
-		/// The maximum clearance that will be calculated. For performance reasons try to keep this as small as possible. This should be no larger than the size of your largest agent in nodes.
-		/// </summary>
-		public int MaxCalculatedClearance { get; set; }
-
+		private float[] _movementPenalties;
 		/// <summary>
 		/// The movement penalties per tile which can be used to make the pathfinder try to avoid certain nodes. The index of the value in the array is equal to the index of the tile.
 		/// </summary>
-		public byte[] MovementPenalties { get; set; }
+		public float[] MovementPenalties
+		{
+			get => _movementPenalties;
+			set
+			{
+				var oldLength = MathF.Clamp(_movementPenalties?.Length - 1 ?? 0, 0, int.MaxValue);
+				_movementPenalties = value;
+				for (var i = oldLength; i < _movementPenalties.Length; i++)
+				{
+					Log.Game.Write(i.ToString());
+					_movementPenalties[i] = 1f;
+				}
+			}
+		}
 
 		private SourceNodeGrid _sourceNodeGrid;
 

@@ -14,8 +14,8 @@ namespace Pathfindax.Duality.Test
 		public void CalculateGridNodeClearances_FilledNodeGrid_Passes()
 		{
 			var sourceNodeGridFactory = new SourceNodeGridFactory();
-			var width = 4;
-			var height = 4;
+			const int width = 4;
+			const int height = 4;
 			var sourceNodeGrid = sourceNodeGridFactory.GeneratePreFilledArray(width, height, new Vector2(1, 1), GenerateNodeGridConnections.All, 5);
 			//sourceNodeGrid.DefinitionNodeArray[0, 0].SetConnectionCollision(2, PathfindaxCollisionCategory.Cat1);
 			//sourceNodeGrid.DefinitionNodeArray[2, 2].SetConnectionCollision(5, PathfindaxCollisionCategory.Cat1);

@@ -26,9 +26,9 @@ namespace Pathfindax.PathfindEngine
 		public readonly byte AgentSize;
 
 		/// <summary>
-		/// The CollisionLayer. Multiple categories can be active at the same time.
+		/// The CollisionCategory. Multiple categories can be active at the same time.
 		/// </summary>
-		public readonly PathfindaxCollisionCategory CollisionLayer;
+		public readonly PathfindaxCollisionCategory CollisionCategory;
 
 		/// <summary>
 		/// The callback that will be called after the pathfinder finds a path or cannot find one.
@@ -58,13 +58,13 @@ namespace Pathfindax.PathfindEngine
 		/// <param name="start">The worldcoordinates of the start of the path</param>
 		/// <param name="end">The worldcoordinates of the end of the path</param>
 		/// <param name="agentSize">The size of the agent in nodes</param>
-		/// <param name="collisionLayer">The collision layers that this agent cannot cross</param>
-		public PathRequest(IPathfinder pathfinder, IDefinitionNode start, IDefinitionNode end, PathfindaxCollisionCategory collisionLayer = PathfindaxCollisionCategory.None, byte agentSize = 1)
+		/// <param name="collisionCategory">The collision layers that this agent cannot cross</param>
+		public PathRequest(IPathfinder pathfinder, IDefinitionNode start, IDefinitionNode end, PathfindaxCollisionCategory collisionCategory = PathfindaxCollisionCategory.None, byte agentSize = 1)
 		{
 			PathStart = start;
 			PathEnd = end;
 			AgentSize = agentSize;
-			CollisionLayer = collisionLayer;
+			CollisionCategory = collisionCategory;
 			StartSolvePath(pathfinder);
 		}
 
@@ -74,13 +74,13 @@ namespace Pathfindax.PathfindEngine
 		/// <param name="start">The worldcoordinates of the start of the path</param>
 		/// <param name="end">The worldcoordinates of the end of the path</param>
 		/// <param name="agentSize">The size of the agent in nodes</param>
-		/// <param name="collisionLayer">The collision layers that this agent cannot cross</param>
-		public PathRequest(IDefinitionNode start, IDefinitionNode end, PathfindaxCollisionCategory collisionLayer = PathfindaxCollisionCategory.None, byte agentSize = 1)
+		/// <param name="collisionCategory">The collision layers that this agent cannot cross</param>
+		public PathRequest(IDefinitionNode start, IDefinitionNode end, PathfindaxCollisionCategory collisionCategory = PathfindaxCollisionCategory.None, byte agentSize = 1)
 		{
 			PathStart = start;
 			PathEnd = end;
 			AgentSize = agentSize;
-			CollisionLayer = collisionLayer;
+			CollisionCategory = collisionCategory;
 		}
 
 		/// <summary>

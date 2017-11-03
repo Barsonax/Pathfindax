@@ -57,12 +57,12 @@ namespace Duality.Plugins.Pathfindax.Components
 					var nodePosition = node.DefinitionNode.Position;
 					canvas.FillCircle(nodePosition.X, nodePosition.Y, NodeSize);
 					canvas.State.ColorTint = ColorRgba.VeryLightGrey;
-					if (node.Connections != null)
+					if (node.DefinitionNode.Connections != null)
 					{
 						canvas.State.ColorTint = new ColorRgba(199, 21, 133);
-						foreach (var connection in node.Connections)
+						foreach (var connection in node.DefinitionNode.Connections)
 						{
-							var toNode = NodePointer.Dereference(connection, pathfinderComponent.Pathfinder.SourceNodeNetwork);
+							var toNode = NodePointer.Dereference(connection.To, pathfinderComponent.Pathfinder.SourceNodeNetwork);
 							var vector = (toNode.Position - nodePosition) * 0.5f; //Times 0.5f so we can see the connections in both directions.
 							canvas.DrawDashLine(nodePosition.X, nodePosition.Y, nodePosition.X + vector.X, nodePosition.Y + vector.Y);
 						}

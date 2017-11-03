@@ -15,13 +15,13 @@ namespace Pathfindax.Algorithms
 	{
 		public List<DefinitionNode> FindPath(IPathfindNodeNetwork<AstarNode> nodeNetwork, PathRequest pathRequest)
 		{
-			var pathfindingNetwork = nodeNetwork.GetPathfindingNetwork(pathRequest.CollisionLayer);
+			var pathfindingNetwork = nodeNetwork.GetPathfindingNetwork(pathRequest.CollisionCategory);
 			var startNode = NodePointer.Dereference(pathRequest.PathStart.Index, pathfindingNetwork);
 			var endNode = NodePointer.Dereference(pathRequest.PathEnd.Index, pathfindingNetwork);
-			return FindPath(pathfindingNetwork, startNode, endNode, pathRequest.AgentSize);
+			return FindPath(pathfindingNetwork, startNode, endNode, pathRequest.AgentSize, pathRequest.CollisionCategory);
 		}
 
-		private static List<DefinitionNode> FindPath(AstarNode[] pathfindingNetwork, AstarNode startNode, AstarNode targetNode, float neededClearance)
+		private static List<DefinitionNode> FindPath(AstarNode[] pathfindingNetwork, AstarNode startNode, AstarNode targetNode, float neededClearance, PathfindaxCollisionCategory collisionCategory)
 		{
 			try
 			{
@@ -55,18 +55,18 @@ namespace Pathfindax.Algorithms
 							break;
 						}
 
-						foreach (var connection in currentNode.SourceNode.Connections)
+						foreach (var connection in currentNode.SourceNode.DefinitionNode.Connections)
 						{
-							var toNode = NodePointer.Dereference(connection, pathfindingNetwork);
-							if (closedSet.Contains(toNode)) continue;
+							var toNode = NodePointer.Dereference(connection.To, pathfindingNetwork);
+							if ((connection.CollisionCategory & collisionCategory) != 0 || closedSet.Contains(toNode)) continue;
 
 							if (float.IsNaN(toNode.SourceNode.Clearance) || toNode.SourceNode.Clearance >= neededClearance)
 							{
-								var newMovementCostToNeighbour = currentNode.GCost + GetDistance(currentNode.SourceNode.DefinitionNode, toNode.SourceNode.DefinitionNode) + currentNode.SourceNode.DefinitionNode.MovementCostModifier;
+								var newMovementCostToNeighbour = currentNode.GCost + GetDistance(currentNode.SourceNode.DefinitionNode, toNode.SourceNode.DefinitionNode) * currentNode.SourceNode.DefinitionNode.MovementCostModifier;
 								if (newMovementCostToNeighbour < toNode.GCost || !openSet.Contains(toNode))
 								{
 									toNode.GCost = newMovementCostToNeighbour;
-									toNode.HCost = GetDistance(toNode.SourceNode.DefinitionNode, targetNode.SourceNode.DefinitionNode);
+									toNode.HCost = GetDistance(toNode.SourceNode.DefinitionNode, targetNode.SourceNode.DefinitionNode) * currentNode.SourceNode.DefinitionNode.MovementCostModifier;
 									toNode.Parent = currentNode.SourceNode.DefinitionNode.Index;
 									neighbourUpdates++;
 									if (!openSet.Contains(toNode))
