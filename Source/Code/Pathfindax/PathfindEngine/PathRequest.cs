@@ -38,7 +38,7 @@ namespace Pathfindax.PathfindEngine
 		/// <summary>
 		/// The calculated path. Will be null unless the <see cref="Status"/> is equal to <see cref="PathRequestStatus.Solved"/>
 		/// </summary>
-		public ICompletedPath CompletedPath { get; private set; }
+		public IPath CompletedPath { get; private set; }
 
 		/// <summary>
 		/// The status of this <see cref="PathRequest"/>. See <see cref="PathRequestStatus"/> for more info.
@@ -110,7 +110,7 @@ namespace Pathfindax.PathfindEngine
 			}
 		}
 
-		internal void FinishSolvePath(ICompletedPath path)
+		internal void FinishSolvePath(IPath path)
 		{
 			CompletedPath = path;
 			Status = CompletedPath != null ? PathRequestStatus.Solved : PathRequestStatus.NoPathFound;

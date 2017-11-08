@@ -12,7 +12,7 @@ namespace Pathfindax.Grid
 	{
 		PathRequest CreatePathRequest(IPathfinder pathfinder, float x1, float y1, float x2, float y2, PathfindaxCollisionCategory collisionLayer, byte agentSize);
 
-		ICompletedPath CreateCompletedPath(PathRequest pathRequest, List<DefinitionNode> path);
+		IPath CreateCompletedPath(PathRequest pathRequest, List<DefinitionNode> path);
 
 		/// <summary>
 		/// Gets the node closest to this position

@@ -38,7 +38,7 @@ namespace Pathfindax.Grid
 			return new PathRequest(pathfinder, startNode, endNode, collisionLayer, agentSize);
 		}
 
-		public ICompletedPath CreateCompletedPath(PathRequest pathRequest, List<DefinitionNode> path)
+		public IPath CreateCompletedPath(PathRequest pathRequest, List<DefinitionNode> path)
 		{
 			var offset = GridClearanceHelper.GridNodeOffset(pathRequest.AgentSize, NodeSize);
 			return new CompletedPath(path.ToArray(), offset);

@@ -45,7 +45,7 @@ namespace Pathfindax.Grid
 			return new PathRequest(pathfinder, startNode, endNode, collisionLayer, agentSize);
 		}
 
-		public ICompletedPath CreateCompletedPath(PathRequest pathRequest, List<DefinitionNode> path)
+		public IPath CreateCompletedPath(PathRequest pathRequest, List<DefinitionNode> path)
 		{
 			return new CompletedPath(path.ToArray());
 		}

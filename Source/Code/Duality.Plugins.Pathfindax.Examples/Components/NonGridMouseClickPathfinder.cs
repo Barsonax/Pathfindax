@@ -26,7 +26,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 		/// <summary>
 		/// The currently calculated path
 		/// </summary>
-		public Vector2[] Path { get; private set; }
+		public IPath Path { get; private set; }
 
 		/// <summary>
 		/// A reference to the <see cref="Duality.Components.Camera"/> thats used to convert the screen coordinates from mouseclicks to world coordinates.
@@ -54,7 +54,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 
 		private void PathSolved(PathRequest pathRequest)
 		{
-			Path = pathRequest.CompletedPath.Path;
+			Path = pathRequest.CompletedPath;
 		}
 
 		private void Mouse_ButtonDown(object sender, MouseButtonEventArgs e)

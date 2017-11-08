@@ -20,7 +20,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 		public PathfindaxCollisionCategory CollisionCategory { get; set; }
 		public Point2 TopLeftCorner { get; set; }
 		public Point2 BottomRightCorner { get; set; }
-		public Vector2[] Path { get; private set; }
+		public IPath Path { get; private set; }
 
 		[EditorHintRange(1, 1000)]
 		public int FramesBetweenRequest { get; set; }
@@ -54,7 +54,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 
 		private void PathSolved(PathRequest pathRequest)
 		{
-			Path = pathRequest.CompletedPath?.Path;
+			Path = pathRequest.CompletedPath;
 		}
 	}
 }

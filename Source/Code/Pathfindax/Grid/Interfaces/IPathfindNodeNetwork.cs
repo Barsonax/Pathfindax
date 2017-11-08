@@ -7,7 +7,6 @@ namespace Pathfindax.Grid
 	/// </summary>
 	/// <typeparam name="TNode"></typeparam>
 	public interface IPathfindNodeNetwork<out TNode> : IPathfindNodeNetwork
-		where TNode : INode
 	{
 		/// <summary>
 		/// Gets a nodenetwork for this <paramref name="collisionCategory"/>.

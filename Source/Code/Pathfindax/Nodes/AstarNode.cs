@@ -5,7 +5,7 @@ namespace Pathfindax.Nodes
 	/// <summary>
 	/// Represents a node that can be used with the A* algorithm.
 	/// </summary>
-	public class AstarNode : INode, IHeapItem<AstarNode>
+	public class AstarNode : IHeapItem<AstarNode>
 	{
 		/// <summary>
 		/// Used to retrace the path in the A* algorithm.

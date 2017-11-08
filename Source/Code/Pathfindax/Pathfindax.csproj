@@ -92,7 +92,6 @@
     <Compile Include="Algorithms\AStarAlgorithm.cs" />
     <Compile Include="Grid\DefinitionNodeNetwork.cs" />
     <Compile Include="Nodes\AstarNode.cs" />
-    <Compile Include="Nodes\Interfaces\INode.cs" />
     <Compile Include="Grid\Interfaces\IDefinitionNodeGrid.cs" />
     <Compile Include="Grid\Interfaces\IDefinitionNodeNetworkProvider.cs" />
     <Compile Include="Grid\DefinitionNodeGrid.cs" />

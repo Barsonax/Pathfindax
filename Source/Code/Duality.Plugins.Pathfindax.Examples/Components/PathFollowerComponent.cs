@@ -11,25 +11,19 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 	[EditorHintCategory(PathfindaxStrings.PathfindaxTest)]
 	public class PathFollowerComponent : Component, ICmpUpdatable, ICmpInitializable
 	{
-		[EditorHintRange(1, int.MaxValue)]
-		public int TimeBetweenMovements { get; set; }
-
+		[EditorHintRange(0, float.MaxValue)]
+		public float MovementSpeed { get; set; } = 1f;
 		[EditorHintRange(1, byte.MaxValue)]
 		public byte AgentSize { get; set; }
 		public PathfindaxCollisionCategory CollisionCategory { get; set; }
 		public Camera Camera { get; set; }
-
-		private Transform _transform;
-		private Vector2[] _path;
-		private int _pathIndex;
+		private IPath _path;
 		private PathfinderProxy _pathfinderProxy;
-		private int _counter;
 
 		void ICmpInitializable.OnInit(InitContext context)
 		{
 			if (context == InitContext.Activate && DualityApp.ExecContext == DualityApp.ExecutionContext.Game)
 			{
-				_transform = GameObj.GetComponent<Transform>();
 				DualityApp.Mouse.ButtonDown += Mouse_ButtonDown;
 				_pathfinderProxy = new PathfinderProxy();
 			}
@@ -42,46 +36,20 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 
 		void ICmpUpdatable.OnUpdate()
 		{
-			_counter++;
-			if (_counter > TimeBetweenMovements)
-			{
-				_counter = 0;
-				if (_path != null)
-				{
-					Vector2 target;
-					if (_pathIndex < _path.Length)
-					{
-						target = _path[_pathIndex];
-					}
-					else
-					{
-						_pathIndex = 0;
-						_path = null;
-						return;
-					}
-					_transform.MoveToAbs(target);
-					if (MathF.Distance(_transform.Pos.X, _transform.Pos.Y, target.X, target.Y) < 0.1f)
-					{
-						_pathIndex++;
-					}
-				}
-			}
+			if (_path != null && _path.GetWaypoint(GameObj.Transform.Pos, out var target))
+				GameObj.Transform.MoveToAbs(Vector2.Lerp(new Vector2(GameObj.Transform.Pos.X, GameObj.Transform.Pos.Y), target, Time.TimeMult * MovementSpeed));
 		}
 
 		private void Mouse_ButtonDown(object sender, MouseButtonEventArgs e)
 		{
-			var targetPos = Camera.GetSpaceCoord(e.Position);    
-			var request = _pathfinderProxy.RequestPath(_transform.Pos, targetPos, CollisionCategory, AgentSize);
-            request.AddCallback(OnRequestCompleted);
+			var targetPos = Camera.GetSpaceCoord(e.Position);
+			var request = _pathfinderProxy.RequestPath(GameObj.Transform.Pos, targetPos, CollisionCategory, AgentSize);
+			request.AddCallback(OnRequestCompleted);
 		}
 
 		private void OnRequestCompleted(PathRequest pathRequest)
 		{
-			if (pathRequest.CompletedPath != null)
-			{
-				_path = pathRequest.CompletedPath.Path;
-				_pathIndex = 0;
-			}
+			_path = pathRequest.CompletedPath;
 		}
 	}
 }

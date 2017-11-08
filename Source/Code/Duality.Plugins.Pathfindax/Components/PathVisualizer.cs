@@ -1,5 +1,6 @@
 ﻿using Duality.Drawing;
 using Duality.Editor;
+using Pathfindax.PathfindEngine;
 using Pathfindax.Utils;
 
 namespace Duality.Plugins.Pathfindax.Components
@@ -35,25 +36,29 @@ namespace Duality.Plugins.Pathfindax.Components
 			var pathProvider = GameObj.GetComponent<IPathProvider>();
 			if (pathProvider?.Path != null)
 			{
-				var path = pathProvider.Path;
-				var canvas = new Canvas(device);
-				canvas.State.ZOffset = -10;
-
-				for (var index = 0; index < path.Length; index++)
+				switch (pathProvider.Path)
 				{
-					if (index == 0) canvas.State.ColorTint = ColorRgba.Green;
-					else if (index == path.Length - 1) canvas.State.ColorTint = ColorRgba.Blue;
-					else canvas.State.ColorTint = ColorRgba.Red;
-					var position = path[index];
-					canvas.FillCircle(position.X, position.Y, 10f);
-				}
+					case CompletedPath completedPath:
+						var canvas = new Canvas(device);
+						canvas.State.ZOffset = -10;
 
-				canvas.State.ColorTint = ColorRgba.Red;
-				for (var i = 1; i < path.Length; i++)
-				{
-					var from = path[i - 1];
-					var to = path[i];
-					canvas.DrawLine(from.X, from.Y, 0, to.X, to.Y, 0);
+						for (var index = 0; index < completedPath.NodePath.Length; index++)
+						{
+							if (index == 0) canvas.State.ColorTint = ColorRgba.Green;
+							else if (index == completedPath.NodePath.Length - 1) canvas.State.ColorTint = ColorRgba.Blue;
+							else canvas.State.ColorTint = ColorRgba.Red;
+							var waypoint = completedPath[index];
+							canvas.FillCircle(waypoint.X, waypoint.Y, 10f);
+						}
+
+						canvas.State.ColorTint = ColorRgba.Red;
+						for (var i = 1; i < completedPath.NodePath.Length; i++)
+						{
+							var from = completedPath[i - 1];
+							var to = completedPath[i];
+							canvas.DrawLine(from.X, from.Y, 0, to.X, to.Y, 0);
+						}
+						break;
 				}
 			}
 		}
