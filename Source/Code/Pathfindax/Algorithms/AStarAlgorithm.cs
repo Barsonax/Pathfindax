@@ -33,8 +33,7 @@ namespace Pathfindax.Algorithms
 				{
 					return new List<DefinitionNode> { targetNode.DefinitionNode };
 				}
-				if ((float.IsNaN(startNode.Clearance) || startNode.Clearance >= neededClearance) && 
-					(float.IsNaN(targetNode.Clearance) || targetNode.Clearance >= neededClearance))
+				if (startNode.Clearance >= neededClearance && targetNode.Clearance >= neededClearance)
 				{
 					var openSet = new MinHeap<AstarNode>(pathfindingNetwork.Length);
 					var closedSet = new HashSet<AstarNode>();
@@ -60,7 +59,7 @@ namespace Pathfindax.Algorithms
 							var toNode = NodePointer.Dereference(connection.To, pathfindingNetwork);
 							if ((connection.CollisionCategory & collisionCategory) != 0 || closedSet.Contains(toNode)) continue;
 
-							if (float.IsNaN(toNode.Clearance) || toNode.Clearance >= neededClearance)
+							if (toNode.Clearance >= neededClearance)
 							{
 								var newMovementCostToNeighbour = currentNode.GCost + GetDistance(currentNode.DefinitionNode, toNode.DefinitionNode) * currentNode.DefinitionNode.MovementCostModifier;
 								if (newMovementCostToNeighbour < toNode.GCost || !openSet.Contains(toNode))
