@@ -47,7 +47,7 @@ namespace Duality.Plugins.Pathfindax.PathfindEngine
 		/// <returns></returns>
 		public PathRequest RequestPath(float x1, float y1, float x2, float y2, PathfindaxCollisionCategory collisionLayer = PathfindaxCollisionCategory.None, byte agentSize = 1)
 		{
-			return PathfinderComponent.Pathfinder.SourceNodeNetwork.CreatePathRequest(PathfinderComponent.Pathfinder, x1, y1, x2, y2, collisionLayer, agentSize);
+			return PathfinderComponent.Pathfinder.PathFindAlgorithm.CreatePathRequest(PathfinderComponent.Pathfinder, x1, y1, x2, y2, collisionLayer, agentSize);
 		}
 
 		/// <summary>

@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using Pathfindax.Grid;
+﻿using Pathfindax.Grid;
 using Pathfindax.Nodes;
 using Pathfindax.PathfindEngine;
+using Pathfindax.Paths;
 
 namespace Pathfindax.Algorithms
 {
@@ -9,7 +9,7 @@ namespace Pathfindax.Algorithms
 	/// Interface for classes that implement algorithms to find a path.
 	/// </summary>
 	/// <typeparam name="TNodeNetwork"></typeparam>
-	public interface IPathFindAlgorithm<in TNodeNetwork>
+	public interface IPathFindAlgorithm<in TNodeNetwork> : IPathFindAlgorithm
 		where TNodeNetwork : IPathfindNodeNetwork
 	{
 		/// <summary>
@@ -18,6 +18,11 @@ namespace Pathfindax.Algorithms
 		/// <param name="nodeNetwork">The <typeparamref name="TNodeNetwork"/> in which the pathfinding will be done</param>
 		/// <param name="pathRequest">The <see cref="PathRequest"/> that contains the info needed such as the start and end of the path</param>
 		/// <returns>A list of nodes in the defining the path</returns>
-		List<DefinitionNode> FindPath(TNodeNetwork nodeNetwork, PathRequest pathRequest);
+		IPath FindPath(TNodeNetwork nodeNetwork, PathRequest pathRequest);
+	}
+
+	public interface IPathFindAlgorithm
+	{
+		PathRequest CreatePathRequest(IPathfinder<IDefinitionNodeNetwork> pathfinder, float x1, float y1, float x2, float y2, PathfindaxCollisionCategory collisionLayer = PathfindaxCollisionCategory.None, byte agentSize = 1);
 	}
 }

@@ -1,8 +1,10 @@
 ﻿using Duality.Components;
+using Duality.Components.Physics;
 using Duality.Editor;
 using Duality.Input;
 using Duality.Plugins.Pathfindax.Components;
 using Duality.Plugins.Pathfindax.PathfindEngine;
+using Duality.Resources;
 using Pathfindax.Nodes;
 using Pathfindax.PathfindEngine;
 using Pathfindax.Paths;
@@ -11,7 +13,8 @@ using Pathfindax.Utils;
 namespace Duality.Plugins.Pathfindax.Examples.Components
 {
 	[EditorHintCategory(PathfindaxStrings.PathfindaxTest)]
-	public class PathFollowerComponent : Component, ICmpUpdatable, ICmpInitializable, IPathProvider
+	[RequiredComponent(typeof(RigidBody))]
+	public class PhysicsParticleFollower : Component, ICmpUpdatable, ICmpInitializable, IPathProvider
 	{
 		[EditorHintRange(0, float.MaxValue)]
 		public float MovementSpeed { get; set; } = 1f;
@@ -21,6 +24,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 		public Camera Camera { get; set; }
 		public IPath Path { get; private set; }
 		private PathfinderProxy _pathfinderProxy;
+		private RigidBody _rigidBody;
 
 		void ICmpInitializable.OnInit(InitContext context)
 		{
@@ -28,6 +32,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 			{
 				DualityApp.Mouse.ButtonDown += Mouse_ButtonDown;
 				_pathfinderProxy = new PathfinderProxy();
+				_rigidBody = GameObj.GetComponent<RigidBody>();
 			}
 		}
 
@@ -43,7 +48,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 				var heading = Path.GetHeading(GameObj.Transform.Pos);
 				if (heading.Length <= MovementSpeed)
 					Path.NextWaypoint();
-				GameObj.Transform.MoveBy(Mathf.Clamp(heading.Normalized * Time.TimeMult * MovementSpeed, heading.Length));
+				_rigidBody.ApplyWorldForce(Mathf.Clamp(heading.Normalized * MovementSpeed, heading.Length));
 			}
 		}
 

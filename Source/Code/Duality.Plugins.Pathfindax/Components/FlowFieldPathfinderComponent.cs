@@ -3,7 +3,6 @@ using Duality.Editor;
 using Pathfindax.Algorithms;
 using Pathfindax.Factories;
 using Pathfindax.Grid;
-using Pathfindax.Nodes;
 using Pathfindax.Utils;
 
 namespace Duality.Plugins.Pathfindax.Components
@@ -12,11 +11,11 @@ namespace Duality.Plugins.Pathfindax.Components
 	/// Provides a way for other components to request a path from A to B. Uses the A* algorithm.
 	/// </summary>
 	[EditorHintCategory(PathfindaxStrings.Pathfindax)]
-	[RequiredComponent(typeof(IDefinitionNodeNetworkProvider<IDefinitionNodeNetwork>))]
-	public class AstarPathfinderComponent : PathfinderComponentBase<IDefinitionNodeNetwork>
+	[RequiredComponent(typeof(IDefinitionNodeNetworkProvider<DefinitionNodeGrid>))]
+	public class FlowFieldPathfinderComponent : PathfinderComponentBase<DefinitionNodeGrid>
 	{
-		private readonly List<AstarNodeNetwork> _astarNodeNetworks = new List<AstarNodeNetwork>();
-		public IReadOnlyList<AstarNodeNetwork> AstarNodeNetworks => _astarNodeNetworks;
+		private readonly List<DijkstraNodeGrid> _dijkstraNodeGrids = new List<DijkstraNodeGrid>();
+		public IReadOnlyList<DijkstraNodeGrid> DijkstraNodeGrids => _dijkstraNodeGrids;
 
 		/// <summary>
 		/// The max calculated clearance. Any clearance value higher than will be set to this. 
@@ -31,15 +30,12 @@ namespace Duality.Plugins.Pathfindax.Components
 			{
 				var sourceNodeNetwork = GetSourceNodeNetwork();
 				if (sourceNodeNetwork == null) return;
-				Pathfinder = PathfinderFactory.CreatePathfinder(sourceNodeNetwork, new AStarAlgorithm(), (definitionNodeNetwork, algorithm) =>
-				{
-					var nodeGenerators = new List<IPathfindNodeGenerator<AstarNode>>();
-					if (definitionNodeNetwork is IDefinitionNodeGrid sourceNodeGrid)
-						nodeGenerators.Add(new GridClearanceGenerator(sourceNodeGrid, MaxClearance));
-					var astarNodeNetwork = new AstarNodeNetwork(definitionNodeNetwork, nodeGenerators.ToArray());
-					_astarNodeNetworks.Add(astarNodeNetwork);
-					return PathfinderFactory.CreateRequestProcesser(astarNodeNetwork, algorithm);
-				});
+				Pathfinder = PathfinderFactory.CreatePathfinder(sourceNodeNetwork, new FlowFieldAlgorithm(), (definitionNodeGrid, algorithm) =>
+				 {
+					 var dijkstraNodeGrid = new DijkstraNodeGrid(definitionNodeGrid, MaxClearance);
+					 _dijkstraNodeGrids.Add(dijkstraNodeGrid);
+					 return PathfinderFactory.CreateRequestProcesser(dijkstraNodeGrid, algorithm);
+				 });
 				Pathfinder.Start();
 			}
 		}

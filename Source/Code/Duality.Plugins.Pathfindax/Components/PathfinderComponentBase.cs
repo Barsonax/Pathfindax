@@ -1,4 +1,5 @@
-﻿using Pathfindax.Grid;
+﻿using Pathfindax.Algorithms;
+using Pathfindax.Grid;
 using Pathfindax.PathfindEngine;
 
 namespace Duality.Plugins.Pathfindax.Components
@@ -9,6 +10,8 @@ namespace Duality.Plugins.Pathfindax.Components
 	public abstract class PathfinderComponentBase<TSourceNodeNetwork> : Component, IPathfinderComponent<TSourceNodeNetwork>, ICmpInitializable
 		where TSourceNodeNetwork : class, IDefinitionNodeNetwork
 	{
+		/// <inheritdoc />
+		public IPathFindAlgorithm PathFindAlgorithm => Pathfinder.PathFindAlgorithm;
 		/// <inheritdoc />
 		public IPathfinder<TSourceNodeNetwork> Pathfinder { get; protected set; }
 

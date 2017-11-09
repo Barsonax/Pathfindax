@@ -38,7 +38,7 @@ namespace Pathfindax.PathfindEngine
             }
             else
             {				
-				pathRequest.FinishSolvePath(NodeNetwork.DefinitionNodeNetwork.CreateCompletedPath(pathRequest, path));
+				pathRequest.FinishSolvePath(path);
 			}           
 		}
 	}

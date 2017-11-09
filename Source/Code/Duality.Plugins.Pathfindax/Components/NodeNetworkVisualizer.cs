@@ -10,7 +10,7 @@ namespace Duality.Plugins.Pathfindax.Components
 	/// Class for visualizing a <see cref="IPathfindNodeNetwork{TNode}"/>
 	/// </summary>
 	[EditorHintCategory(PathfindaxStrings.Pathfindax)]
-	[RequiredComponent(typeof(AstarPathfinderComponent))]
+	[RequiredComponent(typeof(FlowFieldPathfinderComponent))]
 	public class NodeNetworkVisualizer : Component, ICmpRenderer
 	{
 		public int Thread { get; set; }
@@ -46,11 +46,11 @@ namespace Duality.Plugins.Pathfindax.Components
 		void ICmpRenderer.Draw(IDrawDevice device)
 		{
 			if (!Visualize) return;
-			var pathfinderComponent = GameObj.GetComponent<AstarPathfinderComponent>();
+			var pathfinderComponent = GameObj.GetComponent<FlowFieldPathfinderComponent>();
 			if (pathfinderComponent?.Pathfinder?.SourceNodeNetwork != null)
 			{
-				if (Thread > pathfinderComponent.AstarNodeNetworks.Count) return;
-				var network = pathfinderComponent.AstarNodeNetworks[Thread].GetCollisionLayerNetwork(CollisionCategory);
+				if (Thread > pathfinderComponent.DijkstraNodeGrids.Count) return;
+				var network = pathfinderComponent.DijkstraNodeGrids[Thread].GetCollisionLayerNetwork(CollisionCategory);
 				var canvas = new Canvas(device, new CanvasBuffer());
 				canvas.State.ZOffset = -8;
 				for (int i = 0; i < pathfinderComponent.Pathfinder.SourceNodeNetwork.NodeCount; i++)

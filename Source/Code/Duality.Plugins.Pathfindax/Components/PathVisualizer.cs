@@ -1,6 +1,6 @@
 ﻿using Duality.Drawing;
 using Duality.Editor;
-using Pathfindax.PathfindEngine;
+using Pathfindax.Paths;
 using Pathfindax.Utils;
 
 namespace Duality.Plugins.Pathfindax.Components
@@ -36,12 +36,11 @@ namespace Duality.Plugins.Pathfindax.Components
 			var pathProvider = GameObj.GetComponent<IPathProvider>();
 			if (pathProvider?.Path != null)
 			{
+				var canvas = new Canvas(device);
+				canvas.State.ZOffset = -10;
 				switch (pathProvider.Path)
 				{
-					case CompletedPath completedPath:
-						var canvas = new Canvas(device);
-						canvas.State.ZOffset = -10;
-
+					case CompletedPath completedPath:										
 						for (var index = 0; index < completedPath.NodePath.Length; index++)
 						{
 							if (index == 0) canvas.State.ColorTint = ColorRgba.Green;
@@ -57,6 +56,14 @@ namespace Duality.Plugins.Pathfindax.Components
 							var from = completedPath[i - 1];
 							var to = completedPath[i];
 							canvas.DrawLine(from.X, from.Y, 0, to.X, to.Y, 0);
+						}
+						break;
+					case FlowField flowField:
+						for (int i = 0; i < flowField.NodeArray.Length; i++)
+						{
+							var nodePosition =  flowField.DefinitionNodeGrid.NodeGrid[i].Position;
+							canvas.FillCircle(nodePosition.X, nodePosition.Y, 5f);
+							canvas.DrawLine(nodePosition.X, nodePosition.Y, nodePosition.X + flowField[i].X * 0.5f, nodePosition.Y + flowField[i].Y * 0.5f);
 						}
 						break;
 				}

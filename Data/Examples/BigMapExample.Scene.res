@@ -57,7 +57,7 @@
                     </body>
                   </tileData>
                   <tileset dataType="Struct" type="Duality.ContentRef`1[[Duality.Plugins.Tilemaps.Tileset]]">
-                    <contentPath dataType="String">Data\TilemapPathfinderExample\magecity.Tileset.res</contentPath>
+                    <contentPath dataType="String">Data\Tilesets\magecity.Tileset.res</contentPath>
                   </tileset>
                 </item>
                 <item dataType="Struct" type="Duality.Plugins.Tilemaps.TilemapRenderer" id="3542937382">
@@ -139,7 +139,7 @@
                     </body>
                   </tileData>
                   <tileset dataType="Struct" type="Duality.ContentRef`1[[Duality.Plugins.Tilemaps.Tileset]]">
-                    <contentPath dataType="String">Data\TilemapPathfinderExample\magecity.Tileset.res</contentPath>
+                    <contentPath dataType="String">Data\Tilesets\magecity.Tileset.res</contentPath>
                   </tileset>
                 </item>
                 <item dataType="Struct" type="Duality.Plugins.Tilemaps.TilemapRenderer" id="3548912704">
@@ -221,7 +221,7 @@
                     </body>
                   </tileData>
                   <tileset dataType="Struct" type="Duality.ContentRef`1[[Duality.Plugins.Tilemaps.Tileset]]">
-                    <contentPath dataType="String">Data\TilemapPathfinderExample\magecity.Tileset.res</contentPath>
+                    <contentPath dataType="String">Data\Tilesets\magecity.Tileset.res</contentPath>
                   </tileset>
                 </item>
                 <item dataType="Struct" type="Duality.Plugins.Tilemaps.TilemapRenderer" id="2559289669">
@@ -377,13 +377,17 @@
         <_items dataType="Array" type="Duality.Component[]" id="1690307781" length="4">
           <item dataType="ObjectRef">669364351</item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Tilemaps.Components.TilemapNodeGridGenerator" id="1783036078">
+            <_movementPenalties />
             <_sourceNodeGrid />
-            <_x003C_MaxCalculatedClearance_x003E_k__BackingField dataType="Int">3</_x003C_MaxCalculatedClearance_x003E_k__BackingField>
-            <_x003C_MovementPenalties_x003E_k__BackingField />
             <active dataType="Bool">true</active>
             <gameobj dataType="ObjectRef">612087133</gameobj>
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Components.AstarPathfinderComponent" id="2699352515">
+            <_astarNodeNetworks dataType="Struct" type="System.Collections.Generic.List`1[[Pathfindax.Grid.AstarNodeNetwork]]" id="2870379281">
+              <_items dataType="Array" type="Pathfindax.Grid.AstarNodeNetwork[]" id="3536179950" length="0" />
+              <_size dataType="Int">0</_size>
+            </_astarNodeNetworks>
+            <_x003C_MaxClearance_x003E_k__BackingField dataType="Int">5</_x003C_MaxClearance_x003E_k__BackingField>
             <_x003C_Pathfinder_x003E_k__BackingField />
             <_x003C_PathfinderId_x003E_k__BackingField />
             <active dataType="Bool">true</active>
@@ -475,11 +479,8 @@
             <visibilityGroup dataType="Enum" type="Duality.Drawing.VisibilityFlag" name="Group0" value="1" />
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PathFollowerComponent" id="1308675412">
-            <_counter dataType="Int">0</_counter>
-            <_gridPathfinderProxy />
             <_path />
-            <_pathIndex dataType="Int">0</_pathIndex>
-            <_transform />
+            <_pathfinderProxy />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="Struct" type="Duality.Components.Camera" id="924202263">
               <active dataType="Bool">true</active>
@@ -573,7 +574,7 @@
               <visibilityMask dataType="Enum" type="Duality.Drawing.VisibilityFlag" name="All" value="4294967295" />
             </_x003C_Camera_x003E_k__BackingField>
             <_x003C_CollisionCategory_x003E_k__BackingField dataType="Enum" type="Pathfindax.Nodes.PathfindaxCollisionCategory" name="Cat1" value="1" />
-            <_x003C_TimeBetweenMovements_x003E_k__BackingField dataType="Int">0</_x003C_TimeBetweenMovements_x003E_k__BackingField>
+            <_x003C_MovementSpeed_x003E_k__BackingField dataType="Float">1</_x003C_MovementSpeed_x003E_k__BackingField>
             <active dataType="Bool">true</active>
             <gameobj dataType="ObjectRef">3691137018</gameobj>
           </item>

@@ -2,6 +2,7 @@
 using Pathfindax.Algorithms;
 using Pathfindax.Grid;
 using Pathfindax.PathfindEngine;
+using Pathfindax.Paths;
 using Pathfindax.Test.Setup;
 
 namespace Pathfindax.Test.Tests
@@ -15,13 +16,13 @@ namespace Pathfindax.Test.Tests
 		{
 			var aStarAlgorithm = new AStarAlgorithm();
 			
-			var start = sourceNodeGrid.DefinitionNodeArray[x1, y1];
-			var end = sourceNodeGrid.DefinitionNodeArray[x1, y1];
+			var start = sourceNodeGrid.NodeGrid[x1, y1];
+			var end = sourceNodeGrid.NodeGrid[x1, y1];
 
 			var pathfindingNetwork = new AstarNodeNetwork(sourceNodeGrid, new GridClearanceGenerator(sourceNodeGrid, 5));
 			var pathRequest = new PathRequest(start, end);
-			var path = aStarAlgorithm.FindPath(pathfindingNetwork, pathRequest);
-			Assert.AreEqual(path.Count > 0, true);
+			var path = (CompletedPath) aStarAlgorithm.FindPath(pathfindingNetwork, pathRequest);
+			Assert.AreEqual(path.NodePath.Length > 0, true);
 		}
 	}
 }

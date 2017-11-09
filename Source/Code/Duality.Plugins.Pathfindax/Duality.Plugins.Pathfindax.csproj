@@ -82,6 +82,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Components\FlowFieldPathfinderComponent.cs" />
     <Compile Include="Components\AstarPathfinderComponent.cs" />
     <Compile Include="Components\Interfaces\IPathfinderComponent.cs" />
     <Compile Include="Components\Interfaces\IPathProvider.cs" />

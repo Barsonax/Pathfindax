@@ -39,7 +39,7 @@ namespace Pathfindax.Nodes
 
 		public override string ToString()
 		{
-			return $"Index: {Index} Position: {Position}";
+			return $"From: {Index} Position: {Position}";
 		}
 	}
 }

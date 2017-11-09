@@ -31,7 +31,7 @@ namespace Pathfindax.Grid
 		/// <param name="collisionCategory"></param>
 		/// <param name="maxClearance"></param>
 		/// <returns></returns>
-		private float CalculateGridNodeClearances(int index, PathfindaxCollisionCategory collisionCategory, int maxClearance)
+		public float CalculateGridNodeClearances(int index, PathfindaxCollisionCategory collisionCategory, int maxClearance)
 		{
 			var fromCoordinates = _definitionNodeGrid.DefinitionNodeArray.GetCoordinates(index);
 			for (var checkClearance = 0; checkClearance < maxClearance; checkClearance++)

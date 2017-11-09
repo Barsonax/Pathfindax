@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
-using Duality;
+﻿using Duality;
 using Pathfindax.Nodes;
-using Pathfindax.PathfindEngine;
 
 namespace Pathfindax.Grid
 {
@@ -10,10 +8,6 @@ namespace Pathfindax.Grid
 	/// </summary>
 	public interface IDefinitionNodeNetwork
 	{
-		PathRequest CreatePathRequest(IPathfinder pathfinder, float x1, float y1, float x2, float y2, PathfindaxCollisionCategory collisionLayer, byte agentSize);
-
-		IPath CreateCompletedPath(PathRequest pathRequest, List<DefinitionNode> path);
-
 		/// <summary>
 		/// Gets the node closest to this position
 		/// </summary>

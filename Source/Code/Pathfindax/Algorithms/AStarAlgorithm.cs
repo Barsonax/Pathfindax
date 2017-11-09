@@ -5,6 +5,8 @@ using Pathfindax.Collections;
 using Pathfindax.Grid;
 using Pathfindax.Nodes;
 using Pathfindax.PathfindEngine;
+using Pathfindax.Paths;
+using Pathfindax.Utils;
 
 namespace Pathfindax.Algorithms
 {
@@ -13,12 +15,42 @@ namespace Pathfindax.Algorithms
 	/// </summary>
 	public class AStarAlgorithm : IPathFindAlgorithm<IPathfindNodeNetwork<AstarNode>>
 	{
-		public List<DefinitionNode> FindPath(IPathfindNodeNetwork<AstarNode> nodeNetwork, PathRequest pathRequest)
+		public IPath FindPath(IPathfindNodeNetwork<AstarNode> nodeNetwork, PathRequest pathRequest)
 		{
 			var pathfindingNetwork = nodeNetwork.GetCollisionLayerNetwork(pathRequest.CollisionCategory);
 			var startNode = NodePointer.Dereference(pathRequest.PathStart.Index, pathfindingNetwork);
 			var endNode = NodePointer.Dereference(pathRequest.PathEnd.Index, pathfindingNetwork);
-			return FindPath(pathfindingNetwork, startNode, endNode, pathRequest.AgentSize, pathRequest.CollisionCategory);
+			var path = FindPath(pathfindingNetwork, startNode, endNode, pathRequest.AgentSize, pathRequest.CollisionCategory);
+			switch (nodeNetwork.DefinitionNodeNetwork)
+			{
+				case IDefinitionNodeGrid definitionNodeGrid:
+					var offset = GridClearanceHelper.GridNodeOffset(pathRequest.AgentSize, definitionNodeGrid.NodeSize);
+					return new CompletedPath(path.ToArray(), offset);
+				case IDefinitionNodeNetwork definitionNodeNetwork:
+					return new CompletedPath(path.ToArray());
+				default:
+					throw new NotSupportedException($"{nodeNetwork.DefinitionNodeNetwork.GetType()} is not supported");
+			}
+		}
+
+		public PathRequest CreatePathRequest(IPathfinder<IDefinitionNodeNetwork> pathfinder, float x1, float y1, float x2, float y2, PathfindaxCollisionCategory collisionLayer = PathfindaxCollisionCategory.None, byte agentSize = 1)
+		{
+			DefinitionNode startNode;
+			DefinitionNode endNode;
+			switch (pathfinder.SourceNodeNetwork)
+			{
+				case IDefinitionNodeGrid definitionNodeGrid:
+					var offset = -GridClearanceHelper.GridNodeOffset(agentSize, definitionNodeGrid.NodeSize);
+					startNode = definitionNodeGrid.GetNode(x1 + offset.X, y1 + offset.Y);
+					endNode = definitionNodeGrid.GetNode(x2 + offset.X, y2 + offset.Y);
+					return new PathRequest(pathfinder, startNode, endNode, collisionLayer, agentSize);
+				case IDefinitionNodeNetwork definitionNodeNetwork:
+					startNode = definitionNodeNetwork.GetNode(x1, y1);
+					endNode = definitionNodeNetwork.GetNode(x2, y2);
+					return new PathRequest(pathfinder, startNode, endNode, collisionLayer, agentSize);
+					default:
+					throw new NotSupportedException($"{pathfinder.SourceNodeNetwork.GetType()} is not supported");
+			}
 		}
 
 		private static List<DefinitionNode> FindPath(AstarNode[] pathfindingNetwork, AstarNode startNode, AstarNode targetNode, float neededClearance, PathfindaxCollisionCategory collisionCategory)
@@ -65,7 +97,7 @@ namespace Pathfindax.Algorithms
 								if (newMovementCostToNeighbour < toNode.GCost || !openSet.Contains(toNode))
 								{
 									toNode.GCost = newMovementCostToNeighbour;
-									toNode.HCost = GetDistance(toNode.DefinitionNode, targetNode.DefinitionNode) * currentNode.DefinitionNode.MovementCostModifier;
+									toNode.HCost = GetDistance(toNode.DefinitionNode, targetNode.DefinitionNode);
 									toNode.Parent = currentNode.DefinitionNode.Index;
 									neighbourUpdates++;
 									if (!openSet.Contains(toNode))

@@ -1,4 +1,5 @@
-﻿using Pathfindax.Grid;
+﻿using Pathfindax.Algorithms;
+using Pathfindax.Grid;
 
 namespace Pathfindax.PathfindEngine
 {
@@ -25,6 +26,8 @@ namespace Pathfindax.PathfindEngine
 
 	public interface IPathfinder
 	{
+		IPathFindAlgorithm PathFindAlgorithm { get; }
+
 		/// <summary>
 		/// Requests a path.
 		/// </summary>

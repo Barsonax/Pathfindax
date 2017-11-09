@@ -68,22 +68,22 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Generators
 		/// <param name="sourceNodeGrid"></param>
 		public void CalculateGridNodeCollision(TilemapColliderWithBody[] tilemapColliderWithBodies, DefinitionNode sourceGridNode, DefinitionNodeGrid sourceNodeGrid)
 		{
-			var nodeGridCoordinates = sourceNodeGrid.DefinitionNodeArray.GetCoordinates(sourceGridNode.Index.Index);
+			var nodeGridCoordinates = sourceNodeGrid.NodeGrid.GetCoordinates(sourceGridNode.Index.Index);
 			CalculateNodeCollisionCategories(nodeGridCoordinates.X, nodeGridCoordinates.Y, tilemapColliderWithBodies);
 
 			if (nodeGridCoordinates.X == 0 || nodeGridCoordinates.Y == 0 ||
-			    nodeGridCoordinates.X == sourceNodeGrid.DefinitionNodeArray.Width - 1 ||
-			    nodeGridCoordinates.Y == sourceNodeGrid.DefinitionNodeArray.Height - 1)
+			    nodeGridCoordinates.X == sourceNodeGrid.NodeGrid.Width - 1 ||
+			    nodeGridCoordinates.Y == sourceNodeGrid.NodeGrid.Height - 1)
 			{
 				for (var index = 1; index < _nodeCollisions.Length; index++)
 				{
 					var collisionCategory = _nodeCollisions[index];
 					if (collisionCategory.X >= 0 && collisionCategory.Y >= 0 &&
-					    collisionCategory.X < sourceNodeGrid.DefinitionNodeArray.Width &&
-					    collisionCategory.Y < sourceNodeGrid.DefinitionNodeArray.Height)
+					    collisionCategory.X < sourceNodeGrid.NodeGrid.Width &&
+					    collisionCategory.Y < sourceNodeGrid.NodeGrid.Height)
 					{
 						//TODO provide option to exclude diagonal neighbours.
-						var toNode = sourceNodeGrid.DefinitionNodeArray[collisionCategory.X, collisionCategory.Y];
+						var toNode = sourceNodeGrid.NodeGrid[collisionCategory.X, collisionCategory.Y];
 						sourceGridNode.Connections.Add(new NodeConnection(toNode.Index,
 							collisionCategory.PathfindaxCollisionCategory | _nodeCollisions[0].PathfindaxCollisionCategory));
 					}
@@ -95,7 +95,7 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Generators
 				{
 					var collisionCategory = _nodeCollisions[index];
 					//TODO provide option to exclude diagonal neighbours.
-					var toNode = sourceNodeGrid.DefinitionNodeArray[collisionCategory.X, collisionCategory.Y];
+					var toNode = sourceNodeGrid.NodeGrid[collisionCategory.X, collisionCategory.Y];
 					sourceGridNode.Connections.Add(new NodeConnection(toNode.Index,
 						collisionCategory.PathfindaxCollisionCategory | _nodeCollisions[0].PathfindaxCollisionCategory));
 				}

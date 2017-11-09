@@ -250,7 +250,6 @@
       </item>
     </_items>
     <_size dataType="Int">2</_size>
-    <_version dataType="Int">66</_version>
   </autoTileConfig>
   <baseMaterial dataType="Struct" type="Duality.Drawing.BatchInfo" id="2035693768">
     <dirtyFlag dataType="Enum" type="Duality.Drawing.BatchInfo+DirtyFlag" name="All" value="3" />
@@ -268,7 +267,7 @@
       <header />
       <body>
         <mainTex dataType="Struct" type="Duality.ContentRef`1[[Duality.Resources.Texture]]">
-          <contentPath dataType="String">Data\TilemapPathfinderExample\magecity.Texture.res</contentPath>
+          <contentPath dataType="String">Data\Tilesets\magecity.Texture.res</contentPath>
         </mainTex>
       </body>
     </textures>
@@ -280,7 +279,7 @@
         <id dataType="String">mainTex</id>
         <name dataType="String">Main Texture</name>
         <sourceData dataType="Struct" type="Duality.ContentRef`1[[Duality.Resources.Pixmap]]">
-          <contentPath dataType="String">Data\TilemapPathfinderExample\magecity.Pixmap.res</contentPath>
+          <contentPath dataType="String">Data\Tilesets\magecity.Pixmap.res</contentPath>
         </sourceData>
         <sourceTileSize dataType="Struct" type="Duality.Point2">
           <X dataType="Int">32</X>
@@ -294,7 +293,6 @@
       </item>
     </_items>
     <_size dataType="Int">1</_size>
-    <_version dataType="Int">3</_version>
   </renderConfig>
   <tileInput dataType="Struct" type="Duality.RawList`1[[Duality.Plugins.Tilemaps.TileInput]]" id="2716248726">
     <count dataType="Int">360</count>

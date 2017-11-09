@@ -2,7 +2,6 @@
 using System.Linq;
 using Duality;
 using Pathfindax.Nodes;
-using Pathfindax.PathfindEngine;
 
 namespace Pathfindax.Grid
 {
@@ -36,18 +35,6 @@ namespace Pathfindax.Grid
 		public DefinitionNode GetNode(float worldX, float worldY)
 		{			
 			return DefinitionNodes.OrderBy(x => MathF.Distance(x.Position.X, x.Position.Y, worldX, worldY)).FirstOrDefault(); //TODO this does not scale well with more nodes in the network.
-		}
-
-		public PathRequest CreatePathRequest(IPathfinder pathfinder, float x1, float y1, float x2, float y2, PathfindaxCollisionCategory collisionLayer, byte agentSize)
-		{
-			var startNode = GetNode(x1, y1);
-			var endNode = GetNode(x2, y2);
-			return new PathRequest(pathfinder, startNode, endNode, collisionLayer, agentSize);
-		}
-
-		public IPath CreateCompletedPath(PathRequest pathRequest, List<DefinitionNode> path)
-		{
-			return new CompletedPath(path.ToArray());
 		}
 	}
 }

@@ -1,8 +1,7 @@
-﻿using System;
-using Duality;
+﻿using Duality;
 using Pathfindax.Nodes;
 
-namespace Pathfindax.PathfindEngine
+namespace Pathfindax.Paths
 {
 	public class CompletedPath : IPath
 	{

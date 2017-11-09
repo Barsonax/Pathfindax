@@ -41,7 +41,7 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Components
 		private DefinitionNodeGrid _sourceNodeGrid;
 
 		/// <summary>
-		/// Generates a fully initialized <see cref="IDefinitionNodeGridDefinitionNodeGrid"/> that can be used as a source nodegrid for pathfinders.
+		/// Generates a fully initialized <see cref="DefinitionNodeGrid"/> that can be used as a source nodegrid for pathfinders.
 		/// </summary>
 		/// <returns></returns>
 		public DefinitionNodeGrid GenerateGrid2D()
@@ -67,12 +67,12 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Components
 					var connectionGenerator = new TilemapNodeConnectionGenerator();
 					for (var i = range.Item1; i < range.Item2; i++)
 					{
-						var definitionNode = _sourceNodeGrid.DefinitionNodeArray[i];
-						connectionGenerator.CalculateGridNodeCollision(tilemapColliderWithBodies, _sourceNodeGrid.DefinitionNodeArray[i], _sourceNodeGrid);
+						var definitionNode = _sourceNodeGrid.NodeGrid[i];
+						connectionGenerator.CalculateGridNodeCollision(tilemapColliderWithBodies, _sourceNodeGrid.NodeGrid[i], _sourceNodeGrid);
 
 						if (MovementPenalties != null)
 						{
-							var nodeGridCoordinates = _sourceNodeGrid.DefinitionNodeArray.GetCoordinates(definitionNode.Index.Index);
+							var nodeGridCoordinates = _sourceNodeGrid.NodeGrid.GetCoordinates(definitionNode.Index.Index);
 							var index = baseTilemap.Tiles[nodeGridCoordinates.X, nodeGridCoordinates.Y].Index;
 							if (index < MovementPenalties.Length)
 								definitionNode.MovementCostModifier = MovementPenalties[index];

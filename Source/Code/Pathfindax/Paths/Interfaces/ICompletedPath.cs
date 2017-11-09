@@ -1,6 +1,6 @@
 ﻿using Duality;
 
-namespace Pathfindax.PathfindEngine
+namespace Pathfindax.Paths
 {
     public interface IPath
     {
