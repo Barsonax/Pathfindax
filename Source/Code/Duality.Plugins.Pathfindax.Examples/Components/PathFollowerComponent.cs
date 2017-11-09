@@ -36,8 +36,20 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 
 		void ICmpUpdatable.OnUpdate()
 		{
-			if (_path != null && _path.GetWaypoint(GameObj.Transform.Pos, out var target))
-				GameObj.Transform.MoveToAbs(Vector2.Lerp(new Vector2(GameObj.Transform.Pos.X, GameObj.Transform.Pos.Y), target, Time.TimeMult * MovementSpeed));
+			if (_path != null)
+			{
+				var heading = _path.GetHeading(GameObj.Transform.Pos);
+				if (heading.Length <= MovementSpeed)
+					_path.NextWaypoint();
+				GameObj.Transform.MoveBy(Clamp(heading.Normalized * Time.TimeMult * MovementSpeed, heading.Length));
+			}
+		}
+
+		private Vector2 Clamp(Vector2 vector, float maxLength)
+		{
+			if (vector.Length > maxLength)
+				return vector.Normalized * maxLength;
+			return vector;
 		}
 
 		private void Mouse_ButtonDown(object sender, MouseButtonEventArgs e)

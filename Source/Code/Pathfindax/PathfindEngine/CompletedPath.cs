@@ -17,22 +17,26 @@ namespace Pathfindax.PathfindEngine
 			Offset = offset;
 		}
 
-		public bool GetWaypoint(Vector3 currentPosition, out Vector2 wayPoint, float minimumDistance)
+		public Vector2 GetHeading(Vector3 currentPosition)
 		{
-			if (_waypointIndex < NodePath.Length)
-			{
-				wayPoint = NodePath[_waypointIndex].Position + Offset;
-				if (MathF.Distance(currentPosition.X, currentPosition.Y, wayPoint.X, wayPoint.Y) < 0.1f)
-					_waypointIndex++;
-				return true;
-			}
-			wayPoint = NodePath[NodePath.Length - 1].Position + Offset;
-			return false;
+			return GetHeading(new Vector2(currentPosition.X, currentPosition.Y));
 		}
 
-		public Vector2 GetWaypoint(Vector2 worldPosition)
+		public Vector2 GetHeading(Vector2 currentPosition)
 		{
-			throw new NotSupportedException();
+			var waypoint = NodePath[_waypointIndex].Position + Offset;
+			return waypoint - currentPosition;
+
+		}
+
+		public bool NextWaypoint()
+		{
+			if (_waypointIndex < NodePath.Length - 1)
+			{
+				_waypointIndex++;
+				return false;
+			}
+			return true;
 		}
 	}
 }

@@ -4,8 +4,14 @@ namespace Pathfindax.PathfindEngine
 {
     public interface IPath
     {
-	    bool GetWaypoint(Vector3 currentPosition, out Vector2 wayPoint, float minimumDistance = 0.1f);
+	    Vector2 GetHeading(Vector3 currentPosition);
 
-		Vector2 GetWaypoint(Vector2 worldPosition);
-	}
+		Vector2 GetHeading(Vector2 currentPosition);
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns><c>True</c> if the end of the path has been reached</returns>
+	    bool NextWaypoint();
+    }
 }
