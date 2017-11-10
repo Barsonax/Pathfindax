@@ -11,26 +11,32 @@ namespace Pathfindax.Algorithms
 	public class PotentialFieldAlgorithm : IPathFindAlgorithm<DijkstraNodeGrid>
 	{
 		private readonly DijkstraAlgorithm _dijkstraAlgorithm = new DijkstraAlgorithm();
+		private readonly ConcurrentCache<PathRequest, PotentialField> _potentialFieldCache;
+
+		public PotentialFieldAlgorithm(int cacheSize)
+		{
+			_potentialFieldCache = new ConcurrentCache<PathRequest, PotentialField>(cacheSize, new SingleSourcePathRequestComparer());
+		}
+
 		public IPath FindPath(DijkstraNodeGrid dijkstraNodeNetwork, PathRequest pathRequest)
 		{
 			try
 			{
-				var sw = new Stopwatch();
-				sw.Start();
 				var pathfindingNetwork = dijkstraNodeNetwork.GetCollisionLayerNetwork(pathRequest.CollisionCategory);
 				var startNode = NodePointer.Dereference(pathRequest.PathStart.Index, pathfindingNetwork);
-				var targetNode = NodePointer.Dereference(pathRequest.PathEnd.Index, pathfindingNetwork);
-				var pathSucces = _dijkstraAlgorithm.FindPath(pathfindingNetwork, targetNode, startNode, pathRequest);
-				if (pathSucces)
+				if (!_potentialFieldCache.TryGetValue(pathRequest, out var potentialField))
 				{
-					var potentialField = FindPath(dijkstraNodeNetwork, pathfindingNetwork, targetNode);
-					if (true) //flowField.CanRetracePath(startNode, pathRequest.AgentSize)
-					{
-						sw.Stop();
-						Debug.WriteLine($"Potentialfield created in {sw.ElapsedMilliseconds} ms.");
-						return potentialField;
-					}
+					var sw = new Stopwatch();
+					sw.Start();
+					var targetNode = NodePointer.Dereference(pathRequest.PathEnd.Index, pathfindingNetwork);
+					_dijkstraAlgorithm.FindPath(pathfindingNetwork, targetNode, startNode, pathRequest);
+					potentialField = FindPath(dijkstraNodeNetwork, pathfindingNetwork, targetNode);
+					_potentialFieldCache.Add(pathRequest, potentialField);
+					sw.Stop();
+					Debug.WriteLine($"Potentialfield created in {sw.ElapsedMilliseconds} ms.");
 				}
+				if (true) // potentialField.CanRetracePath(startNode, pathRequest.AgentSize)
+					return potentialField;
 				Debug.WriteLine("Did not find a path :(");
 				return null;
 			}
@@ -49,7 +55,7 @@ namespace Pathfindax.Algorithms
 			{
 				var dijkstraNode = pathfindingNetwork[i];
 				if (dijkstraNode == targetNode) potentialNodes[i] = 0f;
-				else if(dijkstraNode.GCost < 0.001f) potentialNodes[i] = DijkstraAlgorithm.ClearanceBlockedCost;
+				else if (dijkstraNode.GCost < 0.001f) potentialNodes[i] = DijkstraAlgorithm.ClearanceBlockedCost;
 				else potentialNodes[i] = pathfindingNetwork[i].GCost;
 			}
 			return new PotentialField(dijkstraNodeNetwork.DefinitionNodeGrid, targetNode, potentialNodes);

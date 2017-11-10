@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Diagnostics;
+using Pathfindax.Collections;
 using Pathfindax.Grid;
 using Pathfindax.Nodes;
 using Pathfindax.PathfindEngine;
@@ -10,26 +13,32 @@ namespace Pathfindax.Algorithms
 	public class FlowFieldAlgorithm : IPathFindAlgorithm<DijkstraNodeGrid>
 	{
 		private readonly DijkstraAlgorithm _dijkstraAlgorithm = new DijkstraAlgorithm();
+		private readonly ConcurrentCache<PathRequest, FlowField> _flowFieldCache;
+
+		public FlowFieldAlgorithm(int cacheSize)
+		{
+			_flowFieldCache = new ConcurrentCache<PathRequest, FlowField>(cacheSize, new SingleSourcePathRequestComparer());
+		}
+
 		public IPath FindPath(DijkstraNodeGrid dijkstraNodeNetwork, PathRequest pathRequest)
 		{
 			try
 			{
-				var sw = new Stopwatch();
-				sw.Start();
 				var pathfindingNetwork = dijkstraNodeNetwork.GetCollisionLayerNetwork(pathRequest.CollisionCategory);
 				var startNode = NodePointer.Dereference(pathRequest.PathStart.Index, pathfindingNetwork);
-				var targetNode = NodePointer.Dereference(pathRequest.PathEnd.Index, pathfindingNetwork);
-				var pathSucces = _dijkstraAlgorithm.FindPath(pathfindingNetwork, targetNode, startNode, pathRequest);
-				if (pathSucces)
+				if (!_flowFieldCache.TryGetValue(pathRequest, out var flowField))
 				{
-					var flowField = FindPath(dijkstraNodeNetwork, pathfindingNetwork, targetNode, pathRequest);
-					if (flowField.CanRetracePath(startNode, pathRequest.AgentSize))
-					{
-						sw.Stop();
-						Debug.WriteLine($"Flowfield created in {sw.ElapsedMilliseconds} ms.");
-						return flowField;
-					}
+					var sw = new Stopwatch();
+					sw.Start();
+					var targetNode = NodePointer.Dereference(pathRequest.PathEnd.Index, pathfindingNetwork);
+					_dijkstraAlgorithm.FindPath(pathfindingNetwork, targetNode, startNode, pathRequest);
+					flowField = FindPath(dijkstraNodeNetwork, pathfindingNetwork, targetNode, pathRequest);
+					_flowFieldCache.Add(pathRequest, flowField);
+					sw.Stop();
+					Debug.WriteLine($"Flowfield created in {sw.ElapsedMilliseconds} ms.");
 				}
+				if (flowField.CanRetracePath(startNode, pathRequest.AgentSize))
+					return flowField;
 				Debug.WriteLine("Did not find a path :(");
 				return null;
 			}

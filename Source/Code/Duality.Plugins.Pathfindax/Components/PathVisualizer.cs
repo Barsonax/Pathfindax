@@ -71,9 +71,6 @@ namespace Duality.Plugins.Pathfindax.Components
 						for (int i = 0; i < potentialField.NodeArray.Length; i++)
 						{
 							var nodePosition = potentialField.DefinitionNodeGrid.NodeGrid[i].Position;
-							canvas.State.ColorTint = ColorRgba.Grey;
-							//canvas.FillCircle(nodePosition.X, nodePosition.Y, 5f);
-							canvas.State.ColorTint = ColorRgba.White;
 							var node = potentialField.NodeArray[i];
 							var text = node < DijkstraAlgorithm.ClearanceBlockedCost ? potentialField.NodeArray[i].ToString("N0") : "∞";
 							canvas.DrawText(text, nodePosition.X, nodePosition.Y, -1f, Alignment.Center);

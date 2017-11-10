@@ -40,46 +40,37 @@ namespace Pathfindax.Algorithms
 			}
 		}
 
-		public const float ClearanceBlockedCost = 100000000f;
+		public const float ClearanceBlockedCost = 1000000000000000f; //Arbitrary large cost.
 		public bool FindPath(DijkstraNode[] pathfindingNetwork, DijkstraNode targetNode, DijkstraNode startNode, PathRequest pathRequest)
 		{
-			for (int i = 0; i < pathfindingNetwork.Length; i++)
-			{
-				pathfindingNetwork[i].GCost = 0;
-			}
-			var pathSucces = false;
-			if (targetNode.Clearance >= pathRequest.AgentSize && startNode.Clearance >= pathRequest.AgentSize)
-			{
-				var openSet = new MinHeap<DijkstraNode>(pathfindingNetwork.Length);
-				var closedSet = new HashSet<DijkstraNode>();
+			ResetNetwork(pathfindingNetwork);
+			var openSet = new MinHeap<DijkstraNode>(pathfindingNetwork.Length);
+			var closedSet = new HashSet<DijkstraNode>();
 
-				openSet.Add(targetNode);
-				while (openSet.Count > 0)
+			openSet.Add(targetNode);
+			while (openSet.Count > 0)
+			{
+				var currentNode = openSet.RemoveFirst();
+				closedSet.Add(currentNode);
+
+				foreach (var connection in currentNode.DefinitionNode.Connections)
 				{
-					var currentNode = openSet.RemoveFirst();
-					closedSet.Add(currentNode);
+					var toNode = NodePointer.Dereference(connection.To, pathfindingNetwork);
+					if ((connection.CollisionCategory & pathRequest.CollisionCategory) != 0 || closedSet.Contains(toNode)) continue;
 
-					if (currentNode == startNode) pathSucces = true;
-
-					foreach (var connection in currentNode.DefinitionNode.Connections)
+					var newMovementCostToNeighbour = toNode.Clearance < pathRequest.AgentSize ?
+						ClearanceBlockedCost :
+						currentNode.GCost + GetDistance(currentNode.DefinitionNode, toNode.DefinitionNode) * currentNode.DefinitionNode.MovementCostModifier;
+					if (newMovementCostToNeighbour < toNode.GCost || !openSet.Contains(toNode))
 					{
-						var toNode = NodePointer.Dereference(connection.To, pathfindingNetwork);
-						if ((connection.CollisionCategory & pathRequest.CollisionCategory) != 0 || closedSet.Contains(toNode)) continue;
-
-						var newMovementCostToNeighbour = toNode.Clearance < pathRequest.AgentSize ?
-							ClearanceBlockedCost :
-							currentNode.GCost + GetDistance(currentNode.DefinitionNode, toNode.DefinitionNode) * currentNode.DefinitionNode.MovementCostModifier;
-						if (newMovementCostToNeighbour < toNode.GCost || !openSet.Contains(toNode))
-						{
-							toNode.GCost = newMovementCostToNeighbour;
-							toNode.Parent = currentNode.DefinitionNode.Index;
-							if (!openSet.Contains(toNode))
-								openSet.Add(toNode);
-						}
+						toNode.GCost = newMovementCostToNeighbour;
+						toNode.Parent = currentNode.DefinitionNode.Index;
+						if (!openSet.Contains(toNode))
+							openSet.Add(toNode);
 					}
 				}
 			}
-			return pathSucces;
+			return true;
 		}
 
 		public PathRequest CreatePathRequest(IPathfinder<IDefinitionNodeNetwork> pathfinder, float x1, float y1, float x2, float y2, PathfindaxCollisionCategory collisionLayer = PathfindaxCollisionCategory.None, byte agentSize = 1)
@@ -99,6 +90,15 @@ namespace Pathfindax.Algorithms
 					return new PathRequest(pathfinder, startNode, endNode, collisionLayer, agentSize);
 				default:
 					throw new NotSupportedException($"{pathfinder.SourceNodeNetwork.GetType()} is not supported");
+			}
+		}
+
+		private void ResetNetwork(DijkstraNode[] pathfindingNetwork)
+		{
+			for (int i = 0; i < pathfindingNetwork.Length; i++)
+			{
+				pathfindingNetwork[i].GCost = 0;
+				pathfindingNetwork[i].Parent = NodePointer.NullPointer;
 			}
 		}
 

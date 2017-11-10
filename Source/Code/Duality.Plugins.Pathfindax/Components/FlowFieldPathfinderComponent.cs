@@ -22,6 +22,7 @@ namespace Duality.Plugins.Pathfindax.Components
 		/// Try to keep this as low as possible to prevent wasting time calculating clearance values that will never be used.
 		/// </summary>
 		public int MaxClearance { get; set; } = 5;
+		public int MaxCachedFlowFields { get; set; } = 100;
 
 		/// <inheritdoc />
 		public override void OnInit(InitContext context)
@@ -30,7 +31,7 @@ namespace Duality.Plugins.Pathfindax.Components
 			{
 				var sourceNodeNetwork = GetSourceNodeNetwork();
 				if (sourceNodeNetwork == null) return;
-				Pathfinder = PathfinderFactory.CreatePathfinder(sourceNodeNetwork, new FlowFieldAlgorithm(), (definitionNodeGrid, algorithm) =>
+				Pathfinder = PathfinderFactory.CreatePathfinder(sourceNodeNetwork, new FlowFieldAlgorithm(100), (definitionNodeGrid, algorithm) =>
 				 {
 					 var dijkstraNodeGrid = new DijkstraNodeGrid(definitionNodeGrid, MaxClearance);
 					 _dijkstraNodeGrids.Add(dijkstraNodeGrid);

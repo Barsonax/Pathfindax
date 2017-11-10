@@ -67,8 +67,10 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Collections\ConcurrentCache.cs" />
     <Compile Include="Algorithms\DijkstraAlgorithm.cs" />
     <Compile Include="Algorithms\PotentialFieldAlgorithm.cs" />
+    <Compile Include="PathfindEngine\SingleSourcePathRequestComparer.cs" />
     <Compile Include="Paths\FlowField.cs" />
     <Compile Include="Nodes\DijkstraNode.cs" />
     <Compile Include="Algorithms\FlowFieldAlgorithm.cs" />

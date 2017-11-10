@@ -52,7 +52,9 @@ namespace Pathfindax.Paths
 			var toIndex = startGridNode.DefinitionNode.Index.Index;
 			while (true)
 			{
-				var to = NodePointer.Dereference(NodeArray[toIndex], _pathfindingNetwork);
+				var toPointer = NodeArray[toIndex];
+				if (toPointer.Index == -1) return false;
+				var to = NodePointer.Dereference(toPointer, _pathfindingNetwork);
 				if (to.Clearance < neededClearance)
 				{
 					Debug.WriteLine(to.DefinitionNode.Index);
@@ -67,6 +69,11 @@ namespace Pathfindax.Paths
 		public bool NextWaypoint()
 		{
 			return true;
+		}
+
+		public override string ToString()
+		{
+			return $"Flowfield to {_targetIndex}";
 		}
 	}
 }
