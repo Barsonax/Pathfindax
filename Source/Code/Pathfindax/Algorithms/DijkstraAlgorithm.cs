@@ -40,8 +40,13 @@ namespace Pathfindax.Algorithms
 			}
 		}
 
+		public const float ClearanceBlockedCost = 100000000f;
 		public bool FindPath(DijkstraNode[] pathfindingNetwork, DijkstraNode targetNode, DijkstraNode startNode, PathRequest pathRequest)
 		{
+			for (int i = 0; i < pathfindingNetwork.Length; i++)
+			{
+				pathfindingNetwork[i].GCost = 0;
+			}
 			var pathSucces = false;
 			if (targetNode.Clearance >= pathRequest.AgentSize && startNode.Clearance >= pathRequest.AgentSize)
 			{
@@ -62,7 +67,7 @@ namespace Pathfindax.Algorithms
 						if ((connection.CollisionCategory & pathRequest.CollisionCategory) != 0 || closedSet.Contains(toNode)) continue;
 
 						var newMovementCostToNeighbour = toNode.Clearance < pathRequest.AgentSize ?
-							100000000f :
+							ClearanceBlockedCost :
 							currentNode.GCost + GetDistance(currentNode.DefinitionNode, toNode.DefinitionNode) * currentNode.DefinitionNode.MovementCostModifier;
 						if (newMovementCostToNeighbour < toNode.GCost || !openSet.Contains(toNode))
 						{

@@ -1,5 +1,6 @@
 ﻿using Duality.Drawing;
 using Duality.Editor;
+using Pathfindax.Algorithms;
 using Pathfindax.Paths;
 using Pathfindax.Utils;
 
@@ -37,7 +38,7 @@ namespace Duality.Plugins.Pathfindax.Components
 			if (pathProvider?.Path != null)
 			{
 				var canvas = new Canvas(device);
-				canvas.State.ZOffset = -10;
+				canvas.State.ZOffset = -8;
 				switch (pathProvider.Path)
 				{
 					case CompletedPath completedPath:										
@@ -64,6 +65,18 @@ namespace Duality.Plugins.Pathfindax.Components
 							var nodePosition =  flowField.DefinitionNodeGrid.NodeGrid[i].Position;
 							canvas.FillCircle(nodePosition.X, nodePosition.Y, 5f);
 							canvas.DrawLine(nodePosition.X, nodePosition.Y, nodePosition.X + flowField[i].X * 0.5f, nodePosition.Y + flowField[i].Y * 0.5f);
+						}
+						break;
+					case PotentialField potentialField:
+						for (int i = 0; i < potentialField.NodeArray.Length; i++)
+						{
+							var nodePosition = potentialField.DefinitionNodeGrid.NodeGrid[i].Position;
+							canvas.State.ColorTint = ColorRgba.Grey;
+							//canvas.FillCircle(nodePosition.X, nodePosition.Y, 5f);
+							canvas.State.ColorTint = ColorRgba.White;
+							var node = potentialField.NodeArray[i];
+							var text = node < DijkstraAlgorithm.ClearanceBlockedCost ? potentialField.NodeArray[i].ToString("N0") : "∞";
+							canvas.DrawText(text, nodePosition.X, nodePosition.Y, -1f, Alignment.Center);
 						}
 						break;
 				}
