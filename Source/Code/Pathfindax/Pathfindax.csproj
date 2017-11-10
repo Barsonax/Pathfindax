@@ -67,6 +67,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Algorithms\DijkstraAlgorithm.cs" />
     <Compile Include="Paths\FlowField.cs" />
     <Compile Include="Nodes\DijkstraNode.cs" />
     <Compile Include="Algorithms\FlowFieldAlgorithm.cs" />
