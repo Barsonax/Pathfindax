@@ -1,5 +1,4 @@
-﻿using System;
-using Duality;
+﻿using Duality;
 using Pathfindax.Collections;
 using Pathfindax.Nodes;
 using Pathfindax.Utils;
@@ -35,11 +34,10 @@ namespace Pathfindax.Grid
 			percentX = Mathf.Clamp(percentX, 0, 1);
 			percentY = Mathf.Clamp(percentY, 0, 1);
 
-			var x = (int)Math.Round((NodeGrid.Width - 1) * percentX);
-			var y = (int)Math.Round((NodeGrid.Height - 1) * percentY);
+			var x = Mathf.RoundToInt((NodeGrid.Width - 1) * percentX);
+			var y = Mathf.RoundToInt((NodeGrid.Height - 1) * percentY);
 
 			return NodeGrid[x, y];
 		}
 	}
 }
-

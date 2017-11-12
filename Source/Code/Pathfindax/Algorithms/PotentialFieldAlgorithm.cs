@@ -15,30 +15,28 @@ namespace Pathfindax.Algorithms
 
 		public PotentialFieldAlgorithm(int cacheSize)
 		{
-			_potentialFieldCache = new ConcurrentCache<PathRequest, PotentialField>(cacheSize, new SingleSourcePathRequestComparer());
+			if (cacheSize > 0)
+				_potentialFieldCache = new ConcurrentCache<PathRequest, PotentialField>(cacheSize, new SingleSourcePathRequestComparer());
 		}
 
-		public IPath FindPath(DijkstraNodeGrid dijkstraNodeNetwork, PathRequest pathRequest)
+		IPath IPathFindAlgorithm<DijkstraNodeGrid>.FindPath(DijkstraNodeGrid nodeNetwork, PathRequest pathRequest) => FindPath(nodeNetwork, pathRequest);
+
+		public PotentialField FindPath(DijkstraNodeGrid dijkstraNodeNetwork, PathRequest pathRequest)
 		{
 			try
 			{
-				var pathfindingNetwork = dijkstraNodeNetwork.GetCollisionLayerNetwork(pathRequest.CollisionCategory);
-				var startNode = NodePointer.Dereference(pathRequest.PathStart.Index, pathfindingNetwork);
-				if (!_potentialFieldCache.TryGetValue(pathRequest, out var potentialField))
+				if (_potentialFieldCache == null || !_potentialFieldCache.TryGetValue(pathRequest, out var potentialField))
 				{
-					var sw = new Stopwatch();
-					sw.Start();
+					var sw = Stopwatch.StartNew();
+					var pathfindingNetwork = dijkstraNodeNetwork.GetCollisionLayerNetwork(pathRequest.CollisionCategory);
+					var startNode = NodePointer.Dereference(pathRequest.PathStart.Index, pathfindingNetwork);
 					var targetNode = NodePointer.Dereference(pathRequest.PathEnd.Index, pathfindingNetwork);
 					_dijkstraAlgorithm.FindPath(pathfindingNetwork, targetNode, startNode, pathRequest);
 					potentialField = FindPath(dijkstraNodeNetwork, pathfindingNetwork, targetNode);
-					_potentialFieldCache.Add(pathRequest, potentialField);
-					sw.Stop();
+					_potentialFieldCache?.Add(pathRequest, potentialField);
 					Debug.WriteLine($"Potentialfield created in {sw.ElapsedMilliseconds} ms.");
 				}
-				if (true) // potentialField.CanRetracePath(startNode, pathRequest.AgentSize)
-					return potentialField;
-				Debug.WriteLine("Did not find a path :(");
-				return null;
+				return potentialField;
 			}
 			catch (Exception ex)
 			{
@@ -48,7 +46,7 @@ namespace Pathfindax.Algorithms
 			}
 		}
 
-		private PotentialField FindPath(DijkstraNodeGrid dijkstraNodeNetwork, DijkstraNode[] pathfindingNetwork, DijkstraNode targetNode)
+		public static PotentialField FindPath(DijkstraNodeGrid dijkstraNodeNetwork, DijkstraNode[] pathfindingNetwork, DijkstraNode targetNode)
 		{
 			var potentialNodes = new Array2D<float>(dijkstraNodeNetwork.DefinitionNodeGrid.NodeGrid.Width, dijkstraNodeNetwork.DefinitionNodeGrid.NodeGrid.Height);
 			for (var i = 0; i < potentialNodes.Length; i++)

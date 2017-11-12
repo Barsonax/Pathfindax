@@ -1,4 +1,5 @@
 ﻿using Duality;
+using Pathfindax.Algorithms;
 using Pathfindax.Collections;
 using Pathfindax.Grid;
 using Pathfindax.Nodes;
@@ -7,51 +8,66 @@ namespace Pathfindax.Paths
 {
 	public class PotentialField : IPath
 	{
-		public Vector2 this[int i]
-		{
-			get
-			{
-				var y = i / NodeArray.Width;
-				var x = i - y * NodeArray.Width;
-				return this[x, y];
-			}
-		}
+		public static readonly Vector2[] VectorDirectionCache = {
+			new Vector2(-1, -1).Normalized,
+			new Vector2(0, -1).Normalized,
+			new Vector2(1, -1).Normalized,
+			new Vector2(-1, 0).Normalized,
 
-		public Vector2 this[int nodeX, int nodeY]
-		{
-			get
-			{
-				var lowestPotential = float.MaxValue;
-				var toX = nodeX;
-				var toY = nodeY;
-				for (var y = -1; y < 2; y++)
-				{
-					for (var x = -1; x < 2; x++)
-					{
-						var neighbourX = nodeX + x;
-						var neighbourY = nodeY + y;
-						if (neighbourX > 0 && neighbourY > 0 && neighbourX < NodeArray.Width && neighbourY < NodeArray.Height && NodeArray[neighbourX, neighbourY] < lowestPotential)
-						{
-							toX = neighbourX;
-							toY = neighbourY;
-							lowestPotential = NodeArray[neighbourX, neighbourY];
-						}
-					}
-				}
-				return new Vector2(toX - nodeX, toY - nodeY) * DefinitionNodeGrid.NodeSize;
-			}
-		}
+			Vector2.Zero, 
 
+			new Vector2(1, 0).Normalized,
+			new Vector2(-1, 1).Normalized,
+			new Vector2(0, 1).Normalized,
+			new Vector2(1, 1).Normalized,
+		};
 
+		public static readonly Point2[] PointDirectionCache = {
+			new Point2(-1, -1),
+			new Point2(0, -1),
+			new Point2(1, -1),
+			new Point2(-1, 0),
+
+			Point2.Zero,
+
+			new Point2(1, 0),
+			new Point2(-1, 1),
+			new Point2(0, 1),
+			new Point2(1, 1),
+		};
+
+		public Vector2 this[int i] => VectorDirectionCache[GetDirectionIndex(i)];
 		public readonly DefinitionNodeGrid DefinitionNodeGrid;
-		public readonly Array2D<float> NodeArray;
-		private readonly int _targetIndex;
+		public readonly Array2D<float> PotentialArray;
+		public readonly int TargetIndex;
 
-		public PotentialField(DefinitionNodeGrid definitionNodeGrid, DijkstraNode targetNode, Array2D<float> nodeArray)
+		public PotentialField(DefinitionNodeGrid definitionNodeGrid, DijkstraNode targetNode, Array2D<float> potentialArray)
 		{
 			DefinitionNodeGrid = definitionNodeGrid;
-			NodeArray = nodeArray;
-			_targetIndex = targetNode.DefinitionNode.Index.Index;
+			PotentialArray = potentialArray;
+			TargetIndex = targetNode.DefinitionNode.Index.Index;
+		}
+
+		public byte GetDirectionIndex(int i)
+		{
+			var y = i / PotentialArray.Width;
+			var x = i - y * PotentialArray.Width;
+			byte goalDirectionIndex = 4;
+			var lowestPotential = float.MaxValue;
+			for (byte j = 0; j < PointDirectionCache.Length; j++)
+			{
+				var nodePos = new Point2(PointDirectionCache[j].X + x, PointDirectionCache[j].Y + y);
+				if (nodePos.X >= 0 && nodePos.Y >= 0 && nodePos.X < PotentialArray.Width && nodePos.Y < PotentialArray.Height)
+				{
+					var potential = PotentialArray[nodePos.X, nodePos.Y];
+					if (potential < lowestPotential && potential < DijkstraAlgorithm.ClearanceBlockedCost)
+					{
+						goalDirectionIndex = j;
+						lowestPotential = potential;
+					}
+				}
+			}
+			return goalDirectionIndex;
 		}
 
 		public Vector2 GetHeading(Vector3 currentPosition)
@@ -62,7 +78,7 @@ namespace Pathfindax.Paths
 		public Vector2 GetHeading(Vector2 currentPosition)
 		{
 			var definitionNode = DefinitionNodeGrid.GetNode(currentPosition.X, currentPosition.Y);
-			if (definitionNode.Index.Index == _targetIndex)
+			if (definitionNode.Index.Index == TargetIndex)
 			{
 				return definitionNode.Position - currentPosition;
 			}

@@ -387,6 +387,7 @@
               <_items dataType="Array" type="Pathfindax.Grid.DijkstraNodeGrid[]" id="2618384768" length="0" />
               <_size dataType="Int">0</_size>
             </_dijkstraNodeGrids>
+            <_x003C_MaxCachedFlowFields_x003E_k__BackingField dataType="Int">100</_x003C_MaxCachedFlowFields_x003E_k__BackingField>
             <_x003C_MaxClearance_x003E_k__BackingField dataType="Int">5</_x003C_MaxClearance_x003E_k__BackingField>
             <_x003C_Pathfinder_x003E_k__BackingField />
             <_x003C_PathfinderId_x003E_k__BackingField />
@@ -476,7 +477,7 @@
               <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="3725612622" length="4">
                 <item dataType="Struct" type="Duality.Components.Physics.CircleShapeInfo" id="1715125968">
                   <density dataType="Float">1</density>
-                  <friction dataType="Float">0.3</friction>
+                  <friction dataType="Float">0</friction>
                   <parent dataType="ObjectRef">3746776377</parent>
                   <position dataType="Struct" type="Duality.Vector2" />
                   <radius dataType="Float">64</radius>
@@ -706,7 +707,7 @@
               <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="2369152078">
                 <item dataType="Struct" type="Duality.Components.Physics.CircleShapeInfo" id="1340909264">
                   <density dataType="Float">1</density>
-                  <friction dataType="Float">0.3</friction>
+                  <friction dataType="Float">0</friction>
                   <parent dataType="ObjectRef">1129595449</parent>
                   <position dataType="Struct" type="Duality.Vector2" />
                   <radius dataType="Float">64</radius>
@@ -837,7 +838,7 @@
               <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="498048654">
                 <item dataType="Struct" type="Duality.Components.Physics.CircleShapeInfo" id="2243461328">
                   <density dataType="Float">1</density>
-                  <friction dataType="Float">0.3</friction>
+                  <friction dataType="Float">0</friction>
                   <parent dataType="ObjectRef">3962336873</parent>
                   <position dataType="Struct" type="Duality.Vector2" />
                   <radius dataType="Float">64</radius>
@@ -968,7 +969,7 @@
               <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="2550794576">
                 <item dataType="Struct" type="Duality.Components.Physics.CircleShapeInfo" id="3675208636">
                   <density dataType="Float">1</density>
-                  <friction dataType="Float">0.3</friction>
+                  <friction dataType="Float">0</friction>
                   <parent dataType="ObjectRef">2668797794</parent>
                   <position dataType="Struct" type="Duality.Vector2" />
                   <radius dataType="Float">64</radius>
@@ -1099,7 +1100,7 @@
               <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="1469208558">
                 <item dataType="Struct" type="Duality.Components.Physics.CircleShapeInfo" id="329481808">
                   <density dataType="Float">1</density>
-                  <friction dataType="Float">0.3</friction>
+                  <friction dataType="Float">0</friction>
                   <parent dataType="ObjectRef">390421137</parent>
                   <position dataType="Struct" type="Duality.Vector2" />
                   <radius dataType="Float">64</radius>
@@ -1230,7 +1231,7 @@
               <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="2237209532">
                 <item dataType="Struct" type="Duality.Components.Physics.CircleShapeInfo" id="2026176068">
                   <density dataType="Float">1</density>
-                  <friction dataType="Float">0.3</friction>
+                  <friction dataType="Float">0</friction>
                   <parent dataType="ObjectRef">4052535520</parent>
                   <position dataType="Struct" type="Duality.Vector2" />
                   <radius dataType="Float">64</radius>
@@ -1361,7 +1362,7 @@
               <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="3320679030">
                 <item dataType="Struct" type="Duality.Components.Physics.CircleShapeInfo" id="3744204768">
                   <density dataType="Float">1</density>
-                  <friction dataType="Float">0.3</friction>
+                  <friction dataType="Float">0</friction>
                   <parent dataType="ObjectRef">2163127883</parent>
                   <position dataType="Struct" type="Duality.Vector2" />
                   <radius dataType="Float">64</radius>
@@ -1492,7 +1493,7 @@
               <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="607847492">
                 <item dataType="Struct" type="Duality.Components.Physics.CircleShapeInfo" id="3102408260">
                   <density dataType="Float">1</density>
-                  <friction dataType="Float">0.3</friction>
+                  <friction dataType="Float">0</friction>
                   <parent dataType="ObjectRef">2302944916</parent>
                   <position dataType="Struct" type="Duality.Vector2" />
                   <radius dataType="Float">64</radius>
@@ -1623,7 +1624,7 @@
               <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="4211690102">
                 <item dataType="Struct" type="Duality.Components.Physics.CircleShapeInfo" id="893028320">
                   <density dataType="Float">1</density>
-                  <friction dataType="Float">0.3</friction>
+                  <friction dataType="Float">0</friction>
                   <parent dataType="ObjectRef">2226862667</parent>
                   <position dataType="Struct" type="Duality.Vector2" />
                   <radius dataType="Float">64</radius>
@@ -1754,7 +1755,7 @@
               <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="4073084134">
                 <item dataType="Struct" type="Duality.Components.Physics.CircleShapeInfo" id="406564224">
                   <density dataType="Float">1</density>
-                  <friction dataType="Float">0.3</friction>
+                  <friction dataType="Float">0</friction>
                   <parent dataType="ObjectRef">3580896291</parent>
                   <position dataType="Struct" type="Duality.Vector2" />
                   <radius dataType="Float">64</radius>
@@ -1885,7 +1886,7 @@
               <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="3368990124">
                 <item dataType="Struct" type="Duality.Components.Physics.CircleShapeInfo" id="3257949412">
                   <density dataType="Float">1</density>
-                  <friction dataType="Float">0.3</friction>
+                  <friction dataType="Float">0</friction>
                   <parent dataType="ObjectRef">465349592</parent>
                   <position dataType="Struct" type="Duality.Vector2" />
                   <radius dataType="Float">64</radius>
@@ -2016,7 +2017,7 @@
               <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="2604621788">
                 <item dataType="Struct" type="Duality.Components.Physics.CircleShapeInfo" id="627665604">
                   <density dataType="Float">1</density>
-                  <friction dataType="Float">0.3</friction>
+                  <friction dataType="Float">0</friction>
                   <parent dataType="ObjectRef">3902071408</parent>
                   <position dataType="Struct" type="Duality.Vector2" />
                   <radius dataType="Float">64</radius>
@@ -2147,7 +2148,7 @@
               <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="3886654310">
                 <item dataType="Struct" type="Duality.Components.Physics.CircleShapeInfo" id="3447236480">
                   <density dataType="Float">1</density>
-                  <friction dataType="Float">0.3</friction>
+                  <friction dataType="Float">0</friction>
                   <parent dataType="ObjectRef">3084662477</parent>
                   <position dataType="Struct" type="Duality.Vector2" />
                   <radius dataType="Float">64</radius>
@@ -2278,7 +2279,7 @@
               <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="140040448">
                 <item dataType="Struct" type="Duality.Components.Physics.CircleShapeInfo" id="2623853212">
                   <density dataType="Float">1</density>
-                  <friction dataType="Float">0.3</friction>
+                  <friction dataType="Float">0</friction>
                   <parent dataType="ObjectRef">314181722</parent>
                   <position dataType="Struct" type="Duality.Vector2" />
                   <radius dataType="Float">64</radius>
@@ -2409,7 +2410,7 @@
               <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="3809955012">
                 <item dataType="Struct" type="Duality.Components.Physics.CircleShapeInfo" id="3180783428">
                   <density dataType="Float">1</density>
-                  <friction dataType="Float">0.3</friction>
+                  <friction dataType="Float">0</friction>
                   <parent dataType="ObjectRef">1691985844</parent>
                   <position dataType="Struct" type="Duality.Vector2" />
                   <radius dataType="Float">64</radius>
@@ -2540,7 +2541,7 @@
               <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="3430478702">
                 <item dataType="Struct" type="Duality.Components.Physics.CircleShapeInfo" id="2674691152">
                   <density dataType="Float">1</density>
-                  <friction dataType="Float">0.3</friction>
+                  <friction dataType="Float">0</friction>
                   <parent dataType="ObjectRef">2704760225</parent>
                   <position dataType="Struct" type="Duality.Vector2" />
                   <radius dataType="Float">64</radius>
@@ -2671,7 +2672,7 @@
               <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="1429601476">
                 <item dataType="Struct" type="Duality.Components.Physics.CircleShapeInfo" id="2456618820">
                   <density dataType="Float">1</density>
-                  <friction dataType="Float">0.3</friction>
+                  <friction dataType="Float">0</friction>
                   <parent dataType="ObjectRef">4016968628</parent>
                   <position dataType="Struct" type="Duality.Vector2" />
                   <radius dataType="Float">64</radius>
@@ -2802,7 +2803,7 @@
               <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="2023213174">
                 <item dataType="Struct" type="Duality.Components.Physics.CircleShapeInfo" id="2040889312">
                   <density dataType="Float">1</density>
-                  <friction dataType="Float">0.3</friction>
+                  <friction dataType="Float">0</friction>
                   <parent dataType="ObjectRef">3702836555</parent>
                   <position dataType="Struct" type="Duality.Vector2" />
                   <radius dataType="Float">64</radius>
@@ -2933,7 +2934,7 @@
               <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="765090598">
                 <item dataType="Struct" type="Duality.Components.Physics.CircleShapeInfo" id="3604294912">
                   <density dataType="Float">1</density>
-                  <friction dataType="Float">0.3</friction>
+                  <friction dataType="Float">0</friction>
                   <parent dataType="ObjectRef">2181074157</parent>
                   <position dataType="Struct" type="Duality.Vector2" />
                   <radius dataType="Float">64</radius>
@@ -3064,7 +3065,7 @@
               <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="1761779246">
                 <item dataType="Struct" type="Duality.Components.Physics.CircleShapeInfo" id="4000217936">
                   <density dataType="Float">1</density>
-                  <friction dataType="Float">0.3</friction>
+                  <friction dataType="Float">0</friction>
                   <parent dataType="ObjectRef">4165744271</parent>
                   <position dataType="Struct" type="Duality.Vector2" />
                   <radius dataType="Float">64</radius>
@@ -3195,7 +3196,7 @@
               <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="746493008">
                 <item dataType="Struct" type="Duality.Components.Physics.CircleShapeInfo" id="959017404">
                   <density dataType="Float">1</density>
-                  <friction dataType="Float">0.3</friction>
+                  <friction dataType="Float">0</friction>
                   <parent dataType="ObjectRef">1829788662</parent>
                   <position dataType="Struct" type="Duality.Vector2" />
                   <radius dataType="Float">64</radius>
@@ -3326,7 +3327,7 @@
               <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="1457078692">
                 <item dataType="Struct" type="Duality.Components.Physics.CircleShapeInfo" id="2167909572">
                   <density dataType="Float">1</density>
-                  <friction dataType="Float">0.3</friction>
+                  <friction dataType="Float">0</friction>
                   <parent dataType="ObjectRef">3224950796</parent>
                   <position dataType="Struct" type="Duality.Vector2" />
                   <radius dataType="Float">64</radius>
@@ -3457,7 +3458,7 @@
               <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="1313966908">
                 <item dataType="Struct" type="Duality.Components.Physics.CircleShapeInfo" id="1677907780">
                   <density dataType="Float">1</density>
-                  <friction dataType="Float">0.3</friction>
+                  <friction dataType="Float">0</friction>
                   <parent dataType="ObjectRef">2317752352</parent>
                   <position dataType="Struct" type="Duality.Vector2" />
                   <radius dataType="Float">64</radius>
@@ -3588,7 +3589,7 @@
               <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="484277904">
                 <item dataType="Struct" type="Duality.Components.Physics.CircleShapeInfo" id="1025019196">
                   <density dataType="Float">1</density>
-                  <friction dataType="Float">0.3</friction>
+                  <friction dataType="Float">0</friction>
                   <parent dataType="ObjectRef">2381921830</parent>
                   <position dataType="Struct" type="Duality.Vector2" />
                   <radius dataType="Float">64</radius>
@@ -3719,7 +3720,7 @@
               <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="2609913742">
                 <item dataType="Struct" type="Duality.Components.Physics.CircleShapeInfo" id="2913952976">
                   <density dataType="Float">1</density>
-                  <friction dataType="Float">0.3</friction>
+                  <friction dataType="Float">0</friction>
                   <parent dataType="ObjectRef">341907177</parent>
                   <position dataType="Struct" type="Duality.Vector2" />
                   <radius dataType="Float">64</radius>
@@ -3850,7 +3851,7 @@
               <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="4178935542">
                 <item dataType="Struct" type="Duality.Components.Physics.CircleShapeInfo" id="2275475680">
                   <density dataType="Float">1</density>
-                  <friction dataType="Float">0.3</friction>
+                  <friction dataType="Float">0</friction>
                   <parent dataType="ObjectRef">244084853</parent>
                   <position dataType="Struct" type="Duality.Vector2" />
                   <radius dataType="Float">64</radius>
@@ -3981,7 +3982,7 @@
               <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="240976400">
                 <item dataType="Struct" type="Duality.Components.Physics.CircleShapeInfo" id="2548560700">
                   <density dataType="Float">1</density>
-                  <friction dataType="Float">0.3</friction>
+                  <friction dataType="Float">0</friction>
                   <parent dataType="ObjectRef">883055110</parent>
                   <position dataType="Struct" type="Duality.Vector2" />
                   <radius dataType="Float">64</radius>
@@ -4112,7 +4113,7 @@
               <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="2190649974">
                 <item dataType="Struct" type="Duality.Components.Physics.CircleShapeInfo" id="3005384672">
                   <density dataType="Float">1</density>
-                  <friction dataType="Float">0.3</friction>
+                  <friction dataType="Float">0</friction>
                   <parent dataType="ObjectRef">966495851</parent>
                   <position dataType="Struct" type="Duality.Vector2" />
                   <radius dataType="Float">64</radius>
@@ -4243,7 +4244,7 @@
               <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="3805280078">
                 <item dataType="Struct" type="Duality.Components.Physics.CircleShapeInfo" id="3259282128">
                   <density dataType="Float">1</density>
-                  <friction dataType="Float">0.3</friction>
+                  <friction dataType="Float">0</friction>
                   <parent dataType="ObjectRef">4175042521</parent>
                   <position dataType="Struct" type="Duality.Vector2" />
                   <radius dataType="Float">64</radius>
@@ -4374,7 +4375,7 @@
               <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="2336579598">
                 <item dataType="Struct" type="Duality.Components.Physics.CircleShapeInfo" id="147553232">
                   <density dataType="Float">1</density>
-                  <friction dataType="Float">0.3</friction>
+                  <friction dataType="Float">0</friction>
                   <parent dataType="ObjectRef">1521773385</parent>
                   <position dataType="Struct" type="Duality.Vector2" />
                   <radius dataType="Float">64</radius>
@@ -4505,7 +4506,7 @@
               <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="1435001728">
                 <item dataType="Struct" type="Duality.Components.Physics.CircleShapeInfo" id="4010955164">
                   <density dataType="Float">1</density>
-                  <friction dataType="Float">0.3</friction>
+                  <friction dataType="Float">0</friction>
                   <parent dataType="ObjectRef">1019744318</parent>
                   <position dataType="Struct" type="Duality.Vector2" />
                   <radius dataType="Float">64</radius>
@@ -4636,7 +4637,7 @@
               <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="3370451862">
                 <item dataType="Struct" type="Duality.Components.Physics.CircleShapeInfo" id="2051385376">
                   <density dataType="Float">1</density>
-                  <friction dataType="Float">0.3</friction>
+                  <friction dataType="Float">0</friction>
                   <parent dataType="ObjectRef">4209172667</parent>
                   <position dataType="Struct" type="Duality.Vector2" />
                   <radius dataType="Float">64</radius>
@@ -4767,7 +4768,7 @@
               <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="2542253584">
                 <item dataType="Struct" type="Duality.Components.Physics.CircleShapeInfo" id="3698426684">
                   <density dataType="Float">1</density>
-                  <friction dataType="Float">0.3</friction>
+                  <friction dataType="Float">0</friction>
                   <parent dataType="ObjectRef">3660455058</parent>
                   <position dataType="Struct" type="Duality.Vector2" />
                   <radius dataType="Float">64</radius>
@@ -4898,7 +4899,7 @@
               <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="2347811030">
                 <item dataType="Struct" type="Duality.Components.Physics.CircleShapeInfo" id="1249642784">
                   <density dataType="Float">1</density>
-                  <friction dataType="Float">0.3</friction>
+                  <friction dataType="Float">0</friction>
                   <parent dataType="ObjectRef">1531655141</parent>
                   <position dataType="Struct" type="Duality.Vector2" />
                   <radius dataType="Float">64</radius>
@@ -5029,7 +5030,7 @@
               <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="293836174">
                 <item dataType="Struct" type="Duality.Components.Physics.CircleShapeInfo" id="2122336464">
                   <density dataType="Float">1</density>
-                  <friction dataType="Float">0.3</friction>
+                  <friction dataType="Float">0</friction>
                   <parent dataType="ObjectRef">1689177897</parent>
                   <position dataType="Struct" type="Duality.Vector2" />
                   <radius dataType="Float">64</radius>
@@ -5160,7 +5161,7 @@
               <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="1562153504">
                 <item dataType="Struct" type="Duality.Components.Physics.CircleShapeInfo" id="3990647772">
                   <density dataType="Float">1</density>
-                  <friction dataType="Float">0.3</friction>
+                  <friction dataType="Float">0</friction>
                   <parent dataType="ObjectRef">2910168074</parent>
                   <position dataType="Struct" type="Duality.Vector2" />
                   <radius dataType="Float">64</radius>
@@ -5291,7 +5292,7 @@
               <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="892836070">
                 <item dataType="Struct" type="Duality.Components.Physics.CircleShapeInfo" id="3835614592">
                   <density dataType="Float">1</density>
-                  <friction dataType="Float">0.3</friction>
+                  <friction dataType="Float">0</friction>
                   <parent dataType="ObjectRef">2821955059</parent>
                   <position dataType="Struct" type="Duality.Vector2" />
                   <radius dataType="Float">64</radius>
@@ -5422,7 +5423,7 @@
               <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="859794006">
                 <item dataType="Struct" type="Duality.Components.Physics.CircleShapeInfo" id="1844557856">
                   <density dataType="Float">1</density>
-                  <friction dataType="Float">0.3</friction>
+                  <friction dataType="Float">0</friction>
                   <parent dataType="ObjectRef">2448564005</parent>
                   <position dataType="Struct" type="Duality.Vector2" />
                   <radius dataType="Float">64</radius>
@@ -5553,7 +5554,7 @@
               <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="794223104">
                 <item dataType="Struct" type="Duality.Components.Physics.CircleShapeInfo" id="1644481692">
                   <density dataType="Float">1</density>
-                  <friction dataType="Float">0.3</friction>
+                  <friction dataType="Float">0</friction>
                   <parent dataType="ObjectRef">3670748090</parent>
                   <position dataType="Struct" type="Duality.Vector2" />
                   <radius dataType="Float">64</radius>
@@ -5684,7 +5685,7 @@
               <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="712704686">
                 <item dataType="Struct" type="Duality.Components.Physics.CircleShapeInfo" id="1939869008">
                   <density dataType="Float">1</density>
-                  <friction dataType="Float">0.3</friction>
+                  <friction dataType="Float">0</friction>
                   <parent dataType="ObjectRef">3107813041</parent>
                   <position dataType="Struct" type="Duality.Vector2" />
                   <radius dataType="Float">64</radius>
@@ -5815,7 +5816,7 @@
               <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="1551737148">
                 <item dataType="Struct" type="Duality.Components.Physics.CircleShapeInfo" id="1049833284">
                   <density dataType="Float">1</density>
-                  <friction dataType="Float">0.3</friction>
+                  <friction dataType="Float">0</friction>
                   <parent dataType="ObjectRef">4148686592</parent>
                   <position dataType="Struct" type="Duality.Vector2" />
                   <radius dataType="Float">64</radius>
@@ -5946,7 +5947,7 @@
               <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="624172942">
                 <item dataType="Struct" type="Duality.Components.Physics.CircleShapeInfo" id="2629788880">
                   <density dataType="Float">1</density>
-                  <friction dataType="Float">0.3</friction>
+                  <friction dataType="Float">0</friction>
                   <parent dataType="ObjectRef">1546905623</parent>
                   <position dataType="Struct" type="Duality.Vector2" />
                   <radius dataType="Float">64</radius>
@@ -6077,7 +6078,7 @@
               <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="4183384400">
                 <item dataType="Struct" type="Duality.Components.Physics.CircleShapeInfo" id="48143292">
                   <density dataType="Float">1</density>
-                  <friction dataType="Float">0.3</friction>
+                  <friction dataType="Float">0</friction>
                   <parent dataType="ObjectRef">3251285046</parent>
                   <position dataType="Struct" type="Duality.Vector2" />
                   <radius dataType="Float">64</radius>
@@ -6208,7 +6209,7 @@
               <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="1866084304">
                 <item dataType="Struct" type="Duality.Components.Physics.CircleShapeInfo" id="2941930172">
                   <density dataType="Float">1</density>
-                  <friction dataType="Float">0.3</friction>
+                  <friction dataType="Float">0</friction>
                   <parent dataType="ObjectRef">1648491478</parent>
                   <position dataType="Struct" type="Duality.Vector2" />
                   <radius dataType="Float">64</radius>
@@ -6339,7 +6340,7 @@
               <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="4201677998">
                 <item dataType="Struct" type="Duality.Components.Physics.CircleShapeInfo" id="1614315856">
                   <density dataType="Float">1</density>
-                  <friction dataType="Float">0.3</friction>
+                  <friction dataType="Float">0</friction>
                   <parent dataType="ObjectRef">1509166001</parent>
                   <position dataType="Struct" type="Duality.Vector2" />
                   <radius dataType="Float">64</radius>
@@ -6470,7 +6471,7 @@
               <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="2221605148">
                 <item dataType="Struct" type="Duality.Components.Physics.CircleShapeInfo" id="640315332">
                   <density dataType="Float">1</density>
-                  <friction dataType="Float">0.3</friction>
+                  <friction dataType="Float">0</friction>
                   <parent dataType="ObjectRef">2550704784</parent>
                   <position dataType="Struct" type="Duality.Vector2" />
                   <radius dataType="Float">64</radius>
@@ -6601,7 +6602,7 @@
               <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="1243132022">
                 <item dataType="Struct" type="Duality.Components.Physics.CircleShapeInfo" id="297705440">
                   <density dataType="Float">1</density>
-                  <friction dataType="Float">0.3</friction>
+                  <friction dataType="Float">0</friction>
                   <parent dataType="ObjectRef">2546772683</parent>
                   <position dataType="Struct" type="Duality.Vector2" />
                   <radius dataType="Float">64</radius>
@@ -6732,7 +6733,7 @@
               <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="1504985232">
                 <item dataType="Struct" type="Duality.Components.Physics.CircleShapeInfo" id="2520433980">
                   <density dataType="Float">1</density>
-                  <friction dataType="Float">0.3</friction>
+                  <friction dataType="Float">0</friction>
                   <parent dataType="ObjectRef">1942789446</parent>
                   <position dataType="Struct" type="Duality.Vector2" />
                   <radius dataType="Float">64</radius>
@@ -6863,7 +6864,7 @@
               <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="3070700772">
                 <item dataType="Struct" type="Duality.Components.Physics.CircleShapeInfo" id="3945088964">
                   <density dataType="Float">1</density>
-                  <friction dataType="Float">0.3</friction>
+                  <friction dataType="Float">0</friction>
                   <parent dataType="ObjectRef">2877279020</parent>
                   <position dataType="Struct" type="Duality.Vector2" />
                   <radius dataType="Float">64</radius>
@@ -6994,7 +6995,7 @@
               <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="149002624">
                 <item dataType="Struct" type="Duality.Components.Physics.CircleShapeInfo" id="306404764">
                   <density dataType="Float">1</density>
-                  <friction dataType="Float">0.3</friction>
+                  <friction dataType="Float">0</friction>
                   <parent dataType="ObjectRef">2659129370</parent>
                   <position dataType="Struct" type="Duality.Vector2" />
                   <radius dataType="Float">64</radius>
@@ -7125,7 +7126,7 @@
               <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="2951779132">
                 <item dataType="Struct" type="Duality.Components.Physics.CircleShapeInfo" id="1143580484">
                   <density dataType="Float">1</density>
-                  <friction dataType="Float">0.3</friction>
+                  <friction dataType="Float">0</friction>
                   <parent dataType="ObjectRef">3448284960</parent>
                   <position dataType="Struct" type="Duality.Vector2" />
                   <radius dataType="Float">64</radius>
@@ -7256,7 +7257,7 @@
               <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="3863390438">
                 <item dataType="Struct" type="Duality.Components.Physics.CircleShapeInfo" id="2652476800">
                   <density dataType="Float">1</density>
-                  <friction dataType="Float">0.3</friction>
+                  <friction dataType="Float">0</friction>
                   <parent dataType="ObjectRef">4002929677</parent>
                   <position dataType="Struct" type="Duality.Vector2" />
                   <radius dataType="Float">64</radius>
@@ -7387,7 +7388,7 @@
               <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="4109694614">
                 <item dataType="Struct" type="Duality.Components.Physics.CircleShapeInfo" id="3281066528">
                   <density dataType="Float">1</density>
-                  <friction dataType="Float">0.3</friction>
+                  <friction dataType="Float">0</friction>
                   <parent dataType="ObjectRef">761413061</parent>
                   <position dataType="Struct" type="Duality.Vector2" />
                   <radius dataType="Float">64</radius>
@@ -7518,7 +7519,7 @@
               <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="1823399062">
                 <item dataType="Struct" type="Duality.Components.Physics.CircleShapeInfo" id="2339430944">
                   <density dataType="Float">1</density>
-                  <friction dataType="Float">0.3</friction>
+                  <friction dataType="Float">0</friction>
                   <parent dataType="ObjectRef">4185995653</parent>
                   <position dataType="Struct" type="Duality.Vector2" />
                   <radius dataType="Float">64</radius>
@@ -7649,7 +7650,7 @@
               <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="3581479510">
                 <item dataType="Struct" type="Duality.Components.Physics.CircleShapeInfo" id="2015524896">
                   <density dataType="Float">1</density>
-                  <friction dataType="Float">0.3</friction>
+                  <friction dataType="Float">0</friction>
                   <parent dataType="ObjectRef">3204061147</parent>
                   <position dataType="Struct" type="Duality.Vector2" />
                   <radius dataType="Float">64</radius>

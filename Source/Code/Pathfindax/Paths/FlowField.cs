@@ -1,35 +1,25 @@
-﻿using System.Diagnostics;
-using Duality;
+﻿using Duality;
 using Pathfindax.Grid;
-using Pathfindax.Nodes;
 
 namespace Pathfindax.Paths
 {
 	public class FlowField : IPath
 	{
-		public Vector2 this[int i]
-		{
-			get
-			{
-				var flowNode = NodeArray[i];
-				if (flowNode.Index == -1) return Vector2.Zero;
-				var from = DefinitionNodeGrid[i];
-				var to = NodePointer.Dereference(flowNode, DefinitionNodeGrid);
-				return to.Position - from.Position;
-			}
-		}
+		public Vector2 this[int i] => PotentialField.VectorDirectionCache[FlowArray[i]];
 
 		public readonly DefinitionNodeGrid DefinitionNodeGrid;
-		public readonly NodePointer[] NodeArray;
-		private readonly DijkstraNode[] _pathfindingNetwork;
+		public readonly byte[] FlowArray;
 		private readonly int _targetIndex;
 
-		public FlowField(DefinitionNodeGrid definitionNodeGrid, DijkstraNode[] pathfindingNetwork, DijkstraNode targetNode, NodePointer[] nodeArray)
+		public FlowField(PotentialField potentialField)
 		{
-			DefinitionNodeGrid = definitionNodeGrid;
-			NodeArray = nodeArray;
-			_pathfindingNetwork = pathfindingNetwork;
-			_targetIndex = targetNode.DefinitionNode.Index.Index;
+			_targetIndex = potentialField.TargetIndex;
+			DefinitionNodeGrid = potentialField.DefinitionNodeGrid;
+			FlowArray = new byte[potentialField.PotentialArray.Array.Length];
+			for (int i = 0; i < FlowArray.Length; i++)
+			{
+				FlowArray[i] = potentialField.GetDirectionIndex(i);
+			}
 		}
 
 		public Vector2 GetHeading(Vector3 currentPosition)
@@ -45,25 +35,6 @@ namespace Pathfindax.Paths
 				return definitionNode.Position - currentPosition;
 			}
 			return this[definitionNode.Index.Index];
-		}
-
-		public bool CanRetracePath(DijkstraNode startGridNode, float neededClearance)
-		{
-			var toIndex = startGridNode.DefinitionNode.Index.Index;
-			while (true)
-			{
-				var toPointer = NodeArray[toIndex];
-				if (toPointer.Index == -1) return false;
-				var to = NodePointer.Dereference(toPointer, _pathfindingNetwork);
-				if (to.Clearance < neededClearance)
-				{
-					Debug.WriteLine(to.DefinitionNode.Index);
-					return false;
-				}
-				if (toIndex == _targetIndex) break;
-				toIndex = to.DefinitionNode.Index.Index;
-			}
-			return true;
 		}
 
 		public bool NextWaypoint()

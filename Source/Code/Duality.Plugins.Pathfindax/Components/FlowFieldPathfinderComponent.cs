@@ -31,7 +31,7 @@ namespace Duality.Plugins.Pathfindax.Components
 			{
 				var sourceNodeNetwork = GetSourceNodeNetwork();
 				if (sourceNodeNetwork == null) return;
-				Pathfinder = PathfinderFactory.CreatePathfinder(sourceNodeNetwork, new FlowFieldAlgorithm(100), (definitionNodeGrid, algorithm) =>
+				Pathfinder = PathfinderFactory.CreatePathfinder(sourceNodeNetwork, new PotentialFieldAlgorithm(100), (definitionNodeGrid, algorithm) =>
 				 {
 					 var dijkstraNodeGrid = new DijkstraNodeGrid(definitionNodeGrid, MaxClearance);
 					 _dijkstraNodeGrids.Add(dijkstraNodeGrid);

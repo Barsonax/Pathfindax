@@ -60,19 +60,19 @@ namespace Duality.Plugins.Pathfindax.Components
 						}
 						break;
 					case FlowField flowField:
-						for (int i = 0; i < flowField.NodeArray.Length; i++)
+						for (int i = 0; i < flowField.FlowArray.Length; i++)
 						{
 							var nodePosition =  flowField.DefinitionNodeGrid.NodeGrid[i].Position;
 							canvas.FillCircle(nodePosition.X, nodePosition.Y, 5f);
-							canvas.DrawLine(nodePosition.X, nodePosition.Y, nodePosition.X + flowField[i].X * 0.5f, nodePosition.Y + flowField[i].Y * 0.5f);
+							canvas.DrawLine(nodePosition.X, nodePosition.Y, nodePosition.X + flowField[i].X * flowField.DefinitionNodeGrid.NodeSize.X * 0.5f, nodePosition.Y + flowField[i].Y * flowField.DefinitionNodeGrid.NodeSize.Y * 0.5f);
 						}
 						break;
 					case PotentialField potentialField:
-						for (int i = 0; i < potentialField.NodeArray.Length; i++)
+						for (int i = 0; i < potentialField.PotentialArray.Length; i++)
 						{
 							var nodePosition = potentialField.DefinitionNodeGrid.NodeGrid[i].Position;
-							var node = potentialField.NodeArray[i];
-							var text = node < DijkstraAlgorithm.ClearanceBlockedCost ? potentialField.NodeArray[i].ToString("N0") : "∞";
+							var node = potentialField.PotentialArray[i];
+							var text = node < DijkstraAlgorithm.ClearanceBlockedCost ? potentialField.PotentialArray[i].ToString("N0") : "∞";
 							canvas.DrawText(text, nodePosition.X, nodePosition.Y, -1f, Alignment.Center);
 						}
 						break;

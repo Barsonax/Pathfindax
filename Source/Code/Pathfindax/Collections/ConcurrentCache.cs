@@ -6,11 +6,11 @@ namespace Pathfindax.Collections
 	{
 		private readonly Dictionary<TKey, TValue> _dictionary;
 		private readonly Queue<TKey> _keys;
-		private readonly int _capacity;
+		public readonly int Capacity;
 
 		public ConcurrentCache(int capacity, IEqualityComparer<TKey> comparer)
 		{
-			_capacity = capacity;
+			Capacity = capacity;
 			_keys = new Queue<TKey>(capacity);
 			_dictionary = new Dictionary<TKey, TValue>(capacity, comparer);
 		}
@@ -20,14 +20,20 @@ namespace Pathfindax.Collections
 		{
 			lock (_locker)
 			{
-				if (_dictionary.Count == _capacity)
+				if (_dictionary.ContainsKey(key))
 				{
-					var oldestKey = _keys.Dequeue();
-					_dictionary.Remove(oldestKey);
+					_dictionary[key] = value;
 				}
-
-				_dictionary.Add(key, value);
-				_keys.Enqueue(key);
+				else
+				{
+					if (_dictionary.Count == Capacity)
+					{
+						var oldestKey = _keys.Dequeue();
+						_dictionary.Remove(oldestKey);
+					}
+					_dictionary.Add(key, value);
+					_keys.Enqueue(key);
+				}
 			}
 		}
 

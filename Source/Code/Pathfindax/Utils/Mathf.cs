@@ -15,5 +15,14 @@ namespace Pathfindax.Utils
 				return vector.Normalized * maxLength;
 			return vector;
 		}
+
+		public static int RoundToInt(float val)
+		{
+			if (val >= 0)
+			{
+				return (int)(val + 0.5f);
+			}
+			return (int)(val - 0.5f);
+		}
 	}
 }

@@ -1,45 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using Pathfindax.Collections;
 using Pathfindax.Grid;
 using Pathfindax.Nodes;
 using Pathfindax.PathfindEngine;
-using Pathfindax.Paths;
 using Pathfindax.Utils;
 
 namespace Pathfindax.Algorithms
 {
-	public class DijkstraAlgorithm : IPathFindAlgorithm<DijkstraNodeGrid>
+	/// <summary>
+	/// Algorithm for potential and flow fields. Not to be used directly.
+	/// </summary>
+	public class DijkstraAlgorithm
 	{
-		public IPath FindPath(DijkstraNodeGrid dijkstraNodeNetwork, PathRequest pathRequest)
-		{
-			var sw = new Stopwatch();
-			sw.Start();
-			var pathfindingNetwork = dijkstraNodeNetwork.GetCollisionLayerNetwork(pathRequest.CollisionCategory);
-			var startNode = NodePointer.Dereference(pathRequest.PathStart.Index, pathfindingNetwork);
-			var endNode = NodePointer.Dereference(pathRequest.PathEnd.Index, pathfindingNetwork);
-			try
-			{
-				var pathSucces = FindPath(pathfindingNetwork, endNode, startNode, pathRequest);
-				if (pathSucces)
-				{
-					var path = RetracePath(pathfindingNetwork, startNode, endNode);
-					var offset = GridClearanceHelper.GridNodeOffset(pathRequest.AgentSize, dijkstraNodeNetwork.DefinitionNodeGrid.NodeSize);
-					Debug.WriteLine($"Path found in {sw.ElapsedMilliseconds} ms.");
-					return new CompletedPath(path.ToArray(), offset);
-				}
-				Debug.WriteLine("Did not find a path :(");
-				return null;
-			}
-			catch (Exception ex)
-			{
-				Debug.WriteLine(ex);
-				Debugger.Break();
-				return null;
-			}
-		}
-
 		public const float ClearanceBlockedCost = 1000000000000000f; //Arbitrary large cost.
 		public bool FindPath(DijkstraNode[] pathfindingNetwork, DijkstraNode targetNode, DijkstraNode startNode, PathRequest pathRequest)
 		{
@@ -64,7 +37,6 @@ namespace Pathfindax.Algorithms
 					if (newMovementCostToNeighbour < toNode.GCost || !openSet.Contains(toNode))
 					{
 						toNode.GCost = newMovementCostToNeighbour;
-						toNode.Parent = currentNode.DefinitionNode.Index;
 						if (!openSet.Contains(toNode))
 							openSet.Add(toNode);
 					}
@@ -98,23 +70,7 @@ namespace Pathfindax.Algorithms
 			for (int i = 0; i < pathfindingNetwork.Length; i++)
 			{
 				pathfindingNetwork[i].GCost = 0;
-				pathfindingNetwork[i].Parent = NodePointer.NullPointer;
 			}
-		}
-
-		private static List<DefinitionNode> RetracePath(DijkstraNode[] pathfindingNetwork, DijkstraNode startGridNode, DijkstraNode endGridNode)
-		{
-			var path = new List<DefinitionNode>();
-			var currentNode = endGridNode;
-
-			while (true)
-			{
-				path.Add(currentNode.DefinitionNode);
-				if (currentNode == startGridNode) break;
-				currentNode = NodePointer.Dereference(currentNode.Parent, pathfindingNetwork);
-			}
-			path.Reverse();
-			return path;
 		}
 
 		private static float GetDistance(DefinitionNode sourceNodeA, DefinitionNode sourceNodeB)
