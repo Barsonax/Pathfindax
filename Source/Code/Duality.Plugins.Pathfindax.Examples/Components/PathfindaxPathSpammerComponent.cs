@@ -1,7 +1,6 @@
 ﻿using System;
 using Duality.Editor;
 using Duality.Plugins.Pathfindax.Components;
-using Duality.Plugins.Pathfindax.PathfindEngine;
 using Pathfindax.Nodes;
 using Pathfindax.PathfindEngine;
 using Pathfindax.Paths;
@@ -26,7 +25,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 		[EditorHintRange(1, 1000)]
 		public int FramesBetweenRequest { get; set; }
 
-		private PathfinderProxy _pathfinderProxy;
+		private PathfinderProxy<NodePath> _pathfinderProxy;
 		private readonly Random _randomGenerator = new Random();
 		private int _frameCounter;
 
@@ -34,7 +33,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 		{
 			if (context == InitContext.Activate && DualityApp.ExecContext == DualityApp.ExecutionContext.Game)
 			{
-				_pathfinderProxy = new PathfinderProxy();
+				_pathfinderProxy = new PathfinderProxy<NodePath>();
 			}
 		}
 
@@ -53,7 +52,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 			_frameCounter++;
 		}
 
-		private void PathSolved(PathRequest<Path> pathRequest)
+		private void PathSolved(PathRequest<NodePath> pathRequest)
 		{
 			Path = pathRequest.CompletedPath;
 		}

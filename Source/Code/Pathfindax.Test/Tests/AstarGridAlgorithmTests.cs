@@ -22,7 +22,7 @@ namespace Pathfindax.Test.Tests
 			var pathfindingNetwork = new AstarNodeNetwork(sourceNodeGrid, new GridClearanceGenerator(sourceNodeGrid, 5));
 			var pathRequest = new PathRequest<IPath>(start, end);
 			var path = aStarAlgorithm.FindPath(pathfindingNetwork, pathRequest);
-			Assert.AreEqual(path.NodePath.Length > 0, true);
+			Assert.AreEqual(path.Path.Length > 0, true);
 		}
 	}
 }

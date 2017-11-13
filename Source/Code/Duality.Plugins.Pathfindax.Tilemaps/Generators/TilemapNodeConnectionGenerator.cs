@@ -260,7 +260,7 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Generators
 	}
 
 	/// <summary>
-	/// Only purpose of this class is to store the collisions that are later used to generate the <see cref="NodeConnection{TNode}"/>s
+	/// Only purpose of this class is to store the collisions that are later used to generate the <see cref="NodeConnection"/>s
 	/// </summary>
 	public class NodeCollision
 	{

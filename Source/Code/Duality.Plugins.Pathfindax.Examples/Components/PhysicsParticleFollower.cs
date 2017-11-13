@@ -3,7 +3,6 @@ using Duality.Components.Physics;
 using Duality.Editor;
 using Duality.Input;
 using Duality.Plugins.Pathfindax.Components;
-using Duality.Plugins.Pathfindax.PathfindEngine;
 using Pathfindax.Nodes;
 using Pathfindax.PathfindEngine;
 using Pathfindax.Paths;
@@ -22,7 +21,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 		public PathfindaxCollisionCategory CollisionCategory { get; set; }
 		public Camera Camera { get; set; }
 		public IPath Path { get; private set; }
-		private PotentialFieldPathfinderProxy _pathfinderProxy;
+		private PathfinderProxy<PotentialField> _pathfinderProxy;
 		private RigidBody _rigidBody;
 
 		void ICmpInitializable.OnInit(InitContext context)
@@ -30,7 +29,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 			if (context == InitContext.Activate && DualityApp.ExecContext == DualityApp.ExecutionContext.Game)
 			{
 				DualityApp.Mouse.ButtonDown += Mouse_ButtonDown;
-				_pathfinderProxy = new PotentialFieldPathfinderProxy();
+				_pathfinderProxy = new PathfinderProxy<PotentialField>();
 				_rigidBody = GameObj.GetComponent<RigidBody>();
 			}
 		}

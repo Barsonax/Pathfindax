@@ -3,16 +3,16 @@ using Pathfindax.Nodes;
 
 namespace Pathfindax.Paths
 {
-	public class Path : IPath
+	public class NodePath : IPath
 	{
-		public Vector2 this[int i] => NodePath[i].Position + Offset;
-		public DefinitionNode[] NodePath { get; }
+		public Vector2 this[int i] => Path[i].Position + Offset;
+		public DefinitionNode[] Path { get; }
 		public readonly Vector2 Offset;
 		private int _waypointIndex;
 
-		public Path(DefinitionNode[] nodePath, Vector2 offset = default(Vector2))
+		public NodePath(DefinitionNode[] path, Vector2 offset = default(Vector2))
 		{
-			NodePath = nodePath;
+			Path = path;
 			Offset = offset;
 		}
 
@@ -23,14 +23,14 @@ namespace Pathfindax.Paths
 
 		public Vector2 GetHeading(Vector2 currentPosition)
 		{
-			var waypoint = NodePath[_waypointIndex].Position + Offset;
+			var waypoint = Path[_waypointIndex].Position + Offset;
 			return waypoint - currentPosition;
 
 		}
 
 		public bool NextWaypoint()
 		{
-			if (_waypointIndex < NodePath.Length - 1)
+			if (_waypointIndex < Path.Length - 1)
 			{
 				_waypointIndex++;
 				return false;

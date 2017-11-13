@@ -41,18 +41,18 @@ namespace Duality.Plugins.Pathfindax.Components
 				canvas.State.ZOffset = -8;
 				switch (pathProvider.Path)
 				{
-					case Path completedPath:										
-						for (var index = 0; index < completedPath.NodePath.Length; index++)
+					case NodePath completedPath:										
+						for (var index = 0; index < completedPath.Path.Length; index++)
 						{
 							if (index == 0) canvas.State.ColorTint = ColorRgba.Green;
-							else if (index == completedPath.NodePath.Length - 1) canvas.State.ColorTint = ColorRgba.Blue;
+							else if (index == completedPath.Path.Length - 1) canvas.State.ColorTint = ColorRgba.Blue;
 							else canvas.State.ColorTint = ColorRgba.Red;
 							var waypoint = completedPath[index];
 							canvas.FillCircle(waypoint.X, waypoint.Y, 10f);
 						}
 
 						canvas.State.ColorTint = ColorRgba.Red;
-						for (var i = 1; i < completedPath.NodePath.Length; i++)
+						for (var i = 1; i < completedPath.Path.Length; i++)
 						{
 							var from = completedPath[i - 1];
 							var to = completedPath[i];

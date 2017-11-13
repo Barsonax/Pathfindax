@@ -115,7 +115,7 @@ namespace Pathfindax.PathfindEngine
 		{
 			if (Status >= PathRequestStatus.Solved)
 			{
-				callback.Invoke(this); //Path is already calculated so call the callback directly.
+				callback.Invoke(this); //NodePath is already calculated so call the callback directly.
 			}
 			else
 			{

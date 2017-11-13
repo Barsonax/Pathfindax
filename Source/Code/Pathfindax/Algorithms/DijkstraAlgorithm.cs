@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using Pathfindax.Collections;
-using Pathfindax.Grid;
 using Pathfindax.Nodes;
 using Pathfindax.PathfindEngine;
-using Pathfindax.Utils;
 
 namespace Pathfindax.Algorithms
 {

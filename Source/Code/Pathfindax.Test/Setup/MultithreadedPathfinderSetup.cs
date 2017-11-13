@@ -16,7 +16,7 @@ namespace Pathfindax.Test.Setup
 			return PathfinderFactory.CreatePathfinder(NSubstitute.Substitute.For<IDefinitionNodeNetwork>(), NSubstitute.Substitute.For<IPathFindAlgorithm<IPathfindNodeNetwork, IPath>>(), (definitionNodeNetwork, algorithm) =>
 			{
 				var nodeGrid = NSubstitute.Substitute.For<IPathfindNodeNetwork>();
-				algorithm.FindPath(null, null).ReturnsForAnyArgs(new Path(new[] { new DefinitionNode(0, Vector2.Zero), }));
+				algorithm.FindPath(null, null).ReturnsForAnyArgs(new NodePath(new[] { new DefinitionNode(0, Vector2.Zero), }));
 				return PathfinderFactory.CreateRequestProcesser(nodeGrid, algorithm);
 			}, "",threads);
 		}

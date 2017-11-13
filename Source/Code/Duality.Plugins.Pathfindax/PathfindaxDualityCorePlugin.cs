@@ -1,6 +1,7 @@
 ﻿using System;
 using Duality.Resources;
 using Pathfindax.PathfindEngine;
+#pragma warning disable 1591
 
 namespace Duality.Plugins.Pathfindax
 {

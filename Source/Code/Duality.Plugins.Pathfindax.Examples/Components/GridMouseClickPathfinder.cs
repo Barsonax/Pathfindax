@@ -2,7 +2,6 @@
 using Duality.Editor;
 using Duality.Input;
 using Duality.Plugins.Pathfindax.Components;
-using Duality.Plugins.Pathfindax.PathfindEngine;
 using Pathfindax.Nodes;
 using Pathfindax.PathfindEngine;
 using Pathfindax.Paths;
@@ -35,7 +34,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 		public Camera Camera { get; set; }
 
 		private Vector3? _pathStart;
-		private PathfinderProxy _pathfinderProxy;
+		private PathfinderProxy<NodePath> _pathfinderProxy;
 
 		void ICmpInitializable.OnInit(InitContext context)
 		{
@@ -43,7 +42,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 			{
 				DualityApp.Mouse.Move += Mouse_Move;
 				DualityApp.Mouse.ButtonDown += Mouse_ButtonDown;
-				_pathfinderProxy = new PathfinderProxy();
+				_pathfinderProxy = new PathfinderProxy<NodePath>();
 			}
 		}
 
@@ -53,7 +52,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 			DualityApp.Mouse.Move -= Mouse_Move;
 		}
 
-		private void PathSolved(PathRequest<Path> pathRequest)
+		private void PathSolved(PathRequest<NodePath> pathRequest)
 		{
 			Path = pathRequest.CompletedPath;
 		}

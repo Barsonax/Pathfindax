@@ -2,6 +2,7 @@
 using Pathfindax.Algorithms;
 using Pathfindax.Factories;
 using Pathfindax.Grid;
+using Pathfindax.Paths;
 using Pathfindax.Utils;
 
 namespace Duality.Plugins.Pathfindax.Components
@@ -18,6 +19,10 @@ namespace Duality.Plugins.Pathfindax.Components
 		/// Try to keep this as low as possible to prevent wasting time calculating clearance values that will never be used.
 		/// </summary>
 		public int MaxClearance { get; set; } = 5;
+
+		/// <summary>
+		/// The maximum amount of cached <see cref="FlowField"/>s
+		/// </summary>
 		public int MaxCachedFlowFields { get; set; } = 100;
 
 		/// <inheritdoc />

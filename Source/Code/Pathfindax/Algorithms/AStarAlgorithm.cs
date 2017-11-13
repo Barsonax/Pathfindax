@@ -13,9 +13,9 @@ namespace Pathfindax.Algorithms
 	/// <summary>
 	/// Class that implements the A* algorithm to find paths
 	/// </summary>
-	public class AStarAlgorithm : IPathFindAlgorithm<IPathfindNodeNetwork<AstarNode>, Path>
+	public class AStarAlgorithm : IPathFindAlgorithm<IPathfindNodeNetwork<AstarNode>, NodePath>
 	{
-		public Path FindPath(IPathfindNodeNetwork<AstarNode> nodeNetwork, IPathRequest pathRequest)
+		public NodePath FindPath(IPathfindNodeNetwork<AstarNode> nodeNetwork, IPathRequest pathRequest)
 		{
 			var pathfindingNetwork = nodeNetwork.GetCollisionLayerNetwork(pathRequest.CollisionCategory);
 			var startNode = NodePointer.Dereference(pathRequest.PathStart.Index, pathfindingNetwork);
@@ -25,15 +25,15 @@ namespace Pathfindax.Algorithms
 			{
 				case IDefinitionNodeGrid definitionNodeGrid:
 					var offset = GridClearanceHelper.GridNodeOffset(pathRequest.AgentSize, definitionNodeGrid.NodeSize);
-					return new Path(path.ToArray(), offset);
+					return new NodePath(path.ToArray(), offset);
 				case IDefinitionNodeNetwork definitionNodeNetwork:
-					return new Path(path.ToArray());
+					return new NodePath(path.ToArray());
 				default:
 					throw new NotSupportedException($"{nodeNetwork.DefinitionNodeNetwork.GetType()} is not supported");
 			}
 		}
 
-		public PathRequest<Path> CreatePathRequest(IPathfinder<Path> pathfinder, IDefinitionNodeNetwork definitionNodes, float x1, float y1, float x2, float y2, PathfindaxCollisionCategory collisionLayer = PathfindaxCollisionCategory.None, byte agentSize = 1)
+		public PathRequest<NodePath> CreatePathRequest(IPathfinder<NodePath> pathfinder, IDefinitionNodeNetwork definitionNodes, float x1, float y1, float x2, float y2, PathfindaxCollisionCategory collisionLayer = PathfindaxCollisionCategory.None, byte agentSize = 1)
 		{
 			DefinitionNode startNode;
 			DefinitionNode endNode;
@@ -81,7 +81,7 @@ namespace Pathfindax.Algorithms
 						if (currentNode == targetNode)
 						{
 							sw.Stop();
-							Debug.WriteLine($"Path found in {sw.ElapsedMilliseconds} ms. Itterations: {itterations} Neighbourupdates: {neighbourUpdates}");
+							Debug.WriteLine($"NodePath found in {sw.ElapsedMilliseconds} ms. Itterations: {itterations} Neighbourupdates: {neighbourUpdates}");
 							pathSucces = true;
 							break;
 						}

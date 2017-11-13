@@ -2,7 +2,6 @@
 using NUnit.Framework;
 using Pathfindax.Nodes;
 using Pathfindax.PathfindEngine;
-using Pathfindax.Paths;
 using Pathfindax.Test.Setup;
 
 namespace Pathfindax.Test.Tests

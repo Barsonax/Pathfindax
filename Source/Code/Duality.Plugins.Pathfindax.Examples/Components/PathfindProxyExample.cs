@@ -1,5 +1,6 @@
 using Duality.Editor;
-using Duality.Plugins.Pathfindax.PathfindEngine;
+using Pathfindax.PathfindEngine;
+using Pathfindax.Paths;
 using Pathfindax.Utils;
 
 namespace Duality.Plugins.Pathfindax.Examples.Components
@@ -7,13 +8,13 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 	[EditorHintCategory(PathfindaxStrings.PathfindaxTest)]
 	public class PathfindProxyExample : Component, ICmpInitializable
     {
-        private PathfinderProxy _pathfinderProxy;
+        private PathfinderProxy<NodePath> _pathfinderProxy;
 
         public void OnInit(InitContext context)
         {
             if (context == InitContext.Activate && DualityApp.ExecContext == DualityApp.ExecutionContext.Game)
             {
-                _pathfinderProxy = new PathfinderProxy();
+                _pathfinderProxy = new PathfinderProxy<NodePath>();
                 //Now you can use _pathfinderProxy.RequestPath to request a path from the pathfinder
             }
         }

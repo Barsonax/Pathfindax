@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics;
 using Duality;
-using Pathfindax.Grid;
 using Pathfindax.Nodes;
 using Pathfindax.Paths;
 
@@ -9,10 +8,8 @@ namespace Pathfindax.PathfindEngine
 	/// <summary>
 	/// Provides access to the pathfinder.
 	/// </summary>
-	/// <typeparam name="TDefinitionNodeNetwork">The type of source network the pathfinder uses</typeparam>
-	/// <typeparam name="TThreadNodeNetwork"></typeparam>
 	/// <typeparam name="TPath"></typeparam>
-	public abstract class PathfinderProxyBase<TPath>
+	public class PathfinderProxy<TPath>
 		where TPath : IPath
 	{
 		/// <summary>
@@ -43,9 +40,9 @@ namespace Pathfindax.PathfindEngine
 		}
 
 		/// <summary>
-		/// Creates a new <see cref="PathfinderProxyBase{TDefinitionNodeNetwork, TThreadNodeNetwork, TPath}"/>. The id has to be supplied if there is more than 1 <see cref="IPathfinderComponent"/> in the scene.
+		/// Creates a new <see cref="PathfinderProxy{TPath}"/>. The id has to be supplied if there is more than 1 <see cref="IPathfinder"/>.
 		/// </summary>
-		public PathfinderProxyBase(string pathfinderId = "")
+		public PathfinderProxy(string pathfinderId = "")
 		{
 			PathfinderId = pathfinderId;
 		}
