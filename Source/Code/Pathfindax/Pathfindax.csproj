@@ -70,6 +70,12 @@
     <Compile Include="Collections\ConcurrentCache.cs" />
     <Compile Include="Algorithms\DijkstraAlgorithm.cs" />
     <Compile Include="Algorithms\PotentialFieldAlgorithm.cs" />
+    <Compile Include="Nodes\Interfaces\ICollisionLayerNode.cs" />
+    <Compile Include="PathfindEngine\Exceptions\InvalidPathfinderTypeException.cs" />
+    <Compile Include="PathfindEngine\Exceptions\PathfinderNotFoundException.cs" />
+    <Compile Include="PathfindEngine\IPathRequest.cs" />
+    <Compile Include="PathfindEngine\PathfindaxEngine.cs" />
+    <Compile Include="PathfindEngine\PathfinderProxyBase.cs" />
     <Compile Include="PathfindEngine\SingleSourcePathRequestComparer.cs" />
     <Compile Include="Paths\FlowField.cs" />
     <Compile Include="Nodes\DijkstraNode.cs" />

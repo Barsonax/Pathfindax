@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using Pathfindax.Algorithms;
 using Pathfindax.Grid;
+using Pathfindax.Paths;
 using Pathfindax.Threading;
 
 namespace Pathfindax.PathfindEngine
@@ -10,27 +12,42 @@ namespace Pathfindax.PathfindEngine
 	/// </summary>
 	/// <typeparam name="TDefinitionNodeNetwork"></typeparam>
 	/// <typeparam name="TThreadNodeNetwork"></typeparam>
-	public class Pathfinder<TDefinitionNodeNetwork, TThreadNodeNetwork> : IPathfinder<TDefinitionNodeNetwork>, IDisposable
+	/// <typeparam name="TPath"></typeparam>
+	public class Pathfinder<TDefinitionNodeNetwork, TThreadNodeNetwork, TPath> : IPathfinder<TDefinitionNodeNetwork, TThreadNodeNetwork, TPath>, IDisposable
 		where TDefinitionNodeNetwork : IDefinitionNodeNetwork
 		where TThreadNodeNetwork : IPathfindNodeNetwork
+		where TPath : class, IPath
 	{
-		public IPathFindAlgorithm<TThreadNodeNetwork> PathFindAlgorithm { get; }
+		public IPathFindAlgorithm<TThreadNodeNetwork, TPath> PathFindAlgorithm { get; }
+		IPathFindAlgorithm<TPath> IPathfinder<TPath>.PathFindAlgorithm => PathFindAlgorithm;
 		IPathFindAlgorithm IPathfinder.PathFindAlgorithm => PathFindAlgorithm;
-		public TDefinitionNodeNetwork SourceNodeNetwork { get; }
-		private readonly MultithreadedWorkerQueue<PathRequest> _multithreadedWorkerQueue;
+
+		private readonly List<TThreadNodeNetwork> _pathfindNodeNetworks = new List<TThreadNodeNetwork>();
+		public IReadOnlyList<TThreadNodeNetwork> PathfindNodeNetworks => _pathfindNodeNetworks;
+		IReadOnlyList<IPathfindNodeNetwork> IPathfinder.PathfindNodeNetworks => (IReadOnlyList<IPathfindNodeNetwork>)PathfindNodeNetworks;
+
+		public TDefinitionNodeNetwork DefinitionNodeNetwork { get; }
+		IDefinitionNodeNetwork IPathfinder.DefinitionNodeNetwork => DefinitionNodeNetwork;
+
+		private readonly MultithreadedWorkerQueue<PathRequest<TPath>> _multithreadedWorkerQueue;
 
 		/// <summary>
-		/// Creates a new <see cref="Pathfinder{TSourceNodeNetwork,TThreadNodeNetwork}"/>
+		/// Creates a new <see cref="Pathfinder{TSourceNodeNetwork,TThreadNodeNetwork, TPath}"/>
 		/// </summary>
-		/// <param name="sourceNodeNetwork"></param>
+		/// <param name="definitionNodeNetwork"></param>
 		/// <param name="pathFindAlgorithm"></param>
 		/// <param name="processerConstructor">Used to construct the processers for each thread</param>
 		/// <param name="threads">The amount of threads that will be used</param>
-		public Pathfinder(TDefinitionNodeNetwork sourceNodeNetwork, IPathFindAlgorithm<TThreadNodeNetwork> pathFindAlgorithm, Func<TDefinitionNodeNetwork, IPathFindAlgorithm<TThreadNodeNetwork>, PathRequestProcesser<TThreadNodeNetwork>> processerConstructor, int threads = 1)
+		public Pathfinder(TDefinitionNodeNetwork definitionNodeNetwork, IPathFindAlgorithm<TThreadNodeNetwork, TPath> pathFindAlgorithm, Func<TDefinitionNodeNetwork, IPathFindAlgorithm<TThreadNodeNetwork, TPath>, PathRequestProcesser<TThreadNodeNetwork, TPath>> processerConstructor, int threads = 1)
 		{
 			PathFindAlgorithm = pathFindAlgorithm;
-			SourceNodeNetwork = sourceNodeNetwork;
-			_multithreadedWorkerQueue = new MultithreadedWorkerQueue<PathRequest>(() => processerConstructor.Invoke(SourceNodeNetwork, PathFindAlgorithm), threads);
+			DefinitionNodeNetwork = definitionNodeNetwork;
+			_multithreadedWorkerQueue = new MultithreadedWorkerQueue<PathRequest<TPath>>(() =>
+			{
+				var processer = processerConstructor.Invoke(DefinitionNodeNetwork, pathFindAlgorithm);
+				_pathfindNodeNetworks.Add(processer.NodeNetwork);
+				return processer;
+			}, threads);
 		}
 
 		/// <summary>
@@ -53,7 +70,7 @@ namespace Pathfindax.PathfindEngine
 		/// Requests a path
 		/// </summary>
 		/// <param name="pathRequest"></param>
-		public void RequestPath(PathRequest pathRequest)
+		public void RequestPath(PathRequest<TPath> pathRequest)
 		{
 			_multithreadedWorkerQueue.Enqueue(pathRequest);
 		}

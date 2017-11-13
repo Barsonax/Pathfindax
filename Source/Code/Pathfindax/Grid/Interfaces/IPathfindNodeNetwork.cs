@@ -1,4 +1,5 @@
-﻿using Pathfindax.Nodes;
+﻿using System.Collections.Generic;
+using Pathfindax.Nodes;
 
 namespace Pathfindax.Grid
 {
@@ -7,13 +8,14 @@ namespace Pathfindax.Grid
 	/// </summary>
 	/// <typeparam name="TNode"></typeparam>
 	public interface IPathfindNodeNetwork<out TNode> : IPathfindNodeNetwork
+		where TNode : ICollisionLayerNode
 	{
 		/// <summary>
 		/// Gets a nodenetwork for this <paramref name="collisionCategory"/>.
 		/// </summary>
 		/// <param name="collisionCategory"></param>
 		/// <returns></returns>
-		TNode[] GetCollisionLayerNetwork(PathfindaxCollisionCategory collisionCategory);
+		new TNode[] GetCollisionLayerNetwork(PathfindaxCollisionCategory collisionCategory);
 	}
 
 	/// <summary>
@@ -21,6 +23,7 @@ namespace Pathfindax.Grid
 	/// </summary>
 	public interface IPathfindNodeNetwork
 	{
+		IReadOnlyList<ICollisionLayerNode> GetCollisionLayerNetwork(PathfindaxCollisionCategory collisionCategory);
 		IDefinitionNodeNetwork DefinitionNodeNetwork { get; }
 	}
 }

@@ -1,7 +1,9 @@
-﻿using Duality.Drawing;
+﻿using System.Collections.Generic;
+using Duality.Drawing;
 using Duality.Editor;
 using Pathfindax.Grid;
 using Pathfindax.Nodes;
+using Pathfindax.PathfindEngine;
 using Pathfindax.Utils;
 
 namespace Duality.Plugins.Pathfindax.Components
@@ -13,6 +15,9 @@ namespace Duality.Plugins.Pathfindax.Components
 	[RequiredComponent(typeof(FlowFieldPathfinderComponent))]
 	public class NodeNetworkVisualizer : Component, ICmpRenderer
 	{
+		/// <summary>
+		/// 
+		/// </summary>
 		public int Thread { get; set; }
 
 		/// <summary>
@@ -46,34 +51,39 @@ namespace Duality.Plugins.Pathfindax.Components
 		void ICmpRenderer.Draw(IDrawDevice device)
 		{
 			if (!Visualize) return;
-			var pathfinderComponent = GameObj.GetComponent<FlowFieldPathfinderComponent>();
-			if (pathfinderComponent?.Pathfinder?.SourceNodeNetwork != null)
+			var pathfinder = PathfindaxEngine.GetPathfinder();
+			if (pathfinder?.DefinitionNodeNetwork != null)
 			{
-				if (Thread > pathfinderComponent.DijkstraNodeGrids.Count) return;
-				var network = pathfinderComponent.DijkstraNodeGrids[Thread].GetCollisionLayerNetwork(CollisionCategory);
-				var canvas = new Canvas(device, new CanvasBuffer());
-				canvas.State.ZOffset = -8;
-				for (int i = 0; i < pathfinderComponent.Pathfinder.SourceNodeNetwork.NodeCount; i++)
+				if (Thread > pathfinder.PathfindNodeNetworks.Count) return;
+				var pathfindNetwork = pathfinder.PathfindNodeNetworks[Thread];
+				Draw(device, pathfindNetwork.GetCollisionLayerNetwork(CollisionCategory), pathfinder.DefinitionNodeNetwork);
+			}
+		}
+
+		private void Draw(IDrawDevice device, IReadOnlyList<ICollisionLayerNode> network, IDefinitionNodeNetwork definitionNodeNetwork)
+		{
+			var canvas = new Canvas(device, new CanvasBuffer());
+			canvas.State.ZOffset = -8;
+			for (int i = 0; i < network.Count; i++)
+			{
+				var node = network[i];
+				canvas.State.ColorTint = ColorRgba.LightGrey;
+				var nodePosition = node.DefinitionNode.Position;
+				canvas.FillCircle(nodePosition.X, nodePosition.Y, NodeSize);
+				canvas.State.ColorTint = ColorRgba.VeryLightGrey;
+				if (node.DefinitionNode.Connections != null)
 				{
-					var node = network[i];
-					canvas.State.ColorTint = ColorRgba.LightGrey;
-					var nodePosition = node.DefinitionNode.Position;
-					canvas.FillCircle(nodePosition.X, nodePosition.Y, NodeSize);
-					canvas.State.ColorTint = ColorRgba.VeryLightGrey;
-					if (node.DefinitionNode.Connections != null)
+					canvas.State.ColorTint = new ColorRgba(199, 21, 133);
+					foreach (var connection in node.DefinitionNode.Connections)
 					{
-						canvas.State.ColorTint = new ColorRgba(199, 21, 133);
-						foreach (var connection in node.DefinitionNode.Connections)
-						{
-							var toNode = NodePointer.Dereference(connection.To, pathfinderComponent.Pathfinder.SourceNodeNetwork);
-							var vector = (toNode.Position - nodePosition) * 0.5f; //Times 0.5f so we can see the connections in both directions.
-							canvas.DrawDashLine(nodePosition.X, nodePosition.Y, nodePosition.X + vector.X, nodePosition.Y + vector.Y);
-						}
-						if (!float.IsNaN(node.Clearance))
-						{
-							canvas.State.ColorTint = ColorRgba.Black;
-							canvas.DrawText(node.Clearance.ToString(), nodePosition.X, nodePosition.Y, -1f, Alignment.Center);
-						}
+						var toNode = NodePointer.Dereference(connection.To, definitionNodeNetwork);
+						var vector = (toNode.Position - nodePosition) * 0.5f; //Times 0.5f so we can see the connections in both directions.
+						canvas.DrawDashLine(nodePosition.X, nodePosition.Y, nodePosition.X + vector.X, nodePosition.Y + vector.Y);
+					}
+					if (!float.IsNaN(node.Clearance))
+					{
+						canvas.State.ColorTint = ColorRgba.Black;
+						canvas.DrawText(node.Clearance.ToString(), nodePosition.X, nodePosition.Y, -1f, Alignment.Center);
 					}
 				}
 			}

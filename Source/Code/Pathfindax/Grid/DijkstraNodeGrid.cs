@@ -18,6 +18,7 @@ namespace Pathfindax.Grid
 			_maxClearance = maxClearance;
 		}
 
+		IReadOnlyList<ICollisionLayerNode> IPathfindNodeNetwork.GetCollisionLayerNetwork(PathfindaxCollisionCategory collisionCategory) => GetCollisionLayerNetwork(collisionCategory);
 		public DijkstraNode[] GetCollisionLayerNetwork(PathfindaxCollisionCategory collisionCategory)
 		{
 			if (!_nodeNetworks.TryGetValue(collisionCategory, out var pathfindingNetwork))

@@ -2,6 +2,7 @@
 using System.Threading;
 using NUnit.Framework;
 using Pathfindax.PathfindEngine;
+using Pathfindax.Paths;
 using Pathfindax.Test.Setup;
 
 namespace Pathfindax.Test.Tests
@@ -13,9 +14,8 @@ namespace Pathfindax.Test.Tests
         public void RequestPath_SingleThread_NoExceptions()
         {
             var multithreadedPathfinder = MultithreadedPathfinderSetup.Substitute(1);
-            multithreadedPathfinder.Start();
-
-            var pathRequest = new PathRequest(multithreadedPathfinder, null, null);
+            multithreadedPathfinder.Start();	        
+            var pathRequest = PathRequest.Create(multithreadedPathfinder, null, null);
             pathRequest.WaitHandle.WaitOne(1000);
 
             Assert.AreEqual(PathRequestStatus.Solved, pathRequest.Status);
@@ -27,10 +27,11 @@ namespace Pathfindax.Test.Tests
             var multithreadedPathfinder = MultithreadedPathfinderSetup.Substitute(4);
             multithreadedPathfinder.Start();
 
-            var pathRequests = new PathRequest[64];
+            var pathRequests = new PathRequest<IPath>[64];
             for (var i = 0; i < pathRequests.Length; i++)
             {
-                pathRequests[i] = new PathRequest(multithreadedPathfinder, null, null);
+	            
+				pathRequests[i] = PathRequest.Create(multithreadedPathfinder, null, null); ;
             }
 
             WaitHandle.WaitAll(pathRequests.Select(x => x.WaitHandle).ToArray(), 2000);

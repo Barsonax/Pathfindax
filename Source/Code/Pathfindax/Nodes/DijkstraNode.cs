@@ -2,7 +2,7 @@
 
 namespace Pathfindax.Nodes
 {
-	public class DijkstraNode : IHeapItem<DijkstraNode>
+	public class DijkstraNode : IHeapItem<DijkstraNode>, ICollisionLayerNode
 	{
 		/// <summary>
 		/// The cost to the targetnode

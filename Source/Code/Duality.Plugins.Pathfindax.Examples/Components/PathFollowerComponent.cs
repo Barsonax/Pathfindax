@@ -54,7 +54,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 			request.AddCallback(OnRequestCompleted);
 		}
 
-		private void OnRequestCompleted(PathRequest pathRequest)
+		private void OnRequestCompleted(PathRequest<Path> pathRequest)
 		{
 			Path = pathRequest.CompletedPath;
 		}

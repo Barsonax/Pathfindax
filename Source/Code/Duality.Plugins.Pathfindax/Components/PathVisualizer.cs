@@ -41,7 +41,7 @@ namespace Duality.Plugins.Pathfindax.Components
 				canvas.State.ZOffset = -8;
 				switch (pathProvider.Path)
 				{
-					case CompletedPath completedPath:										
+					case Path completedPath:										
 						for (var index = 0; index < completedPath.NodePath.Length; index++)
 						{
 							if (index == 0) canvas.State.ColorTint = ColorRgba.Green;

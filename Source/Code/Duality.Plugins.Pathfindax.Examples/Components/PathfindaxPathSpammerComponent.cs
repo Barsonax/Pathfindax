@@ -53,7 +53,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 			_frameCounter++;
 		}
 
-		private void PathSolved(PathRequest pathRequest)
+		private void PathSolved(PathRequest<Path> pathRequest)
 		{
 			Path = pathRequest.CompletedPath;
 		}

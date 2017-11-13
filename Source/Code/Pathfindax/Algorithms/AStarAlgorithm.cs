@@ -13,9 +13,9 @@ namespace Pathfindax.Algorithms
 	/// <summary>
 	/// Class that implements the A* algorithm to find paths
 	/// </summary>
-	public class AStarAlgorithm : IPathFindAlgorithm<IPathfindNodeNetwork<AstarNode>>
+	public class AStarAlgorithm : IPathFindAlgorithm<IPathfindNodeNetwork<AstarNode>, Path>
 	{
-		public IPath FindPath(IPathfindNodeNetwork<AstarNode> nodeNetwork, PathRequest pathRequest)
+		public Path FindPath(IPathfindNodeNetwork<AstarNode> nodeNetwork, IPathRequest pathRequest)
 		{
 			var pathfindingNetwork = nodeNetwork.GetCollisionLayerNetwork(pathRequest.CollisionCategory);
 			var startNode = NodePointer.Dereference(pathRequest.PathStart.Index, pathfindingNetwork);
@@ -25,31 +25,31 @@ namespace Pathfindax.Algorithms
 			{
 				case IDefinitionNodeGrid definitionNodeGrid:
 					var offset = GridClearanceHelper.GridNodeOffset(pathRequest.AgentSize, definitionNodeGrid.NodeSize);
-					return new CompletedPath(path.ToArray(), offset);
+					return new Path(path.ToArray(), offset);
 				case IDefinitionNodeNetwork definitionNodeNetwork:
-					return new CompletedPath(path.ToArray());
+					return new Path(path.ToArray());
 				default:
 					throw new NotSupportedException($"{nodeNetwork.DefinitionNodeNetwork.GetType()} is not supported");
 			}
 		}
 
-		public PathRequest CreatePathRequest(IPathfinder<IDefinitionNodeNetwork> pathfinder, float x1, float y1, float x2, float y2, PathfindaxCollisionCategory collisionLayer = PathfindaxCollisionCategory.None, byte agentSize = 1)
+		public PathRequest<Path> CreatePathRequest(IPathfinder<Path> pathfinder, IDefinitionNodeNetwork definitionNodes, float x1, float y1, float x2, float y2, PathfindaxCollisionCategory collisionLayer = PathfindaxCollisionCategory.None, byte agentSize = 1)
 		{
 			DefinitionNode startNode;
 			DefinitionNode endNode;
-			switch (pathfinder.SourceNodeNetwork)
+			switch (definitionNodes)
 			{
 				case IDefinitionNodeGrid definitionNodeGrid:
 					var offset = -GridClearanceHelper.GridNodeOffset(agentSize, definitionNodeGrid.NodeSize);
 					startNode = definitionNodeGrid.GetNode(x1 + offset.X, y1 + offset.Y);
-					endNode = definitionNodeGrid.GetNode(x2 + offset.X, y2 + offset.Y);
-					return new PathRequest(pathfinder, startNode, endNode, collisionLayer, agentSize);
+					endNode = definitionNodeGrid.GetNode(x2 + offset.X, y2 + offset.Y);					
+					return PathRequest.Create(pathfinder, startNode, endNode, collisionLayer, agentSize);
 				case IDefinitionNodeNetwork definitionNodeNetwork:
 					startNode = definitionNodeNetwork.GetNode(x1, y1);
 					endNode = definitionNodeNetwork.GetNode(x2, y2);
-					return new PathRequest(pathfinder, startNode, endNode, collisionLayer, agentSize);
-					default:
-					throw new NotSupportedException($"{pathfinder.SourceNodeNetwork.GetType()} is not supported");
+					return PathRequest.Create(pathfinder, startNode, endNode, collisionLayer, agentSize);
+				default:
+					throw new NotSupportedException($"{definitionNodes.GetType()} is not supported");
 			}
 		}
 

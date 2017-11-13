@@ -3,14 +3,14 @@ using Pathfindax.Nodes;
 
 namespace Pathfindax.Paths
 {
-	public class CompletedPath : IPath
+	public class Path : IPath
 	{
 		public Vector2 this[int i] => NodePath[i].Position + Offset;
 		public DefinitionNode[] NodePath { get; }
 		public readonly Vector2 Offset;
 		private int _waypointIndex;
 
-		public CompletedPath(DefinitionNode[] nodePath, Vector2 offset = default(Vector2))
+		public Path(DefinitionNode[] nodePath, Vector2 offset = default(Vector2))
 		{
 			NodePath = nodePath;
 			Offset = offset;

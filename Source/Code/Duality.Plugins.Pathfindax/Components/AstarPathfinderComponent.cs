@@ -15,9 +15,6 @@ namespace Duality.Plugins.Pathfindax.Components
 	[RequiredComponent(typeof(IDefinitionNodeNetworkProvider<IDefinitionNodeNetwork>))]
 	public class AstarPathfinderComponent : PathfinderComponentBase<IDefinitionNodeNetwork>
 	{
-		private readonly List<AstarNodeNetwork> _astarNodeNetworks = new List<AstarNodeNetwork>();
-		public IReadOnlyList<AstarNodeNetwork> AstarNodeNetworks => _astarNodeNetworks;
-
 		/// <summary>
 		/// The max calculated clearance. Any clearance value higher than will be set to this. 
 		/// Try to keep this as low as possible to prevent wasting time calculating clearance values that will never be used.
@@ -37,9 +34,8 @@ namespace Duality.Plugins.Pathfindax.Components
 					if (definitionNodeNetwork is IDefinitionNodeGrid sourceNodeGrid)
 						nodeGenerators.Add(new GridClearanceGenerator(sourceNodeGrid, MaxClearance));
 					var astarNodeNetwork = new AstarNodeNetwork(definitionNodeNetwork, nodeGenerators.ToArray());
-					_astarNodeNetworks.Add(astarNodeNetwork);
 					return PathfinderFactory.CreateRequestProcesser(astarNodeNetwork, algorithm);
-				});
+				}, PathfinderId, AmountOfThreads);
 				Pathfinder.Start();
 			}
 		}

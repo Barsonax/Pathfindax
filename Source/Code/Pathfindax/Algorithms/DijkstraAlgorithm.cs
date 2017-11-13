@@ -14,7 +14,7 @@ namespace Pathfindax.Algorithms
 	public class DijkstraAlgorithm
 	{
 		public const float ClearanceBlockedCost = 1000000000000000f; //Arbitrary large cost.
-		public bool FindPath(DijkstraNode[] pathfindingNetwork, DijkstraNode targetNode, DijkstraNode startNode, PathRequest pathRequest)
+		public bool FindPath(DijkstraNode[] pathfindingNetwork, DijkstraNode targetNode, DijkstraNode startNode, IPathRequest pathRequest)
 		{
 			ResetNetwork(pathfindingNetwork);
 			var openSet = new MinHeap<DijkstraNode>(pathfindingNetwork.Length);
@@ -43,26 +43,6 @@ namespace Pathfindax.Algorithms
 				}
 			}
 			return true;
-		}
-
-		public PathRequest CreatePathRequest(IPathfinder<IDefinitionNodeNetwork> pathfinder, float x1, float y1, float x2, float y2, PathfindaxCollisionCategory collisionLayer = PathfindaxCollisionCategory.None, byte agentSize = 1)
-		{
-			DefinitionNode startNode;
-			DefinitionNode endNode;
-			switch (pathfinder.SourceNodeNetwork)
-			{
-				case IDefinitionNodeGrid definitionNodeGrid:
-					var offset = -GridClearanceHelper.GridNodeOffset(agentSize, definitionNodeGrid.NodeSize);
-					startNode = definitionNodeGrid.GetNode(x1 + offset.X, y1 + offset.Y);
-					endNode = definitionNodeGrid.GetNode(x2 + offset.X, y2 + offset.Y);
-					return new PathRequest(pathfinder, startNode, endNode, collisionLayer, agentSize);
-				case IDefinitionNodeNetwork definitionNodeNetwork:
-					startNode = definitionNodeNetwork.GetNode(x1, y1);
-					endNode = definitionNodeNetwork.GetNode(x2, y2);
-					return new PathRequest(pathfinder, startNode, endNode, collisionLayer, agentSize);
-				default:
-					throw new NotSupportedException($"{pathfinder.SourceNodeNetwork.GetType()} is not supported");
-			}
 		}
 
 		private void ResetNetwork(DijkstraNode[] pathfindingNetwork)

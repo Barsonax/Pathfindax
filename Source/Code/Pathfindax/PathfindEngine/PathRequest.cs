@@ -6,40 +6,52 @@ using Pathfindax.Paths;
 
 namespace Pathfindax.PathfindEngine
 {
+	public static class PathRequest
+	{
+		public static PathRequest<TPath> Create<TPath>(IPathfinder<TPath> pathfinder, IDefinitionNode start, IDefinitionNode end, PathfindaxCollisionCategory collisionCategory = PathfindaxCollisionCategory.None, byte agentSize = 1)
+			where TPath : IPath
+		{
+			return new PathRequest<TPath>(pathfinder, start, end, collisionCategory, agentSize);
+		}
+	}
+
 	/// <summary>
 	/// A class with all the information needed to calculate a path from A to B.
 	/// </summary>
-	public class PathRequest
+	public class PathRequest<TPath> : IPathRequest
+		where TPath : IPath
 	{
 		/// <summary>
 		/// The node start node.
 		/// </summary>
-		public readonly IDefinitionNode PathStart;
+		public IDefinitionNode PathStart { get; }
 
 		/// <summary>
 		/// The end node.
 		/// </summary>
-		public readonly IDefinitionNode PathEnd;
+		public IDefinitionNode PathEnd { get; }
 
 		/// <summary>
 		/// The size of the agent. 1 is the default value meaning that the agent occupies only 1 node.
 		/// </summary>
-		public readonly byte AgentSize;
+		public byte AgentSize { get; }
 
 		/// <summary>
 		/// The CollisionCategory. Multiple categories can be active at the same time.
 		/// </summary>
-		public readonly PathfindaxCollisionCategory CollisionCategory;
+		public PathfindaxCollisionCategory CollisionCategory { get; }
 
 		/// <summary>
 		/// The callback that will be called after the pathfinder finds a path or cannot find one.
 		/// </summary>
-		private readonly List<Action<PathRequest>> _callbacks = new List<Action<PathRequest>>();
+		private readonly List<Action<PathRequest<TPath>>> _callbacks = new List<Action<PathRequest<TPath>>>();
 
 		/// <summary>
 		/// The calculated path. Will be null unless the <see cref="Status"/> is equal to <see cref="PathRequestStatus.Solved"/>
 		/// </summary>
-		public IPath CompletedPath { get; private set; }
+		public TPath CompletedPath { get; private set; }
+
+		IPath IPathRequest.CompletedPath => CompletedPath;
 
 		/// <summary>
 		/// The status of this <see cref="PathRequest"/>. See <see cref="PathRequestStatus"/> for more info.
@@ -60,7 +72,7 @@ namespace Pathfindax.PathfindEngine
 		/// <param name="end">The worldcoordinates of the end of the path</param>
 		/// <param name="agentSize">The size of the agent in nodes</param>
 		/// <param name="collisionCategory">The collision layers that this agent cannot cross</param>
-		public PathRequest(IPathfinder pathfinder, IDefinitionNode start, IDefinitionNode end, PathfindaxCollisionCategory collisionCategory = PathfindaxCollisionCategory.None, byte agentSize = 1)
+		public PathRequest(IPathfinder<TPath> pathfinder, IDefinitionNode start, IDefinitionNode end, PathfindaxCollisionCategory collisionCategory = PathfindaxCollisionCategory.None, byte agentSize = 1)
 		{
 			PathStart = start;
 			PathEnd = end;
@@ -88,7 +100,7 @@ namespace Pathfindax.PathfindEngine
 		/// Starts solving the path using the provided <paramref name="pathfinder"/>.
 		/// </summary>
 		/// <param name="pathfinder"></param>
-		public void StartSolvePath(IPathfinder pathfinder)
+		public void StartSolvePath(IPathfinder<TPath> pathfinder)
 		{
 			if (Status != PathRequestStatus.Created) throw new InvalidOperationException("This path request is already being processed or processed");
 			Status = PathRequestStatus.Solving;
@@ -99,7 +111,7 @@ namespace Pathfindax.PathfindEngine
 		/// Adds a new callback to this <see cref="PathRequest"/>
 		/// </summary>
 		/// <param name="callback">The callback that will be called when the pathfinder has solved this <see cref="PathRequest"/></param>
-		public void AddCallback(Action<PathRequest> callback)
+		public void AddCallback(Action<PathRequest<TPath>> callback)
 		{
 			if (Status >= PathRequestStatus.Solved)
 			{
@@ -111,7 +123,7 @@ namespace Pathfindax.PathfindEngine
 			}
 		}
 
-		internal void FinishSolvePath(IPath path)
+		internal void FinishSolvePath(TPath path)
 		{
 			CompletedPath = path;
 			Status = CompletedPath != null ? PathRequestStatus.Solved : PathRequestStatus.NoPathFound;

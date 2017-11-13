@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Duality.Editor;
+﻿using Duality.Editor;
 using Pathfindax.Algorithms;
 using Pathfindax.Factories;
 using Pathfindax.Grid;
@@ -14,9 +13,6 @@ namespace Duality.Plugins.Pathfindax.Components
 	[RequiredComponent(typeof(IDefinitionNodeNetworkProvider<DefinitionNodeGrid>))]
 	public class FlowFieldPathfinderComponent : PathfinderComponentBase<DefinitionNodeGrid>
 	{
-		private readonly List<DijkstraNodeGrid> _dijkstraNodeGrids = new List<DijkstraNodeGrid>();
-		public IReadOnlyList<DijkstraNodeGrid> DijkstraNodeGrids => _dijkstraNodeGrids;
-
 		/// <summary>
 		/// The max calculated clearance. Any clearance value higher than will be set to this. 
 		/// Try to keep this as low as possible to prevent wasting time calculating clearance values that will never be used.
@@ -34,9 +30,8 @@ namespace Duality.Plugins.Pathfindax.Components
 				Pathfinder = PathfinderFactory.CreatePathfinder(sourceNodeNetwork, new PotentialFieldAlgorithm(100), (definitionNodeGrid, algorithm) =>
 				 {
 					 var dijkstraNodeGrid = new DijkstraNodeGrid(definitionNodeGrid, MaxClearance);
-					 _dijkstraNodeGrids.Add(dijkstraNodeGrid);
 					 return PathfinderFactory.CreateRequestProcesser(dijkstraNodeGrid, algorithm);
-				 });
+				 }, PathfinderId, AmountOfThreads);
 				Pathfinder.Start();
 			}
 		}

@@ -5,22 +5,22 @@ using Pathfindax.Grid;
 using Pathfindax.Nodes;
 using Pathfindax.PathfindEngine;
 using Pathfindax.Paths;
+using Pathfindax.Utils;
 
 namespace Pathfindax.Algorithms
 {
-	public class FlowFieldAlgorithm : IPathFindAlgorithm<DijkstraNodeGrid>
+	public class FlowFieldAlgorithm : IPathFindAlgorithm<DijkstraNodeGrid, FlowField>
 	{
 		private readonly PotentialFieldAlgorithm _potentialFieldAlgorithm = new PotentialFieldAlgorithm(0);
-		private readonly ConcurrentCache<PathRequest, FlowField> _flowFieldCache;
+		private readonly ConcurrentCache<IPathRequest, FlowField> _flowFieldCache;
 
 		public FlowFieldAlgorithm(int cacheSize)
 		{
 			if (cacheSize > 0)
-				_flowFieldCache = new ConcurrentCache<PathRequest, FlowField>(cacheSize, new SingleSourcePathRequestComparer());
+				_flowFieldCache = new ConcurrentCache<IPathRequest, FlowField>(cacheSize, new SingleSourcePathRequestComparer());
 		}
 
-		IPath IPathFindAlgorithm<DijkstraNodeGrid>.FindPath(DijkstraNodeGrid nodeNetwork, PathRequest pathRequest) => FindPath(nodeNetwork, pathRequest);
-		public FlowField FindPath(DijkstraNodeGrid dijkstraNodeNetwork, PathRequest pathRequest)
+		public FlowField FindPath(DijkstraNodeGrid dijkstraNodeNetwork, IPathRequest pathRequest)
 		{
 			try
 			{
@@ -42,9 +42,24 @@ namespace Pathfindax.Algorithms
 			}
 		}
 
-		public PathRequest CreatePathRequest(IPathfinder<IDefinitionNodeNetwork> pathfinder, float x1, float y1, float x2, float y2, PathfindaxCollisionCategory collisionLayer = PathfindaxCollisionCategory.None, byte agentSize = 1)
+		public PathRequest<FlowField> CreatePathRequest(IPathfinder<FlowField> pathfinder, IDefinitionNodeNetwork definitionNodes, float x1, float y1, float x2, float y2, PathfindaxCollisionCategory collisionLayer = PathfindaxCollisionCategory.None, byte agentSize = 1)
 		{
-			return _potentialFieldAlgorithm.CreatePathRequest(pathfinder, x1, y1, x2, y2, collisionLayer);
+			DefinitionNode startNode;
+			DefinitionNode endNode;
+			switch (definitionNodes)
+			{
+				case IDefinitionNodeGrid definitionNodeGrid:
+					var offset = -GridClearanceHelper.GridNodeOffset(agentSize, definitionNodeGrid.NodeSize);
+					startNode = definitionNodeGrid.GetNode(x1 + offset.X, y1 + offset.Y);
+					endNode = definitionNodeGrid.GetNode(x2 + offset.X, y2 + offset.Y);
+					return PathRequest.Create(pathfinder, startNode, endNode, collisionLayer, agentSize);
+				case IDefinitionNodeNetwork definitionNodeNetwork:
+					startNode = definitionNodeNetwork.GetNode(x1, y1);
+					endNode = definitionNodeNetwork.GetNode(x2, y2);
+					return PathRequest.Create(pathfinder, startNode, endNode, collisionLayer, agentSize);
+				default:
+					throw new NotSupportedException($"{definitionNodes.GetType()} is not supported");
+			}
 		}
 	}
 }

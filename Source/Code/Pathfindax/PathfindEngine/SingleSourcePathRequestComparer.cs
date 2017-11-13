@@ -2,14 +2,14 @@
 
 namespace Pathfindax.PathfindEngine
 {
-	public class SingleSourcePathRequestComparer : IEqualityComparer<PathRequest>
+	public class SingleSourcePathRequestComparer : IEqualityComparer<IPathRequest>
 	{
-		public bool Equals(PathRequest x, PathRequest y)
+		public bool Equals(IPathRequest x, IPathRequest y)
 		{
 			return Equals(x.PathEnd, y.PathEnd) && x.AgentSize == y.AgentSize && x.CollisionCategory == y.CollisionCategory;
 		}
 
-		public int GetHashCode(PathRequest obj)
+		public int GetHashCode(IPathRequest obj)
 		{
 			unchecked
 			{
