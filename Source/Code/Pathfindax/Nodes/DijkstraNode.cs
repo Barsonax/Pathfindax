@@ -1,4 +1,5 @@
-﻿using Pathfindax.Collections;
+﻿using Duality;
+using Pathfindax.Collections;
 
 namespace Pathfindax.Nodes
 {
@@ -11,10 +12,12 @@ namespace Pathfindax.Nodes
 		public DefinitionNode DefinitionNode { get; }
 		public float Clearance { get; set; }
 		public int HeapIndex { get; set; }
+		public Point2 GridPosition { get; }
 
-		public DijkstraNode(DefinitionNode definitionNode)
+		public DijkstraNode(DefinitionNode definitionNode, Point2 gridPosition)
 		{
 			DefinitionNode = definitionNode;
+			GridPosition = gridPosition;
 		}
 
 		public int CompareTo(DijkstraNode other)

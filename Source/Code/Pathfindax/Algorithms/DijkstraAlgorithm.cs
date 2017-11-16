@@ -31,7 +31,7 @@ namespace Pathfindax.Algorithms
 
 					var newMovementCostToNeighbour = toNode.Clearance < pathRequest.AgentSize ?
 						ClearanceBlockedCost :
-						currentNode.GCost + GetDistance(currentNode.DefinitionNode, toNode.DefinitionNode) * currentNode.DefinitionNode.MovementCostModifier;
+						currentNode.GCost + GetDistance(currentNode, toNode) * currentNode.DefinitionNode.MovementCostModifier;
 					if (newMovementCostToNeighbour < toNode.GCost || !openSet.Contains(toNode))
 					{
 						toNode.GCost = newMovementCostToNeighbour;
@@ -51,10 +51,10 @@ namespace Pathfindax.Algorithms
 			}
 		}
 
-		private static float GetDistance(DefinitionNode sourceNodeA, DefinitionNode sourceNodeB)
+		private static float GetDistance(DijkstraNode dijkstraNodeA, DijkstraNode dijkstraNodeB)
 		{
-			var dstX = Math.Abs(sourceNodeA.Position.X - sourceNodeB.Position.X);
-			var dstY = Math.Abs(sourceNodeA.Position.Y - sourceNodeB.Position.Y);
+			var dstX = Math.Abs(dijkstraNodeA.GridPosition.X - dijkstraNodeB.GridPosition.X);
+			var dstY = Math.Abs(dijkstraNodeA.GridPosition.Y - dijkstraNodeB.GridPosition.Y);
 			return dstY + dstX;
 		}
 	}

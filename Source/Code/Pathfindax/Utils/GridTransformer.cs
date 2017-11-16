@@ -55,6 +55,19 @@ namespace Pathfindax.Utils
 			return new Point2(x, y);
 		}
 
+		public Vector2 TransformToFloatGridCoords(float worldX, float worldY)
+		{
+			var percentX = (worldX - Offset.X) / WorldSize.X;
+			var percentY = (worldY - Offset.Y) / WorldSize.Y;
+			percentX = Mathf.Clamp(percentX, 0, 1);
+			percentY = Mathf.Clamp(percentY, 0, 1);
+
+			var x = (GridSize.X - 1) * percentX;
+			var y = (GridSize.Y - 1) * percentY;
+
+			return new Vector2(x, y);
+		}
+
 		public Point2 TransformToGridCoords(int i)
 		{
 			var y = i / GridSize.X;

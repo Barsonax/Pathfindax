@@ -8,21 +8,7 @@ namespace Pathfindax.Paths
 {
 	public class DynamicPotentialField : PotentialField, IUpdatable
 	{
-		public class ValueProvider
-		{
-			public Func<Vector2> WorldPosition;
-			public Func<Vector2, float> Formula;
-			public int Size;
-
-			public ValueProvider(Func<Vector2> worldPosition, Func<Vector2, float> formula, int size)
-			{
-				WorldPosition = worldPosition;
-				Formula = formula;
-				Size = size;
-			}
-		}
-
-		private readonly List<ValueProvider> _valueProviders = new List<ValueProvider>();
+		private readonly List<PotentialFunction> _valueProviders = new List<PotentialFunction>();
 
 		public DynamicPotentialField(GridTransformer gridTransformer, Point2 targetNode) : base(gridTransformer, targetNode) { }
 
@@ -31,24 +17,55 @@ namespace Pathfindax.Paths
 			PathfindaxEngine.AddUpdatable(this);
 		}
 
-		public void AddPotential(Func<Vector2> worldPosition, Func<Vector2, float> formula, int size)
+		public void AddPotential(Func<Vector2> worldPosition, int range, float strength)
 		{
-			_valueProviders.Add(new ValueProvider(worldPosition, formula, size));
+			_valueProviders.Add(new PotentialFunction(GridTransformer, worldPosition, range, strength));
 		}
 
-		private void AddPotential(ValueProvider valueProvider)
-		{
-			var worldPosition = valueProvider.WorldPosition.Invoke();
-			var gridCoords = GridTransformer.TransformToGridCoords(worldPosition);
-			for (var valueY = -valueProvider.Size; valueY <= valueProvider.Size; valueY++)
+		public class PotentialFunction
+		{			
+			private readonly GridTransformer _gridTransformer;
+			private readonly Func<Vector2> _worldPositionProvider;
+			public int Range { get; }
+			public float Strength { get; }
+			public Point2 GridPosition { get; set; }
+			public Vector2 FloatGridPosition { get; private set; }
+
+			public PotentialFunction(GridTransformer gridTransformer, Func<Vector2> worldPositionProvider, int range, float strength)
 			{
-				for (var valueX = -valueProvider.Size; valueX <= valueProvider.Size; valueX++)
+				_gridTransformer = gridTransformer;
+				Range = range;
+				_worldPositionProvider = worldPositionProvider;
+				Strength = strength;
+			}
+
+			public void UpdateGridPosition()
+			{
+				var worldPosition = _worldPositionProvider.Invoke();
+				FloatGridPosition = _gridTransformer.TransformToFloatGridCoords(worldPosition.X, worldPosition.Y);
+				GridPosition = _gridTransformer.TransformToGridCoords(worldPosition);
+			}
+
+			public float GetValue(int x, int y)
+			{
+				var distance = new Vector2(FloatGridPosition.X - x, FloatGridPosition.Y - y).Length;
+				var value = (-MathF.Pow(distance, 2) + Range) * Strength;
+				if (value < 0) value = 0f;
+				return value;
+			}
+		}
+
+		private void AddPotential(PotentialFunction potentialFunction)
+		{
+			potentialFunction.UpdateGridPosition();
+			for (var valueY = -potentialFunction.Range; valueY <= potentialFunction.Range; valueY++)
+			{
+				for (var valueX = -potentialFunction.Range; valueX <= potentialFunction.Range; valueX++)
 				{
-					var coords = gridCoords + new Point2(valueX, valueY);
+					var coords = new Point2(valueX + potentialFunction.GridPosition.X, valueY + potentialFunction.GridPosition.Y);
 					if (coords.X >= 0 && coords.Y >= 0 && coords.X < PotentialArray.Width && coords.Y < PotentialArray.Height)
 					{
-						var worldCoords = GridTransformer.TransformToWorldCoords(coords);
-						var value = valueProvider.Formula.Invoke(worldCoords);
+						var value = potentialFunction.GetValue(coords.X, coords.Y);
 						PotentialArray[coords.X, coords.Y] += value;
 					}
 				}

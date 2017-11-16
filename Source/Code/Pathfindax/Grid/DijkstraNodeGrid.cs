@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
+using Duality;
 using Pathfindax.Nodes;
 
 namespace Pathfindax.Grid
@@ -36,12 +37,17 @@ namespace Pathfindax.Grid
 		{
 			var gridClearanceGenerator = new GridClearanceGenerator(DefinitionNodeGrid, _maxClearance);
 			var nodeNetwork = new DijkstraNode[DefinitionNodeGrid.NodeCount];
-			for (var i = 0; i < DefinitionNodeGrid.NodeCount; i++)
+			var i = 0;
+			for (int y = 0; y < DefinitionNodeGrid.NodeGrid.Height; y++)
 			{
-				nodeNetwork[i] = new DijkstraNode(DefinitionNodeGrid[i])
+				for (int x = 0; x < DefinitionNodeGrid.NodeGrid.Width; x++)
 				{
-					Clearance = gridClearanceGenerator.CalculateGridNodeClearances(i, collisionCategory, _maxClearance)
-				};
+					nodeNetwork[i] = new DijkstraNode(DefinitionNodeGrid.NodeGrid[x, y], new Point2(x, y))
+					{
+						Clearance = gridClearanceGenerator.CalculateGridNodeClearances(i, collisionCategory, _maxClearance)
+					};
+					i++;
+				}
 			}
 			return nodeNetwork;
 		}

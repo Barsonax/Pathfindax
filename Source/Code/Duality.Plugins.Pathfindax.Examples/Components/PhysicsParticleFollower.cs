@@ -68,12 +68,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 				}
 				if (_potentialAdded == false)
 				{
-					_dynamicPotentialField.AddPotential(() => CurrentPosition, position =>
-					{
-						var distance = (CurrentPosition - position).Length;
-						var value = ((57.5f) - distance) * 0.75f;
-						return value;
-					}, 1);
+					_dynamicPotentialField.AddPotential(() => CurrentPosition, 2, 0.4f);
 					_potentialAdded = true;
 				}
 
