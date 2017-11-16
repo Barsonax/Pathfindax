@@ -108,7 +108,7 @@ namespace Pathfindax.PathfindEngine
 		}
 
 		/// <summary>
-		/// Adds a new callback to this <see cref="PathRequest"/>
+		/// Adds a new callback to this <see cref="PathRequest"/>. This callback will be called immediately if the path is already finished.
 		/// </summary>
 		/// <param name="callback">The callback that will be called when the pathfinder has solved this <see cref="PathRequest"/></param>
 		public void AddCallback(Action<PathRequest<TPath>> callback)

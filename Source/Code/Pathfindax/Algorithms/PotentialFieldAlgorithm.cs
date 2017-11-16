@@ -55,7 +55,7 @@ namespace Pathfindax.Algorithms
 				else if (dijkstraNode.GCost < 0.001f) potentialNodes[i] = DijkstraAlgorithm.ClearanceBlockedCost;
 				else potentialNodes[i] = pathfindingNetwork[i].GCost;
 			}
-			return new PotentialField(dijkstraNodeNetwork.DefinitionNodeGrid, targetNode, potentialNodes);
+			return new PotentialField(dijkstraNodeNetwork.DefinitionNodeGrid.GridTransformer, targetNode.DefinitionNode.Index.Index, potentialNodes);
 		}
 
 		public PathRequest<PotentialField> CreatePathRequest(IPathfinder<PotentialField> pathfinder, IDefinitionNodeNetwork definitionNodes, float x1, float y1, float x2, float y2, PathfindaxCollisionCategory collisionLayer = PathfindaxCollisionCategory.None, byte agentSize = 1)

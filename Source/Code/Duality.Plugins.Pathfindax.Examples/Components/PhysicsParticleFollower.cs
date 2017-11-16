@@ -20,7 +20,11 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 		public byte AgentSize { get; set; }
 		public PathfindaxCollisionCategory CollisionCategory { get; set; }
 		public Camera Camera { get; set; }
-		public IPath Path { get; private set; }
+		IPath IPathProvider.Path => Path;
+		private static DynamicPotentialField _dynamicPotentialField;
+
+		public AggregratedPotentialField Path { get; private set; }
+		public Vector2 CurrentPosition => new Vector2(GameObj.Transform.Pos.X, GameObj.Transform.Pos.Y);
 		private PathfinderProxy<PotentialField> _pathfinderProxy;
 		private RigidBody _rigidBody;
 
@@ -28,9 +32,9 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 		{
 			if (context == InitContext.Activate && DualityApp.ExecContext == DualityApp.ExecutionContext.Game)
 			{
-				DualityApp.Mouse.ButtonDown += Mouse_ButtonDown;
 				_pathfinderProxy = new PathfinderProxy<PotentialField>();
 				_rigidBody = GameObj.GetComponent<RigidBody>();
+				DualityApp.Mouse.ButtonDown += Mouse_ButtonDown;
 			}
 		}
 
@@ -50,16 +54,31 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 			}
 		}
 
+		private bool _potentialAdded;
 		private void Mouse_ButtonDown(object sender, MouseButtonEventArgs e)
 		{
 			var targetPos = Camera.GetSpaceCoord(e.Position);
 			var request = _pathfinderProxy.RequestPath(GameObj.Transform.Pos, targetPos, CollisionCategory, AgentSize);
-			request.AddCallback(OnRequestCompleted);
-		}
+			request.AddCallback(pathrequest =>
+			{			
+				if (_dynamicPotentialField == null)
+				{
+					_dynamicPotentialField = new DynamicPotentialField(pathrequest.CompletedPath.GridTransformer, pathrequest.CompletedPath.TargetNode);
+					_dynamicPotentialField.Register();
+				}
+				if (_potentialAdded == false)
+				{
+					_dynamicPotentialField.AddPotential(() => CurrentPosition, position =>
+					{
+						var distance = (CurrentPosition - position).Length;
+						var value = ((57.5f) - distance) * 0.75f;
+						return value;
+					}, 1);
+					_potentialAdded = true;
+				}
 
-		private void OnRequestCompleted(PathRequest<PotentialField> pathRequest)
-		{
-			Path = pathRequest.CompletedPath;
+				Path = new AggregratedPotentialField(pathrequest.CompletedPath.GridTransformer, pathrequest.CompletedPath, _dynamicPotentialField);
+			});
 		}
 	}
 }

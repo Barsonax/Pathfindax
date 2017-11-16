@@ -76,22 +76,19 @@ namespace Pathfindax.PathfindEngine
 		}
 
 		/// <summary>
-		/// Calls the callbacks on the <see cref="PathRequest"/>s and removes them from the completed queue.
-		/// </summary>
-		public void ProcessCompletedPaths()
-		{
-			while (_multithreadedWorkerQueue.TryDequeue(out var pathRequest))
-			{
-				pathRequest.CallCallbacks();
-			}
-		}
-
-		/// <summary>
 		/// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
 		/// </summary>
 		public void Dispose()
 		{
 			_multithreadedWorkerQueue.Dispose();
+		}
+
+		public void ProcessPaths()
+		{
+			while (_multithreadedWorkerQueue.TryDequeue(out var pathRequest))
+			{
+				pathRequest.CallCallbacks();
+			}
 		}
 	}
 }

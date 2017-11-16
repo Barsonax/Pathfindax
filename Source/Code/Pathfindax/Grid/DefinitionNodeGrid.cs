@@ -11,33 +11,27 @@ namespace Pathfindax.Grid
 	/// </summary>
 	public class DefinitionNodeGrid : IDefinitionNodeGrid
 	{
-		public DefinitionNode this[int index] => NodeGrid[index];
+		public DefinitionNode this[int index] => NodeGrid[index];		
 		public Array2D<DefinitionNode> NodeGrid { get; }
-		IReadOnlyArray2D<DefinitionNode> IDefinitionNodeGrid.DefinitionNodeArray => NodeGrid;
-		public Vector2 WorldSize { get; protected set; }
+		IReadOnlyArray2D<DefinitionNode> IDefinitionNodeGrid.DefinitionNodeArray => NodeGrid;	
 		public Vector2 NodeSize { get; protected set; }
 		public int NodeCount => NodeGrid.Length;
-		public Vector2 Offset { get; protected set; }
+		public GridTransformer GridTransformer { get; }
+		public Vector2 WorldSize => GridTransformer.WorldSize;
+		public Vector2 Offset => GridTransformer.Offset;
 
 		public DefinitionNodeGrid(Array2D<DefinitionNode> grid, Vector2 nodeSize, Vector2 offset)
 		{
 			NodeGrid = grid;
-			WorldSize = new Vector2(NodeGrid.Width * nodeSize.X - nodeSize.X, NodeGrid.Height * nodeSize.Y - nodeSize.Y);
+			var worldSize = new Vector2(NodeGrid.Width * nodeSize.X - nodeSize.X, NodeGrid.Height * nodeSize.Y - nodeSize.Y);
 			NodeSize = nodeSize;
-			Offset = offset;
+			GridTransformer = new GridTransformer(worldSize, offset, new Point2(NodeGrid.Width, NodeGrid.Height), nodeSize);
 		}
 
 		public DefinitionNode GetNode(float worldX, float worldY)
-		{			
-			var percentX = (worldX - Offset.X) / WorldSize.X;
-			var percentY = (worldY - Offset.Y) / WorldSize.Y;
-			percentX = Mathf.Clamp(percentX, 0, 1);
-			percentY = Mathf.Clamp(percentY, 0, 1);
-
-			var x = Mathf.RoundToInt((NodeGrid.Width - 1) * percentX);
-			var y = Mathf.RoundToInt((NodeGrid.Height - 1) * percentY);
-
-			return NodeGrid[x, y];
+		{
+			var coords = GridTransformer.TransformToGridCoords(worldX, worldY);
+			return NodeGrid[coords.X, coords.Y];
 		}
 	}
 }

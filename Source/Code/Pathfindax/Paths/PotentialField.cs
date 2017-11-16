@@ -1,93 +1,40 @@
 ﻿using Duality;
 using Pathfindax.Algorithms;
 using Pathfindax.Collections;
-using Pathfindax.Grid;
-using Pathfindax.Nodes;
+using Pathfindax.Utils;
 
 namespace Pathfindax.Paths
 {
-	public class PotentialField : IPath
+	public interface IUpdatable
 	{
-		public static readonly Vector2[] VectorDirectionCache = {
-			new Vector2(-1, -1).Normalized,
-			new Vector2(0, -1).Normalized,
-			new Vector2(1, -1).Normalized,
-			new Vector2(-1, 0).Normalized,
+		void Update();
+	}
 
-			Vector2.Zero, 
+	public class PotentialField : PotentialFieldBase
+	{
+		public Array2D<float> PotentialArray { get; protected set; }
 
-			new Vector2(1, 0).Normalized,
-			new Vector2(-1, 1).Normalized,
-			new Vector2(0, 1).Normalized,
-			new Vector2(1, 1).Normalized,
-		};
-
-		public static readonly Point2[] PointDirectionCache = {
-			new Point2(-1, -1),
-			new Point2(0, -1),
-			new Point2(1, -1),
-			new Point2(-1, 0),
-
-			Point2.Zero,
-
-			new Point2(1, 0),
-			new Point2(-1, 1),
-			new Point2(0, 1),
-			new Point2(1, 1),
-		};
-
-		public Vector2 this[int i] => VectorDirectionCache[GetDirectionIndex(i)];
-		public readonly DefinitionNodeGrid DefinitionNodeGrid;
-		public readonly Array2D<float> PotentialArray;
-		public readonly int TargetIndex;
-
-		public PotentialField(DefinitionNodeGrid definitionNodeGrid, DijkstraNode targetNode, Array2D<float> potentialArray)
+		public PotentialField(GridTransformer gridTransformer, Point2 targetNode) : base(gridTransformer)
 		{
-			DefinitionNodeGrid = definitionNodeGrid;
+			PotentialArray = new Array2D<float>(gridTransformer.GridSize.X, gridTransformer.GridSize.Y);
+			TargetNode = targetNode;
+			TargetWorldPosition = gridTransformer.TransformToWorldCoords(targetNode);
+		}
+
+		public PotentialField(GridTransformer gridTransformer, int targetNode, Array2D<float> potentialArray) : base(gridTransformer)
+		{
 			PotentialArray = potentialArray;
-			TargetIndex = targetNode.DefinitionNode.Index.Index;
+			TargetNode = gridTransformer.TransformToGridCoords(targetNode);
+			TargetWorldPosition = gridTransformer.TransformToWorldCoords(targetNode);
 		}
 
-		public byte GetDirectionIndex(int i)
+		public override float GetPotential(int x, int y)
 		{
-			var y = i / PotentialArray.Width;
-			var x = i - y * PotentialArray.Width;
-			byte goalDirectionIndex = 4;
-			var lowestPotential = float.MaxValue;
-			for (byte j = 0; j < PointDirectionCache.Length; j++)
+			if (x >= 0 && y >= 0 && x < PotentialArray.Width && y < PotentialArray.Height)
 			{
-				var nodePos = new Point2(PointDirectionCache[j].X + x, PointDirectionCache[j].Y + y);
-				if (nodePos.X >= 0 && nodePos.Y >= 0 && nodePos.X < PotentialArray.Width && nodePos.Y < PotentialArray.Height)
-				{
-					var potential = PotentialArray[nodePos.X, nodePos.Y];
-					if (potential < lowestPotential && potential < DijkstraAlgorithm.ClearanceBlockedCost)
-					{
-						goalDirectionIndex = j;
-						lowestPotential = potential;
-					}
-				}
+				return PotentialArray[x, y];
 			}
-			return goalDirectionIndex;
-		}
-
-		public Vector2 GetHeading(Vector3 currentPosition)
-		{
-			return GetHeading(new Vector2(currentPosition.X, currentPosition.Y));
-		}
-
-		public Vector2 GetHeading(Vector2 currentPosition)
-		{
-			var definitionNode = DefinitionNodeGrid.GetNode(currentPosition.X, currentPosition.Y);
-			if (definitionNode.Index.Index == TargetIndex)
-			{
-				return definitionNode.Position - currentPosition;
-			}
-			return this[definitionNode.Index.Index];
-		}
-
-		public bool NextWaypoint()
-		{
-			return true;
+			return DijkstraAlgorithm.ClearanceBlockedCost;
 		}
 	}
 }

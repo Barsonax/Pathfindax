@@ -70,6 +70,10 @@
     <Compile Include="Collections\ConcurrentCache.cs" />
     <Compile Include="Algorithms\DijkstraAlgorithm.cs" />
     <Compile Include="Algorithms\PotentialFieldAlgorithm.cs" />
+    <Compile Include="Paths\AggregratedPotentialField.cs" />
+    <Compile Include="Paths\DynamicPotentialField.cs" />
+    <Compile Include="Paths\PotentialFieldBase.cs" />
+    <Compile Include="Utils\GridTransformer.cs" />
     <Compile Include="Nodes\Interfaces\ICollisionLayerNode.cs" />
     <Compile Include="PathfindEngine\Exceptions\InvalidPathfinderTypeException.cs" />
     <Compile Include="PathfindEngine\Exceptions\PathfinderNotFoundException.cs" />
@@ -113,7 +117,7 @@
     <Compile Include="Nodes\NodeConnection.cs" />
     <Compile Include="Nodes\Enums\PathfindaxCollisionCategory.cs" />
     <Compile Include="PathfindEngine\Interfaces\IMultithreadedPathfinder.cs" />
-    <Compile Include="PathfindEngine\MultithreadedPathfinder.cs" />
+    <Compile Include="PathfindEngine\Pathfinder.cs" />
     <Compile Include="PathfindEngine\PathRequestProcesser.cs" />
     <Compile Include="PathfindEngine\PathRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

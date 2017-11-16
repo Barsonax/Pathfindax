@@ -36,11 +36,6 @@ namespace Pathfindax.PathfindEngine
 		IReadOnlyList<IPathfindNodeNetwork> PathfindNodeNetworks { get; }
 
 		/// <summary>
-		/// This will process any completedpaths.
-		/// </summary>
-		void ProcessCompletedPaths();
-
-		/// <summary>
 		/// Starts the pathfinder.
 		/// </summary>
 		void Start();
@@ -49,5 +44,6 @@ namespace Pathfindax.PathfindEngine
 		/// Stops the pathfinder.
 		/// </summary>
 		void Stop();
+		void ProcessPaths();
 	}
 }

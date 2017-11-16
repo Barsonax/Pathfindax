@@ -1,6 +1,5 @@
 ﻿using Duality.Drawing;
 using Duality.Editor;
-using Pathfindax.Algorithms;
 using Pathfindax.Paths;
 using Pathfindax.Utils;
 
@@ -33,6 +32,7 @@ namespace Duality.Plugins.Pathfindax.Components
 
 		void ICmpRenderer.Draw(IDrawDevice device)
 		{
+			if (DualityApp.ExecContext != DualityApp.ExecutionContext.Game) return;
 			if (!Visualize) return;
 			var pathProvider = GameObj.GetComponent<IPathProvider>();
 			if (pathProvider?.Path != null)
@@ -41,7 +41,7 @@ namespace Duality.Plugins.Pathfindax.Components
 				canvas.State.ZOffset = -8;
 				switch (pathProvider.Path)
 				{
-					case NodePath completedPath:										
+					case NodePath completedPath:
 						for (var index = 0; index < completedPath.Path.Length; index++)
 						{
 							if (index == 0) canvas.State.ColorTint = ColorRgba.Green;
@@ -61,19 +61,32 @@ namespace Duality.Plugins.Pathfindax.Components
 						break;
 					case FlowField flowField:
 						for (int i = 0; i < flowField.FlowArray.Length; i++)
-						{
-							var nodePosition =  flowField.DefinitionNodeGrid.NodeGrid[i].Position;
+						{							
+							var nodePosition = flowField.GridTransformer.TransformToWorldCoords(i);
 							canvas.FillCircle(nodePosition.X, nodePosition.Y, 5f);
-							canvas.DrawLine(nodePosition.X, nodePosition.Y, nodePosition.X + flowField[i].X * flowField.DefinitionNodeGrid.NodeSize.X * 0.5f, nodePosition.Y + flowField[i].Y * flowField.DefinitionNodeGrid.NodeSize.Y * 0.5f);
+							var flowVector = flowField[i];
+							var nodeSize = flowField.GridTransformer.NodeSize;
+							canvas.DrawLine(nodePosition.X, nodePosition.Y, nodePosition.X + flowVector.X * nodeSize.X * 0.5f, nodePosition.Y + flowVector.Y * nodeSize.Y * 0.5f);
 						}
 						break;
 					case PotentialField potentialField:
 						for (int i = 0; i < potentialField.PotentialArray.Length; i++)
 						{
-							var nodePosition = potentialField.DefinitionNodeGrid.NodeGrid[i].Position;
-							var node = potentialField.PotentialArray[i];
-							var text = node < DijkstraAlgorithm.ClearanceBlockedCost ? potentialField.PotentialArray[i].ToString("N0") : "∞";
-							canvas.DrawText(text, nodePosition.X, nodePosition.Y, -1f, Alignment.Center);
+							var nodePosition = potentialField.GridTransformer.TransformToWorldCoords(i);
+							canvas.FillCircle(nodePosition.X, nodePosition.Y, 5f);
+							var flowVector = potentialField[i];
+							var nodeSize = potentialField.GridTransformer.NodeSize;
+							canvas.DrawLine(nodePosition.X, nodePosition.Y, nodePosition.X + flowVector.X * nodeSize.X * 0.5f, nodePosition.Y + flowVector.Y * nodeSize.Y * 0.5f);
+						}
+						break;
+					case AggregratedPotentialField aggregratedPotentialField:
+						for (int i = 0; i < aggregratedPotentialField.GridTransformer.NodeCount; i++)
+						{
+							var nodePosition = aggregratedPotentialField.GridTransformer.TransformToWorldCoords(i);
+							canvas.FillCircle(nodePosition.X, nodePosition.Y, 5f);
+							var flowVector = aggregratedPotentialField[i];
+							var nodeSize = aggregratedPotentialField.GridTransformer.NodeSize;
+							canvas.DrawLine(nodePosition.X, nodePosition.Y, nodePosition.X + flowVector.X * nodeSize.X * 0.5f, nodePosition.Y + flowVector.Y * nodeSize.Y * 0.5f);
 						}
 						break;
 				}
