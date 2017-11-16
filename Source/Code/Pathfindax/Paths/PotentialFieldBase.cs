@@ -41,6 +41,8 @@ namespace Pathfindax.Paths
 			var rightPotential = GetPotential(x + 1, y);
 			var upPotential = GetPotential(x, y + 1);
 			var downPotential = GetPotential(x, y - 1);
+
+			//Based upon the potentials calculate a movement vector that avoids pointing to a obstacle (does not check diagonal)
 			var maxPosX = float.MaxValue;
 			var minPosX = float.MinValue;
 			if (IsBlocked(leftPotential))
@@ -69,25 +71,7 @@ namespace Pathfindax.Paths
 			var xComponent = MathF.Clamp(leftPotential - rightPotential, minPosX, maxPosX);
 			var yComponent = MathF.Clamp(downPotential - upPotential, minPosY, maxPosY);
 
-
-			if (xComponent == 0f && yComponent == 0f && !IsBlocked(currentPotential))
-			{
-				if (leftPotential == rightPotential && (minPosX < 0f || maxPosX > 0f))
-				{
-					xComponent = minPosX < 0f ? -1f : 1f;
-					yComponent = 0f;
-				}
-				else if (downPotential == upPotential && (minPosY < 0f || maxPosY > 0f))
-				{
-					xComponent = 0f;
-					yComponent = minPosY < 0f ? -1f : 1f;
-				}
-				else
-				{
-					xComponent = minPosX < 0f ? -1f : 1;
-					yComponent = minPosY < 0f ? -1f : 1f;
-				}
-			}
+			//Check which of the 4 quadrants the vector will point to and do additional checks to avoid pointing into a diagonal obstacle.
 			if (xComponent > 0f)
 			{
 				if (yComponent > 0f)
@@ -118,6 +102,27 @@ namespace Pathfindax.Paths
 						xComponent = 0f;
 				}
 			}
+
+			//Check if the vector will have a length of 0 and fix this if this is the case
+			if (xComponent == 0f && yComponent == 0f && !IsBlocked(currentPotential))
+			{
+				if (leftPotential == rightPotential && (minPosX < 0f || maxPosX > 0f))
+				{
+					xComponent = minPosX < 0f ? -1f : 1f;
+					yComponent = 0f;
+				}
+				else if (downPotential == upPotential && (minPosY < 0f || maxPosY > 0f))
+				{
+					xComponent = 0f;
+					yComponent = minPosY < 0f ? -1f : 1f;
+				}
+				else
+				{
+					xComponent = minPosX < 0f ? -1f : 1;
+					yComponent = minPosY < 0f ? -1f : 1f;
+				}
+			}
+
 			return new Vector2(xComponent, yComponent).Normalized;
 		}
 
