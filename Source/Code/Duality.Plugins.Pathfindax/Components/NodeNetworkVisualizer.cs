@@ -51,6 +51,7 @@ namespace Duality.Plugins.Pathfindax.Components
 		void ICmpRenderer.Draw(IDrawDevice device)
 		{
 			if (!Visualize) return;
+			if (DualityApp.ExecContext != DualityApp.ExecutionContext.Game) return;
 			var pathfinder = PathfindaxEngine.GetPathfinder();
 			if (pathfinder?.DefinitionNodeNetwork != null)
 			{

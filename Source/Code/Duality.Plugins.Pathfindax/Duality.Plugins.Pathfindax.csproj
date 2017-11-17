@@ -82,6 +82,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Components\DynamicPotentialFieldComponent.cs" />
     <Compile Include="Components\FlowFieldPathfinderComponent.cs" />
     <Compile Include="Components\AstarPathfinderComponent.cs" />
     <Compile Include="Components\Interfaces\IDualityPathfinderComponent.cs" />
