@@ -12,6 +12,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 {
 	[EditorHintCategory(PathfindaxStrings.PathfindaxTest)]
 	[RequiredComponent(typeof(RigidBody))]
+	[ExecutionOrder(ExecutionRelation.After, typeof(IDualityPathfinderComponent))]
 	public class PhysicsParticleFollower : Component, ICmpUpdatable, ICmpInitializable, IPathProvider
 	{
 		[EditorHintRange(0, float.MaxValue)]
@@ -25,14 +26,20 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 
 		public AggregratedPotentialField Path { get; private set; }
 		public Vector2 CurrentPosition => new Vector2(GameObj.Transform.Pos.X, GameObj.Transform.Pos.Y);
-		private PathfinderProxy<PotentialField> _pathfinderProxy;
+		private PotentialFieldPathfindProxy _pathfinderProxy;
 		private RigidBody _rigidBody;
 
 		void ICmpInitializable.OnInit(InitContext context)
 		{
 			if (context == InitContext.Activate && DualityApp.ExecContext == DualityApp.ExecutionContext.Game)
 			{
-				_pathfinderProxy = new PathfinderProxy<PotentialField>();
+				_pathfinderProxy = new PotentialFieldPathfindProxy();
+				
+				if (_dynamicPotentialField == null)
+				{
+					_dynamicPotentialField = new DynamicPotentialField(_pathfinderProxy.Pathfinder.DefinitionNodeNetwork.GridTransformer, 100f);					
+				}
+				_dynamicPotentialField.AddPotentialFunction(this, new QuadraticPotentialFunction(() => CurrentPosition, 2, 0.8f));
 				_rigidBody = GameObj.GetComponent<RigidBody>();
 				DualityApp.Mouse.ButtonDown += Mouse_ButtonDown;
 			}
@@ -41,6 +48,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 		void ICmpInitializable.OnShutdown(ShutdownContext context)
 		{
 			DualityApp.Mouse.ButtonDown -= Mouse_ButtonDown;
+			_dynamicPotentialField.RemovePotentialFunction(this);
 		}
 
 		void ICmpUpdatable.OnUpdate()
@@ -54,24 +62,12 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 			}
 		}
 
-		private bool _potentialAdded;
 		private void Mouse_ButtonDown(object sender, MouseButtonEventArgs e)
 		{
 			var targetPos = Camera.GetSpaceCoord(e.Position);
 			var request = _pathfinderProxy.RequestPath(GameObj.Transform.Pos, targetPos, CollisionCategory, AgentSize);
 			request.AddCallback(pathrequest =>
-			{			
-				if (_dynamicPotentialField == null)
-				{
-					_dynamicPotentialField = new DynamicPotentialField(pathrequest.CompletedPath.GridTransformer, pathrequest.CompletedPath.TargetNode);
-					_dynamicPotentialField.Register();
-				}
-				if (_potentialAdded == false)
-				{					
-					_dynamicPotentialField.AddPotentialFunction(new QuadraticPotentialFunction(pathrequest.CompletedPath.GridTransformer, () => CurrentPosition, 2, 0.6f));
-					_potentialAdded = true;
-				}
-
+			{
 				Path = new AggregratedPotentialField(pathrequest.CompletedPath.GridTransformer, pathrequest.CompletedPath, _dynamicPotentialField);
 			});
 		}

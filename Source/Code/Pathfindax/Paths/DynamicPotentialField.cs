@@ -1,29 +1,48 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Duality;
+using Pathfindax.Algorithms;
+using Pathfindax.Collections;
 using Pathfindax.PathfindEngine;
 using Pathfindax.Utils;
 
 namespace Pathfindax.Paths
 {
-	public class DynamicPotentialField : PotentialField, IUpdatable
+	public class DynamicPotentialField : PotentialFieldBase, IUpdatable, IDisposable
 	{
-		private readonly List<PotentialFunction> _valueProviders = new List<PotentialFunction>();
+		public Array2D<float> PotentialArray { get; }
+		private readonly Dictionary<object, PotentialFunction> _valueProviders = new Dictionary<object, PotentialFunction>();
 
-		public DynamicPotentialField(GridTransformer gridTransformer, Point2 targetNode) : base(gridTransformer, targetNode) { }
-
-		public void Register()
+		/// <summary>
+		/// Creates a new <see cref="DynamicPotentialField"/>
+		/// </summary>
+		/// <param name="gridTransformer"></param>
+		/// <param name="interval">The update interval in milliseconds. Will not update if less than 0.</param>
+		public DynamicPotentialField(GridTransformer gridTransformer, float interval) : base(gridTransformer)
 		{
-			PathfindaxEngine.AddUpdatable(this);
+			PotentialArray = new Array2D<float>(gridTransformer.GridSize.X, gridTransformer.GridSize.Y);
+			if (interval >= 0f)
+				PathfindaxEngine.AddUpdatable(this, interval);
 		}
 
-		public void AddPotentialFunction(PotentialFunction potentialFunction)
+		public void Dispose()
 		{
-			_valueProviders.Add(potentialFunction);
+			PathfindaxEngine.RemoveUpdatable(this);
+		}
+
+		public void AddPotentialFunction(object key, PotentialFunction potentialFunction)
+		{
+			_valueProviders[key] = potentialFunction;
+		}
+
+		public void RemovePotentialFunction(object key)
+		{
+			_valueProviders.Remove(key);
 		}
 
 		private void AddPotential(PotentialFunction potentialFunction)
 		{
-			potentialFunction.UpdateGridPosition();
+			potentialFunction.UpdateGridPosition(GridTransformer);
 			for (var valueY = -potentialFunction.MaxGridDistance; valueY <= potentialFunction.MaxGridDistance; valueY++)
 			{
 				for (var valueX = -potentialFunction.MaxGridDistance; valueX <= potentialFunction.MaxGridDistance; valueX++)
@@ -47,8 +66,18 @@ namespace Pathfindax.Paths
 
 			foreach (var valueProvider in _valueProviders)
 			{
-				AddPotential(valueProvider);
+				AddPotential(valueProvider.Value);
 			}
+		}
+
+		public override float GetPotential(int x, int y)
+		{
+			if (x >= 0 && y >= 0 && x < PotentialArray.Width && y < PotentialArray.Height)
+			{
+				var value = PotentialArray[x, y];
+				return value;
+			}
+			return DijkstraAlgorithm.ClearanceBlockedCost;
 		}
 	}
 }

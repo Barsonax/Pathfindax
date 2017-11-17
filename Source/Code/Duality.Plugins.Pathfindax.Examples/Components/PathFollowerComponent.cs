@@ -10,6 +10,7 @@ using Pathfindax.Utils;
 namespace Duality.Plugins.Pathfindax.Examples.Components
 {
 	[EditorHintCategory(PathfindaxStrings.PathfindaxTest)]
+	[ExecutionOrder(ExecutionRelation.After, typeof(IDualityPathfinderComponent))]
 	public class PathFollowerComponent : Component, ICmpUpdatable, ICmpInitializable, IPathProvider
 	{
 		[EditorHintRange(0, float.MaxValue)]
@@ -19,14 +20,14 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 		public PathfindaxCollisionCategory CollisionCategory { get; set; }
 		public Camera Camera { get; set; }
 		public IPath Path { get; private set; }
-		private PathfinderProxy<NodePath> _pathfinderProxy;
+		private NodePathFieldPathfindProxy _pathfinderProxy;
 
 		void ICmpInitializable.OnInit(InitContext context)
 		{
 			if (context == InitContext.Activate && DualityApp.ExecContext == DualityApp.ExecutionContext.Game)
 			{
 				DualityApp.Mouse.ButtonDown += Mouse_ButtonDown;
-				_pathfinderProxy = new PathfinderProxy<NodePath>();
+				_pathfinderProxy = new NodePathFieldPathfindProxy();
 			}
 		}
 

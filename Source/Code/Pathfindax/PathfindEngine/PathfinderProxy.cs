@@ -1,15 +1,22 @@
 ﻿using System.Diagnostics;
 using Duality;
+using Pathfindax.Grid;
 using Pathfindax.Nodes;
 using Pathfindax.Paths;
 
 namespace Pathfindax.PathfindEngine
 {
+	public class PotentialFieldPathfindProxy : PathfinderProxy<DefinitionNodeGrid, PotentialField> { }
+	public class FlowFieldPathfindProxy : PathfinderProxy<DefinitionNodeGrid, FlowField> { }
+	public class NodePathFieldPathfindProxy : PathfinderProxy<IDefinitionNodeNetwork, NodePath> { }
+
 	/// <summary>
 	/// Provides access to the pathfinder.
 	/// </summary>
 	/// <typeparam name="TPath"></typeparam>
-	public class PathfinderProxy<TPath>
+	/// <typeparam name="TDefinitionNetwork"></typeparam>
+	public abstract class PathfinderProxy<TDefinitionNetwork, TPath>
+		where TDefinitionNetwork : IDefinitionNodeNetwork
 		where TPath : IPath
 	{
 		/// <summary>
@@ -17,17 +24,17 @@ namespace Pathfindax.PathfindEngine
 		/// </summary>
 		public string PathfinderId { get; }
 
-		private IPathfinder<TPath> _pathfinder;
+		private IPathfinder<TDefinitionNetwork, TPath> _pathfinder;
 		/// <summary>
 		/// The actual pathfinder
 		/// </summary>
-		public IPathfinder<TPath> Pathfinder
+		public IPathfinder<TDefinitionNetwork, TPath> Pathfinder
 		{
 			get
 			{
 				if (_pathfinder != null) return _pathfinder;
 
-				var pathfinderComponent = PathfindaxEngine.GetPathfinder<TPath>(PathfinderId);
+				var pathfinderComponent = PathfindaxEngine.GetPathfinder<TDefinitionNetwork, TPath>(PathfinderId);
 				if (pathfinderComponent == null)
 				{
 					Debug.WriteLine(PathfinderId == null
@@ -40,7 +47,7 @@ namespace Pathfindax.PathfindEngine
 		}
 
 		/// <summary>
-		/// Creates a new <see cref="PathfinderProxy{TPath}"/>. The id has to be supplied if there is more than 1 <see cref="IPathfinder"/>.
+		/// Creates a new <see cref="PathfinderProxy{TDefinitionNodeNetwork, TPath}"/>. The id has to be supplied if there is more than 1 <see cref="IPathfinder"/>.
 		/// </summary>
 		public PathfinderProxy(string pathfinderId = "")
 		{

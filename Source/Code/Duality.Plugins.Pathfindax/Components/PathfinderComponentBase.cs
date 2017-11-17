@@ -3,10 +3,15 @@ using Pathfindax.PathfindEngine;
 
 namespace Duality.Plugins.Pathfindax.Components
 {
+	public interface IDualityPathfinderComponent
+	{
+		
+	}
+
 	/// <summary>
 	/// Base class for duality pathfinders
 	/// </summary>
-	public abstract class PathfinderComponentBase<TDefinitionNodeNetwork> : Component, ICmpInitializable
+	public abstract class PathfinderComponentBase<TDefinitionNodeNetwork> : Component, ICmpInitializable, IDualityPathfinderComponent
 		where TDefinitionNodeNetwork : class, IDefinitionNodeNetwork
 	{
 		/// <summary>

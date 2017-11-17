@@ -6,9 +6,9 @@ namespace Pathfindax.Paths
 {
 	public class AggregratedPotentialField : PotentialFieldBase
 	{
-		public readonly PotentialField[] PotentialFields;
+		public readonly PotentialFieldBase[] PotentialFields;
 
-		public AggregratedPotentialField(GridTransformer gridTransformer, params PotentialField[] potentialFields) : base(gridTransformer)
+		public AggregratedPotentialField(GridTransformer gridTransformer, params PotentialFieldBase[] potentialFields) : base(gridTransformer)
 		{
 			TargetNode = potentialFields.First().TargetNode;
 			TargetWorldPosition = potentialFields.First().TargetWorldPosition;

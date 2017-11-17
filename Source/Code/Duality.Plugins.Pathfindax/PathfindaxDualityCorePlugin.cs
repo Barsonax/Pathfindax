@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Duality.Resources;
 using Pathfindax.PathfindEngine;
 #pragma warning disable 1591
@@ -18,10 +19,12 @@ namespace Duality.Plugins.Pathfindax
 			Scene.Leaving += Scene_Leaving;
 		}
 
+		private List<float> foo = new List<float>();
 		protected override void OnBeforeUpdate()
 		{
 			base.OnBeforeUpdate();
-			PathfindaxEngine.Update();
+			PathfindaxEngine.Update(Time.LastDelta);
+			foo.Add(Time.LastDelta);
 		}
 
 		protected override void OnDisposePlugin()

@@ -13,6 +13,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 	/// Use the <see cref="TopLeftCorner"/> and <see cref="BottomRightCorner"/> properties to control where it will spam the path requests.
 	/// </summary>
 	[EditorHintCategory(PathfindaxStrings.PathfindaxTest)]
+	[ExecutionOrder(ExecutionRelation.After, typeof(IDualityPathfinderComponent))]
 	public class PathfindaxPathSpammerComponent : Component, ICmpUpdatable, ICmpInitializable, IPathProvider
 	{
 		[EditorHintRange(1, byte.MaxValue)]
@@ -25,7 +26,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 		[EditorHintRange(1, 1000)]
 		public int FramesBetweenRequest { get; set; }
 
-		private PathfinderProxy<NodePath> _pathfinderProxy;
+		private NodePathFieldPathfindProxy _pathfinderProxy;
 		private readonly Random _randomGenerator = new Random();
 		private int _frameCounter;
 
@@ -33,7 +34,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 		{
 			if (context == InitContext.Activate && DualityApp.ExecContext == DualityApp.ExecutionContext.Game)
 			{
-				_pathfinderProxy = new PathfinderProxy<NodePath>();
+				_pathfinderProxy = new NodePathFieldPathfindProxy();
 			}
 		}
 

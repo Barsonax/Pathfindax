@@ -10,6 +10,7 @@ using Pathfindax.Utils;
 namespace Duality.Plugins.Pathfindax.Examples.Components
 {
 	[EditorHintCategory(PathfindaxStrings.PathfindaxTest)]
+	[ExecutionOrder(ExecutionRelation.After, typeof(IDualityPathfinderComponent))]
 	public class GridMouseClickPathfinder : Component, ICmpInitializable, IPathProvider
 	{
 		/// <summary>
@@ -34,7 +35,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 		public Camera Camera { get; set; }
 
 		private Vector3? _pathStart;
-		private PathfinderProxy<NodePath> _pathfinderProxy;
+		private NodePathFieldPathfindProxy _pathfinderProxy;
 
 		void ICmpInitializable.OnInit(InitContext context)
 		{
@@ -42,7 +43,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 			{
 				DualityApp.Mouse.Move += Mouse_Move;
 				DualityApp.Mouse.ButtonDown += Mouse_ButtonDown;
-				_pathfinderProxy = new PathfinderProxy<NodePath>();
+				_pathfinderProxy = new NodePathFieldPathfindProxy();
 			}
 		}
 

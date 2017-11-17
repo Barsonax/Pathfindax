@@ -1,6 +1,5 @@
 ﻿using System;
 using Duality;
-using Pathfindax.Utils;
 
 namespace Pathfindax.Paths
 {
@@ -15,11 +14,10 @@ namespace Pathfindax.Paths
 		/// <summary>
 		/// Creates a new <see cref="QuadraticPotentialFunction"/>
 		/// </summary>
-		/// <param name="gridTransformer"></param>
 		/// <param name="worldPositionProvider"></param>
 		/// <param name="maxDistance">At distance = <paramref name="maxDistance"/> the potential added will be equal to 0</param>
 		/// <param name="maxStrength">At distance = 0 the potential added will be equal to this</param>
-		public QuadraticPotentialFunction(GridTransformer gridTransformer, Func<Vector2> worldPositionProvider, float maxDistance, float maxStrength) : base(gridTransformer, worldPositionProvider, maxDistance)
+		public QuadraticPotentialFunction(Func<Vector2> worldPositionProvider, float maxDistance, float maxStrength) : base(worldPositionProvider, maxDistance)
 		{
 			_strengthModifier = 1f;
 			var valueAtMaxdistance = GetValue(maxDistance);
@@ -37,7 +35,7 @@ namespace Pathfindax.Paths
 		{
 			var distance = new Vector2(GridPosition.X - x, GridPosition.Y - y).Length;
 			var value = GetValue(distance);
-			if (value < 0) value = 0f;
+			if (value < 0) return 0f;
 			return value;
 		}
 	}
