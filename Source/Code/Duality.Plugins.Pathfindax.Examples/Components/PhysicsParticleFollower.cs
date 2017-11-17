@@ -67,8 +67,8 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 					_dynamicPotentialField.Register();
 				}
 				if (_potentialAdded == false)
-				{
-					_dynamicPotentialField.AddPotential(() => CurrentPosition, 2, 0.4f);
+				{					
+					_dynamicPotentialField.AddPotentialFunction(new QuadraticPotentialFunction(pathrequest.CompletedPath.GridTransformer, () => CurrentPosition, 2, 0.6f));
 					_potentialAdded = true;
 				}
 

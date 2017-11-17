@@ -72,6 +72,8 @@
     <Compile Include="Algorithms\PotentialFieldAlgorithm.cs" />
     <Compile Include="Paths\AggregratedPotentialField.cs" />
     <Compile Include="Paths\DynamicPotentialField.cs" />
+    <Compile Include="Paths\PotentialFunction.cs" />
+    <Compile Include="Paths\QuadraticPotentialFunction.cs" />
     <Compile Include="Paths\PotentialFieldBase.cs" />
     <Compile Include="Utils\GridTransformer.cs" />
     <Compile Include="Nodes\Interfaces\ICollisionLayerNode.cs" />
