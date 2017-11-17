@@ -48,7 +48,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 		void ICmpInitializable.OnShutdown(ShutdownContext context)
 		{
 			DualityApp.Mouse.ButtonDown -= Mouse_ButtonDown;
-			_dynamicPotentialField.RemovePotentialFunction(this);
+			_dynamicPotentialField?.RemovePotentialFunction(this);
 		}
 
 		void ICmpUpdatable.OnUpdate()

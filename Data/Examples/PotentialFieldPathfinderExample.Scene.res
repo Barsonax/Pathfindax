@@ -210,7 +210,7 @@
             <active dataType="Bool">true</active>
             <gameobj dataType="ObjectRef">3952684871</gameobj>
           </item>
-          <item dataType="Struct" type="Duality.Plugins.Pathfindax.Components.FlowFieldPathfinderComponent" id="3854886248">
+          <item dataType="Struct" type="Duality.Plugins.Pathfindax.Components.PotentialFieldPathfinderComponent" id="2166427172">
             <_x003C_AmountOfThreads_x003E_k__BackingField dataType="Int">1</_x003C_AmountOfThreads_x003E_k__BackingField>
             <_x003C_MaxCachedFlowFields_x003E_k__BackingField dataType="Int">100</_x003C_MaxCachedFlowFields_x003E_k__BackingField>
             <_x003C_MaxClearance_x003E_k__BackingField dataType="Int">5</_x003C_MaxClearance_x003E_k__BackingField>
@@ -228,12 +228,12 @@
           <keys dataType="Array" type="System.Object[]" id="122282212">
             <item dataType="ObjectRef">4173822160</item>
             <item dataType="Type" id="2821304260" value="Duality.Plugins.Pathfindax.Tilemaps.Components.TilemapNodeGridGenerator" />
-            <item dataType="Type" id="2365687190" value="Duality.Plugins.Pathfindax.Components.FlowFieldPathfinderComponent" />
+            <item dataType="Type" id="2365687190" value="Duality.Plugins.Pathfindax.Components.PotentialFieldPathfinderComponent" />
           </keys>
           <values dataType="Array" type="System.Object[]" id="2498106902">
             <item dataType="ObjectRef">4009962089</item>
             <item dataType="ObjectRef">828666520</item>
-            <item dataType="ObjectRef">3854886248</item>
+            <item dataType="ObjectRef">2166427172</item>
           </values>
         </body>
       </compMap>
@@ -339,7 +339,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="2899077328">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="Struct" type="Duality.Components.Camera" id="1603001729">
@@ -570,7 +569,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="4275660998">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -702,7 +700,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="2167474147">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -834,7 +831,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="3635625871">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -966,7 +962,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="129981342">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -1098,7 +1093,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="1228990491">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -1230,7 +1224,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="387079373">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -1362,7 +1355,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="2361348460">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -1494,7 +1486,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="2570208947">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -1626,7 +1617,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="1000935580">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -1758,7 +1748,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="4243093753">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -1890,7 +1879,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="3892890227">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -2022,7 +2010,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="1512897788">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -2154,7 +2141,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="43811992">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -2286,7 +2272,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="3599064107">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -2418,7 +2403,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="3884864020">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -2550,7 +2534,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="4148455848">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -2682,7 +2665,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="30132204">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -2814,7 +2796,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="655044489">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -2946,7 +2927,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="1530289752">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -3078,7 +3058,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="4045617374">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -3210,7 +3189,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="1009776652">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -3342,7 +3320,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="1508281114">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -3474,7 +3451,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="2375770454">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -3606,7 +3582,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="3154039260">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -3738,7 +3713,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="1259221611">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -3870,7 +3844,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="2746715416">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -4002,7 +3975,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="4024703905">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -4134,7 +4106,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="1070524144">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -4266,7 +4237,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="1775079961">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -4398,7 +4368,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="3401035121">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -4530,7 +4499,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="298759720">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -4662,7 +4630,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="127298319">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -4794,7 +4761,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="2225129180">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -4926,7 +4892,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="4017899104">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -5058,7 +5023,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="3869726734">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -5190,7 +5154,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="3469953108">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -5322,7 +5285,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="4241486304">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -5454,7 +5416,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="2034025610">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -5586,7 +5547,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="460653933">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -5718,7 +5678,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="2120303968">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -5850,7 +5809,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="1211627113">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -5982,7 +5940,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="899212183">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -6114,7 +6071,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="3264795354">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -6246,7 +6202,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="3198429166">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -6378,7 +6333,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="3383623971">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -6510,7 +6464,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="1083881202">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -6642,7 +6595,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="4170710291">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -6774,7 +6726,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="378031360">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -6906,7 +6857,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="3488166402">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -7038,7 +6988,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="473041091">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -7170,7 +7119,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="78955995">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -7302,7 +7250,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="2896906430">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -7434,7 +7381,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="1781116398">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -7566,7 +7512,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="1909108198">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -7698,7 +7643,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="2813411310">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -7830,7 +7774,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="1006390512">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -7962,7 +7905,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="2691837484">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -8094,7 +8036,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="724453324">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -8226,7 +8167,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="3955427534">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -8358,7 +8298,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="2321956688">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -8490,7 +8429,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="315077510">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -8622,7 +8560,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="1069543238">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -8754,7 +8691,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="3760429798">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -8886,7 +8822,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="3857867946">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -9018,7 +8953,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="2239476597">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -9150,7 +9084,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="869844165">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -9282,7 +9215,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="4077577608">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -9414,7 +9346,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="3300934166">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -9546,7 +9477,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="4265865612">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -9678,7 +9608,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="1013596567">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -9810,7 +9739,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="2740593268">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -9942,7 +9870,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="4260204420">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -10074,7 +10001,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="2473193013">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -10206,7 +10132,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="342563514">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -10338,7 +10263,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="2305208833">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -10470,7 +10394,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="1681279192">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -10602,7 +10525,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="239873443">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -10734,7 +10656,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="8245967">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -10866,7 +10787,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="3286659363">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -10998,7 +10918,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="441962860">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -11130,7 +11049,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="423656583">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -11262,7 +11180,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="2169313207">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -11394,7 +11311,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="794684288">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -11526,7 +11442,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="1626961447">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -11658,7 +11573,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="3307510420">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -11790,7 +11704,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="3862882107">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -11922,7 +11835,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="4047659763">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -12054,7 +11966,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="2336216387">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -12186,7 +12097,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="2553049507">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -12318,7 +12228,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="1580273820">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -12450,7 +12359,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="1205332933">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -12582,7 +12490,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="1305921006">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -12714,7 +12621,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="1206609771">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -12846,7 +12752,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="3916216869">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -12978,7 +12883,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="2234333968">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -13110,7 +13014,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="955377396">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -13242,7 +13145,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="2925497254">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -13374,7 +13276,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="2646714360">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -13506,7 +13407,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="4098412625">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -13638,7 +13538,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="1449769553">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -13770,7 +13669,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="2873387060">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -13902,7 +13800,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="3409642196">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -14034,7 +13931,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="1562524132">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -14166,7 +14062,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="1852619794">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -14298,7 +14193,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="1532776471">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -14430,7 +14324,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="79560078">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -14562,7 +14455,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="3817669355">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -14694,7 +14586,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="2883404518">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -14826,7 +14717,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="928592572">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -14958,7 +14848,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="1138915340">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -15090,7 +14979,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="3841258484">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -15222,7 +15110,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="2351238710">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -15354,7 +15241,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="2742220927">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -15486,7 +15372,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="4128339387">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -15618,7 +15503,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="1414623276">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -15750,7 +15634,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="1515532525">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -15882,7 +15765,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="2166401746">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -16014,7 +15896,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="4248072012">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -16146,7 +16027,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="4169678202">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -16278,7 +16158,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="2081825044">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -16410,7 +16289,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="1993830553">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -16542,7 +16420,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="1918448227">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -16674,7 +16551,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="54151931">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -16806,7 +16682,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="1175599986">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -16938,7 +16813,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="3866245886">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -17070,7 +16944,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="732560854">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -17202,7 +17075,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="3653734690">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -17334,7 +17206,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="1573923234">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -17466,7 +17337,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="2681984293">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
@@ -17598,7 +17468,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PhysicsParticleFollower" id="3140787478">
             <_pathfinderProxy />
-            <_potentialAdded dataType="Bool">false</_potentialAdded>
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>

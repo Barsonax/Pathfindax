@@ -84,10 +84,12 @@
   <ItemGroup>
     <Compile Include="Components\FlowFieldPathfinderComponent.cs" />
     <Compile Include="Components\AstarPathfinderComponent.cs" />
+    <Compile Include="Components\Interfaces\IDualityPathfinderComponent.cs" />
     <Compile Include="Components\Interfaces\IPathProvider.cs" />
     <Compile Include="Components\PathVisualizer.cs" />
     <Compile Include="Components\PathfinderComponentBase.cs" />
     <Compile Include="Components\NodeNetworkVisualizer.cs" />
+    <Compile Include="Components\PotentialFieldPathfinderComponent.cs" />
     <Compile Include="PathfindaxDualityCorePlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

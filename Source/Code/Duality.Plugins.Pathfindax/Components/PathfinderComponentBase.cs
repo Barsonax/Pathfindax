@@ -3,11 +3,6 @@ using Pathfindax.PathfindEngine;
 
 namespace Duality.Plugins.Pathfindax.Components
 {
-	public interface IDualityPathfinderComponent
-	{
-		
-	}
-
 	/// <summary>
 	/// Base class for duality pathfinders
 	/// </summary>

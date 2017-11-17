@@ -1,16 +1,17 @@
 ﻿using Duality.Editor;
 using Pathfindax.Factories;
 using Pathfindax.Grid;
+using Pathfindax.Paths;
 using Pathfindax.Utils;
 
 namespace Duality.Plugins.Pathfindax.Components
 {
 	/// <summary>
-	/// Provides a way for other components to request a path from A to B. Uses the A* algorithm.
+	/// Provides a way for other components to request a path to B. Uses potential fields.
 	/// </summary>
 	[EditorHintCategory(PathfindaxStrings.Pathfindax)]
-	[RequiredComponent(typeof(IDefinitionNodeNetworkProvider<IDefinitionNodeNetwork>))]
-	public class AstarPathfinderComponent : PathfinderComponentBase<IDefinitionNodeNetwork>
+	[RequiredComponent(typeof(IDefinitionNodeNetworkProvider<DefinitionNodeGrid>))]
+	public class PotentialFieldPathfinderComponent : PathfinderComponentBase<DefinitionNodeGrid>
 	{
 		/// <summary>
 		/// The max calculated clearance. Any clearance value higher than will be set to this. 
@@ -18,13 +19,18 @@ namespace Duality.Plugins.Pathfindax.Components
 		/// </summary>
 		public int MaxClearance { get; set; } = 5;
 
+		/// <summary>
+		/// The maximum amount of cached <see cref="PotentialField"/>s
+		/// </summary>
+		public int MaxCachedFlowFields { get; set; } = 100;
+
 		public override void OnInit(InitContext context)
 		{
 			if (context == InitContext.Activate && DualityApp.ExecContext == DualityApp.ExecutionContext.Game)
 			{
-				var sourceNodeNetwork = GetSourceNodeNetwork();
-				if (sourceNodeNetwork == null) return;
-				Pathfinder = PathfinderFactory.CreateAstarPathfinder(PathfinderId, sourceNodeNetwork, MaxClearance, AmountOfThreads);
+				var definitionNodeGrid = GetSourceNodeNetwork();
+				if (definitionNodeGrid == null) return;
+				Pathfinder = PathfinderFactory.CreatePotentialFieldPathfinder(PathfinderId, definitionNodeGrid, MaxClearance, MaxCachedFlowFields, AmountOfThreads);
 			}
 		}
 	}
