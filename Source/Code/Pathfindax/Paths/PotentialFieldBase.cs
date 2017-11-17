@@ -45,29 +45,31 @@ namespace Pathfindax.Paths
 			//Based upon the potentials calculate a movement vector that avoids pointing to a obstacle (does not check diagonal)
 			var maxPosX = float.MaxValue;
 			var minPosX = float.MinValue;
+			var maxPosY = float.MaxValue;
+			var minPosY = float.MinValue;
+			var substituteValue = float.IsNaN(currentPotential) ? 100000000000f : currentPotential;
 			if (IsBlocked(leftPotential))
 			{
 				minPosX = 0f;
-				leftPotential = currentPotential;
+				leftPotential = substituteValue;
 			}
 			if (IsBlocked(rightPotential))
 			{
 				maxPosX = 0f;
-				rightPotential = currentPotential;
+				rightPotential = substituteValue;
 			}
 
-			var maxPosY = float.MaxValue;
-			var minPosY = float.MinValue;
 			if (IsBlocked(upPotential))
 			{
 				maxPosY = 0f;
-				upPotential = currentPotential;
+				upPotential = substituteValue;
 			}
 			if (IsBlocked(downPotential))
 			{
 				minPosY = 0f;
-				downPotential = currentPotential;
+				downPotential = substituteValue;
 			}
+
 			var xComponent = MathF.Clamp(leftPotential - rightPotential, minPosX, maxPosX);
 			var yComponent = MathF.Clamp(downPotential - upPotential, minPosY, maxPosY);
 
@@ -128,7 +130,7 @@ namespace Pathfindax.Paths
 
 		private bool IsBlocked(float potential)
 		{
-			return potential >= DijkstraAlgorithm.ClearanceBlockedCost;
+			return float.IsNaN(potential);
 		}
 
 		public Vector2 GetHeading(Vector3 currentPosition)

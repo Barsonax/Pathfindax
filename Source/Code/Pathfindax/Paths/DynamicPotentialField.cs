@@ -77,7 +77,7 @@ namespace Pathfindax.Paths
 				var value = PotentialArray[x, y];
 				return value;
 			}
-			return DijkstraAlgorithm.ClearanceBlockedCost;
+			return float.NaN;
 		}
 	}
 }

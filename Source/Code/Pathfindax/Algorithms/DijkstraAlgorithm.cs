@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Pathfindax.Collections;
 using Pathfindax.Nodes;
 using Pathfindax.PathfindEngine;
@@ -11,7 +12,6 @@ namespace Pathfindax.Algorithms
 	/// </summary>
 	public class DijkstraAlgorithm
 	{
-		public const float ClearanceBlockedCost = 1000000000000000f; //Arbitrary large cost.
 		public bool FindPath(DijkstraNode[] pathfindingNetwork, DijkstraNode targetNode, DijkstraNode startNode, IPathRequest pathRequest)
 		{
 			ResetNetwork(pathfindingNetwork);
@@ -19,6 +19,7 @@ namespace Pathfindax.Algorithms
 			var closedSet = new HashSet<DijkstraNode>();
 
 			openSet.Add(targetNode);
+			targetNode.GCost = 0f;
 			while (openSet.Count > 0)
 			{
 				var currentNode = openSet.RemoveFirst();
@@ -29,14 +30,19 @@ namespace Pathfindax.Algorithms
 					var toNode = NodePointer.Dereference(connection.To, pathfindingNetwork);
 					if ((connection.CollisionCategory & pathRequest.CollisionCategory) != 0 || closedSet.Contains(toNode)) continue;
 
-					var newMovementCostToNeighbour = toNode.Clearance < pathRequest.AgentSize ?
-						ClearanceBlockedCost :
-						currentNode.GCost + GetDistance(currentNode, toNode) * currentNode.DefinitionNode.MovementCostModifier;
-					if (newMovementCostToNeighbour < toNode.GCost || !openSet.Contains(toNode))
+					if (toNode.Clearance < pathRequest.AgentSize)
 					{
-						toNode.GCost = newMovementCostToNeighbour;
-						if (!openSet.Contains(toNode))
-							openSet.Add(toNode);
+						toNode.GCost = float.NaN; 						
+					}
+					else
+					{
+						var newMovementCostToNeighbour = currentNode.GCost + GetDistance(currentNode, toNode) * currentNode.DefinitionNode.MovementCostModifier;
+						if (newMovementCostToNeighbour < toNode.GCost || !openSet.Contains(toNode))
+						{
+							toNode.GCost = newMovementCostToNeighbour;
+							if (!openSet.Contains(toNode))
+								openSet.Add(toNode);
+						}
 					}
 				}
 			}
@@ -47,7 +53,7 @@ namespace Pathfindax.Algorithms
 		{
 			for (int i = 0; i < pathfindingNetwork.Length; i++)
 			{
-				pathfindingNetwork[i].GCost = 0;
+				pathfindingNetwork[i].GCost = float.NaN;
 			}
 		}
 

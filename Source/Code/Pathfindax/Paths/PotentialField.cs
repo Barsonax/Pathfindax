@@ -26,7 +26,7 @@ namespace Pathfindax.Paths
 			{
 				return PotentialArray[x, y];
 			}
-			return DijkstraAlgorithm.ClearanceBlockedCost;
+			return float.NaN;
 		}
 	}
 }

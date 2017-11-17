@@ -20,13 +20,15 @@ namespace Pathfindax.Paths
 			if (x >= 0 && y >= 0 && x < GridTransformer.GridSize.X && y < GridTransformer.GridSize.Y)
 			{
 				var potential = 0f;
-				for (int i = 0; i < PotentialFields.Length; i++)
+				for (var i = 0; i < PotentialFields.Length; i++)
 				{
-					potential += PotentialFields[i].GetPotential(x, y);
+					var p = PotentialFields[i].GetPotential(x, y);
+					if (float.IsNaN(p)) return float.NaN;
+					potential += p;
 				}
 				return potential;
 			}
-			return DijkstraAlgorithm.ClearanceBlockedCost;
+			return float.NaN;
 		}
 	}
 }

@@ -2,6 +2,17 @@
 
 namespace Pathfindax.Collections
 {
+	public class DummyCache<TKey, TValue>
+	{
+		public void Add(TKey key, TValue value) { }
+
+		public bool TryGetValue(TKey key, out TValue value)
+		{
+			value = default(TValue);
+			return false;
+		}
+	}
+
 	public class ConcurrentCache<TKey, TValue>
 	{
 		private readonly Dictionary<TKey, TValue> _dictionary;

@@ -6,19 +6,21 @@ namespace Pathfindax.Paths
 {
 	public class FlowField : IPath
 	{
-		public static readonly Vector2[] VectorDirectionCache = {
-			new Vector2(-1, -1).Normalized,
-			new Vector2(0, -1).Normalized,
-			new Vector2(1, -1).Normalized,
-			new Vector2(-1, 0).Normalized,
+		public static readonly Vector2[] VectorDirectionCache;
 
-			Vector2.Zero,
-
-			new Vector2(1, 0).Normalized,
-			new Vector2(-1, 1).Normalized,
-			new Vector2(0, 1).Normalized,
-			new Vector2(1, 1).Normalized,
-		};
+		static FlowField()
+		{
+			VectorDirectionCache = new Vector2[255];
+			VectorDirectionCache[254] = Vector2.Zero;
+			var stepAmount = VectorDirectionCache.Length - 1;
+			var fullTurn = MathF.Pi * 6;
+			var stepSize = fullTurn / (stepAmount - 1);
+			for (var i = 0; i < stepAmount; i++)
+			{
+				var value = stepSize * i;
+				VectorDirectionCache[i] = new Vector2(MathF.Cos(value), MathF.Sin(value));
+			}
+		}
 
 		public Vector2 this[int i] => VectorDirectionCache[FlowArray[i]];
 
@@ -33,10 +35,18 @@ namespace Pathfindax.Paths
 			TargetWorldPosition = potentialField.TargetWorldPosition;
 			GridTransformer = potentialField.GridTransformer;
 			FlowArray = new byte[potentialField.PotentialArray.Array.Length];
-			//for (int i = 0; i < FlowArray.Length; i++)
-			//{
-			//	FlowArray[i] = potentialField.GetDirectionIndex(i);
-			//}
+
+			var stepAmount = VectorDirectionCache.Length - 1;
+			var fullTurn = MathF.Pi * 6;
+			var stepSize = fullTurn / (stepAmount - 1);
+
+			for (var i = 0; i < potentialField.PotentialArray.Array.Length; i++)
+			{
+				var vector = potentialField[i];
+				var angle = MathF.Atan2(vector.X, vector.Y);
+				var index = (byte)(angle / stepSize);
+				FlowArray[i] = index;
+			}
 		}
 
 		public Vector2 GetHeading(Vector3 currentPosition)
@@ -46,13 +56,13 @@ namespace Pathfindax.Paths
 
 		public Vector2 GetHeading(Vector2 currentPosition)
 		{
-			//var gridCoords = GridTransformer.TransformToGridCoords(currentPosition.X, currentPosition.Y);
-			//if (gridCoords == TargetNode)
-			//{
-			//	return TargetWorldPosition - currentPosition;
-			//}
-			//return this[gridCoords.X, gridCoords.Y];
-			throw new NotImplementedException();
+			var gridCoords = GridTransformer.TransformToGridCoords(currentPosition.X, currentPosition.Y);
+			var index = GridTransformer.TransformToGridIndex(gridCoords.X, gridCoords.Y);
+			if (gridCoords == TargetNode)
+			{
+				return TargetWorldPosition - currentPosition;
+			}
+			return this[index];
 		}
 
 		public bool NextWaypoint() => true;

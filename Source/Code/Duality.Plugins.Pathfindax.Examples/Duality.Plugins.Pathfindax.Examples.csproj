@@ -77,12 +77,13 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Components\FlowFieldFollowerComponent.cs" />
     <Compile Include="Components\GridMouseClickPathfinder.cs" />
     <Compile Include="Components\NonGridMouseClickPathfinder.cs" />
     <Compile Include="Components\PathfindaxPathSpammerComponent.cs" />
     <Compile Include="Components\PathfindProxyExample.cs" />
     <Compile Include="Components\PathFollowerComponent.cs" />
-    <Compile Include="Components\PhysicsParticleFollower.cs" />
+    <Compile Include="Components\PotentialFieldFollowerComponent.cs" />
     <Compile Include="Components\SourceNodeGridProvderMockupComponent.cs" />
     <Compile Include="Components\SourceNodeNetworkProviderMockupComponent.cs" />
     <Compile Include="PathfindaxDualityTestCorePlugin.cs" />
