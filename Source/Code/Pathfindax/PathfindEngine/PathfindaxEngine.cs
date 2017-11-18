@@ -31,14 +31,18 @@ namespace Pathfindax.PathfindEngine
 
 	public static class PathfindaxEngine
 	{
-		public static IEnumerable<IPathfinder> Pathfinders => _pathfinders.Values;
-		private static readonly Dictionary<string, IPathfinder> _pathfinders = new Dictionary<string, IPathfinder>();
+		private static readonly List<IPathfinder> Pathfinders = new List<IPathfinder> ();
 
 		private static readonly Dictionary<IUpdatable, Updater> Updatables = new Dictionary<IUpdatable, Updater>();
 
-		public static void Register(IPathfinder pathfinder, string key = "")
+		public static void Register(IPathfinder pathfinder)
 		{
-			_pathfinders.Add(key, pathfinder);
+			Pathfinders.Add(pathfinder);
+		}
+
+		public static void UnRegister(IPathfinder pathfinder)
+		{
+			Pathfinders.Remove(pathfinder);
 		}
 
 		public static void AddUpdatable(IUpdatable updatable, float interval)
@@ -51,53 +55,17 @@ namespace Pathfindax.PathfindEngine
 			Updatables.Remove(updatable);
 		}
 
-		public static IPathfinder<TDefinitionNetwork, TThreadNodeNetwork, TPath> GetPathfinder<TDefinitionNetwork, TThreadNodeNetwork, TPath>(string id = "")
-			where TDefinitionNetwork : IDefinitionNodeNetwork
-			where TThreadNodeNetwork : IPathfindNodeNetwork
-			where TPath : IPath
-		{
-			if (!_pathfinders.TryGetValue(id, out var pathfinder)) throw new PathfinderNotFoundException();
-			if (pathfinder is IPathfinder<TDefinitionNetwork, TThreadNodeNetwork, TPath> p)
-				return p;
-			throw new InvalidPathfinderTypeException();
-		}
-
-		public static IPathfinder<TDefinitionNetwork, TPath> GetPathfinder<TDefinitionNetwork, TPath>(string id = "")
-			where TDefinitionNetwork : IDefinitionNodeNetwork
-			where TPath : IPath
-		{
-			if (!_pathfinders.TryGetValue(id, out var pathfinder)) throw new PathfinderNotFoundException();
-			if (pathfinder is IPathfinder<TDefinitionNetwork, TPath> p)
-				return p;
-			throw new InvalidPathfinderTypeException();
-		}
-
-		public static IPathfinder<TPath> GetPathfinder<TPath>(string id = "")
-			where TPath : IPath
-		{
-			if (!_pathfinders.TryGetValue(id, out var pathfinder)) throw new PathfinderNotFoundException();
-			if (pathfinder is IPathfinder<TPath> p)
-				return p;
-			throw new InvalidPathfinderTypeException();
-		}
-
-		public static IPathfinder GetPathfinder(string id = "")
-		{
-			if (!_pathfinders.TryGetValue(id, out var pathfinder)) throw new InvalidOperationException();
-			return pathfinder;
-		}
-
 		public static void Clear()
 		{
-			_pathfinders.Clear();
+			Pathfinders.Clear();
 			Updatables.Clear();
 		}
 
 		public static void Update(float time)
 		{
-			foreach (var pathfinder in _pathfinders)
+			foreach (var pathfinder in Pathfinders)
 			{
-				pathfinder.Value.ProcessPaths();
+				pathfinder.ProcessPaths();
 			}
 
 			foreach (var updatable in Updatables)

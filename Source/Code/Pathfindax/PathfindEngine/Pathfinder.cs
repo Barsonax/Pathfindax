@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using Duality;
 using Pathfindax.Algorithms;
 using Pathfindax.Grid;
+using Pathfindax.Nodes;
 using Pathfindax.Paths;
 using Pathfindax.Threading;
 
@@ -67,20 +69,12 @@ namespace Pathfindax.PathfindEngine
 		}
 
 		/// <summary>
-		/// Requests a path
-		/// </summary>
-		/// <param name="pathRequest"></param>
-		public void RequestPath(PathRequest<TPath> pathRequest)
-		{
-			_multithreadedWorkerQueue.Enqueue(pathRequest);
-		}
-
-		/// <summary>
 		/// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
 		/// </summary>
 		public void Dispose()
 		{
 			_multithreadedWorkerQueue.Dispose();
+			PathfindaxEngine.UnRegister(this);
 		}
 
 		public void ProcessPaths()
@@ -89,6 +83,31 @@ namespace Pathfindax.PathfindEngine
 			{
 				pathRequest.CallCallbacks();
 			}
+		}
+
+		public void RequestPath(PathRequest<TPath> pathRequest)
+		{
+			_multithreadedWorkerQueue.Enqueue(pathRequest);
+		}
+
+		public PathRequest<TPath> RequestPath(Vector3 start, Vector3 end, PathfindaxCollisionCategory collisionLayer = PathfindaxCollisionCategory.None, byte agentSize = 1)
+		{
+			return RequestPath(start.X, start.Y, end.X, end.Y, collisionLayer, agentSize);
+		}
+
+		public PathRequest<TPath> RequestPath(Vector2 start, Vector2 end, PathfindaxCollisionCategory collisionLayer = PathfindaxCollisionCategory.None, byte agentSize = 1)
+		{
+			return RequestPath(start.X, start.Y, end.X, end.Y, collisionLayer, agentSize);
+		}
+
+		public PathRequest<TPath> RequestPath(float x1, float y1, float x2, float y2, PathfindaxCollisionCategory collisionLayer = PathfindaxCollisionCategory.None, byte agentSize = 1)
+		{
+			return PathFindAlgorithm.CreatePathRequest(this, DefinitionNodeNetwork, x1, y1, x2, y2, collisionLayer, agentSize);
+		}
+
+		public PathRequest<TPath> RequestPath(DefinitionNode start, DefinitionNode end, PathfindaxCollisionCategory collisionLayer = PathfindaxCollisionCategory.None, byte agentSize = 1)
+		{
+			return PathRequest.Create(this, start, end, collisionLayer, agentSize);
 		}
 	}
 }

@@ -1,6 +1,7 @@
 ﻿using Duality.Editor;
 using Pathfindax.Factories;
 using Pathfindax.Grid;
+using Pathfindax.Paths;
 using Pathfindax.Utils;
 
 namespace Duality.Plugins.Pathfindax.Components
@@ -10,7 +11,7 @@ namespace Duality.Plugins.Pathfindax.Components
 	/// </summary>
 	[EditorHintCategory(PathfindaxStrings.Pathfindax)]
 	[RequiredComponent(typeof(IDefinitionNodeNetworkProvider<IDefinitionNodeNetwork>))]
-	public class AstarPathfinderComponent : PathfinderComponentBase<IDefinitionNodeNetwork>
+	public class AstarPathfinderComponent : PathfinderComponentBase<IDefinitionNodeNetwork, NodePath>
 	{
 		/// <summary>
 		/// The max calculated clearance. Any clearance value higher than will be set to this. 

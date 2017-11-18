@@ -25,18 +25,18 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 		public Camera Camera { get; set; }
 		IPath IPathProvider.Path => Path;
 		public DynamicPotentialFieldComponent DynamicPotentialFieldComponent { get; set; }
+		public PotentialFieldPathfinderComponent PathfinderComponent { get; set; }
 
 		public AggregratedPotentialField Path { get; private set; }
 		public Vector2 CurrentPosition => new Vector2(GameObj.Transform.Pos.X, GameObj.Transform.Pos.Y);
-		private PotentialFieldPathfindProxy _pathfinderProxy;
+
 		private RigidBody _rigidBody;
 		private PathfindaxCollisionCategory _collisionCategory;
 
 		void ICmpInitializable.OnInit(InitContext context)
 		{
 			if (context == InitContext.Activate && DualityApp.ExecContext == DualityApp.ExecutionContext.Game)
-			{
-				_pathfinderProxy = new PotentialFieldPathfindProxy();				
+			{				
 				DynamicPotentialFieldComponent.PotentialField.AddPotentialFunction(this, new QuadraticPotentialFunction(() => CurrentPosition, (float)AgentSize / 2 + 1.0f, 1.2f * AgentSize));
 				_rigidBody = GameObj.GetComponent<RigidBody>();
 				_collisionCategory = (PathfindaxCollisionCategory) _rigidBody.CollisionCategory;
@@ -64,7 +64,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 		private void Mouse_ButtonDown(object sender, MouseButtonEventArgs e)
 		{
 			var targetPos = Camera.GetSpaceCoord(e.Position);
-			var request = _pathfinderProxy.RequestPath(GameObj.Transform.Pos, targetPos, _collisionCategory, AgentSize);
+			var request = PathfinderComponent.Pathfinder.RequestPath(GameObj.Transform.Pos, targetPos, _collisionCategory, AgentSize);
 			request.AddCallback(pathrequest =>
 			{
 				Path = new AggregratedPotentialField(pathrequest.CompletedPath.GridTransformer, pathrequest.CompletedPath, DynamicPotentialFieldComponent.PotentialField);

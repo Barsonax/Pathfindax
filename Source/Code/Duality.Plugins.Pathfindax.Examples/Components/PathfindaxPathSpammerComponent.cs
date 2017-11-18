@@ -14,7 +14,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 	/// </summary>
 	[EditorHintCategory(PathfindaxStrings.PathfindaxTest)]
 	[ExecutionOrder(ExecutionRelation.After, typeof(IDualityPathfinderComponent))]
-	public class PathfindaxPathSpammerComponent : Component, ICmpUpdatable, ICmpInitializable, IPathProvider
+	public class PathfindaxPathSpammerComponent : Component, ICmpUpdatable, IPathProvider
 	{
 		[EditorHintRange(1, byte.MaxValue)]
 		public byte AgentSize { get; set; }
@@ -26,19 +26,9 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 		[EditorHintRange(1, 1000)]
 		public int FramesBetweenRequest { get; set; }
 
-		private NodePathFieldPathfindProxy _pathfinderProxy;
+		public AstarPathfinderComponent PathfinderComponent { get; set; }
 		private readonly Random _randomGenerator = new Random();
 		private int _frameCounter;
-
-		void ICmpInitializable.OnInit(InitContext context)
-		{
-			if (context == InitContext.Activate && DualityApp.ExecContext == DualityApp.ExecutionContext.Game)
-			{
-				_pathfinderProxy = new NodePathFieldPathfindProxy();
-			}
-		}
-
-		void ICmpInitializable.OnShutdown(ShutdownContext context) { }
 
 		void ICmpUpdatable.OnUpdate()
 		{
@@ -46,7 +36,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 			{
 				var start = new Vector2(_randomGenerator.Next(TopLeftCorner.X, BottomRightCorner.X), _randomGenerator.Next(TopLeftCorner.Y, BottomRightCorner.Y));
 				var end = new Vector2(_randomGenerator.Next(TopLeftCorner.X, BottomRightCorner.X), _randomGenerator.Next(TopLeftCorner.Y, BottomRightCorner.Y));
-				var request = _pathfinderProxy.RequestPath(start, end, CollisionCategory, AgentSize);
+				var request = PathfinderComponent.Pathfinder.RequestPath(start, end, CollisionCategory, AgentSize);
 				request.AddCallback(PathSolved);
 				_frameCounter = 0;
 			}

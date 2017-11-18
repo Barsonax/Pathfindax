@@ -383,10 +383,7 @@
             <gameobj dataType="ObjectRef">612087133</gameobj>
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Components.AstarPathfinderComponent" id="2699352515">
-            <_astarNodeNetworks dataType="Struct" type="System.Collections.Generic.List`1[[Pathfindax.Grid.AstarNodeNetwork]]" id="2870379281">
-              <_items dataType="Array" type="Pathfindax.Grid.AstarNodeNetwork[]" id="3536179950" length="0" />
-              <_size dataType="Int">0</_size>
-            </_astarNodeNetworks>
+            <_x003C_AmountOfThreads_x003E_k__BackingField dataType="Int">1</_x003C_AmountOfThreads_x003E_k__BackingField>
             <_x003C_MaxClearance_x003E_k__BackingField dataType="Int">5</_x003C_MaxClearance_x003E_k__BackingField>
             <_x003C_Pathfinder_x003E_k__BackingField />
             <_x003C_PathfinderId_x003E_k__BackingField />
@@ -479,8 +476,6 @@
             <visibilityGroup dataType="Enum" type="Duality.Drawing.VisibilityFlag" name="Group0" value="1" />
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PathFollowerComponent" id="1308675412">
-            <_path />
-            <_pathfinderProxy />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="Struct" type="Duality.Components.Camera" id="924202263">
               <active dataType="Bool">true</active>
@@ -575,6 +570,8 @@
             </_x003C_Camera_x003E_k__BackingField>
             <_x003C_CollisionCategory_x003E_k__BackingField dataType="Enum" type="Pathfindax.Nodes.PathfindaxCollisionCategory" name="Cat1" value="1" />
             <_x003C_MovementSpeed_x003E_k__BackingField dataType="Float">1</_x003C_MovementSpeed_x003E_k__BackingField>
+            <_x003C_Path_x003E_k__BackingField />
+            <_x003C_PathfinderComponent_x003E_k__BackingField dataType="ObjectRef">2699352515</_x003C_PathfinderComponent_x003E_k__BackingField>
             <active dataType="Bool">true</active>
             <gameobj dataType="ObjectRef">3691137018</gameobj>
           </item>

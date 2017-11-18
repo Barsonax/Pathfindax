@@ -81,7 +81,6 @@
     <Compile Include="Components\GridMouseClickPathfinder.cs" />
     <Compile Include="Components\NonGridMouseClickPathfinder.cs" />
     <Compile Include="Components\PathfindaxPathSpammerComponent.cs" />
-    <Compile Include="Components\PathfindProxyExample.cs" />
     <Compile Include="Components\PathFollowerComponent.cs" />
     <Compile Include="Components\PotentialFieldFollowerComponent.cs" />
     <Compile Include="Components\SourceNodeGridProvderMockupComponent.cs" />

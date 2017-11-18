@@ -339,7 +339,6 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.FlowFieldFollowerComponent" id="2742149312">
             <_collisionCategory dataType="Enum" type="Pathfindax.Nodes.PathfindaxCollisionCategory" name="None" value="0" />
-            <_pathfinderProxy />
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">5</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="Struct" type="Duality.Components.Camera" id="1603001729">
@@ -435,6 +434,7 @@
             </_x003C_Camera_x003E_k__BackingField>
             <_x003C_MovementSpeed_x003E_k__BackingField dataType="Float">1</_x003C_MovementSpeed_x003E_k__BackingField>
             <_x003C_Path_x003E_k__BackingField />
+            <_x003C_PathfinderComponent_x003E_k__BackingField dataType="ObjectRef">3854886248</_x003C_PathfinderComponent_x003E_k__BackingField>
             <active dataType="Bool">true</active>
             <gameobj dataType="ObjectRef">4211846889</gameobj>
           </item>
@@ -569,12 +569,12 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.FlowFieldFollowerComponent" id="3871347461">
             <_collisionCategory dataType="Enum" type="Pathfindax.Nodes.PathfindaxCollisionCategory" name="None" value="0" />
-            <_pathfinderProxy />
             <_rigidBody />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">1</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
             <_x003C_MovementSpeed_x003E_k__BackingField dataType="Float">1</_x003C_MovementSpeed_x003E_k__BackingField>
             <_x003C_Path_x003E_k__BackingField />
+            <_x003C_PathfinderComponent_x003E_k__BackingField dataType="ObjectRef">3854886248</_x003C_PathfinderComponent_x003E_k__BackingField>
             <active dataType="Bool">true</active>
             <gameobj dataType="ObjectRef">1046077742</gameobj>
           </item>

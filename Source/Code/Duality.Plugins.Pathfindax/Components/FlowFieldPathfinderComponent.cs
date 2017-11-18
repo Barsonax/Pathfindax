@@ -11,7 +11,7 @@ namespace Duality.Plugins.Pathfindax.Components
 	/// </summary>
 	[EditorHintCategory(PathfindaxStrings.Pathfindax)]
 	[RequiredComponent(typeof(IDefinitionNodeNetworkProvider<DefinitionNodeGrid>))]
-	public class FlowFieldPathfinderComponent : PathfinderComponentBase<DefinitionNodeGrid>
+	public class FlowFieldPathfinderComponent : PathfinderComponentBase<DefinitionNodeGrid, FlowField>
 	{
 		/// <summary>
 		/// The max calculated clearance. Any clearance value higher than will be set to this. 

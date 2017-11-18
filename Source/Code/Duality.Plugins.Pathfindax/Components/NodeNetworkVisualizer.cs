@@ -52,12 +52,12 @@ namespace Duality.Plugins.Pathfindax.Components
 		{
 			if (!Visualize) return;
 			if (DualityApp.ExecContext != DualityApp.ExecutionContext.Game) return;
-			var pathfinder = PathfindaxEngine.GetPathfinder();
-			if (pathfinder?.DefinitionNodeNetwork != null)
+			var pathfinder = GameObj.GetComponent<IDualityPathfinderComponent>();
+			if (pathfinder?.Pathfinder?.DefinitionNodeNetwork != null)
 			{
-				if (Thread > pathfinder.PathfindNodeNetworks.Count) return;
-				var pathfindNetwork = pathfinder.PathfindNodeNetworks[Thread];
-				Draw(device, pathfindNetwork.GetCollisionLayerNetwork(CollisionCategory), pathfinder.DefinitionNodeNetwork);
+				if (Thread > pathfinder.Pathfinder.PathfindNodeNetworks.Count) return;
+				var pathfindNetwork = pathfinder.Pathfinder.PathfindNodeNetworks[Thread];
+				Draw(device, pathfindNetwork.GetCollisionLayerNetwork(CollisionCategory), pathfinder.Pathfinder.DefinitionNodeNetwork);
 			}
 		}
 

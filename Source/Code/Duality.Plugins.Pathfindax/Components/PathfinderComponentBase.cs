@@ -1,18 +1,21 @@
 ﻿using Pathfindax.Grid;
 using Pathfindax.PathfindEngine;
+using Pathfindax.Paths;
 
 namespace Duality.Plugins.Pathfindax.Components
 {
 	/// <summary>
 	/// Base class for duality pathfinders
 	/// </summary>
-	public abstract class PathfinderComponentBase<TDefinitionNodeNetwork> : Component, ICmpInitializable, IDualityPathfinderComponent
+	public abstract class PathfinderComponentBase<TDefinitionNodeNetwork, TPath> : Component, ICmpInitializable, IDualityPathfinderComponent
 		where TDefinitionNodeNetwork : class, IDefinitionNodeNetwork
+		where TPath : IPath
 	{
+		IPathfinder IDualityPathfinderComponent.Pathfinder => Pathfinder;
 		/// <summary>
 		/// 
 		/// </summary>
-		public IPathfinder Pathfinder { get; protected set; }
+		public IPathfinder<TPath> Pathfinder { get; protected set; }
 
 		/// <summary>
 		/// 

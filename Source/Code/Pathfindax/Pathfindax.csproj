@@ -82,7 +82,6 @@
     <Compile Include="PathfindEngine\Exceptions\PathfinderNotFoundException.cs" />
     <Compile Include="PathfindEngine\Interfaces\IPathRequest.cs" />
     <Compile Include="PathfindEngine\PathfindaxEngine.cs" />
-    <Compile Include="PathfindEngine\PathfinderProxy.cs" />
     <Compile Include="PathfindEngine\SingleSourcePathRequestComparer.cs" />
     <Compile Include="Paths\FlowField.cs" />
     <Compile Include="Nodes\DijkstraNode.cs" />

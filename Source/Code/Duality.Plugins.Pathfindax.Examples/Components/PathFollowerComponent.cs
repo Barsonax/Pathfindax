@@ -1,4 +1,5 @@
-﻿using Duality.Components;
+﻿using System.Dynamic;
+using Duality.Components;
 using Duality.Editor;
 using Duality.Input;
 using Duality.Plugins.Pathfindax.Components;
@@ -20,14 +21,13 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 		public PathfindaxCollisionCategory CollisionCategory { get; set; }
 		public Camera Camera { get; set; }
 		public IPath Path { get; private set; }
-		private NodePathFieldPathfindProxy _pathfinderProxy;
+		public AstarPathfinderComponent PathfinderComponent { get; set; }
 
 		void ICmpInitializable.OnInit(InitContext context)
 		{
 			if (context == InitContext.Activate && DualityApp.ExecContext == DualityApp.ExecutionContext.Game)
 			{
 				DualityApp.Mouse.ButtonDown += Mouse_ButtonDown;
-				_pathfinderProxy = new NodePathFieldPathfindProxy();
 			}
 		}
 
@@ -50,7 +50,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 		private void Mouse_ButtonDown(object sender, MouseButtonEventArgs e)
 		{
 			var targetPos = Camera.GetSpaceCoord(e.Position);
-			var request = _pathfinderProxy.RequestPath(GameObj.Transform.Pos, targetPos, CollisionCategory, AgentSize);
+			var request = PathfinderComponent.Pathfinder.RequestPath(GameObj.Transform.Pos, targetPos, CollisionCategory, AgentSize);
 			request.AddCallback(OnRequestCompleted);
 		}
 

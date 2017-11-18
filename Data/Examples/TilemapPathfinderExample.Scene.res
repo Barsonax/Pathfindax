@@ -597,10 +597,7 @@
             <gameobj dataType="ObjectRef">1317002254</gameobj>
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Components.AstarPathfinderComponent" id="3404267636">
-            <_astarNodeNetworks dataType="Struct" type="System.Collections.Generic.List`1[[Pathfindax.Grid.AstarNodeNetwork]]" id="2307499472">
-              <_items dataType="Array" type="Pathfindax.Grid.AstarNodeNetwork[]" id="1386761916" length="0" />
-              <_size dataType="Int">0</_size>
-            </_astarNodeNetworks>
+            <_x003C_AmountOfThreads_x003E_k__BackingField dataType="Int">1</_x003C_AmountOfThreads_x003E_k__BackingField>
             <_x003C_MaxClearance_x003E_k__BackingField dataType="Int">5</_x003C_MaxClearance_x003E_k__BackingField>
             <_x003C_Pathfinder_x003E_k__BackingField />
             <_x003C_PathfinderId_x003E_k__BackingField />
@@ -746,7 +743,6 @@
         <_items dataType="Array" type="Duality.Component[]" id="3266550624" length="4">
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PathfindaxPathSpammerComponent" id="1279318976">
             <_frameCounter dataType="Int">0</_frameCounter>
-            <_pathfinderProxy />
             <_randomGenerator dataType="Struct" type="System.Random" id="542603856">
               <inext dataType="Int">0</inext>
               <inextp dataType="Int">21</inextp>
@@ -760,6 +756,7 @@
             <_x003C_CollisionCategory_x003E_k__BackingField dataType="Enum" type="Pathfindax.Nodes.PathfindaxCollisionCategory" name="Cat1" value="1" />
             <_x003C_FramesBetweenRequest_x003E_k__BackingField dataType="Int">0</_x003C_FramesBetweenRequest_x003E_k__BackingField>
             <_x003C_Path_x003E_k__BackingField />
+            <_x003C_PathfinderComponent_x003E_k__BackingField dataType="ObjectRef">3404267636</_x003C_PathfinderComponent_x003E_k__BackingField>
             <_x003C_TopLeftCorner_x003E_k__BackingField dataType="Struct" type="Duality.Point2">
               <X dataType="Int">-480</X>
               <Y dataType="Int">-304</Y>

@@ -29,13 +29,14 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 		/// </summary>
 		public IPath Path { get; private set; }
 
+		public AstarPathfinderComponent PathfinderComponent { get; set; }
+
 		/// <summary>
 		/// A reference to the <see cref="Duality.Components.Camera"/> thats used to convert the screen coordinates from mouseclicks to world coordinates.
 		/// </summary>
 		public Camera Camera { get; set; }
 
 		private Vector3? _pathStart;
-		private NodePathFieldPathfindProxy _nonGridPathfinderProxy;
 
 		void ICmpInitializable.OnInit(InitContext context)
 		{
@@ -43,7 +44,6 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 			{
 				DualityApp.Mouse.Move += Mouse_Move;
 				DualityApp.Mouse.ButtonDown += Mouse_ButtonDown;
-				_nonGridPathfinderProxy = new NodePathFieldPathfindProxy();
 			}
 		}
 
@@ -76,7 +76,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 			if (_pathStart != null)
 			{
 				var mouseWorldPosition = Camera.GetSpaceCoord(e.Position);
-				var request = _nonGridPathfinderProxy.RequestPath(_pathStart.Value, mouseWorldPosition, CollisionCategory, AgentSize);
+				var request = PathfinderComponent.Pathfinder.RequestPath(_pathStart.Value, mouseWorldPosition, CollisionCategory, AgentSize);
 				request.AddCallback(PathSolved);
 			}
 		}

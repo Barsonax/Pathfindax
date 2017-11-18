@@ -10,7 +10,7 @@ namespace Pathfindax.Factories
 {
 	public static class PathfinderFactory
 	{
-		public static IPathfinder CreateFlowFieldPathfinder(string pathfinderId, DefinitionNodeGrid nodeGrid, int maxClearance, int maxCachedFlowFields, int amountOfThreads)
+		public static Pathfinder<DefinitionNodeGrid, DijkstraNodeGrid, FlowField> CreateFlowFieldPathfinder(string pathfinderId, DefinitionNodeGrid nodeGrid, int maxClearance, int maxCachedFlowFields, int amountOfThreads)
 		{
 			var pathfinder = CreatePathfinder(nodeGrid, new FlowFieldAlgorithm(maxCachedFlowFields), (definitionNodeGrid, algorithm) =>
 			{
@@ -21,7 +21,7 @@ namespace Pathfindax.Factories
 			return pathfinder;
 		}
 
-		public static IPathfinder CreatePotentialFieldPathfinder(string pathfinderId, DefinitionNodeGrid nodeGrid, int maxClearance, int maxCachedFlowFields, int amountOfThreads)
+		public static Pathfinder<DefinitionNodeGrid, DijkstraNodeGrid, PotentialField> CreatePotentialFieldPathfinder(string pathfinderId, DefinitionNodeGrid nodeGrid, int maxClearance, int maxCachedFlowFields, int amountOfThreads)
 		{
 			var pathfinder = CreatePathfinder(nodeGrid, new PotentialFieldAlgorithm(maxCachedFlowFields), (definitionNodeGrid, algorithm) =>
 			{
@@ -32,7 +32,7 @@ namespace Pathfindax.Factories
 			return pathfinder;
 		}
 
-		public static IPathfinder CreateAstarPathfinder(string pathfinderId, IDefinitionNodeNetwork nodeNetwork, int maxClearance, int amountOfThreads)
+		public static Pathfinder<IDefinitionNodeNetwork, IPathfindNodeNetwork<AstarNode>, NodePath> CreateAstarPathfinder(string pathfinderId, IDefinitionNodeNetwork nodeNetwork, int maxClearance, int amountOfThreads)
 		{
 			var pathfinder = CreatePathfinder(nodeNetwork, new AStarAlgorithm(), (definitionNodeNetwork, algorithm) =>
 			{

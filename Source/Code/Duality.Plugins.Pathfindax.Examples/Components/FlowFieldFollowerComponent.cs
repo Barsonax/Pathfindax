@@ -24,7 +24,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 
 		public FlowField Path { get; private set; }
 		public Vector2 CurrentPosition => new Vector2(GameObj.Transform.Pos.X, GameObj.Transform.Pos.Y);
-		private FlowFieldPathfindProxy _pathfinderProxy;
+		public FlowFieldPathfinderComponent PathfinderComponent { get; set; }
 		private RigidBody _rigidBody;
 		private PathfindaxCollisionCategory _collisionCategory;
 
@@ -32,7 +32,6 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 		{
 			if (context == InitContext.Activate && DualityApp.ExecContext == DualityApp.ExecutionContext.Game)
 			{
-				_pathfinderProxy = new FlowFieldPathfindProxy();
 				_rigidBody = GameObj.GetComponent<RigidBody>();
 				_collisionCategory = (PathfindaxCollisionCategory) _rigidBody.CollisionCategory;
 				DualityApp.Mouse.ButtonDown += Mouse_ButtonDown;
@@ -58,7 +57,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 		private void Mouse_ButtonDown(object sender, MouseButtonEventArgs e)
 		{
 			var targetPos = Camera.GetSpaceCoord(e.Position);
-			var request = _pathfinderProxy.RequestPath(GameObj.Transform.Pos, targetPos, _collisionCategory, AgentSize);
+			var request = PathfinderComponent.Pathfinder.RequestPath(GameObj.Transform.Pos, targetPos, _collisionCategory, AgentSize);
 			request.AddCallback(pathrequest =>
 			{
 				Path = pathrequest.CompletedPath;
