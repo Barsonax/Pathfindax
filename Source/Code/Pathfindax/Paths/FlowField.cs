@@ -7,18 +7,18 @@ namespace Pathfindax.Paths
 	public class FlowField : IPath
 	{
 		public static readonly Vector2[] VectorDirectionCache;
+		private const float FullTurn = HalfTurn * 2;
+		private const float HalfTurn = MathF.Pi;
+		private const byte StepAmount = 248;
 
 		static FlowField()
 		{
 			VectorDirectionCache = new Vector2[255];
 			VectorDirectionCache[254] = Vector2.Zero;
-			var stepAmount = VectorDirectionCache.Length - 1;
-			var fullTurn = MathF.Pi * 6;
-			var stepSize = fullTurn / (stepAmount - 1);
-			for (var i = 0; i < stepAmount; i++)
+			for (var i = 0; i <= StepAmount; i++)
 			{
-				var value = stepSize * i;
-				VectorDirectionCache[i] = new Vector2(MathF.Cos(value), MathF.Sin(value));
+				var value = (float)i / StepAmount * FullTurn;
+				VectorDirectionCache[i] = -new Vector2(MathF.Cos(value), MathF.Sin(value));
 			}
 		}
 
@@ -36,16 +36,19 @@ namespace Pathfindax.Paths
 			GridTransformer = potentialField.GridTransformer;
 			FlowArray = new byte[potentialField.PotentialArray.Array.Length];
 
-			var stepAmount = VectorDirectionCache.Length - 1;
-			var fullTurn = MathF.Pi * 6;
-			var stepSize = fullTurn / (stepAmount - 1);
-
 			for (var i = 0; i < potentialField.PotentialArray.Array.Length; i++)
 			{
 				var vector = potentialField[i];
-				var angle = MathF.Atan2(vector.X, vector.Y);
-				var index = (byte)(angle / stepSize);
-				FlowArray[i] = index;
+				if (vector.X == 0 && vector.Y == 0)
+				{
+					FlowArray[i] = 254;
+				}
+				else
+				{
+					var angle = MathF.Atan2(vector.Y, vector.X);
+					var index = (byte)((angle + HalfTurn) / FullTurn * StepAmount);
+					FlowArray[i] = index;
+				}
 			}
 		}
 
