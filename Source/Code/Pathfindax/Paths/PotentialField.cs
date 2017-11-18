@@ -1,5 +1,4 @@
-﻿using Pathfindax.Algorithms;
-using Pathfindax.Collections;
+﻿using Pathfindax.Collections;
 using Pathfindax.Utils;
 
 namespace Pathfindax.Paths

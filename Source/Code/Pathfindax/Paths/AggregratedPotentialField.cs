@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using Pathfindax.Algorithms;
 using Pathfindax.Utils;
 
 namespace Pathfindax.Paths

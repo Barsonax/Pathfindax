@@ -1,5 +1,4 @@
-﻿using System;
-using Duality;
+﻿using Duality;
 using Pathfindax.Utils;
 
 namespace Pathfindax.Paths
@@ -63,7 +62,7 @@ namespace Pathfindax.Paths
 			var index = GridTransformer.TransformToGridIndex(gridCoords.X, gridCoords.Y);
 			if (gridCoords == TargetNode)
 			{
-				return TargetWorldPosition - currentPosition;
+				return (TargetWorldPosition - currentPosition).Normalized;
 			}
 			return this[index];
 		}

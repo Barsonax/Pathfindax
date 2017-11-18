@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using Pathfindax.Collections;
 using Pathfindax.Nodes;
 using Pathfindax.PathfindEngine;

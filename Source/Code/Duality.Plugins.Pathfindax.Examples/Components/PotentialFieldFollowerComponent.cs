@@ -37,7 +37,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 			if (context == InitContext.Activate && DualityApp.ExecContext == DualityApp.ExecutionContext.Game)
 			{
 				_pathfinderProxy = new PotentialFieldPathfindProxy();				
-				DynamicPotentialFieldComponent.PotentialField.AddPotentialFunction(this, new QuadraticPotentialFunction(() => CurrentPosition, (float)AgentSize / 2 + 1.5f, 0.8f));
+				DynamicPotentialFieldComponent.PotentialField.AddPotentialFunction(this, new QuadraticPotentialFunction(() => CurrentPosition, (float)AgentSize / 2 + 1.0f, 1.2f * AgentSize));
 				_rigidBody = GameObj.GetComponent<RigidBody>();
 				_collisionCategory = (PathfindaxCollisionCategory) _rigidBody.CollisionCategory;
 				DualityApp.Mouse.ButtonDown += Mouse_ButtonDown;
@@ -57,7 +57,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 				var heading = Path.GetHeading(GameObj.Transform.Pos);
 				if (heading.Length <= MovementSpeed)
 					Path.NextWaypoint();
-				_rigidBody.ApplyWorldForce(Mathf.Clamp(heading.Normalized * MovementSpeed, heading.Length));
+				_rigidBody.ApplyWorldForce(heading * MovementSpeed);
 			}
 		}
 

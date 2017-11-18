@@ -50,7 +50,7 @@ namespace Pathfindax.Algorithms
 			switch (definitionNodes)
 			{
 				case IDefinitionNodeGrid definitionNodeGrid:
-					var offset = new Vector2(0, 0);//-GridClearanceHelper.GridNodeOffset(agentSize, definitionNodeGrid.NodeSize);
+					var offset = -GridClearanceHelper.GridNodeOffset(agentSize, definitionNodeGrid.NodeSize);
 					startNode = definitionNodeGrid.GetNode(x1 + offset.X, y1 + offset.Y);
 					endNode = definitionNodeGrid.GetNode(x2 + offset.X, y2 + offset.Y);
 					return PathRequest.Create(pathfinder, startNode, endNode, collisionLayer, agentSize);

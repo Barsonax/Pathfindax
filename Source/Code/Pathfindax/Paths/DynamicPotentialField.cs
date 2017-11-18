@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Duality;
-using Pathfindax.Algorithms;
 using Pathfindax.Collections;
 using Pathfindax.PathfindEngine;
 using Pathfindax.Utils;
