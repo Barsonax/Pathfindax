@@ -1,6 +1,6 @@
 using System;
 using Duality;
-using Pathfindax.Utils;
+using Pathfindax.Grid;
 
 namespace Pathfindax.Paths
 {
@@ -21,7 +21,7 @@ namespace Pathfindax.Paths
 		public void UpdateGridPosition(GridTransformer gridTransformer)
 		{
 			var worldPosition = _worldPositionProvider.Invoke();
-			GridPosition = gridTransformer.TransformToGridCoords(worldPosition);
+			GridPosition = gridTransformer.ToGridSpace(worldPosition);
 		}
 
 		public abstract float GetValue(int x, int y);

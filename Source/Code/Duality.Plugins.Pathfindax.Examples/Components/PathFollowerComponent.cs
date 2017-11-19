@@ -1,5 +1,4 @@
-﻿using System.Dynamic;
-using Duality.Components;
+﻿using Duality.Components;
 using Duality.Editor;
 using Duality.Input;
 using Duality.Plugins.Pathfindax.Components;
@@ -43,7 +42,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 				var heading = Path.GetHeading(GameObj.Transform.Pos);
 				if (heading.Length <= MovementSpeed)
 					Path.NextWaypoint();
-				GameObj.Transform.MoveBy(Mathf.Clamp(heading.Normalized * Time.TimeMult * MovementSpeed, heading.Length));
+				GameObj.Transform.MoveBy(PathfindaxMathF.Clamp(heading.Normalized * Time.TimeMult * MovementSpeed, heading.Length));
 			}
 		}
 

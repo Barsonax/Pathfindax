@@ -25,7 +25,7 @@ namespace Duality.Plugins.Pathfindax.Components
 			{
 				var sourceNodeNetwork = GetSourceNodeNetwork();
 				if (sourceNodeNetwork == null) return;
-				Pathfinder = PathfinderFactory.CreateAstarPathfinder(PathfinderId, sourceNodeNetwork, MaxClearance, AmountOfThreads);
+				Pathfinder = PathfinderFactory.CreateAstarPathfinder(PathfindaxDualityCorePlugin.PathfindaxManager, PathfinderId, sourceNodeNetwork, MaxClearance, AmountOfThreads);
 			}
 		}
 	}

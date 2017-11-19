@@ -2,31 +2,32 @@
 using System.Collections.Generic;
 using Duality;
 using Pathfindax.Collections;
+using Pathfindax.Grid;
 using Pathfindax.PathfindEngine;
-using Pathfindax.Utils;
 
 namespace Pathfindax.Paths
 {
-	public class DynamicPotentialField : PotentialFieldBase, IUpdatable, IDisposable
+	public class DynamicPotentialField : PotentialFieldBase, IDisposable
 	{
 		public Array2D<float> PotentialArray { get; }
 		private readonly Dictionary<object, PotentialFunction> _valueProviders = new Dictionary<object, PotentialFunction>();
+		private readonly DynamicPotentialFieldUpdater _dynamicPotentialFieldUpdater;
 
 		/// <summary>
 		/// Creates a new <see cref="DynamicPotentialField"/>
 		/// </summary>
+		/// <param name="pathfindaxManager"></param>
 		/// <param name="gridTransformer"></param>
-		/// <param name="interval">The update interval in milliseconds. Will not update if less than 0.</param>
-		public DynamicPotentialField(GridTransformer gridTransformer, float interval) : base(gridTransformer)
+		/// <param name="interval">The update interval in milliseconds.</param>
+		public DynamicPotentialField(IPathfindaxManager pathfindaxManager, GridTransformer gridTransformer, float interval) : base(gridTransformer)
 		{
+			_dynamicPotentialFieldUpdater = new DynamicPotentialFieldUpdater(pathfindaxManager, this, interval);
 			PotentialArray = new Array2D<float>(gridTransformer.GridSize.X, gridTransformer.GridSize.Y);
-			if (interval >= 0f)
-				PathfindaxEngine.AddUpdatable(this, interval);
 		}
 
 		public void Dispose()
 		{
-			PathfindaxEngine.RemoveUpdatable(this);
+			_dynamicPotentialFieldUpdater.Dispose();
 		}
 
 		public void AddPotentialFunction(object key, PotentialFunction potentialFunction)

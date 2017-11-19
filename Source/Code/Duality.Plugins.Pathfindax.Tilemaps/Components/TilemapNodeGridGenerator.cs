@@ -38,7 +38,7 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Components
 			}
 		}
 
-		private DefinitionNodeGrid _sourceNodeGrid;
+		private DefinitionNodeGrid _definitionNodeGrid;
 
 		/// <summary>
 		/// Generates a fully initialized <see cref="DefinitionNodeGrid"/> that can be used as a source nodegrid for pathfinders.
@@ -46,7 +46,7 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Components
 		/// <returns></returns>
 		public DefinitionNodeGrid GenerateGrid2D()
 		{
-			if (_sourceNodeGrid == null)
+			if (_definitionNodeGrid == null)
 			{
 				var watch = Stopwatch.StartNew();
 				var tilemaps = SearchTilemaps().ToArray();
@@ -58,21 +58,21 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Components
 				}
 				var offset = -new Vector2(baseTilemap.Size.X * baseTilemap.Tileset.Res.TileSize.X - baseTilemap.Tileset.Res.TileSize.X, baseTilemap.Size.Y * baseTilemap.Tileset.Res.TileSize.Y - baseTilemap.Tileset.Res.TileSize.Y) / 2;
 				var sourceNodeGridFactory = new DefinitionNodeGridFactory();
-				_sourceNodeGrid = sourceNodeGridFactory.GeneratePreFilledArray(baseTilemap.Size.X, baseTilemap.Size.Y, new Vector2(baseTilemap.Tileset.Res.TileSize.X, baseTilemap.Tileset.Res.TileSize.Y), GenerateNodeGridConnections.None, new Vector2(offset.X, offset.Y));
+				_definitionNodeGrid = sourceNodeGridFactory.GeneratePreFilledArray(baseTilemap.Size.X, baseTilemap.Size.Y, new Vector2(baseTilemap.Tileset.Res.TileSize.X, baseTilemap.Tileset.Res.TileSize.Y), GenerateNodeGridConnections.None, new Vector2(offset.X, offset.Y));
 				var tilemapColliderWithBodies = GameObj.GetComponentsInChildren<TilemapCollider>().Select(x => new TilemapColliderWithBody(x)).ToArray();
-				var partioner = Partitioner.Create(0, _sourceNodeGrid.NodeCount);
+				var partioner = Partitioner.Create(0, _definitionNodeGrid.NodeCount);
 
 				Parallel.ForEach(partioner, range =>
 				{
 					var connectionGenerator = new TilemapNodeConnectionGenerator();
 					for (var i = range.Item1; i < range.Item2; i++)
 					{
-						var definitionNode = _sourceNodeGrid.NodeGrid[i];
-						connectionGenerator.CalculateGridNodeCollision(tilemapColliderWithBodies, _sourceNodeGrid.NodeGrid[i], _sourceNodeGrid);
+						var definitionNode = _definitionNodeGrid.NodeGrid[i];
+						connectionGenerator.CalculateGridNodeCollision(tilemapColliderWithBodies, _definitionNodeGrid.NodeGrid[i], _definitionNodeGrid);
 
 						if (MovementPenalties != null)
-						{
-							var nodeGridCoordinates = _sourceNodeGrid.NodeGrid.GetCoordinates(definitionNode.Index.Index);
+						{							
+							var nodeGridCoordinates = _definitionNodeGrid.Transformer.ToGridSpace(definitionNode.Index.Index);
 							var index = baseTilemap.Tiles[nodeGridCoordinates.X, nodeGridCoordinates.Y].Index;
 							if (index < MovementPenalties.Length)
 								definitionNode.MovementCostModifier = MovementPenalties[index];
@@ -81,7 +81,7 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Components
 				});
 				Debug.WriteLine($"Generated definition nodegrid for tilemap in {watch.ElapsedMilliseconds} ms");
 			}
-			return _sourceNodeGrid;
+			return _definitionNodeGrid;
 		}
 
 		private IEnumerable<Tilemap> SearchTilemaps()

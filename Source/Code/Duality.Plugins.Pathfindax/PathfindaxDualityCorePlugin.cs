@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Linq;
 using Duality.Resources;
 using Pathfindax.PathfindEngine;
 #pragma warning disable 1591
@@ -11,20 +11,29 @@ namespace Duality.Plugins.Pathfindax
 	/// </summary>
 	public class PathfindaxDualityCorePlugin : CorePlugin
 	{
+		private readonly PathfindaxManager _pathfindaxManager = new PathfindaxManager();
+
+		public static PathfindaxManager PathfindaxManager
+		{
+			get
+			{
+				var pathfindaxDualityCorePlugin = DualityApp.PluginManager.LoadedPlugins.OfType<PathfindaxDualityCorePlugin>().FirstOrDefault();
+				return pathfindaxDualityCorePlugin._pathfindaxManager;
+			}
+		}
+
 		/// <summary>
 		/// Creates a new <see cref="PathfindaxDualityCorePlugin"/> and does some initialization work
 		/// </summary>
 		public PathfindaxDualityCorePlugin()
 		{
-			Scene.Leaving += Scene_Leaving;
+			Scene.Leaving += Scene_Leaving;			
 		}
 
-		private List<float> foo = new List<float>();
 		protected override void OnBeforeUpdate()
 		{
 			base.OnBeforeUpdate();
-			PathfindaxEngine.Update(Time.LastDelta);
-			foo.Add(Time.LastDelta);
+			_pathfindaxManager.Update(Time.LastDelta);
 		}
 
 		protected override void OnDisposePlugin()
@@ -33,9 +42,9 @@ namespace Duality.Plugins.Pathfindax
 			base.OnDisposePlugin();
 		}
 
-		private static void Scene_Leaving(object sender, EventArgs e)
+		private void Scene_Leaving(object sender, EventArgs e)
 		{
-			PathfindaxEngine.Clear();
+			_pathfindaxManager.Clear();
 		}
 	}
 }

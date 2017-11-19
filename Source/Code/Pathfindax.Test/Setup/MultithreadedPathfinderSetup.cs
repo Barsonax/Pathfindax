@@ -13,7 +13,7 @@ namespace Pathfindax.Test.Setup
 	{
 		public static Pathfinder<IDefinitionNodeNetwork, IPathfindNodeNetwork, IPath> Substitute(int threads)
 		{
-			return PathfinderFactory.CreatePathfinder(NSubstitute.Substitute.For<IDefinitionNodeNetwork>(), NSubstitute.Substitute.For<IPathFindAlgorithm<IPathfindNodeNetwork, IPath>>(), (definitionNodeNetwork, algorithm) =>
+			return PathfinderFactory.CreatePathfinder(NSubstitute.Substitute.For<IPathfindaxManager>(), NSubstitute.Substitute.For<IDefinitionNodeNetwork>(), NSubstitute.Substitute.For<IPathFindAlgorithm<IPathfindNodeNetwork, IPath>>(), (definitionNodeNetwork, algorithm) =>
 			{
 				var nodeGrid = NSubstitute.Substitute.For<IPathfindNodeNetwork>();
 				algorithm.FindPath(null, null).ReturnsForAnyArgs(new NodePath(new[] { new DefinitionNode(0, Vector2.Zero), }));

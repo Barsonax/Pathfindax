@@ -1,7 +1,6 @@
 ﻿using Duality;
 using Pathfindax.Collections;
 using Pathfindax.Nodes;
-using Pathfindax.Utils;
 
 namespace Pathfindax.Grid
 {
@@ -13,24 +12,23 @@ namespace Pathfindax.Grid
 	{
 		public DefinitionNode this[int index] => NodeGrid[index];		
 		public Array2D<DefinitionNode> NodeGrid { get; }
-		IReadOnlyArray2D<DefinitionNode> IDefinitionNodeGrid.DefinitionNodeArray => NodeGrid;	
-		public Vector2 NodeSize { get; protected set; }
-		public int NodeCount => NodeGrid.Length;
-		public GridTransformer GridTransformer { get; }
-		public Vector2 WorldSize => GridTransformer.WorldSize;
-		public Vector2 Offset => GridTransformer.Offset;
+		IReadOnlyArray2D<DefinitionNode> IDefinitionNodeGrid.DefinitionNodeArray => NodeGrid;
+		public GridTransformer Transformer { get; }
+		public int NodeCount => Transformer.NodeCount;
+		public Vector2 NodeSize => Transformer.NodeSize;
+		public Vector2 WorldSize => Transformer.WorldSize;
+		public Vector2 Offset => Transformer.Offset;
 
 		public DefinitionNodeGrid(Array2D<DefinitionNode> grid, Vector2 nodeSize, Vector2 offset)
 		{
 			NodeGrid = grid;
 			var worldSize = new Vector2(NodeGrid.Width * nodeSize.X - nodeSize.X, NodeGrid.Height * nodeSize.Y - nodeSize.Y);
-			NodeSize = nodeSize;
-			GridTransformer = new GridTransformer(worldSize, offset, new Point2(NodeGrid.Width, NodeGrid.Height), nodeSize);
+			Transformer = new GridTransformer(worldSize, offset, new Point2(NodeGrid.Width, NodeGrid.Height), nodeSize);
 		}
 
 		public DefinitionNode GetNode(float worldX, float worldY)
 		{
-			var coords = GridTransformer.TransformToGridCoords(worldX, worldY);
+			var coords = Transformer.ToGridSpace(worldX, worldY);
 			return NodeGrid[coords.X, coords.Y];
 		}
 	}

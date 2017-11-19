@@ -1,6 +1,5 @@
 ﻿using Duality;
 using Pathfindax.Nodes;
-using Pathfindax.Utils;
 
 namespace Pathfindax.Grid
 {
@@ -32,8 +31,8 @@ namespace Pathfindax.Grid
 		/// <param name="maxClearance"></param>
 		/// <returns></returns>
 		public float CalculateGridNodeClearances(int index, PathfindaxCollisionCategory collisionCategory, int maxClearance)
-		{
-			var fromCoordinates = _definitionNodeGrid.DefinitionNodeArray.GetCoordinates(index);
+		{			
+			var fromCoordinates = _definitionNodeGrid.Transformer.ToGridSpace(index);
 			for (var checkClearance = 0; checkClearance < maxClearance; checkClearance++)
 			{
 				var nextClearanceIsBlocked = false;
@@ -86,7 +85,7 @@ namespace Pathfindax.Grid
 			{
 				if ((nodeConnection.CollisionCategory & collisionCategory) != 0)
 				{
-					var toCoordinates = _definitionNodeGrid.DefinitionNodeArray.GetCoordinates(nodeConnection.To.Index);
+					var toCoordinates = _definitionNodeGrid.Transformer.ToGridSpace(nodeConnection.To.Index);
 					if (toCoordinates.X >= fromCoordinates.X && toCoordinates.Y >= fromCoordinates.Y)
 					{
 						if (toCoordinates.X >= x || toCoordinates.Y >= y)

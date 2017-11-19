@@ -1,5 +1,5 @@
 ﻿using Duality;
-using Pathfindax.Utils;
+using Pathfindax.Grid;
 
 namespace Pathfindax.Paths
 {
@@ -58,8 +58,8 @@ namespace Pathfindax.Paths
 
 		public Vector2 GetHeading(Vector2 currentPosition)
 		{
-			var gridCoords = GridTransformer.TransformToGridCoords(currentPosition.X, currentPosition.Y);
-			var index = GridTransformer.TransformToGridIndex(gridCoords.X, gridCoords.Y);
+			var gridCoords = GridTransformer.ToGridSpace(currentPosition);
+			var index = GridTransformer.ToArraySpace(gridCoords.X, gridCoords.Y);
 			if (gridCoords == TargetNode)
 			{
 				return (TargetWorldPosition - currentPosition).Normalized;

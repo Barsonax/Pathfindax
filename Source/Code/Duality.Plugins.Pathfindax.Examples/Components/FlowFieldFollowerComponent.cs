@@ -4,7 +4,6 @@ using Duality.Editor;
 using Duality.Input;
 using Duality.Plugins.Pathfindax.Components;
 using Pathfindax.Nodes;
-using Pathfindax.PathfindEngine;
 using Pathfindax.Paths;
 using Pathfindax.Utils;
 
@@ -50,7 +49,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 				var heading = Path.GetHeading(GameObj.Transform.Pos);
 				if (heading.Length <= MovementSpeed)
 					Path.NextWaypoint();
-				_rigidBody.ApplyWorldForce(Mathf.Clamp(heading.Normalized * MovementSpeed, heading.Length));
+				_rigidBody.ApplyWorldForce(PathfindaxMathF.Clamp(heading.Normalized * MovementSpeed, heading.Length));
 			}
 		}
 

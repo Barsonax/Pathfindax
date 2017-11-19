@@ -18,7 +18,7 @@ namespace Duality.Plugins.Pathfindax.Components
 			{
 				var pathfinder = GameObj.GetComponent<PotentialFieldPathfinderComponent>();
 				var definitionNodeNetwork = ((Pathfinder<DefinitionNodeGrid, DijkstraNodeGrid, PotentialField>) pathfinder.Pathfinder).DefinitionNodeNetwork;
-				PotentialField = new DynamicPotentialField(definitionNodeNetwork.GridTransformer, UpdateInterval);
+				PotentialField = new DynamicPotentialField(PathfindaxDualityCorePlugin.PathfindaxManager, definitionNodeNetwork.Transformer, UpdateInterval);
 			}
 		}
 

@@ -27,7 +27,7 @@ namespace Pathfindax.Paths
 
 		private float GetValue(float distance)
 		{
-			var value = (-MathF.Pow(distance, 2) + _offset) * _strengthModifier;
+			var value = (-distance * distance + _offset) * _strengthModifier;
 			return value;
 		}
 

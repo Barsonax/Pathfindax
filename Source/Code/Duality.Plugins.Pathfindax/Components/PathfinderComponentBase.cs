@@ -12,25 +12,13 @@ namespace Duality.Plugins.Pathfindax.Components
 		where TPath : IPath
 	{
 		IPathfinder IDualityPathfinderComponent.Pathfinder => Pathfinder;
-		/// <summary>
-		/// 
-		/// </summary>
+
 		public IPathfinder<TPath> Pathfinder { get; protected set; }
 
-		/// <summary>
-		/// 
-		/// </summary>
 		public string PathfinderId { get; set; }
 
-		/// <summary>
-		/// 
-		/// </summary>
 		public int AmountOfThreads { get; set; } = 1;
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <returns></returns>
 		protected TDefinitionNodeNetwork GetSourceNodeNetwork()
 		{
 			var sourceProvider = GameObj.GetComponent<IDefinitionNodeNetworkProvider<TDefinitionNodeNetwork>>();
@@ -48,10 +36,6 @@ namespace Duality.Plugins.Pathfindax.Components
 			return sourceNodeNetwork;
 		}
 
-		/// <summary>
-		/// Called when initializing the pathfinder
-		/// </summary>
-		/// <param name="context"></param>
 		public abstract void OnInit(InitContext context);
 
 		void ICmpInitializable.OnShutdown(ShutdownContext context)

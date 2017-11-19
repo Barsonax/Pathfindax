@@ -3,7 +3,6 @@ using Duality.Drawing;
 using Duality.Editor;
 using Pathfindax.Grid;
 using Pathfindax.Nodes;
-using Pathfindax.PathfindEngine;
 using Pathfindax.Utils;
 
 namespace Duality.Plugins.Pathfindax.Components

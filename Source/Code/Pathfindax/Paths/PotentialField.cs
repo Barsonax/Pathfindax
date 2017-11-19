@@ -1,13 +1,8 @@
 ﻿using Pathfindax.Collections;
-using Pathfindax.Utils;
+using Pathfindax.Grid;
 
 namespace Pathfindax.Paths
 {
-	public interface IUpdatable
-	{
-		void Update();
-	}
-
 	public class PotentialField : PotentialFieldBase
 	{
 		public Array2D<float> PotentialArray { get; }
@@ -15,8 +10,8 @@ namespace Pathfindax.Paths
 		public PotentialField(GridTransformer gridTransformer, int targetNode, Array2D<float> potentialArray) : base(gridTransformer)
 		{
 			PotentialArray = potentialArray;
-			TargetNode = gridTransformer.TransformToGridCoords(targetNode);
-			TargetWorldPosition = gridTransformer.TransformToWorldCoords(targetNode);
+			TargetNode = gridTransformer.ToGridSpace(targetNode);
+			TargetWorldPosition = gridTransformer.ToWorldSpace(targetNode);
 		}
 
 		public override float GetPotential(int x, int y)

@@ -70,18 +70,20 @@
     <Compile Include="Collections\ConcurrentCache.cs" />
     <Compile Include="Algorithms\DijkstraAlgorithm.cs" />
     <Compile Include="Algorithms\PotentialFieldAlgorithm.cs" />
+    <Compile Include="PathfindEngine\DynamicPotentialFieldUpdater.cs" />
     <Compile Include="PathfindEngine\Exceptions\InvalidAgentSizeException.cs" />
+    <Compile Include="PathfindEngine\Interfaces\IPathfindaxManager.cs" />
     <Compile Include="Paths\AggregratedPotentialField.cs" />
     <Compile Include="Paths\DynamicPotentialField.cs" />
     <Compile Include="Paths\PotentialFunction.cs" />
     <Compile Include="Paths\QuadraticPotentialFunction.cs" />
     <Compile Include="Paths\PotentialFieldBase.cs" />
-    <Compile Include="Utils\GridTransformer.cs" />
+    <Compile Include="Grid\GridTransformer.cs" />
     <Compile Include="Nodes\Interfaces\ICollisionLayerNode.cs" />
     <Compile Include="PathfindEngine\Exceptions\InvalidPathfinderTypeException.cs" />
     <Compile Include="PathfindEngine\Exceptions\PathfinderNotFoundException.cs" />
     <Compile Include="PathfindEngine\Interfaces\IPathRequest.cs" />
-    <Compile Include="PathfindEngine\PathfindaxEngine.cs" />
+    <Compile Include="PathfindEngine\PathfindaxManager.cs" />
     <Compile Include="PathfindEngine\SingleSourcePathRequestComparer.cs" />
     <Compile Include="Paths\FlowField.cs" />
     <Compile Include="Nodes\DijkstraNode.cs" />
@@ -99,7 +101,6 @@
     <Compile Include="Paths\Interfaces\ICompletedPath.cs" />
     <Compile Include="PathfindEngine\PathRequestStatus.cs" />
     <Compile Include="Paths\PotentialField.cs" />
-    <Compile Include="Utils\Extensions\ReadOnlyArrayExtensions.cs" />
     <Compile Include="Utils\GridClearanceHelper.cs" />
     <Compile Include="Algorithms\Interfaces\IPathFindAlgorithm.cs" />
     <Compile Include="Collections\Array2D.cs" />
@@ -130,9 +131,7 @@
     <Compile Include="Threading\MultithreadedWorkerQueue.cs" />
     <Compile Include="Threading\Worker.cs" />
     <Compile Include="Threading\WorkItem.cs" />
-    <Compile Include="Utils\Extensions\ListExtensions.cs" />
-    <Compile Include="Utils\GridMath.cs" />
-    <Compile Include="Utils\Mathf.cs" />
+    <Compile Include="Utils\PathfindaxMathF.cs" />
     <Compile Include="Utils\PathfindaxStrings.cs" />
   </ItemGroup>
   <ItemGroup>

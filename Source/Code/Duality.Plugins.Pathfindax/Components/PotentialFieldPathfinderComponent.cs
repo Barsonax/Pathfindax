@@ -30,7 +30,7 @@ namespace Duality.Plugins.Pathfindax.Components
 			{
 				var definitionNodeGrid = GetSourceNodeNetwork();
 				if (definitionNodeGrid == null) return;
-				Pathfinder = PathfinderFactory.CreatePotentialFieldPathfinder(PathfinderId, definitionNodeGrid, MaxClearance, MaxCachedFlowFields, AmountOfThreads);
+				Pathfinder = PathfinderFactory.CreatePotentialFieldPathfinder(PathfindaxDualityCorePlugin.PathfindaxManager, PathfinderId, definitionNodeGrid, MaxClearance, MaxCachedFlowFields, AmountOfThreads);
 			}
 		}
 	}
