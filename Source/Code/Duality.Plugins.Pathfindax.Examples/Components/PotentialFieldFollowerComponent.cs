@@ -16,17 +16,15 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 		[EditorHintRange(0, float.MaxValue)]
 		public float MovementSpeed { get; set; } = 1f;
 		[EditorHintRange(1, byte.MaxValue)]
-		public byte AgentSize { get; set; }
-
-		
+		public byte AgentSize { get; set; }		
 		public Camera Camera { get; set; }
-		IPath IPathProvider.Path => Path;
 		public DynamicPotentialFieldComponent DynamicPotentialFieldComponent { get; set; }
 		public PotentialFieldPathfinderComponent PathfinderComponent { get; set; }
-
-		public AggregratedPotentialField Path { get; private set; }
 		public Vector2 CurrentPosition => new Vector2(GameObj.Transform.Pos.X, GameObj.Transform.Pos.Y);
 
+		IPath IPathProvider.Path => _path;
+
+		private AggregratedPotentialField _path;
 		private RigidBody _rigidBody;
 		private PathfindaxCollisionCategory _collisionCategory;
 
@@ -49,9 +47,9 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 
 		void ICmpUpdatable.OnUpdate()
 		{
-			if (Path != null)
+			if (_path != null)
 			{
-				var heading = Path.GetHeading(GameObj.Transform.Pos);
+				var heading = _path.GetHeading(GameObj.Transform.Pos);
 				_rigidBody.ApplyWorldForce(heading * MovementSpeed);
 			}
 		}
@@ -62,7 +60,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 			var request = PathfinderComponent.Pathfinder.RequestPath(GameObj.Transform.Pos, targetPos, _collisionCategory, AgentSize);
 			request.AddCallback(pathrequest =>
 			{
-				Path = new AggregratedPotentialField(pathrequest.CompletedPath.GridTransformer, pathrequest.CompletedPath, DynamicPotentialFieldComponent.PotentialField);
+				_path = new AggregratedPotentialField(pathrequest.CompletedPath.GridTransformer, pathrequest.CompletedPath, DynamicPotentialFieldComponent.PotentialField);
 			});
 		}
 	}

@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using Pathfindax.Nodes;
 
-namespace Pathfindax.Grid
+namespace Pathfindax.Graph
 {
 	/// <summary>
 	/// A node network for <see cref="AstarNode"/>s

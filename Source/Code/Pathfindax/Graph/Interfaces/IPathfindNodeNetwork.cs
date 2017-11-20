@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Pathfindax.Nodes;
 
-namespace Pathfindax.Grid
+namespace Pathfindax.Graph
 {
 	/// <summary>
 	/// Generic interface for nodenetworks. Each thread will have its own nodenetwork.

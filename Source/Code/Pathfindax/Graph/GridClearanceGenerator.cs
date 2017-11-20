@@ -1,7 +1,7 @@
 ﻿using Duality;
 using Pathfindax.Nodes;
 
-namespace Pathfindax.Grid
+namespace Pathfindax.Graph
 {
 	public class GridClearanceGenerator : IPathfindNodeGenerator<AstarNode>
 	{

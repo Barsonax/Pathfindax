@@ -1,6 +1,6 @@
 ﻿using Pathfindax.Nodes;
 
-namespace Pathfindax.Grid
+namespace Pathfindax.Graph
 {
 	public interface IPathfindNodeGenerator<in TNode>
 	{

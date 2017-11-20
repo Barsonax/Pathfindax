@@ -2,7 +2,7 @@
 using Pathfindax.Collections;
 using Pathfindax.Nodes;
 
-namespace Pathfindax.Grid
+namespace Pathfindax.Graph
 {
 	/// <summary>
 	/// Class that holds the definition data for the nodegrid.

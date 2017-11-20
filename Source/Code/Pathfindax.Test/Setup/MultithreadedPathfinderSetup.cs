@@ -2,7 +2,7 @@
 using NSubstitute;
 using Pathfindax.Algorithms;
 using Pathfindax.Factories;
-using Pathfindax.Grid;
+using Pathfindax.Graph;
 using Pathfindax.Nodes;
 using Pathfindax.PathfindEngine;
 using Pathfindax.Paths;

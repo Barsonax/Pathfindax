@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using Pathfindax.Grid;
+using Pathfindax.Graph;
 
 namespace Pathfindax.Paths
 {

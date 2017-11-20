@@ -1,6 +1,6 @@
 ﻿using Duality.Editor;
 using Pathfindax.Factories;
-using Pathfindax.Grid;
+using Pathfindax.Graph;
 using Pathfindax.PathfindEngine;
 using Pathfindax.PathfindEngine.Exceptions;
 using Pathfindax.Paths;

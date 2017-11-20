@@ -1,4 +1,4 @@
-﻿namespace Pathfindax.Grid
+﻿namespace Pathfindax.Graph
 {
 	public enum GenerateNodeGridConnections
 	{

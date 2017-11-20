@@ -2,7 +2,7 @@
 using Pathfindax.Collections;
 using Pathfindax.Nodes;
 
-namespace Pathfindax.Grid
+namespace Pathfindax.Graph
 {
 	/// <summary>
 	/// Interface for sourcenodegrids

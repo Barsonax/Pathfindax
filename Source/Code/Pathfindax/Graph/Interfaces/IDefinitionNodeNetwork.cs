@@ -1,7 +1,7 @@
 ﻿using Duality;
 using Pathfindax.Nodes;
 
-namespace Pathfindax.Grid
+namespace Pathfindax.Graph
 {
 	/// <summary>
 	/// Interface for sourcenodenetworks

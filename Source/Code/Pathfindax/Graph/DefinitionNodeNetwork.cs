@@ -3,7 +3,7 @@ using System.Linq;
 using Duality;
 using Pathfindax.Nodes;
 
-namespace Pathfindax.Grid
+namespace Pathfindax.Graph
 {
 	/// <summary>
 	/// Class that holds the definition data for the nodenetwork.

@@ -1,4 +1,4 @@
-﻿using Pathfindax.Grid;
+﻿using Pathfindax.Graph;
 
 namespace Pathfindax.Nodes
 {

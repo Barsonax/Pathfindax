@@ -1,4 +1,4 @@
-﻿namespace Pathfindax.Grid
+﻿namespace Pathfindax.Graph
 {
 	/// <summary>
 	/// Interface for classes that can provide <typeparamref name="TNodeNetwork"/> which will be used as base information for other nodenetworks when for pathfinding

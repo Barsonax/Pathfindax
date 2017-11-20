@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using Duality;
 using Pathfindax.Collections;
-using Pathfindax.Grid;
+using Pathfindax.Graph;
 using Pathfindax.PathfindEngine;
 
 namespace Pathfindax.Paths

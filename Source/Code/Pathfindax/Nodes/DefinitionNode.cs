@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Duality;
-using Pathfindax.Grid;
+using Pathfindax.Graph;
 
 namespace Pathfindax.Nodes
 {

@@ -1,7 +1,7 @@
 ﻿using Duality;
 using Pathfindax.Utils;
 
-namespace Pathfindax.Grid
+namespace Pathfindax.Graph
 {
 	public class GridTransformer
 	{

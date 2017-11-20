@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Pathfindax.Algorithms;
-using Pathfindax.Grid;
+using Pathfindax.Graph;
 using Pathfindax.Nodes;
 using Pathfindax.PathfindEngine;
 using Pathfindax.Paths;

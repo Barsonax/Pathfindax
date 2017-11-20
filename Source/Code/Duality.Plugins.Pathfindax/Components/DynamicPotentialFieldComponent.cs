@@ -1,5 +1,5 @@
 ﻿using Duality.Editor;
-using Pathfindax.Grid;
+using Pathfindax.Graph;
 using Pathfindax.PathfindEngine;
 using Pathfindax.Paths;
 using Pathfindax.Utils;

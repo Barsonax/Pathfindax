@@ -1,6 +1,6 @@
 ﻿using Duality.Editor;
 using Pathfindax.Factories;
-using Pathfindax.Grid;
+using Pathfindax.Graph;
 using Pathfindax.Utils;
 
 namespace Duality.Plugins.Pathfindax.Examples.Components

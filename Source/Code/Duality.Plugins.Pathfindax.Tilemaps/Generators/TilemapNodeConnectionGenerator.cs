@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Duality.Components.Physics;
 using Duality.Plugins.Tilemaps;
-using Pathfindax.Grid;
+using Pathfindax.Graph;
 using Pathfindax.Nodes;
 
 namespace Duality.Plugins.Pathfindax.Tilemaps.Generators

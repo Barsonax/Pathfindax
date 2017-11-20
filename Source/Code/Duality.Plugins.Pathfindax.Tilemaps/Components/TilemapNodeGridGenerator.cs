@@ -7,7 +7,7 @@ using Duality.Editor;
 using Duality.Plugins.Pathfindax.Tilemaps.Generators;
 using Duality.Plugins.Tilemaps;
 using Pathfindax.Factories;
-using Pathfindax.Grid;
+using Pathfindax.Graph;
 using Pathfindax.Utils;
 
 namespace Duality.Plugins.Pathfindax.Tilemaps.Components

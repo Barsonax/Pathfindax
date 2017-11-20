@@ -1,7 +1,7 @@
 ﻿using System;
 using Duality.Editor;
 using Pathfindax.Factories;
-using Pathfindax.Grid;
+using Pathfindax.Graph;
 using Pathfindax.Nodes;
 using Pathfindax.PathfindEngine;
 using Pathfindax.PathfindEngine.Exceptions;

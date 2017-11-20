@@ -3,7 +3,7 @@ using System.Diagnostics;
 using Duality;
 using Pathfindax.Nodes;
 
-namespace Pathfindax.Grid
+namespace Pathfindax.Graph
 {
 	public class DijkstraNodeGrid : IPathfindNodeNetwork<DijkstraNode>
 	{

@@ -2,7 +2,7 @@
 using Duality;
 using NUnit.Framework;
 using Pathfindax.Factories;
-using Pathfindax.Grid;
+using Pathfindax.Graph;
 
 namespace Pathfindax.Test.Setup
 {

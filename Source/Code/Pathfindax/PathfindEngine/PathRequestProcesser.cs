@@ -1,5 +1,5 @@
 ﻿using Pathfindax.Algorithms;
-using Pathfindax.Grid;
+using Pathfindax.Graph;
 using Pathfindax.Paths;
 using Pathfindax.Threading;
 
