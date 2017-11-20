@@ -1,6 +1,10 @@
-﻿using Duality.Editor;
+﻿using System;
+using Duality.Editor;
 using Pathfindax.Factories;
 using Pathfindax.Grid;
+using Pathfindax.Nodes;
+using Pathfindax.PathfindEngine;
+using Pathfindax.PathfindEngine.Exceptions;
 using Pathfindax.Paths;
 using Pathfindax.Utils;
 
@@ -11,7 +15,7 @@ namespace Duality.Plugins.Pathfindax.Components
 	/// </summary>
 	[EditorHintCategory(PathfindaxStrings.Pathfindax)]
 	[RequiredComponent(typeof(IDefinitionNodeNetworkProvider<IDefinitionNodeNetwork>))]
-	public class AstarPathfinderComponent : PathfinderComponentBase<IDefinitionNodeNetwork, NodePath>
+	public class AstarPathfinderComponent : PathfinderComponentBase<IDefinitionNodeNetwork, IPathfindNodeNetwork<AstarNode>, NodePath>
 	{
 		/// <summary>
 		/// The max calculated clearance. Any clearance value higher than will be set to this. 
@@ -19,14 +23,11 @@ namespace Duality.Plugins.Pathfindax.Components
 		/// </summary>
 		public int MaxClearance { get; set; } = 5;
 
-		public override void OnInit(InitContext context)
+		public override IPathfinder<IDefinitionNodeNetwork, IPathfindNodeNetwork<AstarNode>, NodePath> CreatePathfinder()
 		{
-			if (context == InitContext.Activate && DualityApp.ExecContext == DualityApp.ExecutionContext.Game)
-			{
-				var sourceNodeNetwork = GetSourceNodeNetwork();
-				if (sourceNodeNetwork == null) return;
-				Pathfinder = PathfinderFactory.CreateAstarPathfinder(PathfindaxDualityCorePlugin.PathfindaxManager, PathfinderId, sourceNodeNetwork, MaxClearance, AmountOfThreads);
-			}
+			var definitionNodeNetwork = GetDefinitionNodeNetwork();
+			if (definitionNodeNetwork == null) throw new NoDefinitionNodeNetworkException();
+			return PathfinderFactory.CreateAstarPathfinder(PathfindaxDualityCorePlugin.PathfindaxManager, definitionNodeNetwork, MaxClearance, AmountOfThreads);
 		}
 	}
 }

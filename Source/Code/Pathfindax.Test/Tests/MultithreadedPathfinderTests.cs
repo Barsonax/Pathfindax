@@ -13,7 +13,7 @@ namespace Pathfindax.Test.Tests
         [Test]
         public void RequestPath_SingleThread_NoExceptions()
         {
-            var multithreadedPathfinder = MultithreadedPathfinderSetup.Substitute(1);
+            var multithreadedPathfinder = MultithreadedPathfinderSetup.Create(1);
             multithreadedPathfinder.Start();	        
             var pathRequest = PathRequest.Create(multithreadedPathfinder, null, null);
             pathRequest.WaitHandle.WaitOne(1000);
@@ -24,7 +24,7 @@ namespace Pathfindax.Test.Tests
         [Test]
         public void RequestPath_MultipleThreads_NoExceptions()
         {
-            var multithreadedPathfinder = MultithreadedPathfinderSetup.Substitute(4);
+            var multithreadedPathfinder = MultithreadedPathfinderSetup.Create(4);
             multithreadedPathfinder.Start();
 
             var pathRequests = new PathRequest<IPath>[64];

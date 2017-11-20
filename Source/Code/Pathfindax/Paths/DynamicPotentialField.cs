@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Duality;
 using Pathfindax.Collections;
 using Pathfindax.Grid;
@@ -63,7 +64,6 @@ namespace Pathfindax.Paths
 			{
 				PotentialArray.Array[i] = 0f;
 			}
-
 			foreach (var valueProvider in _valueProviders)
 			{
 				AddPotential(valueProvider.Value);

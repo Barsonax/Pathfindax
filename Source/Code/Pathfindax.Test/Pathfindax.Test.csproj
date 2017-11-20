@@ -51,6 +51,12 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Benchmark|AnyCPU'">
+    <OutputPath>bin\Benchmark\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Benchmark|x64'">
+    <OutputPath>bin\x64\Benchmark\</OutputPath>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="DualityPrimitives, Version=2.0.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\AdamsLair.Duality.Primitives.2.0.4\lib\DualityPrimitives.dll</HintPath>

@@ -10,22 +10,29 @@ namespace Duality.Plugins.Pathfindax.Components
 	[RequiredComponent(typeof(PotentialFieldPathfinderComponent))]
 	public class DynamicPotentialFieldComponent : Component, ICmpInitializable
 	{
-		public DynamicPotentialField PotentialField { get; private set; }
 		public float UpdateInterval { get; set; } = 100f;
-		void ICmpInitializable.OnInit(InitContext context)
+		private DynamicPotentialField _potentialField;
+
+		public DynamicPotentialField PotentialField
 		{
-			if (context == InitContext.Activate && DualityApp.ExecContext == DualityApp.ExecutionContext.Game)
+			get
 			{
-				var pathfinder = GameObj.GetComponent<PotentialFieldPathfinderComponent>();
-				var definitionNodeNetwork = ((Pathfinder<DefinitionNodeGrid, DijkstraNodeGrid, PotentialField>) pathfinder.Pathfinder).DefinitionNodeNetwork;
-				PotentialField = new DynamicPotentialField(PathfindaxDualityCorePlugin.PathfindaxManager, definitionNodeNetwork.Transformer, UpdateInterval);
+				if (_potentialField == null)
+				{
+					var pathfinder = GameObj.GetComponent<PotentialFieldPathfinderComponent>();
+					var definitionNodeNetwork = ((Pathfinder<DefinitionNodeGrid, DijkstraNodeGrid, PotentialField>)pathfinder.Pathfinder).DefinitionNodeNetwork;
+					_potentialField = new DynamicPotentialField(PathfindaxDualityCorePlugin.PathfindaxManager, definitionNodeNetwork.Transformer, UpdateInterval);
+				}
+				return _potentialField;
 			}
 		}
 
+		void ICmpInitializable.OnInit(InitContext context) { }
+
 		void ICmpInitializable.OnShutdown(ShutdownContext context)
 		{
-			PotentialField?.Dispose();
-			PotentialField = null;
+			_potentialField?.Dispose();
+			_potentialField = null;
 		}
 	}
 }

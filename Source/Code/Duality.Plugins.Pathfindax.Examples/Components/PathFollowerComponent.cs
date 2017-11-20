@@ -10,7 +10,6 @@ using Pathfindax.Utils;
 namespace Duality.Plugins.Pathfindax.Examples.Components
 {
 	[EditorHintCategory(PathfindaxStrings.PathfindaxTest)]
-	[ExecutionOrder(ExecutionRelation.After, typeof(IDualityPathfinderComponent))]
 	public class PathFollowerComponent : Component, ICmpUpdatable, ICmpInitializable, IPathProvider
 	{
 		[EditorHintRange(0, float.MaxValue)]

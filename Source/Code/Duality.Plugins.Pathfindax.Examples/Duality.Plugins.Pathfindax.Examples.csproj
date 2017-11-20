@@ -52,6 +52,15 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Benchmark|AnyCPU'">
+    <OutputPath>..\Binaries\Benchmark\</OutputPath>
+    <Optimize>true</Optimize>
+    <DefineConstants>DEBUG</DefineConstants>
+    <DocumentationFile>..\Binaries\Benchmark\Pathfindax.Duality.Examples.core.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Benchmark|x64'">
+    <OutputPath>bin\x64\Benchmark\</OutputPath>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Duality, Version=2.14.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\AdamsLair.Duality.2.14.0\lib\Duality.dll</HintPath>
@@ -103,11 +112,19 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>if $(ConfigurationName) == Debug (
+    <PostBuildEvent>if $(ConfigurationName) == Debug GOTO copyToPlugin
+if $(ConfigurationName) == Benchmark GOTO copyToPlugin
+
+ECHO ------ Skipping copy to plugin for configuration $(ConfigurationName) ------
+GOTO end
+
+:copyToPlugin
 mkdir "$(SolutionDir)../../Plugins"
 copy "$(TargetPath)" "$(SolutionDir)../../Plugins"
 copy "$(TargetDir)$(TargetName).pdb" "$(SolutionDir)../../Plugins"
-xcopy /Y "$(TargetDir)*.core.xml" "$(SolutionDir)../../Plugins")</PostBuildEvent>
+xcopy /Y "$(TargetDir)*.core.xml" "$(SolutionDir)../../Plugins"
+
+:end</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

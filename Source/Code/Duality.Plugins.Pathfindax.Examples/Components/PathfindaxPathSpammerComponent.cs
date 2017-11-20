@@ -13,7 +13,6 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 	/// Use the <see cref="TopLeftCorner"/> and <see cref="BottomRightCorner"/> properties to control where it will spam the path requests.
 	/// </summary>
 	[EditorHintCategory(PathfindaxStrings.PathfindaxTest)]
-	[ExecutionOrder(ExecutionRelation.After, typeof(IDualityPathfinderComponent))]
 	public class PathfindaxPathSpammerComponent : Component, ICmpUpdatable, IPathProvider
 	{
 		[EditorHintRange(1, byte.MaxValue)]

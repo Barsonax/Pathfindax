@@ -11,7 +11,6 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 {
 	[EditorHintCategory(PathfindaxStrings.PathfindaxTest)]
 	[RequiredComponent(typeof(RigidBody))]
-	[ExecutionOrder(ExecutionRelation.After, typeof(IDualityPathfinderComponent))]
 	public class FlowFieldFollowerComponent : Component, ICmpUpdatable, ICmpInitializable, IPathProvider
 	{
 		[EditorHintRange(0, float.MaxValue)]
@@ -47,8 +46,6 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 			if (Path != null)
 			{
 				var heading = Path.GetHeading(GameObj.Transform.Pos);
-				if (heading.Length <= MovementSpeed)
-					Path.NextWaypoint();
 				_rigidBody.ApplyWorldForce(PathfindaxMathF.Clamp(heading.Normalized * MovementSpeed, heading.Length));
 			}
 		}

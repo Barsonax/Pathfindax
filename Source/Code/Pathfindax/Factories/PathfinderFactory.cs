@@ -10,29 +10,29 @@ namespace Pathfindax.Factories
 {
 	public static class PathfinderFactory
 	{
-		public static Pathfinder<DefinitionNodeGrid, DijkstraNodeGrid, FlowField> CreateFlowFieldPathfinder(IPathfindaxManager pathfindaxManager, string pathfinderId, DefinitionNodeGrid nodeGrid, int maxClearance, int maxCachedFlowFields, int amountOfThreads)
+		public static Pathfinder<DefinitionNodeGrid, DijkstraNodeGrid, FlowField> CreateFlowFieldPathfinder(IPathfindaxManager pathfindaxManager, DefinitionNodeGrid nodeGrid, int maxClearance, int maxCachedFlowFields, int amountOfThreads)
 		{
 			var pathfinder = CreatePathfinder(pathfindaxManager, nodeGrid, new FlowFieldAlgorithm(maxCachedFlowFields), (definitionNodeGrid, algorithm) =>
 			 {
 				 var dijkstraNodeGrid = new DijkstraNodeGrid(definitionNodeGrid, maxClearance);
 				 return CreateRequestProcesser(dijkstraNodeGrid, algorithm);
-			 }, pathfinderId, amountOfThreads);
+			 }, amountOfThreads);
 			pathfinder.Start();
 			return pathfinder;
 		}
 
-		public static Pathfinder<DefinitionNodeGrid, DijkstraNodeGrid, PotentialField> CreatePotentialFieldPathfinder(IPathfindaxManager pathfindaxManager, string pathfinderId, DefinitionNodeGrid nodeGrid, int maxClearance, int maxCachedFlowFields, int amountOfThreads)
+		public static Pathfinder<DefinitionNodeGrid, DijkstraNodeGrid, PotentialField> CreatePotentialFieldPathfinder(IPathfindaxManager pathfindaxManager, DefinitionNodeGrid nodeGrid, int maxClearance, int maxCachedFlowFields, int amountOfThreads)
 		{
 			var pathfinder = CreatePathfinder(pathfindaxManager, nodeGrid, new PotentialFieldAlgorithm(maxCachedFlowFields), (definitionNodeGrid, algorithm) =>
 			{
 				var dijkstraNodeGrid = new DijkstraNodeGrid(definitionNodeGrid, maxClearance);
 				return CreateRequestProcesser(dijkstraNodeGrid, algorithm);
-			}, pathfinderId, amountOfThreads);
+			}, amountOfThreads);
 			pathfinder.Start();
 			return pathfinder;
 		}
 
-		public static Pathfinder<IDefinitionNodeNetwork, IPathfindNodeNetwork<AstarNode>, NodePath> CreateAstarPathfinder(IPathfindaxManager pathfindaxManager, string pathfinderId, IDefinitionNodeNetwork nodeNetwork, int maxClearance, int amountOfThreads)
+		public static Pathfinder<IDefinitionNodeNetwork, IPathfindNodeNetwork<AstarNode>, NodePath> CreateAstarPathfinder(IPathfindaxManager pathfindaxManager, IDefinitionNodeNetwork nodeNetwork, int maxClearance, int amountOfThreads)
 		{
 			var pathfinder = CreatePathfinder(pathfindaxManager, nodeNetwork, new AStarAlgorithm(), (definitionNodeNetwork, algorithm) =>
 			{
@@ -41,12 +41,12 @@ namespace Pathfindax.Factories
 					nodeGenerators.Add(new GridClearanceGenerator(sourceNodeGrid, maxClearance));
 				var astarNodeNetwork = new AstarNodeNetwork(definitionNodeNetwork, nodeGenerators.ToArray());
 				return CreateRequestProcesser(astarNodeNetwork, algorithm);
-			}, pathfinderId, amountOfThreads);
+			}, amountOfThreads);
 			pathfinder.Start();
 			return pathfinder;
 		}
 
-		public static Pathfinder<TSourceNodeNetwork, TThreadNodeNetwork, TPath> CreatePathfinder<TSourceNodeNetwork, TThreadNodeNetwork, TPath>(IPathfindaxManager pathfindaxManager, TSourceNodeNetwork sourceNodeNetwork, IPathFindAlgorithm<TThreadNodeNetwork, TPath> pathFindAlgorithm, Func<TSourceNodeNetwork, IPathFindAlgorithm<TThreadNodeNetwork, TPath>, PathRequestProcesser<TThreadNodeNetwork, TPath>> processerConstructor, string key, int threads = 1)
+		public static Pathfinder<TSourceNodeNetwork, TThreadNodeNetwork, TPath> CreatePathfinder<TSourceNodeNetwork, TThreadNodeNetwork, TPath>(IPathfindaxManager pathfindaxManager, TSourceNodeNetwork sourceNodeNetwork, IPathFindAlgorithm<TThreadNodeNetwork, TPath> pathFindAlgorithm, Func<TSourceNodeNetwork, IPathFindAlgorithm<TThreadNodeNetwork, TPath>, PathRequestProcesser<TThreadNodeNetwork, TPath>> processerConstructor, int threads = 1)
 			where TSourceNodeNetwork : IDefinitionNodeNetwork
 			where TThreadNodeNetwork : IPathfindNodeNetwork
 			where TPath : class, IPath

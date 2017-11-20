@@ -31,7 +31,8 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>..\Binaries\Release\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>
+    </DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>1591</NoWarn>
@@ -60,6 +61,15 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Benchmark|AnyCPU'">
+    <OutputPath>..\Binaries\Benchmark\</OutputPath>
+    <DefineConstants>DEBUG</DefineConstants>
+    <Optimize>true</Optimize>
+    <DocumentationFile>..\Binaries\Benchmark\Pathfindax.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Benchmark|x64'">
+    <OutputPath>bin\x64\Benchmark\</OutputPath>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="DualityPrimitives, Version=2.0.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\AdamsLair.Duality.Primitives.2.0.4\lib\DualityPrimitives.dll</HintPath>
@@ -72,6 +82,7 @@
     <Compile Include="Algorithms\PotentialFieldAlgorithm.cs" />
     <Compile Include="PathfindEngine\DynamicPotentialFieldUpdater.cs" />
     <Compile Include="PathfindEngine\Exceptions\InvalidAgentSizeException.cs" />
+    <Compile Include="PathfindEngine\Exceptions\NoDefinitionNodeNetworkException.cs" />
     <Compile Include="PathfindEngine\Interfaces\IPathfindaxManager.cs" />
     <Compile Include="Paths\AggregratedPotentialField.cs" />
     <Compile Include="Paths\DynamicPotentialField.cs" />
@@ -141,11 +152,19 @@
   <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>if $(ConfigurationName) == Debug (
+    <PostBuildEvent>if $(ConfigurationName) == Debug GOTO copyToPlugin
+if $(ConfigurationName) == Benchmark GOTO copyToPlugin
+
+ECHO ------ Skipping copy to plugin for configuration $(ConfigurationName) ------
+GOTO end
+
+:copyToPlugin
 mkdir "$(SolutionDir)../../Plugins"
 copy "$(TargetPath)" "$(SolutionDir)../../Plugins"
 copy "$(TargetDir)$(TargetName).pdb" "$(SolutionDir)../../Plugins"
-xcopy /Y "$(TargetDir)*.core.xml" "$(SolutionDir)../../Plugins")</PostBuildEvent>
+xcopy /Y "$(TargetDir)*.core.xml" "$(SolutionDir)../../Plugins"
+
+:end</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
