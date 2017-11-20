@@ -1,8 +1,11 @@
-﻿using Duality.Editor;
-using Pathfindax.Algorithms;
+﻿using System;
+using Duality.Editor;
 using Pathfindax.Factories;
-using Pathfindax.Grid;
+using Pathfindax.Graph;
 using Pathfindax.Nodes;
+using Pathfindax.PathfindEngine;
+using Pathfindax.PathfindEngine.Exceptions;
+using Pathfindax.Paths;
 using Pathfindax.Utils;
 
 namespace Duality.Plugins.Pathfindax.Components
@@ -11,24 +14,20 @@ namespace Duality.Plugins.Pathfindax.Components
 	/// Provides a way for other components to request a path from A to B. Uses the A* algorithm.
 	/// </summary>
 	[EditorHintCategory(PathfindaxStrings.Pathfindax)]
-	[RequiredComponent(typeof(ISourceNodeNetworkProvider<ISourceNodeNetwork<SourceNode>>))]
-	public class AstarPathfinderComponent : PathfinderComponentBase<ISourceNodeNetwork<SourceNode>>
+	[RequiredComponent(typeof(IDefinitionNodeNetworkProvider<IDefinitionNodeNetwork>))]
+	public class AstarPathfinderComponent : PathfinderComponentBase<IDefinitionNodeNetwork, IPathfindNodeNetwork<AstarNode>, NodePath>
 	{
-		/// <inheritdoc />
-		public override void OnInit(InitContext context)
+		/// <summary>
+		/// The max calculated clearance. Any clearance value higher than will be set to this. 
+		/// Try to keep this as low as possible to prevent wasting time calculating clearance values that will never be used.
+		/// </summary>
+		public int MaxClearance { get; set; } = 5;
+
+		public override IPathfinder<IDefinitionNodeNetwork, IPathfindNodeNetwork<AstarNode>, NodePath> CreatePathfinder()
 		{
-			if (context == InitContext.Activate && DualityApp.ExecContext == DualityApp.ExecutionContext.Game)
-			{
-				var sourceNodeNetwork = GetSourceNodeNetwork();
-				if (sourceNodeNetwork == null) return;
-				Pathfinder = PathfinderFactory.CreatePathfinder(sourceNodeNetwork, s =>
-				{
-					var astarNodeNetwork = new AstarNodeNetwork(s);
-					var algorithm = new AStarAlgorithm();
-					return PathfinderFactory.CreateRequestProcesser(astarNodeNetwork, algorithm);
-				});
-				Pathfinder.Start();
-			}
+			var definitionNodeNetwork = GetDefinitionNodeNetwork();
+			if (definitionNodeNetwork == null) throw new NoDefinitionNodeNetworkException();
+			return PathfinderFactory.CreateAstarPathfinder(PathfindaxDualityCorePlugin.PathfindaxManager, definitionNodeNetwork, MaxClearance, AmountOfThreads);
 		}
 	}
 }

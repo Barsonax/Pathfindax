@@ -1,5 +1,6 @@
 ﻿using Duality.Drawing;
 using Duality.Editor;
+using Pathfindax.Paths;
 using Pathfindax.Utils;
 
 namespace Duality.Plugins.Pathfindax.Components
@@ -31,29 +32,63 @@ namespace Duality.Plugins.Pathfindax.Components
 
 		void ICmpRenderer.Draw(IDrawDevice device)
 		{
+			if (DualityApp.ExecContext != DualityApp.ExecutionContext.Game) return;
 			if (!Visualize) return;
 			var pathProvider = GameObj.GetComponent<IPathProvider>();
 			if (pathProvider?.Path != null)
 			{
-				var path = pathProvider.Path;
 				var canvas = new Canvas(device);
-				canvas.State.ZOffset = -10;
-
-				for (var index = 0; index < path.Length; index++)
+				canvas.State.ZOffset = -8;
+				switch (pathProvider.Path)
 				{
-					if (index == 0) canvas.State.ColorTint = ColorRgba.Green;
-					else if (index == path.Length - 1) canvas.State.ColorTint = ColorRgba.Blue;
-					else canvas.State.ColorTint = ColorRgba.Red;
-					var position = path[index];
-					canvas.FillCircle(position.X, position.Y, 10f);
-				}
+					case NodePath completedPath:
+						for (var index = 0; index < completedPath.Path.Length; index++)
+						{
+							if (index == 0) canvas.State.ColorTint = ColorRgba.Green;
+							else if (index == completedPath.Path.Length - 1) canvas.State.ColorTint = ColorRgba.Blue;
+							else canvas.State.ColorTint = ColorRgba.Red;
+							var waypoint = completedPath[index];
+							canvas.FillCircle(waypoint.X, waypoint.Y, 10f);
+						}
 
-				canvas.State.ColorTint = ColorRgba.Red;
-				for (var i = 1; i < path.Length; i++)
-				{
-					var from = path[i - 1];
-					var to = path[i];
-					canvas.DrawLine(from.X, from.Y, 0, to.X, to.Y, 0);
+						canvas.State.ColorTint = ColorRgba.Red;
+						for (var i = 1; i < completedPath.Path.Length; i++)
+						{
+							var from = completedPath[i - 1];
+							var to = completedPath[i];
+							canvas.DrawLine(from.X, from.Y, 0, to.X, to.Y, 0);
+						}
+						break;
+					case FlowField flowField:
+						for (int i = 0; i < flowField.FlowArray.Length; i++)
+						{							
+							var nodePosition = flowField.GridTransformer.ToWorldSpace(i);
+							canvas.FillCircle(nodePosition.X, nodePosition.Y, 5f);
+							var flowVector = flowField[i];
+							var nodeSize = flowField.GridTransformer.NodeSize;
+							canvas.DrawLine(nodePosition.X, nodePosition.Y, nodePosition.X + flowVector.X * nodeSize.X * 0.5f, nodePosition.Y + flowVector.Y * nodeSize.Y * 0.5f);
+						}
+						break;
+					case PotentialField potentialField:
+						for (int i = 0; i < potentialField.PotentialArray.Length; i++)
+						{
+							var nodePosition = potentialField.GridTransformer.ToWorldSpace(i);
+							canvas.FillCircle(nodePosition.X, nodePosition.Y, 5f);
+							var flowVector = potentialField[i];
+							var nodeSize = potentialField.GridTransformer.NodeSize;
+							canvas.DrawLine(nodePosition.X, nodePosition.Y, nodePosition.X + flowVector.X * nodeSize.X * 0.5f, nodePosition.Y + flowVector.Y * nodeSize.Y * 0.5f);
+						}
+						break;
+					case AggregratedPotentialField aggregratedPotentialField:
+						for (int i = 0; i < aggregratedPotentialField.GridTransformer.NodeCount; i++)
+						{
+							var nodePosition = aggregratedPotentialField.GridTransformer.ToWorldSpace(i);
+							canvas.FillCircle(nodePosition.X, nodePosition.Y, 5f);
+							var flowVector = aggregratedPotentialField[i];
+							var nodeSize = aggregratedPotentialField.GridTransformer.NodeSize;
+							canvas.DrawLine(nodePosition.X, nodePosition.Y, nodePosition.X + flowVector.X * nodeSize.X * 0.5f, nodePosition.Y + flowVector.Y * nodeSize.Y * 0.5f);
+						}
+						break;
 				}
 			}
 		}

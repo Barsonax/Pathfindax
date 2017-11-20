@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Duality.Editor;
-using Pathfindax.Grid;
+using Pathfindax.Graph;
 using Pathfindax.Nodes;
 using Pathfindax.Utils;
 using SnowyPeak.Duality.Plugin.Frozen.Procedural;
@@ -11,21 +11,21 @@ using INode = SnowyPeak.Duality.Plugin.Frozen.Procedural.INode;
 namespace Duality.Plugins.Pathfindax.Examples.Components
 {
 	[EditorHintCategory(PathfindaxStrings.PathfindaxTest)]
-	public class SourceNodeNetworkProviderMockupComponent : Component, ISourceNodeNetworkProvider<ISourceNodeNetwork<SourceNode>>
+	public class DefinitionNodeNetworkProviderMockupComponent : Component, IDefinitionNodeNetworkProvider<IDefinitionNodeNetwork>
 	{
-		public ISourceNodeNetwork<SourceNode> GenerateGrid2D()
+		public IDefinitionNodeNetwork GenerateGrid2D()
 		{
 			const int width = 1000;
 			const int height = 1000;
 			var random = new Random();
-			var dictionary = new Dictionary<DelaunayNode, SourceNode>();
-			var nodeNetwork = new SourceNodeNetwork(new Vector2(0, 0));
+			var dictionary = new Dictionary<DelaunayNode, DefinitionNode>();
+			var nodeNetwork = new DefinitionNodeNetwork(new Vector2(0, 0));
 			for (var i = 0; i < 100; i++)
 			{
-				var node = new SourceNode(new Vector2(random.Next(0, width), random.Next(0, height)), i);
-				var defaultNode = new DelaunayNode(new Vector2(node.WorldPosition.X, node.WorldPosition.Y));
+				var node = new DefinitionNode(i ,new Vector2(random.Next(0, width), random.Next(0, height)));
+				var defaultNode = new DelaunayNode(new Vector2(node.Position.X, node.Position.Y));
 				dictionary.Add(defaultNode, node);
-				nodeNetwork.Nodes.Add(node);
+				nodeNetwork.DefinitionNodes.Add(node);
 			}
 
 			var graph = new Graph<DelaunayNode>();
@@ -35,7 +35,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 			foreach (var graphLink in graph.Links.GroupBy(x => x.From))
 			{
 				var from = dictionary[graphLink.Key];
-				var connections = new List<SourceNode>();
+				var connections = new List<DefinitionNode>();
 				foreach (var link in graphLink)
 				{				
 					var to = dictionary[link.To];
@@ -45,8 +45,8 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 				for (var i = 0; i < connections.Count; i++)
 				{
 					var to = connections[i];
-					from.Connections.Add(new NodeConnection(to.ArrayIndex));
-					to.Connections.Add(new NodeConnection(from.ArrayIndex));
+					from.Connections.Add(new NodeConnection(to.Index));
+					to.Connections.Add(new NodeConnection(from.Index));
 				}
 			}
 			return nodeNetwork;

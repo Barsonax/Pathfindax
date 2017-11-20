@@ -1,7 +1,8 @@
 ﻿using Duality;
 using NUnit.Framework;
+using Pathfindax.Collections;
 using Pathfindax.Factories;
-using Pathfindax.Grid;
+using Pathfindax.Graph;
 using Pathfindax.Nodes;
 
 namespace Pathfindax.Duality.Test
@@ -12,34 +13,22 @@ namespace Pathfindax.Duality.Test
 		[Test]
 		public void CalculateGridNodeClearances_FilledNodeGrid_Passes()
 		{
-			var sourceNodeGridFactory = new SourceNodeGridFactory();
-			var sourceNodeGrid = sourceNodeGridFactory.GeneratePreFilledArray(16, 16, new Vector2(1, 1), GenerateNodeGridConnections.All);
-			sourceNodeGrid.NodeArray[2, 2].Connections[5] = new NodeConnection(sourceNodeGrid.NodeArray[2, 2].Connections[5].To, PathfindaxCollisionCategory.Cat1);
-			sourceNodeGrid.NodeArray[3, 3].Connections[6] = new NodeConnection(sourceNodeGrid.NodeArray[3, 3].Connections[6].To, PathfindaxCollisionCategory.Cat2);
-			sourceNodeGrid.NodeArray[5, 3].Connections[6] = new NodeConnection(sourceNodeGrid.NodeArray[5, 3].Connections[2].To, PathfindaxCollisionCategory.Cat3);
-			var clearances = sourceNodeGridFactory.CalculateGridNodeClearances(sourceNodeGrid, sourceNodeGrid.NodeArray[0, 0], 6);
-			Assert.AreEqual(true, clearances[0].CollisionCategory == PathfindaxCollisionCategory.Cat1);
-			Assert.AreEqual(true, clearances[0].Clearance == 3);
-			Assert.AreEqual(true, clearances[1].CollisionCategory == PathfindaxCollisionCategory.Cat2);
-			Assert.AreEqual(true, clearances[1].Clearance == 4);
-			Assert.AreEqual(true, clearances[2].CollisionCategory == PathfindaxCollisionCategory.Cat3);
-			Assert.AreEqual(true, clearances[2].Clearance == 6);
-		}
+			var sourceNodeGridFactory = new DefinitionNodeGridFactory();
+			const int width = 4;
+			const int height = 4;
+			var sourceNodeGrid = sourceNodeGridFactory.GeneratePreFilledArray(width, height, new Vector2(1, 1), GenerateNodeGridConnections.All);
+			var astarNodeNetwork = new AstarNodeNetwork(sourceNodeGrid, new GridClearanceGenerator(sourceNodeGrid, 5));
+			
+			var sourceNodeNetworkCat1 = new Array2D<AstarNode>(astarNodeNetwork.GetCollisionLayerNetwork(PathfindaxCollisionCategory.Cat1), width, height);
+			Assert.AreEqual(4, sourceNodeNetworkCat1[0, 0].Clearance);
+			Assert.AreEqual(3, sourceNodeNetworkCat1[1, 0].Clearance);
+			Assert.AreEqual(2, sourceNodeNetworkCat1[2, 0].Clearance);
+			Assert.AreEqual(1, sourceNodeNetworkCat1[3, 0].Clearance);
 
-		[Test]
-		public void CalculateGridNodeClearances2_FilledNodeGrid_Passes()
-		{
-			var sourceNodeGridFactory = new SourceNodeGridFactory();
-			var sourceNodeGrid = sourceNodeGridFactory.GeneratePreFilledArray(16, 16, new Vector2(1, 1), GenerateNodeGridConnections.All);
-			sourceNodeGrid.NodeArray[2, 2].Connections[5] = new NodeConnection(sourceNodeGrid.NodeArray[2, 2].Connections[5].To, PathfindaxCollisionCategory.Cat1);
-			sourceNodeGrid.NodeArray[3, 3].Connections[6] = new NodeConnection(sourceNodeGrid.NodeArray[3, 3].Connections[6].To, PathfindaxCollisionCategory.Cat2);
-			sourceNodeGrid.NodeArray[5, 3].Connections[6] = new NodeConnection(sourceNodeGrid.NodeArray[5, 3].Connections[2].To, PathfindaxCollisionCategory.Cat3);
-			var clearances = sourceNodeGridFactory.CalculateGridNodeClearances(sourceNodeGrid, sourceNodeGrid.NodeArray[0, 0], 5);
-			Assert.AreEqual(clearances.Count, 2);
-			Assert.AreEqual(true, clearances[0].CollisionCategory == PathfindaxCollisionCategory.Cat1);
-			Assert.AreEqual(true, clearances[0].Clearance == 3);
-			Assert.AreEqual(true, clearances[1].CollisionCategory == PathfindaxCollisionCategory.Cat2);
-			Assert.AreEqual(true, clearances[1].Clearance == 4);
+			Assert.AreEqual(3, sourceNodeNetworkCat1[0, 1].Clearance);
+			Assert.AreEqual(3, sourceNodeNetworkCat1[1, 1].Clearance);
+			Assert.AreEqual(2, sourceNodeNetworkCat1[2, 1].Clearance);
+			Assert.AreEqual(1, sourceNodeNetworkCat1[3, 1].Clearance);
 		}
 	}
 }

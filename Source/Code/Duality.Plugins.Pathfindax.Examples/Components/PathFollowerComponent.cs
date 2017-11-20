@@ -1,37 +1,31 @@
 ﻿using Duality.Components;
 using Duality.Editor;
 using Duality.Input;
-using Duality.Plugins.Pathfindax.PathfindEngine;
+using Duality.Plugins.Pathfindax.Components;
 using Pathfindax.Nodes;
 using Pathfindax.PathfindEngine;
+using Pathfindax.Paths;
 using Pathfindax.Utils;
 
 namespace Duality.Plugins.Pathfindax.Examples.Components
 {
 	[EditorHintCategory(PathfindaxStrings.PathfindaxTest)]
-	public class PathFollowerComponent : Component, ICmpUpdatable, ICmpInitializable
+	public class PathFollowerComponent : Component, ICmpUpdatable, ICmpInitializable, IPathProvider
 	{
-		[EditorHintRange(1, int.MaxValue)]
-		public int TimeBetweenMovements { get; set; }
-
+		[EditorHintRange(0, float.MaxValue)]
+		public float MovementSpeed { get; set; } = 1f;
 		[EditorHintRange(1, byte.MaxValue)]
 		public byte AgentSize { get; set; }
 		public PathfindaxCollisionCategory CollisionCategory { get; set; }
 		public Camera Camera { get; set; }
-
-		private Transform _transform;
-		private Vector2[] _path;
-		private int _pathIndex;
-		private GridPathfinderProxy _gridPathfinderProxy;
-		private int _counter;
+		public IPath Path { get; private set; }
+		public AstarPathfinderComponent PathfinderComponent { get; set; }
 
 		void ICmpInitializable.OnInit(InitContext context)
 		{
 			if (context == InitContext.Activate && DualityApp.ExecContext == DualityApp.ExecutionContext.Game)
 			{
-				_transform = GameObj.GetComponent<Transform>();
 				DualityApp.Mouse.ButtonDown += Mouse_ButtonDown;
-				_gridPathfinderProxy = new GridPathfinderProxy();
 			}
 		}
 
@@ -42,46 +36,25 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 
 		void ICmpUpdatable.OnUpdate()
 		{
-			_counter++;
-			if (_counter > TimeBetweenMovements)
+			if (Path != null)
 			{
-				_counter = 0;
-				if (_path != null)
-				{
-					Vector2 target;
-					if (_pathIndex < _path.Length)
-					{
-						target = _path[_pathIndex];
-					}
-					else
-					{
-						_pathIndex = 0;
-						_path = null;
-						return;
-					}
-					_transform.MoveToAbs(target);
-					if (MathF.Distance(_transform.Pos.X, _transform.Pos.Y, target.X, target.Y) < 0.1f)
-					{
-						_pathIndex++;
-					}
-				}
+				var heading = Path.GetHeading(GameObj.Transform.Pos);
+				if (heading.Length <= MovementSpeed)
+					Path.NextWaypoint();
+				GameObj.Transform.MoveBy(PathfindaxMathF.Clamp(heading.Normalized * Time.TimeMult * MovementSpeed, heading.Length));
 			}
 		}
 
 		private void Mouse_ButtonDown(object sender, MouseButtonEventArgs e)
 		{
-			var targetPos = Camera.GetSpaceCoord(e.Position);    
-			var request = _gridPathfinderProxy.RequestPath(_transform.Pos, targetPos, CollisionCategory, AgentSize);
-            request.AddCallback(OnRequestCompleted);
+			var targetPos = Camera.GetSpaceCoord(e.Position);
+			var request = PathfinderComponent.Pathfinder.RequestPath(GameObj.Transform.Pos, targetPos, CollisionCategory, AgentSize);
+			request.AddCallback(OnRequestCompleted);
 		}
 
-		private void OnRequestCompleted(PathRequest pathRequest)
+		private void OnRequestCompleted(PathRequest<NodePath> pathRequest)
 		{
-			if (pathRequest.CompletedPath != null)
-			{
-				_path = pathRequest.CompletedPath.Path;
-				_pathIndex = 0;
-			}
+			Path = pathRequest.CompletedPath;
 		}
 	}
 }

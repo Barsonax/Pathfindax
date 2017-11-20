@@ -1,64 +1,48 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Pathfindax.Algorithms;
-using Pathfindax.Grid;
+﻿using Pathfindax.Algorithms;
+using Pathfindax.Graph;
+using Pathfindax.Paths;
 using Pathfindax.Threading;
 
 namespace Pathfindax.PathfindEngine
 {
-    /// <summary>
-    /// Processes a <see cref="PathRequest"/>
-    /// </summary>
-    /// <typeparam name="TNodeNetwork"></typeparam>
-    public class PathRequestProcesser<TNodeNetwork> : IProcesser<PathRequest>
-		where TNodeNetwork : INodeNetwork
+	/// <summary>
+	/// Processes a <see cref="PathRequest"/>
+	/// </summary>
+	/// <typeparam name="TNodeNetwork"></typeparam>
+	/// <typeparam name="TPath"></typeparam>
+	public class PathRequestProcesser<TNodeNetwork, TPath> : IProcesser<PathRequest<TPath>>
+		where TNodeNetwork : IPathfindNodeNetwork
+		where TPath : class, IPath
 	{
-		private readonly TNodeNetwork _nodeNetwork;
-		private readonly IPathFindAlgorithm<TNodeNetwork> _algorithm;
-		private readonly IList<IPathPostProcess> _pathPostProcesses;
+		public readonly TNodeNetwork NodeNetwork;
+		private readonly IPathFindAlgorithm<TNodeNetwork, TPath> _algorithm;
 
 		/// <summary>
-		/// Initialises a new <see cref="PathRequestProcesser{TNodeNetwork}"/> with a <see cref="IPathFindAlgorithm{TNodeNetwork}"/> and optional post processing steps.
+		/// Initialises a new <see cref="PathRequestProcesser{TNodeNetwork, TPath}"/> with a <see cref="IPathFindAlgorithm{TNodeNetwork, TPath}"/> and optional post processing steps.
 		/// </summary>
 		/// <param name="nodeNetwork">The <typeparamref name="TNodeNetwork"/> that will be used to solve paths</param>
-		/// <param name="pathFindAlgorithm">The <see cref="IPathFindAlgorithm{TNodeNetwork}"/> that will be used to solve paths</param>
-		/// <param name="pathPostProcesses">The post processing steps that will be applied after the <see cref="IPathFindAlgorithm{TNodeNetwork}"/> found a path</param>
-		public PathRequestProcesser(TNodeNetwork nodeNetwork, IPathFindAlgorithm<TNodeNetwork> pathFindAlgorithm, IList<IPathPostProcess> pathPostProcesses = null)
+		/// <param name="pathFindAlgorithm">The <see cref="IPathFindAlgorithm{TNodeNetwork, TPath}"/> that will be used to solve paths</param>
+		public PathRequestProcesser(TNodeNetwork nodeNetwork, IPathFindAlgorithm<TNodeNetwork, TPath> pathFindAlgorithm)
 		{
 			_algorithm = pathFindAlgorithm;
-			_pathPostProcesses = pathPostProcesses;
-			_nodeNetwork = nodeNetwork;
+			NodeNetwork = nodeNetwork;
 		}
 
 		/// <summary>
 		/// Processes a <see cref="PathRequest"/>
 		/// </summary>
 		/// <param name="pathRequest"></param>
-		public void Process(PathRequest pathRequest)
+		public void Process(PathRequest<TPath> pathRequest)
 		{
-			var path = _algorithm.FindPath(_nodeNetwork, pathRequest);
+			var path = _algorithm.FindPath(NodeNetwork, pathRequest);
             if (path == null)
             {
                 pathRequest.FinishSolvePath(null);
             }
             else
-            {
-                if (_pathPostProcesses != null)
-                {
-                    foreach (var postProcess in _pathPostProcesses)
-                    {
-                        path = postProcess.Process(path, pathRequest);
-                    }
-                }
-                if (_nodeNetwork is INodeGrid nodeGrid)
-                {
-					pathRequest.FinishSolvePath(new CompletedGridPath(path.ToArray(), nodeGrid.SourceNodeGrid.NodeSize.X, pathRequest.AgentSize));
-                }
-                else
-                {
-                    pathRequest.FinishSolvePath(new CompletedPath(path.ToArray()));
-                }
-            }           
+            {				
+				pathRequest.FinishSolvePath(path);
+			}           
 		}
 	}
 }

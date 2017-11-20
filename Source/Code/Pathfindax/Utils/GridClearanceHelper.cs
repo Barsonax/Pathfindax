@@ -1,4 +1,5 @@
 ﻿using System;
+using Duality;
 
 namespace Pathfindax.Utils
 {
@@ -10,7 +11,7 @@ namespace Pathfindax.Utils
 		/// <summary>
 		/// Calculates the offset for grid based clearance
 		/// </summary>
-		public static float GridNodeOffset(int agentSize, float nodeSize)
+		public static Vector2 GridNodeOffset(float agentSize, Vector2 nodeSize)
 		{
 			return nodeSize * Math.Max(0f, (agentSize - 1) * 0.5f);
 		}

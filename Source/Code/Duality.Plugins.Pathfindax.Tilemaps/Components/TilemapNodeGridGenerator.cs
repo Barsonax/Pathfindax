@@ -1,43 +1,54 @@
 ﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Duality.Editor;
 using Duality.Plugins.Pathfindax.Tilemaps.Generators;
 using Duality.Plugins.Tilemaps;
 using Pathfindax.Factories;
-using Pathfindax.Grid;
+using Pathfindax.Graph;
 using Pathfindax.Utils;
 
 namespace Duality.Plugins.Pathfindax.Tilemaps.Components
 {
 	/// <summary>
-	/// Generates a <see cref="SourceNodeGrid"/> from <see cref="Tilemap"/>'s.
+	/// Generates a <see cref="DefinitionNodeGrid"/> from <see cref="Tilemap"/>'s.
 	/// The <see cref="Tilemap"/>'s must be children of the gameobject this component is attached to.
 	/// </summary>
 	[EditorHintCategory(PathfindaxStrings.PathfindaxTilemap)]
-	public class TilemapNodeGridGenerator : Component, ISourceNodeNetworkProvider<SourceNodeGrid>
+	public class TilemapNodeGridGenerator : Component, IDefinitionNodeNetworkProvider<DefinitionNodeGrid>
 	{
-		/// <summary>
-		/// The maximum clearance that will be calculated. For performance reasons try to keep this as small as possible. This should be no larger than the size of your largest agent in nodes.
-		/// </summary>
-		public int MaxCalculatedClearance { get; set; }
-
+		private float[] _movementPenalties;
 		/// <summary>
 		/// The movement penalties per tile which can be used to make the pathfinder try to avoid certain nodes. The index of the value in the array is equal to the index of the tile.
 		/// </summary>
-		public byte[] MovementPenalties { get; set; }
+		public float[] MovementPenalties
+		{
+			get => _movementPenalties;
+			set
+			{
+				var oldLength = MathF.Clamp(_movementPenalties?.Length - 1 ?? 0, 0, int.MaxValue);
+				_movementPenalties = value;
+				for (var i = oldLength; i < _movementPenalties.Length; i++)
+				{
+					Log.Game.Write(i.ToString());
+					_movementPenalties[i] = 1f;
+				}
+			}
+		}
 
-		private SourceNodeGrid _sourceNodeGrid;
+		private DefinitionNodeGrid _definitionNodeGrid;
 
 		/// <summary>
-		/// Generates a fully initialized <see cref="ISourceNodeGrid{TNode}"/> that can be used as a source nodegrid for pathfinders.
+		/// Generates a fully initialized <see cref="DefinitionNodeGrid"/> that can be used as a source nodegrid for pathfinders.
 		/// </summary>
 		/// <returns></returns>
-		public SourceNodeGrid GenerateGrid2D()
+		public DefinitionNodeGrid GenerateGrid2D()
 		{
-			if (_sourceNodeGrid == null)
-			{				
+			if (_definitionNodeGrid == null)
+			{
+				var watch = Stopwatch.StartNew();
 				var tilemaps = SearchTilemaps().ToArray();
 				var baseTilemap = tilemaps.FirstOrDefault();
 				if (baseTilemap == null)
@@ -46,37 +57,31 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Components
 					return null;
 				}
 				var offset = -new Vector2(baseTilemap.Size.X * baseTilemap.Tileset.Res.TileSize.X - baseTilemap.Tileset.Res.TileSize.X, baseTilemap.Size.Y * baseTilemap.Tileset.Res.TileSize.Y - baseTilemap.Tileset.Res.TileSize.Y) / 2;
-				var sourceNodeGridFactory = new SourceNodeGridFactory();
-				_sourceNodeGrid = sourceNodeGridFactory.GeneratePreFilledArray(baseTilemap.Size.X, baseTilemap.Size.Y, new Vector2(baseTilemap.Tileset.Res.TileSize.X, baseTilemap.Tileset.Res.TileSize.Y), GenerateNodeGridConnections.None, new Vector2(offset.X, offset.Y));
+				var sourceNodeGridFactory = new DefinitionNodeGridFactory();
+				_definitionNodeGrid = sourceNodeGridFactory.GeneratePreFilledArray(baseTilemap.Size.X, baseTilemap.Size.Y, new Vector2(baseTilemap.Tileset.Res.TileSize.X, baseTilemap.Tileset.Res.TileSize.Y), GenerateNodeGridConnections.None, new Vector2(offset.X, offset.Y));
 				var tilemapColliderWithBodies = GameObj.GetComponentsInChildren<TilemapCollider>().Select(x => new TilemapColliderWithBody(x)).ToArray();
-				var partioner = Partitioner.Create(0, _sourceNodeGrid.NodeCount);
+				var partioner = Partitioner.Create(0, _definitionNodeGrid.NodeCount);
 
 				Parallel.ForEach(partioner, range =>
 				{
 					var connectionGenerator = new TilemapNodeConnectionGenerator();
 					for (var i = range.Item1; i < range.Item2; i++)
 					{
-						connectionGenerator.CalculateGridNodeCollision(tilemapColliderWithBodies, _sourceNodeGrid.NodeArray[i], _sourceNodeGrid);
+						var definitionNode = _definitionNodeGrid.NodeGrid[i];
+						connectionGenerator.CalculateGridNodeCollision(tilemapColliderWithBodies, _definitionNodeGrid.NodeGrid[i], _definitionNodeGrid);
+
+						if (MovementPenalties != null)
+						{							
+							var nodeGridCoordinates = _definitionNodeGrid.Transformer.ToGridSpace(definitionNode.Index.Index);
+							var index = baseTilemap.Tiles[nodeGridCoordinates.X, nodeGridCoordinates.Y].Index;
+							if (index < MovementPenalties.Length)
+								definitionNode.MovementCostModifier = MovementPenalties[index];
+						}
 					}
 				});
-
-				Parallel.ForEach(_sourceNodeGrid, gridNode =>
-				{
-					if (MovementPenalties != null)
-					{
-						var index = baseTilemap.Tiles[gridNode.GridX, gridNode.GridY].Index;
-						if (index < MovementPenalties.Length)
-							gridNode.MovementPenalty = MovementPenalties[index];
-					}
-
-					var clearances = sourceNodeGridFactory.CalculateGridNodeClearances(_sourceNodeGrid, gridNode, MaxCalculatedClearance);
-					if (clearances.Count > 0)
-					{
-						gridNode.Clearances = gridNode.Clearances?.Concat(clearances).ToArray() ?? clearances.ToArray();
-					}
-				});
+				Debug.WriteLine($"Generated definition nodegrid for tilemap in {watch.ElapsedMilliseconds} ms");
 			}
-			return _sourceNodeGrid;
+			return _definitionNodeGrid;
 		}
 
 		private IEnumerable<Tilemap> SearchTilemaps()

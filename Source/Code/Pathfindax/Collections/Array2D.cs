@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Pathfindax.Collections
 {
@@ -7,12 +9,17 @@ namespace Pathfindax.Collections
 	/// A array class that provides both single dimensional and 2-dimensional access to a array.
 	/// </summary>
 	/// <typeparam name="TItem"></typeparam>
-	public class Array2D<TItem> : IReadOnlyArray2D<TItem>, IWriteOnlyArray2D<TItem>
+	public class Array2D<TItem> : IReadOnlyArray2D<TItem>, IWriteOnlyArray2D<TItem>, IReadOnlyList<TItem>
 	{
 		/// <summary>
 		/// The length of the internal array
 		/// </summary>
 		public int Length => Array.Length;
+
+		/// <summary>
+		/// The length of the internal array
+		/// </summary>
+		public int Count => Array.Length;
 
 		/// <summary>
 		/// The width of the array in items
@@ -24,6 +31,9 @@ namespace Pathfindax.Collections
 		/// </summary>
 		public int Height { get; }
 
+		/// <summary>
+		/// The internal single dimensional array thats used to store the <typeparamref name="TItem"/>s
+		/// </summary>
 		public TItem[] Array { get; }
 
 		/// <summary>
@@ -33,8 +43,25 @@ namespace Pathfindax.Collections
 		/// <param name="y"></param>
 		public TItem this[int x, int y]
 		{
-			get => Array[x + y * Width];
-		    set => Array[x + y * Width] = value;
+			get
+			{
+				if (x > Width)
+				{
+					Debugger.Break();
+					throw new IndexOutOfRangeException();
+				}
+
+				return Array[x + y * Width];
+			}
+			set
+			{
+				if (x > Width)
+				{
+					Debugger.Break();
+					throw new IndexOutOfRangeException();
+				}
+				Array[x + y * Width] = value;
+			}
 		}
 
 		/// <summary>
@@ -44,7 +71,7 @@ namespace Pathfindax.Collections
 		public TItem this[int i]
 		{
 			get => Array[i];
-		    set => Array[i] = value;
+			set => Array[i] = value;
 		}
 
 		/// <summary>
@@ -57,6 +84,14 @@ namespace Pathfindax.Collections
 			Width = width;
 			Height = height;
 			Array = new TItem[width * height];
+		}
+
+		public Array2D(TItem[] array, int width, int height)
+		{
+			if (width * height != array.Length) throw new ArgumentException("The length of the array is not equal to width * height");
+			Width = width;
+			Height = height;
+			Array = array;
 		}
 
 		/// <inheritdoc />

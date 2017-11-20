@@ -2,9 +2,9 @@
 using Duality.Editor;
 using Duality.Input;
 using Duality.Plugins.Pathfindax.Components;
-using Duality.Plugins.Pathfindax.PathfindEngine;
 using Pathfindax.Nodes;
 using Pathfindax.PathfindEngine;
+using Pathfindax.Paths;
 using Pathfindax.Utils;
 
 namespace Duality.Plugins.Pathfindax.Examples.Components
@@ -26,7 +26,9 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 		/// <summary>
 		/// The currently calculated path
 		/// </summary>
-		public Vector2[] Path { get; private set; }
+		public IPath Path { get; private set; }
+
+		public AstarPathfinderComponent PathfinderComponent { get; set; }
 
 		/// <summary>
 		/// A reference to the <see cref="Duality.Components.Camera"/> thats used to convert the screen coordinates from mouseclicks to world coordinates.
@@ -34,7 +36,6 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 		public Camera Camera { get; set; }
 
 		private Vector3? _pathStart;
-		private GridPathfinderProxy _gridPathfinderProxy;
 
 		void ICmpInitializable.OnInit(InitContext context)
 		{
@@ -42,7 +43,6 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 			{
 				DualityApp.Mouse.Move += Mouse_Move;
 				DualityApp.Mouse.ButtonDown += Mouse_ButtonDown;
-				_gridPathfinderProxy = new GridPathfinderProxy();
 			}
 		}
 
@@ -52,9 +52,9 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 			DualityApp.Mouse.Move -= Mouse_Move;
 		}
 
-		private void PathSolved(PathRequest pathRequest)
+		private void PathSolved(PathRequest<NodePath> pathRequest)
 		{
-			Path = pathRequest.CompletedPath.Path;
+			Path = pathRequest.CompletedPath;
 		}
 
 		private void Mouse_ButtonDown(object sender, MouseButtonEventArgs e)
@@ -73,7 +73,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 		{
 			if (_pathStart != null)
 			{
-				var request = _gridPathfinderProxy.RequestPath(_pathStart.Value, _pathStart.Value, CollisionCategory, AgentSize);
+				var request = PathfinderComponent.Pathfinder.RequestPath(_pathStart.Value, _pathStart.Value, CollisionCategory, AgentSize);
 				request.AddCallback(PathSolved);
 			}
 		}

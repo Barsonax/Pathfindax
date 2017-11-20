@@ -1,18 +1,15 @@
 # Pathfindax
-Pathfindax is a pathfinding framework that can be used to get a path from A to B in a network of nodes. By default the framework provides a implementation of a grid based A* algorithm with the following features:  
--Both pathfinding and nodegrid generation is multithreaded  
--Support for up to 32 collision layers  
--Support for multiple agent sizes  
--Support for movement penalties  
--Built in support for the duality tilemap plugin 
+Pathfindax is a pathfinding framework that can be used to get a path to a destination in a network of nodes. Currently A*, potential fields and flowfield are implemented. These implementations support the following features:
+- Support for up to 32 collision layers 
+- Support for multiple agent sizes  (only for grids)
+- Support for movement penalties  
+- Built in support for the duality tilemap plugin (only for grids)
 
-There is also a non grid based A* algorithm which has the above features except for the agent sizes and tilemap support.
+Its also possible to use dynamic pathfinding if you use potential fields.
 
-However you are free to implement the interfaces yourself to use a different algorithm.
+While the main goal was to provide a easy way to use pathfinding in duality most of the implementation is in a separate dll which can also be used without duality and only depends on the DualityPrimitives package.
 
-While the main goal was to provide a easy way to use pathfinding in duality most of the implementation is in a separate dll which can also be used without duality.
-
-You can find some tutorials on the [documentation](https://barsonax.github.io/html/63392b30-cd57-428e-bd77-3dee6259d856.htm). The source also contains some examples to show how you can use Pathfindax. More will be added in the future.
+You can find some examples on how to use pathfindax here [Examples](https://github.com/Barsonax/Pathfindax/tree/master/Source/Code/Duality.Plugins.Pathfindax.Examples/Components).
   
 ### Build status: 
 | Branch | Status |
