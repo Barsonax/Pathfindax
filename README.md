@@ -3,7 +3,9 @@ Pathfindax is a pathfinding framework that can be used to get a path to a destin
 - Support for up to 32 collision layers 
 - Support for multiple agent sizes  (only for grids)
 - Support for movement penalties  
-- Built in support for the duality tilemap plugin (only for grids) 
+- Built in support for the duality tilemap plugin (only for grids)
+
+Its also possible to use dynamic pathfinding through the use of potential fields.
 
 While the main goal was to provide a easy way to use pathfinding in duality most of the implementation is in a separate dll which can also be used without duality and only depends on the DualityPrimitives package.
 
