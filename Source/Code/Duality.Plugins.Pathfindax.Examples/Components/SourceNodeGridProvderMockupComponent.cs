@@ -1,5 +1,4 @@
 ﻿using Duality.Editor;
-using Pathfindax.Factories;
 using Pathfindax.Graph;
 using Pathfindax.Utils;
 
@@ -16,8 +15,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 		{
 			if (_definitionNodeGrid == null)
 			{
-				var sourceNodeGridFactory = new DefinitionNodeGridFactory();
-				var nodeGrid = sourceNodeGridFactory.GeneratePreFilledArray(16, 16, new Vector2(32, 32), GenerateNodeGridConnections.All);
+				var nodeGrid = new DefinitionNodeGrid(GenerateNodeGridConnections.All, 16, 16, new Vector2(32, 32));
 				/*definitionNodeGrid.PotentialArray[5, 4].CollisionCategory = PathfindaxCollisionCategory.Cat1;
 				definitionNodeGrid.PotentialArray[5, 5].CollisionCategory = PathfindaxCollisionCategory.Cat1;
 				definitionNodeGrid.PotentialArray[5, 6].CollisionCategory = PathfindaxCollisionCategory.Cat1;

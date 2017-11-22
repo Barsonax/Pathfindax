@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using Duality;
 using Pathfindax.Collections;
 using Pathfindax.Graph;
@@ -10,9 +9,9 @@ namespace Pathfindax.Paths
 {
 	public class DynamicPotentialField : PotentialFieldBase, IDisposable
 	{
+		public event Event<DynamicPotentialField> Disposed;
 		public Array2D<float> PotentialArray { get; }
 		private readonly Dictionary<object, PotentialFunction> _valueProviders = new Dictionary<object, PotentialFunction>();
-		private readonly DynamicPotentialFieldUpdater _dynamicPotentialFieldUpdater;
 
 		/// <summary>
 		/// Creates a new <see cref="DynamicPotentialField"/>
@@ -21,14 +20,14 @@ namespace Pathfindax.Paths
 		/// <param name="gridTransformer"></param>
 		/// <param name="interval">The update interval in milliseconds.</param>
 		public DynamicPotentialField(IPathfindaxManager pathfindaxManager, GridTransformer gridTransformer, float interval) : base(gridTransformer)
-		{
-			_dynamicPotentialFieldUpdater = new DynamicPotentialFieldUpdater(pathfindaxManager, this, interval);
+		{			
+			pathfindaxManager.CreatePotentialFieldUpdater(this, interval);
 			PotentialArray = new Array2D<float>(gridTransformer.GridSize.X, gridTransformer.GridSize.Y);
 		}
 
 		public void Dispose()
 		{
-			_dynamicPotentialFieldUpdater.Dispose();
+			Disposed?.Invoke(this);
 		}
 
 		public void AddPotentialFunction(object key, PotentialFunction potentialFunction)

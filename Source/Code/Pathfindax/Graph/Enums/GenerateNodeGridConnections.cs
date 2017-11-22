@@ -8,12 +8,12 @@
 		None = 0,
 
 		/// <summary>
-		/// Generate neighbours except diagonal neighbours
+		/// Generate connections to all neighbours of a node except diagonal.
 		/// </summary>
 		NoDiagonal = 10,
 
 		/// <summary>
-		/// Generate all neighbours
+		/// Generate connections to all neighbours of a node.
 		/// </summary>
 		All = 20,
 	}

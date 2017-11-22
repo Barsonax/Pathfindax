@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Duality;
 using Pathfindax.Algorithms;
 using Pathfindax.Graph;
@@ -74,12 +75,13 @@ namespace Pathfindax.PathfindEngine
 		/// <param name="collisionLayer"></param>
 		PathRequest<TPath> RequestPath(DefinitionNode start, DefinitionNode end, PathfindaxCollisionCategory collisionLayer = PathfindaxCollisionCategory.None, byte agentSize = 1);
 
-
 		new IPathFindAlgorithm<TPath> PathFindAlgorithm { get; }
 	}
 
-	public interface IPathfinder
+	public delegate void Event<in TObject>(TObject @object);
+	public interface IPathfinder : IDisposable
 	{
+		event Event<IPathfinder> Disposed;
 		IDefinitionNodeNetwork DefinitionNodeNetwork { get; }
 
 		IPathFindAlgorithm PathFindAlgorithm { get; }
