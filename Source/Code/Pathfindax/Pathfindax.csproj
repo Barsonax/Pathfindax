@@ -116,7 +116,7 @@
     <Compile Include="Algorithms\Interfaces\IPathFindAlgorithm.cs" />
     <Compile Include="Collections\Array2D.cs" />
     <Compile Include="Collections\Interfaces\IHeapItem.cs" />
-    <Compile Include="Collections\MinHeap.cs" />
+    <Compile Include="Collections\MaxHeap.cs" />
     <Compile Include="Graph\AstarNodeNetwork.cs" />
     <Compile Include="Factories\SourceNodeGridFactory.cs" />
     <Compile Include="Graph\Enums\GenerateNodeGridConnections.cs" />

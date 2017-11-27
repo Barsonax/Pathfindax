@@ -67,7 +67,7 @@ namespace Pathfindax.Algorithms
 				}
 				if (startNode.Clearance >= neededClearance && targetNode.Clearance >= neededClearance)
 				{
-					var openSet = new MinHeap<AstarNode>(pathfindingNetwork.Length);
+					var openSet = new MaxHeap<AstarNode>(pathfindingNetwork.Length);
 					var closedSet = new HashSet<AstarNode>();
 					var itterations = 0;
 					var neighbourUpdates = 0;

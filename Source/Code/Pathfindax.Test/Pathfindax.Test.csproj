@@ -71,8 +71,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Setup\AstarGridAlgorithmCases.cs" />
+    <Compile Include="Tests\Array2DTests.cs" />
     <Compile Include="Tests\AstarGridAlgorithmTests.cs" />
     <Compile Include="Setup\MultithreadedPathfinderSetup.cs" />
+    <Compile Include="Tests\MaxHeapTests.cs" />
     <Compile Include="Tests\MultithreadedPathfinderTests.cs" />
     <Compile Include="Tests\MultithreadedWorkerQueueTests.cs" />
     <Compile Include="Tests\PathRequestTests.cs" />

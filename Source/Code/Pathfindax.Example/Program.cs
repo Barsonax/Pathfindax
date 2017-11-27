@@ -63,7 +63,8 @@ namespace Pathfindax.Example
 				callbackCalled = true;
 			});
 
-			//Start calling update on the manager. Update will call the callbacks of any completed paths. Note that the callback is called from the thread that calls update!
+			//Start calling update on the manager. Update will call the callbacks of any completed paths. Note that the callback is called from the thread that calls update.
+			//Normally when using pathfindax in a game engine you would wire this up in your game loop.
 			while (!callbackCalled)
 			{
 				pathfindaxManager.Update(1f); 

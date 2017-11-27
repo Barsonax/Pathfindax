@@ -3,10 +3,10 @@
 namespace Pathfindax.Collections
 {
 	/// <summary>
-	/// A fast minheap that is used as a priority queue for pathfinding.
+	/// A fast maxheap that is used as a priority queue for pathfinding.
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
-	public class MinHeap<T> 
+	public class MaxHeap<T>
 		where T : class, IHeapItem<T>
 	{
 		/// <summary>
@@ -14,13 +14,14 @@ namespace Pathfindax.Collections
 		/// </summary>
 		public int Count { get; private set; }
 
-		private readonly T[] _items;	
+		public int Capacity => _items.Length;
+		private readonly T[] _items;
 
 		/// <summary>
-		/// Creates a new <see cref="MinHeap{T}"/>. The max amount of items in the heap is equal to <paramref name="maxHeapSize"/>
+		/// Creates a new <see cref="MaxHeap{T}"/>. The max amount of items in the heap is equal to <paramref name="maxHeapSize"/>
 		/// </summary>
 		/// <param name="maxHeapSize"></param>
-		public MinHeap(int maxHeapSize)
+		public MaxHeap(int maxHeapSize)
 		{
 			_items = new T[maxHeapSize];
 		}
@@ -39,7 +40,7 @@ namespace Pathfindax.Collections
 		}
 
 		/// <summary>
-		/// Removes the first item from the heap. Since this is a minheap it will have the lowest value which is determined by the implementation of the <see cref="IComparable{T}"/> interface.
+		/// Removes the first item from the heap. Since this is a maxheap it will have the highest value which is determined by the implementation of the <see cref="IComparable{T}"/> interface.
 		/// </summary>
 		/// <returns></returns>
 		public T RemoveFirst()
@@ -59,6 +60,7 @@ namespace Pathfindax.Collections
 		/// <returns></returns>
 		public bool Contains(T item)
 		{
+			if (item.HeapIndex < 0 || item.HeapIndex >= Count) return false;
 			return Equals(_items[item.HeapIndex], item);
 		}
 
@@ -119,11 +121,11 @@ namespace Pathfindax.Collections
 
 		private void Swap(T itemA, T itemB)
 		{
-			_items[itemA.HeapIndex] = itemB;
-			_items[itemB.HeapIndex] = itemA;
 			var itemAIndex = itemA.HeapIndex;
 			itemA.HeapIndex = itemB.HeapIndex;
 			itemB.HeapIndex = itemAIndex;
+			_items[itemB.HeapIndex] = itemB;
+			_items[itemA.HeapIndex] = itemA;
 		}
 	}
 }

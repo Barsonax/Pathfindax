@@ -3,14 +3,14 @@
 namespace Pathfindax.Collections
 {
 	/// <summary>
-	/// Interface for objects that will be used in a <see cref="MinHeap{T}"/>
+	/// Interface for objects that will be used in a <see cref="MaxHeap{T}"/>
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
 	public interface IHeapItem<in T> : IComparable<T>
 		where T : class
 	{
 		/// <summary>
-		/// The index of the item in the <see cref="MinHeap{T}"/>
+		/// The index of the item in the <see cref="MaxHeap{T}"/>
 		/// </summary>
 		int HeapIndex { get; set; }
 	}
