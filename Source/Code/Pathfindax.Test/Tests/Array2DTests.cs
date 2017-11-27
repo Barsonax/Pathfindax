@@ -10,7 +10,7 @@ namespace Pathfindax.Test.Tests
 	class Array2DTests
 	{
 		[Test, TestCaseSource(typeof(Array2DTests), nameof(Array2DTestCases))]
-		public void Array2D(Array2D<int> array2D, bool shouldCrash, Point2 pointToCheck)
+		public void Array2D_2DimensionalAccess(Array2D<int> array2D, bool shouldCrash, Point2 pointToCheck)
 		{
 			if (shouldCrash)
 			{
