@@ -45,7 +45,7 @@ namespace Pathfindax.Collections
 		{
 			get
 			{
-				if (x > Width)
+				if (x >= Width)
 				{
 					Debugger.Break();
 					throw new IndexOutOfRangeException();
@@ -55,7 +55,7 @@ namespace Pathfindax.Collections
 			}
 			set
 			{
-				if (x > Width)
+				if (x >= Width)
 				{
 					Debugger.Break();
 					throw new IndexOutOfRangeException();

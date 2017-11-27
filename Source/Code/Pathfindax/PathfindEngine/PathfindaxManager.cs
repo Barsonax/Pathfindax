@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System;
+using System.Collections.Generic;
+using Pathfindax.Algorithms;
+using Pathfindax.Graph;
+using Pathfindax.Paths;
 
 namespace Pathfindax.PathfindEngine
 {
@@ -7,16 +10,6 @@ namespace Pathfindax.PathfindEngine
 	{
 		private readonly List<IPathfinder> _pathfinders = new List<IPathfinder>();
 		private readonly List<DynamicPotentialFieldUpdater> _dynamicPotentialFieldUpdaters = new List<DynamicPotentialFieldUpdater>();
-
-		public void RegisterPathfinder(IPathfinder pathfinder)
-		{
-			_pathfinders.Add(pathfinder);
-		}
-
-		public void UnregisterPathfinder(IPathfinder pathfinder)
-		{
-			_pathfinders.Remove(pathfinder);
-		}
 
 		public void Clear()
 		{
@@ -37,15 +30,23 @@ namespace Pathfindax.PathfindEngine
 			}
 		}
 
-		public void RegisterDynamicPotentialField(DynamicPotentialFieldUpdater dynamicPotentialFieldUpdater)
+		public void CreatePotentialFieldUpdater(DynamicPotentialField dynamicPotentialField, float updateInterval)
 		{
-			_dynamicPotentialFieldUpdaters.Add(dynamicPotentialFieldUpdater);
+			var updater = new DynamicPotentialFieldUpdater(dynamicPotentialField, updateInterval);
+			_dynamicPotentialFieldUpdaters.Add(updater);
+			updater.Disposed += o => _dynamicPotentialFieldUpdaters.Remove(o);
 		}
 
-
-		public void UnregisterDynamicPotentialField(DynamicPotentialFieldUpdater dynamicPotentialField)
+		IPathfinder<TDefinitionNodeNetwork, TThreadNodeNetwork, TPath> IPathfindaxManager.CreatePathfinder<TDefinitionNodeNetwork, TThreadNodeNetwork, TPath>(TDefinitionNodeNetwork definitionNodeNetwork, IPathFindAlgorithm<TThreadNodeNetwork, TPath> pathFindAlgorithm, Func<TDefinitionNodeNetwork, IPathFindAlgorithm<TThreadNodeNetwork, TPath>, PathRequestProcesser<TThreadNodeNetwork, TPath>> processerConstructor, int threads = 1) => CreatePathfinder(definitionNodeNetwork, pathFindAlgorithm, processerConstructor, threads);
+		public Pathfinder<TSourceNodeNetwork, TThreadNodeNetwork, TPath> CreatePathfinder<TSourceNodeNetwork, TThreadNodeNetwork, TPath>(TSourceNodeNetwork definitionNodeNetwork, IPathFindAlgorithm<TThreadNodeNetwork, TPath> pathFindAlgorithm, Func<TSourceNodeNetwork, IPathFindAlgorithm<TThreadNodeNetwork, TPath>, PathRequestProcesser<TThreadNodeNetwork, TPath>> processerConstructor, int threads = 1)
+			where TSourceNodeNetwork : IDefinitionNodeNetwork
+			where TThreadNodeNetwork : IPathfindNodeNetwork
+			where TPath : class, IPath
 		{
-			_dynamicPotentialFieldUpdaters.Remove(dynamicPotentialField);
+			var pathfinder = new Pathfinder<TSourceNodeNetwork, TThreadNodeNetwork, TPath>(definitionNodeNetwork, pathFindAlgorithm, processerConstructor, threads);
+			_pathfinders.Add(pathfinder);
+			pathfinder.Disposed += o => _pathfinders.Remove(o);
+			return pathfinder;
 		}
 	}
 }

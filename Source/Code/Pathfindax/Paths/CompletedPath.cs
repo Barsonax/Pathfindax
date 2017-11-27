@@ -1,4 +1,5 @@
-﻿using Duality;
+﻿using System.Linq;
+using Duality;
 using Pathfindax.Nodes;
 
 namespace Pathfindax.Paths
@@ -36,6 +37,11 @@ namespace Pathfindax.Paths
 				return false;
 			}
 			return true;
+		}
+
+		public override string ToString()
+		{
+			return string.Join(", ", Path.Select(x => x.Position.ToString()));
 		}
 	}
 }

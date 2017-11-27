@@ -5,16 +5,15 @@ namespace Pathfindax.PathfindEngine
 {
 	public class DynamicPotentialFieldUpdater : IDisposable
 	{
-		private readonly IPathfindaxManager _pathfindaxManager;
+		public event Event<DynamicPotentialFieldUpdater> Disposed;
 		private readonly DynamicPotentialField _dynamicPotentialField;
 		private readonly float _interval;
 		private float _currentTime;
 
-		public DynamicPotentialFieldUpdater(IPathfindaxManager pathfindaxManager, DynamicPotentialField dynamicPotentialField, float interval)
+		internal DynamicPotentialFieldUpdater(DynamicPotentialField dynamicPotentialField, float interval)
 		{
-			_pathfindaxManager = pathfindaxManager;
-			_pathfindaxManager.RegisterDynamicPotentialField(this);
 			_dynamicPotentialField = dynamicPotentialField;
+			dynamicPotentialField.Disposed += o => Dispose();
 			_interval = interval;
 		}
 
@@ -30,7 +29,7 @@ namespace Pathfindax.PathfindEngine
 
 		public void Dispose()
 		{
-			_pathfindaxManager.UnregisterDynamicPotentialField(this);
+			Disposed?.Invoke(this);
 		}
 	}
 }

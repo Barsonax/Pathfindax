@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using Duality;
 using NUnit.Framework;
-using Pathfindax.Factories;
 using Pathfindax.Graph;
 
 namespace Pathfindax.Test.Setup
@@ -10,8 +9,7 @@ namespace Pathfindax.Test.Setup
 	{
 		public static DefinitionNodeGrid InitializeNodeGrid(int width, int height, Vector2 nodeSize)
 		{
-			var sourceNodeGridFactory = new DefinitionNodeGridFactory();
-			var sourceNodeGrid = sourceNodeGridFactory.GeneratePreFilledArray(width, height, nodeSize, GenerateNodeGridConnections.All);
+			var sourceNodeGrid = new DefinitionNodeGrid(GenerateNodeGridConnections.All, width, height, nodeSize);
 			return sourceNodeGrid;
 		}
 

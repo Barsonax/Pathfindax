@@ -16,10 +16,20 @@ namespace Pathfindax.Graph
 
 		public void Generate(AstarNode[] pathfindingNetwork, PathfindaxCollisionCategory collisionCategory)
 		{
-			for (var i = 0; i < pathfindingNetwork.Length; i++)
+			if (_maxClearance < 0)
 			{
-				var clearance = CalculateGridNodeClearances(i, collisionCategory, _maxClearance);
-				pathfindingNetwork[i].Clearance = clearance;
+				for (var i = 0; i < pathfindingNetwork.Length; i++)
+				{
+					pathfindingNetwork[i].Clearance = int.MaxValue;
+				}
+			}
+			else
+			{
+				for (var i = 0; i < pathfindingNetwork.Length; i++)
+				{
+					var clearance = CalculateGridNodeClearances(i, collisionCategory, _maxClearance);
+					pathfindingNetwork[i].Clearance = clearance;
+				}
 			}
 		}
 

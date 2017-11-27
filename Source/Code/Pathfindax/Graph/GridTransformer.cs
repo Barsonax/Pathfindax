@@ -7,18 +7,17 @@ namespace Pathfindax.Graph
 	{
 		public Vector2 WorldSize { get; }
 		public Vector2 Offset { get; }
-
 		public Point2 GridSize { get; }
 		public Vector2 NodeSize { get; }
 		public int NodeCount { get; }
 
-		public GridTransformer(Vector2 worldSize, Vector2 offset, Point2 gridSize, Vector2 nodeSize)
+		public GridTransformer(int gridWidth, int gridHeight, Vector2 nodeSize, Vector2 offset = default(Vector2))
 		{
-			WorldSize = worldSize;
 			Offset = offset;
-			GridSize = gridSize;
+			GridSize = new Point2(gridWidth, gridHeight);
+			WorldSize = new Vector2(gridWidth * nodeSize.X - nodeSize.X, gridHeight * nodeSize.Y - nodeSize.Y);
 			NodeSize = nodeSize;
-			NodeCount = gridSize.X * gridSize.Y;
+			NodeCount = gridWidth * gridHeight;
 		}
 
 		public Vector2 ToWorldSpace(int i)

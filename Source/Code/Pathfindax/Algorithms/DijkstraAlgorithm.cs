@@ -14,7 +14,7 @@ namespace Pathfindax.Algorithms
 		public bool FindPath(DijkstraNode[] pathfindingNetwork, DijkstraNode targetNode, DijkstraNode startNode, IPathRequest pathRequest)
 		{
 			ResetNetwork(pathfindingNetwork);
-			var openSet = new MinHeap<DijkstraNode>(pathfindingNetwork.Length);
+			var openSet = new MaxHeap<DijkstraNode>(pathfindingNetwork.Length);
 			var closedSet = new HashSet<DijkstraNode>();
 
 			openSet.Add(targetNode);
