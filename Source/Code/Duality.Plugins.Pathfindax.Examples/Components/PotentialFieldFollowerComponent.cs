@@ -60,7 +60,6 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 			if (_path != null)
 			{
 				var heading = _path.GetHeading(GameObj.Transform.Pos);
-				Debug.WriteLine(heading);
 				_rigidBody.ApplyWorldForce(heading * MovementSpeed);
 			}
 		}
