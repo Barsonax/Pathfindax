@@ -74,7 +74,7 @@ namespace Pathfindax.Graph
 				{
 					var definitionNode = _definitionNodeGrid.DefinitionNodeArray[index];
 					var isBlocked = true;
-					for (int i = 0; i < definitionNode.Connections.Count; i++)
+					for (var i = 0; i < definitionNode.Connections.Count; i++)
 					{
 						if ((definitionNode.Connections[i].CollisionCategory & collisionCategory) == 0) isBlocked = false;
 					}

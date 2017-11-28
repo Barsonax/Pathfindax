@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Text;
 
 namespace Pathfindax.Collections
 {
@@ -106,6 +107,21 @@ namespace Pathfindax.Collections
 		IEnumerator IEnumerable.GetEnumerator()
 		{
 			return GetEnumerator();
+		}
+
+		public override string ToString()
+		{
+			var builder = new StringBuilder();
+			for (var y = 0; y < Height; y++)
+			{
+				for (var x = 0; x < Width; x++)
+				{
+					builder.Append($"{this[x, y]}, ");
+				}
+				builder.AppendLine();
+			}
+			builder.Remove(builder.Length - 4, 2);
+			return builder.ToString();
 		}
 	}
 }

@@ -60,32 +60,32 @@ namespace Duality.Plugins.Pathfindax.Components
 						}
 						break;
 					case FlowField flowField:
-						for (int i = 0; i < flowField.FlowArray.Length; i++)
+						for (var i = 0; i < flowField.FlowArray.Length; i++)
 						{							
 							var nodePosition = flowField.GridTransformer.ToWorldSpace(i);
 							canvas.FillCircle(nodePosition.X, nodePosition.Y, 5f);
 							var flowVector = flowField[i];
-							var nodeSize = flowField.GridTransformer.NodeSize;
+							var nodeSize = flowField.GridTransformer.Scale;
 							canvas.DrawLine(nodePosition.X, nodePosition.Y, nodePosition.X + flowVector.X * nodeSize.X * 0.5f, nodePosition.Y + flowVector.Y * nodeSize.Y * 0.5f);
 						}
 						break;
 					case PotentialField potentialField:
-						for (int i = 0; i < potentialField.PotentialArray.Length; i++)
+						for (var i = 0; i < potentialField.PotentialArray.Length; i++)
 						{
 							var nodePosition = potentialField.GridTransformer.ToWorldSpace(i);
 							canvas.FillCircle(nodePosition.X, nodePosition.Y, 5f);
 							var flowVector = potentialField[i];
-							var nodeSize = potentialField.GridTransformer.NodeSize;
+							var nodeSize = potentialField.GridTransformer.Scale;
 							canvas.DrawLine(nodePosition.X, nodePosition.Y, nodePosition.X + flowVector.X * nodeSize.X * 0.5f, nodePosition.Y + flowVector.Y * nodeSize.Y * 0.5f);
 						}
 						break;
 					case AggregratedPotentialField aggregratedPotentialField:
-						for (int i = 0; i < aggregratedPotentialField.GridTransformer.NodeCount; i++)
+						for (var i = 0; i < aggregratedPotentialField.NodeCount; i++)
 						{
 							var nodePosition = aggregratedPotentialField.GridTransformer.ToWorldSpace(i);
 							canvas.FillCircle(nodePosition.X, nodePosition.Y, 5f);
 							var flowVector = aggregratedPotentialField[i];
-							var nodeSize = aggregratedPotentialField.GridTransformer.NodeSize;
+							var nodeSize = aggregratedPotentialField.GridTransformer.Scale;
 							canvas.DrawLine(nodePosition.X, nodePosition.Y, nodePosition.X + flowVector.X * nodeSize.X * 0.5f, nodePosition.Y + flowVector.Y * nodeSize.Y * 0.5f);
 						}
 						break;

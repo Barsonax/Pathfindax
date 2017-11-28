@@ -6,6 +6,7 @@ namespace Pathfindax.Paths
 	public class AggregratedPotentialField : PotentialFieldBase
 	{
 		public readonly PotentialFieldBase[] PotentialFields;
+		public int NodeCount => GridTransformer.GridSize.X * GridTransformer.GridSize.Y;
 
 		public AggregratedPotentialField(GridTransformer gridTransformer, params PotentialFieldBase[] potentialFields) : base(gridTransformer)
 		{

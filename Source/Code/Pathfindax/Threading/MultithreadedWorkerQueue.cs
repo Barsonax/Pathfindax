@@ -23,7 +23,7 @@ namespace Pathfindax.Threading
 	    {
 		    if (threads < 1) throw new ArgumentException("There is a minimum of 1 thread");
 		    _workers = new List<Worker<TIn>>();
-		    for (int i = 0; i < threads; i++)
+		    for (var i = 0; i < threads; i++)
 		    {
 				var worker = new Worker<TIn>(processerConstructor.Invoke());
 			    worker.WorkCompleted += Worker_WorkCompleted;

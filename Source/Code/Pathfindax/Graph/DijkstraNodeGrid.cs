@@ -13,7 +13,7 @@ namespace Pathfindax.Graph
 		private readonly Dictionary<PathfindaxCollisionCategory, DijkstraNode[]> _nodeNetworks = new Dictionary<PathfindaxCollisionCategory, DijkstraNode[]>();
 		private readonly int _maxClearance;
 
-		public DijkstraNodeGrid(DefinitionNodeGrid definitionNodeGrid, int maxClearance)
+		public DijkstraNodeGrid(DefinitionNodeGrid definitionNodeGrid, int maxClearance = -1)
 		{
 			DefinitionNodeGrid = definitionNodeGrid;
 			_maxClearance = maxClearance;
@@ -38,13 +38,13 @@ namespace Pathfindax.Graph
 			var gridClearanceGenerator = new GridClearanceGenerator(DefinitionNodeGrid, _maxClearance);
 			var nodeNetwork = new DijkstraNode[DefinitionNodeGrid.NodeCount];
 			var i = 0;
-			for (int y = 0; y < DefinitionNodeGrid.NodeGrid.Height; y++)
+			for (var y = 0; y < DefinitionNodeGrid.NodeGrid.Height; y++)
 			{
-				for (int x = 0; x < DefinitionNodeGrid.NodeGrid.Width; x++)
+				for (var x = 0; x < DefinitionNodeGrid.NodeGrid.Width; x++)
 				{
 					nodeNetwork[i] = new DijkstraNode(DefinitionNodeGrid.NodeGrid[x, y], new Point2(x, y))
 					{
-						Clearance = gridClearanceGenerator.CalculateGridNodeClearances(i, collisionCategory, _maxClearance)
+						Clearance = _maxClearance == -1 ? int.MaxValue : gridClearanceGenerator.CalculateGridNodeClearances(i, collisionCategory, _maxClearance)
 					};
 					i++;
 				}

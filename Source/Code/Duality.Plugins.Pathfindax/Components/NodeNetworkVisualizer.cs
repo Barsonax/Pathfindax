@@ -64,7 +64,7 @@ namespace Duality.Plugins.Pathfindax.Components
 		{
 			var canvas = new Canvas(device, new CanvasBuffer());
 			canvas.State.ZOffset = -8;
-			for (int i = 0; i < network.Count; i++)
+			for (var i = 0; i < network.Count; i++)
 			{
 				var node = network[i];
 				canvas.State.ColorTint = ColorRgba.LightGrey;

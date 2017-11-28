@@ -12,7 +12,5 @@ namespace Pathfindax.Graph
 		GridTransformer Transformer { get; }
 		IReadOnlyArray2D<DefinitionNode> DefinitionNodeArray { get; }
 		Vector2 NodeSize { get; }
-
-		Vector2 WorldSize { get; }
 	}
 }

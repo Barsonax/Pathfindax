@@ -13,6 +13,12 @@ namespace Pathfindax.PathfindEngine
 		{
 			return new PathRequest<TPath>(pathfinder, start, end, collisionCategory, agentSize);
 		}
+
+		public static PathRequest<TPath> Create<TPath>(IDefinitionNode start, IDefinitionNode end, PathfindaxCollisionCategory collisionCategory = PathfindaxCollisionCategory.None, byte agentSize = 1)
+			where TPath : IPath
+		{
+			return new PathRequest<TPath>(start, end, collisionCategory, agentSize);
+		}
 	}
 
 	/// <summary>

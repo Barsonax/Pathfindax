@@ -118,7 +118,7 @@
     <Compile Include="Collections\Interfaces\IHeapItem.cs" />
     <Compile Include="Collections\MaxHeap.cs" />
     <Compile Include="Graph\AstarNodeNetwork.cs" />
-    <Compile Include="Factories\SourceNodeGridFactory.cs" />
+    <Compile Include="Factories\DefinitionNodeGridFactory.cs" />
     <Compile Include="Graph\Enums\GenerateNodeGridConnections.cs" />
     <Compile Include="Graph\Interfaces\IPathfindNodeNetwork.cs" />
     <Compile Include="Graph\Interfaces\IDefinitionNodeNetwork.cs" />

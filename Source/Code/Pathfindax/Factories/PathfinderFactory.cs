@@ -9,11 +9,11 @@ namespace Pathfindax.Factories
 {
 	public static class PathfinderFactory
 	{
-		public static PathRequestProcesser<TNodeNetwork, TPath> CreateRequestProcesser<TNodeNetwork, TPath>(TNodeNetwork nodeNetwork, IPathFindAlgorithm<TNodeNetwork, TPath> pathFindAlgorithm)
-			where TNodeNetwork : IPathfindNodeNetwork
+		public static PathRequestProcesser<TThreadNodeNetwork, TPath> CreateRequestProcesser<TThreadNodeNetwork, TPath>(TThreadNodeNetwork nodeNetwork, IPathFindAlgorithm<TThreadNodeNetwork, TPath> pathFindAlgorithm)
+			where TThreadNodeNetwork : IPathfindNodeNetwork
 			where TPath : class, IPath
 		{
-			return new PathRequestProcesser<TNodeNetwork, TPath>(nodeNetwork, pathFindAlgorithm);
+			return new PathRequestProcesser<TThreadNodeNetwork, TPath>(nodeNetwork, pathFindAlgorithm);
 		}
 
 		public static IPathfinder<DefinitionNodeGrid, DijkstraNodeGrid, FlowField> CreateFlowFieldPathfinder(this IPathfindaxManager pathfindaxManager, DefinitionNodeGrid nodeGrid, int maxClearance, int maxCachedFlowFields, int amountOfThreads = 1)

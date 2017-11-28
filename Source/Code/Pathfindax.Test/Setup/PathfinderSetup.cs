@@ -9,7 +9,7 @@ using Pathfindax.Paths;
 
 namespace Pathfindax.Test.Setup
 {
-	public static class MultithreadedPathfinderSetup
+	public static class PathfinderSetup
 	{
 		public static Pathfinder<IDefinitionNodeNetwork, IPathfindNodeNetwork, IPath> Create(int threads)
 		{

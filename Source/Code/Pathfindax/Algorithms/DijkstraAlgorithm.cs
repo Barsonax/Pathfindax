@@ -50,7 +50,7 @@ namespace Pathfindax.Algorithms
 
 		private void ResetNetwork(DijkstraNode[] pathfindingNetwork)
 		{
-			for (int i = 0; i < pathfindingNetwork.Length; i++)
+			for (var i = 0; i < pathfindingNetwork.Length; i++)
 			{
 				pathfindingNetwork[i].GCost = float.NaN;
 			}
