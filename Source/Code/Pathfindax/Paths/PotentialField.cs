@@ -1,4 +1,5 @@
-﻿using Duality;
+﻿using System;
+using Duality;
 using Pathfindax.Collections;
 using Pathfindax.Graph;
 
@@ -10,6 +11,7 @@ namespace Pathfindax.Paths
 
 		public PotentialField(GridTransformer gridTransformer, Point2 targetNodePosition, Array2D<float> potentialArray) : base(gridTransformer)
 		{
+			if (potentialArray.Width != gridTransformer.GridSize.X || potentialArray.Height != gridTransformer.GridSize.Y) throw new ArgumentException("The grid dimensions of the transformer have to match the array");
 			PotentialArray = potentialArray;
 			TargetNode = targetNodePosition;
 			TargetWorldPosition = gridTransformer.ToWorld(targetNodePosition);

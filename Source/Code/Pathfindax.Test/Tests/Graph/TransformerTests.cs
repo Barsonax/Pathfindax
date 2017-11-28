@@ -9,7 +9,6 @@ namespace Pathfindax.Test.Tests.Graph
 	public class TransformerTests
 	{
 		[Test, TestCaseSource(typeof(TransformerTests), nameof(TransformTestCases))]
-		[MaxTime(2000)]
 		public void ToLocal_CorrectPosition(Vector2 scale, Vector2 position, Vector2 worldPositionToTransform, Vector2 expectedLocalPosition)
 		{
 			var transformer = new Transformer(scale, position);
@@ -19,7 +18,6 @@ namespace Pathfindax.Test.Tests.Graph
 		}
 
 		[Test, TestCaseSource(typeof(TransformerTests), nameof(TransformTestCases))]
-		[MaxTime(2000)]
 		public void ToWorld_CorrectPosition(Vector2 scale, Vector2 position, Vector2 expectedWorldPosition, Vector2 localPositionToTransform)
 		{
 			var transformer = new Transformer(scale, position);

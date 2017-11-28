@@ -25,6 +25,20 @@ namespace Pathfindax.Test.Tests.PathfindEngine
 		}
 
 		[Test]
+		public void Integration_StatusFlowToNoPathFound()
+		{
+			var pathfinder = PathfinderSetup.Create(1, false);
+			var request = new PathRequest<IPath>(Substitute.For<IDefinitionNode>(), Substitute.For<IDefinitionNode>());
+
+			Assert.AreEqual(PathRequestStatus.Created, request.Status);
+			request.StartSolvePath(pathfinder);
+			Assert.AreEqual(PathRequestStatus.Solving, request.Status);
+			pathfinder.Start();
+			request.WaitHandle.WaitOne(1000);
+			Assert.AreEqual(PathRequestStatus.NoPathFound, request.Status);
+		}
+
+		[Test]
 		public void Integration_AddCallbackAfterPathIsSolved_CallbackIsCalled()
 		{
 			var pathfinder = PathfinderSetup.Create(1);
