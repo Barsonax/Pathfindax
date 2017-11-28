@@ -62,7 +62,7 @@ namespace Duality.Plugins.Pathfindax.Components
 					case FlowField flowField:
 						for (var i = 0; i < flowField.FlowArray.Length; i++)
 						{							
-							var nodePosition = flowField.GridTransformer.ToWorldSpace(i);
+							var nodePosition = flowField.GridTransformer.ToWorld(i);
 							canvas.FillCircle(nodePosition.X, nodePosition.Y, 5f);
 							var flowVector = flowField[i];
 							var nodeSize = flowField.GridTransformer.Scale;
@@ -72,7 +72,7 @@ namespace Duality.Plugins.Pathfindax.Components
 					case PotentialField potentialField:
 						for (var i = 0; i < potentialField.PotentialArray.Length; i++)
 						{
-							var nodePosition = potentialField.GridTransformer.ToWorldSpace(i);
+							var nodePosition = potentialField.GridTransformer.ToWorld(i);
 							canvas.FillCircle(nodePosition.X, nodePosition.Y, 5f);
 							var flowVector = potentialField[i];
 							var nodeSize = potentialField.GridTransformer.Scale;
@@ -82,7 +82,7 @@ namespace Duality.Plugins.Pathfindax.Components
 					case AggregratedPotentialField aggregratedPotentialField:
 						for (var i = 0; i < aggregratedPotentialField.NodeCount; i++)
 						{
-							var nodePosition = aggregratedPotentialField.GridTransformer.ToWorldSpace(i);
+							var nodePosition = aggregratedPotentialField.GridTransformer.ToWorld(i);
 							canvas.FillCircle(nodePosition.X, nodePosition.Y, 5f);
 							var flowVector = aggregratedPotentialField[i];
 							var nodeSize = aggregratedPotentialField.GridTransformer.Scale;

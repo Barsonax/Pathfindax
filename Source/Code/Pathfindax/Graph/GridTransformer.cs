@@ -1,4 +1,5 @@
-﻿using Duality;
+﻿using System;
+using Duality;
 using Pathfindax.Utils;
 
 namespace Pathfindax.Graph
@@ -6,24 +7,16 @@ namespace Pathfindax.Graph
 	public class GridTransformer : Transformer
 	{
 		public Point2 GridSize { get; }
+		public int NodeCount { get; }
 
 		public GridTransformer(Point2 gridSize, Vector2 scale, Vector2 position = default(Vector2)) : base(scale, position)
 		{
 			GridSize = gridSize;
+			NodeCount = gridSize.X * gridSize.Y;
 		}
 
-		public Vector2 ToWorldSpace(int i)
-		{
-			var gridPosition = ToGridSpace(i);
-			return ToWorld(gridPosition.X, gridPosition.Y);
-		}
-
-		public Point2 ToGridSpace(Vector2 worldPosition)
-		{
-			return ToGridSpace(worldPosition.X, worldPosition.Y);
-		}
-
-		public Point2 ToGridSpace(float worldX, float worldY)
+		public Point2 ToGrid(Vector2 worldPosition) => ToGrid(worldPosition.X, worldPosition.Y);
+		public Point2 ToGrid(float worldX, float worldY)
 		{
 			var position = ToLocal(worldX, worldY);
 			var x = PathfindaxMathF.RoundToInt(MathF.Clamp(position.X, 0, GridSize.X - 1));
@@ -31,15 +24,23 @@ namespace Pathfindax.Graph
 			return new Point2(x, y);
 		}
 
-		public Point2 ToGridSpace(int i)
+		public Point2 ToGrid(int i)
 		{
+			if (i >= NodeCount) throw new IndexOutOfRangeException();
 			var y = i / GridSize.X;
 			var x = i - y * GridSize.X;
 			return new Point2(x, y);
 		}
 
-		public int ToArrayIndex(int x, int y)
+		public Vector2 ToWorld(int i)
 		{
+			var gridPosition = ToGrid(i);
+			return ToWorld(gridPosition.X, gridPosition.Y);
+		}
+
+		public int ToIndex(int x, int y)
+		{
+			if (x >= GridSize.X || y >= GridSize.Y) throw new IndexOutOfRangeException();
 			return y * GridSize.X + x;
 		}
 	}

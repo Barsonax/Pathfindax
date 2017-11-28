@@ -1,4 +1,5 @@
-﻿using Pathfindax.Collections;
+﻿using Duality;
+using Pathfindax.Collections;
 using Pathfindax.Graph;
 
 namespace Pathfindax.Paths
@@ -7,11 +8,11 @@ namespace Pathfindax.Paths
 	{
 		public Array2D<float> PotentialArray { get; }
 
-		public PotentialField(GridTransformer gridTransformer, int targetNode, Array2D<float> potentialArray) : base(gridTransformer)
+		public PotentialField(GridTransformer gridTransformer, Point2 targetNodePosition, Array2D<float> potentialArray) : base(gridTransformer)
 		{
 			PotentialArray = potentialArray;
-			TargetNode = gridTransformer.ToGridSpace(targetNode);
-			TargetWorldPosition = gridTransformer.ToWorldSpace(targetNode);
+			TargetNode = targetNodePosition;
+			TargetWorldPosition = gridTransformer.ToWorld(targetNodePosition);
 		}
 
 		public override float GetPotential(int x, int y)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using Duality;
 using Pathfindax.Collections;
 using Pathfindax.Graph;
 using Pathfindax.Nodes;
@@ -21,28 +22,39 @@ namespace Pathfindax.Algorithms
 				_potentialFieldCache = new ConcurrentCache<IPathRequest, PotentialField>(cacheSize, new SingleSourcePathRequestComparer());
 		}
 
-		public PotentialField FindPath(DijkstraNodeGrid dijkstraNodeNetwork, IPathRequest pathRequest)
+		public PotentialField FindPath(DijkstraNodeGrid dijkstraNodeNetwork, IPathRequest pathRequest, out bool succes)
 		{
 			try
 			{
 				if (pathRequest.AgentSize % 2 == 0) throw new InvalidAgentSizeException("Potential fields only support uneven agent sizes such as 1,3,5 etc.");
+
 				if (_potentialFieldCache == null || !_potentialFieldCache.TryGetValue(pathRequest, out var potentialField))
 				{
 					var sw = Stopwatch.StartNew();
 					var pathfindingNetwork = dijkstraNodeNetwork.GetCollisionLayerNetwork(pathRequest.CollisionCategory);
 					var startNode = NodePointer.Dereference(pathRequest.PathStart.Index, pathfindingNetwork);
 					var targetNode = NodePointer.Dereference(pathRequest.PathEnd.Index, pathfindingNetwork);
-					_dijkstraAlgorithm.FindPath(pathfindingNetwork, targetNode, startNode, pathRequest);
-					potentialField = FindPath(dijkstraNodeNetwork, pathfindingNetwork, targetNode, pathRequest);
+					if (_dijkstraAlgorithm.FindPath(pathfindingNetwork, targetNode, startNode, pathRequest))
+					{
+						potentialField = FindPath(dijkstraNodeNetwork, pathfindingNetwork, targetNode, pathRequest);
+					}
+					else
+					{
+						potentialField = new BlockedPotentialField(dijkstraNodeNetwork.DefinitionNodeGrid.Transformer, targetNode.GridPosition);
+					}
 					_potentialFieldCache?.Add(pathRequest, potentialField);
 					Debug.WriteLine($"Potentialfield created in {sw.ElapsedMilliseconds} ms.");
 				}
+				var nodePosition = potentialField.GridTransformer.ToWorld(pathRequest.PathStart.Index.Index);
+				var offset = GridClearanceHelper.GridNodeOffset(pathRequest.AgentSize, dijkstraNodeNetwork.DefinitionNodeGrid.Transformer.Scale);
+				succes = potentialField.GetHeading(nodePosition + offset).Length > 0;
 				return potentialField;
 			}
 			catch (Exception ex)
 			{
 				Debug.WriteLine(ex);
 				Debugger.Break();
+				succes = false;
 				return null;
 			}
 		}
@@ -67,7 +79,8 @@ namespace Pathfindax.Algorithms
 					}
 				}
 			}
-			return new PotentialField(dijkstraNodeNetwork.DefinitionNodeGrid.Transformer, targetNode.DefinitionNode.Index.Index + dijkstraNodeNetwork.DefinitionNodeGrid.NodeGrid.Width * nodeOffset + nodeOffset, potentialNodes);
+			var targetNodePosition = new Point2(targetNode.GridPosition.X + nodeOffset, targetNode.GridPosition.Y + nodeOffset);
+			return new PotentialField(dijkstraNodeNetwork.DefinitionNodeGrid.Transformer, targetNodePosition, potentialNodes);
 		}
 
 		public PathRequest<PotentialField> CreatePathRequest(IPathfinder<PotentialField> pathfinder, IDefinitionNodeNetwork definitionNodes, float x1, float y1, float x2, float y2, PathfindaxCollisionCategory collisionLayer = PathfindaxCollisionCategory.None, byte agentSize = 1)
@@ -75,7 +88,7 @@ namespace Pathfindax.Algorithms
 			switch (definitionNodes)
 			{
 				case IDefinitionNodeGrid definitionNodeGrid:
-					var offset = -GridClearanceHelper.GridNodeOffset(agentSize, definitionNodeGrid.NodeSize);
+					var offset = -GridClearanceHelper.GridNodeOffset(agentSize, definitionNodeGrid.Transformer.Scale);
 					var startNode = definitionNodeGrid.GetNode(x1 + offset.X, y1 + offset.Y);
 					var endNode = definitionNodeGrid.GetNode(x2 + offset.X, y2 + offset.Y);
 					return PathRequest.Create(pathfinder, startNode, endNode, collisionLayer, agentSize);

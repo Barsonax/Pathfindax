@@ -34,8 +34,8 @@ namespace Pathfindax.PathfindEngine
 		/// <param name="pathRequest"></param>
 		public void Process(PathRequest<TPath> pathRequest)
 		{
-			var path = _algorithm.FindPath(NodeNetwork, pathRequest);
-			pathRequest.FinishSolvePath(path);
+			var path = _algorithm.FindPath(NodeNetwork, pathRequest, out var succes);
+			pathRequest.FinishSolvePath(path, succes);
 		}
 	}
 }

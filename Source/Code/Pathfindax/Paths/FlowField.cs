@@ -58,8 +58,8 @@ namespace Pathfindax.Paths
 
 		public Vector2 GetHeading(Vector2 currentPosition)
 		{
-			var gridCoords = GridTransformer.ToGridSpace(currentPosition);
-			var index = GridTransformer.ToArrayIndex(gridCoords.X, gridCoords.Y);
+			var gridCoords = GridTransformer.ToGrid(currentPosition);
+			var index = GridTransformer.ToIndex(gridCoords.X, gridCoords.Y);
 			if (gridCoords == TargetNode)
 			{
 				return (TargetWorldPosition - currentPosition).Normalized;

@@ -43,6 +43,7 @@ namespace Pathfindax.PathfindEngine
 			where TThreadNodeNetwork : IPathfindNodeNetwork
 			where TPath : class, IPath
 		{
+			if (threads < 1) throw new ArgumentException("There is a minimum of 1 thread");
 			var pathfinder = new Pathfinder<TSourceNodeNetwork, TThreadNodeNetwork, TPath>(definitionNodeNetwork, pathFindAlgorithm, processerConstructor, threads);
 			_pathfinders.Add(pathfinder);
 			pathfinder.Disposed += o => _pathfinders.Remove(o);

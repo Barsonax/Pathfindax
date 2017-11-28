@@ -13,6 +13,7 @@ namespace Pathfindax.Algorithms
 	{
 		public bool FindPath(DijkstraNode[] pathfindingNetwork, DijkstraNode targetNode, DijkstraNode startNode, IPathRequest pathRequest)
 		{
+			if (targetNode.Clearance < pathRequest.AgentSize) return false;
 			ResetNetwork(pathfindingNetwork);
 			var openSet = new MaxHeap<DijkstraNode>(pathfindingNetwork.Length);
 			var closedSet = new HashSet<DijkstraNode>();
@@ -31,7 +32,7 @@ namespace Pathfindax.Algorithms
 
 					if (toNode.Clearance < pathRequest.AgentSize)
 					{
-						toNode.GCost = float.NaN; 						
+						toNode.GCost = float.NaN;
 					}
 					else
 					{

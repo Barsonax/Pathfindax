@@ -37,6 +37,7 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Components
 			}
 		}
 
+		[DontSerialize]
 		private DefinitionNodeGrid _definitionNodeGrid;
 
 		/// <summary>
@@ -70,7 +71,7 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Components
 
 						if (MovementPenalties != null)
 						{
-							var nodeGridCoordinates = _definitionNodeGrid.Transformer.ToGridSpace(definitionNode.Index.Index);
+							var nodeGridCoordinates = _definitionNodeGrid.Transformer.ToGrid(definitionNode.Index.Index);
 							var index = baseTilemap.Tiles[nodeGridCoordinates.X, nodeGridCoordinates.Y].Index;
 							if (index < MovementPenalties.Length)
 								definitionNode.MovementCostModifier = MovementPenalties[index];

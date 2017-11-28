@@ -43,6 +43,7 @@ namespace Pathfindax.PathfindEngine
 		/// <param name="threads">The amount of threads that will be used</param>
 		public Pathfinder(TDefinitionNodeNetwork definitionNodeNetwork, IPathFindAlgorithm<TThreadNodeNetwork, TPath> pathFindAlgorithm, Func<TDefinitionNodeNetwork, IPathFindAlgorithm<TThreadNodeNetwork, TPath>, PathRequestProcesser<TThreadNodeNetwork, TPath>> processerConstructor, int threads = 1)
 		{
+			if (threads < 1) throw new ArgumentException("There is a minimum of 1 thread");
 			PathFindAlgorithm = pathFindAlgorithm;
 			DefinitionNodeNetwork = definitionNodeNetwork;
 			_multithreadedWorkerQueue = new MultithreadedWorkerQueue<PathRequest<TPath>>(() =>

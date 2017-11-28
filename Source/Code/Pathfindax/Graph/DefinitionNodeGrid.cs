@@ -1,4 +1,5 @@
-﻿using Duality;
+﻿using System;
+using Duality;
 using Pathfindax.Collections;
 using Pathfindax.Factories;
 using Pathfindax.Nodes;
@@ -16,14 +17,14 @@ namespace Pathfindax.Graph
 		IReadOnlyArray2D<DefinitionNode> IDefinitionNodeGrid.DefinitionNodeArray => NodeGrid;
 		public GridTransformer Transformer { get; }
 		public int NodeCount => NodeGrid.Count;
-		public Vector2 NodeSize => Transformer.Scale;
 		public Vector2 Offset => Transformer.Position;
 
-		public DefinitionNodeGrid(Array2D<DefinitionNode> grid, Vector2 nodeSize, Vector2 offset)
-		{
-			NodeGrid = grid;			
-			Transformer = new GridTransformer(new Point2(NodeGrid.Width, NodeGrid.Height), nodeSize, offset);
-		}
+		//[Obsolete]
+		//public DefinitionNodeGrid(Array2D<DefinitionNode> grid, Vector2 nodeSize, Vector2 offset)
+		//{
+		//	NodeGrid = grid;			
+		//	Transformer = new GridTransformer(new Point2(NodeGrid.Width, NodeGrid.Height), nodeSize, offset);
+		//}
 
 		public DefinitionNodeGrid(GenerateNodeGridConnections generateNodeGridConnections, int width, int height, Vector2 nodeSize, Vector2 offset = default(Vector2))
 		{
@@ -33,7 +34,7 @@ namespace Pathfindax.Graph
 
 		public DefinitionNode GetNode(float worldX, float worldY)
 		{
-			var coords = Transformer.ToGridSpace(worldX, worldY);
+			var coords = Transformer.ToGrid(worldX, worldY);
 			return NodeGrid[coords.X, coords.Y];
 		}
 	}

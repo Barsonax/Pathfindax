@@ -20,24 +20,26 @@ namespace Pathfindax.Algorithms
 				_flowFieldCache = new ConcurrentCache<IPathRequest, FlowField>(cacheSize, new SingleSourcePathRequestComparer());
 		}
 
-		public FlowField FindPath(DijkstraNodeGrid dijkstraNodeNetwork, IPathRequest pathRequest)
+		public FlowField FindPath(DijkstraNodeGrid dijkstraNodeNetwork, IPathRequest pathRequest, out bool succes)
 		{
 			try
 			{
 				if (_flowFieldCache == null || !_flowFieldCache.TryGetValue(pathRequest, out var flowField))
 				{
-					var potentialField = _potentialFieldAlgorithm.FindPath(dijkstraNodeNetwork, pathRequest);
+					var potentialField = _potentialFieldAlgorithm.FindPath(dijkstraNodeNetwork, pathRequest, out succes);
 					var sw = Stopwatch.StartNew();
 					flowField = new FlowField(potentialField);
 					Debug.WriteLine($"Flowfield created in {sw.ElapsedMilliseconds} ms.");
 					_flowFieldCache?.Add(pathRequest, flowField);
 				}
+				succes = flowField[pathRequest.PathStart.Index.Index].Length > 0;
 				return flowField;
 			}
 			catch (Exception ex)
 			{
 				Debug.WriteLine(ex);
 				Debugger.Break();
+				succes = false;
 				return null;
 			}
 		}
@@ -49,7 +51,7 @@ namespace Pathfindax.Algorithms
 			switch (definitionNodes)
 			{
 				case IDefinitionNodeGrid definitionNodeGrid:
-					var offset = -GridClearanceHelper.GridNodeOffset(agentSize, definitionNodeGrid.NodeSize);
+					var offset = -GridClearanceHelper.GridNodeOffset(agentSize, definitionNodeGrid.Transformer.Scale);
 					startNode = definitionNodeGrid.GetNode(x1 + offset.X, y1 + offset.Y);
 					endNode = definitionNodeGrid.GetNode(x2 + offset.X, y2 + offset.Y);
 					return PathRequest.Create(pathfinder, startNode, endNode, collisionLayer, agentSize);

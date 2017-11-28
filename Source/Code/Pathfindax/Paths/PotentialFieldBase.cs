@@ -9,7 +9,7 @@ namespace Pathfindax.Paths
 		{
 			get
 			{
-				var gridCoords = GridTransformer.ToGridSpace(i);
+				var gridCoords = GridTransformer.ToGrid(i);
 				return this[gridCoords.X, gridCoords.Y];
 			}
 		}
@@ -107,6 +107,7 @@ namespace Pathfindax.Paths
 			//Check if the vector will have a length of 0 and fix this if this is the case
 			if (xComponent == 0f && yComponent == 0f && !IsBlocked(currentPotential))
 			{
+				if (leftPotential == rightPotential && downPotential == upPotential) return new Vector2(0, 0);
 				if (leftPotential == rightPotential && (minPosX < 0f || maxPosX > 0f))
 				{
 					xComponent = minPosX < 0f ? -1f : 1f;
@@ -123,7 +124,6 @@ namespace Pathfindax.Paths
 					yComponent = minPosY < 0f ? -1f : 1f;
 				}
 			}
-
 			return new Vector2(xComponent, yComponent).Normalized;
 		}
 
@@ -139,7 +139,7 @@ namespace Pathfindax.Paths
 
 		public Vector2 GetHeading(Vector2 currentPosition)
 		{
-			var gridCoords = GridTransformer.ToGridSpace(currentPosition);
+			var gridCoords = GridTransformer.ToGrid(currentPosition);
 			if (gridCoords == TargetNode)
 			{
 				return (TargetWorldPosition - currentPosition).Normalized;
@@ -149,6 +149,11 @@ namespace Pathfindax.Paths
 
 		public bool NextWaypoint() => true;
 
+		public float GetPotential(int i)
+		{
+			var gridCoords = GridTransformer.ToGrid(i);
+			return GetPotential(gridCoords.X, gridCoords.Y);
+		}
 		public abstract float GetPotential(int x, int y);
 	}
 }

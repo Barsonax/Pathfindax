@@ -42,7 +42,7 @@ namespace Pathfindax.Graph
 		/// <returns></returns>
 		public float CalculateGridNodeClearances(int index, PathfindaxCollisionCategory collisionCategory, int maxClearance)
 		{			
-			var fromCoordinates = _definitionNodeGrid.Transformer.ToGridSpace(index);
+			var fromCoordinates = _definitionNodeGrid.Transformer.ToGrid(index);
 			for (var checkClearance = 0; checkClearance < maxClearance; checkClearance++)
 			{
 				var nextClearanceIsBlocked = false;
@@ -95,7 +95,7 @@ namespace Pathfindax.Graph
 			{
 				if ((nodeConnection.CollisionCategory & collisionCategory) != 0)
 				{
-					var toCoordinates = _definitionNodeGrid.Transformer.ToGridSpace(nodeConnection.To.Index);
+					var toCoordinates = _definitionNodeGrid.Transformer.ToGrid(nodeConnection.To.Index);
 					if (toCoordinates.X >= fromCoordinates.X && toCoordinates.Y >= fromCoordinates.Y)
 					{
 						if (toCoordinates.X >= x || toCoordinates.Y >= y)

@@ -129,10 +129,10 @@ namespace Pathfindax.PathfindEngine
 			}
 		}
 
-		internal void FinishSolvePath(TPath path)
+		internal void FinishSolvePath(TPath path, bool succes)
 		{
 			CompletedPath = path;
-			Status = CompletedPath != null ? PathRequestStatus.Solved : PathRequestStatus.NoPathFound;
+			Status = succes ? PathRequestStatus.Solved : PathRequestStatus.NoPathFound;
 			_manualResetEvent.Set();
 		}
 

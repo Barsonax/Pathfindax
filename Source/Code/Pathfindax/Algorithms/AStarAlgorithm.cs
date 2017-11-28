@@ -15,16 +15,22 @@ namespace Pathfindax.Algorithms
 	/// </summary>
 	public class AStarAlgorithm : IPathFindAlgorithm<IPathfindNodeNetwork<AstarNode>, NodePath>
 	{
-		public NodePath FindPath(IPathfindNodeNetwork<AstarNode> nodeNetwork, IPathRequest pathRequest)
+		public NodePath FindPath(IPathfindNodeNetwork<AstarNode> nodeNetwork, IPathRequest pathRequest, out bool succes)
 		{
 			var pathfindingNetwork = nodeNetwork.GetCollisionLayerNetwork(pathRequest.CollisionCategory);
 			var startNode = NodePointer.Dereference(pathRequest.PathStart.Index, pathfindingNetwork);
 			var endNode = NodePointer.Dereference(pathRequest.PathEnd.Index, pathfindingNetwork);
 			var path = FindPath(pathfindingNetwork, startNode, endNode, pathRequest.AgentSize, pathRequest.CollisionCategory);
+			if (path == null)
+			{
+				succes = false;
+				return new NodePath(new[] { startNode.DefinitionNode });
+			}
+			succes = true;
 			switch (nodeNetwork.DefinitionNodeNetwork)
 			{
 				case IDefinitionNodeGrid definitionNodeGrid:
-					var offset = GridClearanceHelper.GridNodeOffset(pathRequest.AgentSize, definitionNodeGrid.NodeSize);
+					var offset = GridClearanceHelper.GridNodeOffset(pathRequest.AgentSize, definitionNodeGrid.Transformer.Scale);
 					return new NodePath(path.ToArray(), offset);
 				case IDefinitionNodeNetwork definitionNodeNetwork:
 					return new NodePath(path.ToArray());
@@ -40,9 +46,9 @@ namespace Pathfindax.Algorithms
 			switch (definitionNodes)
 			{
 				case IDefinitionNodeGrid definitionNodeGrid:
-					var offset = -GridClearanceHelper.GridNodeOffset(agentSize, definitionNodeGrid.NodeSize);
+					var offset = -GridClearanceHelper.GridNodeOffset(agentSize, definitionNodeGrid.Transformer.Scale);
 					startNode = definitionNodeGrid.GetNode(x1 + offset.X, y1 + offset.Y);
-					endNode = definitionNodeGrid.GetNode(x2 + offset.X, y2 + offset.Y);					
+					endNode = definitionNodeGrid.GetNode(x2 + offset.X, y2 + offset.Y);
 					return PathRequest.Create(pathfinder, startNode, endNode, collisionLayer, agentSize);
 				case IDefinitionNodeNetwork definitionNodeNetwork:
 					startNode = definitionNodeNetwork.GetNode(x1, y1);

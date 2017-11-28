@@ -67,7 +67,7 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Generators
 		/// <param name="definitionNodeGrid"></param>
 		public void CalculateGridNodeCollision(TilemapColliderWithBody[] tilemapColliderWithBodies, DefinitionNode sourceGridNode, DefinitionNodeGrid definitionNodeGrid)
 		{
-			var nodeGridCoordinates = definitionNodeGrid.Transformer.ToGridSpace(sourceGridNode.Index.Index);
+			var nodeGridCoordinates = definitionNodeGrid.Transformer.ToGrid(sourceGridNode.Index.Index);
 			CalculateNodeCollisionCategories(nodeGridCoordinates.X, nodeGridCoordinates.Y, tilemapColliderWithBodies);
 
 			if (nodeGridCoordinates.X == 0 || nodeGridCoordinates.Y == 0 ||

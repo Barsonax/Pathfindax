@@ -12,11 +12,23 @@ namespace Duality.Plugins.Pathfindax.Components
 		where TThreadNodeNetwork : IPathfindNodeNetwork
 		where TPath : IPath
 	{
-		IPathfinder IDualityPathfinderComponent.Pathfinder => Pathfinder;
+		IPathfinder IDualityPathfinderComponent.Pathfinder
+		{
+			get { return Pathfinder; }
+		}
 
+		[DontSerialize]
 		private IPathfinder<TDefinitionNodeNetwork, TThreadNodeNetwork, TPath> _pathfinder;
 
-		public IPathfinder<TDefinitionNodeNetwork, TThreadNodeNetwork, TPath> Pathfinder => _pathfinder ?? (_pathfinder = CreatePathfinder());
+		public IPathfinder<TDefinitionNodeNetwork, TThreadNodeNetwork, TPath> Pathfinder
+		{
+			get
+			{
+				if (DualityApp.ExecContext != DualityApp.ExecutionContext.Game) return null;
+				if (_pathfinder != null) return _pathfinder;
+				return _pathfinder = CreatePathfinder();
+			}
+		}
 
 		public int AmountOfThreads { get; set; } = 1;
 

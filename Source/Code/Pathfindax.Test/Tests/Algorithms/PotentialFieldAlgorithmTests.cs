@@ -23,7 +23,7 @@ namespace Pathfindax.Test.Tests.Algorithms
 
 			var pathfindingNetwork = new DijkstraNodeGrid(definitionNodeGrid);
 			var pathRequest = new PathRequest<IPath>(start, end);
-			var potentialField = potentialFieldAlgorithm.FindPath(pathfindingNetwork, pathRequest);
+			var potentialField = potentialFieldAlgorithm.FindPath(pathfindingNetwork, pathRequest, out var _);
 			const float tolerance = 0.001f;
 			Assert.AreEqual(Math.Abs(Math.Abs(potentialField.PotentialArray[0, 0]) - 4f) < tolerance, true);
 			Assert.AreEqual(Math.Abs(Math.Abs(potentialField.PotentialArray[1, 0]) - 3f) < tolerance, true);
