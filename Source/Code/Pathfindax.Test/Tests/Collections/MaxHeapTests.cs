@@ -28,7 +28,7 @@ namespace Pathfindax.Test.Tests.Collections
 		}
 
 		[Test, TestCaseSource(typeof(MaxHeapTests), nameof(HeapTestCases))]
-		public void MaxHeap_Contains(HeapItem[] items)
+		public void MaxHeap_Contains_True(HeapItem[] items)
 		{
 			//Create the heap and add the items.
 			var heap = new MaxHeap<HeapItem>(items.Length);
@@ -41,6 +41,24 @@ namespace Pathfindax.Test.Tests.Collections
 			for (var i = 0; i < items.Length; i++)
 			{
 				Assert.IsTrue(heap.Contains(items[i]), $"Contains returned false for item {items[i]}");
+			}
+		}
+
+		[Test, TestCaseSource(typeof(MaxHeapTests), nameof(HeapTestCases))]
+		public void MaxHeap_Contains_False(HeapItem[] items)
+		{
+			//Create the heap and add the items.
+			var heap = new MaxHeap<HeapItem>(items.Length);
+			for (var i = 0; i < items.Length; i++)
+			{
+				heap.Add(items[i]);
+			}
+
+			//Create new items and check if contains returns false
+			for (var i = 0; i < items.Length; i++)
+			{
+				var item = new HeapItem(items[i].Value);
+				Assert.IsFalse(heap.Contains(item), $"Contains returned true for item {item}");
 			}
 		}
 
