@@ -1,20 +1,21 @@
 ﻿using System.Linq;
 using Duality;
+using Pathfindax.Graph;
 using Pathfindax.Nodes;
 
 namespace Pathfindax.Paths
 {
 	public class NodePath : IPath
 	{
-		public Vector2 this[int i] => Path[i].Position + Offset;
+		public Vector2 this[int i] => Transformer.ToWorld(Path[i].Position);
 		public DefinitionNode[] Path { get; }
-		public readonly Vector2 Offset;
+		public readonly Transformer Transformer;
 		private int _waypointIndex;
 
-		public NodePath(DefinitionNode[] path, Vector2 offset = default(Vector2))
+		public NodePath(DefinitionNode[] path, Transformer transformer)
 		{
 			Path = path;
-			Offset = offset;
+			Transformer = transformer;
 		}
 
 		public Vector2 GetHeading(Vector3 currentPosition)
@@ -24,7 +25,7 @@ namespace Pathfindax.Paths
 
 		public Vector2 GetHeading(Vector2 currentPosition)
 		{
-			var waypoint = Path[_waypointIndex].Position + Offset;
+			var waypoint = this[_waypointIndex];
 			return waypoint - currentPosition;
 
 		}

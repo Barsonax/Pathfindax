@@ -35,6 +35,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 		/// </summary>
 		public Camera Camera { get; set; }
 
+		[DontSerialize]
 		private Vector3? _pathStart;
 
 		void ICmpInitializable.OnInit(InitContext context)

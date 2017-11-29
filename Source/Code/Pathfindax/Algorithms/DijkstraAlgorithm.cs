@@ -13,6 +13,7 @@ namespace Pathfindax.Algorithms
 	{
 		public bool FindPath(DijkstraNode[] pathfindingNetwork, DijkstraNode targetNode, DijkstraNode startNode, IPathRequest pathRequest)
 		{
+			if (targetNode.Clearance < pathRequest.AgentSize) return false;
 			ResetNetwork(pathfindingNetwork);
 			var openSet = new MaxHeap<DijkstraNode>(pathfindingNetwork.Length);
 			var closedSet = new HashSet<DijkstraNode>();
@@ -31,11 +32,11 @@ namespace Pathfindax.Algorithms
 
 					if (toNode.Clearance < pathRequest.AgentSize)
 					{
-						toNode.GCost = float.NaN; 						
+						toNode.GCost = float.NaN;
 					}
 					else
 					{
-						var newMovementCostToNeighbour = currentNode.GCost + GetDistance(currentNode, toNode) * currentNode.DefinitionNode.MovementCostModifier;
+						var newMovementCostToNeighbour = currentNode.GCost + GetDistance(currentNode.DefinitionNode, toNode.DefinitionNode) * currentNode.DefinitionNode.MovementCostModifier;
 						if (newMovementCostToNeighbour < toNode.GCost || !openSet.Contains(toNode))
 						{
 							toNode.GCost = newMovementCostToNeighbour;
@@ -50,16 +51,16 @@ namespace Pathfindax.Algorithms
 
 		private void ResetNetwork(DijkstraNode[] pathfindingNetwork)
 		{
-			for (int i = 0; i < pathfindingNetwork.Length; i++)
+			for (var i = 0; i < pathfindingNetwork.Length; i++)
 			{
 				pathfindingNetwork[i].GCost = float.NaN;
 			}
 		}
 
-		private static float GetDistance(DijkstraNode dijkstraNodeA, DijkstraNode dijkstraNodeB)
+		private static float GetDistance(DefinitionNode dijkstraNodeA, DefinitionNode dijkstraNodeB)
 		{
-			var dstX = Math.Abs(dijkstraNodeA.GridPosition.X - dijkstraNodeB.GridPosition.X);
-			var dstY = Math.Abs(dijkstraNodeA.GridPosition.Y - dijkstraNodeB.GridPosition.Y);
+			var dstX = Math.Abs(dijkstraNodeA.Position.X - dijkstraNodeB.Position.X);
+			var dstY = Math.Abs(dijkstraNodeA.Position.Y - dijkstraNodeB.Position.Y);
 			return dstY + dstX;
 		}
 	}

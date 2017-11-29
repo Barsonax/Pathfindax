@@ -378,15 +378,12 @@
           <item dataType="ObjectRef">669364351</item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Tilemaps.Components.TilemapNodeGridGenerator" id="1783036078">
             <_movementPenalties />
-            <_sourceNodeGrid />
             <active dataType="Bool">true</active>
             <gameobj dataType="ObjectRef">612087133</gameobj>
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Components.AstarPathfinderComponent" id="2699352515">
             <_x003C_AmountOfThreads_x003E_k__BackingField dataType="Int">1</_x003C_AmountOfThreads_x003E_k__BackingField>
             <_x003C_MaxClearance_x003E_k__BackingField dataType="Int">5</_x003C_MaxClearance_x003E_k__BackingField>
-            <_x003C_Pathfinder_x003E_k__BackingField />
-            <_x003C_PathfinderId_x003E_k__BackingField />
             <active dataType="Bool">true</active>
             <gameobj dataType="ObjectRef">612087133</gameobj>
           </item>
@@ -424,7 +421,7 @@
       <active dataType="Bool">true</active>
       <children />
       <compList dataType="Struct" type="System.Collections.Generic.List`1[[Duality.Component]]" id="473199844">
-        <_items dataType="Array" type="Duality.Component[]" id="1848629188" length="4">
+        <_items dataType="Array" type="Duality.Component[]" id="1848629188">
           <item dataType="Struct" type="Duality.Components.Transform" id="3748414236">
             <active dataType="Bool">true</active>
             <angle dataType="Float">0</angle>
@@ -569,14 +566,20 @@
               <visibilityMask dataType="Enum" type="Duality.Drawing.VisibilityFlag" name="All" value="4294967295" />
             </_x003C_Camera_x003E_k__BackingField>
             <_x003C_CollisionCategory_x003E_k__BackingField dataType="Enum" type="Pathfindax.Nodes.PathfindaxCollisionCategory" name="Cat1" value="1" />
-            <_x003C_MovementSpeed_x003E_k__BackingField dataType="Float">1</_x003C_MovementSpeed_x003E_k__BackingField>
+            <_x003C_MovementSpeed_x003E_k__BackingField dataType="Float">32</_x003C_MovementSpeed_x003E_k__BackingField>
             <_x003C_Path_x003E_k__BackingField />
             <_x003C_PathfinderComponent_x003E_k__BackingField dataType="ObjectRef">2699352515</_x003C_PathfinderComponent_x003E_k__BackingField>
             <active dataType="Bool">true</active>
             <gameobj dataType="ObjectRef">3691137018</gameobj>
           </item>
+          <item dataType="Struct" type="Duality.Plugins.Pathfindax.Components.PathVisualizer" id="828841920">
+            <_x003C_BoundRadius_x003E_k__BackingField dataType="Float">0</_x003C_BoundRadius_x003E_k__BackingField>
+            <_x003C_Visualize_x003E_k__BackingField dataType="Bool">true</_x003C_Visualize_x003E_k__BackingField>
+            <active dataType="Bool">true</active>
+            <gameobj dataType="ObjectRef">3691137018</gameobj>
+          </item>
         </_items>
-        <_size dataType="Int">3</_size>
+        <_size dataType="Int">4</_size>
       </compList>
       <compMap dataType="Struct" type="System.Collections.Generic.Dictionary`2[[System.Type],[Duality.Component]]" id="2081218070" surrogate="true">
         <header />
@@ -585,11 +588,13 @@
             <item dataType="ObjectRef">36306304</item>
             <item dataType="Type" id="481103184" value="Duality.Components.Renderers.SpriteRenderer" />
             <item dataType="Type" id="2445078382" value="Duality.Plugins.Pathfindax.Examples.Components.PathFollowerComponent" />
+            <item dataType="Type" id="2121840940" value="Duality.Plugins.Pathfindax.Components.PathVisualizer" />
           </keys>
           <values dataType="Array" type="System.Object[]" id="111878858">
             <item dataType="ObjectRef">3748414236</item>
             <item dataType="ObjectRef">864789002</item>
             <item dataType="ObjectRef">1308675412</item>
+            <item dataType="ObjectRef">828841920</item>
           </values>
         </body>
       </compMap>

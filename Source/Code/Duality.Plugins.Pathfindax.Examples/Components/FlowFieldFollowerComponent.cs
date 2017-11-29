@@ -23,7 +23,11 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 		public FlowField Path { get; private set; }
 		public Vector2 CurrentPosition => new Vector2(GameObj.Transform.Pos.X, GameObj.Transform.Pos.Y);
 		public FlowFieldPathfinderComponent PathfinderComponent { get; set; }
+
+		[DontSerialize]
 		private RigidBody _rigidBody;
+
+		[DontSerialize]
 		private PathfindaxCollisionCategory _collisionCategory;
 
 		void ICmpInitializable.OnInit(InitContext context)

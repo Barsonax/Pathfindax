@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using Pathfindax.Collections;
 
-namespace Pathfindax.Test.Tests
+namespace Pathfindax.Test.Tests.Collections
 {
 	[TestFixture]
 	class MaxHeapTests
@@ -12,14 +12,14 @@ namespace Pathfindax.Test.Tests
 		{
 			//Create the heap and add the items.
 			var heap = new MaxHeap<HeapItem>(items.Length);
-			for (int i = 0; i < items.Length; i++)
+			for (var i = 0; i < items.Length; i++)
 			{
 				heap.Add(items[i]);
 			}
 
 			//Check if the items are in the correct order.
 			var previousValue = int.MaxValue;
-			for (int i = 0; i < items.Length; i++)
+			for (var i = 0; i < items.Length; i++)
 			{
 				var value = heap.RemoveFirst().Value;
 				if (value <= previousValue) previousValue = value;
@@ -28,19 +28,37 @@ namespace Pathfindax.Test.Tests
 		}
 
 		[Test, TestCaseSource(typeof(MaxHeapTests), nameof(HeapTestCases))]
-		public void MaxHeap_Contains(HeapItem[] items)
+		public void MaxHeap_Contains_True(HeapItem[] items)
 		{
 			//Create the heap and add the items.
 			var heap = new MaxHeap<HeapItem>(items.Length);
-			for (int i = 0; i < items.Length; i++)
+			for (var i = 0; i < items.Length; i++)
 			{
 				heap.Add(items[i]);
 			}
 
 			//Check if all added items are contained in the heap.
-			for (int i = 0; i < items.Length; i++)
+			for (var i = 0; i < items.Length; i++)
 			{
 				Assert.IsTrue(heap.Contains(items[i]), $"Contains returned false for item {items[i]}");
+			}
+		}
+
+		[Test, TestCaseSource(typeof(MaxHeapTests), nameof(HeapTestCases))]
+		public void MaxHeap_Contains_False(HeapItem[] items)
+		{
+			//Create the heap and add the items.
+			var heap = new MaxHeap<HeapItem>(items.Length);
+			for (var i = 0; i < items.Length; i++)
+			{
+				heap.Add(items[i]);
+			}
+
+			//Create new items and check if contains returns false
+			for (var i = 0; i < items.Length; i++)
+			{
+				var item = new HeapItem(items[i].Value);
+				Assert.IsFalse(heap.Contains(item), $"Contains returned true for item {item}");
 			}
 		}
 
@@ -59,7 +77,7 @@ namespace Pathfindax.Test.Tests
 		private static TestCaseData GenerateHeapTestCase(params int[] values)
 		{
 			var testCaseData = new HeapItem[values.Length];
-			for (int i = 0; i < values.Length; i++)
+			for (var i = 0; i < values.Length; i++)
 			{
 				testCaseData[i] = new HeapItem(values[i]);
 			}

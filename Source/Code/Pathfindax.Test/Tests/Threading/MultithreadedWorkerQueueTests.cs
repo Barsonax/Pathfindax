@@ -3,7 +3,7 @@ using NSubstitute;
 using NUnit.Framework;
 using Pathfindax.Threading;
 
-namespace Pathfindax.Test.Tests
+namespace Pathfindax.Test.Tests.Threading
 {
 	[TestFixture]
 	public class MultithreadedWorkerQueueTests

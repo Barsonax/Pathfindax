@@ -14,15 +14,16 @@ namespace Pathfindax.Graph
 		public DefinitionNode this[int index] => DefinitionNodes[index];
 		public List<DefinitionNode> DefinitionNodes { get; } = new List<DefinitionNode>();
 		public int NodeCount => DefinitionNodes.Count;
-		public Vector2 Offset { get; protected set; }
+		public Transformer Transformer { get; }
 
-		public DefinitionNodeNetwork(Vector2 offset)
+		public DefinitionNodeNetwork(Vector2 scale, Vector2 offset = default(Vector2))
 		{
-			Offset = offset;
+			Transformer = new Transformer(scale, offset);
 		}
 
 		public DefinitionNode AddNode(Vector2 position, float movementPenalty = 1f)
 		{
+
 			var definitionNode = new DefinitionNode(DefinitionNodes.Count, position, movementPenalty);
 			DefinitionNodes.Add(definitionNode);
 			return definitionNode;

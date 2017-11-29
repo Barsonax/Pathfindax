@@ -27,6 +27,8 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 
 		public AstarPathfinderComponent PathfinderComponent { get; set; }
 		private readonly Random _randomGenerator = new Random();
+
+		[DontSerialize]
 		private int _frameCounter;
 
 		void ICmpUpdatable.OnUpdate()

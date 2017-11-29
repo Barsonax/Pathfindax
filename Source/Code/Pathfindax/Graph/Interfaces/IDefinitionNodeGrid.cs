@@ -9,10 +9,7 @@ namespace Pathfindax.Graph
 	/// </summary>
 	public interface IDefinitionNodeGrid : IDefinitionNodeNetwork
 	{
-		GridTransformer Transformer { get; }
+		new GridTransformer Transformer { get; }
 		IReadOnlyArray2D<DefinitionNode> DefinitionNodeArray { get; }
-		Vector2 NodeSize { get; }
-
-		Vector2 WorldSize { get; }
 	}
 }

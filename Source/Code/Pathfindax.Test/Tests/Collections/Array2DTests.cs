@@ -4,7 +4,7 @@ using Duality;
 using NUnit.Framework;
 using Pathfindax.Collections;
 
-namespace Pathfindax.Test.Tests
+namespace Pathfindax.Test.Tests.Collections
 {
 	[TestFixture]
 	class Array2DTests
@@ -46,7 +46,7 @@ namespace Pathfindax.Test.Tests
 		private static TestCaseData GenerateArray2DTestCase(int width, int height, Point2 pointToCheck)
 		{
 			var array = new int[width * height];
-			for (int i = 0; i < array.Length; i++)
+			for (var i = 0; i < array.Length; i++)
 			{
 				array[i] = i;
 			}

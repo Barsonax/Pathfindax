@@ -60,14 +60,14 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Generators
 		}
 
 		/// <summary>
-		/// Calculates the <see cref="NodeConnection"/>s for the <paramref name="sourceGridNode"/>
+		/// Calculates the <see cref="NodeConnection"/>s for the <paramref name="definitionNode"/>
 		/// </summary>
 		/// <param name="tilemapColliderWithBodies"></param>
-		/// <param name="sourceGridNode"></param>
+		/// <param name="definitionNode"></param>
 		/// <param name="definitionNodeGrid"></param>
-		public void CalculateGridNodeCollision(TilemapColliderWithBody[] tilemapColliderWithBodies, DefinitionNode sourceGridNode, DefinitionNodeGrid definitionNodeGrid)
+		public void CalculateGridNodeCollision(TilemapColliderWithBody[] tilemapColliderWithBodies, DefinitionNode definitionNode, DefinitionNodeGrid definitionNodeGrid)
 		{
-			var nodeGridCoordinates = definitionNodeGrid.Transformer.ToGridSpace(sourceGridNode.Index.Index);
+			var nodeGridCoordinates = new Point2((int) definitionNode.Position.X, (int) definitionNode.Position.Y);
 			CalculateNodeCollisionCategories(nodeGridCoordinates.X, nodeGridCoordinates.Y, tilemapColliderWithBodies);
 
 			if (nodeGridCoordinates.X == 0 || nodeGridCoordinates.Y == 0 ||
@@ -83,7 +83,7 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Generators
 					{
 						//TODO provide option to exclude diagonal neighbours.
 						var toNode = definitionNodeGrid.NodeGrid[collisionCategory.X, collisionCategory.Y];
-						sourceGridNode.Connections.Add(new NodeConnection(toNode.Index,
+						definitionNode.Connections.Add(new NodeConnection(toNode.Index,
 							collisionCategory.PathfindaxCollisionCategory | _nodeCollisions[0].PathfindaxCollisionCategory));
 					}
 				}
@@ -95,7 +95,7 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Generators
 					var collisionCategory = _nodeCollisions[index];
 					//TODO provide option to exclude diagonal neighbours.
 					var toNode = definitionNodeGrid.NodeGrid[collisionCategory.X, collisionCategory.Y];
-					sourceGridNode.Connections.Add(new NodeConnection(toNode.Index,
+					definitionNode.Connections.Add(new NodeConnection(toNode.Index,
 						collisionCategory.PathfindaxCollisionCategory | _nodeCollisions[0].PathfindaxCollisionCategory));
 				}
 			}

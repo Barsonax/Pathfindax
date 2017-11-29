@@ -19,7 +19,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 			const int height = 1000;
 			var random = new Random();
 			var dictionary = new Dictionary<DelaunayNode, DefinitionNode>();
-			var nodeNetwork = new DefinitionNodeNetwork(new Vector2(0, 0));
+			var nodeNetwork = new DefinitionNodeNetwork(new Vector2(1, 1));
 			for (var i = 0; i < 100; i++)
 			{
 				var node = new DefinitionNode(i ,new Vector2(random.Next(0, width), random.Next(0, height)));

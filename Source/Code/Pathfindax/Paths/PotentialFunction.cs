@@ -21,7 +21,7 @@ namespace Pathfindax.Paths
 		public void UpdateGridPosition(GridTransformer gridTransformer)
 		{
 			var worldPosition = _worldPositionProvider.Invoke();
-			GridPosition = gridTransformer.ToGridSpace(worldPosition);
+			GridPosition = gridTransformer.ToGrid(worldPosition);
 		}
 
 		public abstract float GetValue(int x, int y);
