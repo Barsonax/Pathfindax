@@ -5,7 +5,7 @@ Pathfindax is a pathfinding framework that can be used to get a path to a destin
 - Support for movement penalties  
 - Built in support for the duality tilemap plugin (only for grids)
 
-Its also possible to use dynamic pathfinding if you use potential fields.
+Its also possible to use dynamic pathfinding if you use potential fields. A example of this is shown in the video below:
 ![](https://thumbs.gfycat.com/PinkCriminalEmperorshrimp-size_restricted.gif)
 
 While the main goal was to provide a easy way to use pathfinding in duality most of the implementation is in a separate dll which can also be used without duality and only depends on the DualityPrimitives package.
