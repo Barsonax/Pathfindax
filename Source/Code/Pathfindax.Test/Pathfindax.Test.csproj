@@ -75,6 +75,7 @@
     <Compile Include="Tests\Algorithms\AstarAlgorithmTests.cs" />
     <Compile Include="Setup\PathfinderSetup.cs" />
     <Compile Include="Tests\Collections\MaxHeapTests.cs" />
+    <Compile Include="Tests\Graph\GridTransformerTests.cs" />
     <Compile Include="Tests\Graph\TransformerTests.cs" />
     <Compile Include="Tests\PathfindEngine\PathfinderTests.cs" />
     <Compile Include="Tests\Paths\PotentialFieldTests.cs" />

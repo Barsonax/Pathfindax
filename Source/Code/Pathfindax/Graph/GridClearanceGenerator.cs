@@ -25,10 +25,14 @@ namespace Pathfindax.Graph
 			}
 			else
 			{
-				for (var i = 0; i < pathfindingNetwork.Length; i++)
+				for (int y = 0; y < _definitionNodeGrid.DefinitionNodeArray.Height; y++)
 				{
-					var clearance = CalculateGridNodeClearances(i, collisionCategory, _maxClearance);
-					pathfindingNetwork[i].Clearance = clearance;
+					for (int x = 0; x < _definitionNodeGrid.DefinitionNodeArray.Width; x++)
+					{
+						var definitionNode = _definitionNodeGrid.DefinitionNodeArray[x, y];
+						var clearance = CalculateGridNodeClearances(definitionNode, collisionCategory, _maxClearance);
+						pathfindingNetwork[definitionNode.Index.Index].Clearance = clearance;
+					}
 				}
 			}
 		}
@@ -36,13 +40,13 @@ namespace Pathfindax.Graph
 		/// <summary>
 		/// Calculates the clearances up to a maximum <paramref name="maxClearance"/>
 		/// </summary>
-		/// <param name="index"></param>
+		/// <param name="definitionNode"></param>
 		/// <param name="collisionCategory"></param>
 		/// <param name="maxClearance"></param>
 		/// <returns></returns>
-		public float CalculateGridNodeClearances(int index, PathfindaxCollisionCategory collisionCategory, int maxClearance)
-		{			
-			var fromCoordinates = _definitionNodeGrid.Transformer.ToGrid(index);
+		public float CalculateGridNodeClearances(DefinitionNode definitionNode, PathfindaxCollisionCategory collisionCategory, int maxClearance)
+		{
+			var fromCoordinates = new Point2((int) definitionNode.Position.X, (int) definitionNode.Position.Y);
 			for (var checkClearance = 0; checkClearance < maxClearance; checkClearance++)
 			{
 				var nextClearanceIsBlocked = false;
@@ -72,7 +76,6 @@ namespace Pathfindax.Graph
 
 				if (nextClearanceIsBlocked)
 				{
-					var definitionNode = _definitionNodeGrid.DefinitionNodeArray[index];
 					var isBlocked = true;
 					for (var i = 0; i < definitionNode.Connections.Count; i++)
 					{
@@ -95,7 +98,8 @@ namespace Pathfindax.Graph
 			{
 				if ((nodeConnection.CollisionCategory & collisionCategory) != 0)
 				{
-					var toCoordinates = _definitionNodeGrid.Transformer.ToGrid(nodeConnection.To.Index);
+					var toNode = _definitionNodeGrid.DefinitionNodeArray[nodeConnection.To.Index];
+					var toCoordinates = new Point2((int) toNode.Position.X, (int) toNode.Position.Y);
 					if (toCoordinates.X >= fromCoordinates.X && toCoordinates.Y >= fromCoordinates.Y)
 					{
 						if (toCoordinates.X >= x || toCoordinates.Y >= y)

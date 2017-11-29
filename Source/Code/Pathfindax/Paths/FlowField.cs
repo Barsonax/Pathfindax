@@ -1,4 +1,5 @@
 ﻿using Duality;
+using Pathfindax.Collections;
 using Pathfindax.Graph;
 
 namespace Pathfindax.Paths
@@ -22,9 +23,10 @@ namespace Pathfindax.Paths
 		}
 
 		public Vector2 this[int i] => VectorDirectionCache[FlowArray[i]];
+		public Vector2 this[int x, int y] => VectorDirectionCache[FlowArray[x, y]];
 
 		public readonly GridTransformer GridTransformer;
-		public readonly byte[] FlowArray;
+		public readonly Array2D<byte> FlowArray;
 		public readonly Point2 TargetNode;
 		public readonly Vector2 TargetWorldPosition;
 
@@ -33,20 +35,23 @@ namespace Pathfindax.Paths
 			TargetNode = potentialField.TargetNode;
 			TargetWorldPosition = potentialField.TargetWorldPosition;
 			GridTransformer = potentialField.GridTransformer;
-			FlowArray = new byte[potentialField.PotentialArray.Array.Length];
+			FlowArray = new Array2D<byte>(potentialField.PotentialArray.Width, potentialField.PotentialArray.Height);
 
-			for (var i = 0; i < potentialField.PotentialArray.Array.Length; i++)
+			for (int y = 0; y < potentialField.PotentialArray.Height; y++)
 			{
-				var vector = potentialField[i];
-				if (vector.X == 0 && vector.Y == 0)
+				for (int x = 0; x < potentialField.PotentialArray.Width; x++)
 				{
-					FlowArray[i] = 254;
-				}
-				else
-				{
-					var angle = MathF.Atan2(vector.Y, vector.X);
-					var index = (byte)((angle + HalfTurn) / FullTurn * StepAmount);
-					FlowArray[i] = index;
+					var vector = potentialField[x, y];
+					if (vector.X == 0 && vector.Y == 0)
+					{
+						FlowArray[x, y] = 254;
+					}
+					else
+					{
+						var angle = MathF.Atan2(vector.Y, vector.X);
+						var index = (byte)((angle + HalfTurn) / FullTurn * StepAmount);
+						FlowArray[x, y] = index;
+					}
 				}
 			}
 		}
@@ -59,12 +64,11 @@ namespace Pathfindax.Paths
 		public Vector2 GetHeading(Vector2 currentPosition)
 		{
 			var gridCoords = GridTransformer.ToGrid(currentPosition);
-			var index = GridTransformer.ToIndex(gridCoords.X, gridCoords.Y);
 			if (gridCoords == TargetNode)
 			{
 				return (TargetWorldPosition - currentPosition).Normalized;
 			}
-			return this[index];
+			return this[gridCoords.X, gridCoords.Y];
 		}
 
 		public bool NextWaypoint() => true;

@@ -8,6 +8,7 @@ namespace Pathfindax.Graph
 	/// </summary>
 	public interface IDefinitionNodeNetwork
 	{
+		Transformer Transformer { get; }
 		/// <summary>
 		/// Gets the node closest to this position
 		/// </summary>
@@ -15,8 +16,6 @@ namespace Pathfindax.Graph
 		DefinitionNode GetNode(float worldX, float worldY);
 
 		DefinitionNode this[int index] { get; }
-
-		Vector2 Offset { get; }
 
 		int NodeCount { get; }
 	}

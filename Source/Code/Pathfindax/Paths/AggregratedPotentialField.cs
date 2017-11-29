@@ -5,12 +5,17 @@ namespace Pathfindax.Paths
 {
 	public class AggregratedPotentialField : PotentialFieldBase
 	{
+		public override int Width { get; }
+		public override int Height { get; }
 		public readonly PotentialFieldBase[] PotentialFields;
 		public int NodeCount => GridTransformer.GridSize.X * GridTransformer.GridSize.Y;
 
 		public AggregratedPotentialField(GridTransformer gridTransformer, params PotentialFieldBase[] potentialFields) : base(gridTransformer)
 		{
-			TargetNode = potentialFields.First().TargetNode;
+			var firstPotentialField = potentialFields.First();
+			TargetNode = firstPotentialField.TargetNode;
+			Width = firstPotentialField.Width;
+			Height = firstPotentialField.Height;
 			TargetWorldPosition = potentialFields.First().TargetWorldPosition;
 			PotentialFields = potentialFields;
 		}

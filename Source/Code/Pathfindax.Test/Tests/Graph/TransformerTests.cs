@@ -12,7 +12,7 @@ namespace Pathfindax.Test.Tests.Graph
 		public void ToLocal_CorrectPosition(Vector2 scale, Vector2 position, Vector2 worldPositionToTransform, Vector2 expectedLocalPosition)
 		{
 			var transformer = new Transformer(scale, position);
-			var localPosition = transformer.ToLocal(worldPositionToTransform.X, worldPositionToTransform.Y);
+			var localPosition = transformer.ToLocal(worldPositionToTransform);
 			Assert.AreEqual(localPosition.X, expectedLocalPosition.X, 0.001f);
 			Assert.AreEqual(localPosition.Y, expectedLocalPosition.Y, 0.001f);
 		}
@@ -21,7 +21,7 @@ namespace Pathfindax.Test.Tests.Graph
 		public void ToWorld_CorrectPosition(Vector2 scale, Vector2 position, Vector2 expectedWorldPosition, Vector2 localPositionToTransform)
 		{
 			var transformer = new Transformer(scale, position);
-			var localPosition = transformer.ToWorld(localPositionToTransform.X, localPositionToTransform.Y);
+			var localPosition = transformer.ToWorld(localPositionToTransform);
 			Assert.AreEqual(localPosition.X, expectedWorldPosition.X, 0.001f);
 			Assert.AreEqual(localPosition.Y, expectedWorldPosition.Y, 0.001f);
 		}

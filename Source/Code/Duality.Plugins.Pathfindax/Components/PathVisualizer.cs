@@ -60,33 +60,42 @@ namespace Duality.Plugins.Pathfindax.Components
 						}
 						break;
 					case FlowField flowField:
-						for (var i = 0; i < flowField.FlowArray.Length; i++)
-						{							
-							var nodePosition = flowField.GridTransformer.ToWorld(i);
-							canvas.FillCircle(nodePosition.X, nodePosition.Y, 5f);
-							var flowVector = flowField[i];
-							var nodeSize = flowField.GridTransformer.Scale;
-							canvas.DrawLine(nodePosition.X, nodePosition.Y, nodePosition.X + flowVector.X * nodeSize.X * 0.5f, nodePosition.Y + flowVector.Y * nodeSize.Y * 0.5f);
+						for (int y = 0; y < flowField.FlowArray.Height; y++)
+						{
+							for (int x = 0; x < flowField.FlowArray.Width; x++)
+							{
+								var nodeWorldPosition = flowField.GridTransformer.ToWorld(x, y);
+								canvas.FillCircle(nodeWorldPosition.X, nodeWorldPosition.Y, 5f);
+								var flowVector = flowField[x, y];
+								var nodeSize = flowField.GridTransformer.Scale;
+								canvas.DrawLine(nodeWorldPosition.X, nodeWorldPosition.Y, nodeWorldPosition.X + flowVector.X * nodeSize.X * 0.5f, nodeWorldPosition.Y + flowVector.Y * nodeSize.Y * 0.5f);
+							}
 						}
 						break;
 					case PotentialField potentialField:
-						for (var i = 0; i < potentialField.PotentialArray.Length; i++)
+						for (int y = 0; y < potentialField.PotentialArray.Height; y++)
 						{
-							var nodePosition = potentialField.GridTransformer.ToWorld(i);
-							canvas.FillCircle(nodePosition.X, nodePosition.Y, 5f);
-							var flowVector = potentialField[i];
-							var nodeSize = potentialField.GridTransformer.Scale;
-							canvas.DrawLine(nodePosition.X, nodePosition.Y, nodePosition.X + flowVector.X * nodeSize.X * 0.5f, nodePosition.Y + flowVector.Y * nodeSize.Y * 0.5f);
+							for (int x = 0; x < potentialField.PotentialArray.Width; x++)
+							{
+								var nodeWorldPosition = potentialField.GridTransformer.ToWorld(x, y);
+								canvas.FillCircle(nodeWorldPosition.X, nodeWorldPosition.Y, 5f);
+								var flowVector = potentialField[x, y];
+								var nodeSize = potentialField.GridTransformer.Scale;
+								canvas.DrawLine(nodeWorldPosition.X, nodeWorldPosition.Y, nodeWorldPosition.X + flowVector.X * nodeSize.X * 0.5f, nodeWorldPosition.Y + flowVector.Y * nodeSize.Y * 0.5f);
+							}
 						}
 						break;
 					case AggregratedPotentialField aggregratedPotentialField:
-						for (var i = 0; i < aggregratedPotentialField.NodeCount; i++)
+						for (int y = 0; y < aggregratedPotentialField.Height; y++)
 						{
-							var nodePosition = aggregratedPotentialField.GridTransformer.ToWorld(i);
-							canvas.FillCircle(nodePosition.X, nodePosition.Y, 5f);
-							var flowVector = aggregratedPotentialField[i];
-							var nodeSize = aggregratedPotentialField.GridTransformer.Scale;
-							canvas.DrawLine(nodePosition.X, nodePosition.Y, nodePosition.X + flowVector.X * nodeSize.X * 0.5f, nodePosition.Y + flowVector.Y * nodeSize.Y * 0.5f);
+							for (int x = 0; x < aggregratedPotentialField.Width; x++)
+							{
+								var nodeWorldPosition = aggregratedPotentialField.GridTransformer.ToWorld(x, y);
+								canvas.FillCircle(nodeWorldPosition.X, nodeWorldPosition.Y, 5f);
+								var flowVector = aggregratedPotentialField[x, y];
+								var nodeSize = aggregratedPotentialField.GridTransformer.Scale;
+								canvas.DrawLine(nodeWorldPosition.X, nodeWorldPosition.Y, nodeWorldPosition.X + flowVector.X * nodeSize.X * 0.5f, nodeWorldPosition.Y + flowVector.Y * nodeSize.Y * 0.5f);
+							}
 						}
 						break;
 				}

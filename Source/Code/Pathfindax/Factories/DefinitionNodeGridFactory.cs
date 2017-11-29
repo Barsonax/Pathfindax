@@ -13,18 +13,16 @@ namespace Pathfindax.Factories
 		/// </summary>
 		/// <param name="width"></param>
 		/// <param name="height"></param>
-		/// <param name="nodeSize"></param>
 		/// <param name="generateNodeGridConnections"></param>
-		/// <param name="offset"></param>
 		/// <returns></returns>
-		public static Array2D<DefinitionNode> GeneratePreFilledArray(GenerateNodeGridConnections generateNodeGridConnections, int width, int height, Vector2 nodeSize, Vector2 offset = default(Vector2))
+		public static Array2D<DefinitionNode> GeneratePreFilledArray(GenerateNodeGridConnections generateNodeGridConnections, int width, int height)
 		{
 			var array = new Array2D<DefinitionNode>(width, height);
-			for (ushort y = 0; y < height; y++)
+			for (var y = 0; y < height; y++)
 			{
-				for (ushort x = 0; x < width; x++)
+				for (var x = 0; x < width; x++)
 				{
-					var worldPosition = new Vector2(x * nodeSize.X, y * nodeSize.Y) + offset;
+					var worldPosition = new Vector2(x, y);
 					var i = width * y + x;
 					var node = new DefinitionNode(i, worldPosition, 1);
 					array[x, y] = node;

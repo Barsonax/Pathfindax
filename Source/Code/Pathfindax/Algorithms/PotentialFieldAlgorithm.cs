@@ -40,14 +40,14 @@ namespace Pathfindax.Algorithms
 					}
 					else
 					{
-						potentialField = new BlockedPotentialField(dijkstraNodeNetwork.DefinitionNodeGrid.Transformer, targetNode.GridPosition);
+						potentialField = new PotentialField(dijkstraNodeNetwork.DefinitionNodeGrid.Transformer, (Point2)targetNode.DefinitionNode.Position);
 					}
 					_potentialFieldCache?.Add(pathRequest, potentialField);
 					Debug.WriteLine($"Potentialfield created in {sw.ElapsedMilliseconds} ms.");
 				}
-				var nodePosition = potentialField.GridTransformer.ToWorld(pathRequest.PathStart.Index.Index);
+				var nodeWorldPosition = potentialField.GridTransformer.ToWorld(pathRequest.PathStart.Position);
 				var offset = GridClearanceHelper.GridNodeOffset(pathRequest.AgentSize, dijkstraNodeNetwork.DefinitionNodeGrid.Transformer.Scale);
-				succes = potentialField.GetHeading(nodePosition + offset).Length > 0;
+				succes = potentialField.GetHeading(nodeWorldPosition + offset).Length > 0;
 				return potentialField;
 			}
 			catch (Exception ex)
@@ -79,7 +79,7 @@ namespace Pathfindax.Algorithms
 					}
 				}
 			}
-			var targetNodePosition = new Point2(targetNode.GridPosition.X + nodeOffset, targetNode.GridPosition.Y + nodeOffset);
+			var targetNodePosition = new Point2((int)targetNode.DefinitionNode.Position.X + nodeOffset, (int)targetNode.DefinitionNode.Position.Y + nodeOffset);
 			return new PotentialField(dijkstraNodeNetwork.DefinitionNodeGrid.Transformer, targetNodePosition, potentialNodes);
 		}
 

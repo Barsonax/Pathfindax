@@ -9,6 +9,8 @@ namespace Pathfindax.Paths
 {
 	public class DynamicPotentialField : PotentialFieldBase, IDisposable
 	{
+		public override int Width => PotentialArray.Width;
+		public override int Height => PotentialArray.Height;
 		public event Event<DynamicPotentialField> Disposed;
 		public Array2D<float> PotentialArray { get; }
 		private readonly Dictionary<object, PotentialFunction> _valueProviders = new Dictionary<object, PotentialFunction>();

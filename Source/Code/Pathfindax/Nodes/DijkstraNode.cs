@@ -12,12 +12,10 @@ namespace Pathfindax.Nodes
 		public DefinitionNode DefinitionNode { get; }
 		public float Clearance { get; set; }
 		public int HeapIndex { get; set; }
-		public Point2 GridPosition { get; }
 
-		public DijkstraNode(DefinitionNode definitionNode, Point2 gridPosition)
+		public DijkstraNode(DefinitionNode definitionNode)
 		{
 			DefinitionNode = definitionNode;
-			GridPosition = gridPosition;
 		}
 
 		public int CompareTo(DijkstraNode other)

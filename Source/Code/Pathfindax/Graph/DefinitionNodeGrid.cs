@@ -15,21 +15,14 @@ namespace Pathfindax.Graph
 		public DefinitionNode this[int index] => NodeGrid[index];		
 		public Array2D<DefinitionNode> NodeGrid { get; }
 		IReadOnlyArray2D<DefinitionNode> IDefinitionNodeGrid.DefinitionNodeArray => NodeGrid;
+		Transformer IDefinitionNodeNetwork.Transformer => Transformer;
 		public GridTransformer Transformer { get; }
 		public int NodeCount => NodeGrid.Count;
-		public Vector2 Offset => Transformer.Position;
 
-		//[Obsolete]
-		//public DefinitionNodeGrid(Array2D<DefinitionNode> grid, Vector2 nodeSize, Vector2 offset)
-		//{
-		//	NodeGrid = grid;			
-		//	Transformer = new GridTransformer(new Point2(NodeGrid.Width, NodeGrid.Height), nodeSize, offset);
-		//}
-
-		public DefinitionNodeGrid(GenerateNodeGridConnections generateNodeGridConnections, int width, int height, Vector2 nodeSize, Vector2 offset = default(Vector2))
+		public DefinitionNodeGrid(GenerateNodeGridConnections generateNodeGridConnections, int width, int height, Vector2 scale, Vector2 offset = default(Vector2))
 		{
-			Transformer = new GridTransformer(new Point2(width, height), nodeSize, offset);
-			NodeGrid = DefinitionNodeGridFactory.GeneratePreFilledArray(generateNodeGridConnections, width, height, nodeSize, offset);
+			Transformer = new GridTransformer(new Point2(width, height), scale, offset);
+			NodeGrid = DefinitionNodeGridFactory.GeneratePreFilledArray(generateNodeGridConnections, width, height);
 		}
 
 		public DefinitionNode GetNode(float worldX, float worldY)

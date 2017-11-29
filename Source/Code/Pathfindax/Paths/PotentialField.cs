@@ -7,6 +7,8 @@ namespace Pathfindax.Paths
 {
 	public class PotentialField : PotentialFieldBase
 	{
+		public override int Width => PotentialArray.Width;
+		public override int Height => PotentialArray.Height;
 		public Array2D<float> PotentialArray { get; }
 
 		public PotentialField(GridTransformer gridTransformer, Point2 targetNodePosition, Array2D<float> potentialArray) : base(gridTransformer)
@@ -17,8 +19,15 @@ namespace Pathfindax.Paths
 			TargetWorldPosition = gridTransformer.ToWorld(targetNodePosition);
 		}
 
+		public PotentialField(GridTransformer gridTransformer, Point2 targetNodePosition) : base(gridTransformer)
+		{
+			TargetNode = targetNodePosition;
+			TargetWorldPosition = gridTransformer.ToWorld(targetNodePosition);
+		}
+
 		public override float GetPotential(int x, int y)
 		{
+			if (PotentialArray == null) return float.NaN;
 			if (x >= 0 && y >= 0 && x < PotentialArray.Width && y < PotentialArray.Height)
 			{
 				return PotentialArray[x, y];

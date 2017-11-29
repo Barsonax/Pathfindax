@@ -20,9 +20,9 @@ namespace Pathfindax.Test.Setup
 				algorithm.FindPath(null, null, out var _).ReturnsForAnyArgs(x =>
 				{
 					x[2] = succesTrue;
-					return new NodePath(new[] {new DefinitionNode(0, Vector2.Zero)});
+					return new NodePath(new[] { new DefinitionNode(0, Vector2.Zero) }, new Transformer(new Vector2(1, 1)));
 				});
-			return PathfinderFactory.CreateRequestProcesser(nodeGrid, algorithm);
+				return PathfinderFactory.CreateRequestProcesser(nodeGrid, algorithm);
 			}, threads);
 		}
 	}

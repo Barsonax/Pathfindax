@@ -5,14 +5,8 @@ namespace Pathfindax.Paths
 {
 	public abstract class PotentialFieldBase : IPath
 	{
-		public Vector2 this[int i]
-		{
-			get
-			{
-				var gridCoords = GridTransformer.ToGrid(i);
-				return this[gridCoords.X, gridCoords.Y];
-			}
-		}
+		public abstract int Width { get; }
+		public abstract int Height { get; }
 
 		public Vector2 this[int x, int y]
 		{
@@ -149,11 +143,6 @@ namespace Pathfindax.Paths
 
 		public bool NextWaypoint() => true;
 
-		public float GetPotential(int i)
-		{
-			var gridCoords = GridTransformer.ToGrid(i);
-			return GetPotential(gridCoords.X, gridCoords.Y);
-		}
 		public abstract float GetPotential(int x, int y);
 	}
 }

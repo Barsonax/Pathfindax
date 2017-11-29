@@ -1,5 +1,4 @@
-﻿using System;
-using Duality;
+﻿using Duality;
 using Pathfindax.Utils;
 
 namespace Pathfindax.Graph
@@ -22,26 +21,6 @@ namespace Pathfindax.Graph
 			var x = PathfindaxMathF.RoundToInt(MathF.Clamp(position.X, 0, GridSize.X - 1));
 			var y = PathfindaxMathF.RoundToInt(MathF.Clamp(position.Y, 0, GridSize.Y - 1));
 			return new Point2(x, y);
-		}
-
-		public Point2 ToGrid(int i)
-		{
-			if (i >= NodeCount) throw new IndexOutOfRangeException();
-			var y = i / GridSize.X;
-			var x = i - y * GridSize.X;
-			return new Point2(x, y);
-		}
-
-		public Vector2 ToWorld(int i)
-		{
-			var gridPosition = ToGrid(i);
-			return ToWorld(gridPosition.X, gridPosition.Y);
-		}
-
-		public int ToIndex(int x, int y)
-		{
-			if (x >= GridSize.X || y >= GridSize.Y) throw new IndexOutOfRangeException();
-			return y * GridSize.X + x;
 		}
 	}
 }

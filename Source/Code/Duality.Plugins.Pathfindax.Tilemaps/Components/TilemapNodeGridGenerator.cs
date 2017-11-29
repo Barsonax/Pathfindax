@@ -60,24 +60,36 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Components
 				_definitionNodeGrid = new DefinitionNodeGrid(GenerateNodeGridConnections.None, baseTilemap.Size.X, baseTilemap.Size.Y, baseTilemap.Tileset.Res.TileSize, offset);
 				var tilemapColliderWithBodies = GameObj.GetComponentsInChildren<TilemapCollider>().Select(x => new TilemapColliderWithBody(x)).ToArray();
 				var partioner = Partitioner.Create(0, _definitionNodeGrid.NodeCount);
-
-				Parallel.ForEach(partioner, range =>
+				var connectionGenerator = new TilemapNodeConnectionGenerator();
+				for (int i = 0; i < _definitionNodeGrid.NodeCount; i++)
 				{
-					var connectionGenerator = new TilemapNodeConnectionGenerator();
-					for (var i = range.Item1; i < range.Item2; i++)
-					{
-						var definitionNode = _definitionNodeGrid.NodeGrid[i];
-						connectionGenerator.CalculateGridNodeCollision(tilemapColliderWithBodies, _definitionNodeGrid.NodeGrid[i], _definitionNodeGrid);
+					var definitionNode = _definitionNodeGrid.NodeGrid[i];
+					connectionGenerator.CalculateGridNodeCollision(tilemapColliderWithBodies, _definitionNodeGrid.NodeGrid[i], _definitionNodeGrid);
 
-						if (MovementPenalties != null)
-						{
-							var nodeGridCoordinates = _definitionNodeGrid.Transformer.ToGrid(definitionNode.Index.Index);
-							var index = baseTilemap.Tiles[nodeGridCoordinates.X, nodeGridCoordinates.Y].Index;
-							if (index < MovementPenalties.Length)
-								definitionNode.MovementCostModifier = MovementPenalties[index];
-						}
+					if (MovementPenalties != null)
+					{
+						var index = baseTilemap.Tiles[(int)definitionNode.Position.X, (int)definitionNode.Position.Y].Index;
+						if (index < MovementPenalties.Length)
+							definitionNode.MovementCostModifier = MovementPenalties[index];
 					}
-				});
+				}
+
+				//Parallel.ForEach(partioner, range =>
+				// {
+				//	 var connectionGenerator = new TilemapNodeConnectionGenerator();
+				//	 for (var i = range.Item1; i < range.Item2; i++)
+				//	 {
+				//		 var definitionNode = _definitionNodeGrid.NodeGrid[i];
+				//		 connectionGenerator.CalculateGridNodeCollision(tilemapColliderWithBodies, _definitionNodeGrid.NodeGrid[i], _definitionNodeGrid);
+
+				//		 if (MovementPenalties != null)
+				//		 {
+				//			 var index = baseTilemap.Tiles[(int)definitionNode.Position.X, (int)definitionNode.Position.Y].Index;
+				//			 if (index < MovementPenalties.Length)
+				//				 definitionNode.MovementCostModifier = MovementPenalties[index];
+				//		 }
+				//	 }
+				// });
 				Debug.WriteLine($"Generated definition nodegrid for tilemap in {watch.ElapsedMilliseconds} ms");
 			}
 			return _definitionNodeGrid;

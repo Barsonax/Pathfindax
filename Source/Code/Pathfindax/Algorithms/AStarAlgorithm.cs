@@ -24,16 +24,16 @@ namespace Pathfindax.Algorithms
 			if (path == null)
 			{
 				succes = false;
-				return new NodePath(new[] { startNode.DefinitionNode });
+				return new NodePath(new[] { startNode.DefinitionNode }, nodeNetwork.DefinitionNodeNetwork.Transformer);
 			}
 			succes = true;
 			switch (nodeNetwork.DefinitionNodeNetwork)
 			{
 				case IDefinitionNodeGrid definitionNodeGrid:
 					var offset = GridClearanceHelper.GridNodeOffset(pathRequest.AgentSize, definitionNodeGrid.Transformer.Scale);
-					return new NodePath(path.ToArray(), offset);
+					return new NodePath(path.ToArray(), definitionNodeGrid.Transformer);
 				case IDefinitionNodeNetwork definitionNodeNetwork:
-					return new NodePath(path.ToArray());
+					return new NodePath(path.ToArray(), definitionNodeNetwork.Transformer);
 				default:
 					throw new NotSupportedException($"{nodeNetwork.DefinitionNodeNetwork.GetType()} is not supported");
 			}

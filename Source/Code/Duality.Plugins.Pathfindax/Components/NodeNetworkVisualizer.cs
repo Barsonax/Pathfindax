@@ -68,8 +68,8 @@ namespace Duality.Plugins.Pathfindax.Components
 			{
 				var node = network[i];
 				canvas.State.ColorTint = ColorRgba.LightGrey;
-				var nodePosition = node.DefinitionNode.Position;
-				canvas.FillCircle(nodePosition.X, nodePosition.Y, NodeSize);
+				var nodeWorldPosition = definitionNodeNetwork.Transformer.ToWorld(node.DefinitionNode.Position);
+				canvas.FillCircle(nodeWorldPosition.X, nodeWorldPosition.Y, NodeSize);
 				canvas.State.ColorTint = ColorRgba.VeryLightGrey;
 				if (node.DefinitionNode.Connections != null)
 				{
@@ -77,13 +77,13 @@ namespace Duality.Plugins.Pathfindax.Components
 					foreach (var connection in node.DefinitionNode.Connections)
 					{
 						var toNode = NodePointer.Dereference(connection.To, definitionNodeNetwork);
-						var vector = (toNode.Position - nodePosition) * 0.5f; //Times 0.5f so we can see the connections in both directions.
-						canvas.DrawDashLine(nodePosition.X, nodePosition.Y, nodePosition.X + vector.X, nodePosition.Y + vector.Y);
+						var vector = (definitionNodeNetwork.Transformer.ToWorld(toNode.Position) - nodeWorldPosition) * 0.5f; //Times 0.5f so we can see the connections in both directions.
+						canvas.DrawDashLine(nodeWorldPosition.X, nodeWorldPosition.Y, nodeWorldPosition.X + vector.X, nodeWorldPosition.Y + vector.Y);
 					}
 					if (!float.IsNaN(node.Clearance))
 					{
 						canvas.State.ColorTint = ColorRgba.Black;
-						canvas.DrawText(node.Clearance.ToString(), nodePosition.X, nodePosition.Y, -1f, Alignment.Center);
+						canvas.DrawText(node.Clearance.ToString(), nodeWorldPosition.X, nodeWorldPosition.Y, -1f, Alignment.Center);
 					}
 				}
 			}
