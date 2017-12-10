@@ -30,7 +30,6 @@ namespace Pathfindax.Algorithms
 			switch (nodeNetwork.DefinitionNodeNetwork)
 			{
 				case IDefinitionNodeGrid definitionNodeGrid:
-					var offset = GridClearanceHelper.GridNodeOffset(pathRequest.AgentSize, definitionNodeGrid.Transformer.Scale);
 					return new NodePath(path.ToArray(), definitionNodeGrid.Transformer);
 				case IDefinitionNodeNetwork definitionNodeNetwork:
 					return new NodePath(path.ToArray(), definitionNodeNetwork.Transformer);

@@ -1,6 +1,7 @@
 ﻿using System;
 using Pathfindax.Nodes;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using Pathfindax.Paths;
 
@@ -50,7 +51,7 @@ namespace Pathfindax.PathfindEngine
 		/// <summary>
 		/// The callback that will be called after the pathfinder finds a path or cannot find one.
 		/// </summary>
-		private readonly List<Action<PathRequest<TPath>>> _callbacks = new List<Action<PathRequest<TPath>>>();
+		private readonly List<Action> _callbacks = new List<Action>();
 
 		/// <summary>
 		/// The calculated path. Will be null unless the <see cref="Status"/> is equal to <see cref="PathRequestStatus.Solved"/>
@@ -119,9 +120,14 @@ namespace Pathfindax.PathfindEngine
 		/// <param name="callback">The callback that will be called when the pathfinder has solved this <see cref="PathRequest"/></param>
 		public void AddCallback(Action<PathRequest<TPath>> callback)
 		{
+			AddCallback(() => callback.Invoke(this));
+		}
+
+		public void AddCallback(Action callback)
+		{
 			if (Status >= PathRequestStatus.Solved)
 			{
-				callback.Invoke(this); //NodePath is already calculated so call the callback directly.
+				callback.Invoke(); //Path is already calculated so call the callback directly.
 			}
 			else
 			{
@@ -140,8 +146,35 @@ namespace Pathfindax.PathfindEngine
 		{
 			foreach (var callback in _callbacks)
 			{
-				callback.Invoke(this);
+				callback.Invoke();
 			}
+		}
+
+		public PathRequestAwaiter<TPath> GetAwaiter()
+		{
+			return new PathRequestAwaiter<TPath>(this);
+		}
+	}
+
+	public struct PathRequestAwaiter<TPath> : INotifyCompletion
+		where TPath : IPath
+	{
+		public bool IsCompleted => _pathRequest.Status == PathRequestStatus.Solved || _pathRequest.Status == PathRequestStatus.NoPathFound;
+		private readonly PathRequest<TPath> _pathRequest;
+
+		public PathRequestAwaiter(PathRequest<TPath> pathRequest)
+		{
+			_pathRequest = pathRequest;
+		}
+
+		public void OnCompleted(Action continuation)
+		{
+			_pathRequest.AddCallback(continuation);
+		}
+
+		public TPath GetResult()
+		{
+			return _pathRequest.CompletedPath;
 		}
 	}
 }

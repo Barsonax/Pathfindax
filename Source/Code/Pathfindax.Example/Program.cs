@@ -3,6 +3,7 @@ using Duality;
 using Pathfindax.Factories;
 using Pathfindax.Graph;
 using Pathfindax.PathfindEngine;
+using Pathfindax.Paths;
 
 namespace Pathfindax.Example
 {
@@ -12,6 +13,28 @@ namespace Pathfindax.Example
 		{
 			PollingExample();
 			CallbackExample();
+			AsyncExample();
+			Console.ReadKey();
+		}
+
+		private static void AsyncExample()
+		{
+			Console.WriteLine(nameof(AsyncExample));
+
+			//Setup the nodegrid and pathfinder.
+			var pathfindaxManager = new PathfindaxManager();
+			var nodeNetwork = new DefinitionNodeGrid(GenerateNodeGridConnections.All, 3, 3, new Vector2(1, 1));
+			var pathfinder = pathfindaxManager.CreateAstarPathfinder(nodeNetwork);
+
+			var exampleGameObject = new ExampleAsyncGameObject(pathfinder);
+			//Start calling update on the manager. Update will call the callbacks of any completed paths. Note that the callback is called from the thread that calls update.
+			//Normally when using pathfindax in a game engine you would wire this up in your game loop.
+			while (!exampleGameObject.CallBackCalled)
+			{			
+				pathfindaxManager.Update(1f);
+				exampleGameObject.Update();
+			}
+			Console.ReadKey();
 		}
 
 		private static void PollingExample()
@@ -71,6 +94,30 @@ namespace Pathfindax.Example
 			}
 			Console.WriteLine($"{nameof(CallbackExample)} completed. Press any key to continue with the next example.");
 			Console.ReadKey();
+		}
+	}
+
+	public class ExampleAsyncGameObject
+	{
+		public bool CallBackCalled { get; private set; }
+		private readonly IPathfinder<NodePath> _pathfinder;
+
+		public ExampleAsyncGameObject(IPathfinder<NodePath> pathfinder)
+		{
+			_pathfinder = pathfinder;
+		}
+
+		public async void Update()
+		{
+			//Request a path.
+			var pathRequest = _pathfinder.RequestPath(new Vector2(0, 0), new Vector2(2, 0));
+			Console.WriteLine($"Solving path from {pathRequest.PathStart.Position} to {pathRequest.PathEnd.Position}...");
+
+			//Await the pathrequest
+			var completedPath = await pathRequest;
+			Console.WriteLine($"Solved path! {completedPath}");
+			Console.WriteLine("ASyncExample completed. Press any key to continue with the next example.");
+			CallBackCalled = true;
 		}
 	}
 }
