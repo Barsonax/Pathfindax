@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -71,8 +71,8 @@
     <OutputPath>bin\x64\Benchmark\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DualityPrimitives, Version=2.0.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\AdamsLair.Duality.Primitives.2.0.5\lib\DualityPrimitives.dll</HintPath>
+    <Reference Include="DualityPrimitives, Version=2.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AdamsLair.Duality.Primitives.2.0.4\lib\DualityPrimitives.dll</HintPath>
     </Reference>
     <Reference Include="System" />
   </ItemGroup>
