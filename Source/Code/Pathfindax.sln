@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2009
+VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Duality.Plugins.Pathfindax", "Duality.Plugins.Pathfindax\Duality.Plugins.Pathfindax.csproj", "{AFE883F3-72B4-4C7C-A1D1-44EDC09C8F6E}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -35,6 +35,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{DFCF0817-23D3-4368-8E14-8C442E05F401}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pathfindax.Example", "Pathfindax.Example\Pathfindax.Example.csproj", "{93F554F3-90E4-492A-BD23-E7387F9F7864}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pathfindax.Benchmarks", "Pathfindax.Benchmarks\Pathfindax.Benchmarks.csproj", "{80865664-DE04-4957-B04C-221E471269A4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -148,6 +150,18 @@ Global
 		{93F554F3-90E4-492A-BD23-E7387F9F7864}.Release|Any CPU.Build.0 = Release|Any CPU
 		{93F554F3-90E4-492A-BD23-E7387F9F7864}.Release|x64.ActiveCfg = Release|Any CPU
 		{93F554F3-90E4-492A-BD23-E7387F9F7864}.Release|x64.Build.0 = Release|Any CPU
+		{80865664-DE04-4957-B04C-221E471269A4}.Benchmark|Any CPU.ActiveCfg = Release|Any CPU
+		{80865664-DE04-4957-B04C-221E471269A4}.Benchmark|Any CPU.Build.0 = Release|Any CPU
+		{80865664-DE04-4957-B04C-221E471269A4}.Benchmark|x64.ActiveCfg = Release|Any CPU
+		{80865664-DE04-4957-B04C-221E471269A4}.Benchmark|x64.Build.0 = Release|Any CPU
+		{80865664-DE04-4957-B04C-221E471269A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80865664-DE04-4957-B04C-221E471269A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80865664-DE04-4957-B04C-221E471269A4}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{80865664-DE04-4957-B04C-221E471269A4}.Debug|x64.Build.0 = Debug|Any CPU
+		{80865664-DE04-4957-B04C-221E471269A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80865664-DE04-4957-B04C-221E471269A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80865664-DE04-4957-B04C-221E471269A4}.Release|x64.ActiveCfg = Release|Any CPU
+		{80865664-DE04-4957-B04C-221E471269A4}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -158,6 +172,7 @@ Global
 		{08559459-8E6A-4265-A95D-3E7DA3A83423} = {DFCF0817-23D3-4368-8E14-8C442E05F401}
 		{810F944A-9441-413B-B512-313CE77F9FED} = {AFC44DC1-306D-4BE6-9B18-8741D05F3677}
 		{93F554F3-90E4-492A-BD23-E7387F9F7864} = {DFCF0817-23D3-4368-8E14-8C442E05F401}
+		{80865664-DE04-4957-B04C-221E471269A4} = {AFC44DC1-306D-4BE6-9B18-8741D05F3677}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4CD8AF15-7F0F-43A9-B238-8A102A8D7151}

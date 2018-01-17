@@ -144,3 +144,5 @@
 /Source/Code/Pathfindax.Example/bin
 /Source/Code/Pathfindax.Example/obj
 /.vs
+/Source/Code/Pathfindax.Benchmarks/obj
+/Source/Code/Pathfindax.Benchmarks/bin

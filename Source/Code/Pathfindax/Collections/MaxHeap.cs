@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 
 namespace Pathfindax.Collections
 {
 	/// <summary>
 	/// A fast maxheap that is used as a priority queue for pathfinding.
+	/// Does not work directly with structs. If you need to use structs with this collection you have to wrap it in a <see cref="ValueHeapItem{T}"/>.
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
 	public class MaxHeap<T>
@@ -40,7 +42,8 @@ namespace Pathfindax.Collections
 		}
 
 		/// <summary>
-		/// Removes the first item from the heap. Since this is a maxheap it will have the highest value which is determined by the implementation of the <see cref="IComparable{T}"/> interface.
+		/// Removes the first item from the heap. 
+		/// Since this is a maxheap it will have the highest value which is determined by the implementation of the <see cref="IComparable{T}"/> interface.
 		/// </summary>
 		/// <returns></returns>
 		public T RemoveFirst()
@@ -54,38 +57,47 @@ namespace Pathfindax.Collections
 		}
 
 		/// <summary>
+		/// Returns the first item from the heap but does not remove it.
+		/// </summary>
+		/// <returns></returns>
+		public T Peek()
+		{
+			return _items[0];
+		}
+
+		/// <summary>
 		/// Returns true if this heap contains the <paramref name="item"/>
 		/// </summary>
 		/// <param name="item"></param>
 		/// <returns></returns>
 		public bool Contains(T item)
 		{
-			if (item.HeapIndex < 0 || item.HeapIndex >= Count) return false;
-			return Equals(_items[item.HeapIndex], item);
+			var heapIndex = item.HeapIndex;
+			if (heapIndex < 0 || heapIndex >= Count) return false;
+			return Equals(_items[heapIndex], item);
 		}
 
 		private void SortDown(T item)
 		{
+			var itemIndex = item.HeapIndex;
 			while (true)
 			{
-				var childIndexLeft = item.HeapIndex * 2 + 1;
+				var childIndexLeft = itemIndex * 2 + 1;
 				var childIndexRight = childIndexLeft + 1;
 
 				if (childIndexLeft < Count)
 				{
 					var swapIndex = childIndexLeft;
 
-					if (childIndexRight < Count)
+					if (childIndexRight < Count && _items[childIndexLeft].CompareTo(_items[childIndexRight]) < 0)
 					{
-						if (_items[childIndexLeft].CompareTo(_items[childIndexRight]) < 0)
-						{
-							swapIndex = childIndexRight;
-						}
+						swapIndex = childIndexRight;
 					}
 
 					if (item.CompareTo(_items[swapIndex]) < 0)
 					{
-						Swap(item, _items[swapIndex]);
+						Swap(item, itemIndex, _items[swapIndex], swapIndex);
+						itemIndex = swapIndex;
 					}
 					else
 					{
@@ -101,31 +113,70 @@ namespace Pathfindax.Collections
 
 		private void SortUp(T item)
 		{
-			var parentIndex = (item.HeapIndex - 1) / 2;
+			var itemIndex = item.HeapIndex;
+			var parentIndex = (itemIndex - 1) / 2;
 
 			while (true)
 			{
 				var parentItem = _items[parentIndex];
 				if (item.CompareTo(parentItem) > 0)
 				{
-					Swap(item, parentItem);
+					Swap(item, itemIndex, parentItem, parentIndex);
+					itemIndex = parentIndex;
 				}
 				else
 				{
 					break;
 				}
 
-				parentIndex = (item.HeapIndex - 1) / 2;
+				parentIndex = (parentIndex - 1) / 2;
 			}
 		}
 
-		private void Swap(T itemA, T itemB)
+		private void Swap(T itemA, int itemAIndex, T itemB, int itemBIndex)
 		{
-			var itemAIndex = itemA.HeapIndex;
-			itemA.HeapIndex = itemB.HeapIndex;
+			itemA.HeapIndex = itemBIndex;
 			itemB.HeapIndex = itemAIndex;
-			_items[itemB.HeapIndex] = itemB;
-			_items[itemA.HeapIndex] = itemA;
+			_items[itemAIndex] = itemB;
+			_items[itemBIndex] = itemA;
+		}
+	}
+
+	/// <summary>
+	/// Wraps a value type allowing it to be used in a <see cref="MaxHeap{T}"/>
+	/// </summary>
+	/// <typeparam name="T"></typeparam>
+	public class ValueHeapItem<T> : IHeapItem<ValueHeapItem<T>>
+	where T : struct, IComparable<T>
+	{
+		public int HeapIndex { get; set; }
+		public T Value { get; }
+
+		public ValueHeapItem(T value)
+		{
+			Value = value;
+			HeapIndex = -1;
+		}
+
+		public int CompareTo(ValueHeapItem<T> other)
+		{
+			var compare = Value.CompareTo(other.Value);
+			return compare;
+		}
+
+		public static implicit operator T(ValueHeapItem<T> valueHeapItem)
+		{
+			return valueHeapItem.Value;
+		}
+
+		public static implicit operator ValueHeapItem<T>(T value)
+		{
+			return new ValueHeapItem<T>(value);
+		}
+
+		public override string ToString()
+		{
+			return Value.ToString();
 		}
 	}
 }
