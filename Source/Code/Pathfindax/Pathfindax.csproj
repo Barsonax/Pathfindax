@@ -80,6 +80,8 @@
     <Compile Include="Collections\ConcurrentCache.cs" />
     <Compile Include="Algorithms\DijkstraAlgorithm.cs" />
     <Compile Include="Algorithms\PotentialFieldAlgorithm.cs" />
+    <Compile Include="Collections\Interfaces\IndexProvider.cs" />
+    <Compile Include="Collections\RefMaxHeap.cs" />
     <Compile Include="Graph\Transformer.cs" />
     <Compile Include="PathfindEngine\DynamicPotentialFieldUpdater.cs" />
     <Compile Include="PathfindEngine\Exceptions\InvalidAgentSizeException.cs" />

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
 
 namespace Pathfindax.Collections
 {
@@ -135,9 +134,10 @@ namespace Pathfindax.Collections
 
 		private void Swap(T itemA, int itemAIndex, T itemB, int itemBIndex)
 		{
-			itemA.HeapIndex = itemBIndex;
 			itemB.HeapIndex = itemAIndex;
 			_items[itemAIndex] = itemB;
+
+			itemA.HeapIndex = itemBIndex;
 			_items[itemBIndex] = itemA;
 		}
 	}
@@ -147,7 +147,7 @@ namespace Pathfindax.Collections
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
 	public class ValueHeapItem<T> : IHeapItem<ValueHeapItem<T>>
-	where T : struct, IComparable<T>
+		where T : struct, IComparable<T>
 	{
 		public int HeapIndex { get; set; }
 		public T Value { get; }
