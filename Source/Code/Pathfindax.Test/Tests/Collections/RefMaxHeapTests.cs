@@ -10,36 +10,11 @@ namespace Pathfindax.Test.Tests.Collections
 	[TestFixture]
 	class RefMaxHeapTests
 	{
-		public struct IntValue<TValue> : IHeapItem<IntValue<TValue>>, IIndexProvider
-			where TValue : IComparable<TValue>
-		{
-			public TValue Value { get; }
-			public int Index { get; }
-			public int HeapIndex { get; set; }
-
-			public IntValue(TValue value, int index)
-			{
-				Value = value;
-				Index = index;
-				HeapIndex = -1;
-			}
-
-			public override string ToString()
-			{
-				return Value.ToString();
-			}
-
-			public int CompareTo(IntValue<TValue> other)
-			{
-				return Value.CompareTo(other.Value);
-			}
-		}
-
 		[Test, TestCaseSource(typeof(RefMaxHeapTests), nameof(HeapTestCases))]
-		public void RefMaxHeap_RemoveFirst(IntValue<int>[] items)
+		public void RefMaxHeap_RemoveFirst(HeapStruct<int>[] items)
 		{
 			//Create the heap and add the items.
-			var heap = new RefMaxHeap<IntValue<int>>(items);
+			var heap = new RefMaxHeap<HeapStruct<int>>(items);
 			for (var i = 0; i < items.Length; i++)
 			{
 				heap.Add(i);
@@ -60,7 +35,7 @@ namespace Pathfindax.Test.Tests.Collections
 		{
 			var items = ConvertArray(new[] { 100, 19, 17, 36, 12, 25, 5, 9, 15, 6, 11, 13, 8, 1, 4, 99, 64 });
 			//Create the heap and add the items.
-			var heap = new RefMaxHeap<IntValue<int>>(items);
+			var heap = new RefMaxHeap<HeapStruct<int>>(items);
 			for (int i = 0; i < items.Length; i++)
 			{
 				heap.Add(i);
@@ -76,10 +51,10 @@ namespace Pathfindax.Test.Tests.Collections
 		}
 
 		[Test, TestCaseSource(typeof(RefMaxHeapTests), nameof(HeapTestCases))]
-		public void RefMaxHeap_Contains_True(IntValue<int>[] items)
+		public void RefMaxHeap_Contains_True(HeapStruct<int>[] items)
 		{
 			//Create the heap and add the items.
-			var heap = new RefMaxHeap<IntValue<int>>(items);
+			var heap = new RefMaxHeap<HeapStruct<int>>(items);
 			for (var i = 0; i < items.Length; i++)
 			{
 				heap.Add(i);
@@ -93,10 +68,10 @@ namespace Pathfindax.Test.Tests.Collections
 		}
 
 		[Test, TestCaseSource(typeof(RefMaxHeapTests), nameof(HeapTestCases))]
-		public void RefMaxHeap_Contains_False(IntValue<int>[] items)
+		public void RefMaxHeap_Contains_False(HeapStruct<int>[] items)
 		{
 			//Create the heap and add the items except the last one.
-			var heap = new RefMaxHeap<IntValue<int>>(items);
+			var heap = new RefMaxHeap<HeapStruct<int>>(items);
 			for (var i = 0; i < items.Length - 1; i++)
 			{
 				heap.Add(i);
@@ -121,15 +96,15 @@ namespace Pathfindax.Test.Tests.Collections
 
 		private static TestCaseData GenerateHeapTestCase(params int[] values)
 		{
-			var testCaseData = new IntValue<int>[values.Length];
+			var testCaseData = new HeapStruct<int>[values.Length];
 			for (var i = 0; i < values.Length; i++)
 			{
-				testCaseData[i] = new IntValue<int>(values[i], i);
+				testCaseData[i] = new HeapStruct<int>(values[i], i);
 			}
 			return new TestCaseData(new[] { testCaseData }).SetName($"Values: {string.Join(", ", values)}");
 		}
 
-		private bool CheckHeapCondition<TValue>(ReadOnlyCollection<int> indexes, IntValue<TValue>[] items, int parentIndex)
+		private bool CheckHeapCondition<TValue>(ReadOnlyCollection<int> indexes, HeapStruct<TValue>[] items, int parentIndex)
 			where TValue : IComparable<TValue>
 		{
 			var parentValue = items[indexes[parentIndex]];
@@ -146,7 +121,7 @@ namespace Pathfindax.Test.Tests.Collections
 			return true;
 		}
 
-		private bool CheckHeapCondition<TValue>(IntValue<TValue> parentValue, ReadOnlyCollection<int> indexes, IntValue<TValue>[] items, int childHeapIndex)
+		private bool CheckHeapCondition<TValue>(HeapStruct<TValue> parentValue, ReadOnlyCollection<int> indexes, HeapStruct<TValue>[] items, int childHeapIndex)
 			where TValue : IComparable<TValue>
 		{
 			if (childHeapIndex < indexes.Count)
@@ -162,13 +137,13 @@ namespace Pathfindax.Test.Tests.Collections
 			return true;
 		}
 
-		private IntValue<TValue>[] ConvertArray<TValue>(TValue[] values) 
+		private HeapStruct<TValue>[] ConvertArray<TValue>(TValue[] values) 
 			where TValue : IComparable<TValue>
 		{
-			var intValues = new IntValue<TValue>[values.Length];
+			var intValues = new HeapStruct<TValue>[values.Length];
 			for (int i = 0; i < values.Length; i++)
 			{
-				intValues[i] = new IntValue<TValue>(values[i], i);
+				intValues[i] = new HeapStruct<TValue>(values[i], i);
 			}
 
 			return intValues;

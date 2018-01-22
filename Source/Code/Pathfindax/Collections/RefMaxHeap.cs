@@ -157,4 +157,29 @@ namespace Pathfindax.Collections
 			_indexes[itemBHeapIndex] = itemA.Index;
 		}
 	}
+
+	public struct HeapStruct<TValue> : IHeapItem<HeapStruct<TValue>>, IIndexProvider
+		where TValue : IComparable<TValue>
+	{
+		public TValue Value { get; }
+		public int Index { get; }
+		public int HeapIndex { get; set; }
+
+		public HeapStruct(TValue value, int index)
+		{
+			Value = value;
+			Index = index;
+			HeapIndex = -1;
+		}
+
+		public override string ToString()
+		{
+			return Value.ToString();
+		}
+
+		public int CompareTo(HeapStruct<TValue> other)
+		{
+			return Value.CompareTo(other.Value);
+		}
+	}
 }
