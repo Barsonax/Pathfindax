@@ -66,6 +66,7 @@
     <DefineConstants>DEBUG</DefineConstants>
     <Optimize>true</Optimize>
     <DocumentationFile>..\Binaries\Benchmark\Pathfindax.xml</DocumentationFile>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Benchmark|x64'">
     <OutputPath>bin\x64\Benchmark\</OutputPath>

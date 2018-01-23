@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace Pathfindax.Collections
@@ -10,7 +9,7 @@ namespace Pathfindax.Collections
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
 	public class RefMaxHeap<T>
-		where T : struct , IHeapItem<T>, IIndexProvider
+		where T : struct, IHeapItem<T>, IEquatable<T>, IIndexProvider
 	{
 		/// <summary>
 		/// The current amount of items in the heap.
@@ -83,13 +82,7 @@ namespace Pathfindax.Collections
 		{
 			var heapIndex = item.HeapIndex;
 			if (heapIndex < 0 || heapIndex >= Count) return false;
-			var arrayIndex = _indexes[heapIndex];
-			if (arrayIndex != -1)
-			{
-				return Equals(_array[arrayIndex], item);
-			}
-
-			return false;
+			return _array[_indexes[heapIndex]].Equals(item);
 		}
 
 		private void SortDown(ref T item)
@@ -103,12 +96,11 @@ namespace Pathfindax.Collections
 				if (childIndexLeft < Count)
 				{
 					var swapIndex = childIndexLeft;
-					
 					if (childIndexRight < Count && _array[_indexes[childIndexLeft]].CompareTo(_array[_indexes[childIndexRight]]) < 0)
 					{
 						swapIndex = childIndexRight;
 					}
-					
+
 					if (item.CompareTo(_array[_indexes[swapIndex]]) < 0)
 					{
 						Swap(ref item, itemIndex, ref _array[_indexes[swapIndex]], swapIndex);
@@ -158,8 +150,8 @@ namespace Pathfindax.Collections
 		}
 	}
 
-	public struct HeapStruct<TValue> : IHeapItem<HeapStruct<TValue>>, IIndexProvider
-		where TValue : IComparable<TValue>
+	public struct HeapStruct<TValue> : IHeapItem<HeapStruct<TValue>>, IIndexProvider, IEquatable<HeapStruct<TValue>>
+		where TValue : IComparable<TValue>, IEquatable<TValue>
 	{
 		public TValue Value { get; }
 		public int Index { get; }
@@ -180,6 +172,20 @@ namespace Pathfindax.Collections
 		public int CompareTo(HeapStruct<TValue> other)
 		{
 			return Value.CompareTo(other.Value);
+		}
+
+		public override bool Equals(object obj)
+		{
+			if (obj is HeapStruct<TValue> other)
+			{
+				return Equals(other);
+			}
+			return false;
+		}
+
+		public bool Equals(HeapStruct<TValue> other)
+		{
+			return Value.Equals(other.Value);
 		}
 	}
 }
