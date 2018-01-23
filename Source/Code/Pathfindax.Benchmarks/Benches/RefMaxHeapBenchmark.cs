@@ -4,10 +4,10 @@ using Pathfindax.Collections;
 
 namespace Pathfindax.Benchmarks
 {
-	[SimpleJob(invocationCount: 200000, targetCount: 10)]
+	[SimpleJob(invocationCount: 600000, targetCount: 10)]
 	public class RefMaxHeapBenchmark
 	{
-		const int Capacity = 15000000;
+		const int Capacity = 50000000;
 		private HeapStruct<int>[] _values;
 		private RefMaxHeap<HeapStruct<int>> AddMaxHeap;
 		private RefMaxHeap<HeapStruct<int>> RemoveFirstMaxHeap;

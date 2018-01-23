@@ -14,6 +14,4 @@ namespace Pathfindax.Benchmarks
 			Console.ReadKey();
 		}
 	}
-
-
 }

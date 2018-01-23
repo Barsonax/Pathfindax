@@ -13,13 +13,18 @@ namespace Pathfindax.Collections
 		bool Equals(in T other);
 	}
 
+	public interface IRefHeapItem<T> : IHeapItem<T>, IRefComparable<T>, IRefEquatable<T>, IIndexProvider
+	{
+
+	}
+
 	/// <summary>
 	/// A fast maxheap that is used as a priority queue for pathfinding.
 	/// Does not store the items itself but keeps references to them with array indexes.
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
 	public class RefMaxHeap<T>
-		where T : struct, IHeapItem<T>, IRefComparable<T>, IRefEquatable<T>, IIndexProvider
+		where T : struct, IRefHeapItem<T>
 	{
 		/// <summary>
 		/// The current amount of items in the heap.
@@ -88,7 +93,7 @@ namespace Pathfindax.Collections
 		/// </summary>
 		/// <param name="item"></param>
 		/// <returns></returns>
-		public bool Contains(T item)
+		public bool Contains(in T item)
 		{
 			var heapIndex = item.HeapIndex;
 			if (heapIndex < 0 || heapIndex >= Count) return false;
@@ -160,7 +165,7 @@ namespace Pathfindax.Collections
 		}
 	}
 
-	public struct HeapStruct<TValue> : IHeapItem<HeapStruct<TValue>>, IIndexProvider, IRefEquatable<HeapStruct<TValue>>, IRefComparable<HeapStruct<TValue>>
+	public struct HeapStruct<TValue> : IRefHeapItem<HeapStruct<TValue>>
 		where TValue : IComparable<TValue>, IEquatable<TValue>
 	{
 		public TValue Value { get; }
@@ -207,7 +212,5 @@ namespace Pathfindax.Collections
 		{
 			return Value.Equals(other.Value);
 		}
-
-
 	}
 }
