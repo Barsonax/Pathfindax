@@ -3,13 +3,23 @@ using System.Collections.ObjectModel;
 
 namespace Pathfindax.Collections
 {
+	public interface IRefComparable<T> : IComparable<T>
+	{
+		int CompareTo(in T other);
+	}
+
+	public interface IRefEquatable<T> : IEquatable<T>
+	{
+		bool Equals(in T other);
+	}
+
 	/// <summary>
 	/// A fast maxheap that is used as a priority queue for pathfinding.
 	/// Does not store the items itself but keeps references to them with array indexes.
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
 	public class RefMaxHeap<T>
-		where T : struct, IHeapItem<T>, IEquatable<T>, IIndexProvider
+		where T : struct, IHeapItem<T>, IRefComparable<T>, IRefEquatable<T>, IIndexProvider
 	{
 		/// <summary>
 		/// The current amount of items in the heap.
@@ -150,7 +160,7 @@ namespace Pathfindax.Collections
 		}
 	}
 
-	public struct HeapStruct<TValue> : IHeapItem<HeapStruct<TValue>>, IIndexProvider, IEquatable<HeapStruct<TValue>>
+	public struct HeapStruct<TValue> : IHeapItem<HeapStruct<TValue>>, IIndexProvider, IRefEquatable<HeapStruct<TValue>>, IRefComparable<HeapStruct<TValue>>
 		where TValue : IComparable<TValue>, IEquatable<TValue>
 	{
 		public TValue Value { get; }
@@ -169,7 +179,12 @@ namespace Pathfindax.Collections
 			return Value.ToString();
 		}
 
-		public int CompareTo(HeapStruct<TValue> other)
+		public int CompareTo(in HeapStruct<TValue> other)
+		{
+			return Value.CompareTo(other.Value);
+		}
+
+		int IComparable<HeapStruct<TValue>>.CompareTo(HeapStruct<TValue> other)
 		{
 			return Value.CompareTo(other.Value);
 		}
@@ -183,9 +198,16 @@ namespace Pathfindax.Collections
 			return false;
 		}
 
-		public bool Equals(HeapStruct<TValue> other)
+		public bool Equals(in HeapStruct<TValue> other)
 		{
 			return Value.Equals(other.Value);
 		}
+
+		bool IEquatable<HeapStruct<TValue>>.Equals(HeapStruct<TValue> other)
+		{
+			return Value.Equals(other.Value);
+		}
+
+
 	}
 }

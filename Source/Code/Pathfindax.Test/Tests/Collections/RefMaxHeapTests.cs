@@ -105,7 +105,7 @@ namespace Pathfindax.Test.Tests.Collections
 		}
 
 		private bool CheckHeapCondition<TValue>(ReadOnlyCollection<int> indexes, HeapStruct<TValue>[] items, int parentIndex)
-			where TValue : IComparable<TValue>
+			where TValue : IComparable<TValue>, IEquatable<TValue>
 		{
 			var parentValue = items[indexes[parentIndex]];
 			var childHeapIndexLeft = parentIndex * 2 + 1;
@@ -122,7 +122,7 @@ namespace Pathfindax.Test.Tests.Collections
 		}
 
 		private bool CheckHeapCondition<TValue>(HeapStruct<TValue> parentValue, ReadOnlyCollection<int> indexes, HeapStruct<TValue>[] items, int childHeapIndex)
-			where TValue : IComparable<TValue>
+			where TValue : IComparable<TValue>, IEquatable<TValue>
 		{
 			if (childHeapIndex < indexes.Count)
 			{
@@ -137,8 +137,8 @@ namespace Pathfindax.Test.Tests.Collections
 			return true;
 		}
 
-		private HeapStruct<TValue>[] ConvertArray<TValue>(TValue[] values) 
-			where TValue : IComparable<TValue>
+		private HeapStruct<TValue>[] ConvertArray<TValue>(TValue[] values)
+			where TValue : IComparable<TValue>, IEquatable<TValue>
 		{
 			var intValues = new HeapStruct<TValue>[values.Length];
 			for (int i = 0; i < values.Length; i++)
