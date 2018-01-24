@@ -19,12 +19,13 @@ namespace Pathfindax.Nodes
 			Index = index;
 		}
 
+		public static bool IsNullPointer(NodePointer p)
+		{
+			return p.Index == -1;
+		}
+
 		public static T Dereference<T>(NodePointer p, T[] nodeArray)
 		{
-			if (p.Index == -1)
-			{
-				
-			}
 			return nodeArray[p.Index];
 		}
 

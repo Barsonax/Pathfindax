@@ -1,10 +1,10 @@
 ﻿using BenchmarkDotNet.Attributes;
-using BenchmarkDotNet.Attributes.Jobs;
 using Pathfindax.Collections;
+using Pathfindax.Nodes;
 
 namespace Pathfindax.Benchmarks
 {
-	[SimpleJob(invocationCount: 600000, targetCount: 10)]
+	[BenchmarkConfig(300000)]
 	public class RefMaxHeapBenchmark
 	{
 		const int Capacity = 50000000;
@@ -20,7 +20,7 @@ namespace Pathfindax.Benchmarks
 			_values = new HeapStruct<int>[Capacity];
 			for (int i = 0; i < _values.Length; i++)
 			{
-				_values[i] = new HeapStruct<int>(i * 2, i);
+				_values[i] = new HeapStruct<int>(i * 2);
 			}
 			RemoveFirstMaxHeap = new RefMaxHeap<HeapStruct<int>>(_values);
 			for (int i = 0; i < RemoveFirstMaxHeap.Capacity; i++)
@@ -35,7 +35,7 @@ namespace Pathfindax.Benchmarks
 			_values = new HeapStruct<int>[Capacity];
 			for (int i = 0; i < _values.Length; i++)
 			{
-				_values[i] = new HeapStruct<int>(i * 2, i);
+				_values[i] = new HeapStruct<int>(i * 2);
 			}
 			AddMaxHeap = new RefMaxHeap<HeapStruct<int>>(_values);
 		}
@@ -46,7 +46,7 @@ namespace Pathfindax.Benchmarks
 			_values = new HeapStruct<int>[Capacity];
 			for (int i = 0; i < _values.Length; i++)
 			{
-				_values[i] = new HeapStruct<int>(i * 2, i);
+				_values[i] = new HeapStruct<int>(i * 2);
 			}
 			ContainsMaxHeap = new RefMaxHeap<HeapStruct<int>>(_values);
 			ContainsMaxHeap.Add(5);
@@ -68,7 +68,7 @@ namespace Pathfindax.Benchmarks
 		[Benchmark]
 		public void Contains()
 		{
-			ContainsMaxHeap.Contains(SomeContainedValue);
+			ContainsMaxHeap.Contains(SomeContainedValue, new NodePointer(0));
 		}
 	}
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using Pathfindax.Nodes;
 
 namespace Pathfindax.Collections
 {
@@ -13,7 +14,7 @@ namespace Pathfindax.Collections
 		bool Equals(in T other);
 	}
 
-	public interface IRefHeapItem<T> : IHeapItem<T>, IRefComparable<T>, IRefEquatable<T>, IIndexProvider
+	public interface IRefHeapItem<T> : IRefComparable<T>, IRefEquatable<T>
 	{
 
 	}
@@ -24,7 +25,7 @@ namespace Pathfindax.Collections
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
 	public class RefMaxHeap<T>
-		where T : struct, IRefHeapItem<T>
+		where T : IRefHeapItem<T>
 	{
 		/// <summary>
 		/// The current amount of items in the heap.
@@ -34,16 +35,14 @@ namespace Pathfindax.Collections
 		public int Capacity => _indexes.Length;
 		public ReadOnlyCollection<int> Indexes => new ReadOnlyCollection<int>(_indexes);
 		private readonly int[] _indexes;
-		private readonly T[] _array;
+		private readonly int[] _heapIndexes;
+		private T[] _array;
 
-		/// <summary>
-		/// Creates a new <see cref="MaxHeap{T}"/>./>
-		/// </summary>
-		/// <param name="array"></param>
 		public RefMaxHeap(T[] array)
 		{
 			_array = array;
 			_indexes = new int[array.Length];
+			_heapIndexes = new int[array.Length];
 			for (int i = 0; i < _indexes.Length; i++)
 			{
 				_indexes[i] = -1;
@@ -57,11 +56,16 @@ namespace Pathfindax.Collections
 		/// <param name="index"></param>
 		public void Add(int index)
 		{
-			ref var item = ref _array[index];
-			item.HeapIndex = Count;
-			_indexes[Count] = item.Index;
-			SortUp(ref item);
+			_heapIndexes[index] = Count;
+			_indexes[Count] = index;
+			SortUp(index);
 			Count++;
+			
+		}
+
+		public void Add(NodePointer index)
+		{
+			Add(index.Index);
 		}
 
 		/// <summary>
@@ -73,9 +77,10 @@ namespace Pathfindax.Collections
 		{
 			ref var firstItem = ref _array[_indexes[0]];
 			Count--;
-			_indexes[0] = _indexes[Count];
-			_array[_indexes[0]].HeapIndex = 0;
-			SortDown(ref _array[_indexes[0]]);
+			var lastIndex = _indexes[Count];
+			_indexes[0] = lastIndex;
+			_heapIndexes[lastIndex] = 0;
+			SortDown(lastIndex);
 			return ref firstItem;
 		}
 
@@ -83,9 +88,17 @@ namespace Pathfindax.Collections
 		/// Returns the first item from the heap but does not remove it.
 		/// </summary>
 		/// <returns></returns>
-		public T Peek()
+		public ref T Peek()
 		{
-			return _array[_indexes[0]];
+			return ref _array[_indexes[0]];
+		}
+
+		public bool Contains(in T item, int index)
+		{
+			var heapIndex = _heapIndexes[index];
+			if (heapIndex < 0 || heapIndex >= Count) return false;
+			return _array[_indexes[heapIndex]].Equals(item);
+			
 		}
 
 		/// <summary>
@@ -93,33 +106,34 @@ namespace Pathfindax.Collections
 		/// </summary>
 		/// <param name="item"></param>
 		/// <returns></returns>
-		public bool Contains(in T item)
+		public bool Contains(in T item ,NodePointer index)
 		{
-			var heapIndex = item.HeapIndex;
-			if (heapIndex < 0 || heapIndex >= Count) return false;
-			return _array[_indexes[heapIndex]].Equals(item);
+			return Contains(item, index.Index);
 		}
 
-		private void SortDown(ref T item)
+		private void SortDown(int itemIndex)
 		{
-			var itemIndex = item.HeapIndex;
+			ref var item = ref _array[itemIndex];
+			var itemHeapIndex = _heapIndexes[itemIndex];
 			while (true)
 			{
-				var childIndexLeft = itemIndex * 2 + 1;
+				var childIndexLeft = itemHeapIndex * 2 + 1;
 				var childIndexRight = childIndexLeft + 1;
 
 				if (childIndexLeft < Count)
 				{
-					var swapIndex = childIndexLeft;
+					var swapHeapIndex = childIndexLeft;
 					if (childIndexRight < Count && _array[_indexes[childIndexLeft]].CompareTo(_array[_indexes[childIndexRight]]) < 0)
 					{
-						swapIndex = childIndexRight;
+						swapHeapIndex = childIndexRight;
 					}
 
-					if (item.CompareTo(_array[_indexes[swapIndex]]) < 0)
+					var swapItemIndex = _indexes[swapHeapIndex];
+					ref var swapItem = ref _array[_indexes[swapHeapIndex]];
+					if (item.CompareTo(swapItem) < 0)
 					{
-						Swap(ref item, itemIndex, ref _array[_indexes[swapIndex]], swapIndex);
-						itemIndex = swapIndex;
+						Swap(itemIndex, swapItemIndex);
+						itemHeapIndex = swapHeapIndex;
 					}
 					else
 					{
@@ -133,35 +147,36 @@ namespace Pathfindax.Collections
 			}
 		}
 
-		private void SortUp(ref T item)
+		private void SortUp(int itemIndex)
 		{
-			var itemIndex = item.HeapIndex;
-			var parentIndex = (itemIndex - 1) / 2;
-
+			var parentItemHeapIndex = (_heapIndexes[itemIndex] - 1) / 2;
+			ref var item = ref _array[itemIndex];
 			while (true)
 			{
-				ref var parentItem = ref _array[_indexes[parentIndex]];
+				var parentItemIndex = _indexes[parentItemHeapIndex];
+				ref var parentItem = ref _array[parentItemIndex];
 				if (item.CompareTo(parentItem) > 0)
 				{
-					Swap(ref item, itemIndex, ref parentItem, parentIndex);
-					itemIndex = parentIndex;
+					Swap(itemIndex, parentItemIndex);
 				}
 				else
 				{
 					break;
 				}
 
-				parentIndex = (parentIndex - 1) / 2;
+				parentItemHeapIndex = (parentItemHeapIndex - 1) / 2;
 			}
 		}
 
-		private void Swap(ref T itemA, int itemAHeapIndex, ref T itemB, int itemBHeapIndex)
+		private void Swap(int itemAIndex, int itemBIndex)
 		{
-			itemB.HeapIndex = itemAHeapIndex;
-			_indexes[itemAHeapIndex] = itemB.Index;
+			var itemAHeapIndex = _heapIndexes[itemAIndex];
+			var itemBHeapIndex = _heapIndexes[itemBIndex];
+			_indexes[itemAHeapIndex] = itemBIndex;
+			_heapIndexes[itemAIndex] = itemBHeapIndex;
 
-			itemA.HeapIndex = itemBHeapIndex;
-			_indexes[itemBHeapIndex] = itemA.Index;
+			_indexes[itemBHeapIndex] = itemAIndex;
+			_heapIndexes[itemBIndex] = itemAHeapIndex;
 		}
 	}
 
@@ -169,13 +184,11 @@ namespace Pathfindax.Collections
 		where TValue : IComparable<TValue>, IEquatable<TValue>
 	{
 		public TValue Value { get; }
-		public int Index { get; }
 		public int HeapIndex { get; set; }
 
-		public HeapStruct(TValue value, int index)
+		public HeapStruct(TValue value)
 		{
 			Value = value;
-			Index = index;
 			HeapIndex = -1;
 		}
 

@@ -21,10 +21,11 @@ namespace Pathfindax.Nodes
 		/// The cost to the targetnode
 		/// </summary>
 		public float GCost { get; set; }
-		private float FCost => GCost + HCost;
-		public int HeapIndex { get; set; }
+
 		public DefinitionNode DefinitionNode { get; }
 		public float Clearance { get; set; }
+		public int HeapIndex { get; set; }
+		private float FCost => GCost + HCost;
 
 		public AstarNode(DefinitionNode definitionNode)
 		{
@@ -33,12 +34,37 @@ namespace Pathfindax.Nodes
 
 		public int CompareTo(AstarNode other)
 		{
+			return CompareToCore(other);
+		}
+
+		public int CompareTo(in AstarNode other)
+		{
+			return CompareToCore(other);
+		}
+
+		private int CompareToCore(in AstarNode other)
+		{
 			var compare = FCost.CompareTo(other.FCost);
 			if (compare == 0)
 			{
 				compare = HCost.CompareTo(other.HCost);
 			}
 			return -compare;
+		}
+
+		public bool Equals(AstarNode other)
+		{
+			return EqualsCore(other);
+		}
+
+		public bool Equals(in AstarNode other)
+		{
+			return EqualsCore(other);
+		}
+
+		private bool EqualsCore(in AstarNode other)
+		{
+			return DefinitionNode == other.DefinitionNode;
 		}
 
 		public override string ToString()

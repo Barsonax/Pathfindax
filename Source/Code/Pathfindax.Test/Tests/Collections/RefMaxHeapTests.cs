@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using NUnit.Framework;
 using Pathfindax.Collections;
+using Pathfindax.Nodes;
 
 namespace Pathfindax.Test.Tests.Collections
 {
@@ -40,10 +41,7 @@ namespace Pathfindax.Test.Tests.Collections
 			{
 				heap.Add(i);
 			}
-
 			var indexes = heap.Indexes;
-			Assert.AreEqual(100, items[indexes[0]].Value);
-
 			for (int i = 0; i < items.Length; i++)
 			{
 				Assert.IsTrue(CheckHeapCondition(indexes, items, i));
@@ -63,7 +61,7 @@ namespace Pathfindax.Test.Tests.Collections
 			//Check if all added items are contained in the heap.
 			for (var i = 0; i < items.Length; i++)
 			{
-				Assert.IsTrue(heap.Contains(items[i]), $"Contains returned false for item {items[i]}");
+				Assert.IsTrue(heap.Contains(items[i], i), $"Contains returned false for item {items[i]}");
 			}
 		}
 
@@ -79,7 +77,7 @@ namespace Pathfindax.Test.Tests.Collections
 
 			//Check if the last one returns false
 			var item = items[items.Length - 1];
-			Assert.IsFalse(heap.Contains(item), $"Contains returned true for item {item}");
+			Assert.IsFalse(heap.Contains(item, items.Length - 1), $"Contains returned true for item {item}");
 		}
 
 		public static IEnumerable HeapTestCases
@@ -99,7 +97,7 @@ namespace Pathfindax.Test.Tests.Collections
 			var testCaseData = new HeapStruct<int>[values.Length];
 			for (var i = 0; i < values.Length; i++)
 			{
-				testCaseData[i] = new HeapStruct<int>(values[i], i);
+				testCaseData[i] = new HeapStruct<int>(values[i]);
 			}
 			return new TestCaseData(new[] { testCaseData }).SetName($"Values: {string.Join(", ", values)}");
 		}
@@ -127,7 +125,7 @@ namespace Pathfindax.Test.Tests.Collections
 			if (childHeapIndex < indexes.Count)
 			{
 				var childIndex = indexes[childHeapIndex];
-				if (childIndex != -1)
+				if (childIndex < 0)
 				{
 					var childValue = items[childIndex];
 					return parentValue.CompareTo(childValue) >= 0;
@@ -143,7 +141,7 @@ namespace Pathfindax.Test.Tests.Collections
 			var intValues = new HeapStruct<TValue>[values.Length];
 			for (int i = 0; i < values.Length; i++)
 			{
-				intValues[i] = new HeapStruct<TValue>(values[i], i);
+				intValues[i] = new HeapStruct<TValue>(values[i]);
 			}
 
 			return intValues;

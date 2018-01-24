@@ -146,3 +146,5 @@
 /.vs
 /Source/Code/Pathfindax.Benchmarks/obj
 /Source/Code/Pathfindax.Benchmarks/bin
+*.psess
+*.vspx

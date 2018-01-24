@@ -1,13 +1,12 @@
 ﻿using BenchmarkDotNet.Attributes;
-using BenchmarkDotNet.Attributes.Jobs;
 using Pathfindax.Collections;
 
 namespace Pathfindax.Benchmarks
 {
-	[SimpleJob(invocationCount: 200000, targetCount: 10)]
+	[BenchmarkConfig(300000)]
 	public class MaxHeapBenchmark
 	{
-		const int Capacity = 15000000;
+		const int Capacity = 50000000;
 		private MaxHeap<ValueHeapItem<int>> AddMaxHeap;
 		private MaxHeap<ValueHeapItem<int>> RemoveFirstMaxHeap;
 		private MaxHeap<ValueHeapItem<int>> ContainsMaxHeap;

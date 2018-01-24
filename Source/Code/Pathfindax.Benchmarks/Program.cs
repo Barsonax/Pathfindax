@@ -1,7 +1,4 @@
-﻿using BenchmarkDotNet.Attributes;
-using BenchmarkDotNet.Attributes.Jobs;
-using BenchmarkDotNet.Running;
-using Pathfindax.Collections;
+﻿using BenchmarkDotNet.Running;
 using System;
 
 namespace Pathfindax.Benchmarks
@@ -10,7 +7,7 @@ namespace Pathfindax.Benchmarks
 	{
 		static void Main(string[] args)
 		{
-			BenchmarkRunner.Run<RefMaxHeapBenchmark>();
+			BenchmarkRunner.Run<AstarAlgorithmBenchmark>();
 			Console.ReadKey();
 		}
 	}
