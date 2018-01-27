@@ -49,6 +49,22 @@ namespace Pathfindax.Collections
 			}
 		}
 
+		public RefMaxHeap(int size)
+		{
+			_indexes = new int[size];
+			_heapIndexes = new int[size];
+			for (int i = 0; i < _indexes.Length; i++)
+			{
+				_indexes[i] = -1;
+			}
+		}
+
+		public void AssignArray(T[] array)
+		{
+			_array = array;
+			Count = 0;
+		}
+
 		/// <summary>
 		/// Adds the item that is at the specified <paramref name="index"/> to the heap
 		/// </summary>

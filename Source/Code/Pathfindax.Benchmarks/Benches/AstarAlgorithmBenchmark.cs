@@ -19,8 +19,7 @@ namespace Pathfindax.Benchmarks
 		{
 			_definitionNodeGrid = new DefinitionNodeGrid(GenerateNodeGridConnections.All, 320, 200, new Vector2(1, 1));
 			_astarNodeNetwork = new AstarNodeNetwork(_definitionNodeGrid, new GridClearanceGenerator(_definitionNodeGrid, 1));
-			_algorithm = new AStarAlgorithm();
-			
+			_algorithm = new AStarAlgorithm(_definitionNodeGrid.NodeCount);			
 		}
 
 		[Benchmark]
@@ -33,6 +32,18 @@ namespace Pathfindax.Benchmarks
 		public NodePath FindShortPath()
 		{
 			return _algorithm.FindPath(_astarNodeNetwork, new PathRequest<NodePath>(_definitionNodeGrid.NodeGrid[0, 0], _definitionNodeGrid.NodeGrid[20, 20]), out var succes);
+		}
+
+		[Benchmark]
+		public NodePath FindVeryShortPath()
+		{
+			return _algorithm.FindPath(_astarNodeNetwork, new PathRequest<NodePath>(_definitionNodeGrid.NodeGrid[0, 0], _definitionNodeGrid.NodeGrid[1, 0]), out var succes);
+		}
+
+		[Benchmark]
+		public NodePath FindZeroLengthPath()
+		{
+			return _algorithm.FindPath(_astarNodeNetwork, new PathRequest<NodePath>(_definitionNodeGrid.NodeGrid[0, 0], _definitionNodeGrid.NodeGrid[0, 0]), out var succes);
 		}
 	}
 }

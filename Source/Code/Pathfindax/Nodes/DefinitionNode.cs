@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Duality;
 using Pathfindax.Graph;
+using Pathfindax.Utils;
 
 namespace Pathfindax.Nodes
 {
@@ -18,7 +19,7 @@ namespace Pathfindax.Nodes
 		/// </summary>
 		public float MovementCostModifier { get; set; }
 
-		public List<NodeConnection> Connections { get; } = new List<NodeConnection>();
+		public NodeConnection[] Connections { get; private set; } = new NodeConnection[0];
 
 		public DefinitionNode(int index, Vector2 position, float movementCostModifier = 1f)
 		{
@@ -34,7 +35,12 @@ namespace Pathfindax.Nodes
 
 		public void AddConnection(DefinitionNode to, PathfindaxCollisionCategory collisionCategory = PathfindaxCollisionCategory.None)
 		{
-			Connections.Add(new NodeConnection(to.Index, collisionCategory));
+			AddConnection(to.Index, collisionCategory);
+		}
+
+		public void AddConnection(NodePointer to, PathfindaxCollisionCategory collisionCategory = PathfindaxCollisionCategory.None)
+		{
+			Connections = Connections.Append(new NodeConnection(to, collisionCategory));
 		}
 
 		public override string ToString()

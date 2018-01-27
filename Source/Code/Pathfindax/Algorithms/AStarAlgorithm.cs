@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Duality;
 using Pathfindax.Collections;
 using Pathfindax.Graph;
 using Pathfindax.Nodes;
@@ -15,6 +16,17 @@ namespace Pathfindax.Algorithms
 	/// </summary>
 	public class AStarAlgorithm : IPathFindAlgorithm<IPathfindNodeNetwork<AstarNode>, NodePath>
 	{
+		private readonly RefMaxHeap<AstarNode> openSet;
+		private readonly ContainsArray closedSet;
+		private readonly List<DefinitionNode> _pathBuffer;
+
+		public AStarAlgorithm(int amountOfNodes)
+		{
+			openSet = new RefMaxHeap<AstarNode>(amountOfNodes);
+			closedSet = new ContainsArray(amountOfNodes);
+			_pathBuffer = new List<DefinitionNode>();
+		}
+
 		public NodePath FindPath(IPathfindNodeNetwork<AstarNode> nodeNetwork, IPathRequest pathRequest, out bool succes)
 		{
 			var pathfindingNetwork = nodeNetwork.GetCollisionLayerNetwork(pathRequest.CollisionCategory);
@@ -27,16 +39,7 @@ namespace Pathfindax.Algorithms
 				return new NodePath(new[] { startNode.DefinitionNode }, nodeNetwork.DefinitionNodeNetwork.Transformer);
 			}
 			succes = true;
-			switch (nodeNetwork.DefinitionNodeNetwork)
-			{
-				case IDefinitionNodeGrid definitionNodeGrid:
-					var offset = GridClearanceHelper.GridNodeOffset(pathRequest.AgentSize, definitionNodeGrid.Transformer.Scale);
-					return new NodePath(path.ToArray(), definitionNodeGrid.Transformer);
-				case IDefinitionNodeNetwork definitionNodeNetwork:
-					return new NodePath(path.ToArray(), definitionNodeNetwork.Transformer);
-				default:
-					throw new NotSupportedException($"{nodeNetwork.DefinitionNodeNetwork.GetType()} is not supported");
-			}
+			return new NodePath(path, nodeNetwork.DefinitionNodeNetwork.Transformer);
 		}
 
 		public PathRequest<NodePath> CreatePathRequest(IPathfinder<NodePath> pathfinder, IDefinitionNodeNetwork definitionNodes, float x1, float y1, float x2, float y2, PathfindaxCollisionCategory collisionLayer = PathfindaxCollisionCategory.None, byte agentSize = 1)
@@ -59,56 +62,48 @@ namespace Pathfindax.Algorithms
 			}
 		}
 
-		private static List<DefinitionNode> FindPath(AstarNode[] pathfindingNetwork, AstarNode startNode, AstarNode targetNode, float neededClearance, PathfindaxCollisionCategory collisionCategory)
+		private DefinitionNode[] FindPath(AstarNode[] pathfindingNetwork, AstarNode startNode, AstarNode targetNode, float neededClearance, PathfindaxCollisionCategory collisionCategory)
 		{
 			try
 			{
-				var sw = new Stopwatch();
-				sw.Start();
-
 				var pathSucces = false;
 				if (startNode == targetNode)
 				{
-					return new List<DefinitionNode> { targetNode.DefinitionNode };
+					return new[] { targetNode.DefinitionNode };
 				}
 				if (startNode.Clearance >= neededClearance && targetNode.Clearance >= neededClearance)
 				{
-					var openSet = new MaxHeap<AstarNode>(pathfindingNetwork.Length);
-					var closedSet = new HashSet<AstarNode>();
-					var itterations = 0;
-					var neighbourUpdates = 0;
-					openSet.Add(startNode);
+					openSet.AssignArray(pathfindingNetwork);
+					closedSet.Clear();
+					openSet.Add(startNode.DefinitionNode.Index);
+					var targetNodePosition = targetNode.DefinitionNode.Position;
 					while (openSet.Count > 0)
 					{
-						itterations++;
 						var currentNode = openSet.RemoveFirst();
-						closedSet.Add(currentNode);
+						closedSet.Occupy(currentNode.DefinitionNode.Index.Index);
 
 						if (currentNode == targetNode)
 						{
-							sw.Stop();
-							Debug.WriteLine($"NodePath found in {sw.ElapsedMilliseconds} ms. Itterations: {itterations} Neighbourupdates: {neighbourUpdates}");
+							Debug.WriteLine($"NodePath found");
 							pathSucces = true;
 							break;
 						}
 
+						var currentNodePosition = currentNode.DefinitionNode.Position;
 						foreach (var connection in currentNode.DefinitionNode.Connections)
 						{
 							var toNode = NodePointer.Dereference(connection.To, pathfindingNetwork);
-							if ((connection.CollisionCategory & collisionCategory) != 0 || closedSet.Contains(toNode)) continue;
+							if ((connection.CollisionCategory & collisionCategory) != 0 || closedSet.Contains(toNode.DefinitionNode.Index.Index)) continue;
 
-							if (toNode.Clearance >= neededClearance)
+							if (!(toNode.Clearance >= neededClearance)) continue;
+							var newMovementCostToNeighbour = currentNode.GCost + GetDistance(currentNodePosition, toNode.DefinitionNode.Position) * currentNode.DefinitionNode.MovementCostModifier;
+							if (newMovementCostToNeighbour < toNode.GCost || !openSet.Contains(toNode, toNode.DefinitionNode.Index))
 							{
-								var newMovementCostToNeighbour = currentNode.GCost + GetDistance(currentNode.DefinitionNode, toNode.DefinitionNode) * currentNode.DefinitionNode.MovementCostModifier;
-								if (newMovementCostToNeighbour < toNode.GCost || !openSet.Contains(toNode))
-								{
-									toNode.GCost = newMovementCostToNeighbour;
-									toNode.HCost = GetDistance(toNode.DefinitionNode, targetNode.DefinitionNode);
-									toNode.Parent = currentNode.DefinitionNode.Index;
-									neighbourUpdates++;
-									if (!openSet.Contains(toNode))
-										openSet.Add(toNode);
-								}
+								toNode.GCost = newMovementCostToNeighbour;
+								toNode.HCost = GetDistance(toNode.DefinitionNode.Position, targetNodePosition);
+								toNode.Parent = currentNode.DefinitionNode.Index;
+								if (!openSet.Contains(toNode, toNode.DefinitionNode.Index))
+									openSet.Add(toNode.DefinitionNode.Index);
 							}
 						}
 					}
@@ -128,25 +123,31 @@ namespace Pathfindax.Algorithms
 			}
 		}
 
-		private static List<DefinitionNode> RetracePath(AstarNode[] pathfindingNetwork, AstarNode startGridNode, AstarNode endGridNode)
+		private DefinitionNode[] RetracePath(AstarNode[] pathfindingNetwork, AstarNode startGridNode, AstarNode endGridNode)
 		{
-			var path = new List<DefinitionNode>();
+			_pathBuffer.Clear();
 			var currentNode = endGridNode;
 
 			while (true)
 			{
-				path.Add(currentNode.DefinitionNode);
+				_pathBuffer.Add(currentNode.DefinitionNode);
 				if (currentNode == startGridNode) break;
 				currentNode = NodePointer.Dereference(currentNode.Parent, pathfindingNetwork);
 			}
-			path.Reverse();
-			return path;
+			var pathArray = new DefinitionNode[_pathBuffer.Count];
+			var reverseCount = _pathBuffer.Count - 1;
+			for (int i = 0; i < pathArray.Length; i++)
+			{
+				pathArray[i] = _pathBuffer[reverseCount];
+				reverseCount--;
+			}
+			return pathArray;
 		}
 
-		private static float GetDistance(DefinitionNode sourceNodeA, DefinitionNode sourceNodeB)
+		private static float GetDistance(in Vector2 position1, in Vector2 position2)
 		{
-			var dstX = Math.Abs(sourceNodeA.Position.X - sourceNodeB.Position.X);
-			var dstY = Math.Abs(sourceNodeA.Position.Y - sourceNodeB.Position.Y);
+			var dstX = Math.Abs(position1.X - position2.X);
+			var dstY = Math.Abs(position1.Y - position2.Y);
 			return dstY + dstX;
 		}
 	}

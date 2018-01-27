@@ -45,8 +45,8 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 				for (var i = 0; i < connections.Count; i++)
 				{
 					var to = connections[i];
-					from.Connections.Add(new NodeConnection(to.Index));
-					to.Connections.Add(new NodeConnection(from.Index));
+					from.AddConnection(to);
+					to.AddConnection(from);
 				}
 			}
 			return nodeNetwork;

@@ -5,6 +5,7 @@ using Duality.Components.Physics;
 using Duality.Plugins.Tilemaps;
 using Pathfindax.Graph;
 using Pathfindax.Nodes;
+using Pathfindax.Utils;
 
 namespace Duality.Plugins.Pathfindax.Tilemaps.Generators
 {
@@ -83,8 +84,7 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Generators
 					{
 						//TODO provide option to exclude diagonal neighbours.
 						var toNode = definitionNodeGrid.NodeGrid[collisionCategory.X, collisionCategory.Y];
-						definitionNode.Connections.Add(new NodeConnection(toNode.Index,
-							collisionCategory.PathfindaxCollisionCategory | _nodeCollisions[0].PathfindaxCollisionCategory));
+						definitionNode.AddConnection(toNode, collisionCategory.PathfindaxCollisionCategory | _nodeCollisions[0].PathfindaxCollisionCategory);
 					}
 				}
 			}
@@ -95,8 +95,7 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Generators
 					var collisionCategory = _nodeCollisions[index];
 					//TODO provide option to exclude diagonal neighbours.
 					var toNode = definitionNodeGrid.NodeGrid[collisionCategory.X, collisionCategory.Y];
-					definitionNode.Connections.Add(new NodeConnection(toNode.Index,
-						collisionCategory.PathfindaxCollisionCategory | _nodeCollisions[0].PathfindaxCollisionCategory));
+					definitionNode.AddConnection(toNode, collisionCategory.PathfindaxCollisionCategory | _nodeCollisions[0].PathfindaxCollisionCategory);
 				}
 			}
 		}

@@ -15,7 +15,7 @@ namespace Pathfindax.Test.Tests.Algorithms
 		[MaxTime(2000)]
 		public void FindPath_InitializedNodegrid_PathLengthIsNot0(DefinitionNodeGrid definitionNodeGrid, int x1, int y1, int x2, int y2)
 		{
-			var aStarAlgorithm = new AStarAlgorithm();
+			var aStarAlgorithm = new AStarAlgorithm(definitionNodeGrid.NodeCount);
 
 			var start = definitionNodeGrid.NodeGrid[x1, y1];
 			var end = definitionNodeGrid.NodeGrid[x1, y1];

@@ -77,7 +77,10 @@
     <Optimize>true</Optimize>
     <DefineConstants>DEBUG</DefineConstants>
     <DocumentationFile>..\Binaries\Benchmark\Duality.Plugins.Pathfindax.core.XML</DocumentationFile>
-    <WarningLevel>3</WarningLevel>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>pdbonly</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Benchmark|x64'">
     <OutputPath>bin\x64\Benchmark\</OutputPath>

@@ -32,7 +32,7 @@ namespace Pathfindax.Graph
 		public AstarNode[] GetCollisionLayerNetwork(PathfindaxCollisionCategory collisionCategory)
 		{
 			if (!_nodeNetworks.TryGetValue(collisionCategory, out var pathfindingNetwork))
-			{				
+			{
 				var watch = Stopwatch.StartNew();
 				pathfindingNetwork = GenerateNodeNetwork(DefinitionNodeNetwork);
 				foreach (var pathfindNodeGenerator in _pathfindNodeGenerators)

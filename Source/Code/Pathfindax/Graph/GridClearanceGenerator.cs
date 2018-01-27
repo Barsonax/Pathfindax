@@ -77,7 +77,7 @@ namespace Pathfindax.Graph
 				if (nextClearanceIsBlocked)
 				{
 					var isBlocked = true;
-					for (var i = 0; i < definitionNode.Connections.Count; i++)
+					for (var i = 0; i < definitionNode.Connections.Length; i++)
 					{
 						if ((definitionNode.Connections[i].CollisionCategory & collisionCategory) == 0) isBlocked = false;
 					}

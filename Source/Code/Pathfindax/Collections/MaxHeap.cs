@@ -40,6 +40,11 @@ namespace Pathfindax.Collections
 			Count++;
 		}
 
+		public void Clear()
+		{
+			Count = 0;
+		}
+
 		/// <summary>
 		/// Removes the first item from the heap. 
 		/// Since this is a maxheap it will have the highest value which is determined by the implementation of the <see cref="IComparable{T}"/> interface.

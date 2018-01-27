@@ -40,7 +40,7 @@ namespace Pathfindax.Factories
 
 		public static IPathfinder<IDefinitionNodeNetwork, IPathfindNodeNetwork<AstarNode>, NodePath> CreateAstarPathfinder(this IPathfindaxManager pathfindaxManager, IDefinitionNodeNetwork nodeNetwork, int maxClearance = -1, int amountOfThreads = 1)
 		{
-			var pathfinder = pathfindaxManager.CreatePathfinder(nodeNetwork, new AStarAlgorithm(), (definitionNodeNetwork, algorithm) =>
+			var pathfinder = pathfindaxManager.CreatePathfinder(nodeNetwork, new AStarAlgorithm(nodeNetwork.NodeCount), (definitionNodeNetwork, algorithm) =>
 			{
 				var nodeGenerators = new List<IPathfindNodeGenerator<AstarNode>>();
 				if (definitionNodeNetwork is IDefinitionNodeGrid sourceNodeGrid)

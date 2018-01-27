@@ -3,6 +3,7 @@ using Duality;
 using Pathfindax.Collections;
 using Pathfindax.Graph;
 using Pathfindax.Nodes;
+using Pathfindax.Utils;
 
 namespace Pathfindax.Factories
 {
@@ -39,7 +40,7 @@ namespace Pathfindax.Factories
 						var neighbours = GetNeighbours(array, x, y, generateNodeGridConnections);
 						foreach (var neighbour in neighbours)
 						{
-							node.Connections.Add(new NodeConnection(neighbour));
+							node.AddConnection(neighbour);
 						}
 					}
 				}

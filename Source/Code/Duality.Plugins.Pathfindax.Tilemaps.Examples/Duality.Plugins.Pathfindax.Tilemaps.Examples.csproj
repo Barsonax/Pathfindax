@@ -57,6 +57,9 @@
     <Optimize>true</Optimize>
     <DefineConstants>DEBUG</DefineConstants>
     <DocumentationFile>..\Binaries\Benchmark\Duality.Plugins.Pathfindax.Tilemap.Examples.core.xml</DocumentationFile>
+    <ErrorReport>prompt</ErrorReport>
+    <DebugType>pdbonly</DebugType>
+    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Benchmark|x64'">
     <OutputPath>bin\x64\Benchmark\</OutputPath>
