@@ -68,7 +68,7 @@ namespace Pathfindax.Benchmarks
 		[Benchmark]
 		public void Contains()
 		{
-			ContainsMaxHeap.Contains(SomeContainedValue, new NodePointer(0));
+			ContainsMaxHeap.Contains(0);
 		}
 	}
 }

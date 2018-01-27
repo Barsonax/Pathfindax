@@ -52,21 +52,6 @@ namespace Pathfindax.Nodes
 			return -compare;
 		}
 
-		public bool Equals(AstarNode other)
-		{
-			return EqualsCore(other);
-		}
-
-		public bool Equals(in AstarNode other)
-		{
-			return EqualsCore(other);
-		}
-
-		private bool EqualsCore(in AstarNode other)
-		{
-			return DefinitionNode == other.DefinitionNode;
-		}
-
 		public override string ToString()
 		{
 			return DefinitionNode.ToString();

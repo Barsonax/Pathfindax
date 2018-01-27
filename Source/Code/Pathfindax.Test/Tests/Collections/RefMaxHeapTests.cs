@@ -61,7 +61,7 @@ namespace Pathfindax.Test.Tests.Collections
 			//Check if all added items are contained in the heap.
 			for (var i = 0; i < items.Length; i++)
 			{
-				Assert.IsTrue(heap.Contains(items[i], i), $"Contains returned false for item {items[i]}");
+				Assert.IsTrue(heap.Contains(i), $"Contains returned false for item {items[i]}");
 			}
 		}
 
@@ -77,7 +77,28 @@ namespace Pathfindax.Test.Tests.Collections
 
 			//Check if the last one returns false
 			var item = items[items.Length - 1];
-			Assert.IsFalse(heap.Contains(item, items.Length - 1), $"Contains returned true for item {item}");
+			Assert.IsFalse(heap.Contains(items.Length - 1), $"Contains returned true for item {item}");
+		}
+
+		[Test, TestCaseSource(typeof(RefMaxHeapTests), nameof(HeapTestCases))]
+		public void RefMaxHeap_Contains_AddAndRemoveAll(HeapStruct<int>[] items)
+		{
+			//Create the heap and add the items except the last one.
+			var heap = new RefMaxHeap<HeapStruct<int>>(items);
+			for (var i = 0; i < items.Length; i++)
+			{
+				heap.Add(i);
+			}
+
+			while (heap.Count > 0)
+			{
+				heap.RemoveFirst();
+			}
+
+			for (var i = 0; i < items.Length; i++)
+			{
+				Assert.IsFalse(heap.Contains(i), $"Contains returned true for index {i}");
+			}
 		}
 
 		public static IEnumerable HeapTestCases

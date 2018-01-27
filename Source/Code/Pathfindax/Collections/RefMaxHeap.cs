@@ -9,12 +9,7 @@ namespace Pathfindax.Collections
 		int CompareTo(in T other);
 	}
 
-	public interface IRefEquatable<T> : IEquatable<T>
-	{
-		bool Equals(in T other);
-	}
-
-	public interface IRefHeapItem<T> : IRefComparable<T>, IRefEquatable<T>
+	public interface IRefHeapItem<T> : IRefComparable<T>
 	{
 
 	}
@@ -34,28 +29,33 @@ namespace Pathfindax.Collections
 
 		public int Capacity => _indexes.Length;
 		public ReadOnlyCollection<int> Indexes => new ReadOnlyCollection<int>(_indexes);
-		private readonly int[] _indexes;
-		private readonly int[] _heapIndexes;
+		private int[] _indexes;
+		private int[] _heapIndexes;
 		private T[] _array;
 
 		public RefMaxHeap(T[] array)
 		{
-			_array = array;
-			_indexes = new int[array.Length];
-			_heapIndexes = new int[array.Length];
-			for (int i = 0; i < _indexes.Length; i++)
-			{
-				_indexes[i] = -1;
-			}
+			Initialize(array, array.Length);
 		}
 
 		public RefMaxHeap(int size)
 		{
+			Initialize(null, size);
+		}
+
+		private void Initialize(T[] array, int size)
+		{
+			_array = array;
 			_indexes = new int[size];
 			_heapIndexes = new int[size];
 			for (int i = 0; i < _indexes.Length; i++)
 			{
 				_indexes[i] = -1;
+			}
+
+			for (int i = 0; i < _heapIndexes.Length; i++)
+			{
+				_heapIndexes[i] = -1;
 			}
 		}
 
@@ -76,12 +76,7 @@ namespace Pathfindax.Collections
 			_indexes[Count] = index;
 			SortUp(index);
 			Count++;
-			
-		}
 
-		public void Add(NodePointer index)
-		{
-			Add(index.Index);
 		}
 
 		/// <summary>
@@ -109,22 +104,15 @@ namespace Pathfindax.Collections
 			return ref _array[_indexes[0]];
 		}
 
-		public bool Contains(in T item, int index)
+		/// <summary>
+		/// Returns true if this heap contains the specified index
+		/// </summary>
+		/// <returns></returns>
+		public bool Contains(int index)
 		{
 			var heapIndex = _heapIndexes[index];
 			if (heapIndex < 0 || heapIndex >= Count) return false;
-			return _array[_indexes[heapIndex]].Equals(item);
-			
-		}
-
-		/// <summary>
-		/// Returns true if this heap contains the <paramref name="item"/>
-		/// </summary>
-		/// <param name="item"></param>
-		/// <returns></returns>
-		public bool Contains(in T item ,NodePointer index)
-		{
-			return Contains(item, index.Index);
+			return _indexes[heapIndex] == index;
 		}
 
 		private void SortDown(int itemIndex)
@@ -197,15 +185,13 @@ namespace Pathfindax.Collections
 	}
 
 	public struct HeapStruct<TValue> : IRefHeapItem<HeapStruct<TValue>>
-		where TValue : IComparable<TValue>, IEquatable<TValue>
+		where TValue : IComparable<TValue>
 	{
 		public TValue Value { get; }
-		public int HeapIndex { get; set; }
 
 		public HeapStruct(TValue value)
 		{
 			Value = value;
-			HeapIndex = -1;
 		}
 
 		public override string ToString()
@@ -221,25 +207,6 @@ namespace Pathfindax.Collections
 		int IComparable<HeapStruct<TValue>>.CompareTo(HeapStruct<TValue> other)
 		{
 			return Value.CompareTo(other.Value);
-		}
-
-		public override bool Equals(object obj)
-		{
-			if (obj is HeapStruct<TValue> other)
-			{
-				return Equals(other);
-			}
-			return false;
-		}
-
-		public bool Equals(in HeapStruct<TValue> other)
-		{
-			return Value.Equals(other.Value);
-		}
-
-		bool IEquatable<HeapStruct<TValue>>.Equals(HeapStruct<TValue> other)
-		{
-			return Value.Equals(other.Value);
 		}
 	}
 }

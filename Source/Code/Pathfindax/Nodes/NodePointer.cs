@@ -38,5 +38,10 @@ namespace Pathfindax.Nodes
 		{
 			return Index.ToString();
 		}
+
+		public static implicit operator int(NodePointer pointer)
+		{
+			return pointer.Index;
+		}
 	}
 }

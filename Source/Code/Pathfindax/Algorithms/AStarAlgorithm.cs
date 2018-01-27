@@ -97,12 +97,12 @@ namespace Pathfindax.Algorithms
 
 							if (!(toNode.Clearance >= neededClearance)) continue;
 							var newMovementCostToNeighbour = currentNode.GCost + GetDistance(currentNodePosition, toNode.DefinitionNode.Position) * currentNode.DefinitionNode.MovementCostModifier;
-							if (newMovementCostToNeighbour < toNode.GCost || !openSet.Contains(toNode, toNode.DefinitionNode.Index))
+							if (newMovementCostToNeighbour < toNode.GCost || !openSet.Contains(toNode.DefinitionNode.Index))
 							{
 								toNode.GCost = newMovementCostToNeighbour;
 								toNode.HCost = GetDistance(toNode.DefinitionNode.Position, targetNodePosition);
 								toNode.Parent = currentNode.DefinitionNode.Index;
-								if (!openSet.Contains(toNode, toNode.DefinitionNode.Index))
+								if (!openSet.Contains(toNode.DefinitionNode.Index))
 									openSet.Add(toNode.DefinitionNode.Index);
 							}
 						}
