@@ -3,7 +3,7 @@ using Pathfindax.Collections;
 
 namespace Pathfindax.Nodes
 {
-	public class DijkstraNode : IRefHeapItem<DijkstraNode>, ICollisionLayerNode
+	public class DijkstraNode : IIndexHeapItem<DijkstraNode>, ICollisionLayerNode
 	{
 		/// <summary>
 		/// The cost to the targetnode

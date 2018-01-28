@@ -1,4 +1,6 @@
-﻿namespace Pathfindax.Collections
+﻿using System.Runtime.CompilerServices;
+
+namespace Pathfindax.Collections
 {
 	public class LookupArray
 	{

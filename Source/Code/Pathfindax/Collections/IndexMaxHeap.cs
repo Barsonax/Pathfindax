@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using Pathfindax.Nodes;
+using System.Runtime.CompilerServices;
 
 namespace Pathfindax.Collections
 {
@@ -9,7 +9,7 @@ namespace Pathfindax.Collections
 		int CompareTo(in T other);
 	}
 
-	public interface IRefHeapItem<T> : IRefComparable<T>
+	public interface IIndexHeapItem<T> : IRefComparable<T>
 	{
 
 	}
@@ -20,7 +20,7 @@ namespace Pathfindax.Collections
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
 	public class IndexMaxHeap<T>
-		where T : IRefHeapItem<T>
+		where T : IIndexHeapItem<T>
 	{
 		/// <summary>
 		/// The current amount of items in the heap.
@@ -70,13 +70,13 @@ namespace Pathfindax.Collections
 		/// </summary>
 		/// <exception cref="IndexOutOfRangeException">If the interal array is full</exception>
 		/// <param name="index"></param>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public void Add(int index)
 		{
 			_heapIndexes[index] = Count;
 			_indexes[Count] = index;
 			SortUp(index);
 			Count++;
-
 		}
 
 		/// <summary>
@@ -108,6 +108,7 @@ namespace Pathfindax.Collections
 		/// Returns true if this heap contains the specified index
 		/// </summary>
 		/// <returns></returns>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public bool Contains(int index)
 		{
 			var heapIndex = _heapIndexes[index];
@@ -172,6 +173,7 @@ namespace Pathfindax.Collections
 			}
 		}
 
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		private void Swap(int itemAIndex, int itemBIndex)
 		{
 			var itemAHeapIndex = _heapIndexes[itemAIndex];
@@ -184,7 +186,7 @@ namespace Pathfindax.Collections
 		}
 	}
 
-	public struct HeapStruct<TValue> : IRefHeapItem<HeapStruct<TValue>>
+	public struct HeapStruct<TValue> : IIndexHeapItem<HeapStruct<TValue>>
 		where TValue : IComparable<TValue>
 	{
 		public TValue Value { get; }

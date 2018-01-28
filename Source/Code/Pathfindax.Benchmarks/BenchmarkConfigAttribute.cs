@@ -1,5 +1,6 @@
 ﻿using System;
 using BenchmarkDotNet.Configs;
+using BenchmarkDotNet.Diagnosers;
 using BenchmarkDotNet.Environments;
 using BenchmarkDotNet.Jobs;
 
@@ -25,6 +26,7 @@ namespace Pathfindax.Benchmarks
 				.With(Jit.RyuJit);
 			if (invocationCount > 0) job = job.WithInvocationCount(invocationCount);
 			Add(job.WithId("RyuJitConfig"));
+			Add(MemoryDiagnoser.Default);
 		}
 	}
 }
