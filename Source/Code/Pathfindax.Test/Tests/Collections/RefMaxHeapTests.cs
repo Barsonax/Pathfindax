@@ -15,7 +15,7 @@ namespace Pathfindax.Test.Tests.Collections
 		public void RefMaxHeap_RemoveFirst(HeapStruct<int>[] items)
 		{
 			//Create the heap and add the items.
-			var heap = new RefMaxHeap<HeapStruct<int>>(items);
+			var heap = new IndexMaxHeap<HeapStruct<int>>(items);
 			for (var i = 0; i < items.Length; i++)
 			{
 				heap.Add(i);
@@ -25,7 +25,7 @@ namespace Pathfindax.Test.Tests.Collections
 			var previousValue = int.MaxValue;
 			for (var i = 0; i < items.Length; i++)
 			{
-				var value = heap.RemoveFirst().Value;
+				var value = items[heap.RemoveFirst()].Value;
 				if (value <= previousValue) previousValue = value;
 				else Assert.Fail($"Value {value} is bigger than previous value {previousValue}");
 			}
@@ -36,7 +36,7 @@ namespace Pathfindax.Test.Tests.Collections
 		{
 			var items = ConvertArray(new[] { 100, 19, 17, 36, 12, 25, 5, 9, 15, 6, 11, 13, 8, 1, 4, 99, 64 });
 			//Create the heap and add the items.
-			var heap = new RefMaxHeap<HeapStruct<int>>(items);
+			var heap = new IndexMaxHeap<HeapStruct<int>>(items);
 			for (int i = 0; i < items.Length; i++)
 			{
 				heap.Add(i);
@@ -52,7 +52,7 @@ namespace Pathfindax.Test.Tests.Collections
 		public void RefMaxHeap_Contains_True(HeapStruct<int>[] items)
 		{
 			//Create the heap and add the items.
-			var heap = new RefMaxHeap<HeapStruct<int>>(items);
+			var heap = new IndexMaxHeap<HeapStruct<int>>(items);
 			for (var i = 0; i < items.Length; i++)
 			{
 				heap.Add(i);
@@ -69,7 +69,7 @@ namespace Pathfindax.Test.Tests.Collections
 		public void RefMaxHeap_Contains_False(HeapStruct<int>[] items)
 		{
 			//Create the heap and add the items except the last one.
-			var heap = new RefMaxHeap<HeapStruct<int>>(items);
+			var heap = new IndexMaxHeap<HeapStruct<int>>(items);
 			for (var i = 0; i < items.Length - 1; i++)
 			{
 				heap.Add(i);
@@ -84,7 +84,7 @@ namespace Pathfindax.Test.Tests.Collections
 		public void RefMaxHeap_Contains_AddAndRemoveAll(HeapStruct<int>[] items)
 		{
 			//Create the heap and add the items except the last one.
-			var heap = new RefMaxHeap<HeapStruct<int>>(items);
+			var heap = new IndexMaxHeap<HeapStruct<int>>(items);
 			for (var i = 0; i < items.Length; i++)
 			{
 				heap.Add(i);

@@ -19,7 +19,7 @@ namespace Pathfindax.Collections
 	/// Does not store the items itself but keeps references to them with array indexes.
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
-	public class RefMaxHeap<T>
+	public class IndexMaxHeap<T>
 		where T : IRefHeapItem<T>
 	{
 		/// <summary>
@@ -33,12 +33,12 @@ namespace Pathfindax.Collections
 		private int[] _heapIndexes;
 		private T[] _array;
 
-		public RefMaxHeap(T[] array)
+		public IndexMaxHeap(T[] array)
 		{
 			Initialize(array, array.Length);
 		}
 
-		public RefMaxHeap(int size)
+		public IndexMaxHeap(int size)
 		{
 			Initialize(null, size);
 		}
@@ -84,24 +84,24 @@ namespace Pathfindax.Collections
 		/// Since this is a maxheap it will have the highest value which is determined by the implementation of the <see cref="IComparable{T}"/> interface.
 		/// </summary>
 		/// <returns></returns>
-		public ref T RemoveFirst()
+		public int RemoveFirst()
 		{
-			ref var firstItem = ref _array[_indexes[0]];
+			var firstItem = _indexes[0];
 			Count--;
 			var lastIndex = _indexes[Count];
 			_indexes[0] = lastIndex;
 			_heapIndexes[lastIndex] = 0;
 			SortDown(lastIndex);
-			return ref firstItem;
+			return firstItem;
 		}
 
 		/// <summary>
-		/// Returns the first item from the heap but does not remove it.
+		/// Returns the index of the first item from the heap but does not remove it.
 		/// </summary>
 		/// <returns></returns>
-		public ref T Peek()
+		public int Peek()
 		{
-			return ref _array[_indexes[0]];
+			return _indexes[0];
 		}
 
 		/// <summary>

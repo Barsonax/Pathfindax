@@ -5,31 +5,36 @@ namespace Pathfindax.Nodes
 	/// <summary>
 	/// References a node by its index in a array
 	/// </summary>
-	public struct NodePointer
+	public struct ArrayIndex
 	{
 		/// <summary>
 		/// A pointer that points to nothing.
 		/// </summary>
-		public static readonly NodePointer NullPointer = new NodePointer(-1);
+		public static readonly ArrayIndex NullPointer = new ArrayIndex(-1);
 
 		public readonly int Index;
 
-		public NodePointer(int index)
+		public ArrayIndex(int index)
 		{
 			Index = index;
 		}
 
-		public static bool IsNullPointer(NodePointer p)
+		public static bool IsNullPointer(ArrayIndex p)
 		{
 			return p.Index == -1;
 		}
 
-		public static T Dereference<T>(NodePointer p, T[] nodeArray)
+		public static T Dereference<T>(ArrayIndex p, T[] nodeArray)
 		{
 			return nodeArray[p.Index];
 		}
 
-		public static DefinitionNode Dereference(NodePointer p, IDefinitionNodeNetwork nodeArray)
+		public static T Dereference<T>(int index, T[] nodeArray)
+		{
+			return nodeArray[index];
+		}
+
+		public static DefinitionNode Dereference(ArrayIndex p, IDefinitionNodeNetwork nodeArray)
 		{
 			return nodeArray[p.Index];
 		}
@@ -39,7 +44,7 @@ namespace Pathfindax.Nodes
 			return Index.ToString();
 		}
 
-		public static implicit operator int(NodePointer pointer)
+		public static implicit operator int(ArrayIndex pointer)
 		{
 			return pointer.Index;
 		}

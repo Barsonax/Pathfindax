@@ -27,7 +27,7 @@ namespace Pathfindax.Algorithms
 
 				foreach (var connection in currentNode.DefinitionNode.Connections)
 				{
-					var toNode = NodePointer.Dereference(connection.To, pathfindingNetwork);
+					var toNode = ArrayIndex.Dereference(connection.To, pathfindingNetwork);
 					if ((connection.CollisionCategory & pathRequest.CollisionCategory) != 0 || closedSet.Contains(toNode)) continue;
 
 					if (toNode.Clearance < pathRequest.AgentSize)

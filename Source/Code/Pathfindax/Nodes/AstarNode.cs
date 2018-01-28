@@ -10,7 +10,7 @@ namespace Pathfindax.Nodes
 		/// <summary>
 		/// Used to retrace the path in the A* algorithm.
 		/// </summary>
-		public NodePointer Parent { get; set; }
+		public int Parent { get; set; }
 
 		/// <summary>
 		/// The cost calculated by the A* heuristic
@@ -24,7 +24,6 @@ namespace Pathfindax.Nodes
 
 		public DefinitionNode DefinitionNode { get; }
 		public float Clearance { get; set; }
-		//public int HeapIndex { get; set; }
 		private float FCost => GCost + HCost;
 
 		public AstarNode(DefinitionNode definitionNode)

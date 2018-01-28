@@ -48,9 +48,9 @@ namespace Pathfindax.Factories
 			return array;
 		}
 
-		private static List<NodePointer> GetNeighbours(IReadOnlyArray2D<DefinitionNode> nodeArray, int gridX, int gridY, GenerateNodeGridConnections generateNodeGridConnections)
+		private static List<ArrayIndex> GetNeighbours(IReadOnlyArray2D<DefinitionNode> nodeArray, int gridX, int gridY, GenerateNodeGridConnections generateNodeGridConnections)
 		{
-			var neighbours = new List<NodePointer>();
+			var neighbours = new List<ArrayIndex>();
 			for (var y = -1; y <= 1; y++)
 			{
 				for (var x = -1; x <= 1; x++)
@@ -69,7 +69,7 @@ namespace Pathfindax.Factories
 								continue;
 							}
 						}
-						var p = new NodePointer(nodeArray.Width * checkY + checkX);
+						var p = new ArrayIndex(nodeArray.Width * checkY + checkX);
 						neighbours.Add(p);
 					}
 				}

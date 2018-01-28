@@ -1,10 +1,10 @@
 ﻿namespace Pathfindax.Collections
 {
-	public class ContainsArray
+	public class LookupArray
 	{
 		private byte _generation;
 		private readonly byte[] _spots;
-		public ContainsArray(int size)
+		public LookupArray(int size)
 		{
 			_spots = new byte[size];
 		}

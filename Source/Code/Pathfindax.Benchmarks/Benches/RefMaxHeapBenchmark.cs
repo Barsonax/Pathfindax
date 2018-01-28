@@ -9,9 +9,9 @@ namespace Pathfindax.Benchmarks
 	{
 		const int Capacity = 50000000;
 		private HeapStruct<int>[] _values;
-		private RefMaxHeap<HeapStruct<int>> AddMaxHeap;
-		private RefMaxHeap<HeapStruct<int>> RemoveFirstMaxHeap;
-		private RefMaxHeap<HeapStruct<int>> ContainsMaxHeap;
+		private IndexMaxHeap<HeapStruct<int>> AddMaxHeap;
+		private IndexMaxHeap<HeapStruct<int>> RemoveFirstMaxHeap;
+		private IndexMaxHeap<HeapStruct<int>> ContainsMaxHeap;
 		private HeapStruct<int> SomeContainedValue;
 
 		[GlobalSetup(Target = nameof(RemoveFirst))]
@@ -22,7 +22,7 @@ namespace Pathfindax.Benchmarks
 			{
 				_values[i] = new HeapStruct<int>(i * 2);
 			}
-			RemoveFirstMaxHeap = new RefMaxHeap<HeapStruct<int>>(_values);
+			RemoveFirstMaxHeap = new IndexMaxHeap<HeapStruct<int>>(_values);
 			for (int i = 0; i < RemoveFirstMaxHeap.Capacity; i++)
 			{
 				RemoveFirstMaxHeap.Add(i);
@@ -37,7 +37,7 @@ namespace Pathfindax.Benchmarks
 			{
 				_values[i] = new HeapStruct<int>(i * 2);
 			}
-			AddMaxHeap = new RefMaxHeap<HeapStruct<int>>(_values);
+			AddMaxHeap = new IndexMaxHeap<HeapStruct<int>>(_values);
 		}
 
 		[GlobalSetup(Target = nameof(Contains))]
@@ -48,15 +48,15 @@ namespace Pathfindax.Benchmarks
 			{
 				_values[i] = new HeapStruct<int>(i * 2);
 			}
-			ContainsMaxHeap = new RefMaxHeap<HeapStruct<int>>(_values);
+			ContainsMaxHeap = new IndexMaxHeap<HeapStruct<int>>(_values);
 			ContainsMaxHeap.Add(5);
-			SomeContainedValue = ContainsMaxHeap.Peek();
+			SomeContainedValue = _values[ContainsMaxHeap.Peek()];
 		}
 
 		[Benchmark]
 		public HeapStruct<int> RemoveFirst()
 		{
-			return RemoveFirstMaxHeap.RemoveFirst();
+			return _values[RemoveFirstMaxHeap.RemoveFirst()];
 		}
 
 		[Benchmark]

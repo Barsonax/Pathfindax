@@ -7,7 +7,7 @@ namespace Pathfindax.Nodes
 {
 	public class DefinitionNode : IDefinitionNode
 	{
-		public NodePointer Index { get; }
+		public ArrayIndex Index { get; }
 
 		/// <summary>
 		/// The position in the <see cref="IDefinitionNodeNetwork"/>
@@ -23,7 +23,7 @@ namespace Pathfindax.Nodes
 
 		public DefinitionNode(int index, Vector2 position, float movementCostModifier = 1f)
 		{
-			Index = new NodePointer(index);
+			Index = new ArrayIndex(index);
 			Position = position;
 			MovementCostModifier = movementCostModifier;
 		}
@@ -38,7 +38,7 @@ namespace Pathfindax.Nodes
 			AddConnection(to.Index, collisionCategory);
 		}
 
-		public void AddConnection(NodePointer to, PathfindaxCollisionCategory collisionCategory = PathfindaxCollisionCategory.None)
+		public void AddConnection(ArrayIndex to, PathfindaxCollisionCategory collisionCategory = PathfindaxCollisionCategory.None)
 		{
 			Connections = Connections.Append(new NodeConnection(to, collisionCategory));
 		}

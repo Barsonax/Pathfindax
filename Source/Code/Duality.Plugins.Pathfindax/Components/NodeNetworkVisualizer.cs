@@ -76,7 +76,7 @@ namespace Duality.Plugins.Pathfindax.Components
 					canvas.State.ColorTint = new ColorRgba(199, 21, 133);
 					foreach (var connection in node.DefinitionNode.Connections)
 					{
-						var toNode = NodePointer.Dereference(connection.To, definitionNodeNetwork);
+						var toNode = ArrayIndex.Dereference(connection.To, definitionNodeNetwork);
 						var vector = (definitionNodeNetwork.Transformer.ToWorld(toNode.Position) - nodeWorldPosition) * 0.5f; //Times 0.5f so we can see the connections in both directions.
 						canvas.DrawDashLine(nodeWorldPosition.X, nodeWorldPosition.Y, nodeWorldPosition.X + vector.X, nodeWorldPosition.Y + vector.Y);
 					}

@@ -32,8 +32,8 @@ namespace Pathfindax.Algorithms
 				{
 					var sw = Stopwatch.StartNew();
 					var pathfindingNetwork = dijkstraNodeNetwork.GetCollisionLayerNetwork(pathRequest.CollisionCategory);
-					var startNode = NodePointer.Dereference(pathRequest.PathStart.Index, pathfindingNetwork);
-					var targetNode = NodePointer.Dereference(pathRequest.PathEnd.Index, pathfindingNetwork);
+					var startNode = ArrayIndex.Dereference(pathRequest.PathStart.Index, pathfindingNetwork);
+					var targetNode = ArrayIndex.Dereference(pathRequest.PathEnd.Index, pathfindingNetwork);
 					if (_dijkstraAlgorithm.FindPath(pathfindingNetwork, targetNode, startNode, pathRequest))
 					{
 						potentialField = FindPath(dijkstraNodeNetwork, pathfindingNetwork, targetNode, pathRequest);
