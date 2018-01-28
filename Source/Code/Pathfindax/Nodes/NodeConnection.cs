@@ -8,7 +8,7 @@
 		/// <summary>
 		/// Where this connection is going to.
 		/// </summary>
-		public readonly ArrayIndex To;
+		public readonly int To;
 
 		/// <summary>
 		/// The collisions in this connection
@@ -20,7 +20,7 @@
 		/// </summary>
 		/// <param name="to">Where this connection is going to</param>
 		/// <param name="collisionCategory">The <see cref="PathfindaxCollisionCategory"/> of this <see cref="NodeConnection"/></param>
-		public NodeConnection(ArrayIndex to, PathfindaxCollisionCategory collisionCategory = PathfindaxCollisionCategory.None)
+		public NodeConnection(int to, PathfindaxCollisionCategory collisionCategory = PathfindaxCollisionCategory.None)
 		{
 			To = to;
 			CollisionCategory = collisionCategory;

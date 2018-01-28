@@ -3,7 +3,7 @@ using Pathfindax.Collections;
 
 namespace Pathfindax.Nodes
 {
-	public class DijkstraNode : IHeapItem<DijkstraNode>, ICollisionLayerNode
+	public class DijkstraNode : IRefHeapItem<DijkstraNode>, ICollisionLayerNode
 	{
 		/// <summary>
 		/// The cost to the targetnode
@@ -11,7 +11,6 @@ namespace Pathfindax.Nodes
 		public float GCost { get; set; }
 		public DefinitionNode DefinitionNode { get; }
 		public float Clearance { get; set; }
-		public int HeapIndex { get; set; }
 
 		public DijkstraNode(DefinitionNode definitionNode)
 		{
@@ -19,6 +18,16 @@ namespace Pathfindax.Nodes
 		}
 
 		public int CompareTo(DijkstraNode other)
+		{
+			return CompareToCore(other);
+		}
+
+		public int CompareTo(in DijkstraNode other)
+		{
+			return CompareToCore(other);
+		}
+
+		private int CompareToCore(in DijkstraNode other)
 		{
 			return -GCost.CompareTo(other.GCost);
 		}

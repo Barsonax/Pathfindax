@@ -13,11 +13,12 @@ namespace Pathfindax.Algorithms
 {
 	public class PotentialFieldAlgorithm : IPathFindAlgorithm<DijkstraNodeGrid, PotentialField>
 	{
-		private readonly DijkstraAlgorithm _dijkstraAlgorithm = new DijkstraAlgorithm();
+		private readonly DijkstraAlgorithm _dijkstraAlgorithm;
 		private readonly ConcurrentCache<IPathRequest, PotentialField> _potentialFieldCache;
 
-		public PotentialFieldAlgorithm(int cacheSize)
+		public PotentialFieldAlgorithm(int cacheSize, int amountOfNodes)
 		{
+			_dijkstraAlgorithm = new DijkstraAlgorithm(amountOfNodes);
 			if (cacheSize > 0)
 				_potentialFieldCache = new ConcurrentCache<IPathRequest, PotentialField>(cacheSize, new SingleSourcePathRequestComparer());
 		}
@@ -32,9 +33,8 @@ namespace Pathfindax.Algorithms
 				{
 					var sw = Stopwatch.StartNew();
 					var pathfindingNetwork = dijkstraNodeNetwork.GetCollisionLayerNetwork(pathRequest.CollisionCategory);
-					var startNode = ArrayIndex.Dereference(pathRequest.PathStart.Index, pathfindingNetwork);
 					var targetNode = ArrayIndex.Dereference(pathRequest.PathEnd.Index, pathfindingNetwork);
-					if (_dijkstraAlgorithm.FindPath(pathfindingNetwork, targetNode, startNode, pathRequest))
+					if (_dijkstraAlgorithm.FindPath(pathfindingNetwork, pathRequest.PathEnd.Index, pathRequest.AgentSize, pathRequest.CollisionCategory))
 					{
 						potentialField = FindPath(dijkstraNodeNetwork, pathfindingNetwork, targetNode, pathRequest);
 					}

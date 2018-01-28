@@ -14,10 +14,9 @@ namespace Pathfindax.Test.Tests.Algorithms
 		[Test]
 		[MaxTime(2000)]
 		public void FindPath_InitializedNodegrid_ValuesPotentialFieldAreCorrect()
-		{
-			var potentialFieldAlgorithm = new PotentialFieldAlgorithm(0);
-
+		{		
 			var definitionNodeGrid = new DefinitionNodeGrid(GenerateNodeGridConnections.All, 3, 3, new Vector2(1, 1));
+			var potentialFieldAlgorithm = new PotentialFieldAlgorithm(0, definitionNodeGrid.NodeCount);
 			var start = definitionNodeGrid.NodeGrid[0, 0];
 			var end = definitionNodeGrid.NodeGrid[2, 2];
 

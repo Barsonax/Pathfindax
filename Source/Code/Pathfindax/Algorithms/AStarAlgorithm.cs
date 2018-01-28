@@ -16,14 +16,14 @@ namespace Pathfindax.Algorithms
 	/// </summary>
 	public class AStarAlgorithm : IPathFindAlgorithm<IPathfindNodeNetwork<AstarNode>, NodePath>
 	{
-		private readonly IndexMaxHeap<AstarNode> openSet;
-		private readonly LookupArray closedSet;
+		private readonly IndexMaxHeap<AstarNode> _openSet;
+		private readonly LookupArray _closedSet;
 		private readonly List<DefinitionNode> _pathBuffer;
 
 		public AStarAlgorithm(int amountOfNodes)
 		{
-			openSet = new IndexMaxHeap<AstarNode>(amountOfNodes);
-			closedSet = new LookupArray(amountOfNodes);
+			_openSet = new IndexMaxHeap<AstarNode>(amountOfNodes);
+			_closedSet = new LookupArray(amountOfNodes);
 			_pathBuffer = new List<DefinitionNode>();
 		}
 
@@ -73,13 +73,13 @@ namespace Pathfindax.Algorithms
 				var targetNode = ArrayIndex.Dereference(targetNodeIndex, pathfindingNetwork);
 				if (startNode.Clearance >= neededClearance && targetNode.Clearance >= neededClearance)
 				{
-					openSet.AssignArray(pathfindingNetwork);
-					closedSet.Clear();
-					openSet.Add(startNodeIndex);
+					_openSet.AssignArray(pathfindingNetwork);
+					_closedSet.Clear();
+					_openSet.Add(startNodeIndex);
 					var targetNodePosition = targetNode.DefinitionNode.Position;
-					while (openSet.Count > 0)
+					while (_openSet.Count > 0)
 					{
-						var currentNodeIndex = openSet.RemoveFirst();
+						var currentNodeIndex = _openSet.RemoveFirst();
 						if (currentNodeIndex == targetNodeIndex)
 						{
 							Debug.WriteLine($"NodePath found");
@@ -88,23 +88,23 @@ namespace Pathfindax.Algorithms
 						}
 
 						var currentNode = ArrayIndex.Dereference(currentNodeIndex, pathfindingNetwork);
-						closedSet.Occupy(currentNodeIndex);
+						_closedSet.Occupy(currentNodeIndex);
 
 						var currentNodePosition = currentNode.DefinitionNode.Position;
 						foreach (var connection in currentNode.DefinitionNode.Connections)
 						{
 							var toNode = ArrayIndex.Dereference(connection.To, pathfindingNetwork);
-							if ((connection.CollisionCategory & collisionCategory) != 0 || closedSet.Contains(connection.To)) continue;
+							if ((connection.CollisionCategory & collisionCategory) != 0 || _closedSet.Contains(connection.To)) continue;
 
 							if (!(toNode.Clearance >= neededClearance)) continue;
 							var newMovementCostToNeighbour = currentNode.GCost + GetDistance(currentNodePosition, toNode.DefinitionNode.Position) * currentNode.DefinitionNode.MovementCostModifier;
-							if (newMovementCostToNeighbour < toNode.GCost || !openSet.Contains(connection.To))
+							if (newMovementCostToNeighbour < toNode.GCost || !_openSet.Contains(connection.To))
 							{
 								toNode.GCost = newMovementCostToNeighbour;
 								toNode.HCost = GetDistance(toNode.DefinitionNode.Position, targetNodePosition);
 								toNode.Parent = currentNodeIndex;
-								if (!openSet.Contains(connection.To))
-									openSet.Add(connection.To);
+								if (!_openSet.Contains(connection.To))
+									_openSet.Add(connection.To);
 							}
 						}
 					}

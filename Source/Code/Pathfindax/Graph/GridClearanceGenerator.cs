@@ -31,7 +31,7 @@ namespace Pathfindax.Graph
 					{
 						var definitionNode = _definitionNodeGrid.DefinitionNodeArray[x, y];
 						var clearance = CalculateGridNodeClearances(definitionNode, collisionCategory, _maxClearance);
-						pathfindingNetwork[definitionNode.Index.Index].Clearance = clearance;
+						pathfindingNetwork[definitionNode.Index].Clearance = clearance;
 					}
 				}
 			}
@@ -98,7 +98,7 @@ namespace Pathfindax.Graph
 			{
 				if ((nodeConnection.CollisionCategory & collisionCategory) != 0)
 				{
-					var toNode = _definitionNodeGrid.DefinitionNodeArray[nodeConnection.To.Index];
+					var toNode = _definitionNodeGrid.DefinitionNodeArray[nodeConnection.To];
 					var toCoordinates = new Point2((int) toNode.Position.X, (int) toNode.Position.Y);
 					if (toCoordinates.X >= fromCoordinates.X && toCoordinates.Y >= fromCoordinates.Y)
 					{

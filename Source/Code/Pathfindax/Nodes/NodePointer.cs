@@ -19,24 +19,14 @@ namespace Pathfindax.Nodes
 			Index = index;
 		}
 
-		public static bool IsNullPointer(ArrayIndex p)
-		{
-			return p.Index == -1;
-		}
-
-		public static T Dereference<T>(ArrayIndex p, T[] nodeArray)
-		{
-			return nodeArray[p.Index];
-		}
-
 		public static T Dereference<T>(int index, T[] nodeArray)
 		{
 			return nodeArray[index];
 		}
 
-		public static DefinitionNode Dereference(ArrayIndex p, IDefinitionNodeNetwork nodeArray)
+		public static DefinitionNode Dereference(int index, IDefinitionNodeNetwork nodeArray)
 		{
-			return nodeArray[p.Index];
+			return nodeArray[index];
 		}
 
 		public override string ToString()

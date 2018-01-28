@@ -18,7 +18,7 @@ namespace Pathfindax.Factories
 
 		public static IPathfinder<DefinitionNodeGrid, DijkstraNodeGrid, FlowField> CreateFlowFieldPathfinder(this IPathfindaxManager pathfindaxManager, DefinitionNodeGrid nodeGrid, int maxClearance, int maxCachedFlowFields, int amountOfThreads = 1)
 		{
-			var pathfinder = pathfindaxManager.CreatePathfinder(nodeGrid, new FlowFieldAlgorithm(maxCachedFlowFields), (definitionNodeGrid, algorithm) =>
+			var pathfinder = pathfindaxManager.CreatePathfinder(nodeGrid, new FlowFieldAlgorithm(maxCachedFlowFields, nodeGrid.NodeCount), (definitionNodeGrid, algorithm) =>
 			{
 				var dijkstraNodeGrid = new DijkstraNodeGrid(definitionNodeGrid, maxClearance);
 				return CreateRequestProcesser(dijkstraNodeGrid, algorithm);
@@ -29,7 +29,7 @@ namespace Pathfindax.Factories
 
 		public static IPathfinder<DefinitionNodeGrid, DijkstraNodeGrid, PotentialField> CreatePotentialFieldPathfinder(this IPathfindaxManager pathfindaxManager, DefinitionNodeGrid nodeGrid, int maxClearance, int maxCachedFlowFields, int amountOfThreads = 1)
 		{
-			var pathfinder = pathfindaxManager.CreatePathfinder(nodeGrid, new PotentialFieldAlgorithm(maxCachedFlowFields), (definitionNodeGrid, algorithm) =>
+			var pathfinder = pathfindaxManager.CreatePathfinder(nodeGrid, new PotentialFieldAlgorithm(maxCachedFlowFields, nodeGrid.NodeCount), (definitionNodeGrid, algorithm) =>
 			{
 				var dijkstraNodeGrid = new DijkstraNodeGrid(definitionNodeGrid, maxClearance);
 				return CreateRequestProcesser(dijkstraNodeGrid, algorithm);

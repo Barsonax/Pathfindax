@@ -11,11 +11,12 @@ namespace Pathfindax.Algorithms
 {
 	public class FlowFieldAlgorithm : IPathFindAlgorithm<DijkstraNodeGrid, FlowField>
 	{
-		private readonly PotentialFieldAlgorithm _potentialFieldAlgorithm = new PotentialFieldAlgorithm(0);
+		private readonly PotentialFieldAlgorithm _potentialFieldAlgorithm;
 		private readonly ConcurrentCache<IPathRequest, FlowField> _flowFieldCache;
 
-		public FlowFieldAlgorithm(int cacheSize)
+		public FlowFieldAlgorithm(int cacheSize, int amountOfNodes)
 		{
+			_potentialFieldAlgorithm = new PotentialFieldAlgorithm(0, amountOfNodes);
 			if (cacheSize > 0)
 				_flowFieldCache = new ConcurrentCache<IPathRequest, FlowField>(cacheSize, new SingleSourcePathRequestComparer());
 		}
@@ -32,7 +33,7 @@ namespace Pathfindax.Algorithms
 					Debug.WriteLine($"Flowfield created in {sw.ElapsedMilliseconds} ms.");
 					_flowFieldCache?.Add(pathRequest, flowField);
 				}
-				succes = flowField[pathRequest.PathStart.Index.Index].Length > 0;
+				succes = flowField[pathRequest.PathStart.Index].Length > 0;
 				return flowField;
 			}
 			catch (Exception ex)

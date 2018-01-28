@@ -6,7 +6,7 @@ namespace Pathfindax.Nodes
 	public interface IDefinitionNode
 	{
 		NodeConnection[] Connections { get; }
-		ArrayIndex Index { get; }
+		int Index { get; }
 		float MovementCostModifier { get; set; }
 		Vector2 Position { get; set; }
 
