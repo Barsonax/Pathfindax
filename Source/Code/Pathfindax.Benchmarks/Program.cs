@@ -1,5 +1,4 @@
-﻿using BenchmarkDotNet.Attributes;
-using BenchmarkDotNet.Running;
+﻿using BenchmarkDotNet.Running;
 using System;
 
 namespace Pathfindax.Benchmarks
@@ -8,13 +7,13 @@ namespace Pathfindax.Benchmarks
 	{
 		static void Main(string[] args)
 		{
-			//var foo = new AstarAlgorithmBenchmark();
+			//var foo = new DijkstraAlgorithmBenchmark();
 			//foo.Setup();
 			//while (true)
 			//{
-			//	foo.FindLongPath();
+			//	foo.FindPath();
 			//}
-			BenchmarkRunner.Run<AstarAlgorithmBenchmark>();
+			BenchmarkRunner.Run<DijkstraAlgorithmBenchmark>();
 			Console.ReadKey();
 		}
 	}

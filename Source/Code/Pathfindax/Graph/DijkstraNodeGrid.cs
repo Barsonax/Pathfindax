@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
-using Duality;
 using Pathfindax.Nodes;
+using Pathfindax.Utils;
 
 namespace Pathfindax.Graph
 {
@@ -19,7 +19,7 @@ namespace Pathfindax.Graph
 			_maxClearance = maxClearance;
 		}
 
-		IReadOnlyList<ICollisionLayerNode> IPathfindNodeNetwork.GetCollisionLayerNetwork(PathfindaxCollisionCategory collisionCategory) => GetCollisionLayerNetwork(collisionCategory);
+		IReadOnlyList<ICollisionLayerNode> IPathfindNodeNetwork.GetCollisionLayerNetwork(PathfindaxCollisionCategory collisionCategory) => new ReadOnlyListAdapter<DijkstraNode, ICollisionLayerNode>(GetCollisionLayerNetwork(collisionCategory));
 		public DijkstraNode[] GetCollisionLayerNetwork(PathfindaxCollisionCategory collisionCategory)
 		{
 			if (!_nodeNetworks.TryGetValue(collisionCategory, out var pathfindingNetwork))
@@ -37,16 +37,13 @@ namespace Pathfindax.Graph
 		{
 			var gridClearanceGenerator = new GridClearanceGenerator(DefinitionNodeGrid, _maxClearance);
 			var nodeNetwork = new DijkstraNode[DefinitionNodeGrid.NodeCount];
-			for (var y = 0; y < DefinitionNodeGrid.NodeGrid.Height; y++)
+			for (var i = 0; i < DefinitionNodeGrid.NodeGrid.Array.Length; i++)
 			{
-				for (var x = 0; x < DefinitionNodeGrid.NodeGrid.Width; x++)
+				var definitionNode = DefinitionNodeGrid.NodeGrid.Array[i];
+				nodeNetwork[definitionNode.Index] = new DijkstraNode(definitionNode)
 				{
-					var definitionNode = DefinitionNodeGrid.NodeGrid[x, y];
-					nodeNetwork[definitionNode.Index] = new DijkstraNode(definitionNode)
-					{
-						Clearance = _maxClearance == -1 ? int.MaxValue : gridClearanceGenerator.CalculateGridNodeClearances(definitionNode, collisionCategory, _maxClearance)
-					};
-				}
+					Clearance = _maxClearance == -1 ? int.MaxValue : gridClearanceGenerator.CalculateGridNodeClearances(definitionNode, collisionCategory, _maxClearance)
+				};
 			}
 			return nodeNetwork;
 		}

@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using Pathfindax.Nodes;
+using Pathfindax.Utils;
 
 namespace Pathfindax.Graph
 {
@@ -28,7 +29,7 @@ namespace Pathfindax.Graph
 			_pathfindNodeGenerators = pathfindNodeGenerators;
 		}
 
-		IReadOnlyList<ICollisionLayerNode> IPathfindNodeNetwork.GetCollisionLayerNetwork(PathfindaxCollisionCategory collisionCategory) => throw new NotImplementedException();//GetCollisionLayerNetwork(collisionCategory);
+		IReadOnlyList<ICollisionLayerNode> IPathfindNodeNetwork.GetCollisionLayerNetwork(PathfindaxCollisionCategory collisionCategory) => new ReadOnlyListAdapter<AstarNode, ICollisionLayerNode>(GetCollisionLayerNetwork(collisionCategory));
 		public AstarNode[] GetCollisionLayerNetwork(PathfindaxCollisionCategory collisionCategory)
 		{
 			if (!_nodeNetworks.TryGetValue(collisionCategory, out var pathfindingNetwork))

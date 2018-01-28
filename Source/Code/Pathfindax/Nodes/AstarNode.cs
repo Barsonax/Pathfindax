@@ -32,7 +32,7 @@ namespace Pathfindax.Nodes
 			Parent = -1;
 			HCost = 0f;
 			GCost = 0f;
-			Clearance = 0f;
+			Clearance = float.MaxValue;
 		}
 
 		public int CompareTo(AstarNode other)

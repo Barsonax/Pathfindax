@@ -22,7 +22,7 @@ namespace Pathfindax.Algorithms
 
 		public bool FindPath(DijkstraNode[] pathfindingNetwork, int targetNodeIndex, float neededClearance, PathfindaxCollisionCategory collisionCategory)
 		{
-			var targetNode = ArrayIndex.Dereference(targetNodeIndex, pathfindingNetwork);
+			ref var targetNode = ref pathfindingNetwork[targetNodeIndex];
 			if (targetNode.Clearance < neededClearance) return false;
 			ResetNetwork(pathfindingNetwork);
 
@@ -34,14 +34,13 @@ namespace Pathfindax.Algorithms
 			while (_openSet.Count > 0)
 			{
 				var currentNodeIndex = _openSet.RemoveFirst();
-				var currentNode = ArrayIndex.Dereference(currentNodeIndex, pathfindingNetwork);
+				ref var currentNode = ref pathfindingNetwork[currentNodeIndex];
 				_closedSet.Occupy(currentNodeIndex);
 
 				foreach (var connection in currentNode.DefinitionNode.Connections)
 				{
-					var toNode = ArrayIndex.Dereference(connection.To, pathfindingNetwork);
 					if ((connection.CollisionCategory & collisionCategory) != 0 || _closedSet.Contains(connection.To)) continue;
-
+					ref var toNode = ref pathfindingNetwork[connection.To];
 					if (toNode.Clearance < neededClearance)
 					{
 						toNode.GCost = float.NaN;

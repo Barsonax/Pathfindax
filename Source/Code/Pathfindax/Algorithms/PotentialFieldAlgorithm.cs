@@ -74,7 +74,7 @@ namespace Pathfindax.Algorithms
 					else
 					{
 						var dijkstraNode = pathfindingNodeGrid[gridX, gridY];
-						if (dijkstraNode == targetNode) potentialNodes[x, y] = 0f;
+						if (dijkstraNode.DefinitionNode == targetNode.DefinitionNode) potentialNodes[x, y] = 0f;
 						else potentialNodes[x, y] = dijkstraNode.GCost;
 					}
 				}
