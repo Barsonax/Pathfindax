@@ -3,6 +3,7 @@ using Duality;
 using Pathfindax.Collections;
 using Pathfindax.Factories;
 using Pathfindax.Nodes;
+using Pathfindax.Utils;
 
 namespace Pathfindax.Graph
 {
@@ -11,9 +12,9 @@ namespace Pathfindax.Graph
 	/// The nodegrid will be shared between multiple threads so do not make changes to it after you start pathfinding on it.
 	/// </summary>
 	public class DefinitionNodeGrid : IDefinitionNodeGrid
-	{
-		public DefinitionNode this[int index] => NodeGrid[index];		
+	{	
 		public Array2D<DefinitionNode> NodeGrid { get; }
+		public DefinitionNode[] NodeArray => NodeGrid.Array;
 		IReadOnlyArray2D<DefinitionNode> IDefinitionNodeGrid.DefinitionNodeArray => NodeGrid;
 		Transformer IDefinitionNodeNetwork.Transformer => Transformer;
 		public GridTransformer Transformer { get; }
@@ -29,6 +30,11 @@ namespace Pathfindax.Graph
 		{
 			var coords = Transformer.ToGrid(worldX, worldY);
 			return NodeGrid[coords.X, coords.Y];
+		}
+
+		public int GetNodeIndex(float x, float y)
+		{
+			return NodeGrid.ToIndex(Transformer.ToGrid(x, y));
 		}
 	}
 }

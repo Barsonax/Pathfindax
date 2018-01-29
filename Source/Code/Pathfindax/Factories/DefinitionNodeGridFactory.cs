@@ -24,9 +24,7 @@ namespace Pathfindax.Factories
 				for (var x = 0; x < width; x++)
 				{
 					var worldPosition = new Vector2(x, y);
-					var i = width * y + x;
-					var node = new DefinitionNode(i, worldPosition, 1);
-					array[x, y] = node;
+					array[x, y] = new DefinitionNode(worldPosition);
 				}
 			}
 
@@ -35,8 +33,8 @@ namespace Pathfindax.Factories
 				for (var y = 0; y < height; y++)
 				{
 					for (var x = 0; x < width; x++)
-					{
-						var node = array[x, y];
+					{						
+						ref var node = ref array.Array[array.ToIndex(x, y)];
 						var neighbours = GetNeighbours(array, x, y, generateNodeGridConnections);
 						foreach (var neighbour in neighbours)
 						{

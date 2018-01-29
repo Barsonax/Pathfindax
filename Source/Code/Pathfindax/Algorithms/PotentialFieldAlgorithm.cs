@@ -33,19 +33,21 @@ namespace Pathfindax.Algorithms
 				{
 					var sw = Stopwatch.StartNew();
 					var pathfindingNetwork = dijkstraNodeNetwork.GetCollisionLayerNetwork(pathRequest.CollisionCategory);
-					var targetNode = ArrayIndex.Dereference(pathRequest.PathEnd.Index, pathfindingNetwork);
-					if (_dijkstraAlgorithm.FindPath(pathfindingNetwork, pathRequest.PathEnd.Index, pathRequest.AgentSize, pathRequest.CollisionCategory))
+
+					if (_dijkstraAlgorithm.FindPath(pathfindingNetwork, dijkstraNodeNetwork.DefinitionNodeGrid.NodeGrid.Array, pathRequest.PathEnd, pathRequest.AgentSize, pathRequest.CollisionCategory))
 					{
-						potentialField = FindPath(dijkstraNodeNetwork, pathfindingNetwork, targetNode, pathRequest);
+						potentialField = FindPath(dijkstraNodeNetwork, pathfindingNetwork, pathRequest.PathEnd, pathRequest);
 					}
 					else
 					{
-						potentialField = new PotentialField(dijkstraNodeNetwork.DefinitionNodeGrid.Transformer, (Point2)targetNode.DefinitionNode.Position);
+						ref var targetDefinitionNode = ref dijkstraNodeNetwork.DefinitionNodeGrid.NodeGrid.Array[pathRequest.PathEnd];
+						potentialField = new PotentialField(dijkstraNodeNetwork.DefinitionNodeGrid.Transformer, (Point2)targetDefinitionNode.Position);
 					}
 					_potentialFieldCache?.Add(pathRequest, potentialField);
 					Debug.WriteLine($"Potentialfield created in {sw.ElapsedMilliseconds} ms.");
 				}
-				var nodeWorldPosition = potentialField.GridTransformer.ToWorld(pathRequest.PathStart.Position);
+				ref var startDefinitionNode = ref dijkstraNodeNetwork.DefinitionNodeGrid.NodeArray[pathRequest.PathStart];
+				var nodeWorldPosition = potentialField.GridTransformer.ToWorld(startDefinitionNode.Position);
 				var offset = GridClearanceHelper.GridNodeOffset(pathRequest.AgentSize, dijkstraNodeNetwork.DefinitionNodeGrid.Transformer.Scale);
 				succes = potentialField.GetHeading(nodeWorldPosition + offset).Length > 0;
 				return potentialField;
@@ -59,7 +61,7 @@ namespace Pathfindax.Algorithms
 			}
 		}
 
-		public static PotentialField FindPath(DijkstraNodeGrid dijkstraNodeNetwork, DijkstraNode[] pathfindingNetwork, DijkstraNode targetNode, IPathRequest pathRequest)
+		public static PotentialField FindPath(DijkstraNodeGrid dijkstraNodeNetwork, DijkstraNode[] pathfindingNetwork, int targetNodeIndex, IPathRequest pathRequest)
 		{
 			var pathfindingNodeGrid = new Array2D<DijkstraNode>(pathfindingNetwork, dijkstraNodeNetwork.DefinitionNodeGrid.NodeGrid.Width, dijkstraNodeNetwork.DefinitionNodeGrid.NodeGrid.Height);
 			var potentialNodes = new Array2D<float>(dijkstraNodeNetwork.DefinitionNodeGrid.NodeGrid.Width, dijkstraNodeNetwork.DefinitionNodeGrid.NodeGrid.Height);
@@ -73,13 +75,18 @@ namespace Pathfindax.Algorithms
 					if (gridY < 0 || gridX < 0) potentialNodes[x, y] = float.NaN;
 					else
 					{
-						var dijkstraNode = pathfindingNodeGrid[gridX, gridY];
-						if (dijkstraNode.DefinitionNode == targetNode.DefinitionNode) potentialNodes[x, y] = 0f;
-						else potentialNodes[x, y] = dijkstraNode.GCost;
+						var currentNodeIndex = pathfindingNodeGrid.ToIndex(gridX, gridY);
+						if (currentNodeIndex == targetNodeIndex) potentialNodes[x, y] = 0f;
+						else
+						{
+							ref var dijkstraNode = ref pathfindingNetwork[currentNodeIndex];
+							potentialNodes[x, y] = dijkstraNode.GCost;
+						}
 					}
 				}
 			}
-			var targetNodePosition = new Point2((int)targetNode.DefinitionNode.Position.X + nodeOffset, (int)targetNode.DefinitionNode.Position.Y + nodeOffset);
+			ref var targetDefinitionNode = ref dijkstraNodeNetwork.DefinitionNodeGrid.NodeGrid.Array[targetNodeIndex];
+			var targetNodePosition = new Point2((int)targetDefinitionNode.Position.X + nodeOffset, (int)targetDefinitionNode.Position.Y + nodeOffset);
 			return new PotentialField(dijkstraNodeNetwork.DefinitionNodeGrid.Transformer, targetNodePosition, potentialNodes);
 		}
 
@@ -89,8 +96,8 @@ namespace Pathfindax.Algorithms
 			{
 				case IDefinitionNodeGrid definitionNodeGrid:
 					var offset = -GridClearanceHelper.GridNodeOffset(agentSize, definitionNodeGrid.Transformer.Scale);
-					var startNode = definitionNodeGrid.GetNode(x1 + offset.X, y1 + offset.Y);
-					var endNode = definitionNodeGrid.GetNode(x2 + offset.X, y2 + offset.Y);
+					var startNode = definitionNodeGrid.GetNodeIndex(x1 + offset.X, y1 + offset.Y);
+					var endNode = definitionNodeGrid.GetNodeIndex(x2 + offset.X, y2 + offset.Y);
 					return PathRequest.Create(pathfinder, startNode, endNode, collisionLayer, agentSize);
 				default:
 					throw new NotSupportedException($"{definitionNodes.GetType()} is not supported");

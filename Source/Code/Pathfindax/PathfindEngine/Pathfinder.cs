@@ -107,7 +107,7 @@ namespace Pathfindax.PathfindEngine
 			return PathFindAlgorithm.CreatePathRequest(this, DefinitionNodeNetwork, x1, y1, x2, y2, collisionLayer, agentSize);
 		}
 
-		public PathRequest<TPath> RequestPath(DefinitionNode start, DefinitionNode end, PathfindaxCollisionCategory collisionLayer = PathfindaxCollisionCategory.None, byte agentSize = 1)
+		public PathRequest<TPath> RequestPath(int start, int end, PathfindaxCollisionCategory collisionLayer = PathfindaxCollisionCategory.None, byte agentSize = 1)
 		{
 			return PathRequest.Create(this, start, end, collisionLayer, agentSize);
 		}

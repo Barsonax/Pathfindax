@@ -8,13 +8,13 @@ namespace Pathfindax.PathfindEngine
 {
 	public static class PathRequest
 	{
-		public static PathRequest<TPath> Create<TPath>(IPathfinder<TPath> pathfinder, IDefinitionNode start, IDefinitionNode end, PathfindaxCollisionCategory collisionCategory = PathfindaxCollisionCategory.None, byte agentSize = 1)
+		public static PathRequest<TPath> Create<TPath>(IPathfinder<TPath> pathfinder, int start, int end, PathfindaxCollisionCategory collisionCategory = PathfindaxCollisionCategory.None, byte agentSize = 1)
 			where TPath : IPath
 		{
 			return new PathRequest<TPath>(pathfinder, start, end, collisionCategory, agentSize);
 		}
 
-		public static PathRequest<TPath> Create<TPath>(IDefinitionNode start, IDefinitionNode end, PathfindaxCollisionCategory collisionCategory = PathfindaxCollisionCategory.None, byte agentSize = 1)
+		public static PathRequest<TPath> Create<TPath>(int start, int end, PathfindaxCollisionCategory collisionCategory = PathfindaxCollisionCategory.None, byte agentSize = 1)
 			where TPath : IPath
 		{
 			return new PathRequest<TPath>(start, end, collisionCategory, agentSize);
@@ -30,12 +30,12 @@ namespace Pathfindax.PathfindEngine
 		/// <summary>
 		/// The node start node.
 		/// </summary>
-		public IDefinitionNode PathStart { get; }
+		public int PathStart { get; }
 
 		/// <summary>
 		/// The end node.
 		/// </summary>
-		public IDefinitionNode PathEnd { get; }
+		public int PathEnd { get; }
 
 		/// <summary>
 		/// The size of the agent. 1 is the default value meaning that the agent occupies only 1 node.
@@ -78,7 +78,7 @@ namespace Pathfindax.PathfindEngine
 		/// <param name="end">The worldcoordinates of the end of the path</param>
 		/// <param name="agentSize">The size of the agent in nodes</param>
 		/// <param name="collisionCategory">The collision layers that this agent cannot cross</param>
-		public PathRequest(IPathfinder<TPath> pathfinder, IDefinitionNode start, IDefinitionNode end, PathfindaxCollisionCategory collisionCategory = PathfindaxCollisionCategory.None, byte agentSize = 1)
+		public PathRequest(IPathfinder<TPath> pathfinder, int start, int end, PathfindaxCollisionCategory collisionCategory = PathfindaxCollisionCategory.None, byte agentSize = 1)
 		{
 			PathStart = start;
 			PathEnd = end;
@@ -94,7 +94,7 @@ namespace Pathfindax.PathfindEngine
 		/// <param name="end">The worldcoordinates of the end of the path</param>
 		/// <param name="agentSize">The size of the agent in nodes</param>
 		/// <param name="collisionCategory">The collision layers that this agent cannot cross</param>
-		public PathRequest(IDefinitionNode start, IDefinitionNode end, PathfindaxCollisionCategory collisionCategory = PathfindaxCollisionCategory.None, byte agentSize = 1)
+		public PathRequest(int start, int end, PathfindaxCollisionCategory collisionCategory = PathfindaxCollisionCategory.None, byte agentSize = 1)
 		{
 			PathStart = start;
 			PathEnd = end;

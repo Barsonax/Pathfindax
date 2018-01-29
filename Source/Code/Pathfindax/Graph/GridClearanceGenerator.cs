@@ -20,7 +20,7 @@ namespace Pathfindax.Graph
 			{
 				var definitionNode = _definitionNodeGrid.DefinitionNodeArray.Array[i];
 				var clearance = CalculateGridNodeClearances(definitionNode, collisionCategory, _maxClearance);
-				pathfindingNetwork[definitionNode.Index].Clearance = clearance;
+				pathfindingNetwork[i].Clearance = clearance;
 			}
 		}
 

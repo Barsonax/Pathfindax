@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Runtime.CompilerServices;
 using Pathfindax.Collections;
 
 namespace Pathfindax.Nodes
@@ -23,12 +24,13 @@ namespace Pathfindax.Nodes
 		/// </summary>
 		public float GCost;
 
-		public DefinitionNode DefinitionNode { get; set; }
+		public DefinitionNode DefinitionNode => throw new NotImplementedException();
+
 		public float Clearance { get; set; }
 
 		public AstarNode(DefinitionNode definitionNode)
 		{
-			DefinitionNode = definitionNode;
+			//DefinitionNode = definitionNode;
 			Parent = -1;
 			HCost = 0f;
 			GCost = 0f;
@@ -54,11 +56,6 @@ namespace Pathfindax.Nodes
 				compare = HCost.CompareTo(other.HCost);
 			}
 			return -compare;
-		}
-
-		public override string ToString()
-		{
-			return DefinitionNode.ToString();
 		}
 	}
 }

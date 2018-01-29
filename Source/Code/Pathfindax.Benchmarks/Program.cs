@@ -13,7 +13,7 @@ namespace Pathfindax.Benchmarks
 			//{
 			//	foo.FindPath();
 			//}
-			BenchmarkRunner.Run<DijkstraAlgorithmBenchmark>();
+			BenchmarkRunner.Run<AstarAlgorithmBenchmark>();
 			Console.ReadKey();
 		}
 	}

@@ -4,6 +4,7 @@ using Pathfindax.Algorithms;
 using Pathfindax.Graph;
 using Pathfindax.PathfindEngine;
 using Pathfindax.Paths;
+using Pathfindax.Utils;
 
 namespace Pathfindax.Benchmarks
 {
@@ -16,7 +17,7 @@ namespace Pathfindax.Benchmarks
 
 		private PathRequest<NodePath> _longPathRequest;
 		private PathRequest<NodePath> _shortPathRequest;
-		private PathRequest<NodePath> _veryShortPathRequest;		
+		private PathRequest<NodePath> _veryShortPathRequest;
 		private PathRequest<NodePath> _zeroLengthPathRequest;
 
 		[GlobalSetup]
@@ -26,13 +27,13 @@ namespace Pathfindax.Benchmarks
 			_astarNodeNetwork = new AstarNodeNetwork(_definitionNodeGrid, new GridClearanceGenerator(_definitionNodeGrid, 1));
 			_algorithm = new AStarAlgorithm(_definitionNodeGrid.NodeCount);
 			_longPathRequest =
-				new PathRequest<NodePath>(_definitionNodeGrid.NodeGrid[0, 0], _definitionNodeGrid.NodeGrid[319, 199]);
+				new PathRequest<NodePath>(_definitionNodeGrid.NodeGrid.ToIndex(0, 0), _definitionNodeGrid.NodeGrid.ToIndex(319, 199));
 			_shortPathRequest =
-				new PathRequest<NodePath>(_definitionNodeGrid.NodeGrid[0, 0], _definitionNodeGrid.NodeGrid[20, 20]);
+				new PathRequest<NodePath>(_definitionNodeGrid.NodeGrid.ToIndex(0, 0), _definitionNodeGrid.NodeGrid.ToIndex(20, 20));
 			_veryShortPathRequest =
-				new PathRequest<NodePath>(_definitionNodeGrid.NodeGrid[0, 0], _definitionNodeGrid.NodeGrid[1, 0]);
+				new PathRequest<NodePath>(_definitionNodeGrid.NodeGrid.ToIndex(0, 0), _definitionNodeGrid.NodeGrid.ToIndex(1, 0));
 			_zeroLengthPathRequest =
-				new PathRequest<NodePath>(_definitionNodeGrid.NodeGrid[0, 0], _definitionNodeGrid.NodeGrid[0, 0]);
+				new PathRequest<NodePath>(_definitionNodeGrid.NodeGrid.ToIndex(0, 0), _definitionNodeGrid.NodeGrid.ToIndex(0, 0));
 		}
 
 		[Benchmark]

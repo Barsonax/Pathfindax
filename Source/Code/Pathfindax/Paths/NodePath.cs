@@ -7,15 +7,17 @@ namespace Pathfindax.Paths
 {
 	public class NodePath : IPath
 	{
-		public Vector2 this[int i] => Transformer.ToWorld(Path[i].Position);
-		public DefinitionNode[] Path { get; }
+		public Vector2 this[int i] => Transformer.ToWorld(_definitionNodes[Path[i]].Position);
+		public int[] Path { get; }
 		public readonly Transformer Transformer;
 		private int _waypointIndex;
+		private readonly DefinitionNode[] _definitionNodes;
 
-		public NodePath(DefinitionNode[] path, Transformer transformer)
+		public NodePath(DefinitionNode[] definitionNodes, int[] path, Transformer transformer)
 		{
 			Path = path;
 			Transformer = transformer;
+			_definitionNodes = definitionNodes;
 		}
 
 		public Vector2 GetHeading(Vector3 currentPosition)
@@ -42,7 +44,7 @@ namespace Pathfindax.Paths
 
 		public override string ToString()
 		{
-			return string.Join(", ", Path.Select(x => x.Position.ToString()));
+			return string.Join(", ", Path.Select(x => _definitionNodes[x].Position.ToString()));
 		}
 	}
 }

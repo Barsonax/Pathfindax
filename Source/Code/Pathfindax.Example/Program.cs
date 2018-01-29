@@ -3,6 +3,7 @@ using Duality;
 using Pathfindax.Factories;
 using Pathfindax.Graph;
 using Pathfindax.PathfindEngine;
+using Pathfindax.Utils;
 
 namespace Pathfindax.Example
 {
@@ -24,8 +25,8 @@ namespace Pathfindax.Example
 			var pathfinder = pathfindaxManager.CreateAstarPathfinder(nodeNetwork);
 
 			//Request a path.
-			var pathRequest = pathfinder.RequestPath(nodeNetwork.NodeGrid[0, 0], nodeNetwork.NodeGrid[2, 0]);
-			Console.WriteLine($"Solving path from {pathRequest.PathStart.Position} to {pathRequest.PathEnd.Position}...");
+			var pathRequest = pathfinder.RequestPath(nodeNetwork.NodeGrid.ToIndex(0, 0), nodeNetwork.NodeGrid.ToIndex(2, 0));
+			Console.WriteLine($"Solving path from {pathRequest.PathStart} to {pathRequest.PathEnd}...");
 
 			//Poll the status to check when the pathfinder is finished.
 			while (pathRequest.Status == PathRequestStatus.Solving) { } 
@@ -52,8 +53,8 @@ namespace Pathfindax.Example
 			var pathfinder = pathfindaxManager.CreateAstarPathfinder(nodeNetwork);
 
 			//Request a path.
-			var pathRequest = pathfinder.RequestPath(nodeNetwork.NodeGrid[0, 0], nodeNetwork.NodeGrid[2, 0]);
-			Console.WriteLine($"Solving path from {pathRequest.PathStart.Position} to {pathRequest.PathEnd.Position}...");
+			var pathRequest = pathfinder.RequestPath(nodeNetwork.NodeGrid.ToIndex(0, 0), nodeNetwork.NodeGrid.ToIndex(2, 0));
+			Console.WriteLine($"Solving path from {pathRequest.PathStart} to {pathRequest.PathEnd}...");
 
 			//Add a callback to the request that will be called then the pathfinder is done.
 			var callbackCalled = false;

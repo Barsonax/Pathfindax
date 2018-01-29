@@ -5,6 +5,7 @@ using Pathfindax.Algorithms;
 using Pathfindax.Graph;
 using Pathfindax.PathfindEngine;
 using Pathfindax.Paths;
+using Pathfindax.Utils;
 
 namespace Pathfindax.Test.Tests.Algorithms
 {
@@ -17,8 +18,8 @@ namespace Pathfindax.Test.Tests.Algorithms
 		{
 			var aStarAlgorithm = new AStarAlgorithm(definitionNodeGrid.NodeCount);
 
-			var start = definitionNodeGrid.NodeGrid[x1, y1];
-			var end = definitionNodeGrid.NodeGrid[x1, y1];
+			var start = definitionNodeGrid.NodeGrid.ToIndex(x1, y1);
+			var end = definitionNodeGrid.NodeGrid.ToIndex(x1, y1);
 
 			var pathfindingNetwork = new AstarNodeNetwork(definitionNodeGrid, new GridClearanceGenerator(definitionNodeGrid, 5));
 			var pathRequest = new PathRequest<IPath>(start, end);

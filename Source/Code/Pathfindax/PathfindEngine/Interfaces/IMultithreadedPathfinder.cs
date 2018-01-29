@@ -73,7 +73,7 @@ namespace Pathfindax.PathfindEngine
 		/// <param name="end"></param>
 		/// <param name="agentSize"></param>
 		/// <param name="collisionLayer"></param>
-		PathRequest<TPath> RequestPath(DefinitionNode start, DefinitionNode end, PathfindaxCollisionCategory collisionLayer = PathfindaxCollisionCategory.None, byte agentSize = 1);
+		PathRequest<TPath> RequestPath(int start, int end, PathfindaxCollisionCategory collisionLayer = PathfindaxCollisionCategory.None, byte agentSize = 1);
 
 		new IPathFindAlgorithm<TPath> PathFindAlgorithm { get; }
 	}

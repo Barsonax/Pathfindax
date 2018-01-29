@@ -1,4 +1,5 @@
-﻿using Duality;
+﻿using System;
+using Duality;
 using NSubstitute;
 using Pathfindax.Algorithms;
 using Pathfindax.Factories;
@@ -17,10 +18,11 @@ namespace Pathfindax.Test.Setup
 			return manager.CreatePathfinder(Substitute.For<IDefinitionNodeNetwork>(), Substitute.For<IPathFindAlgorithm<IPathfindNodeNetwork, IPath>>(), (definitionNodeNetwork, algorithm) =>
 			{
 				var nodeGrid = Substitute.For<IPathfindNodeNetwork>();
+				var nodeArray = new[] { new DefinitionNode(), };
 				algorithm.FindPath(null, null, out var _).ReturnsForAnyArgs(x =>
 				{
 					x[2] = succesTrue;
-					return new NodePath(new[] { new DefinitionNode(0, Vector2.Zero) }, new Transformer(new Vector2(1, 1)));
+					return new NodePath(nodeArray, new[] { 0 }, new Transformer(new Vector2(1, 1)));
 				});
 				return PathfinderFactory.CreateRequestProcesser(nodeGrid, algorithm);
 			}, threads);

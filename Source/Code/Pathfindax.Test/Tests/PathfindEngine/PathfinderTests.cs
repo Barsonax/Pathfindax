@@ -15,7 +15,7 @@ namespace Pathfindax.Test.Tests.PathfindEngine
         {
             var multithreadedPathfinder = PathfinderSetup.Create(1);
             multithreadedPathfinder.Start();	        
-            var pathRequest = PathRequest.Create(multithreadedPathfinder, null, null);
+            var pathRequest = PathRequest.Create(multithreadedPathfinder, -1, -1);
             pathRequest.WaitHandle.WaitOne(1000);
 
             Assert.AreEqual(PathRequestStatus.Solved, pathRequest.Status);
@@ -31,7 +31,7 @@ namespace Pathfindax.Test.Tests.PathfindEngine
             for (var i = 0; i < pathRequests.Length; i++)
             {
 	            
-				pathRequests[i] = PathRequest.Create(multithreadedPathfinder, null, null); ;
+				pathRequests[i] = PathRequest.Create(multithreadedPathfinder, -1, -1); ;
             }
 
             WaitHandle.WaitAll(pathRequests.Select(x => x.WaitHandle).ToArray(), 2000);

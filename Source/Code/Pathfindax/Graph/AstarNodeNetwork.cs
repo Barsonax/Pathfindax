@@ -51,7 +51,7 @@ namespace Pathfindax.Graph
 			var nodeNetwork = new AstarNode[definitionNodeNetwork.NodeCount];
 			for (var i = 0; i < definitionNodeNetwork.NodeCount; i++)
 			{
-				nodeNetwork[i] = new AstarNode(definitionNodeNetwork[i]);
+				nodeNetwork[i] = new AstarNode(definitionNodeNetwork.NodeArray[i]);
 			}
 			return nodeNetwork;
 		}

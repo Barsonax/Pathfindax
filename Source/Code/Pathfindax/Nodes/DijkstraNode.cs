@@ -1,4 +1,4 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
 using Pathfindax.Collections;
 
 namespace Pathfindax.Nodes
@@ -9,21 +9,13 @@ namespace Pathfindax.Nodes
 		/// The cost to the targetnode
 		/// </summary>
 		public float GCost;
-		public DefinitionNode DefinitionNode;
 		public float Clearance;
 
-		DefinitionNode ICollisionLayerNode.DefinitionNode => DefinitionNode;
+		DefinitionNode ICollisionLayerNode.DefinitionNode => throw new NotImplementedException();
 		float ICollisionLayerNode.Clearance
 		{
 			get => Clearance;
 			set => Clearance = value;
-		}
-
-		public DijkstraNode(DefinitionNode definitionNode)
-		{
-			DefinitionNode = definitionNode;
-			GCost = 0f;
-			Clearance = float.MaxValue;
 		}
 
 		public int CompareTo(DijkstraNode other)

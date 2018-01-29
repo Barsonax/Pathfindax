@@ -83,8 +83,8 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Generators
 					    collisionCategory.Y < definitionNodeGrid.NodeGrid.Height)
 					{
 						//TODO provide option to exclude diagonal neighbours.
-						var toNode = definitionNodeGrid.NodeGrid[collisionCategory.X, collisionCategory.Y];
-						definitionNode.AddConnection(toNode, collisionCategory.PathfindaxCollisionCategory | _nodeCollisions[0].PathfindaxCollisionCategory);
+						var toNodeIndex = definitionNodeGrid.NodeGrid.ToIndex(collisionCategory.X, collisionCategory.Y);
+						definitionNode.AddConnection(toNodeIndex, collisionCategory.PathfindaxCollisionCategory | _nodeCollisions[0].PathfindaxCollisionCategory);
 					}
 				}
 			}
@@ -94,8 +94,8 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Generators
 				{
 					var collisionCategory = _nodeCollisions[index];
 					//TODO provide option to exclude diagonal neighbours.
-					var toNode = definitionNodeGrid.NodeGrid[collisionCategory.X, collisionCategory.Y];
-					definitionNode.AddConnection(toNode, collisionCategory.PathfindaxCollisionCategory | _nodeCollisions[0].PathfindaxCollisionCategory);
+					var toNodeIndex = definitionNodeGrid.NodeGrid.ToIndex(collisionCategory.X, collisionCategory.Y);
+					definitionNode.AddConnection(toNodeIndex, collisionCategory.PathfindaxCollisionCategory | _nodeCollisions[0].PathfindaxCollisionCategory);
 				}
 			}
 		}

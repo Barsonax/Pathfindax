@@ -19,16 +19,6 @@ namespace Pathfindax.Nodes
 			Index = index;
 		}
 
-		public static T Dereference<T>(int index, T[] nodeArray)
-		{
-			return nodeArray[index];
-		}
-
-		public static DefinitionNode Dereference(int index, IDefinitionNodeNetwork nodeArray)
-		{
-			return nodeArray[index];
-		}
-
 		public override string ToString()
 		{
 			return Index.ToString();

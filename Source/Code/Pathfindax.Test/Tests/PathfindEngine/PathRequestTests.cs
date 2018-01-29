@@ -14,7 +14,7 @@ namespace Pathfindax.Test.Tests.PathfindEngine
 		public void Integration_StatusFlowToSolved()
 		{
 			var pathfinder = PathfinderSetup.Create(1);
-			var request = new PathRequest<IPath>(Substitute.For<IDefinitionNode>(), Substitute.For<IDefinitionNode>());
+			var request = new PathRequest<IPath>(-1, -1);
 
 			Assert.AreEqual(PathRequestStatus.Created, request.Status);
 			request.StartSolvePath(pathfinder);
@@ -28,7 +28,7 @@ namespace Pathfindax.Test.Tests.PathfindEngine
 		public void Integration_StatusFlowToNoPathFound()
 		{
 			var pathfinder = PathfinderSetup.Create(1, false);
-			var request = new PathRequest<IPath>(Substitute.For<IDefinitionNode>(), Substitute.For<IDefinitionNode>());
+			var request = new PathRequest<IPath>(-1, -1);
 
 			Assert.AreEqual(PathRequestStatus.Created, request.Status);
 			request.StartSolvePath(pathfinder);
@@ -43,7 +43,7 @@ namespace Pathfindax.Test.Tests.PathfindEngine
 		{
 			var pathfinder = PathfinderSetup.Create(1);
 			pathfinder.Start();
-			var request = PathRequest.Create(pathfinder, Substitute.For<IDefinitionNode>(), Substitute.For<IDefinitionNode>());
+			var request = PathRequest.Create(pathfinder, -1, -1);
 			request.WaitHandle.WaitOne(1000);
 
 			var done = false;
@@ -57,7 +57,7 @@ namespace Pathfindax.Test.Tests.PathfindEngine
 		{
 			var pathfinder = PathfinderSetup.Create(1);
 			pathfinder.Start();
-			var request = PathRequest.Create<IPath>(Substitute.For<IDefinitionNode>(), Substitute.For<IDefinitionNode>());	
+			var request = PathRequest.Create<IPath>(-1, -1);	
 			
 			var done = false;
 			request.AddCallback(x => done = true);
