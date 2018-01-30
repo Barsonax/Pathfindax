@@ -1,5 +1,6 @@
 ﻿using Duality;
 using Pathfindax.Nodes;
+using Pathfindax.Utils;
 
 namespace Pathfindax.Graph
 {
@@ -18,8 +19,8 @@ namespace Pathfindax.Graph
 		{
 			for (int i = 0; i < _definitionNodeGrid.DefinitionNodeArray.Array.Length; i++)
 			{
-				var definitionNode = _definitionNodeGrid.DefinitionNodeArray.Array[i];
-				var clearance = CalculateGridNodeClearances(definitionNode, collisionCategory, _maxClearance);
+				ref var definitionNode = ref _definitionNodeGrid.DefinitionNodeArray.Array[i];
+				var clearance = CalculateGridNodeClearances(ref definitionNode, collisionCategory, _maxClearance);
 				pathfindingNetwork[i].Clearance = clearance;
 			}
 		}
@@ -31,7 +32,7 @@ namespace Pathfindax.Graph
 		/// <param name="collisionCategory"></param>
 		/// <param name="maxClearance"></param>
 		/// <returns></returns>
-		public float CalculateGridNodeClearances(DefinitionNode definitionNode, PathfindaxCollisionCategory collisionCategory, int maxClearance)
+		public float CalculateGridNodeClearances(ref DefinitionNode definitionNode, PathfindaxCollisionCategory collisionCategory, int maxClearance)
 		{
 			var fromCoordinates = new Point2((int) definitionNode.Position.X, (int) definitionNode.Position.Y);
 			for (var checkClearance = 0; checkClearance < maxClearance; checkClearance++)
@@ -79,7 +80,8 @@ namespace Pathfindax.Graph
 		{
 			if (x >= _definitionNodeGrid.DefinitionNodeArray.Width || y >= _definitionNodeGrid.DefinitionNodeArray.Height)
 				return BlockType.Current;
-			var definitionNode = _definitionNodeGrid.DefinitionNodeArray[x, y];
+			var nodeIndex = _definitionNodeGrid.DefinitionNodeArray.ToIndex(x, y);
+			ref var definitionNode = ref _definitionNodeGrid.DefinitionNodeArray.Array[nodeIndex];
 			var blockType = BlockType.None;
 			foreach (var nodeConnection in definitionNode.Connections)
 			{

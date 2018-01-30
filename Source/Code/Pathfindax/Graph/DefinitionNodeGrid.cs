@@ -26,15 +26,15 @@ namespace Pathfindax.Graph
 			NodeGrid = DefinitionNodeGridFactory.GeneratePreFilledArray(generateNodeGridConnections, width, height);
 		}
 
-		public DefinitionNode GetNode(float worldX, float worldY)
+		public ref DefinitionNode GetNode(float worldX, float worldY)
 		{
-			var coords = Transformer.ToGrid(worldX, worldY);
-			return NodeGrid[coords.X, coords.Y];
+			var index = GetNodeIndex(worldX, worldY);
+			return ref NodeArray[index];
 		}
 
-		public int GetNodeIndex(float x, float y)
+		public int GetNodeIndex(float worldX, float worldY)
 		{
-			return NodeGrid.ToIndex(Transformer.ToGrid(x, y));
+			return NodeGrid.ToIndex(Transformer.ToGrid(worldX, worldY));
 		}
 	}
 }

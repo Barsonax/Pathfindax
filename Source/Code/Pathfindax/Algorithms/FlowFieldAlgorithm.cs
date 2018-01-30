@@ -23,26 +23,16 @@ namespace Pathfindax.Algorithms
 
 		public FlowField FindPath(DijkstraNodeGrid dijkstraNodeNetwork, IPathRequest pathRequest, out bool succes)
 		{
-			try
+			if (_flowFieldCache == null || !_flowFieldCache.TryGetValue(pathRequest, out var flowField))
 			{
-				if (_flowFieldCache == null || !_flowFieldCache.TryGetValue(pathRequest, out var flowField))
-				{
-					var potentialField = _potentialFieldAlgorithm.FindPath(dijkstraNodeNetwork, pathRequest, out succes);
-					var sw = Stopwatch.StartNew();
-					flowField = new FlowField(potentialField);
-					Debug.WriteLine($"Flowfield created in {sw.ElapsedMilliseconds} ms.");
-					_flowFieldCache?.Add(pathRequest, flowField);
-				}
-				succes = flowField[pathRequest.PathStart].Length > 0;
-				return flowField;
+				var potentialField = _potentialFieldAlgorithm.FindPath(dijkstraNodeNetwork, pathRequest, out succes);
+				var sw = Stopwatch.StartNew();
+				flowField = new FlowField(potentialField);
+				Debug.WriteLine($"Flowfield created in {sw.ElapsedMilliseconds} ms.");
+				_flowFieldCache?.Add(pathRequest, flowField);
 			}
-			catch (Exception ex)
-			{
-				Debug.WriteLine(ex);
-				Debugger.Break();
-				succes = false;
-				return null;
-			}
+			succes = flowField[pathRequest.PathStart].Length > 0;
+			return flowField;
 		}
 
 		public PathRequest<FlowField> CreatePathRequest(IPathfinder<FlowField> pathfinder, IDefinitionNodeNetwork definitionNodes, float x1, float y1, float x2, float y2, PathfindaxCollisionCategory collisionLayer = PathfindaxCollisionCategory.None, byte agentSize = 1)

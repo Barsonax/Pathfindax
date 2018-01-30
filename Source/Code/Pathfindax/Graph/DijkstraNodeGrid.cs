@@ -39,10 +39,10 @@ namespace Pathfindax.Graph
 			var nodeNetwork = new DijkstraNode[DefinitionNodeGrid.NodeCount];
 			for (var i = 0; i < DefinitionNodeGrid.NodeGrid.Array.Length; i++)
 			{
-				var definitionNode = DefinitionNodeGrid.NodeGrid.Array[i];
+				ref var definitionNode = ref DefinitionNodeGrid.NodeGrid.Array[i];
 				nodeNetwork[i] = new DijkstraNode
 				{
-					Clearance = _maxClearance == -1 ? int.MaxValue : gridClearanceGenerator.CalculateGridNodeClearances(definitionNode, collisionCategory, _maxClearance)
+					Clearance = _maxClearance == -1 ? int.MaxValue : gridClearanceGenerator.CalculateGridNodeClearances(ref definitionNode, collisionCategory, _maxClearance)
 				};
 			}
 			return nodeNetwork;

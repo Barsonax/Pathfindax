@@ -7,11 +7,11 @@ namespace Pathfindax.Benchmarks
 	{
 		static void Main(string[] args)
 		{
-			//var foo = new DijkstraAlgorithmBenchmark();
+			//var foo = new AstarAlgorithmBenchmark();
 			//foo.Setup();
 			//while (true)
 			//{
-			//	foo.FindPath();
+			//	foo.FindLongPath();
 			//}
 			BenchmarkRunner.Run<AstarAlgorithmBenchmark>();
 			Console.ReadKey();

@@ -29,6 +29,11 @@ namespace Pathfindax.Algorithms
 
 		public NodePath FindPath(IPathfindNodeNetwork<AstarNode> nodeNetwork, IPathRequest pathRequest, out bool succes)
 		{
+			if (pathRequest.PathStart == pathRequest.PathEnd)
+			{
+				succes = true;
+				return new NodePath(nodeNetwork.DefinitionNodeNetwork.NodeArray, new[] { pathRequest.PathStart }, nodeNetwork.DefinitionNodeNetwork.Transformer);
+			}
 			var pathfindingNetwork = nodeNetwork.GetCollisionLayerNetwork(pathRequest.CollisionCategory);
 			var path = FindPath(pathfindingNetwork, nodeNetwork.DefinitionNodeNetwork.NodeArray, pathRequest.PathStart, pathRequest.PathEnd, pathRequest.AgentSize, pathRequest.CollisionCategory);
 			if (path == null)
@@ -62,69 +67,50 @@ namespace Pathfindax.Algorithms
 
 		private int[] FindPath(AstarNode[] pathfindingNetwork, DefinitionNode[] definitionNodes, int startNodeIndex, int targetNodeIndex, float neededClearance, PathfindaxCollisionCategory collisionCategory)
 		{
-			try
+			ref var startNode = ref pathfindingNetwork[startNodeIndex];
+			ref var targetNode = ref pathfindingNetwork[targetNodeIndex];
+
+			if (startNode.Clearance >= neededClearance && targetNode.Clearance >= neededClearance)
 			{
-				if (startNodeIndex == targetNodeIndex)
+				_openSet.AssignArray(pathfindingNetwork);
+				_closedSet.Clear();
+				_openSet.Add(startNodeIndex);
+				var targetNodePosition = definitionNodes[targetNodeIndex].Position;
+				while (_openSet.Count > 0)
 				{
-					return new[] { targetNodeIndex };
-				}
-				var pathSucces = false;
-				ref var startNode = ref pathfindingNetwork[startNodeIndex];
-				ref var targetNode = ref pathfindingNetwork[targetNodeIndex];
-
-				if (startNode.Clearance >= neededClearance && targetNode.Clearance >= neededClearance)
-				{
-					_openSet.AssignArray(pathfindingNetwork);
-					_closedSet.Clear();
-					_openSet.Add(startNodeIndex);
-					var targetNodePosition = definitionNodes[targetNodeIndex].Position;
-					while (_openSet.Count > 0)
+					var currentNodeIndex = _openSet.RemoveFirst();
+					if (currentNodeIndex == targetNodeIndex)
 					{
-						var currentNodeIndex = _openSet.RemoveFirst();
-						if (currentNodeIndex == targetNodeIndex)
+						Debug.WriteLine($"NodePath found");
+						return RetracePath(pathfindingNetwork, startNodeIndex, targetNodeIndex);
+					}
+
+					ref var currentNode = ref pathfindingNetwork[currentNodeIndex];
+					ref var currentDefinitionNode = ref definitionNodes[currentNodeIndex];
+					_closedSet.Occupy(currentNodeIndex);
+
+					var currentNodePosition = currentDefinitionNode.Position;
+					foreach (var connection in currentDefinitionNode.Connections)
+					{
+						ref var toNode = ref pathfindingNetwork[connection.To];
+						if ((connection.CollisionCategory & collisionCategory) != 0 || _closedSet.Contains(connection.To)) continue;
+
+						if (!(toNode.Clearance >= neededClearance)) continue;
+						ref var toDefinitionNode = ref definitionNodes[connection.To];
+						var newMovementCostToNeighbour = currentNode.GCost + GetDistance(currentNodePosition, toDefinitionNode.Position) * currentDefinitionNode.MovementCostModifier;
+						if (newMovementCostToNeighbour < toNode.GCost || !_openSet.Contains(connection.To))
 						{
-							Debug.WriteLine($"NodePath found");
-							pathSucces = true;
-							break;
-						}
-
-						ref var currentNode = ref pathfindingNetwork[currentNodeIndex];
-						ref var currentDefinitionNode = ref definitionNodes[currentNodeIndex];
-						_closedSet.Occupy(currentNodeIndex);
-
-						var currentNodePosition = currentDefinitionNode.Position;
-						foreach (var connection in currentDefinitionNode.Connections)
-						{
-							ref var toNode = ref pathfindingNetwork[connection.To];
-							if ((connection.CollisionCategory & collisionCategory) != 0 || _closedSet.Contains(connection.To)) continue;
-
-							if (!(toNode.Clearance >= neededClearance)) continue;
-							ref var toDefinitionNode = ref definitionNodes[connection.To];
-							var newMovementCostToNeighbour = currentNode.GCost + GetDistance(currentNodePosition, toDefinitionNode.Position) * currentDefinitionNode.MovementCostModifier;
-							if (newMovementCostToNeighbour < toNode.GCost || !_openSet.Contains(connection.To))
-							{
-								toNode.GCost = newMovementCostToNeighbour;
-								toNode.HCost = GetDistance(toDefinitionNode.Position, targetNodePosition);
-								toNode.Parent = currentNodeIndex;
-								if (!_openSet.Contains(connection.To))
-									_openSet.Add(connection.To);
-							}
+							toNode.GCost = newMovementCostToNeighbour;
+							toNode.HCost = GetDistance(toDefinitionNode.Position, targetNodePosition);
+							toNode.Parent = currentNodeIndex;
+							if (!_openSet.Contains(connection.To))
+								_openSet.Add(connection.To);
 						}
 					}
 				}
-				if (pathSucces)
-				{
-					return RetracePath(pathfindingNetwork, startNodeIndex, targetNodeIndex);
-				}
-				Debug.WriteLine("Did not find a path :(");
-				return null;
 			}
-			catch (Exception ex)
-			{
-				Debug.WriteLine(ex);
-				Debugger.Break();
-				return null;
-			}
+			Debug.WriteLine("Did not find a path :(");
+			return null;
 		}
 
 		private int[] RetracePath(AstarNode[] pathfindingNetwork, int startIndex, int targetIndex)

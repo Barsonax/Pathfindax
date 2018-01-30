@@ -63,8 +63,8 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Components
 				var connectionGenerator = new TilemapNodeConnectionGenerator();
 				for (int i = 0; i < _definitionNodeGrid.NodeCount; i++)
 				{
-					var definitionNode = _definitionNodeGrid.NodeGrid[i];
-					connectionGenerator.CalculateGridNodeCollision(tilemapColliderWithBodies, _definitionNodeGrid.NodeGrid[i], _definitionNodeGrid);
+					ref var definitionNode = ref _definitionNodeGrid.NodeGrid.Array[i];
+					connectionGenerator.CalculateGridNodeCollision(tilemapColliderWithBodies, ref definitionNode, _definitionNodeGrid);
 
 					if (MovementPenalties != null)
 					{

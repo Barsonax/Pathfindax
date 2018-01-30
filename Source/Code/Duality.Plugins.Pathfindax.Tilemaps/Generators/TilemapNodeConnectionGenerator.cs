@@ -66,21 +66,21 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Generators
 		/// <param name="tilemapColliderWithBodies"></param>
 		/// <param name="definitionNode"></param>
 		/// <param name="definitionNodeGrid"></param>
-		public void CalculateGridNodeCollision(TilemapColliderWithBody[] tilemapColliderWithBodies, DefinitionNode definitionNode, DefinitionNodeGrid definitionNodeGrid)
+		public void CalculateGridNodeCollision(TilemapColliderWithBody[] tilemapColliderWithBodies, ref DefinitionNode definitionNode, DefinitionNodeGrid definitionNodeGrid)
 		{
-			var nodeGridCoordinates = new Point2((int) definitionNode.Position.X, (int) definitionNode.Position.Y);
+			var nodeGridCoordinates = new Point2((int)definitionNode.Position.X, (int)definitionNode.Position.Y);
 			CalculateNodeCollisionCategories(nodeGridCoordinates.X, nodeGridCoordinates.Y, tilemapColliderWithBodies);
 
 			if (nodeGridCoordinates.X == 0 || nodeGridCoordinates.Y == 0 ||
-			    nodeGridCoordinates.X == definitionNodeGrid.NodeGrid.Width - 1 ||
-			    nodeGridCoordinates.Y == definitionNodeGrid.NodeGrid.Height - 1)
+				nodeGridCoordinates.X == definitionNodeGrid.NodeGrid.Width - 1 ||
+				nodeGridCoordinates.Y == definitionNodeGrid.NodeGrid.Height - 1)
 			{
 				for (var index = 1; index < _nodeCollisions.Length; index++)
 				{
 					var collisionCategory = _nodeCollisions[index];
 					if (collisionCategory.X >= 0 && collisionCategory.Y >= 0 &&
-					    collisionCategory.X < definitionNodeGrid.NodeGrid.Width &&
-					    collisionCategory.Y < definitionNodeGrid.NodeGrid.Height)
+						collisionCategory.X < definitionNodeGrid.NodeGrid.Width &&
+						collisionCategory.Y < definitionNodeGrid.NodeGrid.Height)
 					{
 						//TODO provide option to exclude diagonal neighbours.
 						var toNodeIndex = definitionNodeGrid.NodeGrid.ToIndex(collisionCategory.X, collisionCategory.Y);

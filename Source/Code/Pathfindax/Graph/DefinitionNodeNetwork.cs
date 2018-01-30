@@ -33,11 +33,11 @@ namespace Pathfindax.Graph
 		/// Returns the node closest to this position
 		/// </summary>
 		/// <returns></returns>
-		public DefinitionNode GetNode(float worldX, float worldY)
+		public ref DefinitionNode GetNode(float worldX, float worldY)
 		{
 			var index = GetNodeIndex(worldX, worldY);
-
-			return NodeArray[index]; //TODO this does not scale well with more nodes in the network.
+			
+			return ref NodeArray[index]; //TODO this does not scale well with more nodes in the network.
 		}
 
 		public int GetNodeIndex(float worldX, float worldY)

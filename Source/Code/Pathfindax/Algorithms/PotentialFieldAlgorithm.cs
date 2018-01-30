@@ -25,40 +25,30 @@ namespace Pathfindax.Algorithms
 
 		public PotentialField FindPath(DijkstraNodeGrid dijkstraNodeNetwork, IPathRequest pathRequest, out bool succes)
 		{
-			try
-			{
-				if (pathRequest.AgentSize % 2 == 0) throw new InvalidAgentSizeException("Potential fields only support uneven agent sizes such as 1,3,5 etc.");
+			if (pathRequest.AgentSize % 2 == 0) throw new InvalidAgentSizeException("Potential fields only support uneven agent sizes such as 1,3,5 etc.");
 
-				if (_potentialFieldCache == null || !_potentialFieldCache.TryGetValue(pathRequest, out var potentialField))
+			if (_potentialFieldCache == null || !_potentialFieldCache.TryGetValue(pathRequest, out var potentialField))
+			{
+				var sw = Stopwatch.StartNew();
+				var pathfindingNetwork = dijkstraNodeNetwork.GetCollisionLayerNetwork(pathRequest.CollisionCategory);
+
+				if (_dijkstraAlgorithm.FindPath(pathfindingNetwork, dijkstraNodeNetwork.DefinitionNodeGrid.NodeGrid.Array, pathRequest.PathEnd, pathRequest.AgentSize, pathRequest.CollisionCategory))
 				{
-					var sw = Stopwatch.StartNew();
-					var pathfindingNetwork = dijkstraNodeNetwork.GetCollisionLayerNetwork(pathRequest.CollisionCategory);
-
-					if (_dijkstraAlgorithm.FindPath(pathfindingNetwork, dijkstraNodeNetwork.DefinitionNodeGrid.NodeGrid.Array, pathRequest.PathEnd, pathRequest.AgentSize, pathRequest.CollisionCategory))
-					{
-						potentialField = FindPath(dijkstraNodeNetwork, pathfindingNetwork, pathRequest.PathEnd, pathRequest);
-					}
-					else
-					{
-						ref var targetDefinitionNode = ref dijkstraNodeNetwork.DefinitionNodeGrid.NodeGrid.Array[pathRequest.PathEnd];
-						potentialField = new PotentialField(dijkstraNodeNetwork.DefinitionNodeGrid.Transformer, (Point2)targetDefinitionNode.Position);
-					}
-					_potentialFieldCache?.Add(pathRequest, potentialField);
-					Debug.WriteLine($"Potentialfield created in {sw.ElapsedMilliseconds} ms.");
+					potentialField = FindPath(dijkstraNodeNetwork, pathfindingNetwork, pathRequest.PathEnd, pathRequest);
 				}
-				ref var startDefinitionNode = ref dijkstraNodeNetwork.DefinitionNodeGrid.NodeArray[pathRequest.PathStart];
-				var nodeWorldPosition = potentialField.GridTransformer.ToWorld(startDefinitionNode.Position);
-				var offset = GridClearanceHelper.GridNodeOffset(pathRequest.AgentSize, dijkstraNodeNetwork.DefinitionNodeGrid.Transformer.Scale);
-				succes = potentialField.GetHeading(nodeWorldPosition + offset).Length > 0;
-				return potentialField;
+				else
+				{
+					ref var targetDefinitionNode = ref dijkstraNodeNetwork.DefinitionNodeGrid.NodeGrid.Array[pathRequest.PathEnd];
+					potentialField = new PotentialField(dijkstraNodeNetwork.DefinitionNodeGrid.Transformer, (Point2)targetDefinitionNode.Position);
+				}
+				_potentialFieldCache?.Add(pathRequest, potentialField);
+				Debug.WriteLine($"Potentialfield created in {sw.ElapsedMilliseconds} ms.");
 			}
-			catch (Exception ex)
-			{
-				Debug.WriteLine(ex);
-				Debugger.Break();
-				succes = false;
-				return null;
-			}
+			ref var startDefinitionNode = ref dijkstraNodeNetwork.DefinitionNodeGrid.NodeArray[pathRequest.PathStart];
+			var nodeWorldPosition = potentialField.GridTransformer.ToWorld(startDefinitionNode.Position);
+			var offset = GridClearanceHelper.GridNodeOffset(pathRequest.AgentSize, dijkstraNodeNetwork.DefinitionNodeGrid.Transformer.Scale);
+			succes = potentialField.GetHeading(nodeWorldPosition + offset).Length > 0;
+			return potentialField;
 		}
 
 		public static PotentialField FindPath(DijkstraNodeGrid dijkstraNodeNetwork, DijkstraNode[] pathfindingNetwork, int targetNodeIndex, IPathRequest pathRequest)
