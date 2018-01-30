@@ -3,6 +3,6 @@
 	public interface ICollisionLayerNode
 	{
 		DefinitionNode DefinitionNode { get; }
-		float Clearance { get; set; }
+		float Clearance { get; }
 	}
 }

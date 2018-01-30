@@ -22,7 +22,7 @@ namespace Pathfindax.Graph
 	/// </summary>
 	public interface IPathfindNodeNetwork
 	{
-		IReadOnlyList<ICollisionLayerNode> GetCollisionLayerNetwork(PathfindaxCollisionCategory collisionCategory);
+		object GetCollisionLayerNetwork(PathfindaxCollisionCategory collisionCategory);
 		IDefinitionNodeNetwork DefinitionNodeNetwork { get; }
 	}
 }

@@ -7,7 +7,7 @@ namespace Pathfindax.Nodes
 	/// <summary>
 	/// Represents a node that can be used with the A* algorithm.
 	/// </summary>
-	public struct AstarNode : IIndexHeapItem<AstarNode>, ICollisionLayerNode
+	public struct AstarNode : IIndexHeapItem<AstarNode>
 	{
 		/// <summary>
 		/// Used to retrace the path in the A* algorithm.
@@ -24,13 +24,10 @@ namespace Pathfindax.Nodes
 		/// </summary>
 		public float GCost;
 
-		public DefinitionNode DefinitionNode => throw new NotImplementedException();
-
-		public float Clearance { get; set; }
+		public float Clearance;
 
 		public AstarNode(DefinitionNode definitionNode)
 		{
-			//DefinitionNode = definitionNode;
 			Parent = -1;
 			HCost = 0f;
 			GCost = 0f;

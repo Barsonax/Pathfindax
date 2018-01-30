@@ -29,7 +29,7 @@ namespace Pathfindax.Graph
 			_pathfindNodeGenerators = pathfindNodeGenerators;
 		}
 
-		IReadOnlyList<ICollisionLayerNode> IPathfindNodeNetwork.GetCollisionLayerNetwork(PathfindaxCollisionCategory collisionCategory) => new ReadOnlyListAdapter<AstarNode, ICollisionLayerNode>(GetCollisionLayerNetwork(collisionCategory));
+		object IPathfindNodeNetwork.GetCollisionLayerNetwork(PathfindaxCollisionCategory collisionCategory) => GetCollisionLayerNetwork(collisionCategory);
 		public AstarNode[] GetCollisionLayerNetwork(PathfindaxCollisionCategory collisionCategory)
 		{
 			if (!_nodeNetworks.TryGetValue(collisionCategory, out var pathfindingNetwork))

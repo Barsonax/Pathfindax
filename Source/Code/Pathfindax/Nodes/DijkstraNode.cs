@@ -1,22 +1,14 @@
-﻿using System;
-using Pathfindax.Collections;
+﻿using Pathfindax.Collections;
 
 namespace Pathfindax.Nodes
 {
-	public struct DijkstraNode : IIndexHeapItem<DijkstraNode>, ICollisionLayerNode
+	public struct DijkstraNode : IIndexHeapItem<DijkstraNode>
 	{
 		/// <summary>
 		/// The cost to the targetnode
 		/// </summary>
 		public float GCost;
 		public float Clearance;
-
-		DefinitionNode ICollisionLayerNode.DefinitionNode => throw new NotImplementedException();
-		float ICollisionLayerNode.Clearance
-		{
-			get => Clearance;
-			set => Clearance = value;
-		}
 
 		public int CompareTo(DijkstraNode other)
 		{
