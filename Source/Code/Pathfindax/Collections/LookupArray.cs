@@ -16,6 +16,11 @@
 			_spots[index] = _generation;
 		}
 
+		public void Remove(int index)
+		{
+			_spots[index] = 0;
+		}
+
 		public void Clear()
 		{
 			if (_generation == byte.MaxValue)
@@ -23,7 +28,7 @@
 				_generation = 1;
 				for (int i = 0; i < _spots.Length; i++)
 				{
-					_spots[i] = 0;
+					Remove(i);
 				}
 			}
 			else
