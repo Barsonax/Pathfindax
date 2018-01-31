@@ -4,14 +4,9 @@ using System.Runtime.CompilerServices;
 
 namespace Pathfindax.Collections
 {
-	public interface IRefComparable<T> : IComparable<T>
+	public interface IIndexHeapItem<T>
 	{
 		int CompareTo(in T other);
-	}
-
-	public interface IIndexHeapItem<T> : IRefComparable<T>
-	{
-
 	}
 
 	/// <summary>
@@ -202,11 +197,6 @@ namespace Pathfindax.Collections
 		}
 
 		public int CompareTo(in HeapStruct<TValue> other)
-		{
-			return Value.CompareTo(other.Value);
-		}
-
-		int IComparable<HeapStruct<TValue>>.CompareTo(HeapStruct<TValue> other)
 		{
 			return Value.CompareTo(other.Value);
 		}

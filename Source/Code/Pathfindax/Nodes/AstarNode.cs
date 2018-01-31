@@ -1,7 +1,4 @@
-﻿using System;
-using System.Dynamic;
-using System.Runtime.CompilerServices;
-using Pathfindax.Collections;
+﻿using Pathfindax.Collections;
 
 namespace Pathfindax.Nodes
 {
@@ -26,21 +23,11 @@ namespace Pathfindax.Nodes
 		public float GCost;
 
 		public float Clearance;
-
-		public int CompareTo(AstarNode other)
-		{
-			return CompareToCore(other);
-		}
+		private float FCost => GCost + HCost;
 
 		public int CompareTo(in AstarNode other)
 		{
-			return CompareToCore(other);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		private int CompareToCore(in AstarNode other)
-		{
-			var compare = (HCost + GCost).CompareTo(other.HCost + other.GCost);
+			var compare = FCost.CompareTo(other.FCost);
 			if (compare == 0)
 			{
 				compare = HCost.CompareTo(other.HCost);

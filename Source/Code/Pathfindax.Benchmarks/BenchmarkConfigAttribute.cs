@@ -22,7 +22,7 @@ namespace Pathfindax.Benchmarks
 		{
 			// The same, using the .With() factory methods:
 			var job = Job.Default
-				.With(Platform.X86)
+				.With(Platform.AnyCpu)
 				.With(Jit.RyuJit);
 			if (invocationCount > 0) job = job.WithInvocationCount(invocationCount);
 			Add(job.WithId("RyuJitConfig"));
