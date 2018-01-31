@@ -55,14 +55,16 @@ namespace Pathfindax.Algorithms
 					var offset = -GridClearanceHelper.GridNodeOffset(agentSize, definitionNodeGrid.Transformer.Scale);
 					startNode = definitionNodeGrid.GetNodeIndex(x1 + offset.X, y1 + offset.Y);
 					endNode = definitionNodeGrid.GetNodeIndex(x2 + offset.X, y2 + offset.Y);
-					return PathRequest.Create(pathfinder, startNode, endNode, collisionLayer, agentSize);
+					break;
 				case IDefinitionNodeNetwork definitionNodeNetwork:
 					startNode = definitionNodeNetwork.GetNodeIndex(x1, y1);
 					endNode = definitionNodeNetwork.GetNodeIndex(x2, y2);
-					return PathRequest.Create(pathfinder, startNode, endNode, collisionLayer, agentSize);
+					break;
+
 				default:
 					throw new NotSupportedException($"{definitionNodes.GetType()} is not supported");
 			}
+			return PathRequest.Create(pathfinder, startNode, endNode, collisionLayer, agentSize);
 		}
 
 		private int[] FindPath(AstarNode[] pathfindingNetwork, DefinitionNode[] definitionNodes, int startNodeIndex, int targetNodeIndex, float neededClearance, PathfindaxCollisionCategory collisionCategory)
