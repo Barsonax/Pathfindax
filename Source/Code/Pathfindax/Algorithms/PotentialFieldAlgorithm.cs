@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using Duality;
 using Pathfindax.Collections;
 using Pathfindax.Graph;
@@ -29,7 +28,6 @@ namespace Pathfindax.Algorithms
 
 			if (_potentialFieldCache == null || !_potentialFieldCache.TryGetValue(pathRequest, out var potentialField))
 			{
-				var sw = Stopwatch.StartNew();
 				var pathfindingNetwork = dijkstraNodeNetwork.GetCollisionLayerNetwork(pathRequest.CollisionCategory);
 
 				if (_dijkstraAlgorithm.FindPath(pathfindingNetwork, dijkstraNodeNetwork.DefinitionNodeGrid.NodeGrid.Array, pathRequest.PathEnd, pathRequest.AgentSize, pathRequest.CollisionCategory))
@@ -42,7 +40,6 @@ namespace Pathfindax.Algorithms
 					potentialField = new PotentialField(dijkstraNodeNetwork.DefinitionNodeGrid.Transformer, (Point2)targetDefinitionNode.Position);
 				}
 				_potentialFieldCache?.Add(pathRequest, potentialField);
-				Debug.WriteLine($"Potentialfield created in {sw.ElapsedMilliseconds} ms.");
 			}
 			ref var startDefinitionNode = ref dijkstraNodeNetwork.DefinitionNodeGrid.NodeArray[pathRequest.PathStart];
 			var nodeWorldPosition = potentialField.GridTransformer.ToWorld(startDefinitionNode.Position);

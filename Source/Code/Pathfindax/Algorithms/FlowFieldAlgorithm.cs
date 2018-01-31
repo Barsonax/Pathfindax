@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using Pathfindax.Collections;
 using Pathfindax.Graph;
 using Pathfindax.Nodes;
@@ -26,9 +25,7 @@ namespace Pathfindax.Algorithms
 			if (_flowFieldCache == null || !_flowFieldCache.TryGetValue(pathRequest, out var flowField))
 			{
 				var potentialField = _potentialFieldAlgorithm.FindPath(dijkstraNodeNetwork, pathRequest, out succes);
-				var sw = Stopwatch.StartNew();
 				flowField = new FlowField(potentialField);
-				Debug.WriteLine($"Flowfield created in {sw.ElapsedMilliseconds} ms.");
 				_flowFieldCache?.Add(pathRequest, flowField);
 			}
 			succes = flowField[pathRequest.PathStart].Length > 0;

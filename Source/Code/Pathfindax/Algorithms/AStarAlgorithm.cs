@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using Duality;
 using Pathfindax.Collections;
 using Pathfindax.Graph;
@@ -43,6 +42,7 @@ namespace Pathfindax.Algorithms
 			}
 			succes = true;
 			return new NodePath(nodeNetwork.DefinitionNodeNetwork.NodeArray, path, nodeNetwork.DefinitionNodeNetwork.Transformer);
+
 		}
 
 		public PathRequest<NodePath> CreatePathRequest(IPathfinder<NodePath> pathfinder, IDefinitionNodeNetwork definitionNodes, float x1, float y1, float x2, float y2, PathfindaxCollisionCategory collisionLayer = PathfindaxCollisionCategory.None, byte agentSize = 1)
@@ -81,7 +81,6 @@ namespace Pathfindax.Algorithms
 					var currentNodeIndex = _openSet.RemoveFirst();
 					if (currentNodeIndex == targetNodeIndex)
 					{
-						Debug.WriteLine($"NodePath found");
 						return RetracePath(pathfindingNetwork, startNodeIndex, targetNodeIndex);
 					}
 
@@ -89,7 +88,6 @@ namespace Pathfindax.Algorithms
 					ref var currentDefinitionNode = ref definitionNodes[currentNodeIndex];
 					_closedSet.Occupy(currentNodeIndex);
 
-					var currentNodePosition = currentDefinitionNode.Position;
 					foreach (var connection in currentDefinitionNode.Connections)
 					{
 						ref var toNode = ref pathfindingNetwork[connection.To];
@@ -97,7 +95,7 @@ namespace Pathfindax.Algorithms
 
 						if (!(toNode.Clearance >= neededClearance)) continue;
 						ref var toDefinitionNode = ref definitionNodes[connection.To];
-						var newMovementCostToNeighbour = currentNode.GCost + GetDistance(currentNodePosition, toDefinitionNode.Position) * currentDefinitionNode.MovementCostModifier;
+						var newMovementCostToNeighbour = currentNode.GCost + GetDistance(currentDefinitionNode.Position, toDefinitionNode.Position) * currentDefinitionNode.MovementCostModifier;
 						if (newMovementCostToNeighbour < toNode.GCost || !_openSet.Contains(connection.To))
 						{
 							toNode.GCost = newMovementCostToNeighbour;
@@ -109,7 +107,6 @@ namespace Pathfindax.Algorithms
 					}
 				}
 			}
-			Debug.WriteLine("Did not find a path :(");
 			return null;
 		}
 

@@ -1,4 +1,5 @@
-﻿using Pathfindax.Collections;
+﻿using System.Runtime.CompilerServices;
+using Pathfindax.Collections;
 
 namespace Pathfindax.Nodes
 {
@@ -10,21 +11,22 @@ namespace Pathfindax.Nodes
 		/// <summary>
 		/// Used to retrace the path in the A* algorithm.
 		/// </summary>
-		public int Parent;
+		public int Parent { get; set; }
 
 		/// <summary>
 		/// The cost calculated by the A* heuristic
 		/// </summary>
-		public float HCost;
+		public float HCost { get; set; }
 
 		/// <summary>
 		/// The cost to the targetnode
 		/// </summary>
-		public float GCost;
+		public float GCost { get; set; }
 
-		public float Clearance;
+		public float Clearance { get; set; }
 		private float FCost => GCost + HCost;
 
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public int CompareTo(in AstarNode other)
 		{
 			var compare = FCost.CompareTo(other.FCost);
