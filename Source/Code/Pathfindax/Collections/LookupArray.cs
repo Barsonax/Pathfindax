@@ -2,11 +2,13 @@
 {
 	public class LookupArray
 	{
+		public int Capacity => _spots.Length;
 		private byte _generation;
 		private readonly byte[] _spots;
 		public LookupArray(int size)
 		{
 			_spots = new byte[size];
+			_generation = 1;
 		}
 
 		public void Occupy(int index)
@@ -18,7 +20,7 @@
 		{
 			if (_generation == byte.MaxValue)
 			{
-				_generation = 0;
+				_generation = 1;
 				for (int i = 0; i < _spots.Length; i++)
 				{
 					_spots[i] = 0;
