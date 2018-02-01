@@ -10,7 +10,7 @@ namespace Pathfindax.Nodes
 		public float GCost;
 		public float Clearance;
 
-		public bool CompareTo(in DijkstraNode other)
+		public bool ShouldBeInFrontOf(in DijkstraNode other)
 		{
 			return GCost < other.GCost;
 		}

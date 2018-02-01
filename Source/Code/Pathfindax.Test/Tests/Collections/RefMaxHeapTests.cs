@@ -31,10 +31,9 @@ namespace Pathfindax.Test.Tests.Collections
 			}
 		}
 
-		[Test]
-		public void RefMaxHeap_CheckHeapCondition()
+		[Test, TestCaseSource(typeof(RefMaxHeapTests), nameof(HeapTestCases))]
+		public void RefMaxHeap_CheckHeapCondition(HeapStruct[] items)
 		{
-			var items = ConvertArray(new[] { 100, 19, 17, 36, 12, 25, 5, 9, 15, 6, 11, 13, 8, 1, 4, 99, 64 });
 			//Create the heap and add the items.
 			var heap = new IndexMaxHeap<HeapStruct>(items);
 			for (int i = 0; i < items.Length; i++)
@@ -110,6 +109,9 @@ namespace Pathfindax.Test.Tests.Collections
 				yield return GenerateHeapTestCase(10, 9, 8);
 				yield return GenerateHeapTestCase(100, 10, 1);
 				yield return GenerateHeapTestCase(58, 72, 1, 0, 5342, 5932, 9999);
+				yield return GenerateHeapTestCase(0, 1, 1, 2, 2, 3, 4, 5, 6, 6);
+				yield return GenerateHeapTestCase(0, 1, 1, 1, 1, 1, 1, 1, 6, 6);
+				yield return GenerateHeapTestCase(0, 1, 2, 1, 4, 1, 6, 1, 6, 6, 10, 16, 10, 0);
 			}
 		}
 
@@ -123,7 +125,7 @@ namespace Pathfindax.Test.Tests.Collections
 			return new TestCaseData(new[] { testCaseData }).SetName($"Values: {string.Join(", ", values)}");
 		}
 
-		private bool CheckHeapCondition(ReadOnlyCollection<int> indexes, HeapStruct[] items, int parentIndex)			
+		private bool CheckHeapCondition(ReadOnlyCollection<int> indexes, HeapStruct[] items, int parentIndex)
 		{
 			var parentValue = items[indexes[parentIndex]];
 			var childHeapIndexLeft = parentIndex * 2 + 1;
@@ -147,22 +149,11 @@ namespace Pathfindax.Test.Tests.Collections
 				if (childIndex < 0)
 				{
 					var childValue = items[childIndex];
-					return parentValue.CompareTo(childValue);
+					return !(parentValue.Value >= childValue.Value);
 				}
 				return true;
 			}
 			return true;
-		}
-
-		private HeapStruct[] ConvertArray(int[] values)
-		{
-			var intValues = new HeapStruct[values.Length];
-			for (int i = 0; i < values.Length; i++)
-			{
-				intValues[i] = new HeapStruct(values[i]);
-			}
-
-			return intValues;
 		}
 	}
 }

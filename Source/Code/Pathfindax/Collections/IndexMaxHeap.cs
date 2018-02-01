@@ -6,7 +6,7 @@ namespace Pathfindax.Collections
 {
 	public interface IIndexHeapItem<T>
 	{
-		bool CompareTo(in T other);
+		bool ShouldBeInFrontOf(in T other);
 	}
 
 	/// <summary>
@@ -123,14 +123,14 @@ namespace Pathfindax.Collections
 				if (childIndexLeft < Count)
 				{
 					var swapHeapIndex = childIndexLeft;
-					if (childIndexRight < Count && _array[_indexes[childIndexLeft]].CompareTo(_array[_indexes[childIndexRight]]) == false)
+					if (childIndexRight < Count && _array[_indexes[childIndexLeft]].ShouldBeInFrontOf(_array[_indexes[childIndexRight]]) == false)
 					{
 						swapHeapIndex = childIndexRight;
 					}
 
 					var swapItemIndex = _indexes[swapHeapIndex];
 					ref var swapItem = ref _array[_indexes[swapHeapIndex]];
-					if (item.CompareTo(swapItem) == false)
+					if (item.ShouldBeInFrontOf(swapItem) == false)
 					{
 						Swap(itemIndex, swapItemIndex);
 						itemHeapIndex = swapHeapIndex;
@@ -155,7 +155,7 @@ namespace Pathfindax.Collections
 			{
 				var parentItemIndex = _indexes[parentItemHeapIndex];
 				ref var parentItem = ref _array[parentItemIndex];
-				if (item.CompareTo(parentItem))
+				if (item.ShouldBeInFrontOf(parentItem))
 				{
 					Swap(itemIndex, parentItemIndex);
 				}
@@ -195,7 +195,7 @@ namespace Pathfindax.Collections
 			return Value.ToString();
 		}
 
-		public bool CompareTo(in HeapStruct other)
+		public bool ShouldBeInFrontOf(in HeapStruct other)
 		{
 			return Value > other.Value;
 		}
