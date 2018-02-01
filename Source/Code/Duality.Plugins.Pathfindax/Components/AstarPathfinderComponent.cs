@@ -1,4 +1,5 @@
 ﻿using Duality.Editor;
+using Pathfindax.Algorithms;
 using Pathfindax.Factories;
 using Pathfindax.Graph;
 using Pathfindax.Nodes;
@@ -21,12 +22,14 @@ namespace Duality.Plugins.Pathfindax.Components
 		/// Try to keep this as low as possible to prevent wasting time calculating clearance values that will never be used.
 		/// </summary>
 		public int MaxClearance { get; set; } = 5;
+		public IDistanceHeuristic Heuristic { get; set; }
 
 		public override IPathfinder<IDefinitionNodeNetwork, IPathfindNodeNetwork<AstarNode>, NodePath> CreatePathfinder()
 		{
 			var definitionNodeNetwork = GetDefinitionNodeNetwork();
 			if (definitionNodeNetwork == null) throw new NoDefinitionNodeNetworkException();
-			return PathfinderFactory.CreateAstarPathfinder(PathfindaxDualityCorePlugin.PathfindaxManager, definitionNodeNetwork, MaxClearance, AmountOfThreads);
+			if (Heuristic == null) throw new NoHeuristicException();
+			return PathfindaxDualityCorePlugin.PathfindaxManager.CreateAstarPathfinder(definitionNodeNetwork, Heuristic, MaxClearance, AmountOfThreads);
 		}
 	}
 }

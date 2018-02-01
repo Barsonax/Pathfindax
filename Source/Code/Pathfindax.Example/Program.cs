@@ -1,5 +1,6 @@
 ﻿using System;
 using Duality;
+using Pathfindax.Algorithms;
 using Pathfindax.Factories;
 using Pathfindax.Graph;
 using Pathfindax.PathfindEngine;
@@ -25,7 +26,7 @@ namespace Pathfindax.Example
 			//Setup the nodegrid and pathfinder.
 			var pathfindaxManager = new PathfindaxManager();
 			var nodeNetwork = new DefinitionNodeGrid(GenerateNodeGridConnections.All, 3, 3, new Vector2(1, 1));
-			var pathfinder = pathfindaxManager.CreateAstarPathfinder(nodeNetwork);
+			var pathfinder = pathfindaxManager.CreateAstarPathfinder(nodeNetwork, new ManhattanHeuristic());
 
 			var exampleGameObject = new ExampleAsyncGameObject(pathfinder);
 			//Start calling update on the manager. Update will call the callbacks of any completed paths. Note that the callback is called from the thread that calls update.
@@ -45,7 +46,7 @@ namespace Pathfindax.Example
 			//Setup the nodegrid and pathfinder.
 			var pathfindaxManager = new PathfindaxManager();
 			var nodeNetwork = new DefinitionNodeGrid(GenerateNodeGridConnections.All, 3, 3, new Vector2(1, 1));
-			var pathfinder = pathfindaxManager.CreateAstarPathfinder(nodeNetwork);
+			var pathfinder = pathfindaxManager.CreateAstarPathfinder(nodeNetwork, new ManhattanHeuristic());
 
 			//Request a path.
 			var pathRequest = pathfinder.RequestPath(nodeNetwork.NodeGrid.ToIndex(0, 0), nodeNetwork.NodeGrid.ToIndex(2, 0));
@@ -73,7 +74,7 @@ namespace Pathfindax.Example
 			//Setup the nodegrid and pathfinder.
 			var pathfindaxManager = new PathfindaxManager();
 			var nodeNetwork = new DefinitionNodeGrid(GenerateNodeGridConnections.All, 3, 3, new Vector2(1, 1));
-			var pathfinder = pathfindaxManager.CreateAstarPathfinder(nodeNetwork);
+			var pathfinder = pathfindaxManager.CreateAstarPathfinder(nodeNetwork, new ManhattanHeuristic());
 
 			//Request a path.
 			var pathRequest = pathfinder.RequestPath(nodeNetwork.NodeGrid.ToIndex(0, 0), nodeNetwork.NodeGrid.ToIndex(2, 0));

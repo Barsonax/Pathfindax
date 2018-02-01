@@ -18,12 +18,14 @@ namespace Pathfindax.Algorithms
 		private readonly IndexMaxHeap<AstarNode> _openSet;
 		private readonly LookupArray _closedSet;
 		private readonly List<int> _pathBuffer;
+		private readonly IDistanceHeuristic _heuristic;
 
-		public AStarAlgorithm(int amountOfNodes)
+		public AStarAlgorithm(int amountOfNodes, IDistanceHeuristic heuristic)
 		{
 			_openSet = new IndexMaxHeap<AstarNode>(amountOfNodes);
 			_closedSet = new LookupArray(amountOfNodes);
 			_pathBuffer = new List<int>();
+			_heuristic = heuristic;
 		}
 
 		public NodePath FindPath(IPathfindNodeNetwork<AstarNode> nodeNetwork, IPathRequest pathRequest, out bool succes)
@@ -60,7 +62,6 @@ namespace Pathfindax.Algorithms
 					startNode = definitionNodeNetwork.GetNodeIndex(x1, y1);
 					endNode = definitionNodeNetwork.GetNodeIndex(x2, y2);
 					break;
-
 				default:
 					throw new NotSupportedException($"{definitionNodes.GetType()} is not supported");
 			}
@@ -93,15 +94,13 @@ namespace Pathfindax.Algorithms
 					foreach (var connection in currentDefinitionNode.Connections)
 					{
 						ref var toNode = ref pathfindingNetwork[connection.To];
-						if ((connection.CollisionCategory & collisionCategory) != 0 || _closedSet.Contains(connection.To)) continue;
-
-						if (!(toNode.Clearance >= neededClearance)) continue;
+						if ((connection.CollisionCategory & collisionCategory) != 0 || _closedSet.Contains(connection.To) || toNode.Clearance < neededClearance) continue;
 						ref var toDefinitionNode = ref definitionNodes[connection.To];
-						var newMovementCostToNeighbour = currentNode.GCost + GetDistance(currentDefinitionNode.Position, toDefinitionNode.Position) * currentDefinitionNode.MovementCostModifier;
+						var newMovementCostToNeighbour = currentNode.GCost + _heuristic.GetDistance(currentDefinitionNode.Position, toDefinitionNode.Position) * currentDefinitionNode.MovementCostModifier;
 						if (newMovementCostToNeighbour < toNode.GCost || !_openSet.Contains(connection.To))
 						{
 							toNode.GCost = newMovementCostToNeighbour;
-							toNode.HCost = GetDistance(toDefinitionNode.Position, targetNodePosition);
+							toNode.HCost = _heuristic.GetDistance(toDefinitionNode.Position, targetNodePosition);
 							toNode.Parent = currentNodeIndex;
 							if (!_openSet.Contains(connection.To))
 								_openSet.Add(connection.To);
@@ -131,13 +130,6 @@ namespace Pathfindax.Algorithms
 				reverseCount--;
 			}
 			return pathArray;
-		}
-
-		private static float GetDistance(in Vector2 position1, in Vector2 position2)
-		{
-			var dstX = Math.Abs(position1.X - position2.X);
-			var dstY = Math.Abs(position1.Y - position2.Y);
-			return dstY + dstX;
 		}
 	}
 }
