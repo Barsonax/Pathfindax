@@ -12,7 +12,7 @@ namespace Pathfindax.Nodes
 
 		public bool CompareTo(in DijkstraNode other)
 		{
-			return GCost > other.GCost;
+			return GCost < other.GCost;
 		}
 	}
 }

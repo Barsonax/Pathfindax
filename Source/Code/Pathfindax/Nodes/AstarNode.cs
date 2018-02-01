@@ -34,14 +34,6 @@ namespace Pathfindax.Nodes
 				return HCost < other.HCost;
 			}
 			return FCost < other.FCost;
-
-
-			//var compare = FCost.CompareTo(other.FCost);
-			//if (compare == 0)
-			//{
-			//	compare = HCost.CompareTo(other.HCost);
-			//}
-			//return -compare;
 		}
 	}
 }
