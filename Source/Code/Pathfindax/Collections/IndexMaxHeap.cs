@@ -123,14 +123,14 @@ namespace Pathfindax.Collections
 				if (childIndexLeft < Count)
 				{
 					var swapHeapIndex = childIndexLeft;
-					if (childIndexRight < Count && _array[_indexes[childIndexLeft]].CompareTo(_array[_indexes[childIndexRight]]))
+					if (childIndexRight < Count && _array[_indexes[childIndexLeft]].CompareTo(_array[_indexes[childIndexRight]]) == false)
 					{
 						swapHeapIndex = childIndexRight;
 					}
 
 					var swapItemIndex = _indexes[swapHeapIndex];
 					ref var swapItem = ref _array[_indexes[swapHeapIndex]];
-					if (item.CompareTo(swapItem))
+					if (item.CompareTo(swapItem) == false)
 					{
 						Swap(itemIndex, swapItemIndex);
 						itemHeapIndex = swapHeapIndex;
