@@ -8,21 +8,21 @@ namespace Pathfindax.Benchmarks
 	public class RefMaxHeapBenchmark
 	{
 		const int Capacity = 50000000;
-		private HeapStruct<int>[] _values;
-		private IndexMaxHeap<HeapStruct<int>> AddMaxHeap;
-		private IndexMaxHeap<HeapStruct<int>> RemoveFirstMaxHeap;
-		private IndexMaxHeap<HeapStruct<int>> ContainsMaxHeap;
-		private HeapStruct<int> SomeContainedValue;
+		private HeapStruct[] _values;
+		private IndexMaxHeap<HeapStruct> AddMaxHeap;
+		private IndexMaxHeap<HeapStruct> RemoveFirstMaxHeap;
+		private IndexMaxHeap<HeapStruct> ContainsMaxHeap;
+		private HeapStruct SomeContainedValue;
 
 		[GlobalSetup(Target = nameof(RemoveFirst))]
 		public void SetupRemoveFirst()
 		{
-			_values = new HeapStruct<int>[Capacity];
+			_values = new HeapStruct[Capacity];
 			for (int i = 0; i < _values.Length; i++)
 			{
-				_values[i] = new HeapStruct<int>(i * 2);
+				_values[i] = new HeapStruct(i * 2);
 			}
-			RemoveFirstMaxHeap = new IndexMaxHeap<HeapStruct<int>>(_values);
+			RemoveFirstMaxHeap = new IndexMaxHeap<HeapStruct>(_values);
 			for (int i = 0; i < RemoveFirstMaxHeap.Capacity; i++)
 			{
 				RemoveFirstMaxHeap.Add(i);
@@ -32,29 +32,29 @@ namespace Pathfindax.Benchmarks
 		[GlobalSetup(Target = nameof(Add))]
 		public void SetupAdd()
 		{
-			_values = new HeapStruct<int>[Capacity];
+			_values = new HeapStruct[Capacity];
 			for (int i = 0; i < _values.Length; i++)
 			{
-				_values[i] = new HeapStruct<int>(i * 2);
+				_values[i] = new HeapStruct(i * 2);
 			}
-			AddMaxHeap = new IndexMaxHeap<HeapStruct<int>>(_values);
+			AddMaxHeap = new IndexMaxHeap<HeapStruct>(_values);
 		}
 
 		[GlobalSetup(Target = nameof(Contains))]
 		public void SetupContains()
 		{
-			_values = new HeapStruct<int>[Capacity];
+			_values = new HeapStruct[Capacity];
 			for (int i = 0; i < _values.Length; i++)
 			{
-				_values[i] = new HeapStruct<int>(i * 2);
+				_values[i] = new HeapStruct(i * 2);
 			}
-			ContainsMaxHeap = new IndexMaxHeap<HeapStruct<int>>(_values);
+			ContainsMaxHeap = new IndexMaxHeap<HeapStruct>(_values);
 			ContainsMaxHeap.Add(5);
 			SomeContainedValue = _values[ContainsMaxHeap.Peek()];
 		}
 
 		[Benchmark]
-		public HeapStruct<int> RemoveFirst()
+		public HeapStruct RemoveFirst()
 		{
 			return _values[RemoveFirstMaxHeap.RemoveFirst()];
 		}

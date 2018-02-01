@@ -27,14 +27,21 @@ namespace Pathfindax.Nodes
 		private float FCost => GCost + HCost;
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public int CompareTo(in AstarNode other)
+		public bool CompareTo(in AstarNode other)
 		{
-			var compare = FCost.CompareTo(other.FCost);
-			if (compare == 0)
+			if (FCost == other.FCost)
 			{
-				compare = HCost.CompareTo(other.HCost);
+				return HCost < other.HCost;
 			}
-			return -compare;
+			return FCost < other.FCost;
+
+
+			//var compare = FCost.CompareTo(other.FCost);
+			//if (compare == 0)
+			//{
+			//	compare = HCost.CompareTo(other.HCost);
+			//}
+			//return -compare;
 		}
 	}
 }

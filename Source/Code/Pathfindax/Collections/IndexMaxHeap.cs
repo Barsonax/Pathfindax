@@ -6,7 +6,7 @@ namespace Pathfindax.Collections
 {
 	public interface IIndexHeapItem<T>
 	{
-		int CompareTo(in T other);
+		bool CompareTo(in T other);
 	}
 
 	/// <summary>
@@ -123,14 +123,14 @@ namespace Pathfindax.Collections
 				if (childIndexLeft < Count)
 				{
 					var swapHeapIndex = childIndexLeft;
-					if (childIndexRight < Count && _array[_indexes[childIndexLeft]].CompareTo(_array[_indexes[childIndexRight]]) < 0)
+					if (childIndexRight < Count && _array[_indexes[childIndexLeft]].CompareTo(_array[_indexes[childIndexRight]]))
 					{
 						swapHeapIndex = childIndexRight;
 					}
 
 					var swapItemIndex = _indexes[swapHeapIndex];
 					ref var swapItem = ref _array[_indexes[swapHeapIndex]];
-					if (item.CompareTo(swapItem) < 0)
+					if (item.CompareTo(swapItem))
 					{
 						Swap(itemIndex, swapItemIndex);
 						itemHeapIndex = swapHeapIndex;
@@ -155,7 +155,7 @@ namespace Pathfindax.Collections
 			{
 				var parentItemIndex = _indexes[parentItemHeapIndex];
 				ref var parentItem = ref _array[parentItemIndex];
-				if (item.CompareTo(parentItem) > 0)
+				if (item.CompareTo(parentItem))
 				{
 					Swap(itemIndex, parentItemIndex);
 				}
@@ -181,12 +181,11 @@ namespace Pathfindax.Collections
 		}
 	}
 
-	public struct HeapStruct<TValue> : IIndexHeapItem<HeapStruct<TValue>>
-		where TValue : IComparable<TValue>
+	public struct HeapStruct : IIndexHeapItem<HeapStruct>
 	{
-		public TValue Value { get; }
+		public int Value { get; }
 
-		public HeapStruct(TValue value)
+		public HeapStruct(int value)
 		{
 			Value = value;
 		}
@@ -196,9 +195,9 @@ namespace Pathfindax.Collections
 			return Value.ToString();
 		}
 
-		public int CompareTo(in HeapStruct<TValue> other)
+		public bool CompareTo(in HeapStruct other)
 		{
-			return Value.CompareTo(other.Value);
+			return Value > other.Value;
 		}
 	}
 }
