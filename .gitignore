@@ -148,3 +148,4 @@
 /Source/Code/Pathfindax.Benchmarks/bin
 *.psess
 *.vspx
+/OpenAL32.dll
