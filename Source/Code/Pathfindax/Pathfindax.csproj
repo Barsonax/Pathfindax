@@ -58,9 +58,11 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Algorithms\Heuristics\ChebyshevDistance.cs" />
+    <Compile Include="Algorithms\Heuristics\EuclideanDistance.cs" />
     <Compile Include="Algorithms\IDistanceHeuristic.cs" />
-    <Compile Include="Algorithms\ManhattanHeuristic.cs" />
-    <Compile Include="Algorithms\OctileDistance.cs" />
+    <Compile Include="Algorithms\Heuristics\ManhattanDistance.cs" />
+    <Compile Include="Algorithms\Heuristics\OctileDistance.cs" />
     <Compile Include="Collections\ConcurrentCache.cs" />
     <Compile Include="Algorithms\DijkstraAlgorithm.cs" />
     <Compile Include="Algorithms\PotentialFieldAlgorithm.cs" />
@@ -139,9 +141,7 @@
     <None Include="packages.config" />
     <None Include="Pathfindax.nuspec" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Algorithms\Heuristics\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>if $(ConfigurationName) == Debug GOTO copyToPlugin

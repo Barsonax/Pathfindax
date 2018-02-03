@@ -57,7 +57,7 @@
     <Compile Include="Tests\Algorithms\AstarAlgorithmTests.cs" />
     <Compile Include="Setup\PathfinderSetup.cs" />
     <Compile Include="Tests\Collections\LookupArrayTests.cs" />
-    <Compile Include="Tests\Collections\RefMaxHeapTests.cs" />
+    <Compile Include="Tests\Collections\IndexMaxHeapTests.cs" />
     <Compile Include="Tests\Collections\MaxHeapTests.cs" />
     <Compile Include="Tests\Graph\GridTransformerTests.cs" />
     <Compile Include="Tests\Graph\TransformerTests.cs" />

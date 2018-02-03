@@ -25,7 +25,7 @@ namespace Pathfindax.Benchmarks
 		{
 			_definitionNodeGrid = new DefinitionNodeGrid(GenerateNodeGridConnections.All, 320, 200, new Vector2(1, 1));
 			_astarNodeNetwork = new AstarNodeNetwork(_definitionNodeGrid, new GridClearanceGenerator(_definitionNodeGrid, 1));
-			_algorithm = new AStarAlgorithm(_definitionNodeGrid.NodeCount, new ManhattanHeuristic());
+			_algorithm = new AStarAlgorithm(_definitionNodeGrid.NodeCount, new ManhattanDistance());
 			_longPathRequest =
 				new PathRequest<NodePath>(_definitionNodeGrid.NodeGrid.ToIndex(0, 0), _definitionNodeGrid.NodeGrid.ToIndex(319, 199));
 			_shortPathRequest =

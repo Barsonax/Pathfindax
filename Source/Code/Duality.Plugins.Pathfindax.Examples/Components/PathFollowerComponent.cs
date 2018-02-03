@@ -16,9 +16,20 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 		public float MovementSpeed { get; set; } = 1f;
 		[EditorHintRange(1, byte.MaxValue)]
 		public byte AgentSize { get; set; }
+
 		public PathfindaxCollisionCategory CollisionCategory { get; set; }
 		public Camera Camera { get; set; }
-		public IPath Path { get; private set; }
+
+
+		public IPath Path
+		{
+			get => _path;
+			private set => _path = value;
+		}
+
+		[DontSerialize]
+		private IPath _path;
+
 		public AstarPathfinderComponent PathfinderComponent { get; set; }
 
 		void ICmpInitializable.OnInit(InitContext context)
@@ -45,16 +56,11 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 			}
 		}
 
-		private void Mouse_ButtonDown(object sender, MouseButtonEventArgs e)
+		private async void Mouse_ButtonDown(object sender, MouseButtonEventArgs e)
 		{
 			var targetPos = Camera.GetSpaceCoord(e.Position);
 			var request = PathfinderComponent.Pathfinder.RequestPath(GameObj.Transform.Pos, targetPos, CollisionCategory, AgentSize);
-			request.AddCallback(OnRequestCompleted);
-		}
-
-		private void OnRequestCompleted(PathRequest<NodePath> pathRequest)
-		{
-			Path = pathRequest.CompletedPath;
+			Path = await request;
 		}
 	}
 }

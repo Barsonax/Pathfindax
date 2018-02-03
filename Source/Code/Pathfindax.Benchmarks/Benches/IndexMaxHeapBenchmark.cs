@@ -5,7 +5,7 @@ using Pathfindax.Nodes;
 namespace Pathfindax.Benchmarks
 {
 	[BenchmarkConfig(300000)]
-	public class RefMaxHeapBenchmark
+	public class IndexMaxHeapBenchmark
 	{
 		const int Capacity = 50000000;
 		private HeapStruct[] _values;

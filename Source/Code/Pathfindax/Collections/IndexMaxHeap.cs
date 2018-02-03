@@ -6,7 +6,7 @@ namespace Pathfindax.Collections
 {
 	public interface IIndexHeapItem<T>
 	{
-		bool ShouldBeInFrontOf(in T other);
+		bool HasHigherPriority(in T other);
 	}
 
 	/// <summary>
@@ -21,7 +21,6 @@ namespace Pathfindax.Collections
 		/// The current amount of items in the heap.
 		/// </summary>
 		public int Count { get; private set; }
-
 		public int Capacity => _indexes.Length;
 		public ReadOnlyCollection<int> Indexes => new ReadOnlyCollection<int>(_indexes);
 		private int[] _indexes;
@@ -123,61 +122,62 @@ namespace Pathfindax.Collections
 				if (childIndexLeft < Count)
 				{
 					var swapHeapIndex = childIndexLeft;
-					if (childIndexRight < Count && _array[_indexes[childIndexLeft]].ShouldBeInFrontOf(_array[_indexes[childIndexRight]]) == false)
+					if (childIndexRight < Count && _array[_indexes[childIndexLeft]].HasHigherPriority(_array[_indexes[childIndexRight]]) == false)
 					{
 						swapHeapIndex = childIndexRight;
 					}
 
 					var swapItemIndex = _indexes[swapHeapIndex];
 					ref var swapItem = ref _array[_indexes[swapHeapIndex]];
-					if (item.ShouldBeInFrontOf(swapItem) == false)
+					if (swapItem.HasHigherPriority(item))
 					{
-						Swap(itemIndex, swapItemIndex);
+						_indexes[itemHeapIndex] = swapItemIndex;
+						_heapIndexes[itemIndex] = swapHeapIndex;
+
+						_heapIndexes[swapItemIndex] = itemHeapIndex;
+
 						itemHeapIndex = swapHeapIndex;
 					}
 					else
 					{
-						return;
+						break;
 					}
-				}
-				else
-				{
-					return;
-				}
-			}
-		}
-
-		private void SortUp(int itemIndex)
-		{
-			var parentItemHeapIndex = (_heapIndexes[itemIndex] - 1) / 2;
-			ref var item = ref _array[itemIndex];
-			while (true)
-			{
-				var parentItemIndex = _indexes[parentItemHeapIndex];
-				ref var parentItem = ref _array[parentItemIndex];
-				if (item.ShouldBeInFrontOf(parentItem))
-				{
-					Swap(itemIndex, parentItemIndex);
 				}
 				else
 				{
 					break;
 				}
-
-				parentItemHeapIndex = (parentItemHeapIndex - 1) / 2;
 			}
+			_indexes[itemHeapIndex] = itemIndex;
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		private void Swap(int itemAIndex, int itemBIndex)
-		{
-			var itemAHeapIndex = _heapIndexes[itemAIndex];
-			var itemBHeapIndex = _heapIndexes[itemBIndex];
-			_indexes[itemAHeapIndex] = itemBIndex;
-			_heapIndexes[itemAIndex] = itemBHeapIndex;
+		private void SortUp(int itemIndex)
+		{	
+			ref var item = ref _array[itemIndex];
+			var parentItemHeapIndex = _heapIndexes[itemIndex];
+			do
+			{
+				parentItemHeapIndex = (parentItemHeapIndex - 1) / 2;
+				var parentItemIndex = _indexes[parentItemHeapIndex];
 
-			_indexes[itemBHeapIndex] = itemAIndex;
-			_heapIndexes[itemBIndex] = itemAHeapIndex;
+				ref var parentItem = ref _array[parentItemIndex];
+				if (parentItem.HasHigherPriority(item))
+					break;
+
+				var itemHeapIndex = _heapIndexes[itemIndex];
+				_indexes[itemHeapIndex] = parentItemIndex;
+				_heapIndexes[parentItemIndex] = itemHeapIndex;
+
+				_heapIndexes[itemIndex] = parentItemHeapIndex;
+
+			} while (parentItemHeapIndex >= 1);
+			_indexes[_heapIndexes[itemIndex]] = itemIndex;			
+		}
+
+		public void Update(int index)
+		{
+			SortUp(index);
 		}
 	}
 
@@ -195,7 +195,7 @@ namespace Pathfindax.Collections
 			return Value.ToString();
 		}
 
-		public bool ShouldBeInFrontOf(in HeapStruct other)
+		public bool HasHigherPriority(in HeapStruct other)
 		{
 			return Value > other.Value;
 		}

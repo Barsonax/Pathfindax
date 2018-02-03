@@ -9,7 +9,7 @@ namespace Pathfindax.Algorithms
 		{
 			var dstX = Math.Abs(position1.X - position2.X);
 			var dstY = Math.Abs(position1.Y - position2.Y);
-			return Math.Min(dstX, dstY) * 1.4142135f + Math.Abs(dstX - dstY);
+			return dstX + dstY + -0.5857864376f * Math.Min(dstX, dstY);
 		}
 	}
 }

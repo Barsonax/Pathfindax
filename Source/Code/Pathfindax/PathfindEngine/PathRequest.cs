@@ -3,6 +3,7 @@ using Pathfindax.Nodes;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading;
+using System.Threading.Tasks;
 using Pathfindax.Paths;
 
 namespace Pathfindax.PathfindEngine
@@ -149,7 +150,7 @@ namespace Pathfindax.PathfindEngine
 				callback.Invoke();
 			}
 		}
-
+		
 		public PathRequestAwaiter<TPath> GetAwaiter()
 		{
 			return new PathRequestAwaiter<TPath>(this);
@@ -161,15 +162,24 @@ namespace Pathfindax.PathfindEngine
 	{
 		public bool IsCompleted => _pathRequest.Status == PathRequestStatus.Solved || _pathRequest.Status == PathRequestStatus.NoPathFound;
 		private readonly PathRequest<TPath> _pathRequest;
+		private readonly SynchronizationContext _synchronizationContext;
 
-		public PathRequestAwaiter(PathRequest<TPath> pathRequest)
+		public PathRequestAwaiter(PathRequest<TPath> pathRequest, SynchronizationContext synchronizationContext = null)
 		{
 			_pathRequest = pathRequest;
+			_synchronizationContext = synchronizationContext;
 		}
 
 		public void OnCompleted(Action continuation)
 		{
-			_pathRequest.AddCallback(continuation);
+			if (_synchronizationContext != null)
+			{
+				_synchronizationContext.Post(state => continuation.Invoke(), null);
+			}
+			else
+			{
+				_pathRequest.AddCallback(continuation);
+			}
 		}
 
 		public TPath GetResult()

@@ -19,6 +19,7 @@ namespace Pathfindax.Algorithms
 		private readonly LookupArray _closedSet;
 		private readonly List<int> _pathBuffer;
 		private readonly IDistanceHeuristic _heuristic;
+		private readonly IDistanceHeuristic _costFunction = new EuclideanDistance();
 
 		public AStarAlgorithm(int amountOfNodes, IDistanceHeuristic heuristic)
 		{
@@ -96,7 +97,7 @@ namespace Pathfindax.Algorithms
 						ref var toNode = ref pathfindingNetwork[connection.To];
 						if ((connection.CollisionCategory & collisionCategory) != 0 || _closedSet.Contains(connection.To) || toNode.Clearance < neededClearance) continue;
 						ref var toDefinitionNode = ref definitionNodes[connection.To];
-						var newMovementCostToNeighbour = currentNode.GCost + _heuristic.GetDistance(currentDefinitionNode.Position, toDefinitionNode.Position) * currentDefinitionNode.MovementCostModifier;
+						var newMovementCostToNeighbour = currentNode.GCost + _costFunction.GetDistance(currentDefinitionNode.Position, toDefinitionNode.Position) * currentDefinitionNode.MovementCostModifier;
 						if (newMovementCostToNeighbour < toNode.GCost || !_openSet.Contains(connection.To))
 						{
 							toNode.GCost = newMovementCostToNeighbour;
@@ -104,6 +105,10 @@ namespace Pathfindax.Algorithms
 							toNode.Parent = currentNodeIndex;
 							if (!_openSet.Contains(connection.To))
 								_openSet.Add(connection.To);
+							else
+							{
+								_openSet.Update(connection.To);
+							}
 						}
 					}
 				}

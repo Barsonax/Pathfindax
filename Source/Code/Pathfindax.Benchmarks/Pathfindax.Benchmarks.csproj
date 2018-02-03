@@ -147,7 +147,7 @@
     <Compile Include="BenchmarkConfigAttribute.cs" />
     <Compile Include="Benches\DijkstraAlgorithmBenchmark.cs" />
     <Compile Include="Benches\MaxHeapBenchmark.cs" />
-    <Compile Include="Benches\RefMaxHeapBenchmark.cs" />
+    <Compile Include="Benches\IndexMaxHeapBenchmark.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
