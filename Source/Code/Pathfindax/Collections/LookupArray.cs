@@ -1,6 +1,9 @@
-﻿namespace Pathfindax.Collections
+﻿using System.Collections;
+using System.Collections.Generic;
+
+namespace Pathfindax.Collections
 {
-	public class LookupArray
+	public class LookupArray : IEnumerable<int>
 	{
 		public int Capacity => _spots.Length;
 		private byte _generation;
@@ -40,6 +43,19 @@
 		public bool Contains(int index)
 		{
 			return _spots[index] == _generation;
+		}
+
+		public IEnumerator<int> GetEnumerator()
+		{
+			for (var i = 0; i < _spots.Length; i++)
+			{
+				if (_spots[i] == _generation) yield return i;
+			}
+		}
+
+		IEnumerator IEnumerable.GetEnumerator()
+		{
+			return GetEnumerator();
 		}
 	}
 }

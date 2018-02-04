@@ -1,6 +1,6 @@
 ﻿using BenchmarkDotNet.Attributes;
 using Pathfindax.Collections;
-using Pathfindax.Nodes;
+using Pathfindax.Test.Tests.Collections;
 
 namespace Pathfindax.Benchmarks
 {
@@ -8,21 +8,20 @@ namespace Pathfindax.Benchmarks
 	public class IndexMaxHeapBenchmark
 	{
 		const int Capacity = 50000000;
-		private HeapStruct[] _values;
-		private IndexMaxHeap<HeapStruct> AddMaxHeap;
-		private IndexMaxHeap<HeapStruct> RemoveFirstMaxHeap;
-		private IndexMaxHeap<HeapStruct> ContainsMaxHeap;
-		private HeapStruct SomeContainedValue;
+		private IntHeapItem[] _values;
+		private IndexMaxHeap<IntHeapItem> AddMaxHeap;
+		private IndexMaxHeap<IntHeapItem> RemoveFirstMaxHeap;
+		private IndexMaxHeap<IntHeapItem> ContainsMaxHeap;
 
 		[GlobalSetup(Target = nameof(RemoveFirst))]
 		public void SetupRemoveFirst()
 		{
-			_values = new HeapStruct[Capacity];
+			_values = new IntHeapItem[Capacity];
 			for (int i = 0; i < _values.Length; i++)
 			{
-				_values[i] = new HeapStruct(i * 2);
+				_values[i] = new IntHeapItem(i * 2);
 			}
-			RemoveFirstMaxHeap = new IndexMaxHeap<HeapStruct>(_values);
+			RemoveFirstMaxHeap = new IndexMaxHeap<IntHeapItem>(_values);
 			for (int i = 0; i < RemoveFirstMaxHeap.Capacity; i++)
 			{
 				RemoveFirstMaxHeap.Add(i);
@@ -32,29 +31,28 @@ namespace Pathfindax.Benchmarks
 		[GlobalSetup(Target = nameof(Add))]
 		public void SetupAdd()
 		{
-			_values = new HeapStruct[Capacity];
+			_values = new IntHeapItem[Capacity];
 			for (int i = 0; i < _values.Length; i++)
 			{
-				_values[i] = new HeapStruct(i * 2);
+				_values[i] = new IntHeapItem(i * 2);
 			}
-			AddMaxHeap = new IndexMaxHeap<HeapStruct>(_values);
+			AddMaxHeap = new IndexMaxHeap<IntHeapItem>(_values);
 		}
 
 		[GlobalSetup(Target = nameof(Contains))]
 		public void SetupContains()
 		{
-			_values = new HeapStruct[Capacity];
+			_values = new IntHeapItem[Capacity];
 			for (int i = 0; i < _values.Length; i++)
 			{
-				_values[i] = new HeapStruct(i * 2);
+				_values[i] = new IntHeapItem(i * 2);
 			}
-			ContainsMaxHeap = new IndexMaxHeap<HeapStruct>(_values);
+			ContainsMaxHeap = new IndexMaxHeap<IntHeapItem>(_values);
 			ContainsMaxHeap.Add(5);
-			SomeContainedValue = _values[ContainsMaxHeap.Peek()];
 		}
 
 		[Benchmark]
-		public HeapStruct RemoveFirst()
+		public IntHeapItem RemoveFirst()
 		{
 			return _values[RemoveFirstMaxHeap.RemoveFirst()];
 		}

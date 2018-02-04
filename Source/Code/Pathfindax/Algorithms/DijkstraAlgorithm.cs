@@ -54,6 +54,10 @@ namespace Pathfindax.Algorithms
 							toNode.GCost = newMovementCostToNeighbour;
 							if (!_openSet.Contains(connection.To))
 								_openSet.Add(connection.To);
+							else
+							{
+								_openSet.Update(connection.To);
+							}
 						}
 					}
 				}

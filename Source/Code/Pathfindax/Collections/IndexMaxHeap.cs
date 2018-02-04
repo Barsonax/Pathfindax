@@ -1,28 +1,25 @@
 ﻿using System;
-using System.Collections.ObjectModel;
+using System.Collections;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
 namespace Pathfindax.Collections
 {
-	public interface IIndexHeapItem<T>
-	{
-		bool HasHigherPriority(in T other);
-	}
-
 	/// <summary>
 	/// A fast maxheap that is used as a priority queue for pathfinding.
-	/// Does not store the items itself but keeps references to them with array indexes.
+	/// Does not store the items itself but keeps references to them with array indexes. So do not move items in the original array.
+	/// Items with equal priority are returned in LIFO order.
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
-	public class IndexMaxHeap<T>
-		where T : IIndexHeapItem<T>
+	public class IndexMaxHeap<T> : IEnumerable<int>
+		where T : IPriorityComparable<T>
 	{
 		/// <summary>
 		/// The current amount of items in the heap.
 		/// </summary>
 		public int Count { get; private set; }
+
 		public int Capacity => _indexes.Length;
-		public ReadOnlyCollection<int> Indexes => new ReadOnlyCollection<int>(_indexes);
 		private int[] _indexes;
 		private int[] _heapIndexes;
 		private T[] _array;
@@ -122,18 +119,17 @@ namespace Pathfindax.Collections
 				if (childIndexLeft < Count)
 				{
 					var swapHeapIndex = childIndexLeft;
-					if (childIndexRight < Count && _array[_indexes[childIndexLeft]].HasHigherPriority(_array[_indexes[childIndexRight]]) == false)
+					if (childIndexRight < Count &&
+					    _array[_indexes[childIndexLeft]].HasHigherPriority(_array[_indexes[childIndexRight]]) == false)
 					{
 						swapHeapIndex = childIndexRight;
 					}
 
 					var swapItemIndex = _indexes[swapHeapIndex];
-					ref var swapItem = ref _array[_indexes[swapHeapIndex]];
+					ref var swapItem = ref _array[swapItemIndex];
 					if (swapItem.HasHigherPriority(item))
 					{
 						_indexes[itemHeapIndex] = swapItemIndex;
-						_heapIndexes[itemIndex] = swapHeapIndex;
-
 						_heapIndexes[swapItemIndex] = itemHeapIndex;
 
 						itemHeapIndex = swapHeapIndex;
@@ -148,14 +144,17 @@ namespace Pathfindax.Collections
 					break;
 				}
 			}
+
+			_heapIndexes[itemIndex] = itemHeapIndex;
 			_indexes[itemHeapIndex] = itemIndex;
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		private void SortUp(int itemIndex)
-		{	
+		{
 			ref var item = ref _array[itemIndex];
-			var parentItemHeapIndex = _heapIndexes[itemIndex];
+			var itemHeapIndex = _heapIndexes[itemIndex];
+			var parentItemHeapIndex = itemHeapIndex;
 			do
 			{
 				parentItemHeapIndex = (parentItemHeapIndex - 1) / 2;
@@ -165,39 +164,31 @@ namespace Pathfindax.Collections
 				if (parentItem.HasHigherPriority(item))
 					break;
 
-				var itemHeapIndex = _heapIndexes[itemIndex];
 				_indexes[itemHeapIndex] = parentItemIndex;
 				_heapIndexes[parentItemIndex] = itemHeapIndex;
 
-				_heapIndexes[itemIndex] = parentItemHeapIndex;
+				itemHeapIndex = parentItemHeapIndex;
 
 			} while (parentItemHeapIndex >= 1);
-			_indexes[_heapIndexes[itemIndex]] = itemIndex;			
+
+			_heapIndexes[itemIndex] = itemHeapIndex;
+			_indexes[itemHeapIndex] = itemIndex;
 		}
 
 		public void Update(int index)
 		{
 			SortUp(index);
 		}
-	}
 
-	public struct HeapStruct : IIndexHeapItem<HeapStruct>
-	{
-		public int Value { get; }
-
-		public HeapStruct(int value)
+		public IEnumerator<int> GetEnumerator()
 		{
-			Value = value;
+			for (var i = 0; i <= Count - 1; i++)
+				yield return _indexes[i];
 		}
 
-		public override string ToString()
+		IEnumerator IEnumerable.GetEnumerator()
 		{
-			return Value.ToString();
-		}
-
-		public bool HasHigherPriority(in HeapStruct other)
-		{
-			return Value > other.Value;
+			return GetEnumerator();
 		}
 	}
 }

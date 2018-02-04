@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Duality;
+using Pathfindax.Algorithms;
 using Pathfindax.Graph;
 using Pathfindax.Nodes;
 
@@ -45,6 +46,21 @@ namespace Pathfindax.Paths
 		public override string ToString()
 		{
 			return string.Join(", ", Path.Select(x => _definitionNodes[x].Position.ToString()));
+		}
+
+		public float GetPathLength()
+		{
+			if (Path.Length == 0) return 0f;
+			var euclideanDistance = new EuclideanDistance();
+			var length = 0f;
+			var previousWaypoint = _definitionNodes[Path[0]].Position;
+			for (var i = 1; i < Path.Length; i++)
+			{
+				var waypoint = _definitionNodes[Path[i]].Position;
+				length += euclideanDistance.GetDistance(previousWaypoint, waypoint);
+				previousWaypoint = waypoint;
+			}
+			return length;
 		}
 	}
 }

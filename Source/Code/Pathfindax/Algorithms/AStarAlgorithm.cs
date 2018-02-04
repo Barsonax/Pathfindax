@@ -15,7 +15,10 @@ namespace Pathfindax.Algorithms
 	/// </summary>
 	public class AStarAlgorithm : IPathFindAlgorithm<IPathfindNodeNetwork<AstarNode>, NodePath>
 	{
+		public IEnumerable<int> OpenSet => _openSet;
 		private readonly IndexMaxHeap<AstarNode> _openSet;
+
+		public IEnumerable<int> ClosedSet => _closedSet;
 		private readonly LookupArray _closedSet;
 		private readonly List<int> _pathBuffer;
 		private readonly IDistanceHeuristic _heuristic;

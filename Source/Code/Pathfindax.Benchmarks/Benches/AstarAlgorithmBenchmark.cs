@@ -11,14 +11,15 @@ namespace Pathfindax.Benchmarks
 	[BenchmarkConfig]
 	public class AstarAlgorithmBenchmark
 	{
-		private AStarAlgorithm _algorithm;
+
+		public AStarAlgorithm _algorithm;
 		private AstarNodeNetwork _astarNodeNetwork;
 		private DefinitionNodeGrid _definitionNodeGrid;
 
-		private PathRequest<NodePath> _longPathRequest;
-		private PathRequest<NodePath> _shortPathRequest;
-		private PathRequest<NodePath> _veryShortPathRequest;
-		private PathRequest<NodePath> _zeroLengthPathRequest;
+		private PathRequest<IPath> _longPathRequest;
+		private PathRequest<IPath> _shortPathRequest;
+		private PathRequest<IPath> _veryShortPathRequest;
+		private PathRequest<IPath> _zeroLengthPathRequest;
 
 		[GlobalSetup]
 		public void Setup()
@@ -26,14 +27,10 @@ namespace Pathfindax.Benchmarks
 			_definitionNodeGrid = new DefinitionNodeGrid(GenerateNodeGridConnections.All, 320, 200, new Vector2(1, 1));
 			_astarNodeNetwork = new AstarNodeNetwork(_definitionNodeGrid, new GridClearanceGenerator(_definitionNodeGrid, 1));
 			_algorithm = new AStarAlgorithm(_definitionNodeGrid.NodeCount, new ManhattanDistance());
-			_longPathRequest =
-				new PathRequest<NodePath>(_definitionNodeGrid.NodeGrid.ToIndex(0, 0), _definitionNodeGrid.NodeGrid.ToIndex(319, 199));
-			_shortPathRequest =
-				new PathRequest<NodePath>(_definitionNodeGrid.NodeGrid.ToIndex(0, 0), _definitionNodeGrid.NodeGrid.ToIndex(20, 20));
-			_veryShortPathRequest =
-				new PathRequest<NodePath>(_definitionNodeGrid.NodeGrid.ToIndex(0, 0), _definitionNodeGrid.NodeGrid.ToIndex(1, 0));
-			_zeroLengthPathRequest =
-				new PathRequest<NodePath>(_definitionNodeGrid.NodeGrid.ToIndex(0, 0), _definitionNodeGrid.NodeGrid.ToIndex(0, 0));
+			_longPathRequest = PathRequest.Create<IPath>(_definitionNodeGrid.NodeGrid.ToIndex(0, 0),_definitionNodeGrid.NodeGrid.ToIndex(319, 199));
+			_shortPathRequest = PathRequest.Create<IPath>(_definitionNodeGrid.NodeGrid.ToIndex(0, 0), _definitionNodeGrid.NodeGrid.ToIndex(20, 20));
+			_veryShortPathRequest = PathRequest.Create<IPath>(_definitionNodeGrid.NodeGrid.ToIndex(0, 0), _definitionNodeGrid.NodeGrid.ToIndex(1, 0));
+			_zeroLengthPathRequest = PathRequest.Create<IPath>(_definitionNodeGrid.NodeGrid.ToIndex(0, 0), _definitionNodeGrid.NodeGrid.ToIndex(0, 0));
 		}
 
 		[Benchmark]

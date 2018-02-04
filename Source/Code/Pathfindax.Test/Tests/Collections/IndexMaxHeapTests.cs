@@ -1,5 +1,5 @@
 ﻿using System.Collections;
-using System.Collections.ObjectModel;
+using System.Linq;
 using NUnit.Framework;
 using Pathfindax.Collections;
 
@@ -11,9 +11,9 @@ namespace Pathfindax.Test.Tests.Collections
 		[Test]
 		public void IndexMaxHeap_RemoveFirst_LIFO()
 		{
-			var items = new[] { new HeapStruct(1), new HeapStruct(1), new HeapStruct(1) };
+			var items = new[] { new IntHeapItem(1), new IntHeapItem(1), new IntHeapItem(1) };
 			//Create the heap and add the items.
-			var heap = new IndexMaxHeap<HeapStruct>(items);
+			var heap = new IndexMaxHeap<IntHeapItem>(items);
 			for (var i = 0; i < items.Length; i++)
 			{
 				heap.Add(i);
@@ -28,10 +28,10 @@ namespace Pathfindax.Test.Tests.Collections
 		}
 
 		[Test, TestCaseSource(typeof(IndexMaxHeapTests), nameof(HeapTestCases))]
-		public void IndexMaxHeap_RemoveFirst(HeapStruct[] items)
+		public void IndexMaxHeap_RemoveFirst(IntHeapItem[] items)
 		{
 			//Create the heap and add the items.
-			var heap = new IndexMaxHeap<HeapStruct>(items);
+			var heap = new IndexMaxHeap<IntHeapItem>(items);
 			for (var i = 0; i < items.Length; i++)
 			{
 				heap.Add(i);
@@ -48,26 +48,26 @@ namespace Pathfindax.Test.Tests.Collections
 		}
 
 		[Test, TestCaseSource(typeof(IndexMaxHeapTests), nameof(HeapTestCases))]
-		public void IndexMaxHeap_CheckHeapCondition(HeapStruct[] items)
+		public void IndexMaxHeap_CheckHeapCondition(IntHeapItem[] items)
 		{
 			//Create the heap and add the items.
-			var heap = new IndexMaxHeap<HeapStruct>(items);
+			var heap = new IndexMaxHeap<IntHeapItem>(items);
 			for (int i = 0; i < items.Length; i++)
 			{
 				heap.Add(i);
 			}
-			var indexes = heap.Indexes;
+			var indexes = heap.Select(i => items[i]).ToArray();
 			for (int i = 0; i < items.Length; i++)
 			{
-				CheckHeapCondition(indexes, items, i);
+				CheckHeapCondition(indexes, i);
 			}
 		}
 
 		[Test, TestCaseSource(typeof(IndexMaxHeapTests), nameof(HeapTestCases))]
-		public void IndexMaxHeap_Contains_True(HeapStruct[] items)
+		public void IndexMaxHeap_Contains_True(IntHeapItem[] items)
 		{
 			//Create the heap and add the items.
-			var heap = new IndexMaxHeap<HeapStruct>(items);
+			var heap = new IndexMaxHeap<IntHeapItem>(items);
 			for (var i = 0; i < items.Length; i++)
 			{
 				heap.Add(i);
@@ -81,10 +81,10 @@ namespace Pathfindax.Test.Tests.Collections
 		}
 
 		[Test, TestCaseSource(typeof(IndexMaxHeapTests), nameof(HeapTestCases))]
-		public void IndexMaxHeap_Contains_False(HeapStruct[] items)
+		public void IndexMaxHeap_Contains_False(IntHeapItem[] items)
 		{
 			//Create the heap and add the items except the last one.
-			var heap = new IndexMaxHeap<HeapStruct>(items);
+			var heap = new IndexMaxHeap<IntHeapItem>(items);
 			for (var i = 0; i < items.Length - 1; i++)
 			{
 				heap.Add(i);
@@ -96,10 +96,10 @@ namespace Pathfindax.Test.Tests.Collections
 		}
 
 		[Test, TestCaseSource(typeof(IndexMaxHeapTests), nameof(HeapTestCases))]
-		public void IndexMaxHeap_Contains_AddAndRemoveAll(HeapStruct[] items)
+		public void IndexMaxHeap_Contains_AddAndRemoveAll(IntHeapItem[] items)
 		{
 			//Create the heap and add the items except the last one.
-			var heap = new IndexMaxHeap<HeapStruct>(items);
+			var heap = new IndexMaxHeap<IntHeapItem>(items);
 			for (var i = 0; i < items.Length; i++)
 			{
 				heap.Add(i);
@@ -134,34 +134,30 @@ namespace Pathfindax.Test.Tests.Collections
 
 		private static TestCaseData GenerateHeapTestCase(params int[] values)
 		{
-			var testCaseData = new HeapStruct[values.Length];
+			var testCaseData = new IntHeapItem[values.Length];
 			for (var i = 0; i < values.Length; i++)
 			{
-				testCaseData[i] = new HeapStruct(values[i]);
+				testCaseData[i] = new IntHeapItem(values[i]);
 			}
 			return new TestCaseData(new[] { testCaseData }).SetName($"Values: {string.Join(", ", values)}");
 		}
 
-		private void CheckHeapCondition(ReadOnlyCollection<int> indexes, HeapStruct[] items, int parentIndex)
+		private void CheckHeapCondition(IntHeapItem[] indexes, int parentIndex)
 		{
-			var parentValue = items[indexes[parentIndex]];
+			var parentValue = indexes[parentIndex];
 			var childHeapIndexLeft = parentIndex * 2 + 1;
-			CheckHeapCondition(parentValue, indexes, items, childHeapIndexLeft);
+			CheckHeapCondition(parentValue, indexes, childHeapIndexLeft);
 
 			var childHeapIndexRight = childHeapIndexLeft + 1;
-			CheckHeapCondition(parentValue, indexes, items, childHeapIndexRight);
+			CheckHeapCondition(parentValue, indexes, childHeapIndexRight);
 		}
 
-		private void CheckHeapCondition(HeapStruct parentValue, ReadOnlyCollection<int> indexes, HeapStruct[] items, int childHeapIndex)
+		private void CheckHeapCondition(IntHeapItem parentValue, IntHeapItem[] indexes, int childHeapIndex)
 		{
-			if (childHeapIndex < indexes.Count)
+			if (childHeapIndex < indexes.Length)
 			{
-				var childIndex = indexes[childHeapIndex];
-				if (childIndex >= 0)
-				{
-					var childValue = items[childIndex];
-					Assert.IsTrue(parentValue.Value >= childValue.Value);
-				}
+				var childValue = indexes[childHeapIndex];
+				Assert.IsTrue(parentValue.Value >= childValue.Value);
 			}
 		}
 	}

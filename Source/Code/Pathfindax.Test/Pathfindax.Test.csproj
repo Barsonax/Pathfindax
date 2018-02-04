@@ -24,6 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>7.2</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -38,6 +39,8 @@
     <ErrorReport>prompt</ErrorReport>
     <DebugType>pdbonly</DebugType>
     <DebugSymbols>true</DebugSymbols>
+    <LangVersion>latest</LangVersion>
+    <Optimize>true</Optimize>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DualityPrimitives, Version=2.0.5.0, Culture=neutral, processorArchitecture=MSIL">
@@ -59,6 +62,7 @@
     <Compile Include="Tests\Collections\LookupArrayTests.cs" />
     <Compile Include="Tests\Collections\IndexMaxHeapTests.cs" />
     <Compile Include="Tests\Collections\MaxHeapTests.cs" />
+    <Compile Include="Tests\Collections\TestObjects\IntHeapItem.cs" />
     <Compile Include="Tests\Graph\GridTransformerTests.cs" />
     <Compile Include="Tests\Graph\TransformerTests.cs" />
     <Compile Include="Tests\PathfindEngine\PathfinderTests.cs" />

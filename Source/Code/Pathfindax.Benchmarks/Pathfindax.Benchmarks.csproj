@@ -160,6 +160,10 @@
     <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Pathfindax.Test\Pathfindax.Test.csproj">
+      <Project>{2C152114-2BAD-4B2E-9B53-BB51E66AF9E6}</Project>
+      <Name>Pathfindax.Test</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Pathfindax\Pathfindax.csproj">
       <Project>{D4DFA287-B394-4D15-97E0-D2A0675D26A6}</Project>
       <Name>Pathfindax</Name>

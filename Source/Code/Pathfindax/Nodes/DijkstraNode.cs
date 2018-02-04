@@ -2,7 +2,7 @@
 
 namespace Pathfindax.Nodes
 {
-	public struct DijkstraNode : IIndexHeapItem<DijkstraNode>
+	public struct DijkstraNode : IPriorityComparable<DijkstraNode>
 	{
 		/// <summary>
 		/// The cost to the targetnode
