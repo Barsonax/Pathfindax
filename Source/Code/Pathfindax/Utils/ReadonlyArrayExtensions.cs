@@ -14,5 +14,12 @@ namespace Pathfindax.Utils
 		{
 			return ToIndex(array, gridCoords.X, gridCoords.Y);
 		}
+
+		public static Point2 ToGrid(this IReadOnlyArray2D array, int i)
+		{
+			var y = i / array.Width;
+			var x = i - y * array.Width;
+			return new Point2(x, y);
+		}
 	}
 }

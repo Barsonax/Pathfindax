@@ -378,6 +378,7 @@
           <item dataType="ObjectRef">4009962089</item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Tilemaps.Components.TilemapNodeGridGenerator" id="828666520">
             <_movementPenalties dataType="Array" type="System.Single[]" id="3614682646"></_movementPenalties>
+            <_x003C_NodeconnectionGenerationMode_x003E_k__BackingField dataType="Enum" type="Pathfindax.Graph.GenerateNodeGridConnections" name="All" value="20" />
             <active dataType="Bool">true</active>
             <gameobj dataType="ObjectRef">3952684871</gameobj>
           </item>
@@ -579,7 +580,6 @@
             </_x003C_Camera_x003E_k__BackingField>
             <_x003C_CollisionCategory_x003E_k__BackingField dataType="Enum" type="Pathfindax.Nodes.PathfindaxCollisionCategory" name="Cat1" value="1" />
             <_x003C_MovementSpeed_x003E_k__BackingField dataType="Float">8</_x003C_MovementSpeed_x003E_k__BackingField>
-            <_x003C_Path_x003E_k__BackingField />
             <_x003C_PathfinderComponent_x003E_k__BackingField dataType="ObjectRef">1744982957</_x003C_PathfinderComponent_x003E_k__BackingField>
             <active dataType="Bool">true</active>
             <gameobj dataType="ObjectRef">4211846889</gameobj>

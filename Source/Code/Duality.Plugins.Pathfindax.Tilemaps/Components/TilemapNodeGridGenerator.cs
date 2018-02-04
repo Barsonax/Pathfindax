@@ -37,6 +37,8 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Components
 			}
 		}
 
+		public GenerateNodeGridConnections NodeconnectionGenerationMode { get; set; }
+
 		[DontSerialize]
 		private DefinitionNodeGrid _definitionNodeGrid;
 
@@ -57,21 +59,28 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Components
 					return null;
 				}
 				var offset = -new Vector2(baseTilemap.Size.X * baseTilemap.Tileset.Res.TileSize.X - baseTilemap.Tileset.Res.TileSize.X, baseTilemap.Size.Y * baseTilemap.Tileset.Res.TileSize.Y - baseTilemap.Tileset.Res.TileSize.Y) / 2;
-				_definitionNodeGrid = new DefinitionNodeGrid(GenerateNodeGridConnections.None, baseTilemap.Size.X, baseTilemap.Size.Y, baseTilemap.Tileset.Res.TileSize, offset);
+				_definitionNodeGrid = new DefinitionNodeGrid(NodeconnectionGenerationMode, baseTilemap.Size.X, baseTilemap.Size.Y, baseTilemap.Tileset.Res.TileSize, offset);
 				var tilemapColliderWithBodies = GameObj.GetComponentsInChildren<TilemapCollider>().Select(x => new TilemapColliderWithBody(x)).ToArray();
 				var partioner = Partitioner.Create(0, _definitionNodeGrid.NodeCount);
 				var connectionGenerator = new TilemapNodeConnectionGenerator();
+				for (int y = 0; y < _definitionNodeGrid.NodeGrid.Height; y++)
+				{
+					for (int x = 0; x < _definitionNodeGrid.NodeGrid.Width; x++)
+					{
+						//ref var definitionNode = ref _definitionNodeGrid.NodeGrid.Array[i];
+						connectionGenerator.CalculateGridNodeCollision(tilemapColliderWithBodies, x, y, _definitionNodeGrid.NodeGrid);
+
+						//if (MovementPenalties != null)
+						//{
+						//	var index = baseTilemap.Tiles[(int)definitionNode.Position.X, (int)definitionNode.Position.Y].Index;
+						//	if (index < MovementPenalties.Length)
+						//		definitionNode.MovementCostModifier = MovementPenalties[index];
+						//}
+					}
+				}
 				for (int i = 0; i < _definitionNodeGrid.NodeCount; i++)
 				{
-					ref var definitionNode = ref _definitionNodeGrid.NodeGrid.Array[i];
-					connectionGenerator.CalculateGridNodeCollision(tilemapColliderWithBodies, ref definitionNode, _definitionNodeGrid);
 
-					if (MovementPenalties != null)
-					{
-						var index = baseTilemap.Tiles[(int)definitionNode.Position.X, (int)definitionNode.Position.Y].Index;
-						if (index < MovementPenalties.Length)
-							definitionNode.MovementCostModifier = MovementPenalties[index];
-					}
 				}
 
 				//Parallel.ForEach(partioner, range =>
