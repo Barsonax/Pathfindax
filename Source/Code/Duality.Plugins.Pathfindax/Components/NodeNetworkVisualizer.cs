@@ -69,8 +69,8 @@ namespace Duality.Plugins.Pathfindax.Components
 					case DijkstraNode[] dijkstraNodeNetwork:
 						DrawDijkstraNodes(canvas, dijkstraNodeNetwork, definitionNodes, transformer);
 						break;
-						default:
-							throw new NotImplementedException($"No visualization implemented for {network}");
+					default:
+						throw new NotImplementedException($"No visualization implemented for {network}");
 				}
 			}
 		}
@@ -121,9 +121,10 @@ namespace Duality.Plugins.Pathfindax.Components
 			canvas.State.ColorTint = new ColorRgba(199, 21, 133);
 			foreach (var connection in nodeConnections)
 			{
+				if ((connection.CollisionCategory & CollisionCategory) != 0) continue;
 				ref var toNode = ref definitionNodes[connection.To];
 				var vector = (transformer.ToWorld(toNode.Position) - nodeWorldPosition) * 0.5f; //Times 0.5f so we can see the connections in both directions.
-				canvas.DrawDashLine(nodeWorldPosition.X, nodeWorldPosition.Y, nodeWorldPosition.X + vector.X, nodeWorldPosition.Y + vector.Y);
+				canvas.DrawLine(nodeWorldPosition.X, nodeWorldPosition.Y, nodeWorldPosition.X + vector.X, nodeWorldPosition.Y + vector.Y);
 			}
 		}
 	}

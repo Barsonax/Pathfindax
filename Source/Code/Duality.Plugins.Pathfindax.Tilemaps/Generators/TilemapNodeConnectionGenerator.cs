@@ -4,7 +4,6 @@ using System.Linq;
 using Duality.Components.Physics;
 using Duality.Plugins.Tilemaps;
 using Pathfindax.Collections;
-using Pathfindax.Graph;
 using Pathfindax.Nodes;
 using Pathfindax.Utils;
 
@@ -37,37 +36,18 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Generators
 			}
 		}
 
-		private readonly NodeCollision[] _nodeCollisions;
-
 		/// <summary>
 		/// Creates a new <see cref="TilemapNodeConnectionGenerator"/> instance and does some initialization work
 		/// </summary>
 		public TilemapNodeConnectionGenerator()
 		{
-			_nodeCollisions = new[]
-			{
-				new NodeCollision(PathfindaxCollisionCategory.None, 0,0),
-
-				new NodeCollision(PathfindaxCollisionCategory.None, 0,0),
-				new NodeCollision(PathfindaxCollisionCategory.None, 0,0),
-				new NodeCollision(PathfindaxCollisionCategory.None, 0,0),
-				new NodeCollision(PathfindaxCollisionCategory.None, 0,0),
-
-				new NodeCollision(PathfindaxCollisionCategory.None, 0,0),
-				new NodeCollision(PathfindaxCollisionCategory.None, 0,0),
-				new NodeCollision(PathfindaxCollisionCategory.None, 0,0),
-				new NodeCollision(PathfindaxCollisionCategory.None, 0,0),
-			};
 			FillUsedLayerCache();
 		}
 
 		/// <summary>
-		/// Calculates the <see cref="NodeConnection"/>s for the <paramref name="definitionNode"/>
+		/// Calculates the <see cref="NodeConnection"/>s for the node at the given x and y grid coordinate
 		/// </summary>
-		/// <param name="tilemapColliderWithBodies"></param>
-		/// <param name="definitionNode"></param>
-		/// <param name="definitionNodeGrid"></param>
-		public void CalculateGridNodeCollision(TilemapColliderWithBody[] tilemapColliderWithBodies, int x, int y, Array2D<DefinitionNode> nodeGrid)
+		public void CalculateGridNodeCollision(TilemapColliderWithBody[] tilemapColliderWithBodies, int x, int y, Array2D<DefinitionNode> nodeGrid, bool crossCorners)
 		{
 			var i = nodeGrid.ToIndex(x, y);
 			ref var definitionNode = ref nodeGrid.Array[i];
@@ -77,83 +57,77 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Generators
 			{
 				ref var nodeConnection = ref connections[index];
 				var toCoords = nodeGrid.ToGrid(nodeConnection.To);
-				nodeConnection.CollisionCategory = GetCollisionCategory(tilemapColliderWithBodies, x, y, toCoords.X, toCoords.Y);
+				nodeConnection.CollisionCategory = GetCollisionCategory(tilemapColliderWithBodies, x, y, toCoords.X, toCoords.Y, crossCorners);
 			}
-			//var nodeGridCoordinates = new Point2((int)definitionNode.Position.X, (int)definitionNode.Position.Y);
-			//CalculateNodeCollisionCategories(nodeGridCoordinates.X, nodeGridCoordinates.Y, tilemapColliderWithBodies);
-
-			//if (nodeGridCoordinates.X == 0 || nodeGridCoordinates.Y == 0 ||
-			//	nodeGridCoordinates.X == definitionNodeGrid.NodeGrid.Width - 1 ||
-			//	nodeGridCoordinates.Y == definitionNodeGrid.NodeGrid.Height - 1)
-			//{
-			//	for (var index = 1; index < _nodeCollisions.Length; index++)
-			//	{
-			//		var collisionCategory = _nodeCollisions[index];
-			//		if (collisionCategory.X >= 0 && collisionCategory.Y >= 0 &&
-			//			collisionCategory.X < definitionNodeGrid.NodeGrid.Width &&
-			//			collisionCategory.Y < definitionNodeGrid.NodeGrid.Height)
-			//		{
-			//			//TODO provide option to exclude diagonal neighbours.
-			//			var toNodeIndex = definitionNodeGrid.NodeGrid.ToIndex(collisionCategory.X, collisionCategory.Y);
-			//			definitionNode.AddConnection(toNodeIndex, collisionCategory.PathfindaxCollisionCategory | _nodeCollisions[0].PathfindaxCollisionCategory);
-			//		}
-			//	}
-			//}
-			//else
-			//{
-			//	for (var index = 1; index < _nodeCollisions.Length; index++)
-			//	{
-			//		var collisionCategory = _nodeCollisions[index];
-			//		//TODO provide option to exclude diagonal neighbours.
-			//		var toNodeIndex = definitionNodeGrid.NodeGrid.ToIndex(collisionCategory.X, collisionCategory.Y);
-			//		definitionNode.AddConnection(toNodeIndex, collisionCategory.PathfindaxCollisionCategory | _nodeCollisions[0].PathfindaxCollisionCategory);
-			//	}
-			//}
 		}
 
-		private PathfindaxCollisionCategory GetCollisionCategory(TilemapColliderWithBody[] tilemapColliderWithBodies, int fromX, int fromY, int toX, int toY)
+		private PathfindaxCollisionCategory GetCollisionCategory(TilemapColliderWithBody[] tilemapColliderWithBodies, int fromX, int fromY, int toX, int toY, bool crossCorners)
 		{
 			var delta = new Point2(toX - fromX, toY - fromY);
-			if (fromX == 0 && fromY == 5)
-			{
-
-			}
+			var cat = PathfindaxCollisionCategory.None;
 			switch (delta)
 			{
 				case Point2 d when d.X == -1 && d.Y == 1: //LeftDown
-					return GetCollisionCategory(tilemapColliderWithBodies, fromX, fromY, toX, toY, TileCollisionShape.Left | TileCollisionShape.Bottom, TileCollisionShape.Right | TileCollisionShape.Top);
+					GetCollisionCategory(ref cat, tilemapColliderWithBodies, fromX, fromY, toX, toY, TileCollisionShape.Left | TileCollisionShape.Bottom, TileCollisionShape.Right | TileCollisionShape.Top);
+					if (!crossCorners)
+					{
+						GetCollisionCategory(ref cat, tilemapColliderWithBodies, toX, fromY, fromX, toY, TileCollisionShape.Right | TileCollisionShape.Bottom, TileCollisionShape.Left | TileCollisionShape.Top);
+					}
+					break;
 				case Point2 d when d.X == 1 && d.Y == 1: //RightDown
-					return GetCollisionCategory(tilemapColliderWithBodies, fromX, fromY, toX, toY, TileCollisionShape.Right | TileCollisionShape.Bottom, TileCollisionShape.Left | TileCollisionShape.Top);
+					GetCollisionCategory(ref cat, tilemapColliderWithBodies, fromX, fromY, toX, toY, TileCollisionShape.Right | TileCollisionShape.Bottom, TileCollisionShape.Left | TileCollisionShape.Top);
+					if (!crossCorners)
+					{
+						GetCollisionCategory(ref cat, tilemapColliderWithBodies, toX, fromY, fromX, toY, TileCollisionShape.Left | TileCollisionShape.Bottom, TileCollisionShape.Right | TileCollisionShape.Top);
+					}
+					break;
 				case Point2 d when d.X == -1 && d.Y == -1: //LeftUp
-					return GetCollisionCategory(tilemapColliderWithBodies, fromX, fromY, toX, toY, TileCollisionShape.Left | TileCollisionShape.Top, TileCollisionShape.Right | TileCollisionShape.Bottom);
+					GetCollisionCategory(ref cat, tilemapColliderWithBodies, fromX, fromY, toX, toY, TileCollisionShape.Left | TileCollisionShape.Top, TileCollisionShape.Right | TileCollisionShape.Bottom);
+					if (!crossCorners)
+					{
+						GetCollisionCategory(ref cat, tilemapColliderWithBodies, toX, fromY, fromX, toY, TileCollisionShape.Right | TileCollisionShape.Top, TileCollisionShape.Left | TileCollisionShape.Bottom);
+					}
+					break;
 				case Point2 d when d.X == 1 && d.Y == -1: //RightUp
-					return GetCollisionCategory(tilemapColliderWithBodies, fromX, fromY, toX, toY, TileCollisionShape.Right | TileCollisionShape.Top, TileCollisionShape.Left | TileCollisionShape.Bottom);
+					GetCollisionCategory(ref cat, tilemapColliderWithBodies, fromX, fromY, toX, toY, TileCollisionShape.Right | TileCollisionShape.Top, TileCollisionShape.Left | TileCollisionShape.Bottom);
+					if (!crossCorners)
+					{
+						GetCollisionCategory(ref cat, tilemapColliderWithBodies, toX, fromY, fromX, toY, TileCollisionShape.Left | TileCollisionShape.Top, TileCollisionShape.Right | TileCollisionShape.Bottom);
+					}
+					break;
 
 				case Point2 d when d.X == 1: //Right
-					return GetCollisionCategory(tilemapColliderWithBodies, fromX, fromY, toX, toY, TileCollisionShape.Right, TileCollisionShape.Left);
+					GetCollisionCategory(ref cat, tilemapColliderWithBodies, fromX, fromY, toX, toY, TileCollisionShape.Right, TileCollisionShape.Left);
+					break;
 				case Point2 d when d.X == -1: //Left
-					return GetCollisionCategory(tilemapColliderWithBodies, fromX, fromY, toX, toY, TileCollisionShape.Left, TileCollisionShape.Right);
+					GetCollisionCategory(ref cat, tilemapColliderWithBodies, fromX, fromY, toX, toY, TileCollisionShape.Left, TileCollisionShape.Right);
+					break;
 				case Point2 d when d.Y == 1: //Down
-					return GetCollisionCategory(tilemapColliderWithBodies, fromX, fromY, toX, toY, TileCollisionShape.Bottom, TileCollisionShape.Top);
+					GetCollisionCategory(ref cat, tilemapColliderWithBodies, fromX, fromY, toX, toY, TileCollisionShape.Bottom, TileCollisionShape.Top);
+					break;
 				case Point2 d when d.Y == -1: //Up
-					return GetCollisionCategory(tilemapColliderWithBodies, fromX, fromY, toX, toY, TileCollisionShape.Top, TileCollisionShape.Bottom);
+					GetCollisionCategory(ref cat, tilemapColliderWithBodies, fromX, fromY, toX, toY, TileCollisionShape.Top, TileCollisionShape.Bottom);
+					break;
 			}
 
-			return PathfindaxCollisionCategory.None;
+			return cat;
 		}
 
-		private PathfindaxCollisionCategory GetCollisionCategory(TilemapColliderWithBody[] tilemapColliderWithBodies, int x, int y, int toX, int toY, TileCollisionShape tileCollisionShapeSelf, TileCollisionShape tileCollisionShapeOther)
+		private void GetCollisionCategory(ref PathfindaxCollisionCategory collisionCategory, TilemapColliderWithBody[] tilemapColliderWithBodies, int x, int y, int toX, int toY, TileCollisionShape tileCollisionShapeSelf, TileCollisionShape tileCollisionShapeOther)
 		{
-			var collisionCategory = PathfindaxCollisionCategory.None;
 			foreach (var tilemapColliderWithBody in tilemapColliderWithBodies)
 			{
+				var tilemapCollisionCat = (PathfindaxCollisionCategory)tilemapColliderWithBody.RigidBody.CollisionCategory;
+				if ((collisionCategory | tilemapCollisionCat) == collisionCategory) continue;
 				foreach (var tilemapCollisionSource in tilemapColliderWithBody.TilemapCollisionSources)
 				{
 					if (DoesCollide(tilemapCollisionSource, x, y, tileCollisionShapeSelf) || DoesCollide(tilemapCollisionSource, toX, toY, tileCollisionShapeOther))
-						collisionCategory |= (PathfindaxCollisionCategory)tilemapColliderWithBody.RigidBody.CollisionCategory;
+					{
+						collisionCategory |= tilemapCollisionCat;
+					}
+					if ((collisionCategory | tilemapCollisionCat) == collisionCategory) break;
 				}
 			}
-			return collisionCategory;
 		}
 
 		private bool DoesCollide(TilemapCollisionSource tilemapCollisionSource, int x, int y, TileCollisionShape tileCollisionShape)
@@ -173,143 +147,6 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Generators
 			return false;
 		}
 
-		private void CalculateNodeCollisionCategories(int x, int y, TilemapColliderWithBody[] tilemapColliderWithBodies)
-		{
-			ResetnodeCollision(0, x, y);
-
-			ResetnodeCollision(1, x - 1, y);
-			ResetnodeCollision(2, x, y - 1);
-			ResetnodeCollision(3, x + 1, y);
-			ResetnodeCollision(4, x, y + 1);
-
-			ResetnodeCollision(5, x - 1, y - 1);
-			ResetnodeCollision(6, x + 1, y - 1);
-			ResetnodeCollision(7, x + 1, y + 1);
-			ResetnodeCollision(8, x - 1, y + 1);
-
-			foreach (var tilemapCollider in tilemapColliderWithBodies)
-			{
-				var collisionCategory = (PathfindaxCollisionCategory)tilemapCollider.RigidBody.CollisionCategory;
-
-				//Self 0
-				var tileCollisionShapesSelf = FlattenTileCollisionShapes(tilemapCollider, x, y);
-
-				if (IsSolid(tileCollisionShapesSelf))
-				{
-					MergeNodeCollision(_nodeCollisions, collisionCategory, 0);
-					continue;
-				}
-
-				//Left 1
-				var tileX = x - 1;
-				var tileY = y;
-				var tileCollisionShapesLeft = FlattenTileCollisionShapes(tilemapCollider, tileX, tileY);
-
-				if (IsSolid(tileCollisionShapesLeft) || (tileCollisionShapesLeft & TileCollisionShape.Right) != 0 || (tileCollisionShapesSelf & TileCollisionShape.Left) != 0) MergeNodeCollision(_nodeCollisions, collisionCategory, 1);
-
-				//Up 2
-				tileX = x;
-				tileY = y - 1;
-				var tileCollisionShapesUp = FlattenTileCollisionShapes(tilemapCollider, tileX, tileY);
-
-				if (IsSolid(tileCollisionShapesUp) || (tileCollisionShapesUp & TileCollisionShape.Bottom) != 0 || (tileCollisionShapesSelf & TileCollisionShape.Top) != 0) MergeNodeCollision(_nodeCollisions, collisionCategory, 2);
-
-				//Right 3
-				tileX = x + 1;
-				tileY = y;
-				var tileCollisionShapesRight = FlattenTileCollisionShapes(tilemapCollider, tileX, tileY);
-
-				if (IsSolid(tileCollisionShapesRight) || (tileCollisionShapesRight & TileCollisionShape.Left) != 0 || (tileCollisionShapesSelf & TileCollisionShape.Right) != 0) MergeNodeCollision(_nodeCollisions, collisionCategory, 3);
-
-				//Down 4
-				tileX = x;
-				tileY = y + 1;
-				var tileCollisionShapesDown = FlattenTileCollisionShapes(tilemapCollider, tileX, tileY);
-
-				if (IsSolid(tileCollisionShapesDown) || (tileCollisionShapesDown & TileCollisionShape.Top) != 0 || (tileCollisionShapesSelf & TileCollisionShape.Bottom) != 0) MergeNodeCollision(_nodeCollisions, collisionCategory, 4);
-
-				//LeftUp 5
-				tileX = x - 1;
-				tileY = y - 1;
-				var tileCollisionShapes = FlattenTileCollisionShapes(tilemapCollider, tileX, tileY);
-
-				if (IsSolid(tileCollisionShapes) || (tileCollisionShapes & TileCollisionShape.Right) != 0 || (tileCollisionShapes & TileCollisionShape.Bottom) != 0 ||
-					_nodeCollisions[1].PathfindaxCollisionCategory != PathfindaxCollisionCategory.None || _nodeCollisions[2].PathfindaxCollisionCategory != PathfindaxCollisionCategory.None ||
-					(tileCollisionShapesLeft & TileCollisionShape.Top) != 0 || (tileCollisionShapesUp & TileCollisionShape.Left) != 0
-					) MergeNodeCollision(_nodeCollisions, collisionCategory, 5);
-
-				//RightUp 6
-				tileX = x + 1;
-				tileY = y - 1;
-				tileCollisionShapes = FlattenTileCollisionShapes(tilemapCollider, tileX, tileY);
-
-				if (IsSolid(tileCollisionShapes) || (tileCollisionShapes & TileCollisionShape.Left) != 0 || (tileCollisionShapes & TileCollisionShape.Bottom) != 0 ||
-					_nodeCollisions[3].PathfindaxCollisionCategory != PathfindaxCollisionCategory.None || _nodeCollisions[2].PathfindaxCollisionCategory != PathfindaxCollisionCategory.None ||
-					(tileCollisionShapesRight & TileCollisionShape.Top) != 0 || (tileCollisionShapesUp & TileCollisionShape.Right) != 0
-					) MergeNodeCollision(_nodeCollisions, collisionCategory, 6);
-
-				//RightDown 7
-				tileX = x + 1;
-				tileY = y + 1;
-				tileCollisionShapes = FlattenTileCollisionShapes(tilemapCollider, tileX, tileY);
-
-				if (IsSolid(tileCollisionShapes) || (tileCollisionShapes & TileCollisionShape.Right) != 0 || (tileCollisionShapes & TileCollisionShape.Top) != 0 ||
-					_nodeCollisions[3].PathfindaxCollisionCategory != PathfindaxCollisionCategory.None || _nodeCollisions[4].PathfindaxCollisionCategory != PathfindaxCollisionCategory.None ||
-					(tileCollisionShapesRight & TileCollisionShape.Bottom) != 0 || (tileCollisionShapesDown & TileCollisionShape.Right) != 0
-					) MergeNodeCollision(_nodeCollisions, collisionCategory, 7);
-
-				//LeftDown 8
-				tileX = x - 1;
-				tileY = y + 1;
-				tileCollisionShapes = FlattenTileCollisionShapes(tilemapCollider, tileX, tileY);
-
-				if (IsSolid(tileCollisionShapes) || (tileCollisionShapes & TileCollisionShape.Left) != 0 || (tileCollisionShapes & TileCollisionShape.Top) != 0 ||
-					_nodeCollisions[1].PathfindaxCollisionCategory != PathfindaxCollisionCategory.None || _nodeCollisions[4].PathfindaxCollisionCategory != PathfindaxCollisionCategory.None ||
-					(tileCollisionShapesLeft & TileCollisionShape.Bottom) != 0 || (tileCollisionShapesDown & TileCollisionShape.Left) != 0)
-					MergeNodeCollision(_nodeCollisions, collisionCategory, 8);
-
-			}
-		}
-
-		private void ResetnodeCollision(int index, int x, int y)
-		{
-			_nodeCollisions[index].X = x;
-			_nodeCollisions[index].Y = y;
-			_nodeCollisions[index].PathfindaxCollisionCategory = PathfindaxCollisionCategory.None;
-		}
-
-		private static bool IsSolid(TileCollisionShape tileCollisionShape)
-		{
-			return tileCollisionShape == TileCollisionShape.Solid || tileCollisionShape == TileCollisionShape.DiagonalDown || tileCollisionShape == TileCollisionShape.DiagonalUp;
-		}
-
-		private static void MergeNodeCollision(NodeCollision[] nodeCollisions, PathfindaxCollisionCategory pathfindaxCollisionCategory, int index)
-		{
-			nodeCollisions[index].PathfindaxCollisionCategory = nodeCollisions[index].PathfindaxCollisionCategory | pathfindaxCollisionCategory;
-		}
-
-		private TileCollisionShape FlattenTileCollisionShapes(TilemapColliderWithBody collisionSources, int x, int y)
-		{
-			if (x >= 0 && y >= 0 && x < collisionSources.Width && y < collisionSources.Height)
-			{
-				var tileCollisionShape = TileCollisionShape.Free;
-				foreach (var tilemapCollisionSource in collisionSources.TilemapCollisionSources)
-				{
-					var tileInfos = tilemapCollisionSource.SourceTilemap.Tileset.Res.TileData;
-					var tileGrid = tilemapCollisionSource.SourceTilemap.Tiles;
-					var tile = tileGrid[x, y];
-					var tileInfo = tileInfos[tile.Index];
-					var usedLayers = _usedLayersCache[(int)tilemapCollisionSource.Layers];
-					foreach (var usedLayer in usedLayers)
-					{
-						tileCollisionShape = tileCollisionShape | tileInfo.Collision[usedLayer];
-					}
-				}
-				return tileCollisionShape;
-			}
-			return TileCollisionShape.Solid;
-		}
-
 
 		private void FillUsedLayerCache()
 		{
@@ -327,45 +164,6 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Generators
 				}
 				_usedLayersCache[i] = result.ToArray();
 			}
-		}
-	}
-
-	/// <summary>
-	/// Only purpose of this class is to store the collisions that are later used to generate the <see cref="NodeConnection"/>s
-	/// </summary>
-	public class NodeCollision
-	{
-		/// <summary>
-		/// The collision bitmask
-		/// </summary>
-		public PathfindaxCollisionCategory PathfindaxCollisionCategory;
-
-		/// <summary>
-		/// The X grid coordinate of where this connection will be going to
-		/// </summary>
-		public int X;
-
-		/// <summary>
-		/// The Y grid coordinate of where this connection will be going to
-		/// </summary>
-		public int Y;
-
-		/// <summary>
-		/// Creates a new <see cref="NodeCollision"/> instance
-		/// </summary>
-		/// <param name="pathfindaxCollisionCategory"></param>
-		/// <param name="x"></param>
-		/// <param name="y"></param>
-		public NodeCollision(PathfindaxCollisionCategory pathfindaxCollisionCategory, int x, int y)
-		{
-			PathfindaxCollisionCategory = pathfindaxCollisionCategory;
-			X = x;
-			Y = y;
-		}
-
-		public override string ToString()
-		{
-			return $"Coords: {X}:{Y} Collision: {PathfindaxCollisionCategory}";
 		}
 	}
 

@@ -378,11 +378,14 @@
           <item dataType="ObjectRef">4009962089</item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Tilemaps.Components.TilemapNodeGridGenerator" id="828666520">
             <_movementPenalties dataType="Array" type="System.Single[]" id="3614682646"></_movementPenalties>
+            <_x003C_ConnectionGenerationMode_x003E_k__BackingField dataType="Enum" type="Pathfindax.Graph.GenerateNodeGridConnections" name="All" value="20" />
+            <_x003C_CrossCorners_x003E_k__BackingField dataType="Bool">false</_x003C_CrossCorners_x003E_k__BackingField>
             <active dataType="Bool">true</active>
             <gameobj dataType="ObjectRef">3952684871</gameobj>
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Components.AstarPathfinderComponent" id="1744982957">
             <_x003C_AmountOfThreads_x003E_k__BackingField dataType="Int">1</_x003C_AmountOfThreads_x003E_k__BackingField>
+            <_x003C_Heuristic_x003E_k__BackingField dataType="Struct" type="Pathfindax.Algorithms.ManhattanDistance" id="1796053751" />
             <_x003C_MaxClearance_x003E_k__BackingField dataType="Int">5</_x003C_MaxClearance_x003E_k__BackingField>
             <active dataType="Bool">true</active>
             <gameobj dataType="ObjectRef">3952684871</gameobj>
@@ -432,7 +435,7 @@
       <active dataType="Bool">true</active>
       <children />
       <compList dataType="Struct" type="System.Collections.Generic.List`1[[Duality.Component]]" id="496016107">
-        <_items dataType="Array" type="Duality.Component[]" id="3833294966">
+        <_items dataType="Array" type="Duality.Component[]" id="3833294966" length="8">
           <item dataType="Struct" type="Duality.Components.Transform" id="4269124107">
             <active dataType="Bool">true</active>
             <angle dataType="Float">0</angle>
@@ -578,7 +581,6 @@
             </_x003C_Camera_x003E_k__BackingField>
             <_x003C_CollisionCategory_x003E_k__BackingField dataType="Enum" type="Pathfindax.Nodes.PathfindaxCollisionCategory" name="Cat1" value="1" />
             <_x003C_MovementSpeed_x003E_k__BackingField dataType="Float">8</_x003C_MovementSpeed_x003E_k__BackingField>
-            <_x003C_Path_x003E_k__BackingField />
             <_x003C_PathfinderComponent_x003E_k__BackingField dataType="ObjectRef">1744982957</_x003C_PathfinderComponent_x003E_k__BackingField>
             <active dataType="Bool">true</active>
             <gameobj dataType="ObjectRef">4211846889</gameobj>
