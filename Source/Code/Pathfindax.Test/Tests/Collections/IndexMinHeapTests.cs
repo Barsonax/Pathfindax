@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Linq;
 using NUnit.Framework;
 using Pathfindax.Collections;
@@ -6,14 +7,14 @@ using Pathfindax.Collections;
 namespace Pathfindax.Test.Tests.Collections
 {
 	[TestFixture]
-	class IndexMaxHeapTests
+	class IndexMinHeapTests
 	{
 		[Test]
-		public void IndexMaxHeap_RemoveFirst_LIFO()
+		public void IndexMinHeap_RemoveFirst_LIFO()
 		{
 			var items = new[] { new IntHeapItem(1), new IntHeapItem(1), new IntHeapItem(1) };
 			//Create the heap and add the items.
-			var heap = new IndexMaxHeap<IntHeapItem>(items);
+			var heap = new IndexMinHeap<IntHeapItem>(items);
 			for (var i = 0; i < items.Length; i++)
 			{
 				heap.Add(i);
@@ -27,31 +28,31 @@ namespace Pathfindax.Test.Tests.Collections
 			}
 		}
 
-		[Test, TestCaseSource(typeof(IndexMaxHeapTests), nameof(HeapTestCases))]
-		public void IndexMaxHeap_RemoveFirst(IntHeapItem[] items)
+		[Test, TestCaseSource(typeof(IndexMinHeapTests), nameof(HeapTestCases))]
+		public void IndexMinHeap_RemoveFirst(IntHeapItem[] items)
 		{
 			//Create the heap and add the items.
-			var heap = new IndexMaxHeap<IntHeapItem>(items);
+			var heap = new IndexMinHeap<IntHeapItem>(items);
 			for (var i = 0; i < items.Length; i++)
 			{
 				heap.Add(i);
 			}
 
 			//Check if the items are in the correct order.
-			var previousValue = int.MaxValue;
+			var previousValue = int.MinValue;
 			for (var i = 0; i < items.Length; i++)
 			{
 				var value = items[heap.RemoveFirst()].Value;
-				if (value <= previousValue) previousValue = value;
-				else Assert.Fail($"Value {value} is bigger than previous value {previousValue}");
+				if (value >= previousValue) previousValue = value;
+				else Assert.Fail($"Value {value} is smaller than previous value {previousValue}");
 			}
 		}
 
-		[Test, TestCaseSource(typeof(IndexMaxHeapTests), nameof(HeapTestCases))]
-		public void IndexMaxHeap_CheckHeapCondition(IntHeapItem[] items)
+		[Test, TestCaseSource(typeof(IndexMinHeapTests), nameof(HeapTestCases))]
+		public void IndexMinHeap_CheckHeapCondition(IntHeapItem[] items)
 		{
 			//Create the heap and add the items.
-			var heap = new IndexMaxHeap<IntHeapItem>(items);
+			var heap = new IndexMinHeap<IntHeapItem>(items);
 			for (int i = 0; i < items.Length; i++)
 			{
 				heap.Add(i);
@@ -63,11 +64,11 @@ namespace Pathfindax.Test.Tests.Collections
 			}
 		}
 
-		[Test, TestCaseSource(typeof(IndexMaxHeapTests), nameof(HeapTestCases))]
-		public void IndexMaxHeap_Contains_True(IntHeapItem[] items)
+		[Test, TestCaseSource(typeof(IndexMinHeapTests), nameof(HeapTestCases))]
+		public void IndexMinHeap_Contains_True(IntHeapItem[] items)
 		{
 			//Create the heap and add the items.
-			var heap = new IndexMaxHeap<IntHeapItem>(items);
+			var heap = new IndexMinHeap<IntHeapItem>(items);
 			for (var i = 0; i < items.Length; i++)
 			{
 				heap.Add(i);
@@ -80,11 +81,11 @@ namespace Pathfindax.Test.Tests.Collections
 			}
 		}
 
-		[Test, TestCaseSource(typeof(IndexMaxHeapTests), nameof(HeapTestCases))]
-		public void IndexMaxHeap_Contains_False(IntHeapItem[] items)
+		[Test, TestCaseSource(typeof(IndexMinHeapTests), nameof(HeapTestCases))]
+		public void IndexMinHeap_Contains_False(IntHeapItem[] items)
 		{
 			//Create the heap and add the items except the last one.
-			var heap = new IndexMaxHeap<IntHeapItem>(items);
+			var heap = new IndexMinHeap<IntHeapItem>(items);
 			for (var i = 0; i < items.Length - 1; i++)
 			{
 				heap.Add(i);
@@ -95,11 +96,11 @@ namespace Pathfindax.Test.Tests.Collections
 			Assert.IsFalse(heap.Contains(items.Length - 1), $"Contains returned true for item {item}");
 		}
 
-		[Test, TestCaseSource(typeof(IndexMaxHeapTests), nameof(HeapTestCases))]
-		public void IndexMaxHeap_Contains_AddAndRemoveAll(IntHeapItem[] items)
+		[Test, TestCaseSource(typeof(IndexMinHeapTests), nameof(HeapTestCases))]
+		public void IndexMinHeap_Contains_AddAndRemoveAll(IntHeapItem[] items)
 		{
 			//Create the heap and add the items except the last one.
-			var heap = new IndexMaxHeap<IntHeapItem>(items);
+			var heap = new IndexMinHeap<IntHeapItem>(items);
 			for (var i = 0; i < items.Length; i++)
 			{
 				heap.Add(i);
@@ -157,7 +158,7 @@ namespace Pathfindax.Test.Tests.Collections
 			if (childHeapIndex < indexes.Length)
 			{
 				var childValue = indexes[childHeapIndex];
-				Assert.IsTrue(parentValue.Value >= childValue.Value);
+				Assert.IsTrue(parentValue.Value <= childValue.Value);
 			}
 		}
 	}

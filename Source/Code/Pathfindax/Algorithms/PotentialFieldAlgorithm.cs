@@ -67,7 +67,7 @@ namespace Pathfindax.Algorithms
 						else
 						{
 							ref var dijkstraNode = ref pathfindingNetwork[currentNodeIndex];
-							potentialNodes[x, y] = dijkstraNode.GCost;
+							potentialNodes[x, y] = dijkstraNode.Priority;
 						}
 					}
 				}

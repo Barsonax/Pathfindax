@@ -5,13 +5,13 @@ using Pathfindax.Test.Tests.Collections;
 namespace Pathfindax.Benchmarks
 {
 	[BenchmarkConfig(300000)]
-	public class IndexMaxHeapBenchmark
+	public class IndexMinHeapBenchmark
 	{
 		const int Capacity = 50000000;
 		private IntHeapItem[] _values;
-		private IndexMaxHeap<IntHeapItem> AddMaxHeap;
-		private IndexMaxHeap<IntHeapItem> RemoveFirstMaxHeap;
-		private IndexMaxHeap<IntHeapItem> ContainsMaxHeap;
+		private IndexMinHeap<IntHeapItem> _addMinHeap;
+		private IndexMinHeap<IntHeapItem> _removeFirstMinHeap;
+		private IndexMinHeap<IntHeapItem> _containsMinHeap;
 
 		[GlobalSetup(Target = nameof(RemoveFirst))]
 		public void SetupRemoveFirst()
@@ -21,10 +21,10 @@ namespace Pathfindax.Benchmarks
 			{
 				_values[i] = new IntHeapItem(i * 2);
 			}
-			RemoveFirstMaxHeap = new IndexMaxHeap<IntHeapItem>(_values);
-			for (int i = 0; i < RemoveFirstMaxHeap.Capacity; i++)
+			_removeFirstMinHeap = new IndexMinHeap<IntHeapItem>(_values);
+			for (int i = 0; i < _removeFirstMinHeap.Capacity; i++)
 			{
-				RemoveFirstMaxHeap.Add(i);
+				_removeFirstMinHeap.Add(i);
 			}
 		}
 
@@ -36,7 +36,7 @@ namespace Pathfindax.Benchmarks
 			{
 				_values[i] = new IntHeapItem(i * 2);
 			}
-			AddMaxHeap = new IndexMaxHeap<IntHeapItem>(_values);
+			_addMinHeap = new IndexMinHeap<IntHeapItem>(_values);
 		}
 
 		[GlobalSetup(Target = nameof(Contains))]
@@ -47,26 +47,26 @@ namespace Pathfindax.Benchmarks
 			{
 				_values[i] = new IntHeapItem(i * 2);
 			}
-			ContainsMaxHeap = new IndexMaxHeap<IntHeapItem>(_values);
-			ContainsMaxHeap.Add(5);
+			_containsMinHeap = new IndexMinHeap<IntHeapItem>(_values);
+			_containsMinHeap.Add(5);
 		}
 
 		[Benchmark]
 		public IntHeapItem RemoveFirst()
 		{
-			return _values[RemoveFirstMaxHeap.RemoveFirst()];
+			return _values[_removeFirstMinHeap.RemoveFirst()];
 		}
 
 		[Benchmark]
 		public void Add()
 		{
-			AddMaxHeap.Add(AddMaxHeap.Count);
+			_addMinHeap.Add(_addMinHeap.Count);
 		}
 
 		[Benchmark]
 		public void Contains()
 		{
-			ContainsMaxHeap.Contains(0);
+			_containsMinHeap.Contains(0);
 		}
 	}
 }

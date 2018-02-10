@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Duality;
 using Pathfindax.Collections;
 using Pathfindax.Graph;
 using Pathfindax.Nodes;
@@ -16,17 +15,17 @@ namespace Pathfindax.Algorithms
 	public class AStarAlgorithm : IPathFindAlgorithm<IPathfindNodeNetwork<AstarNode>, NodePath>
 	{
 		public IEnumerable<int> OpenSet => _openSet;
-		private readonly IndexMaxHeap<AstarNode> _openSet;
+		private readonly IndexMinHeap<AstarNode> _openSet;
 
 		public IEnumerable<int> ClosedSet => _closedSet;
 		private readonly LookupArray _closedSet;
 		private readonly List<int> _pathBuffer;
 		private readonly IDistanceHeuristic _heuristic;
-		private readonly IDistanceHeuristic _costFunction = new EuclideanDistance();
+		private readonly EuclideanDistance _costFunction = new EuclideanDistance();
 
 		public AStarAlgorithm(int amountOfNodes, IDistanceHeuristic heuristic)
 		{
-			_openSet = new IndexMaxHeap<AstarNode>(amountOfNodes);
+			_openSet = new IndexMinHeap<AstarNode>(amountOfNodes);
 			_closedSet = new LookupArray(amountOfNodes);
 			_pathBuffer = new List<int>();
 			_heuristic = heuristic;
@@ -104,7 +103,7 @@ namespace Pathfindax.Algorithms
 						if (newMovementCostToNeighbour < toNode.GCost || !_openSet.Contains(connection.To))
 						{
 							toNode.GCost = newMovementCostToNeighbour;
-							toNode.HCost = _heuristic.GetDistance(toDefinitionNode.Position, targetNodePosition);
+							toNode.Priority = newMovementCostToNeighbour + _heuristic.GetDistance(toDefinitionNode.Position, targetNodePosition) * currentDefinitionNode.MovementCostModifier;
 							toNode.Parent = currentNodeIndex;
 							if (!_openSet.Contains(connection.To))
 								_openSet.Add(connection.To);

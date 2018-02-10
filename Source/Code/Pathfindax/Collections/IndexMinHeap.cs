@@ -6,13 +6,13 @@ using System.Runtime.CompilerServices;
 namespace Pathfindax.Collections
 {
 	/// <summary>
-	/// A fast maxheap that is used as a priority queue for pathfinding.
+	/// A fast minheap that is used as a priority queue for pathfinding.
 	/// Does not store the items itself but keeps references to them with array indexes. So do not move items in the original array.
 	/// Items with equal priority are returned in LIFO order.
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
-	public class IndexMaxHeap<T> : IEnumerable<int>
-		where T : IPriorityComparable<T>
+	public class IndexMinHeap<T> : IEnumerable<int>
+		where T : IPriority
 	{
 		/// <summary>
 		/// The current amount of items in the heap.
@@ -24,12 +24,12 @@ namespace Pathfindax.Collections
 		private int[] _heapIndexes;
 		private T[] _array;
 
-		public IndexMaxHeap(T[] array)
+		public IndexMinHeap(T[] array)
 		{
 			Initialize(array, array.Length);
 		}
 
-		public IndexMaxHeap(int size)
+		public IndexMinHeap(int size)
 		{
 			Initialize(null, size);
 		}
@@ -72,7 +72,7 @@ namespace Pathfindax.Collections
 
 		/// <summary>
 		/// Removes the first item from the heap. 
-		/// Since this is a maxheap it will have the highest value which is determined by the implementation of the <see cref="IComparable{T}"/> interface.
+		/// Since this is a minheap it will have the highest value which is determined by the implementation of the <see cref="IComparable{T}"/> interface.
 		/// </summary>
 		/// <returns></returns>
 		public int RemoveFirst()
@@ -120,14 +120,14 @@ namespace Pathfindax.Collections
 				{
 					var swapHeapIndex = childIndexLeft;
 					if (childIndexRight < Count &&
-					    _array[_indexes[childIndexLeft]].HasHigherPriority(_array[_indexes[childIndexRight]]) == false)
+					    _array[_indexes[childIndexRight]].Priority > _array[_indexes[childIndexLeft]].Priority  == false)
 					{
 						swapHeapIndex = childIndexRight;
 					}
 
 					var swapItemIndex = _indexes[swapHeapIndex];
 					ref var swapItem = ref _array[swapItemIndex];
-					if (swapItem.HasHigherPriority(item))
+					if (item.Priority > swapItem.Priority)
 					{
 						_indexes[itemHeapIndex] = swapItemIndex;
 						_heapIndexes[swapItemIndex] = itemHeapIndex;
@@ -161,7 +161,7 @@ namespace Pathfindax.Collections
 				var parentItemIndex = _indexes[parentItemHeapIndex];
 
 				ref var parentItem = ref _array[parentItemIndex];
-				if (parentItem.HasHigherPriority(item))
+				if (item.Priority > parentItem.Priority)
 					break;
 
 				_indexes[itemHeapIndex] = parentItemIndex;

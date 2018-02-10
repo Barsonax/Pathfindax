@@ -592,15 +592,15 @@
           <item dataType="ObjectRef">1374279472</item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Tilemaps.Components.TilemapNodeGridGenerator" id="2487951199">
             <_movementPenalties />
-            <_sourceNodeGrid />
+            <_x003C_ConnectionGenerationMode_x003E_k__BackingField dataType="Enum" type="Pathfindax.Graph.GenerateNodeGridConnections" name="All" value="20" />
+            <_x003C_CrossCorners_x003E_k__BackingField dataType="Bool">false</_x003C_CrossCorners_x003E_k__BackingField>
             <active dataType="Bool">true</active>
             <gameobj dataType="ObjectRef">1317002254</gameobj>
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Components.AstarPathfinderComponent" id="3404267636">
             <_x003C_AmountOfThreads_x003E_k__BackingField dataType="Int">1</_x003C_AmountOfThreads_x003E_k__BackingField>
+            <_x003C_Heuristic_x003E_k__BackingField dataType="Struct" type="Pathfindax.Algorithms.ManhattanDistance" id="2307499472" />
             <_x003C_MaxClearance_x003E_k__BackingField dataType="Int">5</_x003C_MaxClearance_x003E_k__BackingField>
-            <_x003C_Pathfinder_x003E_k__BackingField />
-            <_x003C_PathfinderId_x003E_k__BackingField />
             <active dataType="Bool">true</active>
             <gameobj dataType="ObjectRef">1317002254</gameobj>
           </item>
@@ -742,7 +742,6 @@
       <compList dataType="Struct" type="System.Collections.Generic.List`1[[Duality.Component]]" id="2577520330">
         <_items dataType="Array" type="Duality.Component[]" id="3266550624" length="4">
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PathfindaxPathSpammerComponent" id="1279318976">
-            <_frameCounter dataType="Int">0</_frameCounter>
             <_randomGenerator dataType="Struct" type="System.Random" id="542603856">
               <inext dataType="Int">0</inext>
               <inextp dataType="Int">21</inextp>

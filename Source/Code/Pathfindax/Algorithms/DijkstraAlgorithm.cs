@@ -10,12 +10,12 @@ namespace Pathfindax.Algorithms
 	/// </summary>
 	public class DijkstraAlgorithm
 	{
-		private readonly IndexMaxHeap<DijkstraNode> _openSet;
+		private readonly IndexMinHeap<DijkstraNode> _openSet;
 		private readonly LookupArray _closedSet;
 
 		public DijkstraAlgorithm(int amountOfNodes)
 		{
-			_openSet = new IndexMaxHeap<DijkstraNode>(amountOfNodes);
+			_openSet = new IndexMinHeap<DijkstraNode>(amountOfNodes);
 			_closedSet = new LookupArray(amountOfNodes);
 		}
 
@@ -29,7 +29,7 @@ namespace Pathfindax.Algorithms
 			_closedSet.Clear();
 
 			_openSet.Add(targetNodeIndex);
-			targetNode.GCost = 0f;
+			targetNode.Priority = 0f;
 			while (_openSet.Count > 0)
 			{
 				var currentNodeIndex = _openSet.RemoveFirst();
@@ -43,15 +43,15 @@ namespace Pathfindax.Algorithms
 					ref var toNode = ref pathfindingNetwork[connection.To];					
 					if (toNode.Clearance < neededClearance)
 					{
-						toNode.GCost = float.NaN;
+						toNode.Priority = float.NaN;
 					}
 					else
 					{
 						ref var toDefinitionNode = ref definitionNodes[connection.To];
-						var newMovementCostToNeighbour = currentNode.GCost + GetDistance(currentDefinitionNode.Position, toDefinitionNode.Position) * currentDefinitionNode.MovementCostModifier;
-						if (newMovementCostToNeighbour < toNode.GCost || !_openSet.Contains(connection.To))
+						var newMovementCostToNeighbour = currentNode.Priority + GetDistance(currentDefinitionNode.Position, toDefinitionNode.Position) * currentDefinitionNode.MovementCostModifier;
+						if (newMovementCostToNeighbour < toNode.Priority || !_openSet.Contains(connection.To))
 						{
-							toNode.GCost = newMovementCostToNeighbour;
+							toNode.Priority = newMovementCostToNeighbour;
 							if (!_openSet.Contains(connection.To))
 								_openSet.Add(connection.To);
 							else
@@ -69,7 +69,7 @@ namespace Pathfindax.Algorithms
 		{
 			for (var i = 0; i < pathfindingNetwork.Length; i++)
 			{
-				pathfindingNetwork[i].GCost = float.NaN;
+				pathfindingNetwork[i].Priority = float.NaN;
 			}
 		}
 

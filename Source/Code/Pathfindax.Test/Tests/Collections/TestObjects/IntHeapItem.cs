@@ -2,9 +2,10 @@
 
 namespace Pathfindax.Test.Tests.Collections
 {
-	public struct IntHeapItem : IPriorityComparable<IntHeapItem>
+	public struct IntHeapItem : IPriority
 	{
 		public int Value { get; }
+		public float Priority => Value;
 
 		public IntHeapItem(int value)
 		{
@@ -14,11 +15,6 @@ namespace Pathfindax.Test.Tests.Collections
 		public override string ToString()
 		{
 			return Value.ToString();
-		}
-
-		public bool HasHigherPriority(in IntHeapItem other)
-		{
-			return Value > other.Value;
 		}
 	}
 }
