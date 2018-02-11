@@ -206,6 +206,8 @@
           <item dataType="ObjectRef">4009962089</item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Tilemaps.Components.TilemapNodeGridGenerator" id="828666520">
             <_movementPenalties />
+            <_x003C_ConnectionGenerationMode_x003E_k__BackingField dataType="Enum" type="Pathfindax.Graph.GenerateNodeGridConnections" name="All" value="20" />
+            <_x003C_CrossCorners_x003E_k__BackingField dataType="Bool">false</_x003C_CrossCorners_x003E_k__BackingField>
             <active dataType="Bool">true</active>
             <gameobj dataType="ObjectRef">3952684871</gameobj>
           </item>
@@ -4028,7 +4030,7 @@
       <prefabLink />
     </item>
     <item dataType="Struct" type="Duality.GameObject" id="4042816587">
-      <active dataType="Bool">false</active>
+      <active dataType="Bool">true</active>
       <children />
       <compList dataType="Struct" type="System.Collections.Generic.List`1[[Duality.Component]]" id="3217744697">
         <_items dataType="Array" type="Duality.Component[]" id="150537934" length="8">
@@ -4052,8 +4054,8 @@
               <Y dataType="Float">-144</Y>
               <Z dataType="Float">-1</Z>
             </posAbs>
-            <scale dataType="Float">1.2</scale>
-            <scaleAbs dataType="Float">1.2</scaleAbs>
+            <scale dataType="Float">0.2</scale>
+            <scaleAbs dataType="Float">0.2</scaleAbs>
             <vel dataType="Struct" type="Duality.Vector3" />
             <velAbs dataType="Struct" type="Duality.Vector3" />
           </item>
@@ -4114,7 +4116,7 @@
             <wrapTexture dataType="Bool">false</wrapTexture>
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PotentialFieldFollowerComponent" id="1333347482">
-            <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">5</_x003C_AgentSize_x003E_k__BackingField>
+            <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">1</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="ObjectRef">1603001729</_x003C_Camera_x003E_k__BackingField>
             <_x003C_DynamicPotentialFieldComponent_x003E_k__BackingField dataType="ObjectRef">3921926792</_x003C_DynamicPotentialFieldComponent_x003E_k__BackingField>
             <_x003C_MovementSpeed_x003E_k__BackingField dataType="Float">25</_x003C_MovementSpeed_x003E_k__BackingField>
@@ -4124,7 +4126,7 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Components.PathVisualizer" id="1180521489">
             <_x003C_BoundRadius_x003E_k__BackingField dataType="Float">0</_x003C_BoundRadius_x003E_k__BackingField>
-            <_x003C_Visualize_x003E_k__BackingField dataType="Bool">false</_x003C_Visualize_x003E_k__BackingField>
+            <_x003C_Visualize_x003E_k__BackingField dataType="Bool">true</_x003C_Visualize_x003E_k__BackingField>
             <active dataType="Bool">true</active>
             <gameobj dataType="ObjectRef">4042816587</gameobj>
           </item>

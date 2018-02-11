@@ -99,12 +99,15 @@ namespace Pathfindax.PathfindEngine
 
 		public PathRequest<TPath> RequestPath(Vector2 start, Vector2 end, PathfindaxCollisionCategory collisionLayer = PathfindaxCollisionCategory.None, byte agentSize = 1)
 		{
+
 			return RequestPath(start.X, start.Y, end.X, end.Y, collisionLayer, agentSize);
 		}
 
 		public PathRequest<TPath> RequestPath(float x1, float y1, float x2, float y2, PathfindaxCollisionCategory collisionLayer = PathfindaxCollisionCategory.None, byte agentSize = 1)
 		{
-			return PathFindAlgorithm.CreatePathRequest(this, DefinitionNodeNetwork, x1, y1, x2, y2, collisionLayer, agentSize);
+			var startNode = DefinitionNodeNetwork.GetNodeIndex(x1, y1);
+			var endNode = DefinitionNodeNetwork.GetNodeIndex(x2, y2);
+			return PathRequest.Create(this, startNode, endNode, collisionLayer, agentSize);
 		}
 
 		public PathRequest<TPath> RequestPath(int start, int end, PathfindaxCollisionCategory collisionLayer = PathfindaxCollisionCategory.None, byte agentSize = 1)

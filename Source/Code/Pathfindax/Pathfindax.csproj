@@ -93,7 +93,7 @@
     <Compile Include="Graph\DijkstraNodeGrid.cs" />
     <Compile Include="Collections\Interfaces\IReadOnlyArray2D.cs" />
     <Compile Include="Collections\Interfaces\IWriteOnlyArray2D.cs" />
-    <Compile Include="Graph\GridClearanceGenerator.cs" />
+    <Compile Include="Graph\BrushfireClearanceGenerator.cs" />
     <Compile Include="Graph\Interfaces\IPathfindNodeGenerator.cs" />
     <Compile Include="Nodes\DefinitionNode.cs" />
     <Compile Include="Factories\PathfinderFactory.cs" />

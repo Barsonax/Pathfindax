@@ -1,4 +1,6 @@
-﻿using Duality;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Duality;
 using Pathfindax.Graph;
 using Pathfindax.Utils;
 
@@ -18,11 +20,11 @@ namespace Pathfindax.Nodes
 
 		public NodeConnection[] Connections;
 
-		public DefinitionNode(Vector2 position, float movementCostModifier = 1f)
+		public DefinitionNode(Vector2 position, float movementCostModifier = 1f, NodeConnection[] connections = null)
 		{
 			Position = position;
 			MovementCostModifier = movementCostModifier;
-			Connections = new NodeConnection[0];
+			Connections = connections ?? new NodeConnection[0];
 		}
 
 		public void SetConnectionCollision(int index, PathfindaxCollisionCategory collisionCategory)

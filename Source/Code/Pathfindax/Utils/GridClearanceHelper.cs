@@ -15,5 +15,11 @@ namespace Pathfindax.Utils
 		{
 			return nodeSize * Math.Max(0f, (agentSize - 1) * 0.5f);
 		}
+
+		public static int GetIndexOffset(byte agentSize, int gridWidth)
+		{
+			var nodeOffset = (int)Math.Max(0f, (agentSize - 1) * 0.5f);
+			return nodeOffset + nodeOffset * gridWidth;
+		}
 	}
 }

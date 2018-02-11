@@ -35,14 +35,14 @@ namespace Pathfindax.Graph
 
 		private DijkstraNode[] GenerateNodeNetwork(PathfindaxCollisionCategory collisionCategory)
 		{
-			var gridClearanceGenerator = new GridClearanceGenerator(DefinitionNodeGrid, _maxClearance);
+			var gridClearanceGenerator = new BrushfireClearanceGenerator(DefinitionNodeGrid, _maxClearance);
 			var nodeNetwork = new DijkstraNode[DefinitionNodeGrid.NodeCount];
 			for (var i = 0; i < DefinitionNodeGrid.NodeGrid.Array.Length; i++)
 			{
 				ref var definitionNode = ref DefinitionNodeGrid.NodeGrid.Array[i];
 				nodeNetwork[i] = new DijkstraNode
 				{
-					Clearance = _maxClearance == -1 ? int.MaxValue : gridClearanceGenerator.CalculateGridNodeClearances(ref definitionNode, collisionCategory, _maxClearance)
+					Clearance = _maxClearance == -1 ? int.MaxValue : gridClearanceGenerator.CalculateClearance(ref definitionNode, collisionCategory, _maxClearance)
 				};
 			}
 			return nodeNetwork;

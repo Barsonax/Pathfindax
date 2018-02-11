@@ -1,10 +1,7 @@
-﻿using System;
-using Pathfindax.Collections;
+﻿using Pathfindax.Collections;
 using Pathfindax.Graph;
-using Pathfindax.Nodes;
 using Pathfindax.PathfindEngine;
 using Pathfindax.Paths;
-using Pathfindax.Utils;
 
 namespace Pathfindax.Algorithms
 {
@@ -30,26 +27,6 @@ namespace Pathfindax.Algorithms
 			}
 			succes = flowField[pathRequest.PathStart].Length > 0;
 			return flowField;
-		}
-
-		public PathRequest<FlowField> CreatePathRequest(IPathfinder<FlowField> pathfinder, IDefinitionNodeNetwork definitionNodes, float x1, float y1, float x2, float y2, PathfindaxCollisionCategory collisionLayer = PathfindaxCollisionCategory.None, byte agentSize = 1)
-		{
-			int startNode;
-			int endNode;
-			switch (definitionNodes)
-			{
-				case IDefinitionNodeGrid definitionNodeGrid:
-					var offset = -GridClearanceHelper.GridNodeOffset(agentSize, definitionNodeGrid.Transformer.Scale);
-					startNode = definitionNodeGrid.GetNodeIndex(x1 + offset.X, y1 + offset.Y);
-					endNode = definitionNodeGrid.GetNodeIndex(x2 + offset.X, y2 + offset.Y);
-					return PathRequest.Create(pathfinder, startNode, endNode, collisionLayer, agentSize);
-				case IDefinitionNodeNetwork definitionNodeNetwork:
-					startNode = definitionNodeNetwork.GetNodeIndex(x1, y1);
-					endNode = definitionNodeNetwork.GetNodeIndex(x2, y2);
-					return PathRequest.Create(pathfinder, startNode, endNode, collisionLayer, agentSize);
-				default:
-					throw new NotSupportedException($"{definitionNodes.GetType()} is not supported");
-			}
 		}
 	}
 }

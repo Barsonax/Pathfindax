@@ -26,12 +26,12 @@ namespace Pathfindax.Test.Tests.Algorithms
 			var pathRequest = PathRequest.Create<IPath>(start, end);
 			var potentialField = potentialFieldAlgorithm.FindPath(pathfindingNetwork, pathRequest, out var _);
 			const float tolerance = 0.001f;
-			Assert.AreEqual(4f ,potentialField.PotentialArray[0, 0], tolerance);
-			Assert.AreEqual(3f, potentialField.PotentialArray[1, 0], tolerance);
+			Assert.AreEqual(2.828427f ,potentialField.PotentialArray[0, 0], tolerance);
+			Assert.AreEqual(2.414214f, potentialField.PotentialArray[1, 0], tolerance);
 			Assert.AreEqual(2f, potentialField.PotentialArray[2, 0], tolerance);
 
-			Assert.AreEqual(3f, potentialField.PotentialArray[0, 1], tolerance);
-			Assert.AreEqual(2f, potentialField.PotentialArray[1, 1], tolerance);
+			Assert.AreEqual(2.414214f, potentialField.PotentialArray[0, 1], tolerance);
+			Assert.AreEqual(1.414214f, potentialField.PotentialArray[1, 1], tolerance);
 			Assert.AreEqual(1f, potentialField.PotentialArray[2, 1], tolerance);
 
 			Assert.AreEqual(2f, potentialField.PotentialArray[0, 2], tolerance);

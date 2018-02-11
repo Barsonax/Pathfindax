@@ -1,6 +1,4 @@
-﻿using System;
-using Duality;
-using Pathfindax.Collections;
+﻿using Pathfindax.Collections;
 using Pathfindax.Nodes;
 
 namespace Pathfindax.Algorithms
@@ -12,6 +10,7 @@ namespace Pathfindax.Algorithms
 	{
 		private readonly IndexMinHeap<DijkstraNode> _openSet;
 		private readonly LookupArray _closedSet;
+		private readonly EuclideanDistance _costFunction = new EuclideanDistance();
 
 		public DijkstraAlgorithm(int amountOfNodes)
 		{
@@ -48,7 +47,7 @@ namespace Pathfindax.Algorithms
 					else
 					{
 						ref var toDefinitionNode = ref definitionNodes[connection.To];
-						var newMovementCostToNeighbour = currentNode.Priority + GetDistance(currentDefinitionNode.Position, toDefinitionNode.Position) * currentDefinitionNode.MovementCostModifier;
+						var newMovementCostToNeighbour = currentNode.Priority + _costFunction.GetDistance(currentDefinitionNode.Position, toDefinitionNode.Position) * currentDefinitionNode.MovementCostModifier;
 						if (newMovementCostToNeighbour < toNode.Priority || !_openSet.Contains(connection.To))
 						{
 							toNode.Priority = newMovementCostToNeighbour;
@@ -71,13 +70,6 @@ namespace Pathfindax.Algorithms
 			{
 				pathfindingNetwork[i].Priority = float.NaN;
 			}
-		}
-
-		private static float GetDistance(in Vector2 position1, in Vector2 position2)
-		{
-			var dstX = Math.Abs(position1.X - position2.X);
-			var dstY = Math.Abs(position1.Y - position2.Y);
-			return dstY + dstX;
 		}
 	}
 }

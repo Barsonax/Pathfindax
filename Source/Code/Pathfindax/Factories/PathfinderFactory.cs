@@ -44,7 +44,7 @@ namespace Pathfindax.Factories
 			{
 				var nodeGenerators = new List<IPathfindNodeGenerator<AstarNode>>();
 				if (definitionNodeNetwork is IDefinitionNodeGrid sourceNodeGrid)
-					nodeGenerators.Add(new GridClearanceGenerator(sourceNodeGrid, maxClearance));
+					nodeGenerators.Add(new BrushfireClearanceGenerator(sourceNodeGrid, maxClearance));
 				var astarNodeNetwork = new AstarNodeNetwork(definitionNodeNetwork, nodeGenerators.ToArray());
 				return CreateRequestProcesser(astarNodeNetwork, algorithm);
 			}, amountOfThreads);

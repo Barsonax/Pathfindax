@@ -385,7 +385,7 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Components.AstarPathfinderComponent" id="1744982957">
             <_x003C_AmountOfThreads_x003E_k__BackingField dataType="Int">1</_x003C_AmountOfThreads_x003E_k__BackingField>
-            <_x003C_Heuristic_x003E_k__BackingField dataType="Struct" type="Pathfindax.Algorithms.ManhattanDistance" id="1796053751" />
+            <_x003C_Heuristic_x003E_k__BackingField dataType="Struct" type="Pathfindax.Algorithms.EuclideanDistance" id="1796053751" />
             <_x003C_MaxClearance_x003E_k__BackingField dataType="Int">5</_x003C_MaxClearance_x003E_k__BackingField>
             <active dataType="Bool">true</active>
             <gameobj dataType="ObjectRef">3952684871</gameobj>
@@ -487,11 +487,11 @@
             <visibilityGroup dataType="Enum" type="Duality.Drawing.VisibilityFlag" name="Group0" value="1" />
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PathFollowerComponent" id="1829385283">
-            <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">1</_x003C_AgentSize_x003E_k__BackingField>
+            <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">3</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="Struct" type="Duality.Components.Camera" id="1603001729">
               <active dataType="Bool">true</active>
               <farZ dataType="Float">11000</farZ>
-              <focusDist dataType="Float">620</focusDist>
+              <focusDist dataType="Float">590</focusDist>
               <gameobj dataType="Struct" type="Duality.GameObject" id="56615252">
                 <active dataType="Bool">true</active>
                 <children />

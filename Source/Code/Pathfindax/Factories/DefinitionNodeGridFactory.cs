@@ -3,7 +3,6 @@ using Duality;
 using Pathfindax.Collections;
 using Pathfindax.Graph;
 using Pathfindax.Nodes;
-using Pathfindax.Utils;
 
 namespace Pathfindax.Factories
 {
@@ -24,31 +23,24 @@ namespace Pathfindax.Factories
 				for (var x = 0; x < width; x++)
 				{
 					var worldPosition = new Vector2(x, y);
-					array[x, y] = new DefinitionNode(worldPosition);
-				}
-			}
-
-			if (generateNodeGridConnections != GenerateNodeGridConnections.None)
-			{
-				for (var y = 0; y < height; y++)
-				{
-					for (var x = 0; x < width; x++)
-					{						
-						ref var node = ref array.Array[array.ToIndex(x, y)];
-						var neighbours = GetNeighbours(array, x, y, generateNodeGridConnections);
-						foreach (var neighbour in neighbours)
-						{
-							node.AddConnection(neighbour);
-						}
+					if (generateNodeGridConnections == GenerateNodeGridConnections.None)
+					{
+						array[x, y] = new DefinitionNode(worldPosition);
+					}
+					else
+					{
+						var connections = GetNeighbours(width, height, x, y, generateNodeGridConnections);
+						array[x, y] = new DefinitionNode(worldPosition, connections: connections);
 					}
 				}
 			}
 			return array;
 		}
 
-		private static List<ArrayIndex> GetNeighbours(IReadOnlyArray2D<DefinitionNode> nodeArray, int gridX, int gridY, GenerateNodeGridConnections generateNodeGridConnections)
+		private static readonly int[] _connectionBuffer = new int[8];
+		private static NodeConnection[] GetNeighbours(int width, int height, int gridX, int gridY, GenerateNodeGridConnections generateNodeGridConnections)
 		{
-			var neighbours = new List<ArrayIndex>();
+			var count = 0;
 			for (var y = -1; y <= 1; y++)
 			{
 				for (var x = -1; x <= 1; x++)
@@ -58,7 +50,7 @@ namespace Pathfindax.Factories
 					var checkX = gridX + x;
 					var checkY = gridY + y;
 
-					if (checkX >= 0 && checkX < nodeArray.Width && checkY >= 0 && checkY < nodeArray.Height)
+					if (checkX >= 0 && checkX < width && checkY >= 0 && checkY < height)
 					{
 						if (generateNodeGridConnections == GenerateNodeGridConnections.NoDiagonal)
 						{
@@ -67,10 +59,15 @@ namespace Pathfindax.Factories
 								continue;
 							}
 						}
-						var p = new ArrayIndex(nodeArray.Width * checkY + checkX);
-						neighbours.Add(p);
+						_connectionBuffer[count] = width * checkY + checkX;
+						count++;
 					}
 				}
+			}
+			var neighbours = new NodeConnection[count];
+			for (var i = 0; i < neighbours.Length; i++)
+			{
+				neighbours[i] = new NodeConnection(_connectionBuffer[i]);
 			}
 			return neighbours;
 		}
