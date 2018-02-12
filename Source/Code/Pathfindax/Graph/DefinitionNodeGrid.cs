@@ -23,7 +23,8 @@ namespace Pathfindax.Graph
 		public DefinitionNodeGrid(GenerateNodeGridConnections generateNodeGridConnections, int width, int height, Vector2 scale, Vector2 offset = default(Vector2))
 		{
 			Transformer = new GridTransformer(new Point2(width, height), scale, offset);
-			NodeGrid = DefinitionNodeGridFactory.GeneratePreFilledArray(generateNodeGridConnections, width, height);
+			var factory = new DefinitionNodeGridFactory();
+			NodeGrid = factory.GeneratePreFilledArray(generateNodeGridConnections, width, height);
 		}
 
 		public void SetNodeCollision(int gridX, int gridY, PathfindaxCollisionCategory pathfindaxCollisionCategory)

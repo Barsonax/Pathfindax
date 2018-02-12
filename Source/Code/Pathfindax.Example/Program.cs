@@ -24,7 +24,7 @@ namespace Pathfindax.Example
 			Console.WriteLine(nameof(AsyncExample));
 
 			//Setup the nodegrid and pathfinder.
-			var pathfindaxManager = new PathfindaxManager();
+			var pathfindaxManager = new PathfindaxManager(new UpdatableSynchronizationContext());
 			var nodeNetwork = new DefinitionNodeGrid(GenerateNodeGridConnections.All, 3, 3, new Vector2(1, 1));
 			var pathfinder = pathfindaxManager.CreateAstarPathfinder(nodeNetwork, new ManhattanDistance());
 
@@ -44,7 +44,7 @@ namespace Pathfindax.Example
 			Console.WriteLine(nameof(PollingExample));
 
 			//Setup the nodegrid and pathfinder.
-			var pathfindaxManager = new PathfindaxManager();
+			var pathfindaxManager = new PathfindaxManager(new UpdatableSynchronizationContext());
 			var nodeNetwork = new DefinitionNodeGrid(GenerateNodeGridConnections.All, 3, 3, new Vector2(1, 1));
 			var pathfinder = pathfindaxManager.CreateAstarPathfinder(nodeNetwork, new ManhattanDistance());
 
@@ -72,7 +72,7 @@ namespace Pathfindax.Example
 			Console.WriteLine(nameof(CallbackExample));
 
 			//Setup the nodegrid and pathfinder.
-			var pathfindaxManager = new PathfindaxManager();
+			var pathfindaxManager = new PathfindaxManager(new UpdatableSynchronizationContext());
 			var nodeNetwork = new DefinitionNodeGrid(GenerateNodeGridConnections.All, 3, 3, new Vector2(1, 1));
 			var pathfinder = pathfindaxManager.CreateAstarPathfinder(nodeNetwork, new ManhattanDistance());
 

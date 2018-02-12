@@ -8,21 +8,22 @@ namespace Pathfindax.PathfindEngine
 {
 	public class PathfindaxManager : IPathfindaxManager
 	{
-		private readonly List<IPathfinder> _pathfinders = new List<IPathfinder>();
 		private readonly List<DynamicPotentialFieldUpdater> _dynamicPotentialFieldUpdaters = new List<DynamicPotentialFieldUpdater>();
+		private readonly IUpdatableSynchronizationContext _synchronizationContext;
+
+		public PathfindaxManager(IUpdatableSynchronizationContext synchronizationContext)
+		{
+			_synchronizationContext = synchronizationContext;
+		}
 
 		public void Clear()
 		{
-			_pathfinders.Clear();
 			_dynamicPotentialFieldUpdaters.Clear();
 		}
 
 		public void Update(float time)
 		{
-			foreach (var pathfinder in _pathfinders)
-			{
-				pathfinder.ProcessPaths();
-			}
+			_synchronizationContext.Update();
 
 			foreach (var dynamicPotentialFieldUpdater in _dynamicPotentialFieldUpdaters)
 			{
@@ -44,10 +45,7 @@ namespace Pathfindax.PathfindEngine
 			where TPath : class, IPath
 		{
 			if (threads < 1) throw new ArgumentException("There is a minimum of 1 thread");
-			var pathfinder = new Pathfinder<TSourceNodeNetwork, TThreadNodeNetwork, TPath>(definitionNodeNetwork, pathFindAlgorithm, processerConstructor, threads);
-			_pathfinders.Add(pathfinder);
-			pathfinder.Disposed += o => _pathfinders.Remove(o);
-			return pathfinder;
+			return new Pathfinder<TSourceNodeNetwork, TThreadNodeNetwork, TPath>(_synchronizationContext, definitionNodeNetwork, pathFindAlgorithm, processerConstructor, threads);
 		}
 	}
 }

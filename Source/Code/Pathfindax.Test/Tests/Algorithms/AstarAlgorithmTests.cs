@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using Duality;
+using NSubstitute;
 using NUnit.Framework;
 using Pathfindax.Algorithms;
 using Pathfindax.Graph;
@@ -22,7 +23,7 @@ namespace Pathfindax.Test.Tests.Algorithms
 			var end = definitionNodeGrid.NodeGrid.ToIndex(gridEnd.X, gridEnd.Y);
 
 			var pathfindingNetwork = new AstarNodeNetwork(definitionNodeGrid, new BrushfireClearanceGenerator(definitionNodeGrid, 5));
-			var pathRequest = PathRequest.Create<IPath>(start, end, PathfindaxCollisionCategory.Cat1);
+			var pathRequest = PathRequest.Create(Substitute.For<IPathfinder<IPath>>() ,start, end, PathfindaxCollisionCategory.Cat1);
 			var path = aStarAlgorithm.FindPath(pathfindingNetwork, pathRequest, out var _);
 			var pathLength = path.GetPathLength();
 			Assert.AreEqual(expectedPathLength, pathLength, 0.1f);

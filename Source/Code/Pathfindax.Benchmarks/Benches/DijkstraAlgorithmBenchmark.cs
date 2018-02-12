@@ -1,5 +1,6 @@
 ﻿using BenchmarkDotNet.Attributes;
 using Duality;
+using NSubstitute;
 using Pathfindax.Algorithms;
 using Pathfindax.Graph;
 using Pathfindax.Nodes;
@@ -24,8 +25,8 @@ namespace Pathfindax.Benchmarks
 			_definitionNodeGrid = new DefinitionNodeGrid(GenerateNodeGridConnections.All, 320, 200, new Vector2(1, 1));
 			_dijkstraNodeGrid = new DijkstraNodeGrid(_definitionNodeGrid, 1);
 			_algorithm = new DijkstraAlgorithm(_definitionNodeGrid.NodeCount);
-			_pathRequest =
-				new PathRequest<NodePath>(_definitionNodeGrid.NodeGrid.ToIndex(0, 0), _definitionNodeGrid.NodeGrid.ToIndex(319, 199));
+			_pathRequest = PathRequest.Create(Substitute.For<IPathfinder<NodePath>>(),
+				_definitionNodeGrid.NodeGrid.ToIndex(0, 0), _definitionNodeGrid.NodeGrid.ToIndex(319, 199));
 			_nodeNetwork = _dijkstraNodeGrid.GetCollisionLayerNetwork(_pathRequest.CollisionCategory);
 		}
 

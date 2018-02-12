@@ -1,21 +1,20 @@
-﻿using System.Collections.Generic;
-using Duality;
+﻿using Duality;
 using Pathfindax.Collections;
 using Pathfindax.Graph;
 using Pathfindax.Nodes;
 
 namespace Pathfindax.Factories
 {
-	public static class DefinitionNodeGridFactory
+	public class DefinitionNodeGridFactory
 	{
 		/// <summary>
-		/// Returns a preconfigured <see cref="Array2D{TItem}"/> which can be used to make a <see cref="DefinitionNodeGrid"/>
+		/// Returns a preconfigured <see cref="Array2D{DefinitionNode}"/> which can be used to make a <see cref="DefinitionNodeGrid"/>
 		/// </summary>
 		/// <param name="width"></param>
 		/// <param name="height"></param>
 		/// <param name="generateNodeGridConnections"></param>
 		/// <returns></returns>
-		public static Array2D<DefinitionNode> GeneratePreFilledArray(GenerateNodeGridConnections generateNodeGridConnections, int width, int height)
+		public Array2D<DefinitionNode> GeneratePreFilledArray(GenerateNodeGridConnections generateNodeGridConnections, int width, int height)
 		{
 			var array = new Array2D<DefinitionNode>(width, height);
 			for (var y = 0; y < height; y++)
@@ -37,8 +36,8 @@ namespace Pathfindax.Factories
 			return array;
 		}
 
-		private static readonly int[] _connectionBuffer = new int[8];
-		private static NodeConnection[] GetNeighbours(int width, int height, int gridX, int gridY, GenerateNodeGridConnections generateNodeGridConnections)
+		private readonly int[] _connectionBuffer = new int[8];
+		private NodeConnection[] GetNeighbours(int width, int height, int gridX, int gridY, GenerateNodeGridConnections generateNodeGridConnections)
 		{
 			var count = 0;
 			for (var y = -1; y <= 1; y++)

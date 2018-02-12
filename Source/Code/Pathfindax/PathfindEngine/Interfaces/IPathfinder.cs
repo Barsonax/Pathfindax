@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using Duality;
 using Pathfindax.Algorithms;
 using Pathfindax.Graph;
@@ -81,6 +82,7 @@ namespace Pathfindax.PathfindEngine
 	public delegate void Event<in TObject>(TObject @object);
 	public interface IPathfinder : IDisposable
 	{
+		ISynchronizationContext SynchronizationContext { get; }
 		event Event<IPathfinder> Disposed;
 		IDefinitionNodeNetwork DefinitionNodeNetwork { get; }
 
@@ -97,6 +99,5 @@ namespace Pathfindax.PathfindEngine
 		/// Stops the pathfinder.
 		/// </summary>
 		void Stop();
-		void ProcessPaths();
 	}
 }

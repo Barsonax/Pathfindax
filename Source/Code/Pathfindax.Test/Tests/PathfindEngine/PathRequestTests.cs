@@ -13,11 +13,12 @@ namespace Pathfindax.Test.Tests.PathfindEngine
 		[Test]
 		public void Integration_StatusFlowToSolved()
 		{
-			var pathfinder = PathfinderSetup.Create(1);
-			var request = new PathRequest<IPath>(-1, -1);
+			var manager = new PathfindaxManager(Substitute.For<IUpdatableSynchronizationContext>());
+			var pathfinder = PathfinderSetup.Create(manager, 1);
+			var request = PathRequest.Create<IPath>(-1, -1);
 
 			Assert.AreEqual(PathRequestStatus.Created, request.Status);
-			request.StartSolvePath(pathfinder);
+			pathfinder.RequestPath(request);
 			Assert.AreEqual(PathRequestStatus.Solving, request.Status);
 			pathfinder.Start();
 			request.WaitHandle.WaitOne(1000);
@@ -27,11 +28,12 @@ namespace Pathfindax.Test.Tests.PathfindEngine
 		[Test]
 		public void Integration_StatusFlowToNoPathFound()
 		{
-			var pathfinder = PathfinderSetup.Create(1, false);
-			var request = new PathRequest<IPath>(-1, -1);
+			var manager = new PathfindaxManager(Substitute.For<IUpdatableSynchronizationContext>());
+			var pathfinder = PathfinderSetup.Create(manager, 1, false);
+			var request = PathRequest.Create<IPath>(-1, -1);
 
 			Assert.AreEqual(PathRequestStatus.Created, request.Status);
-			request.StartSolvePath(pathfinder);
+			pathfinder.RequestPath(request);
 			Assert.AreEqual(PathRequestStatus.Solving, request.Status);
 			pathfinder.Start();
 			request.WaitHandle.WaitOne(1000);
@@ -41,7 +43,8 @@ namespace Pathfindax.Test.Tests.PathfindEngine
 		[Test]
 		public void Integration_AddCallbackAfterPathIsSolved_CallbackIsCalled()
 		{
-			var pathfinder = PathfinderSetup.Create(1);
+			var manager = new PathfindaxManager(Substitute.For<IUpdatableSynchronizationContext>());
+			var pathfinder = PathfinderSetup.Create(manager, 1);
 			pathfinder.Start();
 			var request = PathRequest.Create(pathfinder, -1, -1);
 			request.WaitHandle.WaitOne(1000);
@@ -55,16 +58,17 @@ namespace Pathfindax.Test.Tests.PathfindEngine
 		[Test]
 		public void Integration_AddCallbackBeforePathIsSolved_CallbackIsCalled()
 		{
-			var pathfinder = PathfinderSetup.Create(1);
+			var manager = new PathfindaxManager(new UpdatableSynchronizationContext());
+			var pathfinder = PathfinderSetup.Create(manager, 1);
 			pathfinder.Start();
-			var request = PathRequest.Create<IPath>(-1, -1);	
-			
+			var request = PathRequest.Create<IPath>(-1, -1);
+
 			var done = false;
 			request.AddCallback(x => done = true);
 
-			request.StartSolvePath(pathfinder);
+			pathfinder.RequestPath(request);
 			request.WaitHandle.WaitOne(1000);
-			pathfinder.ProcessPaths(); //This should call the callback if the path is finished.
+			manager.Update(1f); //This should call the callback if the path is finished.
 			Assert.AreEqual(true, done);
 		}
 	}

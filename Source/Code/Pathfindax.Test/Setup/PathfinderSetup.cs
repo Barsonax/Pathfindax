@@ -12,9 +12,8 @@ namespace Pathfindax.Test.Setup
 {
 	public static class PathfinderSetup
 	{
-		public static Pathfinder<IDefinitionNodeNetwork, IPathfindNodeNetwork, IPath> Create(int threads, bool succesTrue = true)
+		public static Pathfinder<IDefinitionNodeNetwork, IPathfindNodeNetwork, IPath> Create(PathfindaxManager manager ,int threads, bool succesTrue = true)
 		{
-			var manager = new PathfindaxManager();
 			return manager.CreatePathfinder(Substitute.For<IDefinitionNodeNetwork>(), Substitute.For<IPathFindAlgorithm<IPathfindNodeNetwork, IPath>>(), (definitionNodeNetwork, algorithm) =>
 			{
 				var nodeGrid = Substitute.For<IPathfindNodeNetwork>();

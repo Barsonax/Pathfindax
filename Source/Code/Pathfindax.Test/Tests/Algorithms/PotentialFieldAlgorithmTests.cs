@@ -1,5 +1,6 @@
 ﻿using System;
 using Duality;
+using NSubstitute;
 using NUnit.Framework;
 using Pathfindax.Algorithms;
 using Pathfindax.Graph;
@@ -23,7 +24,7 @@ namespace Pathfindax.Test.Tests.Algorithms
 
 			var pathfindingNetwork = new DijkstraNodeGrid(definitionNodeGrid);
 			
-			var pathRequest = PathRequest.Create<IPath>(start, end);
+			var pathRequest = PathRequest.Create(Substitute.For<IPathfinder<IPath>>(), start, end);
 			var potentialField = potentialFieldAlgorithm.FindPath(pathfindingNetwork, pathRequest, out var _);
 			const float tolerance = 0.001f;
 			Assert.AreEqual(2.828427f ,potentialField.PotentialArray[0, 0], tolerance);

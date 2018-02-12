@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using Duality;
 using Pathfindax.Algorithms;
 using Pathfindax.Graph;
@@ -33,15 +34,17 @@ namespace Pathfindax.PathfindEngine
 		IDefinitionNodeNetwork IPathfinder.DefinitionNodeNetwork => DefinitionNodeNetwork;
 
 		private readonly MultithreadedWorkerQueue<PathRequest<TPath>> _multithreadedWorkerQueue;
+		public ISynchronizationContext SynchronizationContext { get; }
 
 		/// <summary>
 		/// Creates a new <see cref="Pathfinder{TSourceNodeNetwork,TThreadNodeNetwork, TPath}"/>
 		/// </summary>
+		/// <param name="synchronizationContext"></param>
 		/// <param name="definitionNodeNetwork"></param>
 		/// <param name="pathFindAlgorithm"></param>
 		/// <param name="processerConstructor">Used to construct the processers for each thread</param>
 		/// <param name="threads">The amount of threads that will be used</param>
-		public Pathfinder(TDefinitionNodeNetwork definitionNodeNetwork, IPathFindAlgorithm<TThreadNodeNetwork, TPath> pathFindAlgorithm, Func<TDefinitionNodeNetwork, IPathFindAlgorithm<TThreadNodeNetwork, TPath>, PathRequestProcesser<TThreadNodeNetwork, TPath>> processerConstructor, int threads = 1)
+		public Pathfinder(ISynchronizationContext synchronizationContext, TDefinitionNodeNetwork definitionNodeNetwork, IPathFindAlgorithm<TThreadNodeNetwork, TPath> pathFindAlgorithm, Func<TDefinitionNodeNetwork, IPathFindAlgorithm<TThreadNodeNetwork, TPath>, PathRequestProcesser<TThreadNodeNetwork, TPath>> processerConstructor, int threads = 1)
 		{
 			if (threads < 1) throw new ArgumentException("There is a minimum of 1 thread");
 			PathFindAlgorithm = pathFindAlgorithm;
@@ -52,6 +55,7 @@ namespace Pathfindax.PathfindEngine
 				_pathfindNodeNetworks.Add(processer.NodeNetwork);
 				return processer;
 			}, threads);
+			SynchronizationContext = synchronizationContext;
 		}
 
 		/// <summary>
@@ -79,16 +83,9 @@ namespace Pathfindax.PathfindEngine
 			Disposed?.Invoke(this);
 		}
 
-		public void ProcessPaths()
-		{
-			while (_multithreadedWorkerQueue.TryDequeue(out var pathRequest))
-			{
-				pathRequest.CallCallbacks();
-			}
-		}
-
 		public void RequestPath(PathRequest<TPath> pathRequest)
 		{
+			pathRequest.StartSolvePath(this);
 			_multithreadedWorkerQueue.Enqueue(pathRequest);
 		}
 
@@ -107,7 +104,7 @@ namespace Pathfindax.PathfindEngine
 		{
 			var startNode = DefinitionNodeNetwork.GetNodeIndex(x1, y1);
 			var endNode = DefinitionNodeNetwork.GetNodeIndex(x2, y2);
-			return PathRequest.Create(this, startNode, endNode, collisionLayer, agentSize);
+			return RequestPath(startNode, endNode, collisionLayer, agentSize);
 		}
 
 		public PathRequest<TPath> RequestPath(int start, int end, PathfindaxCollisionCategory collisionLayer = PathfindaxCollisionCategory.None, byte agentSize = 1)

@@ -3,7 +3,6 @@ using Pathfindax.Nodes;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading;
-using System.Threading.Tasks;
 using Pathfindax.Paths;
 
 namespace Pathfindax.PathfindEngine
@@ -13,7 +12,9 @@ namespace Pathfindax.PathfindEngine
 		public static PathRequest<TPath> Create<TPath>(IPathfinder<TPath> pathfinder, int start, int end, PathfindaxCollisionCategory collisionCategory = PathfindaxCollisionCategory.None, byte agentSize = 1)
 			where TPath : IPath
 		{
-			return new PathRequest<TPath>(pathfinder, start, end, collisionCategory, agentSize);
+			var request = new PathRequest<TPath>(start, end, collisionCategory, agentSize);
+			pathfinder.RequestPath(request);
+			return request;
 		}
 
 		public static PathRequest<TPath> Create<TPath>(int start, int end, PathfindaxCollisionCategory collisionCategory = PathfindaxCollisionCategory.None, byte agentSize = 1)
@@ -50,11 +51,6 @@ namespace Pathfindax.PathfindEngine
 		public PathfindaxCollisionCategory CollisionCategory { get; }
 
 		/// <summary>
-		/// The callback that will be called after the pathfinder finds a path or cannot find one.
-		/// </summary>
-		private readonly List<Action> _callbacks = new List<Action>();
-
-		/// <summary>
 		/// The calculated path. Will be null unless the <see cref="Status"/> is equal to <see cref="PathRequestStatus.Solved"/>
 		/// </summary>
 		public TPath CompletedPath { get; private set; }
@@ -71,23 +67,12 @@ namespace Pathfindax.PathfindEngine
 		/// </summary>
 		public WaitHandle WaitHandle => _manualResetEvent;
 		private readonly ManualResetEvent _manualResetEvent = new ManualResetEvent(false);
+		private ISynchronizationContext _synchronizationContext;
 
 		/// <summary>
-		/// Creates a new <see cref="PathRequest"/>
+		/// The callback that will be called after the pathfinder finds a path or cannot find one.
 		/// </summary>
-		/// <param name="pathfinder"></param>
-		/// <param name="start">The worldcoordinates of the start of the path</param>
-		/// <param name="end">The worldcoordinates of the end of the path</param>
-		/// <param name="agentSize">The size of the agent in nodes</param>
-		/// <param name="collisionCategory">The collision layers that this agent cannot cross</param>
-		public PathRequest(IPathfinder<TPath> pathfinder, int start, int end, PathfindaxCollisionCategory collisionCategory = PathfindaxCollisionCategory.None, byte agentSize = 1)
-		{
-			PathStart = start;
-			PathEnd = end;
-			AgentSize = agentSize;
-			CollisionCategory = collisionCategory;
-			StartSolvePath(pathfinder);
-		}
+		private readonly List<Action> _callbacks = new List<Action>();
 
 		/// <summary>
 		/// Creates a new <see cref="PathRequest"/>
@@ -96,23 +81,12 @@ namespace Pathfindax.PathfindEngine
 		/// <param name="end">The worldcoordinates of the end of the path</param>
 		/// <param name="agentSize">The size of the agent in nodes</param>
 		/// <param name="collisionCategory">The collision layers that this agent cannot cross</param>
-		public PathRequest(int start, int end, PathfindaxCollisionCategory collisionCategory = PathfindaxCollisionCategory.None, byte agentSize = 1)
+		internal PathRequest(int start, int end, PathfindaxCollisionCategory collisionCategory = PathfindaxCollisionCategory.None, byte agentSize = 1)
 		{
 			PathStart = start;
 			PathEnd = end;
 			AgentSize = agentSize;
 			CollisionCategory = collisionCategory;
-		}
-
-		/// <summary>
-		/// Starts solving the path using the provided <paramref name="pathfinder"/>.
-		/// </summary>
-		/// <param name="pathfinder"></param>
-		public void StartSolvePath(IPathfinder<TPath> pathfinder)
-		{
-			if (Status != PathRequestStatus.Created) throw new InvalidOperationException("This path request is already being processed or processed");
-			Status = PathRequestStatus.Solving;
-			pathfinder.RequestPath(this);
 		}
 
 		/// <summary>
@@ -136,24 +110,27 @@ namespace Pathfindax.PathfindEngine
 			}
 		}
 
+		public PathRequestAwaiter<TPath> GetAwaiter()
+		{
+			return new PathRequestAwaiter<TPath>(this);
+		}
+
+		internal void StartSolvePath(IPathfinder<TPath> pathfinder)
+		{
+			if (Status != PathRequestStatus.Created) throw new InvalidOperationException("This path request is already being processed or processed");
+			Status = PathRequestStatus.Solving;
+			_synchronizationContext = pathfinder.SynchronizationContext;
+		}
+
 		internal void FinishSolvePath(TPath path, bool succes)
 		{
 			CompletedPath = path;
 			Status = succes ? PathRequestStatus.Solved : PathRequestStatus.NoPathFound;
-			_manualResetEvent.Set();
-		}
-
-		internal void CallCallbacks()
-		{
 			foreach (var callback in _callbacks)
 			{
-				callback.Invoke();
+				_synchronizationContext.Post(callback);
 			}
-		}
-		
-		public PathRequestAwaiter<TPath> GetAwaiter()
-		{
-			return new PathRequestAwaiter<TPath>(this);
+			_manualResetEvent.Set();
 		}
 	}
 
@@ -162,24 +139,15 @@ namespace Pathfindax.PathfindEngine
 	{
 		public bool IsCompleted => _pathRequest.Status == PathRequestStatus.Solved || _pathRequest.Status == PathRequestStatus.NoPathFound;
 		private readonly PathRequest<TPath> _pathRequest;
-		private readonly SynchronizationContext _synchronizationContext;
 
-		public PathRequestAwaiter(PathRequest<TPath> pathRequest, SynchronizationContext synchronizationContext = null)
+		public PathRequestAwaiter(PathRequest<TPath> pathRequest)
 		{
 			_pathRequest = pathRequest;
-			_synchronizationContext = synchronizationContext;
 		}
 
 		public void OnCompleted(Action continuation)
 		{
-			if (_synchronizationContext != null)
-			{
-				_synchronizationContext.Post(state => continuation.Invoke(), null);
-			}
-			else
-			{
-				_pathRequest.AddCallback(continuation);
-			}
+			_pathRequest.AddCallback(continuation);
 		}
 
 		public TPath GetResult()

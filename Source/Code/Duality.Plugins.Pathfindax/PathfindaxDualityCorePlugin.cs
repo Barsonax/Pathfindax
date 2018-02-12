@@ -11,7 +11,7 @@ namespace Duality.Plugins.Pathfindax
 	/// </summary>
 	public class PathfindaxDualityCorePlugin : CorePlugin
 	{
-		private readonly PathfindaxManager _pathfindaxManager = new PathfindaxManager();
+		private readonly PathfindaxManager _pathfindaxManager = new PathfindaxManager(new UpdatableSynchronizationContext());
 
 		public static PathfindaxManager PathfindaxManager
 		{
