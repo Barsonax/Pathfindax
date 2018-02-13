@@ -45,6 +45,7 @@ namespace Pathfindax.Paths
 
 		public override string ToString()
 		{
+			if (Path == null) return base.ToString();
 			return string.Join(", ", Path.Select(x => _definitionNodes[x].Position.ToString()));
 		}
 
