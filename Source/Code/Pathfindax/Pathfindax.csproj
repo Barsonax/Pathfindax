@@ -60,9 +60,10 @@
   <ItemGroup>
     <Compile Include="Algorithms\Heuristics\ChebyshevDistance.cs" />
     <Compile Include="Algorithms\Heuristics\EuclideanDistance.cs" />
-    <Compile Include="Algorithms\IDistanceHeuristic.cs" />
+    <Compile Include="Algorithms\Interfaces\IDistanceHeuristic.cs" />
     <Compile Include="Algorithms\Heuristics\ManhattanDistance.cs" />
     <Compile Include="Algorithms\Heuristics\OctileDistance.cs" />
+    <Compile Include="Paths\PathRetracer.cs" />
     <Compile Include="Collections\ConcurrentCache.cs" />
     <Compile Include="Algorithms\DijkstraAlgorithm.cs" />
     <Compile Include="Algorithms\PotentialFieldAlgorithm.cs" />
@@ -82,7 +83,6 @@
     <Compile Include="Paths\QuadraticPotentialFunction.cs" />
     <Compile Include="Paths\PotentialFieldBase.cs" />
     <Compile Include="Graph\GridTransformer.cs" />
-    <Compile Include="Nodes\Interfaces\ICollisionLayerNode.cs" />
     <Compile Include="PathfindEngine\Exceptions\InvalidPathfinderTypeException.cs" />
     <Compile Include="PathfindEngine\Exceptions\PathfinderNotFoundException.cs" />
     <Compile Include="PathfindEngine\Interfaces\IPathRequest.cs" />
@@ -142,7 +142,9 @@
     <None Include="packages.config" />
     <None Include="Pathfindax.nuspec" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Nodes\Interfaces\" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>if $(ConfigurationName) == Debug GOTO copyToPlugin

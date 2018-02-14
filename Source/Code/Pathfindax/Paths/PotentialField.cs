@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using Duality;
 using Pathfindax.Collections;
 using Pathfindax.Graph;
+using Pathfindax.Utils;
 
 namespace Pathfindax.Paths
 {

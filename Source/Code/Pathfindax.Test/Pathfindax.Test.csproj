@@ -56,7 +56,9 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Tests\Algorithms\DijkstraAlgorithmTests.cs" />
     <Compile Include="Tests\Algorithms\PotentialFieldAlgorithmTests.cs" />
+    <Compile Include="Tests\Algorithms\TestCases.cs" />
     <Compile Include="Tests\Collections\Array2DTests.cs" />
     <Compile Include="Tests\Algorithms\AstarAlgorithmTests.cs" />
     <Compile Include="Setup\PathfinderSetup.cs" />

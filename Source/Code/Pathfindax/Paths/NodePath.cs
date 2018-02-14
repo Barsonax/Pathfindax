@@ -30,7 +30,6 @@ namespace Pathfindax.Paths
 		{
 			var waypoint = this[_waypointIndex];
 			return waypoint - currentPosition;
-
 		}
 
 		public bool NextWaypoint()
@@ -62,6 +61,11 @@ namespace Pathfindax.Paths
 				previousWaypoint = waypoint;
 			}
 			return length;
+		}
+
+		public static NodePath GetEmptyPath(IPathfindNodeNetwork nodeNetwork, int pathStart)
+		{
+			return new NodePath(nodeNetwork.DefinitionNodeNetwork.NodeArray, new[] { pathStart }, nodeNetwork.DefinitionNodeNetwork.Transformer);
 		}
 	}
 }

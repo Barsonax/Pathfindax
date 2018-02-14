@@ -17,15 +17,14 @@ namespace Pathfindax.Algorithms
 
 		private readonly IndexMinHeap<AstarNode> _openSet;
 		private readonly LookupArray _closedSet;
-		private readonly List<int> _pathBuffer;
 		private readonly IDistanceHeuristic _heuristic;
 		private readonly EuclideanDistance _costFunction = new EuclideanDistance();
+		private readonly PathRetracer<AstarNode> _pathRetracer = new PathRetracer<AstarNode>((nodes, definitionNodes, i) => nodes[i].Parent);
 
 		public AStarAlgorithm(int amountOfNodes, IDistanceHeuristic heuristic)
 		{
 			_openSet = new IndexMinHeap<AstarNode>(amountOfNodes);
 			_closedSet = new LookupArray(amountOfNodes);
-			_pathBuffer = new List<int>();
 			_heuristic = heuristic;
 		}
 
@@ -34,30 +33,30 @@ namespace Pathfindax.Algorithms
 			if (pathRequest.PathStart == pathRequest.PathEnd)
 			{
 				succes = true;
-				return new NodePath(nodeNetwork.DefinitionNodeNetwork.NodeArray, new[] { pathRequest.PathStart }, nodeNetwork.DefinitionNodeNetwork.Transformer);
+				return NodePath.GetEmptyPath(nodeNetwork, pathRequest.PathStart);
 			}
 			var pathfindingNetwork = nodeNetwork.GetCollisionLayerNetwork(pathRequest.CollisionCategory);
 
 			if (!(pathfindingNetwork[pathRequest.PathStart].Clearance >= pathRequest.AgentSize) || !(pathfindingNetwork[pathRequest.PathEnd].Clearance >= pathRequest.AgentSize))
 			{
 				succes = false;
-				return new NodePath(nodeNetwork.DefinitionNodeNetwork.NodeArray, new[] { pathRequest.PathStart }, nodeNetwork.DefinitionNodeNetwork.Transformer);
+				return NodePath.GetEmptyPath(nodeNetwork, pathRequest.PathStart);
 			}
 
-			StartFindPath(pathfindingNetwork, nodeNetwork.DefinitionNodeNetwork.NodeArray, pathRequest.PathStart, pathRequest.PathEnd, pathRequest.AgentSize, pathRequest.CollisionCategory);
+			StartFindPath(pathfindingNetwork, nodeNetwork.DefinitionNodeNetwork.NodeArray, pathRequest.PathStart);
 			if (FindPath(pathfindingNetwork, nodeNetwork.DefinitionNodeNetwork.NodeArray, pathRequest.PathEnd, pathRequest.AgentSize, pathRequest.CollisionCategory))
 			{
-				var path = RetracePath(pathfindingNetwork, pathRequest.PathStart, pathRequest.PathEnd);
+				var path = _pathRetracer.RetracePath(pathfindingNetwork, nodeNetwork.DefinitionNodeNetwork.NodeArray, pathRequest.PathStart, pathRequest.PathEnd);
 
 				succes = true;
 				return new NodePath(nodeNetwork.DefinitionNodeNetwork.NodeArray, path, nodeNetwork.DefinitionNodeNetwork.Transformer);
 			}
 
 			succes = false;
-			return new NodePath(nodeNetwork.DefinitionNodeNetwork.NodeArray, new[] { pathRequest.PathStart }, nodeNetwork.DefinitionNodeNetwork.Transformer);
+			return NodePath.GetEmptyPath(nodeNetwork, pathRequest.PathStart);
 		}
 
-		public void StartFindPath(AstarNode[] pathfindingNetwork, DefinitionNode[] definitionNodes, int startNodeIndex, int targetNodeIndex, float neededClearance, PathfindaxCollisionCategory collisionCategory)
+		public void StartFindPath(AstarNode[] pathfindingNetwork, DefinitionNode[] definitionNodes, int startNodeIndex)
 		{
 			_openSet.AssignArray(pathfindingNetwork);
 			_closedSet.Clear();
@@ -100,27 +99,6 @@ namespace Pathfindax.Algorithms
 				}
 			}
 			return false;
-		}
-
-		private int[] RetracePath(AstarNode[] pathfindingNetwork, int startIndex, int targetIndex)
-		{
-			_pathBuffer.Clear();
-			var currentNode = targetIndex;
-
-			while (true)
-			{
-				_pathBuffer.Add(currentNode);
-				if (currentNode == startIndex) break;
-				currentNode = pathfindingNetwork[currentNode].Parent;
-			}
-			var pathArray = new int[_pathBuffer.Count];
-			var reverseCount = _pathBuffer.Count - 1;
-			for (int i = 0; i < pathArray.Length; i++)
-			{
-				pathArray[i] = _pathBuffer[reverseCount];
-				reverseCount--;
-			}
-			return pathArray;
 		}
 	}
 }
