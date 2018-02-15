@@ -43,23 +43,21 @@ namespace Pathfindax.Paths
 			var substituteValue = float.IsNaN(currentPotential) ? 100000000000f : currentPotential;
 			if (IsBlocked(leftPotential))
 			{
-				minPosX = 0f;
 				leftPotential = substituteValue;
 			}
+
 			if (IsBlocked(rightPotential))
 			{
-				maxPosX = 0f;
 				rightPotential = substituteValue;
 			}
 
 			if (IsBlocked(upPotential))
 			{
-				maxPosY = 0f;
 				upPotential = substituteValue;
 			}
+
 			if (IsBlocked(downPotential))
 			{
-				minPosY = 0f;
 				downPotential = substituteValue;
 			}
 

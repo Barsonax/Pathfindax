@@ -8,15 +8,22 @@ namespace Pathfindax.Factories
 {
 	public class DefinitionNodeGridFactory
 	{
+		private readonly NodeConnection[] _connectionBuffer = new NodeConnection[8];
+
+		public Array2D<DefinitionNode> GeneratePreFilledArray(GenerateNodeGridConnections generateNodeGridConnections, NodeGridCollisionMask nodeGridCollisionLayers, bool crossCorners = false)
+		{
+			return GeneratePreFilledArray(generateNodeGridConnections, nodeGridCollisionLayers.Width, nodeGridCollisionLayers.Height, nodeGridCollisionLayers, crossCorners);
+		}
+
 		/// <summary>
 		/// Returns a preconfigured <see cref="Array2D{DefinitionNode}"/> which can be used to make a <see cref="DefinitionNodeGrid"/>
 		/// </summary>
 		/// <param name="width"></param>
 		/// <param name="height"></param>
 		/// <param name="generateNodeGridConnections"></param>
-		/// <param name="isBlocked"></param>
+		/// <param name="nodeGridCollisionLayers"></param>
 		/// <returns></returns>
-		public Array2D<DefinitionNode> GeneratePreFilledArray(GenerateNodeGridConnections generateNodeGridConnections, int width, int height, IsBlockedFunction isBlocked = null, bool crossCorners = false)
+		public Array2D<DefinitionNode> GeneratePreFilledArray(GenerateNodeGridConnections generateNodeGridConnections, int width, int height, NodeGridCollisionMask nodeGridCollisionLayers = null, bool crossCorners = false)
 		{
 			var array = new Array2D<DefinitionNode>(width, height);
 			for (var y = 0; y < height; y++)
@@ -30,7 +37,7 @@ namespace Pathfindax.Factories
 					}
 					else
 					{
-						var connections = GetNeighbours(width, height, x, y, generateNodeGridConnections, isBlocked, crossCorners);
+						var connections = GetNeighbours(width, height, x, y, generateNodeGridConnections, nodeGridCollisionLayers, crossCorners);
 						array[x, y] = new DefinitionNode(worldPosition, connections: connections);
 					}
 				}
@@ -38,8 +45,7 @@ namespace Pathfindax.Factories
 			return array;
 		}
 
-		private readonly NodeConnection[] _connectionBuffer = new NodeConnection[8];
-		private NodeConnection[] GetNeighbours(int width, int height, int fromX, int fromY, GenerateNodeGridConnections generateNodeGridConnections, IsBlockedFunction isBlocked, bool crossCorners)
+		private NodeConnection[] GetNeighbours(int width, int height, int fromX, int fromY, GenerateNodeGridConnections generateNodeGridConnections, NodeGridCollisionMask nodeGridCollisionLayers, bool crossCorners)
 		{
 			var count = 0;
 			for (var y = -1; y <= 1; y++)
@@ -61,7 +67,7 @@ namespace Pathfindax.Factories
 							}
 						}
 
-						var cat = isBlocked != null ? GetCollisionCategory(isBlocked, fromX, fromY, toX, toY, crossCorners) : PathfindaxCollisionCategory.None;
+						var cat = nodeGridCollisionLayers != null ? GetCollisionCategory(nodeGridCollisionLayers, fromX, fromY, toX, toY, crossCorners) : PathfindaxCollisionCategory.None;
 						_connectionBuffer[count] = new NodeConnection(width * toY + toX, cat);
 						count++;
 					}
@@ -74,57 +80,112 @@ namespace Pathfindax.Factories
 			}
 			return neighbours;
 		}
-		public delegate void IsBlockedFunction(int fromX, int fromY, CollisionDirection fromDir, int toX, int toY, CollisionDirection toDir, ref PathfindaxCollisionCategory collisionCategory);
-		private PathfindaxCollisionCategory GetCollisionCategory(IsBlockedFunction isBlocked, int fromX, int fromY, int toX, int toY, bool crossCorners)
+
+		private PathfindaxCollisionCategory GetCollisionCategory(NodeGridCollisionMask nodeGridCollisionLayers, int fromX, int fromY, int toX, int toY, bool crossCorners)
 		{
 			var delta = new Point2(toX - fromX, toY - fromY);
 			var cat = PathfindaxCollisionCategory.None;
 			switch (delta)
 			{
 				case Point2 d when d.X == -1 && d.Y == 1: //LeftDown
-					isBlocked.Invoke(fromX, fromY, CollisionDirection.Left | CollisionDirection.Bottom, toX, toY, CollisionDirection.Right | CollisionDirection.Top, ref cat);
+					GetCollisionCategory(nodeGridCollisionLayers, fromX, fromY, CollisionDirection.Left | CollisionDirection.Bottom, toX, toY, CollisionDirection.Right | CollisionDirection.Top, ref cat);
 					if (!crossCorners)
 					{
-						isBlocked.Invoke(toX, fromY, CollisionDirection.Right | CollisionDirection.Bottom, fromX, toY, CollisionDirection.Left | CollisionDirection.Top, ref cat);
+						GetCollisionCategory(nodeGridCollisionLayers, toX, fromY, CollisionDirection.Right | CollisionDirection.Bottom, fromX, toY, CollisionDirection.Left | CollisionDirection.Top, ref cat);
 					}
 					break;
 				case Point2 d when d.X == 1 && d.Y == 1: //RightDown
-					isBlocked.Invoke(fromX, fromY, CollisionDirection.Right | CollisionDirection.Bottom, toX, toY, CollisionDirection.Left | CollisionDirection.Top, ref cat);
+					GetCollisionCategory(nodeGridCollisionLayers, fromX, fromY, CollisionDirection.Right | CollisionDirection.Bottom, toX, toY, CollisionDirection.Left | CollisionDirection.Top, ref cat);
 					if (!crossCorners)
 					{
-						isBlocked.Invoke(toX, fromY, CollisionDirection.Left | CollisionDirection.Bottom, fromX, toY, CollisionDirection.Right | CollisionDirection.Top, ref cat);
+						GetCollisionCategory(nodeGridCollisionLayers, toX, fromY, CollisionDirection.Left | CollisionDirection.Bottom, fromX, toY, CollisionDirection.Right | CollisionDirection.Top, ref cat);
 					}
 					break;
 				case Point2 d when d.X == -1 && d.Y == -1: //LeftUp
-					isBlocked.Invoke(fromX, fromY, CollisionDirection.Left | CollisionDirection.Top, toX, toY, CollisionDirection.Right | CollisionDirection.Bottom, ref cat);
+					GetCollisionCategory(nodeGridCollisionLayers, fromX, fromY, CollisionDirection.Left | CollisionDirection.Top, toX, toY, CollisionDirection.Right | CollisionDirection.Bottom, ref cat);
 					if (!crossCorners)
 					{
-						isBlocked.Invoke(toX, fromY, CollisionDirection.Right | CollisionDirection.Top, fromX, toY, CollisionDirection.Left | CollisionDirection.Bottom, ref cat);
+						GetCollisionCategory(nodeGridCollisionLayers, toX, fromY, CollisionDirection.Right | CollisionDirection.Top, fromX, toY, CollisionDirection.Left | CollisionDirection.Bottom, ref cat);
 					}
 					break;
 				case Point2 d when d.X == 1 && d.Y == -1: //RightUp
-					isBlocked.Invoke(fromX, fromY, CollisionDirection.Right | CollisionDirection.Top, toX, toY, CollisionDirection.Left | CollisionDirection.Bottom, ref cat);
+					GetCollisionCategory(nodeGridCollisionLayers, fromX, fromY, CollisionDirection.Right | CollisionDirection.Top, toX, toY, CollisionDirection.Left | CollisionDirection.Bottom, ref cat);
 					if (!crossCorners)
 					{
-						isBlocked.Invoke(toX, fromY, CollisionDirection.Left | CollisionDirection.Top, fromX, toY, CollisionDirection.Right | CollisionDirection.Bottom, ref cat);
+						GetCollisionCategory(nodeGridCollisionLayers, toX, fromY, CollisionDirection.Left | CollisionDirection.Top, fromX, toY, CollisionDirection.Right | CollisionDirection.Bottom, ref cat);
 					}
 					break;
 
 				case Point2 d when d.X == 1: //Right
-					isBlocked.Invoke(fromX, fromY, CollisionDirection.Right, toX, toY, CollisionDirection.Left, ref cat);
+					GetCollisionCategory(nodeGridCollisionLayers, fromX, fromY, CollisionDirection.Right, toX, toY, CollisionDirection.Left, ref cat);
 					break;
 				case Point2 d when d.X == -1: //Left
-					isBlocked.Invoke(fromX, fromY, CollisionDirection.Left, toX, toY, CollisionDirection.Right, ref cat);
+					GetCollisionCategory(nodeGridCollisionLayers, fromX, fromY, CollisionDirection.Left, toX, toY, CollisionDirection.Right, ref cat);
 					break;
 				case Point2 d when d.Y == 1: //Down
-					isBlocked.Invoke(fromX, fromY, CollisionDirection.Bottom, toX, toY, CollisionDirection.Top, ref cat);
+					GetCollisionCategory(nodeGridCollisionLayers, fromX, fromY, CollisionDirection.Bottom, toX, toY, CollisionDirection.Top, ref cat);
 					break;
 				case Point2 d when d.Y == -1: //Up
-					isBlocked.Invoke(fromX, fromY, CollisionDirection.Top, toX, toY, CollisionDirection.Bottom, ref cat);
+					GetCollisionCategory(nodeGridCollisionLayers, fromX, fromY, CollisionDirection.Top, toX, toY, CollisionDirection.Bottom, ref cat);
 					break;
 			}
 
 			return cat;
+		}
+
+		private void GetCollisionCategory(NodeGridCollisionMask nodeGridCollisionLayers, int x, int y, CollisionDirection tileCollisionShapeSelf, int toX, int toY, CollisionDirection tileCollisionShapeOther, ref PathfindaxCollisionCategory collisionCategory)
+		{
+			foreach (var nodeGridCollisionLayer in nodeGridCollisionLayers.Layers)
+			{
+				if ((collisionCategory | nodeGridCollisionLayer.CollisionCategory) == collisionCategory) continue;
+				if (DoesCollide(nodeGridCollisionLayer, x, y, tileCollisionShapeSelf) || DoesCollide(nodeGridCollisionLayer, toX, toY, tileCollisionShapeOther))
+				{
+					collisionCategory |= nodeGridCollisionLayer.CollisionCategory;
+				}
+			}
+		}
+
+		private bool DoesCollide(NodeGridCollisionLayer nodeGridCollisionLayer, int x, int y, CollisionDirection collisionDirection)
+		{
+			return (nodeGridCollisionLayer.CollisionDirections[x, y] & collisionDirection) != 0;
+		}
+	}
+
+	public class NodeGridCollisionMask
+	{
+		public int Width { get; }
+		public int Height { get; }
+		public NodeGridCollisionLayer[] Layers { get; }
+
+		public NodeGridCollisionMask(PathfindaxCollisionCategory collisionCategory, int width, int height)
+		{
+			Width = width;
+			Height = height;
+			Layers = new NodeGridCollisionLayer[1];
+			Layers[0] = new NodeGridCollisionLayer(collisionCategory, width, height);
+		}
+
+		public NodeGridCollisionMask(PathfindaxCollisionCategory[] collisionCategories, int width, int height)
+		{
+			Width = width;
+			Height = height;
+			Layers = new NodeGridCollisionLayer[collisionCategories.Length];
+			for (int i = 0; i < Layers.Length; i++)
+			{
+				Layers[i] = new NodeGridCollisionLayer(collisionCategories[i], width, height);
+			}
+		}
+	}
+
+	public class NodeGridCollisionLayer
+	{
+		public PathfindaxCollisionCategory CollisionCategory { get; }
+		public Array2D<CollisionDirection> CollisionDirections { get; }
+
+		public NodeGridCollisionLayer(PathfindaxCollisionCategory collisionCategory, int width, int height)
+		{
+			CollisionCategory = collisionCategory;
+			CollisionDirections = new Array2D<CollisionDirection>(width, height);
 		}
 	}
 

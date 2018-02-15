@@ -4,6 +4,7 @@ using System.Linq;
 using Duality.Editor;
 using Duality.Plugins.Pathfindax.Tilemaps.Generators;
 using Duality.Plugins.Tilemaps;
+using Pathfindax.Factories;
 using Pathfindax.Graph;
 using Pathfindax.Utils;
 
@@ -14,7 +15,7 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Components
 	/// The <see cref="Tilemap"/>'s must be children of the gameobject this component is attached to.
 	/// </summary>
 	[EditorHintCategory(PathfindaxStrings.PathfindaxTilemap)]
-	public class TilemapNodeGridGenerator : Component, IDefinitionNodeNetworkProvider<DefinitionNodeGrid>, ICmpInitializable
+	public class TilemapNodeGridGenerator : Component, IDefinitionNodeNetworkProvider<DefinitionNodeGrid>
 	{
 		/// <summary>
 		/// Specifies what connections to generate.
@@ -63,18 +64,14 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Components
 				{
 					Log.Game.WriteWarning($"{nameof(TilemapNodeGridGenerator)}: Could not find any {nameof(Tilemap)}s. Be sure to add a gameobject with a {nameof(Tilemap)} component as a child. Skipping nodegrid generation.");
 					return null;
-				}
-				var offset = -new Vector2(baseTilemap.Size.X * baseTilemap.Tileset.Res.TileSize.X - baseTilemap.Tileset.Res.TileSize.X, baseTilemap.Size.Y * baseTilemap.Tileset.Res.TileSize.Y - baseTilemap.Tileset.Res.TileSize.Y) / 2;
-				_definitionNodeGrid = new DefinitionNodeGrid(ConnectionGenerationMode, baseTilemap.Size.X, baseTilemap.Size.Y, baseTilemap.Tileset.Res.TileSize, offset);
+				}				
 				var tilemapColliderWithBodies = GameObj.GetComponentsInChildren<TilemapCollider>().Select(x => new TilemapColliderWithBody(x)).ToArray();
-				var connectionGenerator = new TilemapNodeConnectionGenerator();
-				for (int y = 0; y < _definitionNodeGrid.NodeGrid.Height; y++)
-				{
-					for (int x = 0; x < _definitionNodeGrid.NodeGrid.Width; x++)
-					{
-						connectionGenerator.CalculateGridNodeCollision(tilemapColliderWithBodies, x, y, _definitionNodeGrid.NodeGrid, CrossCorners);
-					}
-				}
+				var connectionGenerator = new TilemapNodeGridCollisionMaskGenerator();
+				var collisionLayers = connectionGenerator.GetCollisionLayers(tilemapColliderWithBodies, baseTilemap.Size.X, baseTilemap.Size.Y);
+				var factory = new DefinitionNodeGridFactory();
+				var nodeGrid = factory.GeneratePreFilledArray(ConnectionGenerationMode, collisionLayers, CrossCorners);
+				var offset = -new Vector2(baseTilemap.Size.X * baseTilemap.Tileset.Res.TileSize.X - baseTilemap.Tileset.Res.TileSize.X, baseTilemap.Size.Y * baseTilemap.Tileset.Res.TileSize.Y - baseTilemap.Tileset.Res.TileSize.Y) / 2;
+				_definitionNodeGrid = new DefinitionNodeGrid(nodeGrid, baseTilemap.Tileset.Res.TileSize, offset);
 
 				if (MovementPenalties != null)
 				{
@@ -99,15 +96,5 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Components
 			var tilemap = GameObj.GetComponent<Tilemap>();
 			return tilemap != null ? tilemaps.Concat(new[] { tilemap }) : tilemaps;
 		}
-
-		public void OnInit(InitContext context)
-		{
-			if (context == InitContext.AddToGameObject)
-			{
-
-			}
-		}
-
-		public void OnShutdown(ShutdownContext context) { }
 	}
 }

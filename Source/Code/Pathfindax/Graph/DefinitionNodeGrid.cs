@@ -29,7 +29,7 @@ namespace Pathfindax.Graph
 
 		public DefinitionNodeGrid(Array2D<DefinitionNode> nodeGrid, Vector2 scale, Vector2 offset = default)
 		{
-			Transformer = new GridTransformer(new Point2(nodeGrid.Width, NodeGrid.Height), scale, offset);
+			Transformer = new GridTransformer(new Point2(nodeGrid.Width, nodeGrid.Height), scale, offset);
 			NodeGrid = nodeGrid;
 		}
 

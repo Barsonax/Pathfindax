@@ -28,7 +28,7 @@
 
 		public override string ToString()
 		{
-			return $"Connection to {To}";
+			return $"Connection to {To} with collistion {CollisionCategory}";
 		}
 	}
 }
