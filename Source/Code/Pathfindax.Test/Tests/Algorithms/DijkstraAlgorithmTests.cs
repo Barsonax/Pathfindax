@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Duality;
+﻿using Duality;
 using NSubstitute;
 using NUnit.Framework;
 using Pathfindax.Algorithms;
@@ -26,12 +25,6 @@ namespace Pathfindax.Test.Tests.Algorithms
 			var pathRequest = PathRequest.Create(Substitute.For<IPathfinder<IPath>>(), start, end, PathfindaxCollisionCategory.Cat1);
 			var path = dijkstraAlgorithm.FindPath(pathfindingNetwork, pathRequest, out var _);
 			var pathLength = path.GetPathLength();
-
-			var path2 = new List<Point2>();
-			for (int i = 0; i < path.Path.Length; i++)
-			{
-				path2.Add((Point2)definitionNodeGrid.NodeArray[path.Path[i]].Position);
-			}
 			Assert.AreEqual(expectedPathLength, pathLength, 0.1f);
 		}
 	}
