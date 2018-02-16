@@ -1,4 +1,5 @@
-﻿using Duality;
+﻿using System.IO;
+using Duality;
 using NSubstitute;
 using NUnit.Framework;
 using Pathfindax.Algorithms;
@@ -16,6 +17,28 @@ namespace Pathfindax.Test.Tests.Algorithms
 		[Test, TestCaseSource(typeof(AlgorithmTestCases), nameof(AlgorithmTestCases.OptimalPathTestCases))]
 		public void FindPath_InitializedNodegrid_PathIsOptimal(DefinitionNodeGrid definitionNodeGrid, Point2 gridStart, Point2 gridEnd, float expectedPathLength)
 		{
+			var path = RunAstar(definitionNodeGrid, gridStart, gridEnd, out var succes);
+			Assert.AreEqual(true, succes);
+			var pathLength = path.GetPathLength();
+			Assert.AreEqual(expectedPathLength, pathLength, 0.1f);
+		}
+
+		[Test, TestCaseSource(typeof(AlgorithmTestCases), nameof(AlgorithmTestCases.PossiblePathTestCases))]
+		public void FindPath_InitializedNodegrid_PathFound(DefinitionNodeGrid definitionNodeGrid, Point2 gridStart, Point2 gridEnd)
+		{
+			var path = RunAstar(definitionNodeGrid, gridStart, gridEnd, out var succes);
+			Assert.AreEqual(true, succes);
+		}
+
+		[Test, TestCaseSource(typeof(AlgorithmTestCases), nameof(AlgorithmTestCases.NoPossiblePathTestCases))]
+		public void FindPath_InitializedNodegrid_NoPathFound(DefinitionNodeGrid definitionNodeGrid, Point2 gridStart, Point2 gridEnd)
+		{
+			var path = RunAstar(definitionNodeGrid, gridStart, gridEnd, out var succes);
+			Assert.AreEqual(false, succes);
+		}
+
+		private NodePath RunAstar(DefinitionNodeGrid definitionNodeGrid, Point2 gridStart, Point2 gridEnd, out bool succes)
+		{
 			var aStarAlgorithm = new AStarAlgorithm(definitionNodeGrid.NodeCount, new EuclideanDistance());
 
 			var start = definitionNodeGrid.NodeGrid.ToIndex(gridStart.X, gridStart.Y);
@@ -23,9 +46,7 @@ namespace Pathfindax.Test.Tests.Algorithms
 
 			var pathfindingNetwork = new AstarNodeNetwork(definitionNodeGrid, new BrushfireClearanceGenerator(definitionNodeGrid, 5));
 			var pathRequest = PathRequest.Create(Substitute.For<IPathfinder<IPath>>(), start, end, PathfindaxCollisionCategory.Cat1);
-			var path = aStarAlgorithm.FindPath(pathfindingNetwork, pathRequest, out var _);
-			var pathLength = path.GetPathLength();
-			Assert.AreEqual(expectedPathLength, pathLength, 0.1f);
+			return aStarAlgorithm.FindPath(pathfindingNetwork, pathRequest, out succes);
 		}
 	}
 }

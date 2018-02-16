@@ -36,7 +36,7 @@ namespace Pathfindax.PathfindEngine
 		public void Process(PathRequest<TPath> pathRequest)
 		{
 			var path = _algorithm.FindPath(NodeNetwork, pathRequest, out var succes);
-			Debug.WriteLine(succes ? $"Path found" : "Did not find a path :(");
+			Debug.WriteLine(succes ? $"{_algorithm.GetType()} has found a path" : $"{_algorithm.GetType()} did not find a path :(");
 			pathRequest.FinishSolvePath(path, succes);
 		}
 	}

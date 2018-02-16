@@ -68,7 +68,7 @@
     <Compile Include="Factories\NodeGridCollisionMask.cs" />
     <Compile Include="Threading\Interfaces\ISynchronizationContext.cs" />
     <Compile Include="Threading\Interfaces\IUpdatableSynchronizationContext.cs" />
-    <Compile Include="Paths\PathRetracer.cs" />
+    <Compile Include="Algorithms\Utils\PathRetracer.cs" />
     <Compile Include="Collections\ConcurrentCache.cs" />
     <Compile Include="Algorithms\DijkstraAlgorithm.cs" />
     <Compile Include="Algorithms\PotentialFieldAlgorithm.cs" />

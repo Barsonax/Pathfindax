@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Pathfindax.Nodes;
 
-namespace Pathfindax.Paths
+namespace Pathfindax.Algorithms
 {
 	public class PathRetracer<TNode>
 	{

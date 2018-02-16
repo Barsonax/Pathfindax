@@ -24,6 +24,26 @@ namespace Pathfindax.Test.Tests.Algorithms
 			}
 		}
 
+		public static IEnumerable PossiblePathTestCases
+		{
+			get
+			{
+				yield return GeneratePathTestCase(3, 3, new Point2(0, 0), new Point2(2, 2));
+				yield return GeneratePathTestCase(3, 3, new Point2(2, 2), new Point2(0, 0));
+				yield return GeneratePathTestCase(5, 5, new Point2(2, 2), new Point2(0, 0));
+			}
+		}
+
+		public static IEnumerable NoPossiblePathTestCases
+		{
+			get
+			{
+				yield return GeneratePathTestCase(3, 3, new Point2(0, 0), new Point2(2, 2), new[] { new Point2(1, 0), new Point2(1, 1), new Point2(1, 2), });
+				yield return GeneratePathTestCase(3, 3, new Point2(2, 2), new Point2(0, 0), new[] { new Point2(1, 0), new Point2(1, 1), new Point2(1, 2), });
+				yield return GeneratePathTestCase(5, 5, new Point2(2, 2), new Point2(0, 0), new[] { new Point2(1, 0), new Point2(1, 1), new Point2(1, 2), new Point2(1, 3), new Point2(1, 4), });
+			}
+		}
+
 		public static IEnumerable NodeGridGenerationTestCases
 		{
 			get
@@ -56,6 +76,27 @@ namespace Pathfindax.Test.Tests.Algorithms
 				$"Path from {start} to {end} on a {width} by {height} grid with blocked nodes {string.Join(", ", blockedNodes)}" :
 				$"Path from {start} to {end} on a {width} by {height} grid";
 			return new TestCaseData(grid, start, end, expectedPathLength).SetName(description);
+		}
+
+		private static TestCaseData GeneratePathTestCase(int width, int height, Point2 start, Point2 end, Point2[] blockedNodes = null)
+		{
+			var factory = new DefinitionNodeGridFactory();
+			var collisionMask = new NodeGridCollisionMask(PathfindaxCollisionCategory.Cat1, width, height);
+			if (blockedNodes != null)
+			{
+				foreach (var blockedNode in blockedNodes)
+				{
+					collisionMask.Layers[0].CollisionDirections[blockedNode.X, blockedNode.Y] = CollisionDirection.Solid;
+				}
+			}
+			var nodeGrid = factory.GeneratePreFilledArray(GenerateNodeGridConnections.All, collisionMask, true);
+			var grid = new DefinitionNodeGrid(nodeGrid, new Vector2(1, 1));
+
+
+			var description = blockedNodes != null ?
+				$"Path from {start} to {end} on a {width} by {height} grid with blocked nodes {string.Join(", ", blockedNodes)}" :
+				$"Path from {start} to {end} on a {width} by {height} grid";
+			return new TestCaseData(grid, start, end).SetName(description);
 		}
 
 		private static TestCaseData NodeGridGenerationTestCase(int width, int height, Point2[] blockedNodes = null)

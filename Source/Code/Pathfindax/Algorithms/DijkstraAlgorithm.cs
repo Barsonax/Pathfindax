@@ -42,7 +42,7 @@ namespace Pathfindax.Algorithms
 			}
 
 			StartFindPath(pathfindingNetwork, nodeNetwork.DefinitionNodeNetwork.NodeArray, pathRequest.PathStart);
-			if (FindPath(pathfindingNetwork, nodeNetwork.DefinitionNodeNetwork.NodeArray, pathRequest.AgentSize, pathRequest.CollisionCategory))
+			if (FindPath(pathfindingNetwork, nodeNetwork.DefinitionNodeNetwork.NodeArray, pathRequest.PathEnd, pathRequest.AgentSize, pathRequest.CollisionCategory))
 			{
 				var path = _pathRetracer.RetracePath(pathfindingNetwork, nodeNetwork.DefinitionNodeNetwork.NodeArray, pathRequest.PathStart, pathRequest.PathEnd);
 
@@ -54,21 +54,26 @@ namespace Pathfindax.Algorithms
 			return NodePath.GetEmptyPath(nodeNetwork, pathRequest.PathStart);
 		}
 
-		public void StartFindPath(DijkstraNode[] pathfindingNetwork, DefinitionNode[] definitionNodes, int targetNodeIndex)
+		public void StartFindPath(DijkstraNode[] pathfindingNetwork, DefinitionNode[] definitionNodes, int startNodeIndex)
 		{
 			ResetNetwork(pathfindingNetwork);
 			_openSet.AssignArray(pathfindingNetwork);
 			_closedSet.Clear();
-			_openSet.Add(targetNodeIndex);
-			pathfindingNetwork[targetNodeIndex].Priority = 0f;
+			_openSet.Add(startNodeIndex);
+			pathfindingNetwork[startNodeIndex].Priority = 0f;
 		}
 
-		public bool FindPath(DijkstraNode[] pathfindingNetwork, DefinitionNode[] definitionNodes, float neededClearance, PathfindaxCollisionCategory collisionCategory, int stepsToRun = -1)
+		public bool FindPath(DijkstraNode[] pathfindingNetwork, DefinitionNode[] definitionNodes, int targetNodeIndex, float neededClearance, PathfindaxCollisionCategory collisionCategory, int stepsToRun = -1)
 		{
+			var succes = false;
 			while (_openSet.Count > 0 && stepsToRun != 0)
 			{
 				if (stepsToRun > 0) stepsToRun--;
 				var currentNodeIndex = _openSet.RemoveFirst();
+				if (currentNodeIndex == targetNodeIndex)
+				{
+					succes = true;
+				}
 				ref var currentNode = ref pathfindingNetwork[currentNodeIndex];
 				ref var currentDefinitionNode = ref definitionNodes[currentNodeIndex];
 				_closedSet.Occupy(currentNodeIndex);
@@ -98,7 +103,7 @@ namespace Pathfindax.Algorithms
 					}
 				}
 			}
-			return _openSet.Count == 0;
+			return succes;
 		}
 
 		private void ResetNetwork(DijkstraNode[] pathfindingNetwork)
