@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using Pathfindax.Paths;
+using Pathfindax.Threading;
 
 namespace Pathfindax.PathfindEngine
 {

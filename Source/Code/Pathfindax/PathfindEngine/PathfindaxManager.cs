@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Pathfindax.Algorithms;
 using Pathfindax.Graph;
 using Pathfindax.Paths;
+using Pathfindax.Threading;
 
 namespace Pathfindax.PathfindEngine
 {

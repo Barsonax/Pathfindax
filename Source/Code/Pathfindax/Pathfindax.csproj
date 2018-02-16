@@ -63,6 +63,11 @@
     <Compile Include="Algorithms\Interfaces\IDistanceHeuristic.cs" />
     <Compile Include="Algorithms\Heuristics\ManhattanDistance.cs" />
     <Compile Include="Algorithms\Heuristics\OctileDistance.cs" />
+    <Compile Include="Factories\CollisionDirection.cs" />
+    <Compile Include="Factories\NodeGridCollisionLayer.cs" />
+    <Compile Include="Factories\NodeGridCollisionMask.cs" />
+    <Compile Include="Threading\Interfaces\ISynchronizationContext.cs" />
+    <Compile Include="Threading\Interfaces\IUpdatableSynchronizationContext.cs" />
     <Compile Include="Paths\PathRetracer.cs" />
     <Compile Include="Collections\ConcurrentCache.cs" />
     <Compile Include="Algorithms\DijkstraAlgorithm.cs" />
@@ -76,7 +81,7 @@
     <Compile Include="PathfindEngine\Exceptions\NoDefinitionNodeNetworkException.cs" />
     <Compile Include="PathfindEngine\Exceptions\NoHeuristicException.cs" />
     <Compile Include="PathfindEngine\Interfaces\IPathfindaxManager.cs" />
-    <Compile Include="PathfindEngine\PathfindaxSynchronizationContext.cs" />
+    <Compile Include="Threading\PathfindaxSynchronizationContext.cs" />
     <Compile Include="Paths\AggregratedPotentialField.cs" />
     <Compile Include="Paths\DynamicPotentialField.cs" />
     <Compile Include="Paths\PotentialFunction.cs" />

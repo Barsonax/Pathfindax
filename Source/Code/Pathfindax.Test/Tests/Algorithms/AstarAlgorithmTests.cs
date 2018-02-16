@@ -13,7 +13,7 @@ namespace Pathfindax.Test.Tests.Algorithms
 	[TestFixture]
 	public class AstarAlgorithmTests
 	{
-		[Test, TestCaseSource(typeof(TestCases), nameof(TestCases.OptimalPathTestCases))]
+		[Test, TestCaseSource(typeof(AlgorithmTestCases), nameof(AlgorithmTestCases.OptimalPathTestCases))]
 		public void FindPath_InitializedNodegrid_PathIsOptimal(DefinitionNodeGrid definitionNodeGrid, Point2 gridStart, Point2 gridEnd, float expectedPathLength)
 		{
 			var aStarAlgorithm = new AStarAlgorithm(definitionNodeGrid.NodeCount, new EuclideanDistance());

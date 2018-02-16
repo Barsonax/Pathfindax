@@ -7,7 +7,7 @@ using Pathfindax.Nodes;
 
 namespace Pathfindax.Test.Tests.Algorithms
 {
-	public class TestCases
+	public class AlgorithmTestCases
 	{
 		public static IEnumerable OptimalPathTestCases
 		{

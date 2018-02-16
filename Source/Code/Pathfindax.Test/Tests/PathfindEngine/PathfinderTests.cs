@@ -5,6 +5,7 @@ using NUnit.Framework;
 using Pathfindax.PathfindEngine;
 using Pathfindax.Paths;
 using Pathfindax.Test.Setup;
+using Pathfindax.Threading;
 
 namespace Pathfindax.Test.Tests.PathfindEngine
 {

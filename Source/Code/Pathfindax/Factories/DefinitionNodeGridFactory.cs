@@ -1,5 +1,4 @@
-﻿using System;
-using Duality;
+﻿using Duality;
 using Pathfindax.Collections;
 using Pathfindax.Graph;
 using Pathfindax.Nodes;
@@ -149,81 +148,5 @@ namespace Pathfindax.Factories
 		{
 			return (nodeGridCollisionLayer.CollisionDirections[x, y] & collisionDirection) != 0;
 		}
-	}
-
-	public class NodeGridCollisionMask
-	{
-		public int Width { get; }
-		public int Height { get; }
-		public NodeGridCollisionLayer[] Layers { get; }
-
-		public NodeGridCollisionMask(PathfindaxCollisionCategory collisionCategory, int width, int height)
-		{
-			Width = width;
-			Height = height;
-			Layers = new NodeGridCollisionLayer[1];
-			Layers[0] = new NodeGridCollisionLayer(collisionCategory, width, height);
-		}
-
-		public NodeGridCollisionMask(PathfindaxCollisionCategory[] collisionCategories, int width, int height)
-		{
-			Width = width;
-			Height = height;
-			Layers = new NodeGridCollisionLayer[collisionCategories.Length];
-			for (int i = 0; i < Layers.Length; i++)
-			{
-				Layers[i] = new NodeGridCollisionLayer(collisionCategories[i], width, height);
-			}
-		}
-	}
-
-	public class NodeGridCollisionLayer
-	{
-		public PathfindaxCollisionCategory CollisionCategory { get; }
-		public Array2D<CollisionDirection> CollisionDirections { get; }
-
-		public NodeGridCollisionLayer(PathfindaxCollisionCategory collisionCategory, int width, int height)
-		{
-			CollisionCategory = collisionCategory;
-			CollisionDirections = new Array2D<CollisionDirection>(width, height);
-		}
-	}
-
-	[Flags]
-	public enum CollisionDirection : byte
-	{
-		//
-		// Summary:
-		//     The tile is completely empty. No collision at all.
-		Free = 0,
-		//
-		// Summary:
-		//     The tiles top edge is considered solid.
-		Top = 1,
-		//
-		// Summary:
-		//     The tiles bottom edge is considered solid.
-		Bottom = 2,
-		//
-		// Summary:
-		//     The tiles left edge is considered solid.
-		Left = 4,
-		//
-		// Summary:
-		//     The tiles right edge is considered solid.
-		Right = 8,
-		//
-		// Summary:
-		//     A solid diagonal edge from the tiles bottom left to its top right corner is assumed.
-		DiagonalUp = 16,
-		//
-		// Summary:
-		//     A solid diagonal edge from the tiles top left to its bottom right corner is assumed.
-		DiagonalDown = 32,
-		//
-		// Summary:
-		//     All collision bits are set. This is generally true for tiles that are completely
-		//     impassable / solid.
-		Solid = 63
 	}
 }

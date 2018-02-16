@@ -13,7 +13,7 @@ namespace Pathfindax.Test.Tests.Algorithms
 	[TestFixture]
 	public class DijkstraAlgorithmTests
 	{
-		[Test, TestCaseSource(typeof(TestCases), nameof(TestCases.OptimalPathTestCases))]
+		[Test, TestCaseSource(typeof(AlgorithmTestCases), nameof(AlgorithmTestCases.OptimalPathTestCases))]
 		public void FindPath_InitializedNodegrid_PathIsOptimal(DefinitionNodeGrid definitionNodeGrid, Point2 gridStart, Point2 gridEnd, float expectedPathLength)
 		{
 			var dijkstraAlgorithm = new DijkstraAlgorithm(definitionNodeGrid.NodeCount);

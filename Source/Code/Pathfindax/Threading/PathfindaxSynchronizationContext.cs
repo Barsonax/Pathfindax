@@ -1,19 +1,10 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Threading;
+using Pathfindax.PathfindEngine;
 
-namespace Pathfindax.PathfindEngine
+namespace Pathfindax.Threading
 {
-	public interface ISynchronizationContext
-	{
-		void Post(Action action);
-	}
-
-	public interface IUpdatableSynchronizationContext : ISynchronizationContext
-	{
-		void Update();
-	}
-
 	public class UpdatableSynchronizationContext : SynchronizationContext, IUpdatableSynchronizationContext
 	{
 		private readonly ConcurrentQueue<Action> _callbacks = new ConcurrentQueue<Action>();

@@ -13,7 +13,7 @@ namespace Pathfindax.Test.Tests.Factories
 	[TestFixture]
 	public class NodeGridFactoryTest
 	{
-		[Test, TestCaseSource(typeof(TestCases), nameof(TestCases.NodeGridGenerationTestCases))]
+		[Test, TestCaseSource(typeof(AlgorithmTestCases), nameof(AlgorithmTestCases.NodeGridGenerationTestCases))]
 		public void GeneratePreFilledArray(int width, int height, Point2[] blockedNodes)
 		{
 			var factory = new DefinitionNodeGridFactory();
@@ -56,7 +56,7 @@ namespace Pathfindax.Test.Tests.Factories
 			}
 		}
 
-		[Test, TestCaseSource(typeof(TestCases), nameof(TestCases.NodeGridGenerationTestCases))]
+		[Test, TestCaseSource(typeof(AlgorithmTestCases), nameof(AlgorithmTestCases.NodeGridGenerationTestCases))]
 		public void GeneratePreFilledArray_CrossCorners(int width, int height, Point2[] blockedNodes)
 		{
 			var factory = new DefinitionNodeGridFactory();

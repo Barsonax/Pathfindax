@@ -6,6 +6,7 @@ using Pathfindax.Graph;
 using Pathfindax.PathfindEngine;
 using Pathfindax.Utils;
 using Pathfindax.Paths;
+using Pathfindax.Threading;
 
 namespace Pathfindax.Example
 {
