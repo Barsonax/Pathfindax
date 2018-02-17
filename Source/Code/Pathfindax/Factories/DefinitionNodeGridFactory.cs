@@ -82,50 +82,65 @@ namespace Pathfindax.Factories
 
 		private PathfindaxCollisionCategory GetCollisionCategory(NodeGridCollisionMask nodeGridCollisionLayers, int fromX, int fromY, int toX, int toY, bool crossCorners)
 		{
+			const CollisionDirection right = CollisionDirection.Right | CollisionDirection.DiagonalDown | CollisionDirection.DiagonalUp;
+			const CollisionDirection left = CollisionDirection.Left | CollisionDirection.DiagonalDown | CollisionDirection.DiagonalUp;
+			const CollisionDirection bottom = CollisionDirection.Bottom | CollisionDirection.DiagonalDown | CollisionDirection.DiagonalUp;
+			const CollisionDirection top = CollisionDirection.Top | CollisionDirection.DiagonalDown | CollisionDirection.DiagonalUp;
+
+			const CollisionDirection rightTop = right | top;
+			const CollisionDirection rightBottom = right | bottom;
+			const CollisionDirection leftTop = left | top;
+			const CollisionDirection leftBottom = left | bottom;
+
+			const CollisionDirection leftTopDiagonal = CollisionDirection.Left | CollisionDirection.Top | CollisionDirection.DiagonalDown;
+			const CollisionDirection rightBottomDiagonal = CollisionDirection.Right | CollisionDirection.Bottom | CollisionDirection.DiagonalDown;
+			const CollisionDirection rightTopDiagonal = CollisionDirection.Right | CollisionDirection.Top | CollisionDirection.DiagonalUp;
+			const CollisionDirection leftBottomDiagonal = CollisionDirection.Left | CollisionDirection.Bottom | CollisionDirection.DiagonalUp;
+
 			var delta = new Point2(toX - fromX, toY - fromY);
 			var cat = PathfindaxCollisionCategory.None;
 			switch (delta)
 			{
 				case Point2 d when d.X == -1 && d.Y == 1: //LeftDown
-					GetCollisionCategory(nodeGridCollisionLayers, fromX, fromY, CollisionDirection.Left | CollisionDirection.Bottom, toX, toY, CollisionDirection.Right | CollisionDirection.Top, ref cat);
+					GetCollisionCategory(nodeGridCollisionLayers, fromX, fromY, leftBottom, toX, toY, rightTop, ref cat);
 					if (!crossCorners)
 					{
-						GetCollisionCategory(nodeGridCollisionLayers, toX, fromY, CollisionDirection.Right | CollisionDirection.Bottom, fromX, toY, CollisionDirection.Left | CollisionDirection.Top, ref cat);
+						GetCollisionCategory(nodeGridCollisionLayers, toX, fromY, rightBottomDiagonal, fromX, toY, leftTopDiagonal, ref cat);
 					}
 					break;
 				case Point2 d when d.X == 1 && d.Y == 1: //RightDown
-					GetCollisionCategory(nodeGridCollisionLayers, fromX, fromY, CollisionDirection.Right | CollisionDirection.Bottom, toX, toY, CollisionDirection.Left | CollisionDirection.Top, ref cat);
+					GetCollisionCategory(nodeGridCollisionLayers, fromX, fromY, rightBottom, toX, toY, leftTop, ref cat);
 					if (!crossCorners)
 					{
-						GetCollisionCategory(nodeGridCollisionLayers, toX, fromY, CollisionDirection.Left | CollisionDirection.Bottom, fromX, toY, CollisionDirection.Right | CollisionDirection.Top, ref cat);
+						GetCollisionCategory(nodeGridCollisionLayers, toX, fromY, leftBottomDiagonal, fromX, toY, rightTopDiagonal, ref cat);
 					}
 					break;
 				case Point2 d when d.X == -1 && d.Y == -1: //LeftUp
-					GetCollisionCategory(nodeGridCollisionLayers, fromX, fromY, CollisionDirection.Left | CollisionDirection.Top, toX, toY, CollisionDirection.Right | CollisionDirection.Bottom, ref cat);
+					GetCollisionCategory(nodeGridCollisionLayers, fromX, fromY, leftTop, toX, toY, rightBottom, ref cat);
 					if (!crossCorners)
 					{
-						GetCollisionCategory(nodeGridCollisionLayers, toX, fromY, CollisionDirection.Right | CollisionDirection.Top, fromX, toY, CollisionDirection.Left | CollisionDirection.Bottom, ref cat);
+						GetCollisionCategory(nodeGridCollisionLayers, toX, fromY, rightTopDiagonal, fromX, toY, leftBottomDiagonal, ref cat);
 					}
 					break;
 				case Point2 d when d.X == 1 && d.Y == -1: //RightUp
-					GetCollisionCategory(nodeGridCollisionLayers, fromX, fromY, CollisionDirection.Right | CollisionDirection.Top, toX, toY, CollisionDirection.Left | CollisionDirection.Bottom, ref cat);
+					GetCollisionCategory(nodeGridCollisionLayers, fromX, fromY, rightTop, toX, toY, leftBottom, ref cat);
 					if (!crossCorners)
 					{
-						GetCollisionCategory(nodeGridCollisionLayers, toX, fromY, CollisionDirection.Left | CollisionDirection.Top, fromX, toY, CollisionDirection.Right | CollisionDirection.Bottom, ref cat);
+						GetCollisionCategory(nodeGridCollisionLayers, toX, fromY, leftTopDiagonal, fromX, toY, rightBottomDiagonal, ref cat);
 					}
 					break;
 
 				case Point2 d when d.X == 1: //Right
-					GetCollisionCategory(nodeGridCollisionLayers, fromX, fromY, CollisionDirection.Right, toX, toY, CollisionDirection.Left, ref cat);
+					GetCollisionCategory(nodeGridCollisionLayers, fromX, fromY, right, toX, toY, left, ref cat);
 					break;
 				case Point2 d when d.X == -1: //Left
-					GetCollisionCategory(nodeGridCollisionLayers, fromX, fromY, CollisionDirection.Left, toX, toY, CollisionDirection.Right, ref cat);
+					GetCollisionCategory(nodeGridCollisionLayers, fromX, fromY, left, toX, toY, right, ref cat);
 					break;
 				case Point2 d when d.Y == 1: //Down
-					GetCollisionCategory(nodeGridCollisionLayers, fromX, fromY, CollisionDirection.Bottom, toX, toY, CollisionDirection.Top, ref cat);
+					GetCollisionCategory(nodeGridCollisionLayers, fromX, fromY, bottom, toX, toY, top, ref cat);
 					break;
 				case Point2 d when d.Y == -1: //Up
-					GetCollisionCategory(nodeGridCollisionLayers, fromX, fromY, CollisionDirection.Top, toX, toY, CollisionDirection.Bottom, ref cat);
+					GetCollisionCategory(nodeGridCollisionLayers, fromX, fromY, top, toX, toY, bottom, ref cat);
 					break;
 			}
 
