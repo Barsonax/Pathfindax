@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Runtime.CompilerServices;
 using System.Threading;
-using Pathfindax.PathfindEngine;
 
 namespace Pathfindax.Threading
 {

@@ -2,6 +2,7 @@
 using Duality;
 using NSubstitute;
 using Pathfindax.Algorithms;
+using Pathfindax.Factories;
 using Pathfindax.Graph;
 using Pathfindax.PathfindEngine;
 using Pathfindax.Paths;
@@ -24,7 +25,9 @@ namespace Pathfindax.Benchmarks
 		[GlobalSetup]
 		public void Setup()
 		{
-			_definitionNodeGrid = new DefinitionNodeGrid(GenerateNodeGridConnections.All, 320, 200, new Vector2(1, 1));
+			var factory = new DefinitionNodeGridFactory();
+			var nodeGrid = factory.GeneratePreFilledArray(GenerateNodeGridConnections.All, 320, 200);
+			_definitionNodeGrid = new DefinitionNodeGrid(nodeGrid, new Vector2(1, 1));
 			_astarNodeNetwork = new AstarNodeNetwork(_definitionNodeGrid, new BrushfireClearanceGenerator(_definitionNodeGrid, 1));
 			_algorithm = new AStarAlgorithm(_definitionNodeGrid.NodeCount, new ManhattanDistance());
 			_longPathRequest = PathRequest.Create(Substitute.For<IPathfinder<IPath>>(), _definitionNodeGrid.NodeGrid.ToIndex(0, 0), _definitionNodeGrid.NodeGrid.ToIndex(319, 199));

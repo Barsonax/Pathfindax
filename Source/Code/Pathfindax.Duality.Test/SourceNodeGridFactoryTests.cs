@@ -1,6 +1,7 @@
 ﻿using Duality;
 using NUnit.Framework;
 using Pathfindax.Collections;
+using Pathfindax.Factories;
 using Pathfindax.Graph;
 using Pathfindax.Nodes;
 
@@ -14,7 +15,9 @@ namespace Pathfindax.Duality.Test
 		{
 			const int width = 4;
 			const int height = 4;
-			var sourceNodeGrid = new DefinitionNodeGrid(GenerateNodeGridConnections.All, width, height, new Vector2(1, 1));
+			var factory = new DefinitionNodeGridFactory();
+			var nodeGrid = factory.GeneratePreFilledArray(GenerateNodeGridConnections.All, width, height);
+			var sourceNodeGrid = new DefinitionNodeGrid(nodeGrid, new Vector2(1, 1));
 			var astarNodeNetwork = new AstarNodeNetwork(sourceNodeGrid, new BrushfireClearanceGenerator(sourceNodeGrid, 5));
 			
 			var sourceNodeNetworkCat1 = new Array2D<AstarNode>(astarNodeNetwork.GetCollisionLayerNetwork(PathfindaxCollisionCategory.Cat1), width, height);

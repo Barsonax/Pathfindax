@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using Pathfindax.Algorithms;
 using Pathfindax.Graph;
 using Pathfindax.Paths;
@@ -12,9 +13,13 @@ namespace Pathfindax.PathfindEngine
 		private readonly List<DynamicPotentialFieldUpdater> _dynamicPotentialFieldUpdaters = new List<DynamicPotentialFieldUpdater>();
 		private readonly IUpdatableSynchronizationContext _synchronizationContext;
 
-		public PathfindaxManager(IUpdatableSynchronizationContext synchronizationContext)
+		/// <summary>
+		/// Creates a new <see cref="PathfindaxManager"/>
+		/// </summary>
+		/// <param name="synchronizationContext">The synchronization context that will be used to post the callbacks of the completed paths to. If none is supplied the current threads <see cref="SynchronizationContext"/> will be used</param>
+		public PathfindaxManager(IUpdatableSynchronizationContext synchronizationContext = null)
 		{
-			_synchronizationContext = synchronizationContext;
+			_synchronizationContext = synchronizationContext ?? new SynchronizationContextAdapter(SynchronizationContext.Current ?? new SynchronizationContext());
 		}
 
 		public void Clear()

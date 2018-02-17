@@ -20,13 +20,6 @@ namespace Pathfindax.Graph
 		public GridTransformer Transformer { get; }
 		public int NodeCount => NodeGrid.Count;
 
-		public DefinitionNodeGrid(GenerateNodeGridConnections generateNodeGridConnections, int width, int height, Vector2 scale, Vector2 offset = default)
-		{
-			Transformer = new GridTransformer(new Point2(width, height), scale, offset);
-			var factory = new DefinitionNodeGridFactory();
-			NodeGrid = factory.GeneratePreFilledArray(generateNodeGridConnections, width, height);
-		}
-
 		public DefinitionNodeGrid(Array2D<DefinitionNode> nodeGrid, Vector2 scale, Vector2 offset = default)
 		{
 			Transformer = new GridTransformer(new Point2(nodeGrid.Width, nodeGrid.Height), scale, offset);

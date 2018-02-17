@@ -21,6 +21,7 @@ namespace Pathfindax.Factories
 		/// <param name="height"></param>
 		/// <param name="generateNodeGridConnections"></param>
 		/// <param name="nodeGridCollisionLayers"></param>
+		/// <param name="crossCorners"></param>
 		/// <returns></returns>
 		public Array2D<DefinitionNode> GeneratePreFilledArray(GenerateNodeGridConnections generateNodeGridConnections, int width, int height, NodeGridCollisionMask nodeGridCollisionLayers = null, bool crossCorners = false)
 		{
