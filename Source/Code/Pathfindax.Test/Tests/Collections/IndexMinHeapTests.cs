@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using Pathfindax.Collections;
@@ -115,6 +115,36 @@ namespace Pathfindax.Test.Tests.Collections
 			{
 				Assert.IsFalse(heap.Contains(i), $"Contains returned true for index {i}");
 			}
+		}
+
+		[Test, TestCaseSource(typeof(IndexMinHeapTests), nameof(HeapTestCases))]
+		public void IndexMinHeap_CorrectCapacity(IntHeapItem[] items)
+		{
+			//Create the heap and add the items.
+			var heap = new IndexMinHeap<IntHeapItem>(items);
+			for (var i = 0; i < items.Length; i++)
+			{
+				heap.Add(i);
+			}
+			Assert.AreEqual(items.Length, heap.Capacity);
+		}
+
+		[Test, TestCaseSource(typeof(IndexMinHeapTests), nameof(HeapTestCases))]
+		public void IndexMinHeap_Enumerate(IntHeapItem[] items)
+		{
+			//Create the heap and add the items.
+			var heap = new IndexMinHeap<IntHeapItem>(items);
+			var addedIndexes = new List<int>();
+			for (var i = 0; i < items.Length; i++)
+			{
+				heap.Add(i);
+				addedIndexes.Add(i);
+			}
+			Assert.AreEqual(items.Length, heap.Count);
+			//Check if the added indexes are returned when enumerating
+			var enumeratedHeap = heap.ToArray();
+			Assert.AreEqual(items.Length, enumeratedHeap.Length);
+			CollectionAssert.AreEquivalent(addedIndexes, enumeratedHeap);
 		}
 
 		public static IEnumerable HeapTestCases

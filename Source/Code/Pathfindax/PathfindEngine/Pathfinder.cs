@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading;
 using Duality;
 using Pathfindax.Algorithms;
 using Pathfindax.Graph;

@@ -7,6 +7,7 @@ namespace Pathfindax.Collections
 	/// Does not work directly with structs. If you need to use structs with this collection you have to wrap it in a <see cref="ValueHeapItem{T}"/>.
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
+	[Obsolete("Use the index minheap which is faster and supports structs as well")]
 	public class MaxHeap<T>
 		where T : class, IHeapItem<T>
 	{
@@ -151,6 +152,7 @@ namespace Pathfindax.Collections
 	/// Wraps a value type allowing it to be used in a <see cref="MaxHeap{T}"/>
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
+	[Obsolete("Use the index minheap which is faster and supports structs as well")]
 	public class ValueHeapItem<T> : IHeapItem<ValueHeapItem<T>>
 		where T : struct, IComparable<T>
 	{

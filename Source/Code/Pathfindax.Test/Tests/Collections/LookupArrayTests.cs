@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Linq;
 using NUnit.Framework;
 using Pathfindax.Collections;
 
@@ -7,7 +8,7 @@ namespace Pathfindax.Test.Tests.Collections
 	[TestFixture]
 	class LookupArrayTests
 	{
-		[Test, TestCaseSource(typeof(LookupArrayTests), nameof(Array2DOutOfBoundsTestCases))]
+		[Test, TestCaseSource(typeof(LookupArrayTests), nameof(LookupArrayTestCases))]
 		public void Contains(LookupArray lookupArray, int[] indexesToAdd)
 		{
 			for (int j = 0; j < 256; j++)
@@ -29,7 +30,19 @@ namespace Pathfindax.Test.Tests.Collections
 			}
 		}
 
-		public static IEnumerable Array2DOutOfBoundsTestCases
+		[Test, TestCaseSource(typeof(LookupArrayTests), nameof(LookupArrayTestCases))]
+		public void Enumerate(LookupArray lookupArray, int[] indexesToAdd)
+		{
+			foreach (var i in indexesToAdd)
+			{
+				lookupArray.Occupy(i);
+			}
+
+			var lookupArrayIndexes = lookupArray.ToArray();
+			CollectionAssert.AreEquivalent(lookupArray, lookupArrayIndexes);
+		}
+
+		public static IEnumerable LookupArrayTestCases
 		{
 			get
 			{

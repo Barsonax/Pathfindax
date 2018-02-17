@@ -3,7 +3,7 @@ using Pathfindax.Collections;
 
 namespace Pathfindax.Utils
 {
-	public static class ReadonlyArrayExtensions
+	public static class ReadOnlyArray2DExtensions
 	{
 		public static int ToIndex(this IReadOnlyArray2D array, int x, int y)
 		{
