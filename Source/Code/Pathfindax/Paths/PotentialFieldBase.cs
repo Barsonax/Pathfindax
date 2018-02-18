@@ -46,6 +46,7 @@ namespace Pathfindax.Paths
 				minPosX = 0f;
 				leftPotential = substituteValue;
 			}
+
 			if (IsBlocked(rightPotential))
 			{
 				maxPosX = 0f;
@@ -57,6 +58,7 @@ namespace Pathfindax.Paths
 				maxPosY = 0f;
 				upPotential = substituteValue;
 			}
+
 			if (IsBlocked(downPotential))
 			{
 				minPosY = 0f;

@@ -8,9 +8,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Pathfindax</RootNamespace>
     <AssemblyName>Pathfindax</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile>Profile7</TargetFrameworkProfile>
+    <TargetFrameworkProfile>Profile111</TargetFrameworkProfile>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MinimumVisualStudioVersion>11.0</MinimumVisualStudioVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -26,6 +26,7 @@
     <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TargetFrameworkProfile>Profile111</TargetFrameworkProfile>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -37,38 +38,18 @@
     <WarningLevel>4</WarningLevel>
     <NoWarn>1591</NoWarn>
     <DocumentationFile>..\Binaries\Release\Pathfindax.xml</DocumentationFile>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x64\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DocumentationFile>..\Binaries\Debug\Pathfindax.xml</DocumentationFile>
-    <NoWarn>1591</NoWarn>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <Optimize>false</Optimize>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
-    <OutputPath>bin\x64\Release\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DocumentationFile>..\Binaries\Release\Pathfindax.xml</DocumentationFile>
-    <Optimize>true</Optimize>
-    <NoWarn>1591</NoWarn>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Benchmark|AnyCPU'">
     <OutputPath>..\Binaries\Benchmark\</OutputPath>
-    <DefineConstants>DEBUG</DefineConstants>
+    <DefineConstants>
+    </DefineConstants>
     <Optimize>true</Optimize>
     <DocumentationFile>..\Binaries\Benchmark\Pathfindax.xml</DocumentationFile>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Benchmark|x64'">
-    <OutputPath>bin\x64\Benchmark\</OutputPath>
+    <LangVersion>latest</LangVersion>
+    <DebugType>pdbonly</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DualityPrimitives, Version=2.0.5.0, Culture=neutral, processorArchitecture=MSIL">
@@ -77,21 +58,36 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Algorithms\Heuristics\ChebyshevDistance.cs" />
+    <Compile Include="Algorithms\Heuristics\EuclideanDistance.cs" />
+    <Compile Include="Algorithms\Interfaces\IDistanceHeuristic.cs" />
+    <Compile Include="Algorithms\Heuristics\ManhattanDistance.cs" />
+    <Compile Include="Algorithms\Heuristics\OctileDistance.cs" />
+    <Compile Include="Factories\CollisionDirection.cs" />
+    <Compile Include="Factories\NodeGridCollisionLayer.cs" />
+    <Compile Include="Factories\NodeGridCollisionMask.cs" />
+    <Compile Include="Threading\Interfaces\ISynchronizationContext.cs" />
+    <Compile Include="Threading\Interfaces\IUpdatableSynchronizationContext.cs" />
+    <Compile Include="Algorithms\Utils\PathRetracer.cs" />
     <Compile Include="Collections\ConcurrentCache.cs" />
     <Compile Include="Algorithms\DijkstraAlgorithm.cs" />
     <Compile Include="Algorithms\PotentialFieldAlgorithm.cs" />
+    <Compile Include="Collections\Interfaces\IPriority.cs" />
+    <Compile Include="Collections\LookupArray.cs" />
+    <Compile Include="Collections\IndexMinHeap.cs" />
     <Compile Include="Graph\Transformer.cs" />
     <Compile Include="PathfindEngine\DynamicPotentialFieldUpdater.cs" />
     <Compile Include="PathfindEngine\Exceptions\InvalidAgentSizeException.cs" />
     <Compile Include="PathfindEngine\Exceptions\NoDefinitionNodeNetworkException.cs" />
+    <Compile Include="PathfindEngine\Exceptions\NoHeuristicException.cs" />
     <Compile Include="PathfindEngine\Interfaces\IPathfindaxManager.cs" />
+    <Compile Include="Threading\PathfindaxSynchronizationContext.cs" />
     <Compile Include="Paths\AggregratedPotentialField.cs" />
     <Compile Include="Paths\DynamicPotentialField.cs" />
     <Compile Include="Paths\PotentialFunction.cs" />
     <Compile Include="Paths\QuadraticPotentialFunction.cs" />
     <Compile Include="Paths\PotentialFieldBase.cs" />
     <Compile Include="Graph\GridTransformer.cs" />
-    <Compile Include="Nodes\Interfaces\ICollisionLayerNode.cs" />
     <Compile Include="PathfindEngine\Exceptions\InvalidPathfinderTypeException.cs" />
     <Compile Include="PathfindEngine\Exceptions\PathfinderNotFoundException.cs" />
     <Compile Include="PathfindEngine\Interfaces\IPathRequest.cs" />
@@ -103,17 +99,17 @@
     <Compile Include="Graph\DijkstraNodeGrid.cs" />
     <Compile Include="Collections\Interfaces\IReadOnlyArray2D.cs" />
     <Compile Include="Collections\Interfaces\IWriteOnlyArray2D.cs" />
-    <Compile Include="Graph\GridClearanceGenerator.cs" />
+    <Compile Include="Graph\BrushfireClearanceGenerator.cs" />
     <Compile Include="Graph\Interfaces\IPathfindNodeGenerator.cs" />
     <Compile Include="Nodes\DefinitionNode.cs" />
-    <Compile Include="Nodes\Interfaces\IDefinitionNode.cs" />
     <Compile Include="Factories\PathfinderFactory.cs" />
-    <Compile Include="Nodes\NodePointer.cs" />
     <Compile Include="Paths\NodePath.cs" />
     <Compile Include="Paths\Interfaces\ICompletedPath.cs" />
     <Compile Include="PathfindEngine\PathRequestStatus.cs" />
     <Compile Include="Paths\PotentialField.cs" />
-    <Compile Include="Utils\GridClearanceHelper.cs" />
+    <Compile Include="Threading\SynchronizationContextAdapter.cs" />
+    <Compile Include="Utils\ArrayExtensions.cs" />
+    <Compile Include="Utils\ReadOnlyArray2DExtensions.cs" />
     <Compile Include="Algorithms\Interfaces\IPathFindAlgorithm.cs" />
     <Compile Include="Collections\Array2D.cs" />
     <Compile Include="Collections\Interfaces\IHeapItem.cs" />
@@ -131,7 +127,7 @@
     <Compile Include="Graph\DefinitionNodeGrid.cs" />
     <Compile Include="Nodes\NodeConnection.cs" />
     <Compile Include="Nodes\Enums\PathfindaxCollisionCategory.cs" />
-    <Compile Include="PathfindEngine\Interfaces\IMultithreadedPathfinder.cs" />
+    <Compile Include="PathfindEngine\Interfaces\IPathfinder.cs" />
     <Compile Include="PathfindEngine\Pathfinder.cs" />
     <Compile Include="PathfindEngine\PathRequestProcesser.cs" />
     <Compile Include="PathfindEngine\PathRequest.cs" />
@@ -150,7 +146,9 @@
     <None Include="packages.config" />
     <None Include="Pathfindax.nuspec" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Nodes\Interfaces\" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>if $(ConfigurationName) == Debug GOTO copyToPlugin

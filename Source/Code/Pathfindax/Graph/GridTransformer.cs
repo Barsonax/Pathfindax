@@ -8,7 +8,7 @@ namespace Pathfindax.Graph
 		public Point2 GridSize { get; }
 		public int NodeCount { get; }
 
-		public GridTransformer(Point2 gridSize, Vector2 scale, Vector2 position = default(Vector2)) : base(scale, position)
+		public GridTransformer(Point2 gridSize, Vector2 scale, Vector2 position = default) : base(scale, position)
 		{
 			GridSize = gridSize;
 			NodeCount = gridSize.X * gridSize.Y;

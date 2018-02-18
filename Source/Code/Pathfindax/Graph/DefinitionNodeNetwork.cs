@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Duality;
+﻿using Duality;
 using Pathfindax.Nodes;
+using Pathfindax.Utils;
 
 namespace Pathfindax.Graph
 {
@@ -11,31 +10,51 @@ namespace Pathfindax.Graph
 	/// </summary>
 	public class DefinitionNodeNetwork : IDefinitionNodeNetwork
 	{
-		public DefinitionNode this[int index] => DefinitionNodes[index];
-		public List<DefinitionNode> DefinitionNodes { get; } = new List<DefinitionNode>();
-		public int NodeCount => DefinitionNodes.Count;
+		public DefinitionNode[] NodeArray { get; private set; } = new DefinitionNode[0];
+		public int NodeCount => NodeArray.Length;
 		public Transformer Transformer { get; }
 
-		public DefinitionNodeNetwork(Vector2 scale, Vector2 offset = default(Vector2))
+		public DefinitionNodeNetwork(Vector2 scale, Vector2 offset = default)
 		{
 			Transformer = new Transformer(scale, offset);
 		}
 
-		public DefinitionNode AddNode(Vector2 position, float movementPenalty = 1f)
+		public int AddNode(Vector2 position, float movementPenalty = 1f)
 		{
-
-			var definitionNode = new DefinitionNode(DefinitionNodes.Count, position, movementPenalty);
-			DefinitionNodes.Add(definitionNode);
-			return definitionNode;
+			var index = NodeArray.Length;
+			var definitionNode = new DefinitionNode(position, movementPenalty);
+			NodeArray = NodeArray.Append(definitionNode);
+			return index;
 		}
 
 		/// <summary>
 		/// Returns the node closest to this position
 		/// </summary>
 		/// <returns></returns>
-		public DefinitionNode GetNode(float worldX, float worldY)
-		{			
-			return DefinitionNodes.OrderBy(x => MathF.Distance(x.Position.X, x.Position.Y, worldX, worldY)).FirstOrDefault(); //TODO this does not scale well with more nodes in the network.
+		public ref DefinitionNode GetNode(float worldX, float worldY)
+		{
+			var index = GetNodeIndex(worldX, worldY);
+			
+			return ref NodeArray[index]; //TODO this does not scale well with more nodes in the network.
+		}
+
+		public int GetNodeIndex(float worldX, float worldY)
+		{
+			var local = Transformer.ToLocal(worldX, worldY);
+			var minDistance = float.MaxValue;
+			var index = -1;
+			//TODO this does not scale well with more nodes in the network.
+			for (int i = 0; i < NodeArray.Length; i++)
+			{
+				ref var node = ref NodeArray[i];
+				var calculatedDistance = MathF.Distance(node.Position.X, node.Position.Y, local.X, worldY);
+				if (calculatedDistance < minDistance)
+				{
+					index = i;
+					minDistance = calculatedDistance;
+				}
+			}
+			return index; 
 		}
 	}
 }

@@ -114,9 +114,8 @@
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Components.AstarPathfinderComponent" id="324856514">
             <_x003C_AmountOfThreads_x003E_k__BackingField dataType="Int">1</_x003C_AmountOfThreads_x003E_k__BackingField>
+            <_x003C_Heuristic_x003E_k__BackingField dataType="Struct" type="Pathfindax.Algorithms.ManhattanDistance" id="3803477850" />
             <_x003C_MaxClearance_x003E_k__BackingField dataType="Int">5</_x003C_MaxClearance_x003E_k__BackingField>
-            <_x003C_Pathfinder_x003E_k__BackingField />
-            <_x003C_PathfinderId_x003E_k__BackingField />
             <active dataType="Bool">true</active>
             <gameobj dataType="ObjectRef">2532558428</gameobj>
           </item>
@@ -165,7 +164,6 @@
       <compList dataType="Struct" type="System.Collections.Generic.List`1[[Duality.Component]]" id="3719019467">
         <_items dataType="Array" type="Duality.Component[]" id="4252602870" length="4">
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PathfindaxPathSpammerComponent" id="3274627541">
-            <_frameCounter dataType="Int">0</_frameCounter>
             <_randomGenerator dataType="Struct" type="System.Random" id="2433592613">
               <inext dataType="Int">0</inext>
               <inextp dataType="Int">21</inextp>

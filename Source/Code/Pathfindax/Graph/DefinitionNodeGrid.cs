@@ -3,6 +3,7 @@ using Duality;
 using Pathfindax.Collections;
 using Pathfindax.Factories;
 using Pathfindax.Nodes;
+using Pathfindax.Utils;
 
 namespace Pathfindax.Graph
 {
@@ -12,23 +13,28 @@ namespace Pathfindax.Graph
 	/// </summary>
 	public class DefinitionNodeGrid : IDefinitionNodeGrid
 	{
-		public DefinitionNode this[int index] => NodeGrid[index];		
 		public Array2D<DefinitionNode> NodeGrid { get; }
+		public DefinitionNode[] NodeArray => NodeGrid.Array;
 		IReadOnlyArray2D<DefinitionNode> IDefinitionNodeGrid.DefinitionNodeArray => NodeGrid;
 		Transformer IDefinitionNodeNetwork.Transformer => Transformer;
 		public GridTransformer Transformer { get; }
 		public int NodeCount => NodeGrid.Count;
 
-		public DefinitionNodeGrid(GenerateNodeGridConnections generateNodeGridConnections, int width, int height, Vector2 scale, Vector2 offset = default(Vector2))
+		public DefinitionNodeGrid(Array2D<DefinitionNode> nodeGrid, Vector2 scale, Vector2 offset = default)
 		{
-			Transformer = new GridTransformer(new Point2(width, height), scale, offset);
-			NodeGrid = DefinitionNodeGridFactory.GeneratePreFilledArray(generateNodeGridConnections, width, height);
+			Transformer = new GridTransformer(new Point2(nodeGrid.Width, nodeGrid.Height), scale, offset);
+			NodeGrid = nodeGrid;
 		}
 
-		public DefinitionNode GetNode(float worldX, float worldY)
+		public ref DefinitionNode GetNode(float worldX, float worldY)
 		{
-			var coords = Transformer.ToGrid(worldX, worldY);
-			return NodeGrid[coords.X, coords.Y];
+			var index = GetNodeIndex(worldX, worldY);
+			return ref NodeArray[index];
+		}
+
+		public int GetNodeIndex(float worldX, float worldY)
+		{
+			return NodeGrid.ToIndex(Transformer.ToGrid(worldX, worldY));
 		}
 	}
 }

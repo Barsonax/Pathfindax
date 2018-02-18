@@ -13,9 +13,9 @@ namespace Pathfindax.PathfindEngine
 		{
 			unchecked
 			{
-				var hashCode = obj.PathEnd != null ? obj.PathEnd.GetHashCode() : 0;
+				var hashCode = obj.PathEnd.GetHashCode();
 				hashCode = (hashCode * 397) ^ obj.AgentSize.GetHashCode();
-				hashCode = (hashCode * 397) ^ (int)obj.CollisionCategory;
+				hashCode = (hashCode * 397) ^ obj.CollisionCategory.GetHashCode();
 				return hashCode;
 			}
 		}

@@ -12,10 +12,7 @@ namespace Duality.Plugins.Pathfindax.Components
 		where TThreadNodeNetwork : IPathfindNodeNetwork
 		where TPath : IPath
 	{
-		IPathfinder IDualityPathfinderComponent.Pathfinder
-		{
-			get { return Pathfinder; }
-		}
+		IPathfinder IDualityPathfinderComponent.Pathfinder => Pathfinder;
 
 		[DontSerialize]
 		private IPathfinder<TDefinitionNodeNetwork, TThreadNodeNetwork, TPath> _pathfinder;

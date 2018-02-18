@@ -13,10 +13,10 @@ namespace Pathfindax.Graph
 		/// Gets the node closest to this position
 		/// </summary>
 		/// <returns></returns>
-		DefinitionNode GetNode(float worldX, float worldY);
-
-		DefinitionNode this[int index] { get; }
+		ref DefinitionNode GetNode(float worldX, float worldY);
+		DefinitionNode[] NodeArray { get; }
 
 		int NodeCount { get; }
+		int GetNodeIndex(float x, float y);
 	}
 }

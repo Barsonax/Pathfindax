@@ -2,6 +2,8 @@
 using System.Linq;
 using Duality.Resources;
 using Pathfindax.PathfindEngine;
+using Pathfindax.Threading;
+
 #pragma warning disable 1591
 
 namespace Duality.Plugins.Pathfindax
@@ -11,7 +13,7 @@ namespace Duality.Plugins.Pathfindax
 	/// </summary>
 	public class PathfindaxDualityCorePlugin : CorePlugin
 	{
-		private readonly PathfindaxManager _pathfindaxManager = new PathfindaxManager();
+		private readonly PathfindaxManager _pathfindaxManager = new PathfindaxManager(new UpdatableSynchronizationContext());
 
 		public static PathfindaxManager PathfindaxManager
 		{

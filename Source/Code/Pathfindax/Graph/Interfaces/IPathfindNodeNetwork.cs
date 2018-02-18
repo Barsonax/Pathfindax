@@ -8,7 +8,6 @@ namespace Pathfindax.Graph
 	/// </summary>
 	/// <typeparam name="TNode"></typeparam>
 	public interface IPathfindNodeNetwork<out TNode> : IPathfindNodeNetwork
-		where TNode : ICollisionLayerNode
 	{
 		/// <summary>
 		/// Gets a nodenetwork for this <paramref name="collisionCategory"/>.
@@ -23,7 +22,7 @@ namespace Pathfindax.Graph
 	/// </summary>
 	public interface IPathfindNodeNetwork
 	{
-		IReadOnlyList<ICollisionLayerNode> GetCollisionLayerNetwork(PathfindaxCollisionCategory collisionCategory);
+		object GetCollisionLayerNetwork(PathfindaxCollisionCategory collisionCategory);
 		IDefinitionNodeNetwork DefinitionNodeNetwork { get; }
 	}
 }

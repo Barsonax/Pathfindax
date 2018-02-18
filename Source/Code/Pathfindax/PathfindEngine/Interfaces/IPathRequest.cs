@@ -10,9 +10,9 @@ namespace Pathfindax.PathfindEngine
 		PathRequestStatus Status { get; }
 		WaitHandle WaitHandle { get; }
 
-		IDefinitionNode PathStart { get; }
+		int PathStart { get; }
 
-		IDefinitionNode PathEnd { get; }
+		int PathEnd { get; }
 
 		byte AgentSize { get; }
 

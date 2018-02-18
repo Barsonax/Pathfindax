@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Linq;
 using Duality;
 using NUnit.Framework;
 using Pathfindax.Collections;
@@ -14,6 +15,34 @@ namespace Pathfindax.Test.Tests.Collections
 		{
 			var value = array2D[pointToCheck.X, pointToCheck.Y];
 			Assert.AreEqual(value, array2D.Array[value]);
+		}
+
+		[Test]
+		public void Array2D_1DimensionalAccess_CorrectValue()
+		{
+			var array2D = new Array2D<int>(4, 4);
+			for (int i = 0; i < array2D.Length; i++)
+			{
+				array2D[i] = i;
+			}
+
+			for (int i = 0; i < array2D.Array.Length; i++)
+			{
+				Assert.AreEqual(i, array2D.Array[i]); 
+			}
+		}
+
+		[Test]
+		public void Array2D_Enumerate()
+		{
+			var array2D = new Array2D<int>(4, 4);
+			for (int i = 0; i < array2D.Length; i++)
+			{
+				array2D[i] = i;
+			}
+
+			var enumeratedArray = array2D.ToArray();
+			CollectionAssert.AreEqual(array2D.Array, enumeratedArray);
 		}
 
 		[Test, TestCaseSource(typeof(Array2DTests), nameof(Array2DOutOfBoundsTestCases))]

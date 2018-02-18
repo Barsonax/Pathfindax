@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using Duality;
 using Pathfindax.Algorithms;
 using Pathfindax.Graph;
 using Pathfindax.Nodes;
 using Pathfindax.Paths;
+using Pathfindax.Threading;
 
 namespace Pathfindax.PathfindEngine
 {
@@ -73,7 +75,7 @@ namespace Pathfindax.PathfindEngine
 		/// <param name="end"></param>
 		/// <param name="agentSize"></param>
 		/// <param name="collisionLayer"></param>
-		PathRequest<TPath> RequestPath(DefinitionNode start, DefinitionNode end, PathfindaxCollisionCategory collisionLayer = PathfindaxCollisionCategory.None, byte agentSize = 1);
+		PathRequest<TPath> RequestPath(int start, int end, PathfindaxCollisionCategory collisionLayer = PathfindaxCollisionCategory.None, byte agentSize = 1);
 
 		new IPathFindAlgorithm<TPath> PathFindAlgorithm { get; }
 	}
@@ -81,6 +83,7 @@ namespace Pathfindax.PathfindEngine
 	public delegate void Event<in TObject>(TObject @object);
 	public interface IPathfinder : IDisposable
 	{
+		ISynchronizationContext SynchronizationContext { get; }
 		event Event<IPathfinder> Disposed;
 		IDefinitionNodeNetwork DefinitionNodeNetwork { get; }
 
@@ -97,6 +100,5 @@ namespace Pathfindax.PathfindEngine
 		/// Stops the pathfinder.
 		/// </summary>
 		void Stop();
-		void ProcessPaths();
 	}
 }

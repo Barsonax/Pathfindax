@@ -1,67 +1,133 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Pathfindax.Collections;
+using Pathfindax.Graph;
 using Pathfindax.Nodes;
 using Pathfindax.PathfindEngine;
+using Pathfindax.Paths;
 
 namespace Pathfindax.Algorithms
 {
 	/// <summary>
-	/// Algorithm for potential and flow fields. Not to be used directly.
+	/// Algorithm for potential and flow fields. Not to be used directly except for testing purposes.
 	/// </summary>
-	public class DijkstraAlgorithm
+	public class DijkstraAlgorithm : IPathFindAlgorithm<IPathfindNodeNetwork<DijkstraNode>, NodePath>
 	{
-		public bool FindPath(DijkstraNode[] pathfindingNetwork, DijkstraNode targetNode, DijkstraNode startNode, IPathRequest pathRequest)
+		public IEnumerable<int> OpenSet => _openSet;
+		public IEnumerable<int> ClosedSet => _closedSet;
+
+		private readonly IndexMinHeap<DijkstraNode> _openSet;
+		private readonly LookupArray _closedSet;
+		private readonly EuclideanDistance _costFunction = new EuclideanDistance();
+		private readonly PathRetracer<DijkstraNode> _pathRetracer = new PathRetracer<DijkstraNode>(GetParent);
+
+		public DijkstraAlgorithm(int amountOfNodes)
 		{
-			if (targetNode.Clearance < pathRequest.AgentSize) return false;
-			ResetNetwork(pathfindingNetwork);
-			var openSet = new MaxHeap<DijkstraNode>(pathfindingNetwork.Length);
-			var closedSet = new HashSet<DijkstraNode>();
+			_openSet = new IndexMinHeap<DijkstraNode>(amountOfNodes);
+			_closedSet = new LookupArray(amountOfNodes);
+		}
 
-			openSet.Add(targetNode);
-			targetNode.GCost = 0f;
-			while (openSet.Count > 0)
+		public NodePath FindPath(IPathfindNodeNetwork<DijkstraNode> nodeNetwork, IPathRequest pathRequest, out bool succes)
+		{
+			if (pathRequest.PathStart == pathRequest.PathEnd)
 			{
-				var currentNode = openSet.RemoveFirst();
-				closedSet.Add(currentNode);
+				succes = true;
+				return NodePath.GetEmptyPath(nodeNetwork, pathRequest.PathStart);
+			}
+			var pathfindingNetwork = nodeNetwork.GetCollisionLayerNetwork(pathRequest.CollisionCategory);
 
-				foreach (var connection in currentNode.DefinitionNode.Connections)
+			if (!(pathfindingNetwork[pathRequest.PathStart].Clearance >= pathRequest.AgentSize) || !(pathfindingNetwork[pathRequest.PathEnd].Clearance >= pathRequest.AgentSize))
+			{
+				succes = false;
+				return NodePath.GetEmptyPath(nodeNetwork, pathRequest.PathStart);
+			}
+
+			StartFindPath(pathfindingNetwork, nodeNetwork.DefinitionNodeNetwork.NodeArray, pathRequest.PathStart);
+			if (FindPath(pathfindingNetwork, nodeNetwork.DefinitionNodeNetwork.NodeArray, pathRequest.PathEnd, pathRequest.AgentSize, pathRequest.CollisionCategory))
+			{
+				var path = _pathRetracer.RetracePath(pathfindingNetwork, nodeNetwork.DefinitionNodeNetwork.NodeArray, pathRequest.PathStart, pathRequest.PathEnd);
+
+				succes = true;
+				return new NodePath(nodeNetwork.DefinitionNodeNetwork.NodeArray, path, nodeNetwork.DefinitionNodeNetwork.Transformer);
+			}
+
+			succes = false;
+			return NodePath.GetEmptyPath(nodeNetwork, pathRequest.PathStart);
+		}
+
+		public void StartFindPath(DijkstraNode[] pathfindingNetwork, DefinitionNode[] definitionNodes, int startNodeIndex)
+		{
+			ResetNetwork(pathfindingNetwork);
+			_openSet.AssignArray(pathfindingNetwork);
+			_closedSet.Clear();
+			_openSet.Add(startNodeIndex);
+			pathfindingNetwork[startNodeIndex].Priority = 0f;
+		}
+
+		public bool FindPath(DijkstraNode[] pathfindingNetwork, DefinitionNode[] definitionNodes, int targetNodeIndex, float neededClearance, PathfindaxCollisionCategory collisionCategory, int stepsToRun = -1)
+		{
+			var succes = false;
+			while (_openSet.Count > 0 && stepsToRun != 0)
+			{
+				if (stepsToRun > 0) stepsToRun--;
+				var currentNodeIndex = _openSet.RemoveFirst();
+				if (currentNodeIndex == targetNodeIndex)
 				{
-					var toNode = NodePointer.Dereference(connection.To, pathfindingNetwork);
-					if ((connection.CollisionCategory & pathRequest.CollisionCategory) != 0 || closedSet.Contains(toNode)) continue;
+					succes = true;
+				}
+				ref var currentNode = ref pathfindingNetwork[currentNodeIndex];
+				ref var currentDefinitionNode = ref definitionNodes[currentNodeIndex];
+				_closedSet.Occupy(currentNodeIndex);
 
-					if (toNode.Clearance < pathRequest.AgentSize)
+				foreach (var connection in currentDefinitionNode.Connections)
+				{
+					if ((connection.CollisionCategory & collisionCategory) != 0 || _closedSet.Contains(connection.To)) continue;
+					ref var toNode = ref pathfindingNetwork[connection.To];
+					if (toNode.Clearance < neededClearance)
 					{
-						toNode.GCost = float.NaN;
+						toNode.Priority = float.NaN;
 					}
 					else
 					{
-						var newMovementCostToNeighbour = currentNode.GCost + GetDistance(currentNode.DefinitionNode, toNode.DefinitionNode) * currentNode.DefinitionNode.MovementCostModifier;
-						if (newMovementCostToNeighbour < toNode.GCost || !openSet.Contains(toNode))
+						ref var toDefinitionNode = ref definitionNodes[connection.To];
+						var newMovementCostToNeighbour = currentNode.Priority + _costFunction.GetDistance(currentDefinitionNode.Position, toDefinitionNode.Position) * currentDefinitionNode.MovementCostModifier;
+						if (newMovementCostToNeighbour < toNode.Priority || !_openSet.Contains(connection.To))
 						{
-							toNode.GCost = newMovementCostToNeighbour;
-							if (!openSet.Contains(toNode))
-								openSet.Add(toNode);
+							toNode.Priority = newMovementCostToNeighbour;
+							if (!_openSet.Contains(connection.To))
+								_openSet.Add(connection.To);
+							else
+							{
+								_openSet.Update(connection.To);
+							}
 						}
 					}
 				}
 			}
-			return true;
+			return succes;
 		}
 
 		private void ResetNetwork(DijkstraNode[] pathfindingNetwork)
 		{
 			for (var i = 0; i < pathfindingNetwork.Length; i++)
 			{
-				pathfindingNetwork[i].GCost = float.NaN;
+				pathfindingNetwork[i].Priority = float.NaN;
 			}
 		}
 
-		private static float GetDistance(DefinitionNode dijkstraNodeA, DefinitionNode dijkstraNodeB)
+		private static int GetParent(DijkstraNode[] pathfindingNetwork, DefinitionNode[] definitionNodes, int nodeIndex)
 		{
-			var dstX = Math.Abs(dijkstraNodeA.Position.X - dijkstraNodeB.Position.X);
-			var dstY = Math.Abs(dijkstraNodeA.Position.Y - dijkstraNodeB.Position.Y);
-			return dstY + dstX;
+			var currentParent = -1;
+			var currentPriority = float.MaxValue;
+			foreach (var connection in definitionNodes[nodeIndex].Connections)
+			{
+				ref var node = ref pathfindingNetwork[connection.To];
+				if (node.Priority < currentPriority)
+				{
+					currentParent = connection.To;
+					currentPriority = node.Priority;
+				}
+			}
+			return currentParent;
 		}
 	}
 }

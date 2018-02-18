@@ -1,28 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using Pathfindax.Algorithms;
 using Pathfindax.Graph;
 using Pathfindax.Paths;
+using Pathfindax.Threading;
 
 namespace Pathfindax.PathfindEngine
 {
 	public class PathfindaxManager : IPathfindaxManager
 	{
-		private readonly List<IPathfinder> _pathfinders = new List<IPathfinder>();
 		private readonly List<DynamicPotentialFieldUpdater> _dynamicPotentialFieldUpdaters = new List<DynamicPotentialFieldUpdater>();
+		private readonly IUpdatableSynchronizationContext _synchronizationContext;
+
+		/// <summary>
+		/// Creates a new <see cref="PathfindaxManager"/>
+		/// </summary>
+		/// <param name="synchronizationContext">The synchronization context that will be used to post the callbacks of the completed paths to. If none is supplied the current threads <see cref="SynchronizationContext"/> will be used</param>
+		public PathfindaxManager(IUpdatableSynchronizationContext synchronizationContext = null)
+		{
+			_synchronizationContext = synchronizationContext ?? new SynchronizationContextAdapter(SynchronizationContext.Current ?? new SynchronizationContext());
+		}
 
 		public void Clear()
 		{
-			_pathfinders.Clear();
 			_dynamicPotentialFieldUpdaters.Clear();
 		}
 
 		public void Update(float time)
 		{
-			foreach (var pathfinder in _pathfinders)
-			{
-				pathfinder.ProcessPaths();
-			}
+			_synchronizationContext.Update();
 
 			foreach (var dynamicPotentialFieldUpdater in _dynamicPotentialFieldUpdaters)
 			{
@@ -44,10 +51,7 @@ namespace Pathfindax.PathfindEngine
 			where TPath : class, IPath
 		{
 			if (threads < 1) throw new ArgumentException("There is a minimum of 1 thread");
-			var pathfinder = new Pathfinder<TSourceNodeNetwork, TThreadNodeNetwork, TPath>(definitionNodeNetwork, pathFindAlgorithm, processerConstructor, threads);
-			_pathfinders.Add(pathfinder);
-			pathfinder.Disposed += o => _pathfinders.Remove(o);
-			return pathfinder;
+			return new Pathfinder<TSourceNodeNetwork, TThreadNodeNetwork, TPath>(_synchronizationContext, definitionNodeNetwork, pathFindAlgorithm, processerConstructor, threads);
 		}
 	}
 }

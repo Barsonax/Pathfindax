@@ -7,7 +7,7 @@ namespace Pathfindax.Graph
 		public Vector2 Position { get; }
 		public Vector2 Scale { get; }
 
-		public Transformer(Vector2 scale, Vector2 position = default(Vector2))
+		public Transformer(Vector2 scale, Vector2 position = default)
 		{
 			Position = position;
 			Scale = scale;

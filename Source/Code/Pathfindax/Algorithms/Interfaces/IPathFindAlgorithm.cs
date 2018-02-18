@@ -1,5 +1,4 @@
 ﻿using Pathfindax.Graph;
-using Pathfindax.Nodes;
 using Pathfindax.PathfindEngine;
 using Pathfindax.Paths;
 
@@ -26,7 +25,7 @@ namespace Pathfindax.Algorithms
 	public interface IPathFindAlgorithm<TPath> : IPathFindAlgorithm
 		where TPath : IPath
 	{
-		PathRequest<TPath> CreatePathRequest(IPathfinder<TPath> pathfinder, IDefinitionNodeNetwork definitionNodes, float x1, float y1, float x2, float y2, PathfindaxCollisionCategory collisionLayer = PathfindaxCollisionCategory.None, byte agentSize = 1);
+		//PathRequest<TPath> CreatePathRequest(IPathfinder<TPath> pathfinder, IDefinitionNodeNetwork definitionNodes, float x1, float y1, float x2, float y2, PathfindaxCollisionCategory collisionLayer = PathfindaxCollisionCategory.None, byte agentSize = 1);
 	}
 
 	public interface IPathFindAlgorithm

@@ -26,11 +26,11 @@ namespace Pathfindax.Graph
 			_pathfindNodeGenerators = pathfindNodeGenerators;
 		}
 
-		IReadOnlyList<ICollisionLayerNode> IPathfindNodeNetwork.GetCollisionLayerNetwork(PathfindaxCollisionCategory collisionCategory) => GetCollisionLayerNetwork(collisionCategory);
+		object IPathfindNodeNetwork.GetCollisionLayerNetwork(PathfindaxCollisionCategory collisionCategory) => GetCollisionLayerNetwork(collisionCategory);
 		public AstarNode[] GetCollisionLayerNetwork(PathfindaxCollisionCategory collisionCategory)
 		{
 			if (!_nodeNetworks.TryGetValue(collisionCategory, out var pathfindingNetwork))
-			{				
+			{
 				var watch = Stopwatch.StartNew();
 				pathfindingNetwork = GenerateNodeNetwork(DefinitionNodeNetwork);
 				foreach (var pathfindNodeGenerator in _pathfindNodeGenerators)
@@ -48,7 +48,7 @@ namespace Pathfindax.Graph
 			var nodeNetwork = new AstarNode[definitionNodeNetwork.NodeCount];
 			for (var i = 0; i < definitionNodeNetwork.NodeCount; i++)
 			{
-				nodeNetwork[i] = new AstarNode(definitionNodeNetwork[i]);
+				nodeNetwork[i] = new AstarNode { Parent = -1, Clearance = float.MaxValue };
 			}
 			return nodeNetwork;
 		}

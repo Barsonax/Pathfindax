@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -52,8 +53,16 @@ namespace Pathfindax.Threading
 			while (!_disposed)
 			{
 				_waitHandle.WaitOne();
-				_processer.Process(_workItem);
-				_onCompleted?.Invoke(_workItem);
+				try
+				{
+					_processer.Process(_workItem);
+					_onCompleted?.Invoke(_workItem);
+				}
+				catch (Exception ex)
+				{
+					Debug.WriteLine(ex);
+					Debugger.Break();
+				}
 				_waitHandle.Reset();
 				IsBusy = false;
 			}

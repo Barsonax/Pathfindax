@@ -8,10 +8,10 @@ namespace Pathfindax.Test.Tests.Collections
 	class MaxHeapTests
 	{
 		[Test, TestCaseSource(typeof(MaxHeapTests), nameof(HeapTestCases))]
-		public void MaxHeap_RemoveFirst(HeapItem[] items)
+		public void MaxHeap_RemoveFirst(ValueHeapItem<int>[] items)
 		{
 			//Create the heap and add the items.
-			var heap = new MaxHeap<HeapItem>(items.Length);
+			var heap = new MaxHeap<ValueHeapItem<int>>(items.Length);
 			for (var i = 0; i < items.Length; i++)
 			{
 				heap.Add(items[i]);
@@ -28,10 +28,10 @@ namespace Pathfindax.Test.Tests.Collections
 		}
 
 		[Test, TestCaseSource(typeof(MaxHeapTests), nameof(HeapTestCases))]
-		public void MaxHeap_Contains_True(HeapItem[] items)
+		public void MaxHeap_Contains_True(ValueHeapItem<int>[] items)
 		{
 			//Create the heap and add the items.
-			var heap = new MaxHeap<HeapItem>(items.Length);
+			var heap = new MaxHeap<ValueHeapItem<int>>(items.Length);
 			for (var i = 0; i < items.Length; i++)
 			{
 				heap.Add(items[i]);
@@ -45,10 +45,10 @@ namespace Pathfindax.Test.Tests.Collections
 		}
 
 		[Test, TestCaseSource(typeof(MaxHeapTests), nameof(HeapTestCases))]
-		public void MaxHeap_Contains_False(HeapItem[] items)
+		public void MaxHeap_Contains_False(ValueHeapItem<int>[] items)
 		{
 			//Create the heap and add the items.
-			var heap = new MaxHeap<HeapItem>(items.Length);
+			var heap = new MaxHeap<ValueHeapItem<int>>(items.Length);
 			for (var i = 0; i < items.Length; i++)
 			{
 				heap.Add(items[i]);
@@ -57,7 +57,7 @@ namespace Pathfindax.Test.Tests.Collections
 			//Create new items and check if contains returns false
 			for (var i = 0; i < items.Length; i++)
 			{
-				var item = new HeapItem(items[i].Value);
+				var item = new ValueHeapItem<int>(items[i].Value);
 				Assert.IsFalse(heap.Contains(item), $"Contains returned true for item {item}");
 			}
 		}
@@ -76,35 +76,12 @@ namespace Pathfindax.Test.Tests.Collections
 
 		private static TestCaseData GenerateHeapTestCase(params int[] values)
 		{
-			var testCaseData = new HeapItem[values.Length];
+			var testCaseData = new ValueHeapItem<int>[values.Length];
 			for (var i = 0; i < values.Length; i++)
 			{
-				testCaseData[i] = new HeapItem(values[i]);
+				testCaseData[i] = new ValueHeapItem<int>(values[i]);
 			}
 			return new TestCaseData(new[] { testCaseData }).SetName($"Values: {string.Join(", ", values)}");
-		}
-
-		public class HeapItem : IHeapItem<HeapItem>
-		{
-			public int Value { get; }
-			public HeapItem(int value)
-			{
-				Value = value;
-				HeapIndex = -1;
-			}
-
-			public int CompareTo(HeapItem other)
-			{
-				var compare = Value.CompareTo(other.Value);
-				return compare;
-			}
-
-			public int HeapIndex { get; set; }
-
-			public override string ToString()
-			{
-				return Value.ToString();
-			}
 		}
 	}
 }

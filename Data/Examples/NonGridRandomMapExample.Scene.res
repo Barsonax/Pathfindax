@@ -14,16 +14,7 @@
             <active dataType="Bool">true</active>
             <gameobj dataType="ObjectRef">2586665865</gameobj>
           </item>
-          <item dataType="Struct" type="Duality.Plugins.Pathfindax.Components.AstarPathfinderComponent" id="378963951">
-            <_x003C_AmountOfThreads_x003E_k__BackingField dataType="Int">1</_x003C_AmountOfThreads_x003E_k__BackingField>
-            <_x003C_MaxClearance_x003E_k__BackingField dataType="Int">5</_x003C_MaxClearance_x003E_k__BackingField>
-            <_x003C_Pathfinder_x003E_k__BackingField />
-            <_x003C_PathfinderId_x003E_k__BackingField />
-            <active dataType="Bool">true</active>
-            <gameobj dataType="ObjectRef">2586665865</gameobj>
-          </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.NonGridMouseClickPathfinder" id="1982292920">
-            <_pathStart />
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_Camera_x003E_k__BackingField dataType="Struct" type="Duality.Components.Camera" id="1673634481">
               <active dataType="Bool">true</active>
@@ -118,21 +109,28 @@
             </_x003C_Camera_x003E_k__BackingField>
             <_x003C_CollisionCategory_x003E_k__BackingField dataType="Enum" type="Pathfindax.Nodes.PathfindaxCollisionCategory" name="Cat1" value="1" />
             <_x003C_Path_x003E_k__BackingField />
-            <_x003C_PathfinderComponent_x003E_k__BackingField dataType="ObjectRef">378963951</_x003C_PathfinderComponent_x003E_k__BackingField>
-            <active dataType="Bool">true</active>
-            <gameobj dataType="ObjectRef">2586665865</gameobj>
-          </item>
-          <item dataType="Struct" type="Duality.Plugins.Pathfindax.Components.NodeNetworkVisualizer" id="2498494768">
-            <_x003C_BoundRadius_x003E_k__BackingField dataType="Float">0</_x003C_BoundRadius_x003E_k__BackingField>
-            <_x003C_CollisionCategory_x003E_k__BackingField dataType="Enum" type="Pathfindax.Nodes.PathfindaxCollisionCategory" name="Cat1" value="1" />
-            <_x003C_NodeSize_x003E_k__BackingField dataType="Float">5</_x003C_NodeSize_x003E_k__BackingField>
-            <_x003C_Thread_x003E_k__BackingField dataType="Int">0</_x003C_Thread_x003E_k__BackingField>
-            <_x003C_Visualize_x003E_k__BackingField dataType="Bool">true</_x003C_Visualize_x003E_k__BackingField>
+            <_x003C_PathfinderComponent_x003E_k__BackingField dataType="Struct" type="Duality.Plugins.Pathfindax.Components.AstarPathfinderComponent" id="378963951">
+              <_x003C_AmountOfThreads_x003E_k__BackingField dataType="Int">1</_x003C_AmountOfThreads_x003E_k__BackingField>
+              <_x003C_Heuristic_x003E_k__BackingField dataType="Struct" type="Pathfindax.Algorithms.ManhattanDistance" id="453066723" />
+              <_x003C_MaxClearance_x003E_k__BackingField dataType="Int">5</_x003C_MaxClearance_x003E_k__BackingField>
+              <active dataType="Bool">true</active>
+              <gameobj dataType="ObjectRef">2586665865</gameobj>
+            </_x003C_PathfinderComponent_x003E_k__BackingField>
             <active dataType="Bool">true</active>
             <gameobj dataType="ObjectRef">2586665865</gameobj>
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Components.PathVisualizer" id="4019338063">
             <_x003C_BoundRadius_x003E_k__BackingField dataType="Float">0</_x003C_BoundRadius_x003E_k__BackingField>
+            <_x003C_Visualize_x003E_k__BackingField dataType="Bool">true</_x003C_Visualize_x003E_k__BackingField>
+            <active dataType="Bool">true</active>
+            <gameobj dataType="ObjectRef">2586665865</gameobj>
+          </item>
+          <item dataType="ObjectRef">378963951</item>
+          <item dataType="Struct" type="Duality.Plugins.Pathfindax.Components.NodeNetworkVisualizer" id="2498494768">
+            <_x003C_BoundRadius_x003E_k__BackingField dataType="Float">0</_x003C_BoundRadius_x003E_k__BackingField>
+            <_x003C_CollisionCategory_x003E_k__BackingField dataType="Enum" type="Pathfindax.Nodes.PathfindaxCollisionCategory" name="Cat1" value="1" />
+            <_x003C_NodeSize_x003E_k__BackingField dataType="Float">5</_x003C_NodeSize_x003E_k__BackingField>
+            <_x003C_Thread_x003E_k__BackingField dataType="Int">0</_x003C_Thread_x003E_k__BackingField>
             <_x003C_Visualize_x003E_k__BackingField dataType="Bool">true</_x003C_Visualize_x003E_k__BackingField>
             <active dataType="Bool">true</active>
             <gameobj dataType="ObjectRef">2586665865</gameobj>

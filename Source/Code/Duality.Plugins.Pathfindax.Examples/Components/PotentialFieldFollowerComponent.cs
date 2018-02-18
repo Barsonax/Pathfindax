@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using Duality.Components;
+﻿using Duality.Components;
 using Duality.Components.Physics;
 using Duality.Editor;
 using Duality.Input;
@@ -64,23 +63,20 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 			}
 		}
 
-		private void Mouse_ButtonDown(object sender, MouseButtonEventArgs e)
+		private async void Mouse_ButtonDown(object sender, MouseButtonEventArgs e)
 		{
 			var targetPos = Camera.GetSpaceCoord(e.Position);
-			var request =
-				PathfinderComponent.Pathfinder.RequestPath(GameObj.Transform.Pos, targetPos, _collisionCategory, AgentSize);
-			request.AddCallback(pathrequest =>
+			var request = PathfinderComponent.Pathfinder.RequestPath(GameObj.Transform.Pos, targetPos, _collisionCategory, AgentSize);
+			var completedPath = await request;
+			switch (request.Status)
 			{
-				switch (pathrequest.Status)
-				{
-					case PathRequestStatus.Solved:
-						_path = new AggregratedPotentialField(DynamicPotentialFieldComponent.PotentialField.GridTransformer, pathrequest.CompletedPath, DynamicPotentialFieldComponent.PotentialField);
-						break;
-					case PathRequestStatus.NoPathFound:
-						_path = new AggregratedPotentialField(DynamicPotentialFieldComponent.PotentialField.GridTransformer, DynamicPotentialFieldComponent.PotentialField);
-						break;
-				}				
-			});
+				case PathRequestStatus.Solved:
+					_path = new AggregratedPotentialField(DynamicPotentialFieldComponent.PotentialField.GridTransformer, completedPath, DynamicPotentialFieldComponent.PotentialField);
+					break;
+				case PathRequestStatus.NoPathFound:
+					_path = new AggregratedPotentialField(DynamicPotentialFieldComponent.PotentialField.GridTransformer, DynamicPotentialFieldComponent.PotentialField);
+					break;
+			}
 		}
 	}
 }
