@@ -58,6 +58,8 @@
   <ItemGroup>
     <Compile Include="Tests\Algorithms\DijkstraAlgorithmTests.cs" />
     <Compile Include="Tests\Algorithms\AlgorithmTestCases.cs" />
+    <Compile Include="Tests\Algorithms\FlowFieldAlgoritmTests.cs" />
+    <Compile Include="Tests\Algorithms\PotentialFieldAlgorithmTests.cs" />
     <Compile Include="Tests\Collections\Array2DTests.cs" />
     <Compile Include="Tests\Algorithms\AstarAlgorithmTests.cs" />
     <Compile Include="Setup\PathfinderSetup.cs" />
@@ -66,10 +68,13 @@
     <Compile Include="Tests\Collections\MaxHeapTests.cs" />
     <Compile Include="Tests\Collections\TestObjects\IntHeapItem.cs" />
     <Compile Include="Tests\Factories\NodeGridFactoryTest.cs" />
+    <Compile Include="Tests\Graph\DefinitionNodeNetworkTests.cs" />
     <Compile Include="Tests\Graph\GridTransformerTests.cs" />
     <Compile Include="Tests\Graph\GraphTestCases.cs" />
     <Compile Include="Tests\Graph\TransformerTests.cs" />
     <Compile Include="Tests\PathfindEngine\PathfinderTests.cs" />
+    <Compile Include="Tests\Paths\NodePathTests.cs" />
+    <Compile Include="Tests\Paths\PathTestCases.cs" />
     <Compile Include="Tests\Paths\PotentialFieldTests.cs" />
     <Compile Include="Tests\Threading\MultithreadedWorkerQueueTests.cs" />
     <Compile Include="Tests\PathfindEngine\PathRequestTests.cs" />

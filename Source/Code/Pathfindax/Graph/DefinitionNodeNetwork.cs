@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Duality;
+﻿using Duality;
 using Pathfindax.Nodes;
 using Pathfindax.Utils;
 

@@ -27,15 +27,8 @@ namespace Pathfindax.Algorithms
 				var pathfindingNetwork = dijkstraNodeNetwork.GetCollisionLayerNetwork(pathRequest.CollisionCategory);
 
 				_dijkstraAlgorithm.StartFindPath(pathfindingNetwork, dijkstraNodeNetwork.DefinitionNodeGrid.NodeArray, pathRequest.PathEnd);
-				if (_dijkstraAlgorithm.FindPath(pathfindingNetwork, dijkstraNodeNetwork.DefinitionNodeGrid.NodeGrid.Array, pathRequest.PathStart, pathRequest.AgentSize, pathRequest.CollisionCategory))
-				{
-					potentialField = FindPath(dijkstraNodeNetwork, pathfindingNetwork, pathRequest.PathEnd, pathRequest);
-				}
-				else
-				{
-					ref var targetDefinitionNode = ref dijkstraNodeNetwork.DefinitionNodeGrid.NodeGrid.Array[pathRequest.PathEnd];
-					potentialField = new PotentialField(dijkstraNodeNetwork.DefinitionNodeGrid.Transformer, (Point2)targetDefinitionNode.Position);
-				}
+				_dijkstraAlgorithm.FindPath(pathfindingNetwork, dijkstraNodeNetwork.DefinitionNodeGrid.NodeGrid.Array, pathRequest.PathStart, pathRequest.AgentSize, pathRequest.CollisionCategory);
+				potentialField = FindPath(dijkstraNodeNetwork, pathfindingNetwork, pathRequest.PathEnd, pathRequest);
 				_potentialFieldCache?.Add(pathRequest, potentialField);
 			}
 			ref var startDefinitionNode = ref dijkstraNodeNetwork.DefinitionNodeGrid.NodeArray[pathRequest.PathStart];

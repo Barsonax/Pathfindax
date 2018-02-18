@@ -95,7 +95,6 @@ namespace Pathfindax.Collections
 			Array = array;
 		}
 
-		/// <inheritdoc />
 		public IEnumerator<TItem> GetEnumerator()
 		{
 			foreach (var item in Array)

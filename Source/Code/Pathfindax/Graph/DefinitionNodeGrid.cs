@@ -26,27 +26,6 @@ namespace Pathfindax.Graph
 			NodeGrid = nodeGrid;
 		}
 
-		public void SetNodeCollision(int gridX, int gridY, PathfindaxCollisionCategory pathfindaxCollisionCategory)
-		{
-			var nodeToBlockIndex = NodeGrid.ToIndex(gridX, gridY);
-			for (var y = -1; y < 2; y++)
-			{
-				var nodeY = gridY + y;
-				if (nodeY < 0 || nodeY >= NodeGrid.Height) continue;
-				for (var x = -1; x < 2; x++)
-				{
-					var nodeX = gridX + x;
-					if (nodeX < 0 || nodeX >= NodeGrid.Width) continue;
-					var connections = NodeGrid[nodeX, nodeY].Connections;
-					for (var i = 0; i < connections.Length; i++)
-					{
-						ref var nodeConnection = ref connections[i];
-						if (nodeConnection.To == nodeToBlockIndex) nodeConnection.CollisionCategory = pathfindaxCollisionCategory;
-					}
-				}
-			}
-		}
-
 		public ref DefinitionNode GetNode(float worldX, float worldY)
 		{
 			var index = GetNodeIndex(worldX, worldY);
