@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using Duality.Components;
+﻿using Duality.Components;
 using Duality.Components.Physics;
 using Duality.Editor;
 using Duality.Input;
@@ -29,7 +28,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 		IPath IPathProvider.Path => _path;
 
 		[DontSerialize]
-		private IPath _path;
+		private AggregratedPotentialField _path;
 
 		[DontSerialize]
 		private RigidBody _rigidBody;
@@ -57,11 +56,11 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 
 		void ICmpUpdatable.OnUpdate()
 		{
-			//if (_path != null)
-			//{
-			//	var heading = _path.GetHeading(GameObj.Transform.Pos);
-			//	_rigidBody.ApplyWorldForce(heading * MovementSpeed);
-			//}
+			if (_path != null)
+			{
+				var heading = _path.GetHeading(GameObj.Transform.Pos);
+				_rigidBody.ApplyWorldForce(heading * MovementSpeed);
+			}
 		}
 
 		private async void Mouse_ButtonDown(object sender, MouseButtonEventArgs e)
@@ -71,17 +70,11 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 			var completedPath = await request;
 			switch (request.Status)
 			{
-				//case PathRequestStatus.Solved:
-				//	_path = new AggregratedPotentialField(DynamicPotentialFieldComponent.PotentialField.GridTransformer, completedPath, DynamicPotentialFieldComponent.PotentialField);
-				//	break;
-				//case PathRequestStatus.NoPathFound:
-				//	_path = new AggregratedPotentialField(DynamicPotentialFieldComponent.PotentialField.GridTransformer, DynamicPotentialFieldComponent.PotentialField);
-				//	break;
 				case PathRequestStatus.Solved:
-					_path = completedPath;
+					_path = new AggregratedPotentialField(DynamicPotentialFieldComponent.PotentialField.GridTransformer, completedPath, DynamicPotentialFieldComponent.PotentialField);
 					break;
 				case PathRequestStatus.NoPathFound:
-					_path = completedPath;
+					_path = new AggregratedPotentialField(DynamicPotentialFieldComponent.PotentialField.GridTransformer, DynamicPotentialFieldComponent.PotentialField);
 					break;
 			}
 		}
