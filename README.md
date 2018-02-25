@@ -15,10 +15,10 @@ Most of the implementation is in a separate dll which can also be used without d
 ## Getting Started
 
 ### Installing
-Pathfindax can be installed through the nuget packages which you can find at the bottom of this readme. When using duality there are also some extra packages you could install to make it easier to use pathfindax in duality. If you just want to use pathfindax in you only have to install Pathindax itself.
+Pathfindax can be installed through the nuget packages which you can find at the bottom of this readme. When using duality there are also some extra packages you can install to make it easier to use pathfindax in duality. If you just want to use pathfindax in you only have to install Pathindax itself.
 
 For more info on how to install nuget packages see [this](https://docs.microsoft.com/en-us/nuget/consume-packages/ways-to-install-a-package). 
-For more info on how to install the duality packages see [this](https://github.com/AdamsLair/duality/wiki/Package-Management).
+For more info on how to install duality packages see [this](https://github.com/AdamsLair/duality/wiki/Package-Management).
 
 ### A Simple example
 The following example will show you how to create a nodegrid and find a path through it:
