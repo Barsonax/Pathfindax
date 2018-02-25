@@ -1,8 +1,10 @@
-<!--
-  Title: Pathfindax 
-  Description: A easy to use pathfinding framework
-  Author: Barsonax
--->
+<meta name='Pathindax' content='pathfinding, A*, Dijkstra'>
+
+
+
+
+
+
 
 # Pathfindax
 Pathfindax is a pathfinding framework that can be used to get a path to a destination in a network of nodes. Currently A*, potential fields and flowfield are implemented. These implementations support the following features:
