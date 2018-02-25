@@ -47,7 +47,7 @@ Console.ReadKey();
 More examples can be found [here](https://github.com/Barsonax/Pathfindax/blob/master/Source/Code/Pathfindax.Example/Program.cs).
 
 ### Pathfindax inside duality
-The duality packages make it easier to use pathfindax by abstracting most of the boilerplate code you see in the example above. A tutorial covering how to use pathfindax in duality can be found [here](https://github.com/Barsonax/Pathfindax/wiki/Using-pathfindax-with-duality-tilemaps).
+The duality packages make it easier to use pathfindax by abstracting most of the boilerplate code you see in the example above. A tutorial covering how to use pathfindax in duality can be found [here](https://github.com/Barsonax/Pathfindax/wiki/Using-pathfindax-with-duality-tilemaps). Some example components can also be found [here](https://github.com/Barsonax/Pathfindax/tree/master/Source/Code/Duality.Plugins.Pathfindax.Examples/Components)
 
 ## Other
   
