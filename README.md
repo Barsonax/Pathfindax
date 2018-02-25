@@ -8,10 +8,6 @@ Pathfindax is a pathfinding framework that can be used to get a path to a destin
 Its also possible to use dynamic pathfinding if you use potential fields. A example of this is shown in the video below:
 ![](https://thumbs.gfycat.com/PinkCriminalEmperorshrimp-size_restricted.gif)
 
-You can find some examples on how to use pathfindax in duality [here](https://github.com/Barsonax/Pathfindax/tree/master/Source/Code/Duality.Plugins.Pathfindax.Examples/Components).
-
-Most of the implementation is in a separate dll which can also be used without duality and only depends on the DualityPrimitives package. A example of using pathfindax in a console app can be found [here](https://github.com/Barsonax/Pathfindax/blob/master/Source/Code/Pathfindax.Example/Program.cs).
-
 ## Getting Started
 
 ### Installing
@@ -52,6 +48,8 @@ More examples can be found [here](https://github.com/Barsonax/Pathfindax/blob/ma
 
 ### Pathfindax inside duality
 A tutorial covering how to use pathfindax in duality can be found [here](https://github.com/Barsonax/Pathfindax/wiki/Using-pathfindax-with-duality-tilemaps).
+
+## Other
   
 ### Build status: 
 | Branch | Status |
