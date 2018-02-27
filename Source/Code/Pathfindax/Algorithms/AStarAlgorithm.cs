@@ -43,8 +43,8 @@ namespace Pathfindax.Algorithms
 				return NodePath.GetEmptyPath(nodeNetwork, pathRequest.PathStart);
 			}
 
-			StartFindPath(pathfindingNetwork, nodeNetwork.DefinitionNodeNetwork.NodeArray, pathRequest.PathStart);
-			if (FindPath(pathfindingNetwork, nodeNetwork.DefinitionNodeNetwork.NodeArray, pathRequest.PathEnd, pathRequest.AgentSize, pathRequest.CollisionCategory))
+			StartFindPath(pathfindingNetwork, nodeNetwork.DefinitionNodeNetwork.NodeArray, pathRequest.PathStart, pathRequest.PathEnd, pathRequest.AgentSize, pathRequest.CollisionCategory);
+			if (FindPathStep(-1))
 			{
 				var path = _pathRetracer.RetracePath(pathfindingNetwork, nodeNetwork.DefinitionNodeNetwork.NodeArray, pathRequest.PathStart, pathRequest.PathEnd);
 
@@ -56,38 +56,50 @@ namespace Pathfindax.Algorithms
 			return NodePath.GetEmptyPath(nodeNetwork, pathRequest.PathStart);
 		}
 
-		public void StartFindPath(AstarNode[] pathfindingNetwork, DefinitionNode[] definitionNodes, int startNodeIndex)
+		private int _targetNodeIndex;
+		private float _neededClearance;
+		private PathfindaxCollisionCategory _collisionCategory;
+		private AstarNode[] _pathfindingNetwork;
+		private DefinitionNode[] _definitionNodes;
+
+		public void StartFindPath(AstarNode[] pathfindingNetwork, DefinitionNode[] definitionNodes, int startNodeIndex, int targetNodeIndex, float neededClearance, PathfindaxCollisionCategory collisionCategory)
 		{
+			_targetNodeIndex = targetNodeIndex;
+			_neededClearance = neededClearance;
+			_collisionCategory = collisionCategory;
+			_pathfindingNetwork = pathfindingNetwork;
+			_definitionNodes = definitionNodes;
+
 			_openSet.AssignArray(pathfindingNetwork);
 			_closedSet.Clear();
 			_openSet.Add(startNodeIndex);
 		}
 
-		public bool FindPath(AstarNode[] pathfindingNetwork, DefinitionNode[] definitionNodes, int targetNodeIndex, float neededClearance, PathfindaxCollisionCategory collisionCategory, int stepsToRun = -1)
+		public bool FindPathStep(int stepsToRun)
 		{
 			while (_openSet.Count > 0 && stepsToRun != 0)
 			{
 				if (stepsToRun > 0) stepsToRun--;
 				var currentNodeIndex = _openSet.RemoveFirst();
-				if (currentNodeIndex == targetNodeIndex)
+				if (currentNodeIndex == _targetNodeIndex)
 				{
 					return true;
 				}
 
-				ref var currentNode = ref pathfindingNetwork[currentNodeIndex];
-				ref var currentDefinitionNode = ref definitionNodes[currentNodeIndex];
+				ref var currentNode = ref _pathfindingNetwork[currentNodeIndex];
+				ref var currentDefinitionNode = ref _definitionNodes[currentNodeIndex];
 				_closedSet.Occupy(currentNodeIndex);
 
 				foreach (var connection in currentDefinitionNode.Connections)
 				{
-					ref var toNode = ref pathfindingNetwork[connection.To];
-					if ((connection.CollisionCategory & collisionCategory) != 0 || _closedSet.Contains(connection.To) || toNode.Clearance < neededClearance) continue;
-					ref var toDefinitionNode = ref definitionNodes[connection.To];
+					ref var toNode = ref _pathfindingNetwork[connection.To];
+					if ((connection.CollisionCategory & _collisionCategory) != 0 || _closedSet.Contains(connection.To) || toNode.Clearance < _neededClearance) continue;
+					ref var toDefinitionNode = ref _definitionNodes[connection.To];
 					var newMovementCostToNeighbour = currentNode.GCost + _costFunction.GetDistance(currentDefinitionNode.Position, toDefinitionNode.Position) * currentDefinitionNode.MovementCostModifier;
 					if (newMovementCostToNeighbour < toNode.GCost || !_openSet.Contains(connection.To))
 					{
 						toNode.GCost = newMovementCostToNeighbour;
-						toNode.Priority = newMovementCostToNeighbour + _heuristic.GetDistance(toDefinitionNode.Position, definitionNodes[targetNodeIndex].Position) * currentDefinitionNode.MovementCostModifier;
+						toNode.Priority = newMovementCostToNeighbour + _heuristic.GetDistance(toDefinitionNode.Position, _definitionNodes[_targetNodeIndex].Position) * currentDefinitionNode.MovementCostModifier;
 						toNode.Parent = currentNodeIndex;
 						if (!_openSet.Contains(connection.To))
 							_openSet.Add(connection.To);

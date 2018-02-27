@@ -53,7 +53,7 @@
                   <tileData dataType="Struct" type="Duality.Plugins.Tilemaps.TilemapData" id="577409533" custom="true">
                     <body>
                       <version dataType="Int">3</version>
-                      <data dataType="Array" type="System.Byte[]" id="3824240934">H4sIAAAAAAAEAO2cO04DMRCGl6cAIVFRQBvR0FFQRDQpgIKLRMo90qCcIBK3oeZKIDGhcLDGj52xPd7/KxgleLXj/TOzv53HYhiGxbDP/Pfv47/nzUMTO66chTo0zXXlLBSgiZ1UzkIBmtiWwj2F82rZqGFaP0r+uXIWqcwlD6D/HeTmUhdK/ojCLYULCqs6GYGuSC41MDEm4j+bJ7dSTfsXYNu/AJCCoh2B02kRfVXgX2wD/2Ib+BdgFXgGUPtVAP+iiYy24fcf4F/KI6kt/Ev/kNKvFL6YsCmdmQb9eRua0ZLCNxM+Smc2ZeL9i2n9bJZTRNbx/sW0fqK09GKI9y80ckbhiQk3kvkBUJKWahNoIrn+w/6L1crB/ottsP8CAAB5UP/8rJyFAjSxQ+dLEbtwFh5pZciKwpXzbasmMhs5ZCrQbB8qZwEAAPbA/osmdHVPKbz7vBQX3ihchs/Q4f4L4z+9Yc8FSSZxN+7w6/AQ7L/o4FaH2+ucz6NsmCEdFpcVfPq5j5bue97cAeCP1N7KLTRZ66CvH/xLNtFXl9Nv5n5mIVM/lGgGmfq9hA9YO48izjAx/yLZPxOuLj3y/lzNLuz9TtQkxSkGWpdtmtCvW/8S3SNjFu7eqxRxO9MHLTYGb6mFb2dj93S6La7SVGqVTXToHqjUKrF+F0K/VTKnxfq9PDJlgfV7LZLLgnG4KK7yZOrndbgorvLI6Bd9HPyLMIX1Q4sVxtv5uFoZpx9abAk4jVBH7RPWD3XUMho1Bv9SDo0aQ9+1DfSzTbf3zR/BAR3wCHAAAA==</data>
+                      <data dataType="Array" type="System.Byte[]" id="3824240934">H4sIAAAAAAAEAO3ZQY6DMAxGYZYci/ufqhuqqlRKk2AH//b7NqMZgZrkZWgpx7Ztx3a1//wlibQTKyJtv7QT+yY9Tc3BD4+6dYLmEpz2xg/gNvYS2tghMcx2oJ82+qEMx83O/1FE/lXoro1+2ugHVexdPL0L2IOebFY37fMHaf5tkUnrYVu+R2+JpnKq1U9F/5JL94s7spaOURfpZyrSNOkHfLCFq+D+z5bmSmiOGm/0A4A5aa+f/TeoGQ6JO7LZQ4qoNVsAsMP101P/d/6zzwPS9jNdpZuDcDw9bb8Q9v+/dRyCp9DPhc0b0fDVzaMfiafRT9vNfh4nFPHs9bP/hUrGWYbV1RaiX4hBeDC9cY/7oCPEIMKzeRBn87IY99BC0s9I3H4k7hH362/6uVj2/kc/F8PLGvcTbkn002bTz/E8NNFP2/DlkH7xefTDOvTT5tGI7uvQD1f005a23wtr2STBCHAAAA==</data>
                     </body>
                   </tileData>
                   <tileset dataType="Struct" type="Duality.ContentRef`1[[Duality.Plugins.Tilemaps.Tileset]]">
@@ -4030,7 +4030,7 @@
       <prefabLink />
     </item>
     <item dataType="Struct" type="Duality.GameObject" id="4042816587">
-      <active dataType="Bool">true</active>
+      <active dataType="Bool">false</active>
       <children />
       <compList dataType="Struct" type="System.Collections.Generic.List`1[[Duality.Component]]" id="3217744697">
         <_items dataType="Array" type="Duality.Component[]" id="150537934" length="8">
