@@ -12,7 +12,7 @@ Some examples of what pathfindax can do:
 ## Getting Started
 
 ### Installing
-Pathfindax can be installed through the nuget packages which you can find at the bottom of this readme. When using duality there are also some extra packages you can install to make it easier to use pathfindax in duality. If you just want to use pathfindax in you only have to install Pathfindax itself.
+Pathfindax can be installed through the nuget packages which you can find at the bottom of this readme. When using duality there are also some extra packages you can install to make it easier to use pathfindax in duality. If you just want to use pathfindax you only have to install the `Pathfindax` nuget package.
 
 For more info on how to install nuget packages see [this](https://docs.microsoft.com/en-us/nuget/consume-packages/ways-to-install-a-package). 
 For more info on how to install duality packages see [this](https://github.com/AdamsLair/duality/wiki/Package-Management).
