@@ -3,15 +3,16 @@ Pathfindax is a pathfinding framework that can be used to get a path to a destin
 - Support for up to 32 collision layers 
 - Support for multiple agent sizes
 - Support for movement costs 
-- Built in support for the duality tilemap plugin
+- Support for the duality and the tilemap plugin through the `Duality.Plugins.Pathfindax.core` and `Duality.Plugins.Pathfindax.Tilemaps.core` nuget packages
 
-Its also possible to use dynamic pathfinding if you use potential fields. A example of this is shown in the video below:
-![](https://thumbs.gfycat.com/PinkCriminalEmperorshrimp-size_restricted.gif)
+Some examples of what pathfindax can do:
+
+<img src="https://media.giphy.com/media/4SY68jssujAxnvZOZs/giphy.gif" width="300" height="300" /> <img src="https://media.giphy.com/media/8PabCMR1PCmcdIH8mP/giphy.gif" width="300" height="300" />
 
 ## Getting Started
 
 ### Installing
-Pathfindax can be installed through the nuget packages which you can find at the bottom of this readme. When using duality there are also some extra packages you can install to make it easier to use pathfindax in duality. If you just want to use pathfindax in you only have to install Pathfindax itself.
+Pathfindax can be installed through the nuget packages which you can find at the bottom of this readme. When using duality there are also some extra packages you can install to make it easier to use pathfindax in duality. If you just want to use pathfindax you only have to install the `Pathfindax` nuget package.
 
 For more info on how to install nuget packages see [this](https://docs.microsoft.com/en-us/nuget/consume-packages/ways-to-install-a-package). 
 For more info on how to install duality packages see [this](https://github.com/AdamsLair/duality/wiki/Package-Management).
