@@ -70,8 +70,10 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Components
 				var collisionLayers = connectionGenerator.GetCollisionLayers(tilemapColliderWithBodies, baseTilemap.Size.X, baseTilemap.Size.Y);
 				var factory = new DefinitionNodeGridFactory();
 				var nodeGrid = factory.GeneratePreFilledArray(ConnectionGenerationMode, collisionLayers, CrossCorners);
-				var offset = -new Vector2(baseTilemap.Size.X * baseTilemap.Tileset.Res.TileSize.X - baseTilemap.Tileset.Res.TileSize.X, baseTilemap.Size.Y * baseTilemap.Tileset.Res.TileSize.Y - baseTilemap.Tileset.Res.TileSize.Y) / 2;
-				_definitionNodeGrid = new DefinitionNodeGrid(nodeGrid, baseTilemap.Tileset.Res.TileSize, offset);
+				var offset = new Vector2(
+					-(baseTilemap.Size.X * baseTilemap.Tileset.Res.TileSize.X - baseTilemap.Tileset.Res.TileSize.X) / 2 * GameObj.Transform.Scale + GameObj.Transform.Pos.X,
+					-(baseTilemap.Size.Y * baseTilemap.Tileset.Res.TileSize.Y - baseTilemap.Tileset.Res.TileSize.Y) / 2 * GameObj.Transform.Scale + GameObj.Transform.Pos.Y);
+				_definitionNodeGrid = new DefinitionNodeGrid(nodeGrid, baseTilemap.Tileset.Res.TileSize * GameObj.Transform.Scale, offset);
 
 				if (MovementPenalties != null)
 				{
