@@ -204,12 +204,10 @@
       <compList dataType="Struct" type="System.Collections.Generic.List`1[[Duality.Component]]" id="3380947304">
         <_items dataType="Array" type="Duality.Component[]" id="813695631" length="8">
           <item dataType="ObjectRef">4009962089</item>
-          <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.AstarAlgorithmVisualizer" id="1525063623">
-            <_pathRetracer />
+          <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.AstarAlgorithmVisualizerComponent" id="3958069432">
             <_x003C_BoundRadius_x003E_k__BackingField dataType="Float">0</_x003C_BoundRadius_x003E_k__BackingField>
             <active dataType="Bool">true</active>
             <gameobj dataType="ObjectRef">3952684871</gameobj>
-            <Path />
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Tilemaps.Components.TilemapNodeGridGenerator" id="828666520">
             <_movementPenalties />
@@ -241,14 +239,14 @@
             <item dataType="Type" id="2821304260" value="Duality.Plugins.Pathfindax.Components.PotentialFieldPathfinderComponent" />
             <item dataType="Type" id="2365687190" value="Duality.Plugins.Pathfindax.Components.DynamicPotentialFieldComponent" />
             <item dataType="Type" id="1200435840" value="Duality.Plugins.Pathfindax.Tilemaps.Components.TilemapNodeGridGenerator" />
-            <item dataType="Type" id="1739233314" value="Duality.Plugins.Pathfindax.Examples.Components.AstarAlgorithmVisualizer" />
+            <item dataType="Type" id="1739233314" value="Duality.Plugins.Pathfindax.Examples.Components.AstarAlgorithmVisualizerComponent" />
           </keys>
           <values dataType="Array" type="System.Object[]" id="2498106902">
             <item dataType="ObjectRef">4009962089</item>
             <item dataType="ObjectRef">2166427172</item>
             <item dataType="ObjectRef">3921926792</item>
             <item dataType="ObjectRef">828666520</item>
-            <item dataType="ObjectRef">1525063623</item>
+            <item dataType="ObjectRef">3958069432</item>
           </values>
         </body>
       </compMap>

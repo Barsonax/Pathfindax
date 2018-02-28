@@ -65,7 +65,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Components\AstarAlgorithmVisualizer.cs" />
+    <Compile Include="Components\AstarAlgorithmVisualizerComponent.cs" />
     <Compile Include="Components\FlowFieldFollowerComponent.cs" />
     <Compile Include="Components\GridMouseClickPathfinder.cs" />
     <Compile Include="Components\NonGridMouseClickPathfinder.cs" />

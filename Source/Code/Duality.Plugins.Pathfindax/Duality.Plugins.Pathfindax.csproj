@@ -90,6 +90,7 @@
     <Compile Include="PathfindaxDualityCorePlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Serialization\PathSurrogate.cs" />
+    <Compile Include="Visualization\DefinitionNodeVisualizer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Duality.Plugins.Pathfindax.nuspec" />
