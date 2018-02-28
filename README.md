@@ -3,7 +3,7 @@ Pathfindax is a pathfinding framework that can be used to get a path to a destin
 - Support for up to 32 collision layers 
 - Support for multiple agent sizes
 - Support for movement costs 
-- Support for the duality and the tilemap plugin through the `Duality.Plugins.Pathfindax.core` and `Duality.Plugins.Pathfindax.Tilemaps.core` nuget packages
+- Support for the duality game engine and the tilemap plugin through the `Duality.Plugins.Pathfindax.core` and `Duality.Plugins.Pathfindax.Tilemaps.core` nuget packages
 
 Some examples of what pathfindax can do:
 
