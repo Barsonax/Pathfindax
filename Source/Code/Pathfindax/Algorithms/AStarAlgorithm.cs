@@ -43,10 +43,10 @@ namespace Pathfindax.Algorithms
 				return NodePath.GetEmptyPath(nodeNetwork, pathRequest.PathStart);
 			}
 
-			StartFindPath(pathfindingNetwork, nodeNetwork.DefinitionNodeNetwork.NodeArray, pathRequest.PathStart, pathRequest.PathEnd, pathRequest.AgentSize, pathRequest.CollisionCategory);
-			if (FindPathStep(-1))
+			Start(pathfindingNetwork, nodeNetwork.DefinitionNodeNetwork.NodeArray, pathRequest.PathStart, pathRequest.PathEnd, pathRequest.AgentSize, pathRequest.CollisionCategory);
+			if (Step(-1))
 			{
-				var path = _pathRetracer.RetracePath(pathfindingNetwork, nodeNetwork.DefinitionNodeNetwork.NodeArray, pathRequest.PathStart, pathRequest.PathEnd);
+				var path = GetPath();
 
 				succes = true;
 				return new NodePath(nodeNetwork.DefinitionNodeNetwork.NodeArray, path, nodeNetwork.DefinitionNodeNetwork.Transformer);
@@ -56,14 +56,16 @@ namespace Pathfindax.Algorithms
 			return NodePath.GetEmptyPath(nodeNetwork, pathRequest.PathStart);
 		}
 
+		private int _startNodeIndex;
 		private int _targetNodeIndex;
 		private float _neededClearance;
 		private PathfindaxCollisionCategory _collisionCategory;
 		private AstarNode[] _pathfindingNetwork;
 		private DefinitionNode[] _definitionNodes;
 
-		public void StartFindPath(AstarNode[] pathfindingNetwork, DefinitionNode[] definitionNodes, int startNodeIndex, int targetNodeIndex, float neededClearance, PathfindaxCollisionCategory collisionCategory)
+		public void Start(AstarNode[] pathfindingNetwork, DefinitionNode[] definitionNodes, int startNodeIndex, int targetNodeIndex, float neededClearance, PathfindaxCollisionCategory collisionCategory)
 		{
+			_startNodeIndex = startNodeIndex;
 			_targetNodeIndex = targetNodeIndex;
 			_neededClearance = neededClearance;
 			_collisionCategory = collisionCategory;
@@ -75,7 +77,7 @@ namespace Pathfindax.Algorithms
 			_openSet.Add(startNodeIndex);
 		}
 
-		public bool FindPathStep(int stepsToRun)
+		public bool Step(int stepsToRun)
 		{
 			while (_openSet.Count > 0 && stepsToRun != 0)
 			{
@@ -111,6 +113,11 @@ namespace Pathfindax.Algorithms
 				}
 			}
 			return false;
+		}
+
+		public int[] GetPath()
+		{
+			return _pathRetracer.RetracePath(_pathfindingNetwork, _definitionNodes, _startNodeIndex, _targetNodeIndex);
 		}
 	}
 }

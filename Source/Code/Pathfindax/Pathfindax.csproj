@@ -141,6 +141,9 @@
     <Compile Include="Threading\WorkItem.cs" />
     <Compile Include="Utils\PathfindaxMathF.cs" />
     <Compile Include="Utils\PathfindaxStrings.cs" />
+    <Compile Include="Visualization\Algorithms\AstarAlgorithmVisualizer.cs" />
+    <Compile Include="Visualization\NodeNetworkDrawingState.cs" />
+    <Compile Include="Visualization\NodeDrawingState.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
