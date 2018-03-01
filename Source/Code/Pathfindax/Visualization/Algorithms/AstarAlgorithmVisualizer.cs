@@ -17,6 +17,7 @@ namespace Pathfindax.Visualization.Algorithms
 		private readonly AStarAlgorithm _aStarAlgorithm;
 		private readonly IDefinitionNodeNetwork _definitionNodeGrid;
 		private readonly AstarNodeNetwork _astarNodeNetwork;
+		private bool _isRunning;
 
 		public AstarAlgorithmVisualizer(IDefinitionNodeNetwork definitionNodeNetwork, AstarNodeNetwork astarNodeNetwork)
 		{
@@ -30,23 +31,31 @@ namespace Pathfindax.Visualization.Algorithms
 		{ 
 			var astarNodeArray = _astarNodeNetwork.GetCollisionLayerNetwork(collisionCategory);
 			_aStarAlgorithm.Start(astarNodeArray, _definitionNodeGrid.NodeArray, startNodeIndex, targetNodeIndex, neededClearance, collisionCategory);
+			_isRunning = true;
 		}
 
-		public bool Step()
+		public void Stop()
 		{
-			if (Path == null)
+			NodeNetworkDrawingState.Reset();
+			Path = null;
+			_isRunning = false;
+		}
+
+		public bool Step(int stepsToRun = 1)
+		{
+			if (Path == null && _isRunning)
 			{
-				if (_aStarAlgorithm.Step(1))
+				if (_aStarAlgorithm.Step(stepsToRun))
 				{
 					Path = _aStarAlgorithm.GetPath();
 				}
 
 				NodeNetworkDrawingState.Reset();
-				NodeNetworkDrawingState.SetState(_aStarAlgorithm.OpenSet, OpenSetColor);
-				NodeNetworkDrawingState.SetState(_aStarAlgorithm.ClosedSet, ClosedSetColor);
+				NodeNetworkDrawingState.SetNodeState(_aStarAlgorithm.OpenSet, OpenSetColor);
+				NodeNetworkDrawingState.SetNodeState(_aStarAlgorithm.ClosedSet, ClosedSetColor);
 				if (Path != null)
 				{
-					NodeNetworkDrawingState.SetState(Path, PathColor);
+					NodeNetworkDrawingState.SetNodeState(Path, PathColor);
 				}
 			}
 			return Path != null;

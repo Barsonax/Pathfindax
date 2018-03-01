@@ -79,6 +79,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Components\DynamicPotentialFieldComponent.cs" />
+    <Compile Include="Components\Extensions\GameObjectExtensions.cs" />
     <Compile Include="Components\FlowFieldPathfinderComponent.cs" />
     <Compile Include="Components\AstarPathfinderComponent.cs" />
     <Compile Include="Components\Interfaces\IDualityPathfinderComponent.cs" />

@@ -1,7 +1,9 @@
 ﻿using System.Diagnostics;
+using Duality.Components;
 using Duality.Drawing;
 using Duality.Editor;
 using Duality.Input;
+using Duality.Plugins.Pathfindax.Components.Extensions;
 using Duality.Plugins.Pathfindax.Visualization;
 using Pathfindax.Graph;
 using Pathfindax.Nodes;
@@ -13,17 +15,26 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 	[EditorHintCategory(PathfindaxStrings.PathfindaxTest)]
 	public class AstarAlgorithmVisualizerComponent : Component, ICmpRenderer, ICmpInitializable
 	{
+		/// <summary>
+		/// A reference to the <see cref="Duality.Components.Camera"/> thats used to convert the screen coordinates from mouseclicks to world coordinates.
+		/// </summary>
+		public Camera Camera { get; set; }
+
 		[EditorHintFlags(MemberFlags.Invisible)]
 		public float BoundRadius { get; } = 0;
 
 		[DontSerialize]
-		private bool _startPathfinding;
+		private IDefinitionNodeNetwork _definitionNodeNetwork;
 		[DontSerialize]
 		private Stopwatch _stopwatch;
 		[DontSerialize]
 		private AstarAlgorithmVisualizer _astarAlgorithmVisualizer;
 		[DontSerialize]
 		private DualityNodeNetworkVisualizer _dualityNodeNetworkVisualizer;
+		[DontSerialize]
+		private int _pathStart = -1;
+		[DontSerialize]
+		private int _pathEnd;
 
 		bool ICmpRenderer.IsVisible(IDrawDevice device)
 		{
@@ -37,58 +48,44 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 			if (context == InitContext.Activate && DualityApp.ExecContext == DualityApp.ExecutionContext.Game)
 			{
 				_dualityNodeNetworkVisualizer = new DualityNodeNetworkVisualizer();
-				var definitionNodeGrid = GetDefinitionNodeNetwork<DefinitionNodeGrid>();
+				_definitionNodeNetwork = GameObj.GetDefinitionNodeNetwork<IDefinitionNodeNetwork>();
 
-				var astarNodeNetwork = new AstarNodeNetwork(definitionNodeGrid, new BrushfireClearanceGenerator(definitionNodeGrid, 1));
-				_astarAlgorithmVisualizer = new AstarAlgorithmVisualizer(definitionNodeGrid, astarNodeNetwork);
-
-
-				var startNodeIndex = 0;
-				var targetNodeIndex = definitionNodeGrid.NodeGrid.ToIndex(definitionNodeGrid.NodeGrid.Width - 1, definitionNodeGrid.NodeGrid.Height - 1);
-				_astarAlgorithmVisualizer.Start(startNodeIndex, targetNodeIndex, 1f, PathfindaxCollisionCategory.All);
+				var astarNodeNetwork = new AstarNodeNetwork(_definitionNodeNetwork);
+				_astarAlgorithmVisualizer = new AstarAlgorithmVisualizer(_definitionNodeNetwork, astarNodeNetwork);
 
 				_stopwatch = Stopwatch.StartNew();
-				DualityApp.Keyboard.KeyDown += Keyboard_KeyDown;
+				DualityApp.Mouse.ButtonDown += Mouse_ButtonDown;
 			}
 		}
 
-		private void Keyboard_KeyDown(object sender, KeyboardKeyEventArgs e)
+		private void Mouse_ButtonDown(object sender, MouseButtonEventArgs e)
 		{
-			if (e.Key == Key.Space)
+			var position = Camera.GetSpaceCoord(e.Position);
+			var clickedNodeIndex = _definitionNodeNetwork.GetNodeIndex(position.X, position.Y);
+			if (_pathEnd == -1)
 			{
-				_startPathfinding = true;
+				_pathEnd = clickedNodeIndex;
+				_astarAlgorithmVisualizer.Start(_pathStart, _pathEnd, 0f, PathfindaxCollisionCategory.All);
+			}
+			else
+			{
+				_pathStart = clickedNodeIndex;
+				_pathEnd = -1;
+				_astarAlgorithmVisualizer.Stop();
 			}
 		}
 
 		public void Draw(IDrawDevice device)
 		{
 			if (DualityApp.ExecContext != DualityApp.ExecutionContext.Game) return;
-			if (!_startPathfinding) return;
-			if (_stopwatch.ElapsedMilliseconds > 3)
+			if (_stopwatch.ElapsedMilliseconds > 1)
 			{
 				_astarAlgorithmVisualizer.Step();
+				if (_pathStart != -1) _astarAlgorithmVisualizer.NodeNetworkDrawingState.SetNodeState(_pathStart, ColorRgba.Green);
+				if (_pathEnd != -1) _astarAlgorithmVisualizer.NodeNetworkDrawingState.SetNodeState(_pathEnd, ColorRgba.Red);
 				_stopwatch.Restart();
 			}
-
 			_dualityNodeNetworkVisualizer.Draw(device, _astarAlgorithmVisualizer.NodeNetworkDrawingState);
-		}
-
-		private TDefinitionNodeNetwork GetDefinitionNodeNetwork<TDefinitionNodeNetwork>()
-			where TDefinitionNodeNetwork : class, IDefinitionNodeNetwork
-		{
-			var definitionNodeNetworkProvider = GameObj.GetComponent<IDefinitionNodeNetworkProvider<TDefinitionNodeNetwork>>();
-			if (definitionNodeNetworkProvider == null)
-			{
-				Log.Game.WriteError($"{GetType()}: Could not find a component that implements {typeof(IDefinitionNodeNetworkProvider<TDefinitionNodeNetwork>)}.");
-				return null;
-			}
-			var definitionNodeNetwork = definitionNodeNetworkProvider.GenerateGrid2D();
-			if (definitionNodeNetwork == null)
-			{
-				Log.Game.WriteError($"{GetType()}: Found a component that implements {typeof(IDefinitionNodeNetworkProvider<TDefinitionNodeNetwork>)} but it could not generate a nodenetwork.");
-				return null;
-			}
-			return definitionNodeNetwork;
 		}
 
 		public void OnShutdown(ShutdownContext context) { }

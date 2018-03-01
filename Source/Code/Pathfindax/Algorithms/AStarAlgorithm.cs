@@ -77,7 +77,7 @@ namespace Pathfindax.Algorithms
 			_openSet.Add(startNodeIndex);
 		}
 
-		public bool Step(int stepsToRun)
+		public bool Step(int stepsToRun = 1)
 		{
 			while (_openSet.Count > 0 && stepsToRun != 0)
 			{

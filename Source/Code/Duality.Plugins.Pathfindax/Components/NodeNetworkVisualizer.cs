@@ -3,9 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using Duality.Drawing;
 using Duality.Editor;
+using Duality.Plugins.Pathfindax.Visualization;
 using Pathfindax.Graph;
 using Pathfindax.Nodes;
 using Pathfindax.Utils;
+using Pathfindax.Visualization;
 
 namespace Duality.Plugins.Pathfindax.Components
 {
@@ -13,18 +15,21 @@ namespace Duality.Plugins.Pathfindax.Components
 	/// Class for visualizing a <see cref="IPathfindNodeNetwork{TNode}"/>
 	/// </summary>
 	[EditorHintCategory(PathfindaxStrings.Pathfindax)]
-	[RequiredComponent(typeof(FlowFieldPathfinderComponent))]
-	public class NodeNetworkVisualizer : Component, ICmpRenderer
+	[RequiredComponent(typeof(IDualityPathfinderComponent))]
+	public class NodeNetworkVisualizer : Component, ICmpRenderer, ICmpInitializable
 	{
-		/// <summary>
-		/// 
-		/// </summary>
-		public int Thread { get; set; }
-
 		/// <summary>
 		/// The collision category that will be used to draw the nodes that are blocked.
 		/// </summary>
-		public PathfindaxCollisionCategory CollisionCategory { get; set; } = PathfindaxCollisionCategory.Cat1;
+		public PathfindaxCollisionCategory CollisionCategory
+		{
+			get => _collisionCategory;
+			set
+			{
+				_collisionCategory = value;
+				_nodeNetworkDrawingState.CollisionCategory = value
+			}
+		}
 
 		/// <summary>
 		/// The draw size of the nodes.
@@ -42,6 +47,10 @@ namespace Duality.Plugins.Pathfindax.Components
 		[EditorHintFlags(MemberFlags.Invisible)]
 		public float BoundRadius { get; } = 0;
 
+		private NodeNetworkDrawingState _nodeNetworkDrawingState = new NodeNetworkDrawingState();
+		private DualityNodeNetworkVisualizer _dualityNodeNetworkVisualizer;
+		private PathfindaxCollisionCategory _collisionCategory = PathfindaxCollisionCategory.Cat1;
+
 		bool ICmpRenderer.IsVisible(IDrawDevice device)
 		{
 			return
@@ -56,11 +65,11 @@ namespace Duality.Plugins.Pathfindax.Components
 			var pathfinder = GameObj.GetComponent<IDualityPathfinderComponent>();
 			if (pathfinder?.Pathfinder?.DefinitionNodeNetwork != null)
 			{
-				if (Thread > pathfinder.Pathfinder.PathfindNodeNetworks.Count) return;
 				var canvas = new Canvas(device) { State = { ZOffset = -8 } };
+				_dualityNodeNetworkVisualizer.Draw(device, _nodeNetworkDrawingState);
 				var definitionNodes = pathfinder.Pathfinder.DefinitionNodeNetwork.NodeArray;
 				var transformer = pathfinder.Pathfinder.DefinitionNodeNetwork.Transformer;
-				var network = pathfinder.Pathfinder.PathfindNodeNetworks[Thread].GetCollisionLayerNetwork(CollisionCategory);
+				var network = pathfinder.Pathfinder.PathfindNodeNetworks[0].GetCollisionLayerNetwork(CollisionCategory);
 				switch (network)
 				{
 					case AstarNode[] astarNodeNetwork:
@@ -82,9 +91,9 @@ namespace Duality.Plugins.Pathfindax.Components
 				ref var astarNode = ref network[index];
 				ref var definitionNode = ref definitionNodes[index];
 				var nodeWorldPosition = transformer.ToWorld(definitionNode.Position);
-				DrawNode(canvas, nodeWorldPosition);
+				//DrawNode(canvas, nodeWorldPosition);
 				DrawNodeText(canvas, nodeWorldPosition, astarNode.Clearance);
-				DrawNodeConnections(canvas, transformer, nodeWorldPosition, definitionNode.Connections, definitionNodes);
+				//DrawNodeConnections(canvas, transformer, nodeWorldPosition, definitionNode.Connections, definitionNodes);
 			}
 		}
 
@@ -95,9 +104,9 @@ namespace Duality.Plugins.Pathfindax.Components
 				ref var dijkstraNode = ref network[index];
 				ref var definitionNode = ref definitionNodes[index];
 				var nodeWorldPosition = transformer.ToWorld(definitionNode.Position);
-				DrawNode(canvas, nodeWorldPosition);
+				//DrawNode(canvas, nodeWorldPosition);
 				DrawNodeText(canvas, nodeWorldPosition, dijkstraNode.Clearance);
-				DrawNodeConnections(canvas, transformer, nodeWorldPosition, definitionNode.Connections, definitionNodes);
+				//DrawNodeConnections(canvas, transformer, nodeWorldPosition, definitionNode.Connections, definitionNodes);
 			}
 		}
 
@@ -126,6 +135,24 @@ namespace Duality.Plugins.Pathfindax.Components
 				var vector = (transformer.ToWorld(toNode.Position) - nodeWorldPosition) * 0.5f; //Times 0.5f so we can see the connections in both directions.
 				canvas.DrawLine(nodeWorldPosition.X, nodeWorldPosition.Y, nodeWorldPosition.X + vector.X, nodeWorldPosition.Y + vector.Y);
 			}
+		}
+
+		public void OnInit(InitContext context)
+		{
+			if (context == InitContext.Activate && DualityApp.ExecContext == DualityApp.ExecutionContext.Game)
+			{
+				_dualityNodeNetworkVisualizer = new DualityNodeNetworkVisualizer();
+				var pathfinder = GameObj.GetComponent<IDualityPathfinderComponent>();
+				if (pathfinder?.Pathfinder?.DefinitionNodeNetwork != null)
+				{
+					_nodeNetworkDrawingState = new NodeNetworkDrawingState(pathfinder.Pathfinder.DefinitionNodeNetwork);
+				}				
+			}
+		}
+
+		public void OnShutdown(ShutdownContext context)
+		{
+			
 		}
 	}
 }
