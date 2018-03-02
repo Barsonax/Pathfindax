@@ -43,6 +43,7 @@
     <NoWarn>
     </NoWarn>
     <Prefer32Bit>false</Prefer32Bit>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -55,6 +56,7 @@
     <DocumentationFile>..\Binaries\Release\Duality.Plugins.Pathfindax.core.XML</DocumentationFile>
     <NoWarn>1591,1592,1573,1571,1570,1572</NoWarn>
     <Prefer32Bit>false</Prefer32Bit>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Benchmark|AnyCPU'">
     <OutputPath>..\Binaries\Benchmark\</OutputPath>

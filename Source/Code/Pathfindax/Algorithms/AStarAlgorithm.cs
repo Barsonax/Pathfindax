@@ -14,7 +14,13 @@ namespace Pathfindax.Algorithms
 	{
 		public IEnumerable<int> OpenSet => _openSet;
 		public IEnumerable<int> ClosedSet => _closedSet;
+		public int StartNodeIndex { get; private set; } = -1;
+		public int TargetNodeIndex { get; private set; } = -1;
 
+		private float _neededClearance;
+		private PathfindaxCollisionCategory _collisionCategory;
+		private AstarNode[] _pathfindingNetwork;
+		private DefinitionNode[] _definitionNodes;
 		private readonly IndexMinHeap<AstarNode> _openSet;
 		private readonly LookupArray _closedSet;
 		private readonly IDistanceHeuristic _heuristic;
@@ -56,17 +62,10 @@ namespace Pathfindax.Algorithms
 			return NodePath.GetEmptyPath(nodeNetwork, pathRequest.PathStart);
 		}
 
-		private int _startNodeIndex;
-		private int _targetNodeIndex;
-		private float _neededClearance;
-		private PathfindaxCollisionCategory _collisionCategory;
-		private AstarNode[] _pathfindingNetwork;
-		private DefinitionNode[] _definitionNodes;
-
 		public void Start(AstarNode[] pathfindingNetwork, DefinitionNode[] definitionNodes, int startNodeIndex, int targetNodeIndex, float neededClearance, PathfindaxCollisionCategory collisionCategory)
 		{
-			_startNodeIndex = startNodeIndex;
-			_targetNodeIndex = targetNodeIndex;
+			StartNodeIndex = startNodeIndex;
+			TargetNodeIndex = targetNodeIndex;
 			_neededClearance = neededClearance;
 			_collisionCategory = collisionCategory;
 			_pathfindingNetwork = pathfindingNetwork;
@@ -83,7 +82,7 @@ namespace Pathfindax.Algorithms
 			{
 				if (stepsToRun > 0) stepsToRun--;
 				var currentNodeIndex = _openSet.RemoveFirst();
-				if (currentNodeIndex == _targetNodeIndex)
+				if (currentNodeIndex == TargetNodeIndex)
 				{
 					return true;
 				}
@@ -101,7 +100,7 @@ namespace Pathfindax.Algorithms
 					if (newMovementCostToNeighbour < toNode.GCost || !_openSet.Contains(connection.To))
 					{
 						toNode.GCost = newMovementCostToNeighbour;
-						toNode.Priority = newMovementCostToNeighbour + _heuristic.GetDistance(toDefinitionNode.Position, _definitionNodes[_targetNodeIndex].Position) * currentDefinitionNode.MovementCostModifier;
+						toNode.Priority = newMovementCostToNeighbour + _heuristic.GetDistance(toDefinitionNode.Position, _definitionNodes[TargetNodeIndex].Position) * currentDefinitionNode.MovementCostModifier;
 						toNode.Parent = currentNodeIndex;
 						if (!_openSet.Contains(connection.To))
 							_openSet.Add(connection.To);
@@ -117,7 +116,7 @@ namespace Pathfindax.Algorithms
 
 		public int[] GetPath()
 		{
-			return _pathRetracer.RetracePath(_pathfindingNetwork, _definitionNodes, _startNodeIndex, _targetNodeIndex);
+			return _pathRetracer.RetracePath(_pathfindingNetwork, _definitionNodes, StartNodeIndex, TargetNodeIndex);
 		}
 	}
 }

@@ -8,6 +8,16 @@ namespace Pathfindax.Paths
 		public abstract int Width { get; }
 		public abstract int Height { get; }
 
+		public Vector2 this[int i]
+		{
+			get
+			{
+				var y = i / Width;
+				var x = i - y * Width;
+				return this[x, y];
+			}
+		}
+
 		public Vector2 this[int x, int y]
 		{
 			get

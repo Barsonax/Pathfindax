@@ -141,9 +141,18 @@
     <Compile Include="Threading\WorkItem.cs" />
     <Compile Include="Utils\PathfindaxMathF.cs" />
     <Compile Include="Utils\PathfindaxStrings.cs" />
-    <Compile Include="Visualization\Algorithms\AstarAlgorithmVisualizer.cs" />
-    <Compile Include="Visualization\NodeNetworkDrawingState.cs" />
+    <Compile Include="Visualization\Visualizers\AstarAlgorithmVisualizer.cs" />
+    <Compile Include="Visualization\Layers\ConnectionDrawingLayer.cs" />
+    <Compile Include="Visualization\Interfaces\IDrawingLayer.cs" />
+    <Compile Include="Visualization\Interfaces\IVisualizer.cs" />
+    <Compile Include="Visualization\Layers\NodeDrawingLayer.cs" />
+    <Compile Include="Visualization\DrawingState.cs" />
     <Compile Include="Visualization\NodeDrawingState.cs" />
+    <Compile Include="Visualization\Visualizers\PathfindNodenetworkVisualizer.cs" />
+    <Compile Include="Visualization\Layers\PathLayer.cs" />
+    <Compile Include="Visualization\Visualizers\PathVisualizer.cs" />
+    <Compile Include="Visualization\Layers\TextDrawingLayer.cs" />
+    <Compile Include="Visualization\Layers\VectorLayer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

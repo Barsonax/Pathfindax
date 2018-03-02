@@ -376,11 +376,6 @@
       <compList dataType="Struct" type="System.Collections.Generic.List`1[[Duality.Component]]" id="3380947304">
         <_items dataType="Array" type="Duality.Component[]" id="813695631" length="8">
           <item dataType="ObjectRef">4009962089</item>
-          <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.AstarAlgorithmVisualizer" id="1525063623">
-            <_x003C_BoundRadius_x003E_k__BackingField dataType="Float">0</_x003C_BoundRadius_x003E_k__BackingField>
-            <active dataType="Bool">true</active>
-            <gameobj dataType="ObjectRef">3952684871</gameobj>
-          </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Tilemaps.Components.TilemapNodeGridGenerator" id="828666520">
             <_movementPenalties dataType="Array" type="System.Single[]" id="3614682646">1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1</_movementPenalties>
             <_x003C_ConnectionGenerationMode_x003E_k__BackingField dataType="Enum" type="Pathfindax.Graph.GenerateNodeGridConnections" name="All" value="20" />
@@ -396,16 +391,15 @@
             <gameobj dataType="ObjectRef">3952684871</gameobj>
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Components.NodeNetworkVisualizer" id="3864513774">
+            <_collisionCategory dataType="Enum" type="Pathfindax.Nodes.PathfindaxCollisionCategory" name="Cat1" value="1" />
             <_x003C_BoundRadius_x003E_k__BackingField dataType="Float">0</_x003C_BoundRadius_x003E_k__BackingField>
-            <_x003C_CollisionCategory_x003E_k__BackingField dataType="Enum" type="Pathfindax.Nodes.PathfindaxCollisionCategory" name="Cat1" value="1" />
             <_x003C_NodeSize_x003E_k__BackingField dataType="Float">10</_x003C_NodeSize_x003E_k__BackingField>
-            <_x003C_Thread_x003E_k__BackingField dataType="Int">0</_x003C_Thread_x003E_k__BackingField>
             <_x003C_Visualize_x003E_k__BackingField dataType="Bool">true</_x003C_Visualize_x003E_k__BackingField>
-            <active dataType="Bool">false</active>
+            <active dataType="Bool">true</active>
             <gameobj dataType="ObjectRef">3952684871</gameobj>
           </item>
         </_items>
-        <_size dataType="Int">5</_size>
+        <_size dataType="Int">4</_size>
       </compList>
       <compMap dataType="Struct" type="System.Collections.Generic.Dictionary`2[[System.Type],[Duality.Component]]" id="2414404911" surrogate="true">
         <header />
@@ -415,14 +409,12 @@
             <item dataType="Type" id="2821304260" value="Duality.Plugins.Pathfindax.Tilemaps.Components.TilemapNodeGridGenerator" />
             <item dataType="Type" id="2365687190" value="Duality.Plugins.Pathfindax.Components.NodeNetworkVisualizer" />
             <item dataType="Type" id="1200435840" value="Duality.Plugins.Pathfindax.Components.AstarPathfinderComponent" />
-            <item dataType="Type" id="1739233314" value="Duality.Plugins.Pathfindax.Examples.Components.AstarAlgorithmVisualizer" />
           </keys>
           <values dataType="Array" type="System.Object[]" id="2498106902">
             <item dataType="ObjectRef">4009962089</item>
             <item dataType="ObjectRef">828666520</item>
             <item dataType="ObjectRef">3864513774</item>
             <item dataType="ObjectRef">1744982957</item>
-            <item dataType="ObjectRef">1525063623</item>
           </values>
         </body>
       </compMap>

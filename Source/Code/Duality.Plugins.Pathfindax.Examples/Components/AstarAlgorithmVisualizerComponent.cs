@@ -8,7 +8,7 @@ using Duality.Plugins.Pathfindax.Visualization;
 using Pathfindax.Graph;
 using Pathfindax.Nodes;
 using Pathfindax.Utils;
-using Pathfindax.Visualization.Algorithms;
+using Pathfindax.Visualization;
 
 namespace Duality.Plugins.Pathfindax.Examples.Components
 {
@@ -31,10 +31,6 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 		private AstarAlgorithmVisualizer _astarAlgorithmVisualizer;
 		[DontSerialize]
 		private DualityNodeNetworkVisualizer _dualityNodeNetworkVisualizer;
-		[DontSerialize]
-		private int _pathStart = -1;
-		[DontSerialize]
-		private int _pathEnd;
 
 		bool ICmpRenderer.IsVisible(IDrawDevice device)
 		{
@@ -48,11 +44,8 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 			if (context == InitContext.Activate && DualityApp.ExecContext == DualityApp.ExecutionContext.Game)
 			{
 				_dualityNodeNetworkVisualizer = new DualityNodeNetworkVisualizer();
-				_definitionNodeNetwork = GameObj.GetDefinitionNodeNetwork<IDefinitionNodeNetwork>();
-
-				var astarNodeNetwork = new AstarNodeNetwork(_definitionNodeNetwork);
-				_astarAlgorithmVisualizer = new AstarAlgorithmVisualizer(_definitionNodeNetwork, astarNodeNetwork);
-
+				_definitionNodeNetwork = GameObj.GetDefinitionNodeNetwork<IDefinitionNodeNetwork>();			
+				_astarAlgorithmVisualizer = new AstarAlgorithmVisualizer(_definitionNodeNetwork);
 				_stopwatch = Stopwatch.StartNew();
 				DualityApp.Mouse.ButtonDown += Mouse_ButtonDown;
 			}
@@ -62,15 +55,15 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 		{
 			var position = Camera.GetSpaceCoord(e.Position);
 			var clickedNodeIndex = _definitionNodeNetwork.GetNodeIndex(position.X, position.Y);
-			if (_pathEnd == -1)
+			if (_astarAlgorithmVisualizer.PathLayer.End == -1)
 			{
-				_pathEnd = clickedNodeIndex;
-				_astarAlgorithmVisualizer.Start(_pathStart, _pathEnd, 0f, PathfindaxCollisionCategory.All);
+				_astarAlgorithmVisualizer.PathLayer.End = clickedNodeIndex;
+				_astarAlgorithmVisualizer.Start(0f, PathfindaxCollisionCategory.All);
 			}
 			else
 			{
-				_pathStart = clickedNodeIndex;
-				_pathEnd = -1;
+				_astarAlgorithmVisualizer.PathLayer.Start = clickedNodeIndex;
+				_astarAlgorithmVisualizer.PathLayer.End = -1;
 				_astarAlgorithmVisualizer.Stop();
 			}
 		}
@@ -81,11 +74,9 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 			if (_stopwatch.ElapsedMilliseconds > 1)
 			{
 				_astarAlgorithmVisualizer.Step();
-				if (_pathStart != -1) _astarAlgorithmVisualizer.NodeNetworkDrawingState.SetNodeState(_pathStart, ColorRgba.Green);
-				if (_pathEnd != -1) _astarAlgorithmVisualizer.NodeNetworkDrawingState.SetNodeState(_pathEnd, ColorRgba.Red);
 				_stopwatch.Restart();
 			}
-			_dualityNodeNetworkVisualizer.Draw(device, _astarAlgorithmVisualizer.NodeNetworkDrawingState);
+			_dualityNodeNetworkVisualizer.Draw(device, _astarAlgorithmVisualizer);
 		}
 
 		public void OnShutdown(ShutdownContext context) { }
