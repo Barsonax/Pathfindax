@@ -5,14 +5,14 @@ using Pathfindax.Nodes;
 
 namespace Pathfindax.Visualization
 {
-	public class ConnectionDrawingLayer : IDrawingLayer
+	public class NodeConnectionVisualization : IVisualizer
 	{
 		public Transformer Transformer { get; }
 		public DefinitionNode[] DefinitionNodes { get; }
 		public PathfindaxCollisionCategory CollisionCategory { get; set; }
 		public ColorRgba Color { get; set; } = ColorRgba.White;
 
-		public ConnectionDrawingLayer(DefinitionNode[] definitionNodes, Transformer transformer)
+		public NodeConnectionVisualization(DefinitionNode[] definitionNodes, Transformer transformer)
 		{
 			DefinitionNodes = definitionNodes;
 			Transformer = transformer;

@@ -6,7 +6,7 @@ using Pathfindax.Utils;
 
 namespace Pathfindax.Visualization
 {
-	public class VectorLayer : IDrawingLayer
+	public class VectorFieldVisualization : IVisualizer
 	{
 		public ColorRgba Color { get; set; } = ColorRgba.White;
 		public Array2D<Vector2> Vectors { get; set; }

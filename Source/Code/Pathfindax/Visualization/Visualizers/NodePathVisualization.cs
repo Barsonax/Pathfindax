@@ -1,11 +1,10 @@
 ﻿using Duality.Drawing;
 using Pathfindax.Graph;
 using Pathfindax.Nodes;
-using Pathfindax.Paths;
 
 namespace Pathfindax.Visualization
 {
-	public class PathLayer : IDrawingLayer
+	public class NodePathVisualization : IVisualizer
 	{
 		public Transformer Transformer { get; set; }
 		public DefinitionNode[] NodeArray { get; set; }
@@ -35,20 +34,20 @@ namespace Pathfindax.Visualization
 				renderer.SetColor(NodeColor);
 				for (var i = 1; i < Path.Length - 1; i++)
 				{
-					NodeDrawingLayer.DrawNode(renderer, Transformer,NodeArray[Path[i]]);
+					NodeVisualization.DrawNode(renderer, Transformer,NodeArray[Path[i]]);
 				}
 			}
 
 			if (Start != -1)
 			{
 				renderer.SetColor(StartColor);
-				NodeDrawingLayer.DrawNode(renderer, Transformer, NodeArray[Start]);
+				NodeVisualization.DrawNode(renderer, Transformer, NodeArray[Start]);
 			}
 
 			if (End != -1)
 			{
 				renderer.SetColor(EndColor);
-				NodeDrawingLayer.DrawNode(renderer, Transformer, NodeArray[End]);
+				NodeVisualization.DrawNode(renderer, Transformer, NodeArray[End]);
 			}
 		}
 	}

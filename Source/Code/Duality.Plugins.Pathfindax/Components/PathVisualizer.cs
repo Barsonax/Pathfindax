@@ -25,10 +25,10 @@ namespace Duality.Plugins.Pathfindax.Components
 		[EditorHintFlags(MemberFlags.Invisible)]
 		public float BoundRadius { get; } = 0;
 
-		private PathLayer _pathLayer;
-		private VectorLayer _vectorLayer;
+		private NodePathVisualization _nodePathVisualization;
+		private VectorFieldVisualization _vectorFieldVisualization;
 
-		private global::Pathfindax.Visualization.PathVisualizer _pathVisualizer;
+		private global::Pathfindax.Visualization.PathVisualization _pathVisualization;
 
 		bool ICmpRenderer.IsVisible(IDrawDevice device)
 		{
@@ -44,14 +44,14 @@ namespace Duality.Plugins.Pathfindax.Components
 			var pathProvider = GameObj.GetComponent<IPathProvider>();
 			if (pathProvider?.Path != null)
 			{
-				_pathVisualizer.SetPath(pathProvider.Path);
-				_pathVisualizer.Draw(new DualityRenderer(device, -5));
+				_pathVisualization.SetPath(pathProvider.Path);
+				_pathVisualization.Draw(new DualityRenderer(device, -5));
 			}
 		}
 
 		public void OnInit(InitContext context)
 		{
-			_pathVisualizer = new global::Pathfindax.Visualization.PathVisualizer();
+			_pathVisualization = new global::Pathfindax.Visualization.PathVisualization();
 		}
 
 		public void OnShutdown(ShutdownContext context) { }

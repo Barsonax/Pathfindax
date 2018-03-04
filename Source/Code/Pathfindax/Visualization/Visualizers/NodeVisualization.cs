@@ -5,19 +5,19 @@ using Pathfindax.Nodes;
 
 namespace Pathfindax.Visualization
 {
-	public class NodeDrawingLayer : IDrawingLayer
+	public class NodeVisualization : IVisualizer
 	{
 		public bool VisibleDefault { get; set; }
 		public ColorRgba DefaultColor { get; set; } = ColorRgba.Grey;
-		public NodeDrawingState[] Nodes { get; }
+		public Node[] Nodes { get; }
 		public DefinitionNode[] DefinitionNodes { get; }
 		public Transformer Transformer { get; }
 		public float NodeSize { get; set; } = 1f;
 
-		public NodeDrawingLayer(DefinitionNode[] definitionNodes, Transformer transformer)
+		public NodeVisualization(DefinitionNode[] definitionNodes, Transformer transformer)
 		{
 			DefinitionNodes = definitionNodes;
-			Nodes = new NodeDrawingState[definitionNodes.Length];
+			Nodes = new Node[definitionNodes.Length];
 			Transformer = transformer;
 			Reset();
 		}
@@ -36,7 +36,7 @@ namespace Pathfindax.Visualization
 		{
 			for (var i = 0; i < Nodes.Length; i++)
 			{
-				Nodes[i] = new NodeDrawingState(VisibleDefault, DefaultColor);
+				Nodes[i] = new Node(VisibleDefault, DefaultColor);
 			}
 		}
 
@@ -50,13 +50,25 @@ namespace Pathfindax.Visualization
 
 		public void SetNodeState(int index, ColorRgba color, bool visible = true)
 		{
-			Nodes[index] = new NodeDrawingState(visible, color);
+			Nodes[index] = new Node(visible, color);
 		}
 
 		public static void DrawNode(IRenderer renderer, Transformer transformer, in DefinitionNode definitionNode)
 		{
 			var nodeWorldPosition = transformer.ToWorld(definitionNode.Position);
 			renderer.FillCircle(nodeWorldPosition, transformer.Scale.X * 0.25f);
+		}
+
+		public struct Node
+		{
+			public ColorRgba Color;
+			public bool Visible;
+
+			public Node(bool visible, ColorRgba color)
+			{
+				Color = color;
+				Visible = visible;
+			}
 		}
 	}
 }

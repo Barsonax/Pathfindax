@@ -25,7 +25,7 @@ namespace Duality.Plugins.Pathfindax.Components
 			set
 			{
 				_collisionCategory = value;
-				_pathfindNodeNetworkVisualizer.CollisionCategory = value;
+				_pathfindNodeNetworkVisualization.CollisionCategory = value;
 			}
 		}
 
@@ -41,7 +41,7 @@ namespace Duality.Plugins.Pathfindax.Components
 		public float BoundRadius { get; } = 0;
 
 		[DontSerialize]
-		private PathfindNodeNetworkVisualizer _pathfindNodeNetworkVisualizer;
+		private PathfindNodeNetworkVisualization _pathfindNodeNetworkVisualization;
 
 		bool ICmpRenderer.IsVisible(IDrawDevice device)
 		{
@@ -54,7 +54,7 @@ namespace Duality.Plugins.Pathfindax.Components
 		{
 			if (!Visualize) return;
 			if (DualityApp.ExecContext != DualityApp.ExecutionContext.Game) return;
-			_pathfindNodeNetworkVisualizer.Draw(new DualityRenderer(device, -5));
+			_pathfindNodeNetworkVisualization.Draw(new DualityRenderer(device, -5));
 		}
 
 		public void OnInit(InitContext context)
@@ -64,7 +64,7 @@ namespace Duality.Plugins.Pathfindax.Components
 				var pathfinder = GameObj.GetComponent<IDualityPathfinderComponent>();
 				if (pathfinder?.Pathfinder?.DefinitionNodeNetwork != null)
 				{
-					_pathfindNodeNetworkVisualizer = new PathfindNodeNetworkVisualizer(pathfinder.Pathfinder.DefinitionNodeNetwork.NodeArray, pathfinder.Pathfinder.DefinitionNodeNetwork.Transformer, pathfinder.Pathfinder.PathfindNodeNetworks[0]) { CollisionCategory = CollisionCategory };
+					_pathfindNodeNetworkVisualization = new PathfindNodeNetworkVisualization(pathfinder.Pathfinder.DefinitionNodeNetwork.NodeArray, pathfinder.Pathfinder.DefinitionNodeNetwork.Transformer, pathfinder.Pathfinder.PathfindNodeNetworks[0]) { CollisionCategory = CollisionCategory };
 				}
 			}
 		}

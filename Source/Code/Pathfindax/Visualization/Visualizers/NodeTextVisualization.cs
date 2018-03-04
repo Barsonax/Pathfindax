@@ -1,12 +1,10 @@
-﻿using System;
-using Duality;
-using Duality.Drawing;
+﻿using Duality.Drawing;
 using Pathfindax.Graph;
 using Pathfindax.Nodes;
 
 namespace Pathfindax.Visualization
 {
-	public class TextDrawingLayer : IDrawingLayer
+	public class NodeTextVisualization : IVisualizer
 	{
 		public ColorRgba Color { get; set; } = ColorRgba.Black;
 		public string DefaultText { get; set; }
@@ -14,7 +12,7 @@ namespace Pathfindax.Visualization
 		public DefinitionNode[] DefinitionNodes { get; }
 		public Transformer Transformer { get; }
 
-		public TextDrawingLayer(DefinitionNode[] definitionNodes, Transformer transformer)
+		public NodeTextVisualization(DefinitionNode[] definitionNodes, Transformer transformer)
 		{
 			Transformer = transformer;
 			DefinitionNodes = definitionNodes;

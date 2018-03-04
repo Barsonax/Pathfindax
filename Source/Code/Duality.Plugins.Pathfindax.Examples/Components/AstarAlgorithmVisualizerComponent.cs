@@ -28,7 +28,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 		[DontSerialize]
 		private Stopwatch _stopwatch;
 		[DontSerialize]
-		private AstarAlgorithmVisualizer _astarAlgorithmVisualizer;
+		private AstarAlgorithmVisualization _astarAlgorithmVisualization;
 
 		bool ICmpRenderer.IsVisible(IDrawDevice device)
 		{
@@ -42,7 +42,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 			if (context == InitContext.Activate && DualityApp.ExecContext == DualityApp.ExecutionContext.Game)
 			{
 				_definitionNodeNetwork = GameObj.GetDefinitionNodeNetwork<IDefinitionNodeNetwork>();
-				_astarAlgorithmVisualizer = new AstarAlgorithmVisualizer(_definitionNodeNetwork);
+				_astarAlgorithmVisualization = new AstarAlgorithmVisualization(_definitionNodeNetwork);
 				_stopwatch = Stopwatch.StartNew();
 				DualityApp.Mouse.ButtonDown += Mouse_ButtonDown;
 			}
@@ -52,16 +52,16 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 		{
 			var position = Camera.GetSpaceCoord(e.Position);
 			var clickedNodeIndex = _definitionNodeNetwork.GetNodeIndex(position.X, position.Y);
-			if (_astarAlgorithmVisualizer.EndIndex == -1)
+			if (_astarAlgorithmVisualization.EndIndex == -1)
 			{
-				_astarAlgorithmVisualizer.EndIndex = clickedNodeIndex;
-				_astarAlgorithmVisualizer.Start(0f, PathfindaxCollisionCategory.All);
+				_astarAlgorithmVisualization.EndIndex = clickedNodeIndex;
+				_astarAlgorithmVisualization.Start(0f, PathfindaxCollisionCategory.All);
 			}
 			else
 			{
-				_astarAlgorithmVisualizer.StartIndex = clickedNodeIndex;
-				_astarAlgorithmVisualizer.EndIndex = -1;
-				_astarAlgorithmVisualizer.Stop();
+				_astarAlgorithmVisualization.StartIndex = clickedNodeIndex;
+				_astarAlgorithmVisualization.EndIndex = -1;
+				_astarAlgorithmVisualization.Stop();
 			}
 		}
 
@@ -70,10 +70,10 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 			if (DualityApp.ExecContext != DualityApp.ExecutionContext.Game) return;
 			if (_stopwatch.ElapsedMilliseconds > 1)
 			{
-				_astarAlgorithmVisualizer.Step();
+				_astarAlgorithmVisualization.Step();
 				_stopwatch.Restart();
 			}
-			_astarAlgorithmVisualizer.Draw(new DualityRenderer(device, -5));
+			_astarAlgorithmVisualization.Draw(new DualityRenderer(device, -5));
 		}
 
 		public void OnShutdown(ShutdownContext context) { }

@@ -5,18 +5,18 @@ using Pathfindax.Nodes;
 
 namespace Pathfindax.Visualization
 {
-	public class AstarAlgorithmVisualizer : IVisualizer
+	public class AstarAlgorithmVisualization : IVisualizer
 	{
 		public int StartIndex
 		{
-			get => _pathLayer.Start;
-			set => _pathLayer.Start = value;
+			get => _nodePathVisualization.Start;
+			set => _nodePathVisualization.Start = value;
 		}
 
 		public int EndIndex
 		{
-			get => _pathLayer.End;
-			set => _pathLayer.End = value;
+			get => _nodePathVisualization.End;
+			set => _nodePathVisualization.End = value;
 		}
 		public ColorRgba OpenSetColor { get; set; } = ColorRgba.Red;
 		public ColorRgba ClosedSetColor { get; set; } = ColorRgba.Green;
@@ -27,17 +27,17 @@ namespace Pathfindax.Visualization
 		private readonly AstarNodeNetwork _astarNodeNetwork;
 		private bool _isRunning;
 
-		private readonly NodeDrawingLayer _nodeDrawingLayer;
-		private readonly PathLayer _pathLayer;
+		private readonly NodeVisualization _nodeVisualization;
+		private readonly NodePathVisualization _nodePathVisualization;
 
-		public AstarAlgorithmVisualizer(IDefinitionNodeNetwork definitionNodeNetwork)
+		public AstarAlgorithmVisualization(IDefinitionNodeNetwork definitionNodeNetwork)
 		{
 			_astarNodeNetwork = new AstarNodeNetwork(definitionNodeNetwork);
 			_definitionNodeGrid = definitionNodeNetwork;
 			_aStarAlgorithm = new AStarAlgorithm(definitionNodeNetwork.NodeCount, new EuclideanDistance());
-			_nodeDrawingLayer = new NodeDrawingLayer(definitionNodeNetwork.NodeArray, definitionNodeNetwork.Transformer);
+			_nodeVisualization = new NodeVisualization(definitionNodeNetwork.NodeArray, definitionNodeNetwork.Transformer);
 
-			_pathLayer = new PathLayer
+			_nodePathVisualization = new NodePathVisualization
 			{
 				Transformer = definitionNodeNetwork.Transformer,
 				NodeArray = definitionNodeNetwork.NodeArray
@@ -47,37 +47,37 @@ namespace Pathfindax.Visualization
 		public void Start(float neededClearance, PathfindaxCollisionCategory collisionCategory)
 		{
 			var astarNodeArray = _astarNodeNetwork.GetCollisionLayerNetwork(collisionCategory);
-			_aStarAlgorithm.Start(astarNodeArray, _definitionNodeGrid.NodeArray, _pathLayer.Start, _pathLayer.End, neededClearance, collisionCategory);
+			_aStarAlgorithm.Start(astarNodeArray, _definitionNodeGrid.NodeArray, _nodePathVisualization.Start, _nodePathVisualization.End, neededClearance, collisionCategory);
 			_isRunning = true;
 		}
 
 		public void Stop()
 		{
-			_nodeDrawingLayer.Reset();
-			_pathLayer.Path = null;
+			_nodeVisualization.Reset();
+			_nodePathVisualization.Path = null;
 			_isRunning = false;
 		}
 
 		public bool Step(int stepsToRun = 1)
 		{
-			if (_pathLayer.Path == null && _isRunning)
+			if (_nodePathVisualization.Path == null && _isRunning)
 			{
 				if (_aStarAlgorithm.Step(stepsToRun))
 				{
-					_pathLayer.Path = _aStarAlgorithm.GetPath();
+					_nodePathVisualization.Path = _aStarAlgorithm.GetPath();
 				}
 
-				_nodeDrawingLayer.Reset();
-				_nodeDrawingLayer.SetNodeState(_aStarAlgorithm.OpenSet, OpenSetColor);
-				_nodeDrawingLayer.SetNodeState(_aStarAlgorithm.ClosedSet, ClosedSetColor);
+				_nodeVisualization.Reset();
+				_nodeVisualization.SetNodeState(_aStarAlgorithm.OpenSet, OpenSetColor);
+				_nodeVisualization.SetNodeState(_aStarAlgorithm.ClosedSet, ClosedSetColor);
 			}
-			return _pathLayer.Path != null;
+			return _nodePathVisualization.Path != null;
 		}
 
 		public void Draw(IRenderer renderer)
 		{
-			_nodeDrawingLayer.Draw(renderer);
-			_pathLayer.Draw(renderer);
+			_nodeVisualization.Draw(renderer);
+			_nodePathVisualization.Draw(renderer);
 		}
 	}
 }

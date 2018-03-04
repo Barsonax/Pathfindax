@@ -139,17 +139,15 @@
     <Compile Include="Threading\WorkItem.cs" />
     <Compile Include="Utils\PathfindaxMathF.cs" />
     <Compile Include="Utils\PathfindaxStrings.cs" />
-    <Compile Include="Visualization\Visualizers\AstarAlgorithmVisualizer.cs" />
-    <Compile Include="Visualization\Layers\ConnectionDrawingLayer.cs" />
-    <Compile Include="Visualization\Interfaces\IDrawingLayer.cs" />
+    <Compile Include="Visualization\Visualizers\AstarAlgorithmVisualization.cs" />
+    <Compile Include="Visualization\Visualizers\NodeConnectionVisualization.cs" />
     <Compile Include="Visualization\Interfaces\IVisualizer.cs" />
-    <Compile Include="Visualization\Layers\NodeDrawingLayer.cs" />
-    <Compile Include="Visualization\NodeDrawingState.cs" />
-    <Compile Include="Visualization\Visualizers\PathfindNodenetworkVisualizer.cs" />
-    <Compile Include="Visualization\Layers\PathLayer.cs" />
-    <Compile Include="Visualization\Visualizers\PathVisualizer.cs" />
-    <Compile Include="Visualization\Layers\TextDrawingLayer.cs" />
-    <Compile Include="Visualization\Layers\VectorLayer.cs" />
+    <Compile Include="Visualization\Visualizers\NodeVisualization.cs" />
+    <Compile Include="Visualization\Visualizers\PathfindNodeNetworkVisualization.cs" />
+    <Compile Include="Visualization\Visualizers\NodePathVisualization.cs" />
+    <Compile Include="Visualization\Visualizers\PathVisualization.cs" />
+    <Compile Include="Visualization\Visualizers\NodeTextVisualization.cs" />
+    <Compile Include="Visualization\Visualizers\VectorFieldVisualization.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
