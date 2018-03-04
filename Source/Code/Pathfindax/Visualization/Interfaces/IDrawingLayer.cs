@@ -2,6 +2,6 @@
 {
 	public interface IDrawingLayer
 	{
-		void Reset();
+		void Draw(IRenderer renderer);
 	}
 }

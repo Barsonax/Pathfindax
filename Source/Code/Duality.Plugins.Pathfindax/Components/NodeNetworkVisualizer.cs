@@ -43,9 +43,6 @@ namespace Duality.Plugins.Pathfindax.Components
 		[DontSerialize]
 		private PathfindNodeNetworkVisualizer _pathfindNodeNetworkVisualizer;
 
-		[DontSerialize]
-		private DualityNodeNetworkVisualizer _dualityNodeNetworkVisualizer;
-
 		bool ICmpRenderer.IsVisible(IDrawDevice device)
 		{
 			return
@@ -57,14 +54,13 @@ namespace Duality.Plugins.Pathfindax.Components
 		{
 			if (!Visualize) return;
 			if (DualityApp.ExecContext != DualityApp.ExecutionContext.Game) return;
-			_dualityNodeNetworkVisualizer.Draw(device, _pathfindNodeNetworkVisualizer);
+			_pathfindNodeNetworkVisualizer.Draw(new DualityRenderer(device, -5));
 		}
 
 		public void OnInit(InitContext context)
 		{
 			if (context == InitContext.Activate && DualityApp.ExecContext == DualityApp.ExecutionContext.Game)
 			{
-				_dualityNodeNetworkVisualizer = new DualityNodeNetworkVisualizer();
 				var pathfinder = GameObj.GetComponent<IDualityPathfinderComponent>();
 				if (pathfinder?.Pathfinder?.DefinitionNodeNetwork != null)
 				{

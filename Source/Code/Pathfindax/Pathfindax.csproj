@@ -146,7 +146,6 @@
     <Compile Include="Visualization\Interfaces\IDrawingLayer.cs" />
     <Compile Include="Visualization\Interfaces\IVisualizer.cs" />
     <Compile Include="Visualization\Layers\NodeDrawingLayer.cs" />
-    <Compile Include="Visualization\DrawingState.cs" />
     <Compile Include="Visualization\NodeDrawingState.cs" />
     <Compile Include="Visualization\Visualizers\PathfindNodenetworkVisualizer.cs" />
     <Compile Include="Visualization\Layers\PathLayer.cs" />

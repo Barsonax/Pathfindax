@@ -1,23 +1,18 @@
-﻿using Pathfindax.Graph;
-using Pathfindax.Nodes;
+﻿using Duality;
+using Pathfindax.Collections;
 using Pathfindax.Paths;
 
 namespace Pathfindax.Visualization
 {
 	public class PathVisualizer : IVisualizer
 	{
-		public DrawingState DrawingState { get; }
-
 		private readonly PathLayer _pathLayer;
 		private readonly VectorLayer _vectorLayer;
 
-		public PathVisualizer(DefinitionNode[] nodeArray, Transformer transformer)
+		public PathVisualizer()
 		{
-			DrawingState = new DrawingState(nodeArray, transformer);
 			_pathLayer = new PathLayer();
-			DrawingState.Layers.Add(_pathLayer);
-			_vectorLayer = new VectorLayer(nodeArray.Length);
-			DrawingState.Layers.Add(_vectorLayer);
+			_vectorLayer = new VectorLayer();
 		}
 
 		public void SetPath(IPath path)
@@ -26,26 +21,34 @@ namespace Pathfindax.Visualization
 			{
 				case NodePath completedPath:
 					_pathLayer.Path = completedPath.Path;
+					_pathLayer.Start = completedPath.Path[0];
+					_pathLayer.End = completedPath.Path[completedPath.Path.Length - 1];
+					_pathLayer.Transformer = completedPath.Transformer;
+					_pathLayer.NodeArray = completedPath.DefinitionNodes;
 					break;
 				case FlowField flowField:
+					if (_vectorLayer.Vectors.Length != flowField.FlowArray.Length) _vectorLayer.Vectors = new Array2D<Vector2>(flowField.FlowArray.Width, flowField.FlowArray.Height);
 					for (int i = 0; i < flowField.FlowArray.Length; i++)
 					{
 						_vectorLayer.Vectors[i] = flowField[i];
 					}
 					break;
-				case PotentialField potentialField:
-					for (int i = 0; i < potentialField.PotentialArray.Length; i++)
-					{
-						_vectorLayer.Vectors[i] = potentialField[i];
-					}
-					break;
-				case AggregratedPotentialField aggregratedPotentialField:
-					for (int i = 0; i < aggregratedPotentialField.NodeCount; i++)
+				case PotentialFieldBase aggregratedPotentialField:
+					var length = aggregratedPotentialField.Width * aggregratedPotentialField.Height;
+					if (_vectorLayer.Vectors == null || _vectorLayer.Vectors.Length != length) _vectorLayer.Vectors = new Array2D<Vector2>(aggregratedPotentialField.Width, aggregratedPotentialField.Height);
+					_vectorLayer.Transformer = aggregratedPotentialField.GridTransformer;
+					for (int i = 0; i < length; i++)
 					{
 						_vectorLayer.Vectors[i] = aggregratedPotentialField[i];
 					}
 					break;
 			}
+		}
+
+		public void Draw(IRenderer renderer)
+		{
+			_vectorLayer.Draw(renderer);
+			_pathLayer.Draw(renderer);
 		}
 	}
 }

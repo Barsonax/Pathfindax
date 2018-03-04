@@ -1,5 +1,6 @@
 ﻿using Duality.Drawing;
 using Duality.Editor;
+using Duality.Plugins.Pathfindax.Visualization;
 using Pathfindax.Paths;
 using Pathfindax.Utils;
 using Pathfindax.Visualization;
@@ -11,7 +12,7 @@ namespace Duality.Plugins.Pathfindax.Components
 	/// </summary>
 	[RequiredComponent(typeof(IPathProvider))]
 	[EditorHintCategory(PathfindaxStrings.Pathfindax)]
-	public class PathVisualizer : Component, ICmpRenderer
+	public class PathVisualizer : Component, ICmpRenderer, ICmpInitializable
 	{
 		/// <summary>
 		/// If true the <see cref="IPathProvider.Path"/> will be drawn.
@@ -27,6 +28,8 @@ namespace Duality.Plugins.Pathfindax.Components
 		private PathLayer _pathLayer;
 		private VectorLayer _vectorLayer;
 
+		private global::Pathfindax.Visualization.PathVisualizer _pathVisualizer;
+
 		bool ICmpRenderer.IsVisible(IDrawDevice device)
 		{
 			return
@@ -41,31 +44,16 @@ namespace Duality.Plugins.Pathfindax.Components
 			var pathProvider = GameObj.GetComponent<IPathProvider>();
 			if (pathProvider?.Path != null)
 			{
-				switch (pathProvider.Path)
-				{
-					case NodePath completedPath:
-						_pathLayer.Path = completedPath.Path;
-						break;
-					case FlowField flowField:
-						for (int i = 0; i < flowField.FlowArray.Length; i++)
-						{
-							_vectorLayer.Vectors[i] = flowField[i];
-						}
-						break;
-					case PotentialField potentialField:
-						for (int i = 0; i < potentialField.PotentialArray.Length; i++)
-						{
-							_vectorLayer.Vectors[i] = potentialField[i];
-						}
-						break;
-					case AggregratedPotentialField aggregratedPotentialField:
-						for (int i = 0; i < aggregratedPotentialField.NodeCount; i++)
-						{
-							_vectorLayer.Vectors[i] = aggregratedPotentialField[i];
-						}
-						break;
-				}
+				_pathVisualizer.SetPath(pathProvider.Path);
+				_pathVisualizer.Draw(new DualityRenderer(device, -5));
 			}
 		}
+
+		public void OnInit(InitContext context)
+		{
+			_pathVisualizer = new global::Pathfindax.Visualization.PathVisualizer();
+		}
+
+		public void OnShutdown(ShutdownContext context) { }
 	}
 }

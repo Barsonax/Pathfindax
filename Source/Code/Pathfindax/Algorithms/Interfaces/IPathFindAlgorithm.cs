@@ -18,6 +18,7 @@ namespace Pathfindax.Algorithms
 		/// </summary>
 		/// <param name="nodeNetwork">The <typeparamref name="TThreadNodeNetwork"/> in which the pathfinding will be done</param>
 		/// <param name="pathRequest">The <see cref="PathRequest"/> that contains the info needed such as the start and end of the path</param>
+		/// <param name="succes"></param>
 		/// <returns>A list of nodes in the defining the path</returns>
 		TPath FindPath(TThreadNodeNetwork nodeNetwork, IPathRequest pathRequest, out bool succes);		
 	}

@@ -4030,7 +4030,7 @@
       <prefabLink />
     </item>
     <item dataType="Struct" type="Duality.GameObject" id="4042816587">
-      <active dataType="Bool">false</active>
+      <active dataType="Bool">true</active>
       <children />
       <compList dataType="Struct" type="System.Collections.Generic.List`1[[Duality.Component]]" id="3217744697">
         <_items dataType="Array" type="Duality.Component[]" id="150537934" length="8">
@@ -4125,6 +4125,63 @@
             <gameobj dataType="ObjectRef">4042816587</gameobj>
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Components.PathVisualizer" id="1180521489">
+            <_pathLayer />
+            <_pathVisualizer dataType="Struct" type="Pathfindax.Visualization.PathVisualizer" id="2742103585">
+              <_pathLayer dataType="Struct" type="Pathfindax.Visualization.PathLayer" id="1646957166">
+                <_x003C_End_x003E_k__BackingField dataType="Int">0</_x003C_End_x003E_k__BackingField>
+                <_x003C_EndColor_x003E_k__BackingField dataType="Struct" type="Duality.Drawing.ColorRgba">
+                  <A dataType="Byte">255</A>
+                  <B dataType="Byte">0</B>
+                  <G dataType="Byte">0</G>
+                  <R dataType="Byte">0</R>
+                </_x003C_EndColor_x003E_k__BackingField>
+                <_x003C_LineColor_x003E_k__BackingField dataType="Struct" type="Duality.Drawing.ColorRgba">
+                  <A dataType="Byte">255</A>
+                  <B dataType="Byte">0</B>
+                  <G dataType="Byte">255</G>
+                  <R dataType="Byte">0</R>
+                </_x003C_LineColor_x003E_k__BackingField>
+                <_x003C_NodeArray_x003E_k__BackingField />
+                <_x003C_NodeColor_x003E_k__BackingField dataType="Struct" type="Duality.Drawing.ColorRgba">
+                  <A dataType="Byte">255</A>
+                  <B dataType="Byte">255</B>
+                  <G dataType="Byte">0</G>
+                  <R dataType="Byte">0</R>
+                </_x003C_NodeColor_x003E_k__BackingField>
+                <_x003C_NodeSize_x003E_k__BackingField dataType="Float">1</_x003C_NodeSize_x003E_k__BackingField>
+                <_x003C_Path_x003E_k__BackingField />
+                <_x003C_Start_x003E_k__BackingField dataType="Int">0</_x003C_Start_x003E_k__BackingField>
+                <_x003C_StartColor_x003E_k__BackingField dataType="Struct" type="Duality.Drawing.ColorRgba">
+                  <A dataType="Byte">255</A>
+                  <B dataType="Byte">255</B>
+                  <G dataType="Byte">255</G>
+                  <R dataType="Byte">255</R>
+                </_x003C_StartColor_x003E_k__BackingField>
+                <_x003C_Transformer_x003E_k__BackingField />
+              </_pathLayer>
+              <_vectorLayer dataType="Struct" type="Pathfindax.Visualization.VectorLayer" id="2981578698">
+                <_x003C_Color_x003E_k__BackingField dataType="Struct" type="Duality.Drawing.ColorRgba">
+                  <A dataType="Byte">255</A>
+                  <B dataType="Byte">255</B>
+                  <G dataType="Byte">255</G>
+                  <R dataType="Byte">255</R>
+                </_x003C_Color_x003E_k__BackingField>
+                <_x003C_Transformer_x003E_k__BackingField />
+                <_x003C_Vectors_x003E_k__BackingField />
+              </_vectorLayer>
+              <_x003C_DrawingState_x003E_k__BackingField dataType="Struct" type="Pathfindax.Visualization.DrawingState" id="1122791006">
+                <_x003C_CollisionCategory_x003E_k__BackingField dataType="Enum" type="Pathfindax.Nodes.PathfindaxCollisionCategory" name="None" value="0" />
+                <_x003C_ZOffset_x003E_k__BackingField dataType="Int">-5</_x003C_ZOffset_x003E_k__BackingField>
+                <Layers dataType="Struct" type="System.Collections.Generic.List`1[[Pathfindax.Visualization.IDrawingLayer]]" id="1484773024">
+                  <_items dataType="Array" type="Pathfindax.Visualization.IDrawingLayer[]" id="1533947100" length="4">
+                    <item dataType="ObjectRef">1646957166</item>
+                    <item dataType="ObjectRef">2981578698</item>
+                  </_items>
+                  <_size dataType="Int">2</_size>
+                </Layers>
+              </_x003C_DrawingState_x003E_k__BackingField>
+            </_pathVisualizer>
+            <_vectorLayer />
             <_x003C_BoundRadius_x003E_k__BackingField dataType="Float">0</_x003C_BoundRadius_x003E_k__BackingField>
             <_x003C_Visualize_x003E_k__BackingField dataType="Bool">true</_x003C_Visualize_x003E_k__BackingField>
             <active dataType="Bool">true</active>

@@ -8,17 +8,17 @@ namespace Pathfindax.Paths
 {
 	public class NodePath : IPath
 	{
-		public Vector2 this[int i] => Transformer.ToWorld(_definitionNodes[Path[i]].Position);
+		public Vector2 this[int i] => Transformer.ToWorld(DefinitionNodes[Path[i]].Position);
 		public int[] Path { get; }
 		public readonly Transformer Transformer;
 		private int _waypointIndex;
-		private readonly DefinitionNode[] _definitionNodes;
+		public DefinitionNode[] DefinitionNodes { get; }
 
 		public NodePath(DefinitionNode[] definitionNodes, int[] path, Transformer transformer)
 		{
 			Path = path;
 			Transformer = transformer;
-			_definitionNodes = definitionNodes;
+			DefinitionNodes = definitionNodes;
 		}
 
 		public Vector2 GetHeading(Vector3 currentPosition)
@@ -45,7 +45,7 @@ namespace Pathfindax.Paths
 		public override string ToString()
 		{
 			if (Path == null) return base.ToString();
-			return string.Join(", ", Path.Select(x => _definitionNodes[x].Position.ToString()));
+			return string.Join(", ", Path.Select(x => DefinitionNodes[x].Position.ToString()));
 		}
 
 		public float GetPathLength()
@@ -53,10 +53,10 @@ namespace Pathfindax.Paths
 			if (Path.Length == 0) return 0f;
 			var euclideanDistance = new EuclideanDistance();
 			var length = 0f;
-			var previousWaypoint = _definitionNodes[Path[0]].Position;
+			var previousWaypoint = DefinitionNodes[Path[0]].Position;
 			for (var i = 1; i < Path.Length; i++)
 			{
-				var waypoint = _definitionNodes[Path[i]].Position;
+				var waypoint = DefinitionNodes[Path[i]].Position;
 				length += euclideanDistance.GetDistance(previousWaypoint, waypoint);
 				previousWaypoint = waypoint;
 			}

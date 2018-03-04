@@ -36,8 +36,7 @@ namespace Pathfindax.Test.Tests.Threading
 			var completed = 0;
 			while (completed != amountOfItterations)
 			{
-				bool result;
-				if (workerQueue.TryDequeue(out result))
+				if (workerQueue.TryDequeue(out _))
 				{
 					completed++;
 				}
