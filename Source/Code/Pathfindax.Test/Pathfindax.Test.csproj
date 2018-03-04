@@ -65,7 +65,6 @@
     <Compile Include="Setup\PathfinderSetup.cs" />
     <Compile Include="Tests\Collections\LookupArrayTests.cs" />
     <Compile Include="Tests\Collections\IndexMinHeapTests.cs" />
-    <Compile Include="Tests\Collections\MaxHeapTests.cs" />
     <Compile Include="Tests\Collections\TestObjects\IntHeapItem.cs" />
     <Compile Include="Tests\Factories\NodeGridFactoryTest.cs" />
     <Compile Include="Tests\Graph\DefinitionNodeNetworkTests.cs" />
