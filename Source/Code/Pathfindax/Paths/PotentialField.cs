@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using Duality;
 using Pathfindax.Collections;
 using Pathfindax.Graph;
-using Pathfindax.Utils;
 
 namespace Pathfindax.Paths
 {
@@ -15,6 +13,7 @@ namespace Pathfindax.Paths
 
 		public PotentialField(GridTransformer gridTransformer, Point2 targetNodePosition, Array2D<float> potentialArray) : base(gridTransformer)
 		{
+			if (potentialArray == null) throw new ArgumentException("potentialArray cannot be null");
 			if (potentialArray.Width != gridTransformer.GridSize.X || potentialArray.Height != gridTransformer.GridSize.Y) throw new ArgumentException("The grid dimensions of the transformer have to match the array");
 			PotentialArray = potentialArray;
 			TargetNode = targetNodePosition;
@@ -29,7 +28,6 @@ namespace Pathfindax.Paths
 
 		public override float GetPotential(int x, int y)
 		{
-			if (PotentialArray == null) return float.NaN;
 			if (x >= 0 && y >= 0 && x < PotentialArray.Width && y < PotentialArray.Height)
 			{
 				return PotentialArray[x, y];

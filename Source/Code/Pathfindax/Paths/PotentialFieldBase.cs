@@ -37,7 +37,7 @@ namespace Pathfindax.Paths
 			GridTransformer = gridTransformer;
 		}
 
-		protected Vector2 GetHeading(int x, int y)
+		private Vector2 GetHeading(int x, int y)
 		{
 			var currentPotential = GetPotential(x, y);
 			var leftPotential = GetPotential(x - 1, y);

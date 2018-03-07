@@ -26,8 +26,8 @@ namespace Pathfindax.Algorithms
 			{
 				var pathfindingNetwork = dijkstraNodeNetwork.GetCollisionLayerNetwork(pathRequest.CollisionCategory);
 
-				_dijkstraAlgorithm.StartFindPath(pathfindingNetwork, dijkstraNodeNetwork.DefinitionNodeGrid.NodeArray, pathRequest.PathEnd);
-				_dijkstraAlgorithm.FindPath(pathfindingNetwork, dijkstraNodeNetwork.DefinitionNodeGrid.NodeGrid.Array, pathRequest.PathStart, pathRequest.AgentSize, pathRequest.CollisionCategory);
+				_dijkstraAlgorithm.Start(pathfindingNetwork, dijkstraNodeNetwork.DefinitionNodeGrid.NodeArray, pathRequest.PathEnd, pathRequest.PathStart, pathRequest.AgentSize, pathRequest.CollisionCategory);
+				_dijkstraAlgorithm.Step(-1);
 				potentialField = FindPath(dijkstraNodeNetwork, pathfindingNetwork, pathRequest.PathEnd, pathRequest);
 				_potentialFieldCache?.Add(pathRequest, potentialField);
 			}
@@ -40,17 +40,12 @@ namespace Pathfindax.Algorithms
 		public static PotentialField FindPath(DijkstraNodeGrid dijkstraNodeNetwork, DijkstraNode[] pathfindingNetwork, int targetNodeIndex, IPathRequest pathRequest)
 		{
 			var potentialNodes = new Array2D<float>(dijkstraNodeNetwork.DefinitionNodeGrid.NodeGrid.Width, dijkstraNodeNetwork.DefinitionNodeGrid.NodeGrid.Height);
-			for (int i = 0; i < potentialNodes.Array.Length; i++)
+			for (var i = 0; i < pathfindingNetwork.Length; i++)
 			{
-				if (i == targetNodeIndex) potentialNodes.Array[i] = 0f;
-				else
-				{
-					ref var dijkstraNode = ref pathfindingNetwork[i];
-					potentialNodes.Array[i] = dijkstraNode.Priority;
-				}
+				potentialNodes.Array[i] = pathfindingNetwork[i].Priority;
 			}
 
-			var targetNodePosition = dijkstraNodeNetwork.DefinitionNodeGrid.NodeGrid.ToGrid(targetNodeIndex);
+			var targetNodePosition = potentialNodes.ToGrid(targetNodeIndex);
 			return new PotentialField(dijkstraNodeNetwork.DefinitionNodeGrid.Transformer, targetNodePosition, potentialNodes);
 		}
 	}

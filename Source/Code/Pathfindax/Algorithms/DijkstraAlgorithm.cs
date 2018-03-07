@@ -14,6 +14,13 @@ namespace Pathfindax.Algorithms
 	{
 		public IEnumerable<int> OpenSet => _openSet;
 		public IEnumerable<int> ClosedSet => _closedSet;
+		public int StartNodeIndex { get; private set; } = -1;
+		public int TargetNodeIndex { get; private set; } = -1;
+
+		private float _neededClearance;
+		private PathfindaxCollisionCategory _collisionCategory;
+		private DijkstraNode[] _pathfindingNetwork;
+		private DefinitionNode[] _definitionNodes;
 
 		private readonly IndexMinHeap<DijkstraNode> _openSet;
 		private readonly LookupArray _closedSet;
@@ -41,8 +48,8 @@ namespace Pathfindax.Algorithms
 				return NodePath.GetEmptyPath(nodeNetwork, pathRequest.PathStart);
 			}
 
-			StartFindPath(pathfindingNetwork, nodeNetwork.DefinitionNodeNetwork.NodeArray, pathRequest.PathStart);
-			if (FindPath(pathfindingNetwork, nodeNetwork.DefinitionNodeNetwork.NodeArray, pathRequest.PathEnd, pathRequest.AgentSize, pathRequest.CollisionCategory))
+			Start(pathfindingNetwork, nodeNetwork.DefinitionNodeNetwork.NodeArray, pathRequest.PathStart, pathRequest.PathEnd, pathRequest.AgentSize, pathRequest.CollisionCategory);
+			if (Step(-1))
 			{
 				var path = _pathRetracer.RetracePath(pathfindingNetwork, nodeNetwork.DefinitionNodeNetwork.NodeArray, pathRequest.PathStart, pathRequest.PathEnd);
 
@@ -54,41 +61,48 @@ namespace Pathfindax.Algorithms
 			return NodePath.GetEmptyPath(nodeNetwork, pathRequest.PathStart);
 		}
 
-		public void StartFindPath(DijkstraNode[] pathfindingNetwork, DefinitionNode[] definitionNodes, int startNodeIndex)
+		public void Start(DijkstraNode[] pathfindingNetwork, DefinitionNode[] definitionNodes, int startNodeIndex, int targetNodeIndex, float neededClearance, PathfindaxCollisionCategory collisionCategory)
 		{
 			ResetNetwork(pathfindingNetwork);
+			StartNodeIndex = startNodeIndex;
+			TargetNodeIndex = targetNodeIndex;
+			_neededClearance = neededClearance;
+			_collisionCategory = collisionCategory;
+			_pathfindingNetwork = pathfindingNetwork;
+			_definitionNodes = definitionNodes;
+
 			_openSet.AssignArray(pathfindingNetwork);
 			_closedSet.Clear();
 			_openSet.Add(startNodeIndex);
 			pathfindingNetwork[startNodeIndex].Priority = 0f;
 		}
 
-		public bool FindPath(DijkstraNode[] pathfindingNetwork, DefinitionNode[] definitionNodes, int targetNodeIndex, float neededClearance, PathfindaxCollisionCategory collisionCategory, int stepsToRun = -1)
+		public bool Step(int stepsToRun = 1)
 		{
 			var succes = false;
 			while (_openSet.Count > 0 && stepsToRun != 0)
 			{
 				if (stepsToRun > 0) stepsToRun--;
 				var currentNodeIndex = _openSet.RemoveFirst();
-				if (currentNodeIndex == targetNodeIndex)
+				if (currentNodeIndex == TargetNodeIndex)
 				{
 					succes = true;
 				}
-				ref var currentNode = ref pathfindingNetwork[currentNodeIndex];
-				ref var currentDefinitionNode = ref definitionNodes[currentNodeIndex];
+				ref var currentNode = ref _pathfindingNetwork[currentNodeIndex];
+				ref var currentDefinitionNode = ref _definitionNodes[currentNodeIndex];
 				_closedSet.Occupy(currentNodeIndex);
 
 				foreach (var connection in currentDefinitionNode.Connections)
 				{
-					if ((connection.CollisionCategory & collisionCategory) != 0 || _closedSet.Contains(connection.To)) continue;
-					ref var toNode = ref pathfindingNetwork[connection.To];
-					if (toNode.Clearance < neededClearance)
+					if ((connection.CollisionCategory & _collisionCategory) != 0 || _closedSet.Contains(connection.To)) continue;
+					ref var toNode = ref _pathfindingNetwork[connection.To];
+					if (toNode.Clearance < _neededClearance)
 					{
 						toNode.Priority = float.NaN;
 					}
 					else
 					{
-						ref var toDefinitionNode = ref definitionNodes[connection.To];
+						ref var toDefinitionNode = ref _definitionNodes[connection.To];
 						var newMovementCostToNeighbour = currentNode.Priority + _costFunction.GetDistance(currentDefinitionNode.Position, toDefinitionNode.Position) * currentDefinitionNode.MovementCostModifier;
 						if (newMovementCostToNeighbour < toNode.Priority || !_openSet.Contains(connection.To))
 						{

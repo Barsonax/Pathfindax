@@ -36,8 +36,8 @@ namespace Pathfindax.Benchmarks
 		[Benchmark]
 		public bool FindPath()
 		{
-			_algorithm.StartFindPath(_nodeNetwork, _definitionNodeGrid.NodeArray, _pathRequest.PathStart);
-			return _algorithm.FindPath(_nodeNetwork, _definitionNodeGrid.NodeGrid.Array, _pathRequest.PathEnd, _pathRequest.AgentSize, _pathRequest.CollisionCategory);
+			_algorithm.Start(_nodeNetwork, _definitionNodeGrid.NodeArray, _pathRequest.PathStart, _pathRequest.PathEnd, _pathRequest.AgentSize, _pathRequest.CollisionCategory);
+			return _algorithm.Step(-1);
 		}
 	}
 }
