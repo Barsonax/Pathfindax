@@ -30,7 +30,7 @@ namespace Pathfindax.Visualization
 
 		public PathfindNodeNetworkVisualization(DefinitionNode[] nodeArray, Transformer transformer, IPathfindNodeNetwork pathfindNodeNetwork)
 		{
-			_nodeVisualization =new NodeVisualization(nodeArray, transformer) { VisibleDefault = true };
+			_nodeVisualization =new NodeVisualization(nodeArray, transformer);
 			_nodeConnectionVisualization = new NodeConnectionVisualization(nodeArray, transformer);
 			_nodeTextVisualization = new NodeTextVisualization(nodeArray, transformer);
 			_pathfindNodeNetwork = pathfindNodeNetwork;

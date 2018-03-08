@@ -35,7 +35,7 @@ namespace Pathfindax.Visualization
 			_astarNodeNetwork = new AstarNodeNetwork(definitionNodeNetwork);
 			_definitionNodeGrid = definitionNodeNetwork;
 			_aStarAlgorithm = new AStarAlgorithm(definitionNodeNetwork.NodeCount, new EuclideanDistance());
-			_nodeVisualization = new NodeVisualization(definitionNodeNetwork.NodeArray, definitionNodeNetwork.Transformer);
+			_nodeVisualization = new NodeVisualization(definitionNodeNetwork.NodeArray, definitionNodeNetwork.Transformer) { VisibleDefault = false };
 
 			_nodePathVisualization = new NodePathVisualization
 			{

@@ -7,12 +7,11 @@ namespace Pathfindax.Visualization
 {
 	public class NodeVisualization : IVisualizer
 	{
-		public bool VisibleDefault { get; set; }
+		public bool VisibleDefault { get; set; } = true;
 		public ColorRgba DefaultColor { get; set; } = ColorRgba.Grey;
 		public Node[] Nodes { get; }
 		public DefinitionNode[] DefinitionNodes { get; }
 		public Transformer Transformer { get; }
-		public float NodeSize { get; set; } = 1f;
 
 		public NodeVisualization(DefinitionNode[] definitionNodes, Transformer transformer)
 		{
