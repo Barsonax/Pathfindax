@@ -10,7 +10,7 @@ namespace Pathfindax.Visualization
 	{
 		public ColorRgba Color { get; set; } = ColorRgba.White;
 		public Array2D<Vector2> Vectors { get; set; }
-		public GridTransformer Transformer { get; set; }
+		public Transformer Transformer { get; set; }
 
 		public void Draw(IRenderer renderer)
 		{

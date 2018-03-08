@@ -4,7 +4,7 @@ using Pathfindax.Graph;
 
 namespace Pathfindax.Paths
 {
-	public class FlowField : IPath
+	public class FlowField : IVectorField
 	{
 		public static readonly Vector2[] VectorDirectionCache;
 		private const float FullTurn = HalfTurn * 2;
@@ -24,7 +24,10 @@ namespace Pathfindax.Paths
 
 		public Vector2 this[int i] => VectorDirectionCache[FlowArray[i]];
 		public Vector2 this[int x, int y] => VectorDirectionCache[FlowArray[x, y]];
+		public int Width => FlowArray.Width;
+		public int Height => FlowArray.Height;
 
+		Transformer IPath.Transformer => GridTransformer;
 		public readonly GridTransformer GridTransformer;
 		public readonly Array2D<byte> FlowArray;
 		public readonly Point2 TargetNode;

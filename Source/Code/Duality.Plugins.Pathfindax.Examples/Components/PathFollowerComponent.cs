@@ -20,14 +20,10 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 		public Camera Camera { get; set; }
 
 
-		public IPath Path
-		{
-			get => _path;
-			private set => _path = value;
-		}
+		IPath IPathProvider.Path => _path;
 
 		[DontSerialize]
-		private IPath _path;
+		private IWaypointPath _path;
 
 		public AstarPathfinderComponent PathfinderComponent { get; set; }
 
@@ -46,11 +42,11 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 
 		void ICmpUpdatable.OnUpdate()
 		{
-			if (Path != null)
+			if (_path != null)
 			{
-				var heading = Path.GetHeading(GameObj.Transform.Pos);
+				var heading = _path.GetHeading(GameObj.Transform.Pos);
 				if (heading.Length <= MovementSpeed)
-					Path.NextWaypoint();
+					_path.NextWaypoint();
 				GameObj.Transform.MoveBy(PathfindaxMathF.Clamp(heading.Normalized * Time.TimeMult * MovementSpeed, heading.Length));
 			}
 		}
@@ -59,7 +55,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 		{
 			var targetPos = Camera.GetSpaceCoord(e.Position);
 			var request = PathfinderComponent.Pathfinder.RequestPath(GameObj.Transform.Pos, targetPos, CollisionCategory, AgentSize);
-			Path = await request;
+			_path = await request;
 		}
 	}
 }

@@ -3,7 +3,7 @@ using Pathfindax.Graph;
 
 namespace Pathfindax.Paths
 {
-	public abstract class PotentialFieldBase : IPath
+	public abstract class PotentialFieldBase : IVectorField
 	{
 		public abstract int Width { get; }
 		public abstract int Height { get; }
@@ -28,6 +28,7 @@ namespace Pathfindax.Paths
 			}
 		}
 
+		Transformer IPath.Transformer => GridTransformer;
 		public GridTransformer GridTransformer { get; }
 		public Point2 TargetNode { get; protected set; }
 		public Vector2 TargetWorldPosition { get; protected set; }

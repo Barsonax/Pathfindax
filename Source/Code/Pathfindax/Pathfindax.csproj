@@ -66,6 +66,8 @@
     <Compile Include="Factories\CollisionDirection.cs" />
     <Compile Include="Factories\NodeGridCollisionLayer.cs" />
     <Compile Include="Factories\NodeGridCollisionMask.cs" />
+    <Compile Include="Paths\Interfaces\IVectorField.cs" />
+    <Compile Include="Paths\Interfaces\IWaypointPath.cs" />
     <Compile Include="Threading\Interfaces\ISynchronizationContext.cs" />
     <Compile Include="Threading\Interfaces\IUpdatableSynchronizationContext.cs" />
     <Compile Include="Algorithms\Utils\PathRetracer.cs" />
@@ -104,7 +106,7 @@
     <Compile Include="Nodes\DefinitionNode.cs" />
     <Compile Include="Factories\PathfinderFactory.cs" />
     <Compile Include="Paths\NodePath.cs" />
-    <Compile Include="Paths\Interfaces\ICompletedPath.cs" />
+    <Compile Include="Paths\Interfaces\IPath.cs" />
     <Compile Include="PathfindEngine\PathRequestStatus.cs" />
     <Compile Include="Paths\PotentialField.cs" />
     <Compile Include="Threading\SynchronizationContextAdapter.cs" />

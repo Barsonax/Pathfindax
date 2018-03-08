@@ -25,7 +25,7 @@ namespace Pathfindax.Visualization
 			{
 				var definitionNode = DefinitionNodes[i];
 				var nodeWorldPosition = Transformer.ToWorld(definitionNode.Position);
-				DrawNodeConnections(renderer, Transformer, nodeWorldPosition, definitionNode.Connections,DefinitionNodes, CollisionCategory);
+				DrawNodeConnections(renderer, Transformer, nodeWorldPosition, definitionNode.Connections, DefinitionNodes, CollisionCategory);
 			}
 		}
 

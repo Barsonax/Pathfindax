@@ -6,13 +6,14 @@ using Pathfindax.Nodes;
 
 namespace Pathfindax.Paths
 {
-	public class NodePath : IPath
+	public class NodePath : IWaypointPath
 	{
 		public Vector2 this[int i] => Transformer.ToWorld(DefinitionNodes[Path[i]].Position);
 		public int[] Path { get; }
-		public readonly Transformer Transformer;
-		private int _waypointIndex;
+		public Transformer Transformer { get; }
 		public DefinitionNode[] DefinitionNodes { get; }
+
+		private int _waypointIndex;
 
 		public NodePath(DefinitionNode[] definitionNodes, int[] path, Transformer transformer)
 		{
