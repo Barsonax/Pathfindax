@@ -74,7 +74,9 @@
     <Compile Include="Tests\Graph\GridTransformerTests.cs" />
     <Compile Include="Tests\Graph\GraphTestCases.cs" />
     <Compile Include="Tests\Graph\TransformerTests.cs" />
+    <Compile Include="Tests\PathfindEngine\PathfindEngineTestCases.cs" />
     <Compile Include="Tests\PathfindEngine\PathfinderTests.cs" />
+    <Compile Include="Tests\PathfindEngine\SingleSourcePathRequestComparerTests.cs" />
     <Compile Include="Tests\Paths\NodePathTests.cs" />
     <Compile Include="Tests\Paths\PathTestCases.cs" />
     <Compile Include="Tests\Paths\PotentialFieldTests.cs" />
