@@ -16,12 +16,7 @@ namespace Pathfindax.Test.Tests.Threading
 				var processer = Substitute.For<IProcesser<bool>>();
 				processer.When(x => x.Process(false)).Do(x =>
 				{
-					const int a = 1;
-					const int b = 2;
-					for (var i = 0; i < 20000000; i++) //Simulates some work.
-					{
-						var c = a + b;
-					}
+					Thread.Sleep(100);
 				});
 				return processer;
 			}, 2);

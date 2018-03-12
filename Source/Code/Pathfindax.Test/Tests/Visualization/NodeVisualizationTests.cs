@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Duality.Drawing;
 using NUnit.Framework;
 using Pathfindax.Graph;
@@ -13,12 +14,10 @@ namespace Pathfindax.Test.Tests.Visualization
 		[Test, TestCaseSource(typeof(VisualizationTestCases), nameof(VisualizationTestCases.NodeVisualizationTestCases))]
 		public void Draw(DefinitionNode[] definitionNodes, Transformer transform)
 		{
-			var nodeVisualization = new NodeVisualization(definitionNodes, transform);
-			var random = new Random(nodeVisualization.Nodes.Length);
-			for (var i = 0; i < nodeVisualization.Nodes.Length; i++)
-			{
-				nodeVisualization.Nodes[i].Color = new ColorRgba(random.Next());
-			}
+			var nodeVisualization = new NodeVisualization(definitionNodes, transform) { Nodes = definitionNodes.Select((node, i) => i) };
+			var random = new Random(definitionNodes.Length);
+			var color = new ColorRgba(random.Next());
+			nodeVisualization.Color = color;
 			var renderer = new MockupRenderer();
 			nodeVisualization.Draw(renderer);
 
@@ -27,7 +26,7 @@ namespace Pathfindax.Test.Tests.Visualization
 			{
 				Assert.AreEqual(definitionNodes[i].Position, transform.ToLocal(renderer.FillCircleCalls[i].position));
 				Assert.AreEqual(transform.Scale.X * 0.25f, renderer.FillCircleCalls[i].radius);
-				Assert.AreEqual(nodeVisualization.Nodes[i].Color, renderer.FillCircleCalls[i].color);
+				Assert.AreEqual(color, renderer.FillCircleCalls[i].color);
 			}
 		}
 	}

@@ -154,8 +154,6 @@ namespace Pathfindax.Paths
 			return this[gridCoords.X, gridCoords.Y];
 		}
 
-		public bool NextWaypoint() => true;
-
 		public abstract float GetPotential(int x, int y);
 	}
 }

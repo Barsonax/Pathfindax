@@ -19,14 +19,6 @@ namespace Pathfindax.Visualization
 			Texts = new string[definitionNodes.Length];
 		}
 
-		public void Reset()
-		{
-			for (int i = 0; i < Texts.Length; i++)
-			{
-				Texts[i] = DefaultText;
-			}
-		}
-
 		public void Draw(IRenderer renderer)
 		{
 			renderer.SetColor(Color);

@@ -74,8 +74,6 @@ namespace Pathfindax.Paths
 			return this[gridCoords.X, gridCoords.Y];
 		}
 
-		public bool NextWaypoint() => true;
-
 		public override string ToString()
 		{
 			return $"Flowfield to {TargetNode}";

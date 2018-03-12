@@ -52,16 +52,15 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 		{
 			var position = Camera.GetSpaceCoord(e.Position);
 			var clickedNodeIndex = _definitionNodeNetwork.GetNodeIndex(position.X, position.Y);
-			if (_astarAlgorithmVisualization.EndIndex == -1)
+			if (_astarAlgorithmVisualization.NodePathVisualization.End == -1)
 			{
-				_astarAlgorithmVisualization.EndIndex = clickedNodeIndex;
+				_astarAlgorithmVisualization.NodePathVisualization.End = clickedNodeIndex;
 				_astarAlgorithmVisualization.Start(0f, PathfindaxCollisionCategory.All);
 			}
 			else
 			{
-				_astarAlgorithmVisualization.StartIndex = clickedNodeIndex;
-				_astarAlgorithmVisualization.EndIndex = -1;
 				_astarAlgorithmVisualization.Stop();
+				_astarAlgorithmVisualization.NodePathVisualization.Start = clickedNodeIndex;
 			}
 		}
 

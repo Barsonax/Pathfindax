@@ -20,12 +20,6 @@ namespace Pathfindax.Paths
 			TargetWorldPosition = gridTransformer.ToWorld(targetNodePosition);
 		}
 
-		public PotentialField(GridTransformer gridTransformer, Point2 targetNodePosition) : base(gridTransformer)
-		{
-			TargetNode = targetNodePosition;
-			TargetWorldPosition = gridTransformer.ToWorld(targetNodePosition);
-		}
-
 		public override float GetPotential(int x, int y)
 		{
 			if (x >= 0 && y >= 0 && x < PotentialArray.Width && y < PotentialArray.Height)

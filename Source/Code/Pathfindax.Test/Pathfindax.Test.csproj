@@ -85,6 +85,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tests\Visualization\MockupRenderer.cs" />
     <Compile Include="Tests\Visualization\NodeConnectionVisualizationTests.cs" />
+    <Compile Include="Tests\Visualization\NodePathVisualizationTests.cs" />
     <Compile Include="Tests\Visualization\NodeTextVisualizationTests.cs" />
     <Compile Include="Tests\Visualization\NodeVisualizationTests.cs" />
     <Compile Include="Tests\Visualization\VisualizationTestCases.cs" />
