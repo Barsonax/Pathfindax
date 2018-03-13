@@ -21,7 +21,7 @@ namespace Pathfindax.Test.Setup
 				algorithm.FindPath(null, null, out var _).ReturnsForAnyArgs(x =>
 				{
 					x[2] = succesTrue;
-					return new NodePath(nodeArray, new[] { 0 }, new Transformer(new Vector2(1, 1)));
+					return new WaypointPath(nodeArray, new[] { 0 }, new Transformer(new Vector2(1, 1)));
 				});
 				return PathfinderFactory.CreateRequestProcesser(nodeGrid, algorithm);
 			}, threads);

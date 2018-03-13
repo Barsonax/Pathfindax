@@ -15,7 +15,7 @@ namespace Duality.Plugins.Pathfindax.Components
 	/// </summary>
 	[EditorHintCategory(PathfindaxStrings.Pathfindax)]
 	[RequiredComponent(typeof(IDefinitionNodeNetworkProvider<IDefinitionNodeNetwork>))]
-	public class AstarPathfinderComponent : PathfinderComponentBase<IDefinitionNodeNetwork, IPathfindNodeNetwork<AstarNode>, NodePath>
+	public class AstarPathfinderComponent : PathfinderComponentBase<IDefinitionNodeNetwork, IPathfindNodeNetwork<AstarNode>, WaypointPath>
 	{
 		/// <summary>
 		/// The max calculated clearance. Any clearance value higher than will be set to this. 
@@ -24,7 +24,7 @@ namespace Duality.Plugins.Pathfindax.Components
 		public int MaxClearance { get; set; } = 5;
 		public IDistanceHeuristic Heuristic { get; set; }
 
-		public override IPathfinder<IDefinitionNodeNetwork, IPathfindNodeNetwork<AstarNode>, NodePath> CreatePathfinder()
+		public override IPathfinder<IDefinitionNodeNetwork, IPathfindNodeNetwork<AstarNode>, WaypointPath> CreatePathfinder()
 		{
 			var definitionNodeNetwork = GetDefinitionNodeNetwork();
 			if (definitionNodeNetwork == null) throw new NoDefinitionNodeNetworkException();

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Linq;
 using Duality;
 using Duality.Drawing;
 using NUnit.Framework;
@@ -60,7 +61,7 @@ namespace Pathfindax.Test.Tests.Visualization
 			var factory = new DefinitionNodeGridFactory();
 			var definitionNodes = factory.GeneratePreFilledArray(GenerateNodeGridConnections.All, width, height).Array;
 			var transform = new Transformer(scale, position);
-			return new TestCaseData(definitionNodes, transform, path, startColor, endColor, nodeColor, lineColor).SetName($"Width: {width} Height: {height} Scale: {scale} Position: {position} Path: {string.Join(", ", path)}");
+			return new TestCaseData(transform, path.Select(i => definitionNodes[i].Position).ToArray(), startColor, endColor, nodeColor, lineColor).SetName($"Width: {width} Height: {height} Scale: {scale} Position: {position} Path: {string.Join(", ", path)}");
 		}
 
 		private static TestCaseData GenerateNodeVisualizationTestCase(int width, int height, Vector2 scale, Vector2 position)

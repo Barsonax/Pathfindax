@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using Duality;
 using Pathfindax.Algorithms;
 using Pathfindax.Graph;
@@ -6,20 +8,17 @@ using Pathfindax.Nodes;
 
 namespace Pathfindax.Paths
 {
-	public class NodePath : IWaypointPath
+	public class WaypointPath : IWaypointPath
 	{
-		public Vector2 this[int i] => Transformer.ToWorld(DefinitionNodes[Path[i]].Position);
-		public int[] Path { get; }
+		public Vector2[] Path { get; }
 		public Transformer Transformer { get; }
-		public DefinitionNode[] DefinitionNodes { get; }
 
 		private int _waypointIndex;
 
-		public NodePath(DefinitionNode[] definitionNodes, int[] path, Transformer transformer)
+		public WaypointPath(DefinitionNode[] definitionNodes, int[] path, Transformer transformer)
 		{
-			Path = path;
+			Path = path.Select(i => definitionNodes[i].Position).ToArray();
 			Transformer = transformer;
-			DefinitionNodes = definitionNodes;
 		}
 
 		public Vector2 GetHeading(Vector3 currentPosition)
@@ -29,7 +28,7 @@ namespace Pathfindax.Paths
 
 		public Vector2 GetHeading(Vector2 currentPosition)
 		{
-			var waypoint = this[_waypointIndex];
+			var waypoint = Transformer.ToWorld(Path[_waypointIndex]);
 			return waypoint - currentPosition;
 		}
 
@@ -46,7 +45,7 @@ namespace Pathfindax.Paths
 		public override string ToString()
 		{
 			if (Path == null) return base.ToString();
-			return string.Join(", ", Path.Select(x => DefinitionNodes[x].Position.ToString()));
+			return string.Join(", ", Path);
 		}
 
 		public float GetPathLength()
@@ -54,19 +53,32 @@ namespace Pathfindax.Paths
 			if (Path.Length == 0) return 0f;
 			var euclideanDistance = new EuclideanDistance();
 			var length = 0f;
-			var previousWaypoint = DefinitionNodes[Path[0]].Position;
+			var previousWaypoint = Path[0];
 			for (var i = 1; i < Path.Length; i++)
 			{
-				var waypoint = DefinitionNodes[Path[i]].Position;
+				var waypoint = Path[i];
 				length += euclideanDistance.GetDistance(previousWaypoint, waypoint);
 				previousWaypoint = waypoint;
 			}
 			return length;
 		}
 
-		public static NodePath GetEmptyPath(IPathfindNodeNetwork nodeNetwork, int pathStart)
+		public static WaypointPath GetEmptyPath(IPathfindNodeNetwork nodeNetwork, int pathStart)
 		{
-			return new NodePath(nodeNetwork.DefinitionNodeNetwork.NodeArray, new[] { pathStart }, nodeNetwork.DefinitionNodeNetwork.Transformer);
+			return new WaypointPath(nodeNetwork.DefinitionNodeNetwork.NodeArray, new[] { pathStart }, nodeNetwork.DefinitionNodeNetwork.Transformer);
+		}
+
+		public IEnumerator<Vector2> GetEnumerator()
+		{
+			foreach (var vector2 in Path)
+			{
+				yield return vector2;
+			}
+		}
+
+		IEnumerator IEnumerable.GetEnumerator()
+		{
+			return GetEnumerator();
 		}
 	}
 }

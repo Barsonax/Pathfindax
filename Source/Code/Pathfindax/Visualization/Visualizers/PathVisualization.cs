@@ -1,4 +1,5 @@
-﻿using Pathfindax.Paths;
+﻿using System.Linq;
+using Pathfindax.Paths;
 
 namespace Pathfindax.Visualization
 {
@@ -18,7 +19,7 @@ namespace Pathfindax.Visualization
 			switch (path)
 			{
 				case IWaypointPath waypointPath:
-					_waypointPathVisualization.SetPath(waypointPath.Path, waypointPath.Transformer, waypointPath.DefinitionNodes);
+					_waypointPathVisualization.SetPath(waypointPath.ToArray(), waypointPath.Transformer);
 					break;
 				case IVectorField vectorField:
 					_vectorFieldVisualization.SetPath(vectorField);

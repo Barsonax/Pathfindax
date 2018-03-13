@@ -1,4 +1,5 @@
-﻿using Duality.Drawing;
+﻿using Duality;
+using Duality.Drawing;
 using NUnit.Framework;
 using Pathfindax.Graph;
 using Pathfindax.Nodes;
@@ -10,29 +11,29 @@ namespace Pathfindax.Test.Tests.Visualization
 	public class WaypointPathVisualizationTests
 	{
 		[Test, TestCaseSource(typeof(VisualizationTestCases), nameof(VisualizationTestCases.WaypointNodeVisualizationTestCases))]
-		public void Draw(DefinitionNode[] definitionNodes, Transformer transformer, int[] path, ColorRgba startColor, ColorRgba endColor, ColorRgba nodeColor, ColorRgba lineColor)
+		public void Draw(Transformer transformer, Vector2[] path, ColorRgba startColor, ColorRgba endColor, ColorRgba nodeColor, ColorRgba lineColor)
 		{
 			var waypointPathVisualization = new WaypointPathVisualization();
 			waypointPathVisualization.StartColor = startColor;
 			waypointPathVisualization.EndColor = endColor;
 			waypointPathVisualization.NodeColor = nodeColor;
 			waypointPathVisualization.LineColor = lineColor;
-			waypointPathVisualization.SetPath(path, transformer, definitionNodes);
+			waypointPathVisualization.SetPath(path, transformer);
 			var renderer = new MockupRenderer();
 			waypointPathVisualization.Draw(renderer);
 
 			Assert.AreEqual(path.Length, renderer.FillCircleCalls.Count);
-			AssertFillCircleCall(renderer, transformer, definitionNodes, startColor, path, 0);
+			AssertFillCircleCall(renderer, transformer, startColor, path, 0);
 			for (var i = 1; i < path.Length - 1; i++)
 			{
-				AssertFillCircleCall(renderer, transformer, definitionNodes, nodeColor, path, i);
+				AssertFillCircleCall(renderer, transformer,  nodeColor, path, i);
 			}
-			AssertFillCircleCall(renderer, transformer, definitionNodes, endColor, path, path.Length - 1);
+			AssertFillCircleCall(renderer, transformer, endColor, path, path.Length - 1);
 
 			for (var i = 0; i < path.Length - 1; i++)
 			{
-				var from = transformer.ToWorld(definitionNodes[path[i]].Position);
-				var to = transformer.ToWorld(definitionNodes[path[i + 1]].Position);
+				var from = transformer.ToWorld(path[i]);
+				var to = transformer.ToWorld(path[i + 1]);
 
 				Assert.AreEqual(from, renderer.DrawLineCalls[i].from);
 				Assert.AreEqual(to, renderer.DrawLineCalls[i].to);
@@ -40,9 +41,9 @@ namespace Pathfindax.Test.Tests.Visualization
 			}
 		}
 
-		private void AssertFillCircleCall(MockupRenderer renderer, Transformer transformer, DefinitionNode[] definitionNodes, ColorRgba color, int[] path, int i)
+		private void AssertFillCircleCall(MockupRenderer renderer, Transformer transformer, ColorRgba color, Vector2[] path, int i)
 		{
-			Assert.AreEqual(definitionNodes[path[i]].Position, transformer.ToLocal(renderer.FillCircleCalls[i].position));
+			Assert.AreEqual(path[i], transformer.ToLocal(renderer.FillCircleCalls[i].position));
 			Assert.AreEqual(transformer.Scale.X * 0.25f, renderer.FillCircleCalls[i].radius);
 			Assert.AreEqual(color, renderer.FillCircleCalls[i].color);
 		}

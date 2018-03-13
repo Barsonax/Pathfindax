@@ -53,7 +53,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 			DualityApp.Mouse.Move -= Mouse_Move;
 		}
 
-		private void PathSolved(PathRequest<NodePath> pathRequest)
+		private void PathSolved(PathRequest<WaypointPath> pathRequest)
 		{
 			Path = pathRequest.CompletedPath;
 		}

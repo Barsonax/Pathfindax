@@ -50,17 +50,15 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 
 		private void Mouse_ButtonDown(object sender, MouseButtonEventArgs e)
 		{
-			var position = Camera.GetSpaceCoord(e.Position);
-			var clickedNodeIndex = _definitionNodeNetwork.GetNodeIndex(position.X, position.Y);
-			if (_astarAlgorithmVisualization.NodePathVisualization.End == -1)
+			var position = Camera.GetSpaceCoord(e.Position).Xy;
+			if (_astarAlgorithmVisualization.EndIndex == null && _astarAlgorithmVisualization.StartIndex != null)
 			{
-				_astarAlgorithmVisualization.NodePathVisualization.End = clickedNodeIndex;
+				_astarAlgorithmVisualization.SetEnd(position);
 				_astarAlgorithmVisualization.Start(0f, PathfindaxCollisionCategory.All);
 			}
 			else
 			{
-				_astarAlgorithmVisualization.Stop();
-				_astarAlgorithmVisualization.NodePathVisualization.Start = clickedNodeIndex;
+				_astarAlgorithmVisualization.SetStart(position);
 			}
 		}
 

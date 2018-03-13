@@ -36,7 +36,7 @@ namespace Pathfindax.Test.Tests.Algorithms
 			Assert.AreEqual(false, succes);
 		}
 
-		private NodePath RunDijkstra(DefinitionNodeGrid definitionNodeGrid, Point2 gridStart, Point2 gridEnd, out bool succes)
+		private WaypointPath RunDijkstra(DefinitionNodeGrid definitionNodeGrid, Point2 gridStart, Point2 gridEnd, out bool succes)
 		{
 			var dijkstraAlgorithm = new DijkstraAlgorithm(definitionNodeGrid.NodeCount);
 

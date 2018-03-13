@@ -10,7 +10,7 @@ namespace Pathfindax.Algorithms
 	/// <summary>
 	/// Algorithm for potential and flow fields. Not to be used directly except for testing purposes.
 	/// </summary>
-	public class DijkstraAlgorithm : IPathFindAlgorithm<IPathfindNodeNetwork<DijkstraNode>, NodePath>
+	public class DijkstraAlgorithm : IPathFindAlgorithm<IPathfindNodeNetwork<DijkstraNode>, WaypointPath>
 	{
 		public IEnumerable<int> OpenSet => _openSet;
 		public IEnumerable<int> ClosedSet => _closedSet;
@@ -33,19 +33,19 @@ namespace Pathfindax.Algorithms
 			_closedSet = new LookupArray(amountOfNodes);
 		}
 
-		public NodePath FindPath(IPathfindNodeNetwork<DijkstraNode> nodeNetwork, IPathRequest pathRequest, out bool succes)
+		public WaypointPath FindPath(IPathfindNodeNetwork<DijkstraNode> nodeNetwork, IPathRequest pathRequest, out bool succes)
 		{
 			if (pathRequest.PathStart == pathRequest.PathEnd)
 			{
 				succes = true;
-				return NodePath.GetEmptyPath(nodeNetwork, pathRequest.PathStart);
+				return WaypointPath.GetEmptyPath(nodeNetwork, pathRequest.PathStart);
 			}
 			var pathfindingNetwork = nodeNetwork.GetCollisionLayerNetwork(pathRequest.CollisionCategory);
 
 			if (!(pathfindingNetwork[pathRequest.PathStart].Clearance >= pathRequest.AgentSize) || !(pathfindingNetwork[pathRequest.PathEnd].Clearance >= pathRequest.AgentSize))
 			{
 				succes = false;
-				return NodePath.GetEmptyPath(nodeNetwork, pathRequest.PathStart);
+				return WaypointPath.GetEmptyPath(nodeNetwork, pathRequest.PathStart);
 			}
 
 			Start(pathfindingNetwork, nodeNetwork.DefinitionNodeNetwork.NodeArray, pathRequest.PathStart, pathRequest.PathEnd, pathRequest.AgentSize, pathRequest.CollisionCategory);
@@ -54,11 +54,11 @@ namespace Pathfindax.Algorithms
 				var path = _pathRetracer.RetracePath(pathfindingNetwork, nodeNetwork.DefinitionNodeNetwork.NodeArray, pathRequest.PathStart, pathRequest.PathEnd);
 
 				succes = true;
-				return new NodePath(nodeNetwork.DefinitionNodeNetwork.NodeArray, path, nodeNetwork.DefinitionNodeNetwork.Transformer);
+				return new WaypointPath(nodeNetwork.DefinitionNodeNetwork.NodeArray, path, nodeNetwork.DefinitionNodeNetwork.Transformer);
 			}
 
 			succes = false;
-			return NodePath.GetEmptyPath(nodeNetwork, pathRequest.PathStart);
+			return WaypointPath.GetEmptyPath(nodeNetwork, pathRequest.PathStart);
 		}
 
 		public void Start(DijkstraNode[] pathfindingNetwork, DefinitionNode[] definitionNodes, int startNodeIndex, int targetNodeIndex, float neededClearance, PathfindaxCollisionCategory collisionCategory)

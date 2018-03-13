@@ -105,7 +105,7 @@
     <Compile Include="Graph\Interfaces\IPathfindNodeGenerator.cs" />
     <Compile Include="Nodes\DefinitionNode.cs" />
     <Compile Include="Factories\PathfinderFactory.cs" />
-    <Compile Include="Paths\NodePath.cs" />
+    <Compile Include="Paths\WaypointPath.cs" />
     <Compile Include="Paths\Interfaces\IPath.cs" />
     <Compile Include="PathfindEngine\PathRequestStatus.cs" />
     <Compile Include="Paths\PotentialField.cs" />

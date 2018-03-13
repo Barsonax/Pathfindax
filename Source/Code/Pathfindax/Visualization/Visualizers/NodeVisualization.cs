@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
+using Duality;
 using Duality.Drawing;
 using Pathfindax.Graph;
 using Pathfindax.Nodes;
@@ -21,17 +21,26 @@ namespace Pathfindax.Visualization
 
 		public void Draw(IRenderer renderer)
 		{
-			if (Nodes == null) return;
 			renderer.SetColor(Color);
-			foreach (var i in Nodes)
+			if (Nodes == null)
 			{
-				DrawNode(renderer, Transformer, DefinitionNodes[i]);
+				for (var i = 0; i < DefinitionNodes.Length; i++)
+				{
+					DrawNode(renderer, Transformer, DefinitionNodes[i].Position);
+				}
+			}
+			else
+			{
+				foreach (var i in Nodes)
+				{
+					DrawNode(renderer, Transformer, DefinitionNodes[i].Position);
+				}
 			}
 		}
 
-		public static void DrawNode(IRenderer renderer, Transformer transformer, in DefinitionNode definitionNode)
+		public static void DrawNode(IRenderer renderer, Transformer transformer, in Vector2 position)
 		{
-			var nodeWorldPosition = transformer.ToWorld(definitionNode.Position);
+			var nodeWorldPosition = transformer.ToWorld(position);
 			renderer.FillCircle(nodeWorldPosition, transformer.Scale.X * 0.25f);
 		}
 	}

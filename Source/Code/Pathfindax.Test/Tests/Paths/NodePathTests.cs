@@ -14,7 +14,7 @@ namespace Pathfindax.Test.Tests.Paths
 		[Test, TestCaseSource(typeof(PathTestCases), nameof(PathTestCases.PathLengthTestCases))]
 		public void GetPathLength(DefinitionNode[] definitionNodes, int[] path, float expectedPathLength)
 		{
-			var nodePath = new NodePath(definitionNodes, path, new Transformer(new Vector2(1f, 1f)));
+			var nodePath = new WaypointPath(definitionNodes, path, new Transformer(new Vector2(1f, 1f)));
 			var pathLength = nodePath.GetPathLength();
 			Assert.AreEqual(expectedPathLength, pathLength, 0.001f);
 		}
@@ -22,7 +22,7 @@ namespace Pathfindax.Test.Tests.Paths
 		[Test, TestCaseSource(typeof(PathTestCases), nameof(PathTestCases.PathLengthTestCases))]
 		public void NextWaypoint(DefinitionNode[] definitionNodes, int[] path, float expectedPathLength)
 		{
-			var nodePath = new NodePath(definitionNodes, path, new Transformer(new Vector2(1f, 1f)));
+			var nodePath = new WaypointPath(definitionNodes, path, new Transformer(new Vector2(1f, 1f)));
 			var waypoints = new List<Vector2>();
 			var position = definitionNodes[path[0]].Position;
 			do

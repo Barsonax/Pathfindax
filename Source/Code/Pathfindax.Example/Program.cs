@@ -103,9 +103,9 @@ namespace Pathfindax.Example
 	public class ExampleAsyncGameObject
 	{
 		public bool CallBackCalled { get; private set; }
-		private readonly IPathfinder<NodePath> _pathfinder;
+		private readonly IPathfinder<WaypointPath> _pathfinder;
 
-		public ExampleAsyncGameObject(IPathfinder<NodePath> pathfinder)
+		public ExampleAsyncGameObject(IPathfinder<WaypointPath> pathfinder)
 		{
 			_pathfinder = pathfinder;
 		}

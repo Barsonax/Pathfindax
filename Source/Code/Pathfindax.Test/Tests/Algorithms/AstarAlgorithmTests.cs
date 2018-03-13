@@ -37,7 +37,7 @@ namespace Pathfindax.Test.Tests.Algorithms
 			Assert.AreEqual(false, succes);
 		}
 
-		private NodePath RunAstar(DefinitionNodeGrid definitionNodeGrid, Point2 gridStart, Point2 gridEnd, out bool succes)
+		private WaypointPath RunAstar(DefinitionNodeGrid definitionNodeGrid, Point2 gridStart, Point2 gridEnd, out bool succes)
 		{
 			var aStarAlgorithm = new AStarAlgorithm(definitionNodeGrid.NodeCount, new EuclideanDistance());
 
