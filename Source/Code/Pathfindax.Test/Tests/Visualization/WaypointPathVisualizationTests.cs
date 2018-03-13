@@ -1,5 +1,4 @@
-﻿using System;
-using Duality.Drawing;
+﻿using Duality.Drawing;
 using NUnit.Framework;
 using Pathfindax.Graph;
 using Pathfindax.Nodes;
