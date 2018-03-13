@@ -53,7 +53,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 			var position = Camera.GetSpaceCoord(e.Position).Xy;
 			if (_astarAlgorithmVisualization.EndIndex == null && _astarAlgorithmVisualization.StartIndex != null)
 			{
-				_astarAlgorithmVisualization.SetEnd(position);
+				_astarAlgorithmVisualization.SetTarget(position);
 				_astarAlgorithmVisualization.Start(0f, PathfindaxCollisionCategory.All);
 			}
 			else

@@ -33,5 +33,13 @@ namespace Pathfindax.Test.Tests.Visualization
 		{
 			DrawTextCalls.Add((CurrentColor, position, text));
 		}
+
+		public void ClearCalls()
+		{
+			FillCircleCalls.Clear();
+			DrawLineCalls.Clear();
+			DrawTextCalls.Clear();
+			SetColorCalls.Clear();
+		}
 	}
 }

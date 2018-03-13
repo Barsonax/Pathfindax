@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using Duality;
 using Pathfindax.Algorithms;
 using Pathfindax.Graph;
@@ -17,7 +16,11 @@ namespace Pathfindax.Paths
 
 		public WaypointPath(DefinitionNode[] definitionNodes, int[] path, Transformer transformer)
 		{
-			Path = path.Select(i => definitionNodes[i].Position).ToArray();
+			Path = new Vector2[path.Length];
+			for (var i = 0; i < path.Length; i++)
+			{
+				Path[i] = definitionNodes[path[i]].Position;
+			}
 			Transformer = transformer;
 		}
 

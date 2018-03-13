@@ -18,8 +18,8 @@ namespace Pathfindax.Visualization
 		public Vector2? End { get; set; }
 
 		public ColorRgba StartColor { get; set; } = ColorRgba.White;
-		public ColorRgba EndColor { get; set; } = ColorRgba.Black;
-		public ColorRgba NodeColor { get; set; } = ColorRgba.Blue;
+		public ColorRgba TargetColor { get; set; } = ColorRgba.Black;
+		public ColorRgba WaypointColor { get; set; } = ColorRgba.Blue;
 		public ColorRgba LineColor { get; set; } = ColorRgba.Green;
 
 		public void SetPath(Vector2[] waypointPath, Transformer transformer)
@@ -50,7 +50,7 @@ namespace Pathfindax.Visualization
 					renderer.DrawLine(from, to);
 				}
 
-				renderer.SetColor(NodeColor);
+				renderer.SetColor(WaypointColor);
 				for (var i = 1; i < Path.Length - 1; i++)
 				{
 					NodeVisualization.DrawNode(renderer, Transformer, Path[i]);
@@ -59,7 +59,7 @@ namespace Pathfindax.Visualization
 
 			if (End != null)
 			{
-				renderer.SetColor(EndColor);
+				renderer.SetColor(TargetColor);
 				NodeVisualization.DrawNode(renderer, Transformer, End.Value);
 			}
 		}

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using Duality;
 using Duality.Drawing;
 using Pathfindax.Algorithms;
@@ -13,14 +12,43 @@ namespace Pathfindax.Visualization
 		public int? StartIndex { get; private set; }
 		public int? EndIndex { get; private set; }
 
+		public ColorRgba ClosedSetColor
+		{
+			get => _closedSetVisualization.Color;
+			set => _closedSetVisualization.Color = value;
+		}
+
+		public ColorRgba OpenSetColor
+		{
+			get => _openSetVisualization.Color;
+			set => _openSetVisualization.Color = value;
+		}
+
+		public ColorRgba StartColor
+		{
+			get => _nodePathVisualization.StartColor;
+			set => _nodePathVisualization.StartColor = value;
+		}
+
+		public ColorRgba TargetColor
+		{
+			get => _nodePathVisualization.TargetColor;
+			set => _nodePathVisualization.TargetColor = value;
+		}
+
+		public ColorRgba WaypointColor
+		{
+			get => _nodePathVisualization.WaypointColor;
+			set => _nodePathVisualization.WaypointColor = value;
+		}
 
 		private readonly AStarAlgorithm _aStarAlgorithm;
 		private readonly IDefinitionNodeNetwork _definitionNodeGrid;
 		private readonly AstarNodeNetwork _astarNodeNetwork;
 		private bool _isRunning;
 
-		public NodeVisualization ClosedSetVisualization { get; }
-		public NodeVisualization OpenSetVisualization { get; }
+		private readonly NodeVisualization _closedSetVisualization;
+		private readonly NodeVisualization _openSetVisualization;
 		private readonly WaypointPathVisualization _nodePathVisualization;
 
 		public AstarAlgorithmVisualization(IDefinitionNodeNetwork definitionNodeNetwork)
@@ -28,8 +56,8 @@ namespace Pathfindax.Visualization
 			_astarNodeNetwork = new AstarNodeNetwork(definitionNodeNetwork);
 			_definitionNodeGrid = definitionNodeNetwork;
 			_aStarAlgorithm = new AStarAlgorithm(definitionNodeNetwork.NodeCount, new EuclideanDistance());
-			OpenSetVisualization = new NodeVisualization(definitionNodeNetwork.NodeArray, definitionNodeNetwork.Transformer) { Color = ColorRgba.Green };
-			ClosedSetVisualization = new NodeVisualization(definitionNodeNetwork.NodeArray, definitionNodeNetwork.Transformer) { Color = ColorRgba.Red };
+			_openSetVisualization = new NodeVisualization(definitionNodeNetwork.NodeArray, definitionNodeNetwork.Transformer) { Color = ColorRgba.Green };
+			_closedSetVisualization = new NodeVisualization(definitionNodeNetwork.NodeArray, definitionNodeNetwork.Transformer) { Color = ColorRgba.Red };
 
 			_nodePathVisualization = new WaypointPathVisualization
 			{
@@ -44,7 +72,7 @@ namespace Pathfindax.Visualization
 			_nodePathVisualization.Start = _definitionNodeGrid.NodeArray[StartIndex.Value].Position;
 		}
 
-		public void SetEnd(Vector2 worldPosition)
+		public void SetTarget(Vector2 worldPosition)
 		{
 			EndIndex = _definitionNodeGrid.GetNodeIndex(worldPosition.X, worldPosition.Y);
 			_nodePathVisualization.End = _definitionNodeGrid.NodeArray[EndIndex.Value].Position;
@@ -52,18 +80,18 @@ namespace Pathfindax.Visualization
 
 		public void Start(float neededClearance, PathfindaxCollisionCategory collisionCategory)
 		{
-			if (StartIndex == null || StartIndex == null) throw new NullReferenceException();
+			if (StartIndex == null || EndIndex == null) throw new NullReferenceException();
 			var astarNodeArray = _astarNodeNetwork.GetCollisionLayerNetwork(collisionCategory);
 			_aStarAlgorithm.Start(astarNodeArray, _definitionNodeGrid.NodeArray, StartIndex.Value, EndIndex.Value, neededClearance, collisionCategory);
-			ClosedSetVisualization.Nodes = _aStarAlgorithm.ClosedSet;
-			OpenSetVisualization.Nodes = _aStarAlgorithm.OpenSet;
+			_closedSetVisualization.Nodes = _aStarAlgorithm.ClosedSet;
+			_openSetVisualization.Nodes = _aStarAlgorithm.OpenSet;
 			_isRunning = true;
 		}
 
 		public void Stop()
 		{
-			ClosedSetVisualization.Nodes = null;
-			OpenSetVisualization.Nodes = null;
+			_closedSetVisualization.Nodes = null;
+			_openSetVisualization.Nodes = null;
 			_nodePathVisualization.Path = null;
 			_nodePathVisualization.Start = null;
 			_nodePathVisualization.End = null;
@@ -93,8 +121,12 @@ namespace Pathfindax.Visualization
 
 		public void Draw(IRenderer renderer)
 		{
-			OpenSetVisualization.Draw(renderer);
-			ClosedSetVisualization.Draw(renderer);
+			if (_isRunning)
+			{
+				_openSetVisualization.Draw(renderer);
+				_closedSetVisualization.Draw(renderer);
+			}
+
 			_nodePathVisualization.Draw(renderer);
 		}
 	}

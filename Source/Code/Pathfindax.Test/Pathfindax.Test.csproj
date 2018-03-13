@@ -83,6 +83,7 @@
     <Compile Include="Tests\Threading\MultithreadedWorkerQueueTests.cs" />
     <Compile Include="Tests\PathfindEngine\PathRequestTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tests\Visualization\AstarAlgorithmVisualizationTests.cs" />
     <Compile Include="Tests\Visualization\MockupRenderer.cs" />
     <Compile Include="Tests\Visualization\NodeConnectionVisualizationTests.cs" />
     <Compile Include="Tests\Visualization\VectorFieldVisualizationTests.cs" />

@@ -23,6 +23,16 @@ namespace Pathfindax.Test.Tests.Visualization
 			}
 		}
 
+		public static IEnumerable AstarAlgorithmVisualizationTestCases
+		{
+			get
+			{
+				yield return AstarAlgorithmVisualizationTestCase(3, 3, Vector2.One, Vector2.Zero, new Vector2(0, 0), new Vector2(2, 2));
+				yield return AstarAlgorithmVisualizationTestCase(2, 3, Vector2.One, Vector2.Zero, new Vector2(0, 0), new Vector2(1, 2));
+				yield return AstarAlgorithmVisualizationTestCase(6, 5, Vector2.One, Vector2.Zero, new Vector2(0, 0), new Vector2(4, 3));
+			}
+		}
+
 		public static IEnumerable WaypointNodeVisualizationTestCases
 		{
 			get
@@ -70,6 +80,13 @@ namespace Pathfindax.Test.Tests.Visualization
 			var definitionNodes = factory.GeneratePreFilledArray(GenerateNodeGridConnections.All, width, height).Array;
 			var transform = new Transformer(scale, position);
 			return new TestCaseData(definitionNodes, transform).SetName($"Width: {width} Height: {height} Scale: {scale} Position: {position}");
+		}
+
+		private static TestCaseData AstarAlgorithmVisualizationTestCase(int width, int height, Vector2 scale, Vector2 position, Vector2 start, Vector2 target)
+		{
+			var factory = new DefinitionNodeGridFactory();
+			var definitionNodes = factory.GeneratePreFilledArray(GenerateNodeGridConnections.All, width, height);
+			return new TestCaseData(new DefinitionNodeGrid(definitionNodes, scale, position), start, target).SetName($"Width: {width} Height: {height} Scale: {scale} Position: {position}");
 		}
 	}
 }

@@ -15,8 +15,8 @@ namespace Pathfindax.Test.Tests.Visualization
 		{
 			var waypointPathVisualization = new WaypointPathVisualization();
 			waypointPathVisualization.StartColor = startColor;
-			waypointPathVisualization.EndColor = endColor;
-			waypointPathVisualization.NodeColor = nodeColor;
+			waypointPathVisualization.TargetColor = endColor;
+			waypointPathVisualization.WaypointColor = nodeColor;
 			waypointPathVisualization.LineColor = lineColor;
 			waypointPathVisualization.SetPath(path, transformer);
 			var renderer = new MockupRenderer();
