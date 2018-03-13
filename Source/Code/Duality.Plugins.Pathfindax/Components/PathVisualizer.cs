@@ -25,7 +25,7 @@ namespace Duality.Plugins.Pathfindax.Components
 		[EditorHintFlags(MemberFlags.Invisible)]
 		public float BoundRadius { get; } = 0;
 
-		private NodePathVisualization _nodePathVisualization;
+		private WaypointPathVisualization _nodePathVisualization;
 		private VectorFieldVisualization _vectorFieldVisualization;
 
 		private global::Pathfindax.Visualization.PathVisualization _pathVisualization;

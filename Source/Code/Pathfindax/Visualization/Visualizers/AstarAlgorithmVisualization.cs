@@ -14,7 +14,7 @@ namespace Pathfindax.Visualization
 
 		public NodeVisualization ClosedSetVisualization { get; }
 		public NodeVisualization OpenSetVisualization { get; }
-		public NodePathVisualization NodePathVisualization { get; }
+		public WaypointPathVisualization NodePathVisualization { get; }
 
 		public AstarAlgorithmVisualization(IDefinitionNodeNetwork definitionNodeNetwork)
 		{
@@ -24,7 +24,7 @@ namespace Pathfindax.Visualization
 			OpenSetVisualization = new NodeVisualization(definitionNodeNetwork.NodeArray, definitionNodeNetwork.Transformer) { Color = ColorRgba.Green };
 			ClosedSetVisualization = new NodeVisualization(definitionNodeNetwork.NodeArray, definitionNodeNetwork.Transformer) { Color = ColorRgba.Red };
 
-			NodePathVisualization = new NodePathVisualization
+			NodePathVisualization = new WaypointPathVisualization
 			{
 				Transformer = definitionNodeNetwork.Transformer,
 				NodeArray = definitionNodeNetwork.NodeArray

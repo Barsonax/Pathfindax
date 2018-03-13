@@ -4,7 +4,7 @@ using Pathfindax.Nodes;
 
 namespace Pathfindax.Visualization
 {
-	public class NodePathVisualization : IVisualizer
+	public class WaypointPathVisualization : IVisualizer
 	{
 		public Transformer Transformer { get; set; }
 		public DefinitionNode[] NodeArray { get; set; }
@@ -19,9 +19,25 @@ namespace Pathfindax.Visualization
 		public ColorRgba NodeColor { get; set; } = ColorRgba.Blue;
 		public ColorRgba LineColor { get; set; } = ColorRgba.Green;
 
+		public void SetPath(int[] waypointPath, Transformer transformer, DefinitionNode[] definitionNodes)
+		{
+			Path = waypointPath;
+			Start = waypointPath[0];
+			End = waypointPath[waypointPath.Length - 1];
+			Transformer = transformer;
+			NodeArray = definitionNodes;
+		}
+
 		public void Draw(IRenderer renderer)
 		{
-			if (NodeArray == null) return;
+			if (NodeArray == null || Transformer == null) return;
+
+			if (Start != -1)
+			{
+				renderer.SetColor(StartColor);
+				NodeVisualization.DrawNode(renderer, Transformer, NodeArray[Start]);
+			}
+
 			if (Path != null)
 			{
 				renderer.SetColor(LineColor);
@@ -37,12 +53,6 @@ namespace Pathfindax.Visualization
 				{
 					NodeVisualization.DrawNode(renderer, Transformer, NodeArray[Path[i]]);
 				}
-			}
-
-			if (Start != -1)
-			{
-				renderer.SetColor(StartColor);
-				NodeVisualization.DrawNode(renderer, Transformer, NodeArray[Start]);
 			}
 
 			if (End != -1)
