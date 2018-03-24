@@ -4,13 +4,13 @@ using Pathfindax.Algorithms;
 using Pathfindax.Factories;
 using Pathfindax.Graph;
 using Pathfindax.PathfindEngine;
-using Pathfindax.Utils;
 using Pathfindax.Paths;
+using Pathfindax.Utils;
 
 namespace Pathfindax.Example
 {
-	class Program
-	{
+    class Program
+    {
 		static void Main(string[] args)
 		{
 			PollingExample();
@@ -31,7 +31,7 @@ namespace Pathfindax.Example
 			var pathfinder = pathfindaxManager.CreateAstarPathfinder(definitionNodeGrid, new ManhattanDistance());
 
 			var exampleGameObject = new ExampleAsyncGameObject(pathfinder);
-			
+
 			//Wait till callback is called.
 			while (!exampleGameObject.CallBackCalled)
 			{

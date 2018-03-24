@@ -1,184 +1,19 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D4DFA287-B394-4D15-97E0-D2A0675D26A6}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Pathfindax</RootNamespace>
-    <AssemblyName>Pathfindax</AssemblyName>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile>Profile111</TargetFrameworkProfile>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <MinimumVisualStudioVersion>11.0</MinimumVisualStudioVersion>
+    <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>..\Binaries\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\Binaries\Debug\Pathfindax.xml</DocumentationFile>
-    <NoWarn>1591</NoWarn>
-    <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <TargetFrameworkProfile>Profile111</TargetFrameworkProfile>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>..\Binaries\Release\</OutputPath>
-    <DefineConstants>
-    </DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <NoWarn>1591</NoWarn>
-    <DocumentationFile>..\Binaries\Release\Pathfindax.xml</DocumentationFile>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Benchmark|AnyCPU'">
-    <OutputPath>..\Binaries\Benchmark\</OutputPath>
-    <DefineConstants>
-    </DefineConstants>
-    <Optimize>true</Optimize>
-    <DocumentationFile>..\Binaries\Benchmark\Pathfindax.xml</DocumentationFile>
-    <LangVersion>latest</LangVersion>
-    <DebugType>pdbonly</DebugType>
-    <DebugSymbols>true</DebugSymbols>
-    <ErrorReport>prompt</ErrorReport>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="DualityPrimitives, Version=2.0.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\AdamsLair.Duality.Primitives.2.0.5\lib\DualityPrimitives.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Algorithms\Heuristics\ChebyshevDistance.cs" />
-    <Compile Include="Algorithms\Heuristics\EuclideanDistance.cs" />
-    <Compile Include="Algorithms\Interfaces\IDistanceHeuristic.cs" />
-    <Compile Include="Algorithms\Heuristics\ManhattanDistance.cs" />
-    <Compile Include="Algorithms\Heuristics\OctileDistance.cs" />
-    <Compile Include="Factories\CollisionDirection.cs" />
-    <Compile Include="Factories\NodeGridCollisionLayer.cs" />
-    <Compile Include="Factories\NodeGridCollisionMask.cs" />
-    <Compile Include="Paths\Interfaces\IVectorField.cs" />
-    <Compile Include="Paths\Interfaces\IWaypointPath.cs" />
-    <Compile Include="Threading\Interfaces\ISynchronizationContext.cs" />
-    <Compile Include="Threading\Interfaces\IUpdatableSynchronizationContext.cs" />
-    <Compile Include="Algorithms\Utils\PathRetracer.cs" />
-    <Compile Include="Collections\ConcurrentCache.cs" />
-    <Compile Include="Algorithms\DijkstraAlgorithm.cs" />
-    <Compile Include="Algorithms\PotentialFieldAlgorithm.cs" />
-    <Compile Include="Collections\Interfaces\IPriority.cs" />
-    <Compile Include="Collections\LookupArray.cs" />
-    <Compile Include="Collections\IndexMinHeap.cs" />
-    <Compile Include="Graph\Transformer.cs" />
-    <Compile Include="PathfindEngine\DynamicPotentialFieldUpdater.cs" />
-    <Compile Include="PathfindEngine\Exceptions\InvalidAgentSizeException.cs" />
-    <Compile Include="PathfindEngine\Exceptions\NoDefinitionNodeNetworkException.cs" />
-    <Compile Include="PathfindEngine\Exceptions\NoHeuristicException.cs" />
-    <Compile Include="PathfindEngine\Interfaces\IPathfindaxManager.cs" />
-    <Compile Include="Threading\PathfindaxSynchronizationContext.cs" />
-    <Compile Include="Paths\AggregratedPotentialField.cs" />
-    <Compile Include="Paths\DynamicPotentialField.cs" />
-    <Compile Include="Paths\PotentialFunction.cs" />
-    <Compile Include="Paths\QuadraticPotentialFunction.cs" />
-    <Compile Include="Paths\PotentialFieldBase.cs" />
-    <Compile Include="Graph\GridTransformer.cs" />
-    <Compile Include="PathfindEngine\Exceptions\InvalidPathfinderTypeException.cs" />
-    <Compile Include="PathfindEngine\Exceptions\PathfinderNotFoundException.cs" />
-    <Compile Include="PathfindEngine\Interfaces\IPathRequest.cs" />
-    <Compile Include="PathfindEngine\PathfindaxManager.cs" />
-    <Compile Include="PathfindEngine\SingleSourcePathRequestComparer.cs" />
-    <Compile Include="Paths\FlowField.cs" />
-    <Compile Include="Nodes\DijkstraNode.cs" />
-    <Compile Include="Algorithms\FlowFieldAlgorithm.cs" />
-    <Compile Include="Graph\DijkstraNodeGrid.cs" />
-    <Compile Include="Collections\Interfaces\IReadOnlyArray2D.cs" />
-    <Compile Include="Collections\Interfaces\IWriteOnlyArray2D.cs" />
-    <Compile Include="Graph\BrushfireClearanceGenerator.cs" />
-    <Compile Include="Graph\Interfaces\IPathfindNodeGenerator.cs" />
-    <Compile Include="Nodes\DefinitionNode.cs" />
-    <Compile Include="Factories\PathfinderFactory.cs" />
-    <Compile Include="Paths\WaypointPath.cs" />
-    <Compile Include="Paths\Interfaces\IPath.cs" />
-    <Compile Include="PathfindEngine\PathRequestStatus.cs" />
-    <Compile Include="Paths\PotentialField.cs" />
-    <Compile Include="Threading\SynchronizationContextAdapter.cs" />
-    <Compile Include="Utils\ArrayExtensions.cs" />
-    <Compile Include="Utils\ReadOnlyArray2DExtensions.cs" />
-    <Compile Include="Algorithms\Interfaces\IPathFindAlgorithm.cs" />
-    <Compile Include="Collections\Array2D.cs" />
-    <Compile Include="Graph\AstarNodeNetwork.cs" />
-    <Compile Include="Factories\DefinitionNodeGridFactory.cs" />
-    <Compile Include="Graph\Enums\GenerateNodeGridConnections.cs" />
-    <Compile Include="Graph\Interfaces\IPathfindNodeNetwork.cs" />
-    <Compile Include="Graph\Interfaces\IDefinitionNodeNetwork.cs" />
-    <Compile Include="Algorithms\AStarAlgorithm.cs" />
-    <Compile Include="Graph\DefinitionNodeNetwork.cs" />
-    <Compile Include="Nodes\AstarNode.cs" />
-    <Compile Include="Graph\Interfaces\IDefinitionNodeGrid.cs" />
-    <Compile Include="Graph\Interfaces\IDefinitionNodeNetworkProvider.cs" />
-    <Compile Include="Graph\DefinitionNodeGrid.cs" />
-    <Compile Include="Nodes\NodeConnection.cs" />
-    <Compile Include="Nodes\Enums\PathfindaxCollisionCategory.cs" />
-    <Compile Include="PathfindEngine\Interfaces\IPathfinder.cs" />
-    <Compile Include="PathfindEngine\Pathfinder.cs" />
-    <Compile Include="PathfindEngine\PathRequestProcesser.cs" />
-    <Compile Include="PathfindEngine\PathRequest.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Threading\BlockingQueue.cs" />
-    <Compile Include="Threading\Interfaces\IProcesser.cs" />
-    <Compile Include="Threading\Interfaces\IQueueReader.cs" />
-    <Compile Include="Threading\Interfaces\IQueueWriter.cs" />
-    <Compile Include="Threading\MultithreadedWorkerQueue.cs" />
-    <Compile Include="Threading\Worker.cs" />
-    <Compile Include="Threading\WorkItem.cs" />
-    <Compile Include="Utils\PathfindaxMathF.cs" />
-    <Compile Include="Utils\PathfindaxStrings.cs" />
-    <Compile Include="Visualization\Visualizers\AstarAlgorithmVisualization.cs" />
-    <Compile Include="Visualization\Visualizers\NodeConnectionVisualization.cs" />
-    <Compile Include="Visualization\Interfaces\IVisualizer.cs" />
-    <Compile Include="Visualization\Visualizers\NodeVisualization.cs" />
-    <Compile Include="Visualization\Visualizers\PathfindNodeNetworkVisualization.cs" />
-    <Compile Include="Visualization\Visualizers\WaypointPathVisualization.cs" />
-    <Compile Include="Visualization\Visualizers\PathVisualization.cs" />
-    <Compile Include="Visualization\Visualizers\NodeTextVisualization.cs" />
-    <Compile Include="Visualization\Visualizers\VectorFieldVisualization.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-    <None Include="Pathfindax.nuspec" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Nodes\Interfaces\" />
-  </ItemGroup>
-  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>if $(ConfigurationName) == Debug GOTO copyToPlugin
-if $(ConfigurationName) == Benchmark GOTO copyToPlugin
 
-ECHO ------ Skipping copy to plugin for configuration $(ConfigurationName) ------
-GOTO end
+  <ItemGroup>
+    <PackageReference Include="AdamsLair.Duality.Primitives" Version="2.0.6" />
+  </ItemGroup>
 
-:copyToPlugin
-mkdir "$(SolutionDir)../../Plugins"
-copy "$(TargetPath)" "$(SolutionDir)../../Plugins"
-copy "$(TargetDir)$(TargetName).pdb" "$(SolutionDir)../../Plugins"
-xcopy /Y "$(TargetDir)*.core.xml" "$(SolutionDir)../../Plugins"
-
-:end</PostBuildEvent>
-  </PropertyGroup>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

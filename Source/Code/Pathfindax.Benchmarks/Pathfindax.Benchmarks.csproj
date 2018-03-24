@@ -171,10 +171,6 @@
       <Project>{2C152114-2BAD-4B2E-9B53-BB51E66AF9E6}</Project>
       <Name>Pathfindax.Test</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Pathfindax\Pathfindax.csproj">
-      <Project>{D4DFA287-B394-4D15-97E0-D2A0675D26A6}</Project>
-      <Name>Pathfindax</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

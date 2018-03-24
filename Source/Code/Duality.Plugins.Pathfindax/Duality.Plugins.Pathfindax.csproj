@@ -1,134 +1,23 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
-    <StartAction>Program</StartAction>
-    <StartProgram>$(SolutionDir)..\..\DualityLauncher.exe</StartProgram>
-    <StartWorkingDirectory>$(SolutionDir)..\..</StartWorkingDirectory>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
-    <StartAction>Program</StartAction>
-    <StartProgram>$(SolutionDir)..\..\DualityLauncher.exe</StartProgram>
-    <StartWorkingDirectory>$(SolutionDir)..\..</StartWorkingDirectory>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Benchmark|AnyCPU'">
-    <StartAction>Program</StartAction>
-    <StartProgram>$(SolutionDir)..\..\DualityLauncher.exe</StartProgram>
-    <StartWorkingDirectory>$(SolutionDir)..\..</StartWorkingDirectory>
-  </PropertyGroup>
+<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{AFE883F3-72B4-4C7C-A1D1-44EDC09C8F6E}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Duality.Plugins.Pathfindax</RootNamespace>
-    <AssemblyName>Duality.Plugins.Pathfindax.core</AssemblyName>
-    <FileAlignment>512</FileAlignment>
-    <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <TargetFrameworkProfile>Profile111</TargetFrameworkProfile>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <MinimumVisualStudioVersion>11.0</MinimumVisualStudioVersion>
+    <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>..\Binaries\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>0</WarningLevel>
-    <DocumentationFile>..\Binaries\Debug\Duality.Plugins.Pathfindax.core.xml</DocumentationFile>
-    <NoWarn>
-    </NoWarn>
-    <Prefer32Bit>false</Prefer32Bit>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>..\Binaries\Release\</OutputPath>
-    <DefineConstants>
-    </DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\Binaries\Release\Duality.Plugins.Pathfindax.core.XML</DocumentationFile>
-    <NoWarn>1591,1592,1573,1571,1570,1572</NoWarn>
-    <Prefer32Bit>false</Prefer32Bit>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Benchmark|AnyCPU'">
-    <OutputPath>..\Binaries\Benchmark\</OutputPath>
-    <Optimize>true</Optimize>
-    <DefineConstants>
-    </DefineConstants>
-    <DocumentationFile>..\Binaries\Benchmark\Duality.Plugins.Pathfindax.core.XML</DocumentationFile>
-    <WarningLevel>4</WarningLevel>
-    <DebugType>pdbonly</DebugType>
-    <DebugSymbols>true</DebugSymbols>
-    <ErrorReport>prompt</ErrorReport>
-    <LangVersion>latest</LangVersion>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="Duality, Version=2.14.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\AdamsLair.Duality.2.14.2\lib\Duality.dll</HintPath>
-    </Reference>
-    <Reference Include="DualityPrimitives, Version=2.0.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\AdamsLair.Duality.Primitives.2.0.5\lib\DualityPrimitives.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Components\DynamicPotentialFieldComponent.cs" />
-    <Compile Include="Components\Extensions\GameObjectExtensions.cs" />
-    <Compile Include="Components\FlowFieldPathfinderComponent.cs" />
-    <Compile Include="Components\AstarPathfinderComponent.cs" />
-    <Compile Include="Components\Interfaces\IDualityPathfinderComponent.cs" />
-    <Compile Include="Components\Interfaces\IPathProvider.cs" />
-    <Compile Include="Components\PathVisualizer.cs" />
-    <Compile Include="Components\PathfinderComponentBase.cs" />
-    <Compile Include="Components\NodeNetworkVisualizer.cs" />
-    <Compile Include="Components\PotentialFieldPathfinderComponent.cs" />
-    <Compile Include="PathfindaxDualityCorePlugin.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Serialization\PathSurrogate.cs" />
-    <Compile Include="Visualization\DualityNodeNetworkVisualizer.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Duality.Plugins.Pathfindax.nuspec" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Pathfindax\Pathfindax.csproj">
-      <Project>{d4dfa287-b394-4d15-97e0-d2a0675d26a6}</Project>
-      <Name>Pathfindax</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Visualization\Extensions\" />
-  </ItemGroup>
-  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>if $(ConfigurationName) == Debug GOTO copyToPlugin
-if $(ConfigurationName) == Benchmark GOTO copyToPlugin
 
-ECHO ------ Skipping copy to plugin for configuration $(ConfigurationName) ------
-GOTO end
+  <ItemGroup>
+    <PackageReference Include="AdamsLair.Duality" Version="2.14.8" />
+  </ItemGroup>
 
-:copyToPlugin
-mkdir "$(SolutionDir)../../Plugins"
-copy "$(TargetPath)" "$(SolutionDir)../../Plugins"
-copy "$(TargetDir)$(TargetName).pdb" "$(SolutionDir)../../Plugins"
-xcopy /Y "$(TargetDir)*.core.xml" "$(SolutionDir)../../Plugins"
+  <ItemGroup>
+    <ProjectReference Include="..\Pathfindax\Pathfindax.csproj" />
+  </ItemGroup>
 
-:end</PostBuildEvent>
-  </PropertyGroup>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>
