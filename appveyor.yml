@@ -19,13 +19,6 @@ build:
   publish_nuget_symbols: true
   include_nuget_references: true
   verbosity: minimal
-artifacts:
-- path: Source\Code\Binaries\Release\Pathfindax.dll
-  name: Pathfindax.dll
-- path: Source\Code\Binaries\Release\Duality.Plugins.Pathfindax.core.dll
-  name: Pathfindax.Duality.core.dll
-- path: Source\Code\Binaries\Release\Duality.Plugins.Pathfindax.Tilemaps.core.dll
-  name: Pathfindax.Duality.Tilemaps.dll
 deploy:
 - provider: NuGet
   api_key:

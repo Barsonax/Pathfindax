@@ -10,7 +10,7 @@
     <PlatformTarget>x86</PlatformTarget>
     <OutputPath>..\Binaries\Debug\</OutputPath>
     <DocumentationFile>..\Binaries\Debug\Pathfindax.Duality.Examples.core.xml</DocumentationFile>
-    <NoWarn>1701;1702;1705;1591</NoWarn>
+    <NoWarn>1701;1702;1705;1591;NU1701</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
