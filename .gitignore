@@ -151,3 +151,7 @@
 /OpenAL32.dll
 /Source/Code/Duality.Plugins.Pathfindax/bin/Debug/netstandard2.0
 /Source/Code/Duality.Plugins.Pathfindax.Tilemaps/bin/Debug/netstandard2.0
+/Source/Code/Duality.Plugins.Pathfindax/bin/Release/netstandard2.0
+/Source/Code/Duality.Plugins.Pathfindax.Examples/bin/Release/netstandard2.0
+/Source/Code/Duality.Plugins.Pathfindax.Tilemaps/bin/Release/netstandard2.0
+/Source/Code/Duality.Plugins.Pathfindax.Tilemaps.Examples/bin/Release/netstandard2.0

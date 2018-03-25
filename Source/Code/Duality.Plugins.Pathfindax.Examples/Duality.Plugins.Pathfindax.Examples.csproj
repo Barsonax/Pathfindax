@@ -1,106 +1,17 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{47800ABA-D164-43D2-971E-FEC337FD2FCA}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Duality.Plugins.Pathfindax.Examples</RootNamespace>
-    <AssemblyName>Duality.Plugins.Pathfindax.Examples.core</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
+    <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>..\Binaries\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\Binaries\Debug\Pathfindax.Duality.Examples.core.xml</DocumentationFile>
-    <NoWarn>1591,1592,1573,1571,1570,1572</NoWarn>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>..\Binaries\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Benchmark|AnyCPU'">
-    <OutputPath>..\Binaries\Benchmark\</OutputPath>
-    <Optimize>true</Optimize>
-    <DefineConstants>DEBUG</DefineConstants>
-    <DocumentationFile>..\Binaries\Benchmark\Pathfindax.Duality.Examples.core.xml</DocumentationFile>
-    <ErrorReport>prompt</ErrorReport>
-    <DebugType>pdbonly</DebugType>
-    <DebugSymbols>true</DebugSymbols>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="Duality, Version=2.14.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\AdamsLair.Duality.2.14.2\lib\Duality.dll</HintPath>
-    </Reference>
-    <Reference Include="DualityPrimitives, Version=2.0.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\AdamsLair.Duality.Primitives.2.0.5\lib\DualityPrimitives.dll</HintPath>
-    </Reference>
-    <Reference Include="FarseerDuality, Version=4.1.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\AdamsLair.FarseerDuality.4.1.4\lib\portable45-net45+win8+wpa81\FarseerDuality.dll</HintPath>
-    </Reference>
-    <Reference Include="NVorbis, Version=0.7.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\AdamsLair.NVorbis.0.7.5\lib\portable-net45+win+wpa81+MonoAndroid10+xamarinios10+MonoTouch10\NVorbis.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="SnowyPeak.Duality.Frozen.core, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SnowyPeak.Duality.Plugin.Frozen.Core.2.1.0\lib\SnowyPeak.Duality.Frozen.core.dll</HintPath>
-    </Reference>
-    <Reference Include="SnowyPeak.Duality.Frozen.Procedural.core, Version=2.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SnowyPeak.Duality.Plugin.Frozen.Procedural.2.0.1\lib\SnowyPeak.Duality.Frozen.Procedural.core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Components\AstarAlgorithmVisualizerComponent.cs" />
-    <Compile Include="Components\FlowFieldFollowerComponent.cs" />
-    <Compile Include="Components\GridMouseClickPathfinder.cs" />
-    <Compile Include="Components\NonGridMouseClickPathfinder.cs" />
-    <Compile Include="Components\PathfindaxPathSpammerComponent.cs" />
-    <Compile Include="Components\PathFollowerComponent.cs" />
-    <Compile Include="Components\PotentialFieldFollowerComponent.cs" />
-    <Compile Include="Components\SourceNodeGridProvderMockupComponent.cs" />
-    <Compile Include="Components\SourceNodeNetworkProviderMockupComponent.cs" />
-    <Compile Include="PathfindaxDualityTestCorePlugin.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>if $(ConfigurationName) == Debug GOTO copyToPlugin
-if $(ConfigurationName) == Benchmark GOTO copyToPlugin
 
-ECHO ------ Skipping copy to plugin for configuration $(ConfigurationName) ------
-GOTO end
+  <ItemGroup>
+    <PackageReference Include="AdamsLair.Duality" Version="2.14.8" />
+    <PackageReference Include="SnowyPeak.Duality.Plugin.Frozen.Procedural" Version="2.0.1" />
+  </ItemGroup>
 
-:copyToPlugin
-mkdir "$(SolutionDir)../../Plugins"
-copy "$(TargetPath)" "$(SolutionDir)../../Plugins"
-copy "$(TargetDir)$(TargetName).pdb" "$(SolutionDir)../../Plugins"
-xcopy /Y "$(TargetDir)*.core.xml" "$(SolutionDir)../../Plugins"
+  <ItemGroup>
+    <ProjectReference Include="..\Duality.Plugins.Pathfindax\Duality.Plugins.Pathfindax.csproj" />
+    <ProjectReference Include="..\Pathfindax\Pathfindax.csproj" />
+  </ItemGroup>
 
-:end</PostBuildEvent>
-  </PropertyGroup>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>
