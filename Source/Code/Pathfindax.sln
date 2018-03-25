@@ -19,11 +19,16 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pathfindax.Example", "Pathf
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pathfindax.Duality.Test", "Pathfindax.Duality.Test\Pathfindax.Duality.Test.csproj", "{3D26A941-946F-45B0-BB1D-FAA4BC30383F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pathfindax.Benchmarks", "Pathfindax.Benchmarks\Pathfindax.Benchmarks.csproj", "{4A48E6E6-35E1-466D-ABBA-FBD84E6828EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pathfindax.Benchmarks", "Pathfindax.Benchmarks\Pathfindax.Benchmarks.csproj", "{4A48E6E6-35E1-466D-ABBA-FBD84E6828EB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Duality.Plugins.Pathfindax.Examples", "Duality.Plugins.Pathfindax.Examples\Duality.Plugins.Pathfindax.Examples.csproj", "{8C215F85-0915-42AC-B7B1-C587DDD7CE77}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Duality.Plugins.Pathfindax.Examples", "Duality.Plugins.Pathfindax.Examples\Duality.Plugins.Pathfindax.Examples.csproj", "{8C215F85-0915-42AC-B7B1-C587DDD7CE77}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Duality.Plugins.Pathfindax.Tilemaps.Examples", "Duality.Plugins.Pathfindax.Tilemaps.Examples\Duality.Plugins.Pathfindax.Tilemaps.Examples.csproj", "{40BA0798-98F3-4DAF-9A0C-AED378216F73}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Duality.Plugins.Pathfindax.Tilemaps.Examples", "Duality.Plugins.Pathfindax.Tilemaps.Examples\Duality.Plugins.Pathfindax.Tilemaps.Examples.csproj", "{40BA0798-98F3-4DAF-9A0C-AED378216F73}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{78B0D24C-B1B3-48FA-9CC8-2AC0FC283133}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\appveyor.yml = ..\..\appveyor.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
