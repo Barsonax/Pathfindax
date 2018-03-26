@@ -12,6 +12,7 @@
     <Authors>Barsonax</Authors>
     <PackageTags>Pathfindax Pathfinder Pathfinding Navigator Game</PackageTags>
     <Version>1.0.0</Version>
+    <Description>The core library for the pathfindax pathfinding framework</Description>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

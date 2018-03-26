@@ -12,6 +12,7 @@
     <Authors>Barsonax</Authors>
 	  <PackageTags>Duality Pathfindax Game</PackageTags>
     <Version>1.0.0</Version>
+    <Description>Plugin that makes it easier to use pathfindax with duality</Description>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
