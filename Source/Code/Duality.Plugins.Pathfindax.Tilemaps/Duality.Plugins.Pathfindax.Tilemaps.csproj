@@ -1,13 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-  <TargetFrameworks>netstandard2.0;net45</TargetFrameworks>
-	<AssemblyName>Duality.Plugins.Pathfindax.Tilemaps.core</AssemblyName>
-	<Authors>Barsonax</Authors>
-	<PackageLicenseUrl>https://github.com/Barsonax/Pathfindax/blob/master/LICENSE</PackageLicenseUrl>
-	<PackageProjectUrl>https://github.com/Barsonax/Pathfindax</PackageProjectUrl>
-	<PackageIconUrl>https://raw.githubusercontent.com/Barsonax/Pathfindax/master/Source/Code/Icon.png</PackageIconUrl>
-	<RepositoryUrl>https://github.com/Barsonax/Pathfindax</RepositoryUrl>
+    <TargetFrameworks>netstandard2.0;net45</TargetFrameworks>
+	  <AssemblyName>Duality.Plugins.Pathfindax.Tilemaps.core</AssemblyName>
+
+	  <PackageLicenseUrl>https://github.com/Barsonax/Pathfindax/blob/master/LICENSE</PackageLicenseUrl>
+	  <PackageProjectUrl>https://github.com/Barsonax/Pathfindax</PackageProjectUrl>
+	  <PackageIconUrl>https://raw.githubusercontent.com/Barsonax/Pathfindax/master/Source/Code/Icon.png</PackageIconUrl>
+	  <RepositoryUrl>https://github.com/Barsonax/Pathfindax</RepositoryUrl>
+    <NoWarn>1701;1702;1705;1591;NU1701</NoWarn>
+    <Authors>Barsonax</Authors>
+    <PackageTags>Duality Pathfindax Tilemaps Plugin</PackageTags>
+    <Version>1.0.0</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -20,10 +24,6 @@
     <LangVersion>latest</LangVersion>
     <OutputPath>..\Binaries\Debug\</OutputPath>
     <DocumentationFile>..\Binaries\Debug\Duality.Plugins.Pathfindax.Tilemaps.core.xml</DocumentationFile>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <NoWarn>1701;1702;1705;1591;NU1701</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
