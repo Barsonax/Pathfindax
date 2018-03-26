@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;net45</TargetFrameworks>
-    <AssemblyName>Pathfindax.Tilemaps</AssemblyName>
+    <AssemblyName>Pathfindax</AssemblyName>
 
     <PackageIconUrl>https://raw.githubusercontent.com/Barsonax/Pathfindax/master/Source/Code/Icon.png</PackageIconUrl>
 	  <PackageLicenseUrl>https://github.com/Barsonax/Pathfindax/blob/master/LICENSE</PackageLicenseUrl>
@@ -10,7 +10,7 @@
 	  <RepositoryUrl>https://github.com/Barsonax/Pathfindax</RepositoryUrl>
     <NoWarn>1701;1702;1705;1591;NU1701</NoWarn>
     <Authors>Barsonax</Authors>
-    <PackageTags>Pathfindax Pathfinder</PackageTags>
+    <PackageTags>Pathfindax Pathfinder Pathfinding Navigator Game</PackageTags>
     <Version>1.0.0</Version>
   </PropertyGroup>
 
@@ -24,7 +24,10 @@
     <LangVersion>latest</LangVersion>
     <DocumentationFile>..\Binaries\Debug\Pathfindax.xml</DocumentationFile>
     <OutputPath>..\Binaries\Debug\</OutputPath>
-    <NoWarn>1701;1702;1705;1591;NU1701</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
+    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
 
   <ItemGroup>
