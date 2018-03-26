@@ -10,7 +10,7 @@
 	  <RepositoryUrl>https://github.com/Barsonax/Pathfindax</RepositoryUrl>
     <NoWarn>1701;1702;1705;1591;NU1701</NoWarn>
     <Authors>Barsonax</Authors>
-    <PackageTags>Pathfindax Pathfinder Pathfinding Navigator Game</PackageTags>
+    <PackageTags>Pathfindax Pathfinder Pathfinding Navigator Game Astar AstarPathfinder PotentialField FlowField</PackageTags>
     <Version>1.0.0</Version>
     <Description>The core library for the pathfindax pathfinding framework</Description>
   </PropertyGroup>
