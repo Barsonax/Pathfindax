@@ -1,8 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-	<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+  <TargetFrameworks>netstandard2.0;net45</TargetFrameworks>
 	<Authors>Barsonax</Authors>
 	<PackageIconUrl>https://raw.githubusercontent.com/Barsonax/Pathfindax/master/Source/Code/Icon.png</PackageIconUrl>
 	<PackageLicenseUrl>https://github.com/Barsonax/Pathfindax/blob/master/LICENSE</PackageLicenseUrl>
@@ -21,6 +20,10 @@
     <LangVersion>latest</LangVersion>
     <DocumentationFile>..\Binaries\Debug\Pathfindax.xml</DocumentationFile>
     <OutputPath>..\Binaries\Debug\</OutputPath>
+    <NoWarn>1701;1702;1705;1591;NU1701</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
     <NoWarn>1701;1702;1705;1591;NU1701</NoWarn>
   </PropertyGroup>
 

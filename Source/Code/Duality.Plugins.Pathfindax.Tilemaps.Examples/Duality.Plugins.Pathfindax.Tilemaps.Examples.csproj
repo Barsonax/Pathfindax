@@ -2,15 +2,15 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-	<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-	<AssemblyName>Duality.Plugins.Pathfindax.Tilemaps.Examples.Core</AssemblyName>
-	<IsPackable>false</IsPackable>
+	  <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+	  <AssemblyName>Duality.Plugins.Pathfindax.Tilemaps.Examples.Core</AssemblyName>
+    <IsPackable>false</IsPackable>
+    <NoWarn>1701;1702;1705;1591;NU1701</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <OutputPath>..\Binaries\Debug\</OutputPath>
     <DocumentationFile>..\Binaries\Debug\Duality.Plugins.Pathfindax.Tilemap.Examples.core.xml</DocumentationFile>
-    <NoWarn>1701;1702;1705;1591;NU1701</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

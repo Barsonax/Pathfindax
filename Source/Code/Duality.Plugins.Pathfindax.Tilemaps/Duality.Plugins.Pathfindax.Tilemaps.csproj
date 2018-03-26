@@ -1,8 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-	<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+  <TargetFrameworks>netstandard2.0;net45</TargetFrameworks>
 	<AssemblyName>Duality.Plugins.Pathfindax.Tilemaps.core</AssemblyName>
 	<Authors>Barsonax</Authors>
 	<PackageLicenseUrl>https://github.com/Barsonax/Pathfindax/blob/master/LICENSE</PackageLicenseUrl>
@@ -15,14 +14,16 @@
     <LangVersion>latest</LangVersion>
     <DocumentationFile>..\Binaries\Release\Duality.Plugins.Pathfindax.Tilemaps.core.XML</DocumentationFile>
     <OutputPath>..\Binaries\Release\</OutputPath>
-    <NoWarn>1701;1702;1705;NU1701</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <LangVersion>latest</LangVersion>
     <OutputPath>..\Binaries\Debug\</OutputPath>
     <DocumentationFile>..\Binaries\Debug\Duality.Plugins.Pathfindax.Tilemaps.core.xml</DocumentationFile>
-    <NoWarn>1701;1702;1705;1591</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <NoWarn>1701;1702;1705;1591;NU1701</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
