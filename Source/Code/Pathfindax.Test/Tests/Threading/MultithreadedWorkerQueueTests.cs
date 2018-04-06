@@ -1,14 +1,14 @@
 ﻿using System.Threading;
 using NSubstitute;
-using NUnit.Framework;
+using Xunit;
 using Pathfindax.Threading;
 
 namespace Pathfindax.Test.Tests.Threading
 {
-	[TestFixture]
+	
 	public class MultithreadedWorkerQueueTests
 	{
-		[Test]
+		[Fact]
 		public void WaitForAllWorkToBeDone_WorkersBusyAllTheTime_Passes()
 		{
 			var workerQueue = new MultithreadedWorkerQueue<bool>(() =>
@@ -37,7 +37,7 @@ namespace Pathfindax.Test.Tests.Threading
 				}
 				Thread.Sleep(10);
 			}
-			Assert.AreEqual(completed, amountOfItterations);
+			Assert.Equal(completed, amountOfItterations);
 		}
 	}
 }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Duality.Editor;
 using Pathfindax.Graph;
-using Pathfindax.Nodes;
 using Pathfindax.Utils;
 using SnowyPeak.Duality.Plugin.Frozen.Procedural;
 using INode = SnowyPeak.Duality.Plugin.Frozen.Procedural.INode;

@@ -1,7 +1,6 @@
 ﻿using Duality.Drawing;
 using Duality.Editor;
 using Duality.Plugins.Pathfindax.Visualization;
-using Pathfindax.Paths;
 using Pathfindax.Utils;
 using Pathfindax.Visualization;
 
@@ -25,10 +24,7 @@ namespace Duality.Plugins.Pathfindax.Components
 		[EditorHintFlags(MemberFlags.Invisible)]
 		public float BoundRadius { get; } = 0;
 
-		private WaypointPathVisualization _nodePathVisualization;
-		private VectorFieldVisualization _vectorFieldVisualization;
-
-		private global::Pathfindax.Visualization.PathVisualization _pathVisualization;
+		private PathVisualization _pathVisualization;
 
 		bool ICmpRenderer.IsVisible(IDrawDevice device)
 		{

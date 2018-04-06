@@ -1,5 +1,4 @@
-﻿using Duality;
-using Pathfindax.Collections;
+﻿using Pathfindax.Collections;
 using Pathfindax.Graph;
 using Pathfindax.Nodes;
 using Pathfindax.PathfindEngine;

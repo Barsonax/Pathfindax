@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 using Pathfindax.Nodes;
-using Pathfindax.Utils;
 
 namespace Pathfindax.Graph
 {

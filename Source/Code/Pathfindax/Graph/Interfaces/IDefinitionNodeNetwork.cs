@@ -1,5 +1,4 @@
-﻿using Duality;
-using Pathfindax.Nodes;
+﻿using Pathfindax.Nodes;
 
 namespace Pathfindax.Graph
 {

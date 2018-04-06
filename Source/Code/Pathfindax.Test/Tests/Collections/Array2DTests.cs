@@ -1,23 +1,22 @@
 using System;
-using System.Collections;
 using System.Linq;
 using Duality;
-using NUnit.Framework;
+using Xunit;
 using Pathfindax.Collections;
+using System.Collections.Generic;
 
 namespace Pathfindax.Test.Tests.Collections
 {
-	[TestFixture]
-	class Array2DTests
+	public class Array2DTests
 	{
-		[Test, TestCaseSource(typeof(Array2DTests), nameof(Array2DTestCases))]
+		[Theory, MemberData(nameof(Array2DTestCases), MemberType = typeof(Array2DTests))]
 		public void Array2D_2DimensionalAccess_CorrectValue(Array2D<int> array2D, Point2 pointToCheck)
 		{
 			var value = array2D[pointToCheck.X, pointToCheck.Y];
-			Assert.AreEqual(value, array2D.Array[value]);
+			Assert.Equal(value, array2D.Array[value]);
 		}
 
-		[Test]
+		[Fact]
 		public void Array2D_1DimensionalAccess_CorrectValue()
 		{
 			var array2D = new Array2D<int>(4, 4);
@@ -28,12 +27,12 @@ namespace Pathfindax.Test.Tests.Collections
 
 			for (int i = 0; i < array2D.Array.Length; i++)
 			{
-				Assert.AreEqual(i, array2D.Array[i]); 
+				Assert.Equal(i, array2D.Array[i]); 
 			}
 		}
 
-		[Test]
-		public void Array2D_Enumerate()
+        [Fact]
+        public void Array2D_Enumerate()
 		{
 			var array2D = new Array2D<int>(4, 4);
 			for (int i = 0; i < array2D.Length; i++)
@@ -42,19 +41,19 @@ namespace Pathfindax.Test.Tests.Collections
 			}
 
 			var enumeratedArray = array2D.ToArray();
-			CollectionAssert.AreEqual(array2D.Array, enumeratedArray);
+            Assert.Equal(array2D.Array, enumeratedArray);
 		}
-
-		[Test, TestCaseSource(typeof(Array2DTests), nameof(Array2DOutOfBoundsTestCases))]
+       
+        [Theory, MemberData(nameof(Array2DOutOfBoundsTestCases), MemberType = typeof(Array2DTests))]
 		public void Array2D_2DimensionalAccess_OutOfBounds(Array2D<int> array2D, Point2 pointToCheck)
 		{
-			Assert.Catch<IndexOutOfRangeException>(() =>
-			{
-				var unused = array2D[pointToCheck.X, pointToCheck.Y];
-			});
+            Assert.Throws<IndexOutOfRangeException>(() =>
+            {
+                var unused = array2D[pointToCheck.X, pointToCheck.Y];
+            });
 		}
 
-		public static IEnumerable Array2DOutOfBoundsTestCases
+		public static IEnumerable<object[]> Array2DOutOfBoundsTestCases
 		{
 			get
 			{
@@ -63,7 +62,7 @@ namespace Pathfindax.Test.Tests.Collections
 			}
 		}
 
-		public static IEnumerable Array2DTestCases
+		public static IEnumerable<object[]> Array2DTestCases
 		{
 			get
 			{
@@ -72,14 +71,14 @@ namespace Pathfindax.Test.Tests.Collections
 			}
 		}
 
-		private static TestCaseData GenerateArray2DTestCase(int width, int height, Point2 pointToCheck)
+		private static object[] GenerateArray2DTestCase(int width, int height, Point2 pointToCheck)
 		{
 			var array = new int[width * height];
 			for (var i = 0; i < array.Length; i++)
 			{
 				array[i] = i;
 			}
-			return new TestCaseData(new Array2D<int>(array, width, height), pointToCheck).SetName($"Size: {width}:{height}, Point: {pointToCheck}");
+			return new object[] { new Array2D<int>(array, width, height), pointToCheck };
 		}
 	}
 }

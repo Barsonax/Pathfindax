@@ -1,6 +1,4 @@
-﻿using Pathfindax.PathfindEngine;
-
-namespace Pathfindax.Threading
+﻿namespace Pathfindax.Threading
 {
 	public interface IUpdatableSynchronizationContext : ISynchronizationContext
 	{

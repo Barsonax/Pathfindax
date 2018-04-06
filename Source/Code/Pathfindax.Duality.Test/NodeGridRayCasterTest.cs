@@ -3,11 +3,10 @@ using Duality;
 using Duality.Components;
 using Duality.Components.Physics;
 using Duality.Resources;
-using NUnit.Framework;
+using Xunit;
 
 namespace Pathfindax.Duality.Test
 {
-	[TestFixture]
 	public class NodeGridRayCasterTest
 	{
 		public Scene SetupScene()
@@ -17,7 +16,7 @@ namespace Pathfindax.Duality.Test
 			return scene;
 		}
 
-		[Test]
+		[Fact]
 		public void RayCast_DualityEnvironment_Passes()
 		{
 			var scene = SetupScene();
@@ -29,7 +28,7 @@ namespace Pathfindax.Duality.Test
 			scene.AddObject(obj);
 			var hits = new RawList<RayCastData>();
 			RigidBody.RayCast(new Vector2(0.5f, 1f), new Vector2(0.5f, -1f), hitData => hitData.Fraction, hits);
-			Assert.AreEqual(1, hits.Count, "Something is wrong with the duality environment");
+			Assert.Single(hits);
 		}
 	}
 }

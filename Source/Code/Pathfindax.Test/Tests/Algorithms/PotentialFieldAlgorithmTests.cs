@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Duality;
+﻿using Duality;
 using NSubstitute;
-using NUnit.Framework;
+using Xunit;
 using Pathfindax.Algorithms;
 using Pathfindax.Graph;
 using Pathfindax.Nodes;
@@ -15,21 +10,20 @@ using Pathfindax.Utils;
 
 namespace Pathfindax.Test.Tests.Algorithms
 {
-	[TestFixture]
-	public class PotentialFieldAlgorithmTests
+    public class PotentialFieldAlgorithmTests
 	{
-		[Test, TestCaseSource(typeof(AlgorithmTestCases), nameof(AlgorithmTestCases.PossiblePathTestCases))]
-		public void FindPath_InitializedNodegrid_PathFound(DefinitionNodeGrid definitionNodeGrid, Point2 gridStart, Point2 gridEnd)
+        [Theory, MemberData(nameof(AlgorithmTestCases.PossiblePathTestCases), MemberType = typeof(AlgorithmTestCases))]
+        public void FindPath_InitializedNodegrid_PathFound(DefinitionNodeGrid definitionNodeGrid, Point2 gridStart, Point2 gridEnd)
 		{
 			var potentialField = RunPotentialField(definitionNodeGrid, gridStart, gridEnd, out var succes);
-			Assert.AreEqual(true, succes);
+			Assert.True(succes);
 		}
 
-		[Test, TestCaseSource(typeof(AlgorithmTestCases), nameof(AlgorithmTestCases.NoPossiblePathTestCases))]
-		public void FindPath_InitializedNodegrid_NoPathFound(DefinitionNodeGrid definitionNodeGrid, Point2 gridStart, Point2 gridEnd)
+        [Theory, MemberData(nameof(AlgorithmTestCases.NoPossiblePathTestCases), MemberType = typeof(AlgorithmTestCases))]
+        public void FindPath_InitializedNodegrid_NoPathFound(DefinitionNodeGrid definitionNodeGrid, Point2 gridStart, Point2 gridEnd)
 		{
 			var potentialField = RunPotentialField(definitionNodeGrid, gridStart, gridEnd, out var succes);
-			Assert.AreEqual(false, succes);
+			Assert.False(succes);
 		}
 
 		private PotentialField RunPotentialField(DefinitionNodeGrid definitionNodeGrid, Point2 gridStart, Point2 gridEnd, out bool succes)

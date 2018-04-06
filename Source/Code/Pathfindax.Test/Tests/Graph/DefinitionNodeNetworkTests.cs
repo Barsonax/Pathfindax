@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using Duality;
-using NUnit.Framework;
+using Xunit;
 using Pathfindax.Graph;
 
 namespace Pathfindax.Test.Tests.Graph
 {
-	[TestFixture]
+	
 	public class DefinitionNodeNetworkTests
 	{
-		[Test]
+		[Fact]
 		public void GetNode()
 		{
 			var nodeNetwork = new DefinitionNodeNetwork(new Vector2(1, 1));
@@ -21,7 +21,7 @@ namespace Pathfindax.Test.Tests.Graph
 			foreach (var position in positions)
 			{
 				var node = nodeNetwork.GetNode(position.X, position.Y);
-				Assert.AreEqual(position, node.Position);
+				Assert.Equal(position, node.Position);
 			}
 		}
 	}

@@ -1,6 +1,6 @@
 ﻿using Duality;
 using NSubstitute;
-using NUnit.Framework;
+using Xunit;
 using Pathfindax.Algorithms;
 using Pathfindax.Graph;
 using Pathfindax.Nodes;
@@ -10,30 +10,29 @@ using Pathfindax.Utils;
 
 namespace Pathfindax.Test.Tests.Algorithms
 {
-	[TestFixture]
 	public class DijkstraAlgorithmTests
 	{
-		[Test, TestCaseSource(typeof(AlgorithmTestCases), nameof(AlgorithmTestCases.OptimalPathTestCases))]
-		public void FindPath_InitializedNodegrid_PathIsOptimal(DefinitionNodeGrid definitionNodeGrid, Point2 gridStart, Point2 gridEnd, float expectedPathLength)
+        [Theory, MemberData(nameof(AlgorithmTestCases.OptimalPathTestCases), MemberType = typeof(AlgorithmTestCases))]
+        public void FindPath_InitializedNodegrid_PathIsOptimal(DefinitionNodeGrid definitionNodeGrid, Point2 gridStart, Point2 gridEnd, float expectedPathLength)
 		{
 			var path = RunDijkstra(definitionNodeGrid, gridStart, gridEnd, out var succes);
-			Assert.AreEqual(true, succes);
+			Assert.True(succes);
 			var pathLength = path.GetPathLength();
-			Assert.AreEqual(expectedPathLength, pathLength, 0.1f);
+			Assert.Equal(expectedPathLength, pathLength, 1);
 		}
 
-		[Test, TestCaseSource(typeof(AlgorithmTestCases), nameof(AlgorithmTestCases.PossiblePathTestCases))]
-		public void FindPath_InitializedNodegrid_PathFound(DefinitionNodeGrid definitionNodeGrid, Point2 gridStart, Point2 gridEnd)
+        [Theory, MemberData(nameof(AlgorithmTestCases.PossiblePathTestCases), MemberType = typeof(AlgorithmTestCases))]
+        public void FindPath_InitializedNodegrid_PathFound(DefinitionNodeGrid definitionNodeGrid, Point2 gridStart, Point2 gridEnd)
 		{
 			var path = RunDijkstra(definitionNodeGrid, gridStart, gridEnd, out var succes);
-			Assert.AreEqual(true, succes);
+			Assert.True(succes);
 		}
 
-		[Test, TestCaseSource(typeof(AlgorithmTestCases), nameof(AlgorithmTestCases.NoPossiblePathTestCases))]
-		public void FindPath_InitializedNodegrid_NoPathFound(DefinitionNodeGrid definitionNodeGrid, Point2 gridStart, Point2 gridEnd)
+        [Theory, MemberData(nameof(AlgorithmTestCases.NoPossiblePathTestCases), MemberType = typeof(AlgorithmTestCases))]
+        public void FindPath_InitializedNodegrid_NoPathFound(DefinitionNodeGrid definitionNodeGrid, Point2 gridStart, Point2 gridEnd)
 		{
 			var path = RunDijkstra(definitionNodeGrid, gridStart, gridEnd, out var succes);
-			Assert.AreEqual(false, succes);
+			Assert.False(succes);
 		}
 
 		private WaypointPath RunDijkstra(DefinitionNodeGrid definitionNodeGrid, Point2 gridStart, Point2 gridEnd, out bool succes)

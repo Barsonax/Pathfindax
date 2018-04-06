@@ -1,16 +1,16 @@
-﻿using NUnit.Framework;
+﻿using Xunit;
 using Pathfindax.PathfindEngine;
 
 namespace Pathfindax.Test.Tests.PathfindEngine
 {
-	[TestFixture]
+	
 	public class SingleSourcePathRequestComparerTests
 	{
-		[Test, TestCaseSource(typeof(PathfindEngineTestCases), nameof(PathfindEngineTestCases.SingleSourcePathRequestComparerTestCases))]
+        [Theory, MemberData(nameof(PathfindEngineTestCases.SingleSourcePathRequestComparerTestCases), MemberType = typeof(PathfindEngineTestCases))]
 		public void Compare(IPathRequest request1, IPathRequest request2, bool expected)
 		{
 			var comparer = new SingleSourcePathRequestComparer();
-			Assert.AreEqual(expected, comparer.Equals(request1, request2));
+			Assert.Equal(expected, comparer.Equals(request1, request2));
 		}
 	}
 }

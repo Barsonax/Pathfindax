@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Linq;
 using Duality.Drawing;
-using NUnit.Framework;
+using Xunit;
 using Pathfindax.Graph;
 using Pathfindax.Nodes;
 using Pathfindax.Visualization;
 
 namespace Pathfindax.Test.Tests.Visualization
 {
-	[TestFixture]
+	
 	public class NodeTextVisualizationTests
 	{
-		[Test, TestCaseSource(typeof(VisualizationTestCases), nameof(VisualizationTestCases.NodeVisualizationTestCases))]
-		public void Draw(DefinitionNode[] definitionNodes, Transformer transform)
+        [Theory, MemberData(nameof(VisualizationTestCases.NodeVisualizationTestCases), MemberType = typeof(VisualizationTestCases))]
+        public void Draw(DefinitionNode[] definitionNodes, Transformer transform)
 		{
 			var nodeTextVisualization = new NodeTextVisualization(definitionNodes, transform);
 			var random = new Random(definitionNodes.Length);
@@ -38,11 +38,11 @@ namespace Pathfindax.Test.Tests.Visualization
 			var renderer = new MockupRenderer();
 			nodeTextVisualization.Draw(renderer);
 
-			Assert.AreEqual(texts.Count(x => !string.IsNullOrEmpty(x)), renderer.DrawTextCalls.Count);
+			Assert.Equal(texts.Count(x => !string.IsNullOrEmpty(x)), renderer.DrawTextCalls.Count);
 			for (int i = 0; i < renderer.DrawLineCalls.Count; i++)
 			{
-				Assert.AreEqual(color, renderer.DrawTextCalls[i].color);
-				Assert.AreEqual(texts[i], renderer.DrawTextCalls[i].text);
+				Assert.Equal(color, renderer.DrawTextCalls[i].color);
+				Assert.Equal(texts[i], renderer.DrawTextCalls[i].text);
 			}
 		}
 	}

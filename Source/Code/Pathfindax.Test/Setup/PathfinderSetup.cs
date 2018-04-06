@@ -1,5 +1,4 @@
-﻿using System;
-using Duality;
+﻿using Duality;
 using NSubstitute;
 using Pathfindax.Algorithms;
 using Pathfindax.Factories;
