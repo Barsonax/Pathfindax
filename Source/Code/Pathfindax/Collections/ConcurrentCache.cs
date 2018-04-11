@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using Pathfindax.Collections.Interfaces;
+using System.Collections.Generic;
 
 namespace Pathfindax.Collections
 {
-	public class ConcurrentCache<TKey, TValue>
+	public class ConcurrentCache<TKey, TValue> : ICache<TKey, TValue>
 	{
 		private readonly Dictionary<TKey, TValue> _dictionary;
 		private readonly Queue<TKey> _keys;

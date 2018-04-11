@@ -120,6 +120,48 @@
             <gameobj dataType="ObjectRef">2586665865</gameobj>
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Components.PathVisualizer" id="4019338063">
+            <_pathVisualization dataType="Struct" type="Pathfindax.Visualization.PathVisualization" id="3925734703">
+              <_vectorFieldVisualization dataType="Struct" type="Pathfindax.Visualization.VectorFieldVisualization" id="2670735598">
+                <_x003C_Color_x003E_k__BackingField dataType="Struct" type="Duality.Drawing.ColorRgba">
+                  <A dataType="Byte">255</A>
+                  <B dataType="Byte">255</B>
+                  <G dataType="Byte">255</G>
+                  <R dataType="Byte">255</R>
+                </_x003C_Color_x003E_k__BackingField>
+                <_x003C_Transformer_x003E_k__BackingField />
+                <_x003C_Vectors_x003E_k__BackingField />
+              </_vectorFieldVisualization>
+              <_waypointPathVisualization dataType="Struct" type="Pathfindax.Visualization.WaypointPathVisualization" id="4118731210">
+                <_x003C_End_x003E_k__BackingField />
+                <_x003C_LineColor_x003E_k__BackingField dataType="Struct" type="Duality.Drawing.ColorRgba">
+                  <A dataType="Byte">255</A>
+                  <B dataType="Byte">0</B>
+                  <G dataType="Byte">255</G>
+                  <R dataType="Byte">0</R>
+                </_x003C_LineColor_x003E_k__BackingField>
+                <_x003C_Path_x003E_k__BackingField />
+                <_x003C_Start_x003E_k__BackingField />
+                <_x003C_StartColor_x003E_k__BackingField dataType="Struct" type="Duality.Drawing.ColorRgba">
+                  <A dataType="Byte">255</A>
+                  <B dataType="Byte">255</B>
+                  <G dataType="Byte">255</G>
+                  <R dataType="Byte">255</R>
+                </_x003C_StartColor_x003E_k__BackingField>
+                <_x003C_TargetColor_x003E_k__BackingField dataType="Struct" type="Duality.Drawing.ColorRgba">
+                  <A dataType="Byte">255</A>
+                  <B dataType="Byte">0</B>
+                  <G dataType="Byte">0</G>
+                  <R dataType="Byte">0</R>
+                </_x003C_TargetColor_x003E_k__BackingField>
+                <_x003C_Transformer_x003E_k__BackingField />
+                <_x003C_WaypointColor_x003E_k__BackingField dataType="Struct" type="Duality.Drawing.ColorRgba">
+                  <A dataType="Byte">255</A>
+                  <B dataType="Byte">255</B>
+                  <G dataType="Byte">0</G>
+                  <R dataType="Byte">0</R>
+                </_x003C_WaypointColor_x003E_k__BackingField>
+              </_waypointPathVisualization>
+            </_pathVisualization>
             <_x003C_BoundRadius_x003E_k__BackingField dataType="Float">0</_x003C_BoundRadius_x003E_k__BackingField>
             <_x003C_Visualize_x003E_k__BackingField dataType="Bool">true</_x003C_Visualize_x003E_k__BackingField>
             <active dataType="Bool">true</active>
@@ -127,10 +169,8 @@
           </item>
           <item dataType="ObjectRef">378963951</item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Components.NodeNetworkVisualizer" id="2498494768">
+            <_collisionCategory dataType="Enum" type="Pathfindax.Nodes.PathfindaxCollisionCategory" name="Cat1" value="1" />
             <_x003C_BoundRadius_x003E_k__BackingField dataType="Float">0</_x003C_BoundRadius_x003E_k__BackingField>
-            <_x003C_CollisionCategory_x003E_k__BackingField dataType="Enum" type="Pathfindax.Nodes.PathfindaxCollisionCategory" name="Cat1" value="1" />
-            <_x003C_NodeSize_x003E_k__BackingField dataType="Float">5</_x003C_NodeSize_x003E_k__BackingField>
-            <_x003C_Thread_x003E_k__BackingField dataType="Int">0</_x003C_Thread_x003E_k__BackingField>
             <_x003C_Visualize_x003E_k__BackingField dataType="Bool">true</_x003C_Visualize_x003E_k__BackingField>
             <active dataType="Bool">true</active>
             <gameobj dataType="ObjectRef">2586665865</gameobj>

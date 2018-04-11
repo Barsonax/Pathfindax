@@ -28,14 +28,16 @@ namespace Pathfindax.Test.Tests.Algorithms
 
 		private FlowField RunFlowField(DefinitionNodeGrid definitionNodeGrid, Point2 gridStart, Point2 gridEnd, out bool succes)
 		{
-			var potentialFieldAlgorithm = new FlowFieldAlgorithm(0, definitionNodeGrid.NodeCount);
+			var flowFieldAlgorithm = new FlowFieldAlgorithm(definitionNodeGrid.NodeCount);
 
 			var start = definitionNodeGrid.NodeGrid.ToIndex(gridStart.X, gridStart.Y);
 			var end = definitionNodeGrid.NodeGrid.ToIndex(gridEnd.X, gridEnd.Y);
 
 			var pathfindingNetwork = new DijkstraNodeGrid(definitionNodeGrid, 5);
 			var pathRequest = PathRequest.Create(Substitute.For<IPathfinder<IPath>>(), start, end, PathfindaxCollisionCategory.Cat1);
-			return potentialFieldAlgorithm.FindPath(pathfindingNetwork, pathRequest, out succes);
+			var path = flowFieldAlgorithm.FindPath(pathfindingNetwork, pathRequest);
+			succes = flowFieldAlgorithm.ValidatePath(pathfindingNetwork, pathRequest, path);
+			return path;
 		}
 	}
 }

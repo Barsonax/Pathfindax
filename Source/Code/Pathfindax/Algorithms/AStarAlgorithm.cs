@@ -34,19 +34,17 @@ namespace Pathfindax.Algorithms
 			_heuristic = heuristic;
 		}
 
-		public WaypointPath FindPath(IPathfindNodeNetwork<AstarNode> nodeNetwork, IPathRequest pathRequest, out bool succes)
+		public WaypointPath FindPath(IPathfindNodeNetwork<AstarNode> nodeNetwork, IPathRequest pathRequest)
 		{
 			if (pathRequest.PathStart == pathRequest.PathEnd)
 			{
-				succes = true;
-				return WaypointPath.GetEmptyPath(nodeNetwork, pathRequest.PathStart);
+				return GetDefaultPath(nodeNetwork, pathRequest);
 			}
 			var pathfindingNetwork = nodeNetwork.GetCollisionLayerNetwork(pathRequest.CollisionCategory);
 
 			if (!(pathfindingNetwork[pathRequest.PathStart].Clearance >= pathRequest.AgentSize) || !(pathfindingNetwork[pathRequest.PathEnd].Clearance >= pathRequest.AgentSize))
 			{
-				succes = false;
-				return WaypointPath.GetEmptyPath(nodeNetwork, pathRequest.PathStart);
+				return null;
 			}
 
 			Start(pathfindingNetwork, nodeNetwork.DefinitionNodeNetwork.NodeArray, pathRequest.PathStart, pathRequest.PathEnd, pathRequest.AgentSize, pathRequest.CollisionCategory);
@@ -54,13 +52,15 @@ namespace Pathfindax.Algorithms
 			{
 				var path = GetPath();
 
-				succes = true;
 				return new WaypointPath(nodeNetwork.DefinitionNodeNetwork.NodeArray, path, nodeNetwork.DefinitionNodeNetwork.Transformer);
 			}
 
-			succes = false;
-			return WaypointPath.GetEmptyPath(nodeNetwork, pathRequest.PathStart);
+			return null;
 		}
+
+		public bool ValidatePath(IPathfindNodeNetwork<AstarNode> nodeNetwork, IPathRequest pathRequest, WaypointPath path) => true;
+
+		public WaypointPath GetDefaultPath(IPathfindNodeNetwork<AstarNode> nodeNetwork, IPathRequest pathRequest) => WaypointPath.GetEmptyPath(nodeNetwork, pathRequest.PathStart);
 
 		public void Start(AstarNode[] pathfindingNetwork, DefinitionNode[] definitionNodes, int startNodeIndex, int targetNodeIndex, float neededClearance, PathfindaxCollisionCategory collisionCategory)
 		{

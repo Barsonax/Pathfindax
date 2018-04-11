@@ -28,14 +28,16 @@ namespace Pathfindax.Test.Tests.Algorithms
 
 		private PotentialField RunPotentialField(DefinitionNodeGrid definitionNodeGrid, Point2 gridStart, Point2 gridEnd, out bool succes)
 		{
-			var potentialFieldAlgorithm = new PotentialFieldAlgorithm(0 ,definitionNodeGrid.NodeCount);
+			var potentialFieldAlgorithm = new PotentialFieldAlgorithm(definitionNodeGrid.NodeCount);
 
 			var start = definitionNodeGrid.NodeGrid.ToIndex(gridStart.X, gridStart.Y);
 			var end = definitionNodeGrid.NodeGrid.ToIndex(gridEnd.X, gridEnd.Y);
 
 			var pathfindingNetwork = new DijkstraNodeGrid(definitionNodeGrid, 5);
 			var pathRequest = PathRequest.Create(Substitute.For<IPathfinder<IPath>>(), start, end, PathfindaxCollisionCategory.Cat1);
-			return potentialFieldAlgorithm.FindPath(pathfindingNetwork, pathRequest, out succes);
+			var path = potentialFieldAlgorithm.FindPath(pathfindingNetwork, pathRequest);
+			succes = potentialFieldAlgorithm.ValidatePath(pathfindingNetwork, pathRequest, path);
+			return path;
 		}
 	}
 }

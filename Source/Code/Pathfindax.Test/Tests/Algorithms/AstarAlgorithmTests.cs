@@ -15,8 +15,8 @@ namespace Pathfindax.Test.Tests.Algorithms
 		[Theory, MemberData(nameof(AlgorithmTestCases.OptimalPathTestCases), MemberType = typeof(AlgorithmTestCases))]
 		public void FindPath_InitializedNodegrid_PathIsOptimal(DefinitionNodeGrid definitionNodeGrid, Point2 gridStart, Point2 gridEnd, float expectedPathLength)
 		{
-			var path = RunAstar(definitionNodeGrid, gridStart, gridEnd, out var succes);
-			Assert.True(succes);
+			var path = RunAstar(definitionNodeGrid, gridStart, gridEnd);
+			Assert.NotNull(path);
 			var pathLength = path.GetPathLength();
 			Assert.Equal(expectedPathLength, pathLength, 1);
 		}
@@ -24,18 +24,18 @@ namespace Pathfindax.Test.Tests.Algorithms
         [Theory, MemberData(nameof(AlgorithmTestCases.PossiblePathTestCases), MemberType = typeof(AlgorithmTestCases))]
 		public void FindPath_InitializedNodegrid_PathFound(DefinitionNodeGrid definitionNodeGrid, Point2 gridStart, Point2 gridEnd)
 		{
-			var path = RunAstar(definitionNodeGrid, gridStart, gridEnd, out var succes);
-			Assert.True(succes);
+			var path = RunAstar(definitionNodeGrid, gridStart, gridEnd);
+			Assert.NotNull(path);
 		}
         
 		[Theory, MemberData(nameof(AlgorithmTestCases.NoPossiblePathTestCases), MemberType = typeof(AlgorithmTestCases))]
 		public void FindPath_InitializedNodegrid_NoPathFound(DefinitionNodeGrid definitionNodeGrid, Point2 gridStart, Point2 gridEnd)
 		{
-			var path = RunAstar(definitionNodeGrid, gridStart, gridEnd, out var succes);
-			Assert.False(succes);
+			var path = RunAstar(definitionNodeGrid, gridStart, gridEnd);
+			Assert.Null(path);
 		}
 
-		private WaypointPath RunAstar(DefinitionNodeGrid definitionNodeGrid, Point2 gridStart, Point2 gridEnd, out bool succes)
+		private WaypointPath RunAstar(DefinitionNodeGrid definitionNodeGrid, Point2 gridStart, Point2 gridEnd)
 		{
 			var aStarAlgorithm = new AStarAlgorithm(definitionNodeGrid.NodeCount, new EuclideanDistance());
 
@@ -44,7 +44,8 @@ namespace Pathfindax.Test.Tests.Algorithms
 
 			var pathfindingNetwork = new AstarNodeNetwork(definitionNodeGrid, new BrushfireClearanceGenerator(definitionNodeGrid, 5));
 			var pathRequest = PathRequest.Create(Substitute.For<IPathfinder<IPath>>(), start, end, PathfindaxCollisionCategory.Cat1);
-			return aStarAlgorithm.FindPath(pathfindingNetwork, pathRequest, out succes);
+			var path = aStarAlgorithm.FindPath(pathfindingNetwork, pathRequest);
+			return path;
 		}
 	}
 }

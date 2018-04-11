@@ -15,8 +15,8 @@ namespace Pathfindax.Test.Tests.Algorithms
         [Theory, MemberData(nameof(AlgorithmTestCases.OptimalPathTestCases), MemberType = typeof(AlgorithmTestCases))]
         public void FindPath_InitializedNodegrid_PathIsOptimal(DefinitionNodeGrid definitionNodeGrid, Point2 gridStart, Point2 gridEnd, float expectedPathLength)
 		{
-			var path = RunDijkstra(definitionNodeGrid, gridStart, gridEnd, out var succes);
-			Assert.True(succes);
+			var path = RunDijkstra(definitionNodeGrid, gridStart, gridEnd);
+			Assert.NotNull(path);
 			var pathLength = path.GetPathLength();
 			Assert.Equal(expectedPathLength, pathLength, 1);
 		}
@@ -24,18 +24,18 @@ namespace Pathfindax.Test.Tests.Algorithms
         [Theory, MemberData(nameof(AlgorithmTestCases.PossiblePathTestCases), MemberType = typeof(AlgorithmTestCases))]
         public void FindPath_InitializedNodegrid_PathFound(DefinitionNodeGrid definitionNodeGrid, Point2 gridStart, Point2 gridEnd)
 		{
-			var path = RunDijkstra(definitionNodeGrid, gridStart, gridEnd, out var succes);
-			Assert.True(succes);
+			var path = RunDijkstra(definitionNodeGrid, gridStart, gridEnd);
+			Assert.NotNull(path);
 		}
 
         [Theory, MemberData(nameof(AlgorithmTestCases.NoPossiblePathTestCases), MemberType = typeof(AlgorithmTestCases))]
         public void FindPath_InitializedNodegrid_NoPathFound(DefinitionNodeGrid definitionNodeGrid, Point2 gridStart, Point2 gridEnd)
 		{
-			var path = RunDijkstra(definitionNodeGrid, gridStart, gridEnd, out var succes);
-			Assert.False(succes);
+			var path = RunDijkstra(definitionNodeGrid, gridStart, gridEnd);
+			Assert.Null(path);
 		}
 
-		private WaypointPath RunDijkstra(DefinitionNodeGrid definitionNodeGrid, Point2 gridStart, Point2 gridEnd, out bool succes)
+		private WaypointPath RunDijkstra(DefinitionNodeGrid definitionNodeGrid, Point2 gridStart, Point2 gridEnd)
 		{
 			var dijkstraAlgorithm = new DijkstraAlgorithm(definitionNodeGrid.NodeCount);
 
@@ -44,7 +44,8 @@ namespace Pathfindax.Test.Tests.Algorithms
 
 			var pathfindingNetwork = new DijkstraNodeGrid(definitionNodeGrid, 5);
 			var pathRequest = PathRequest.Create(Substitute.For<IPathfinder<IPath>>(), start, end, PathfindaxCollisionCategory.Cat1);
-			return dijkstraAlgorithm.FindPath(pathfindingNetwork, pathRequest, out succes);
+			var path = dijkstraAlgorithm.FindPath(pathfindingNetwork, pathRequest);
+			return path;
 		}
 	}
 }

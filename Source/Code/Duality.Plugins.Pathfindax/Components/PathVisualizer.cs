@@ -24,6 +24,7 @@ namespace Duality.Plugins.Pathfindax.Components
 		[EditorHintFlags(MemberFlags.Invisible)]
 		public float BoundRadius { get; } = 0;
 
+		[DontSerialize]
 		private PathVisualization _pathVisualization;
 
 		bool ICmpRenderer.IsVisible(IDrawDevice device)
@@ -47,7 +48,7 @@ namespace Duality.Plugins.Pathfindax.Components
 
 		public void OnInit(InitContext context)
 		{
-			_pathVisualization = new global::Pathfindax.Visualization.PathVisualization();
+			_pathVisualization = new PathVisualization();
 		}
 
 		public void OnShutdown(ShutdownContext context) { }

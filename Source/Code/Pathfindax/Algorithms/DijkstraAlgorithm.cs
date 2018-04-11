@@ -33,33 +33,32 @@ namespace Pathfindax.Algorithms
 			_closedSet = new LookupArray(amountOfNodes);
 		}
 
-		public WaypointPath FindPath(IPathfindNodeNetwork<DijkstraNode> nodeNetwork, IPathRequest pathRequest, out bool succes)
+		public WaypointPath FindPath(IPathfindNodeNetwork<DijkstraNode> nodeNetwork, IPathRequest pathRequest)
 		{
 			if (pathRequest.PathStart == pathRequest.PathEnd)
 			{
-				succes = true;
-				return WaypointPath.GetEmptyPath(nodeNetwork, pathRequest.PathStart);
+				return GetDefaultPath(nodeNetwork, pathRequest);
 			}
 			var pathfindingNetwork = nodeNetwork.GetCollisionLayerNetwork(pathRequest.CollisionCategory);
 
 			if (!(pathfindingNetwork[pathRequest.PathStart].Clearance >= pathRequest.AgentSize) || !(pathfindingNetwork[pathRequest.PathEnd].Clearance >= pathRequest.AgentSize))
 			{
-				succes = false;
-				return WaypointPath.GetEmptyPath(nodeNetwork, pathRequest.PathStart);
+				return null;
 			}
 
 			Start(pathfindingNetwork, nodeNetwork.DefinitionNodeNetwork.NodeArray, pathRequest.PathStart, pathRequest.PathEnd, pathRequest.AgentSize, pathRequest.CollisionCategory);
 			if (Step(-1))
 			{
 				var path = _pathRetracer.RetracePath(pathfindingNetwork, nodeNetwork.DefinitionNodeNetwork.NodeArray, pathRequest.PathStart, pathRequest.PathEnd);
-
-				succes = true;
 				return new WaypointPath(nodeNetwork.DefinitionNodeNetwork.NodeArray, path, nodeNetwork.DefinitionNodeNetwork.Transformer);
 			}
 
-			succes = false;
-			return WaypointPath.GetEmptyPath(nodeNetwork, pathRequest.PathStart);
+			return null;
 		}
+
+		public WaypointPath GetDefaultPath(IPathfindNodeNetwork<DijkstraNode> nodeNetwork, IPathRequest pathRequest) => WaypointPath.GetEmptyPath(nodeNetwork, pathRequest.PathStart);
+
+		public bool ValidatePath(IPathfindNodeNetwork<DijkstraNode> nodeNetwork, IPathRequest pathRequest, WaypointPath path) => true;
 
 		public void Start(DijkstraNode[] pathfindingNetwork, DefinitionNode[] definitionNodes, int startNodeIndex, int targetNodeIndex, float neededClearance, PathfindaxCollisionCategory collisionCategory)
 		{

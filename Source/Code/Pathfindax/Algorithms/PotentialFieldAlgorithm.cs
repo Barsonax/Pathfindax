@@ -10,30 +10,31 @@ namespace Pathfindax.Algorithms
 	public class PotentialFieldAlgorithm : IPathFindAlgorithm<DijkstraNodeGrid, PotentialField>
 	{
 		private readonly DijkstraAlgorithm _dijkstraAlgorithm;
-		private readonly ConcurrentCache<IPathRequest, PotentialField> _potentialFieldCache;
 
-		public PotentialFieldAlgorithm(int cacheSize, int amountOfNodes)
+		public PotentialFieldAlgorithm(int amountOfNodes)
 		{
 			_dijkstraAlgorithm = new DijkstraAlgorithm(amountOfNodes);
-			if (cacheSize > 0)
-				_potentialFieldCache = new ConcurrentCache<IPathRequest, PotentialField>(cacheSize, new SingleSourcePathRequestComparer());
 		}
 
-		public PotentialField FindPath(DijkstraNodeGrid dijkstraNodeNetwork, IPathRequest pathRequest, out bool succes)
+		public PotentialField FindPath(DijkstraNodeGrid dijkstraNodeNetwork, IPathRequest pathRequest)
 		{
-			if (_potentialFieldCache == null || !_potentialFieldCache.TryGetValue(pathRequest, out var potentialField))
-			{
-				var pathfindingNetwork = dijkstraNodeNetwork.GetCollisionLayerNetwork(pathRequest.CollisionCategory);
+			var pathfindingNetwork = dijkstraNodeNetwork.GetCollisionLayerNetwork(pathRequest.CollisionCategory);
 
-				_dijkstraAlgorithm.Start(pathfindingNetwork, dijkstraNodeNetwork.DefinitionNodeGrid.NodeArray, pathRequest.PathEnd, pathRequest.PathStart, pathRequest.AgentSize, pathRequest.CollisionCategory);
-				_dijkstraAlgorithm.Step(-1);
-				potentialField = FindPath(dijkstraNodeNetwork, pathfindingNetwork, pathRequest.PathEnd, pathRequest);
-				_potentialFieldCache?.Add(pathRequest, potentialField);
-			}
+			_dijkstraAlgorithm.Start(pathfindingNetwork, dijkstraNodeNetwork.DefinitionNodeGrid.NodeArray, pathRequest.PathEnd, pathRequest.PathStart, pathRequest.AgentSize, pathRequest.CollisionCategory);
+			_dijkstraAlgorithm.Step(-1);
+			return FindPath(dijkstraNodeNetwork, pathfindingNetwork, pathRequest.PathEnd, pathRequest);
+		}
+
+		public bool ValidatePath(DijkstraNodeGrid dijkstraNodeNetwork, IPathRequest pathRequest, PotentialField potentialField)
+		{
 			ref var startDefinitionNode = ref dijkstraNodeNetwork.DefinitionNodeGrid.NodeArray[pathRequest.PathStart];
 			var nodeWorldPosition = potentialField.GridTransformer.ToWorld(startDefinitionNode.Position);
-			succes = potentialField.GetHeading(nodeWorldPosition).Length > 0;
-			return potentialField;
+			return potentialField.GetHeading(nodeWorldPosition).Length > 0;
+		}
+
+		public PotentialField GetDefaultPath(DijkstraNodeGrid nodeNetwork, IPathRequest pathRequest)
+		{
+			return null;
 		}
 
 		public static PotentialField FindPath(DijkstraNodeGrid dijkstraNodeNetwork, DijkstraNode[] pathfindingNetwork, int targetNodeIndex, IPathRequest pathRequest)
