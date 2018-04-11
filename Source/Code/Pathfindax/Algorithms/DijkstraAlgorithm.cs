@@ -49,16 +49,15 @@ namespace Pathfindax.Algorithms
 			Start(pathfindingNetwork, nodeNetwork.DefinitionNodeNetwork.NodeArray, pathRequest.PathStart, pathRequest.PathEnd, pathRequest.AgentSize, pathRequest.CollisionCategory);
 			if (Step(-1))
 			{
-				var path = _pathRetracer.RetracePath(pathfindingNetwork, nodeNetwork.DefinitionNodeNetwork.NodeArray, pathRequest.PathStart, pathRequest.PathEnd);
+				var path = GetPath();
 				return new WaypointPath(nodeNetwork.DefinitionNodeNetwork.NodeArray, path, nodeNetwork.DefinitionNodeNetwork.Transformer);
 			}
 
 			return null;
 		}
 
-		public WaypointPath GetDefaultPath(IPathfindNodeNetwork<DijkstraNode> nodeNetwork, IPathRequest pathRequest) => WaypointPath.GetEmptyPath(nodeNetwork, pathRequest.PathStart);
-
 		public bool ValidatePath(IPathfindNodeNetwork<DijkstraNode> nodeNetwork, IPathRequest pathRequest, WaypointPath path) => true;
+		public WaypointPath GetDefaultPath(IPathfindNodeNetwork<DijkstraNode> nodeNetwork, IPathRequest pathRequest) => WaypointPath.GetEmptyPath(nodeNetwork, pathRequest.PathStart);		
 
 		public void Start(DijkstraNode[] pathfindingNetwork, DefinitionNode[] definitionNodes, int startNodeIndex, int targetNodeIndex, float neededClearance, PathfindaxCollisionCategory collisionCategory)
 		{
@@ -141,6 +140,11 @@ namespace Pathfindax.Algorithms
 				}
 			}
 			return currentParent;
+		}
+
+		public int[] GetPath()
+		{
+			return _pathRetracer.RetracePath(_pathfindingNetwork, _definitionNodes, StartNodeIndex, TargetNodeIndex);
 		}
 	}
 }

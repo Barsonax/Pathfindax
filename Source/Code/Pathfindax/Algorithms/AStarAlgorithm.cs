@@ -21,11 +21,12 @@ namespace Pathfindax.Algorithms
 		private PathfindaxCollisionCategory _collisionCategory;
 		private AstarNode[] _pathfindingNetwork;
 		private DefinitionNode[] _definitionNodes;
+
 		private readonly IndexMinHeap<AstarNode> _openSet;
-		private readonly LookupArray _closedSet;
-		private readonly IDistanceHeuristic _heuristic;
+		private readonly LookupArray _closedSet;		
 		private readonly EuclideanDistance _costFunction = new EuclideanDistance();
 		private readonly PathRetracer<AstarNode> _pathRetracer = new PathRetracer<AstarNode>((nodes, definitionNodes, i) => nodes[i].Parent);
+		private readonly IDistanceHeuristic _heuristic;
 
 		public AStarAlgorithm(int amountOfNodes, IDistanceHeuristic heuristic)
 		{
@@ -51,7 +52,6 @@ namespace Pathfindax.Algorithms
 			if (Step(-1))
 			{
 				var path = GetPath();
-
 				return new WaypointPath(nodeNetwork.DefinitionNodeNetwork.NodeArray, path, nodeNetwork.DefinitionNodeNetwork.Transformer);
 			}
 
@@ -59,7 +59,6 @@ namespace Pathfindax.Algorithms
 		}
 
 		public bool ValidatePath(IPathfindNodeNetwork<AstarNode> nodeNetwork, IPathRequest pathRequest, WaypointPath path) => true;
-
 		public WaypointPath GetDefaultPath(IPathfindNodeNetwork<AstarNode> nodeNetwork, IPathRequest pathRequest) => WaypointPath.GetEmptyPath(nodeNetwork, pathRequest.PathStart);
 
 		public void Start(AstarNode[] pathfindingNetwork, DefinitionNode[] definitionNodes, int startNodeIndex, int targetNodeIndex, float neededClearance, PathfindaxCollisionCategory collisionCategory)
