@@ -1,4 +1,5 @@
-﻿using Pathfindax.Graph;
+﻿using Duality.Editor;
+using Pathfindax.Graph;
 using Pathfindax.PathfindEngine;
 using Pathfindax.Paths;
 
@@ -17,6 +18,7 @@ namespace Duality.Plugins.Pathfindax.Components
 		[DontSerialize]
 		private IPathfinder<TDefinitionNodeNetwork, TThreadNodeNetwork, TPath> _pathfinder;
 
+        [EditorHintFlags(MemberFlags.Invisible)]
 		public IPathfinder<TDefinitionNodeNetwork, TThreadNodeNetwork, TPath> Pathfinder
 		{
 			get
@@ -52,7 +54,7 @@ namespace Duality.Plugins.Pathfindax.Components
 
 		void ICmpInitializable.OnShutdown(ShutdownContext context)
 		{
-			Pathfinder?.Stop();
+			_pathfinder?.Stop();
 		}
 	}
 }
