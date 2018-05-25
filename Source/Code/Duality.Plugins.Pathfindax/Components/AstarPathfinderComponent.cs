@@ -22,7 +22,7 @@ namespace Duality.Plugins.Pathfindax.Components
 		/// Try to keep this as low as possible to prevent wasting time calculating clearance values that will never be used.
 		/// </summary>
 		public int MaxClearance { get; set; } = 5;
-		public IDistanceHeuristic Heuristic { get; set; }
+		public IDistanceHeuristic Heuristic { get; set; } = new ManhattanDistance();
 
 		public override IPathfinder<IDefinitionNodeNetwork, IPathfindNodeNetwork<AstarNode>, NodePath> CreatePathfinder()
 		{
