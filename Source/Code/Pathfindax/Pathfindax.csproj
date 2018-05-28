@@ -66,6 +66,8 @@
     <Compile Include="Factories\CollisionDirection.cs" />
     <Compile Include="Factories\NodeGridCollisionLayer.cs" />
     <Compile Include="Factories\NodeGridCollisionMask.cs" />
+    <Compile Include="PathfindEngine\DummyPathfindAlgorithm.cs" />
+    <Compile Include="PathfindEngine\DummyPathfinder.cs" />
     <Compile Include="Threading\Interfaces\ISynchronizationContext.cs" />
     <Compile Include="Threading\Interfaces\IUpdatableSynchronizationContext.cs" />
     <Compile Include="Algorithms\Utils\PathRetracer.cs" />

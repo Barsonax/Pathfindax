@@ -1,4 +1,5 @@
-﻿using Duality.Editor;
+﻿using System;
+using Duality.Editor;
 using Pathfindax.Factories;
 using Pathfindax.Graph;
 using Pathfindax.PathfindEngine;
@@ -28,9 +29,17 @@ namespace Duality.Plugins.Pathfindax.Components
 
 		public override IPathfinder<DefinitionNodeGrid, DijkstraNodeGrid, FlowField> CreatePathfinder()
 		{
-			var definitionNodeNetwork = GetDefinitionNodeNetwork();
-			if (definitionNodeNetwork == null) throw new NoDefinitionNodeNetworkException();
-			return PathfinderFactory.CreateFlowFieldPathfinder(PathfindaxDualityCorePlugin.PathfindaxManager, definitionNodeNetwork, MaxClearance, MaxCachedFlowFields, AmountOfThreads);
+			try
+			{
+				var definitionNodeNetwork = GetDefinitionNodeNetwork();
+				if (definitionNodeNetwork == null) throw new NoDefinitionNodeNetworkException();
+				return PathfinderFactory.CreateFlowFieldPathfinder(PathfindaxDualityCorePlugin.PathfindaxManager, definitionNodeNetwork, MaxClearance, MaxCachedFlowFields, AmountOfThreads);
+			}
+			catch (Exception e)
+			{
+				Log.Game.WriteError($"Could not generate the definitionnode network. Returning a dummy pathfinder that does nothing. The following error occurred: {Log.Exception(e)}.");
+				return new DummyPathfinder<DefinitionNodeGrid, DijkstraNodeGrid, FlowField>();
+			}
 		}
 	}
 }
