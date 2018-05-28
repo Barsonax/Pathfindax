@@ -64,6 +64,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Components\TilemapNodeGridGenerator.cs" />
+    <Compile Include="Exceptions\InvalidTilemapSize.cs" />
+    <Compile Include="Exceptions\NoTilemapColliderFound.cs" />
     <Compile Include="Generators\TilemapNodeConnectionGenerator.cs" />
     <Compile Include="PathfindaxTilemapPlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

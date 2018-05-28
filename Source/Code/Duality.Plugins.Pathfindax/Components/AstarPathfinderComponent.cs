@@ -1,10 +1,10 @@
-﻿using Duality.Editor;
+﻿using System;
+using Duality.Editor;
 using Pathfindax.Algorithms;
 using Pathfindax.Factories;
 using Pathfindax.Graph;
 using Pathfindax.Nodes;
 using Pathfindax.PathfindEngine;
-using Pathfindax.PathfindEngine.Exceptions;
 using Pathfindax.Paths;
 using Pathfindax.Utils;
 
@@ -26,10 +26,20 @@ namespace Duality.Plugins.Pathfindax.Components
 
 		public override IPathfinder<IDefinitionNodeNetwork, IPathfindNodeNetwork<AstarNode>, NodePath> CreatePathfinder()
 		{
-			var definitionNodeNetwork = GetDefinitionNodeNetwork();
-			if (definitionNodeNetwork == null) throw new NoDefinitionNodeNetworkException();
-			if (Heuristic == null) throw new NoHeuristicException();
-			return PathfindaxDualityCorePlugin.PathfindaxManager.CreateAstarPathfinder(definitionNodeNetwork, Heuristic, MaxClearance, AmountOfThreads);
+			try
+			{
+				if (Heuristic == null)
+				{
+					throw new NullReferenceException("The heuristic for the pathfinder cannot be null.");
+				}
+				var definitionNodeNetwork = GetDefinitionNodeNetwork();
+				return PathfindaxDualityCorePlugin.PathfindaxManager.CreateAstarPathfinder(definitionNodeNetwork, Heuristic, MaxClearance, AmountOfThreads);
+			}
+			catch (Exception e)
+			{
+				Log.Game.WriteError($"Could not generate the definitionnode network. Returning a dummy pathfinder that does nothing. The following error occurred: {Log.Exception(e)}.");
+				return new DummyPathfinder<IDefinitionNodeNetwork, IPathfindNodeNetwork<AstarNode>, NodePath>();
+			}		
 		}
 	}
 }
