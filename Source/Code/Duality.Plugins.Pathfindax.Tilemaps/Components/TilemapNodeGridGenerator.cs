@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Duality.Editor;
+using Duality.Plugins.Pathfindax.Tilemaps.Exceptions;
 using Duality.Plugins.Pathfindax.Tilemaps.Generators;
 using Duality.Plugins.Tilemaps;
 using Pathfindax.Factories;
@@ -53,19 +55,48 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Components
 		/// Generates a fully initialized <see cref="DefinitionNodeGrid"/> that can be used as a source nodegrid for pathfinders.
 		/// </summary>
 		/// <returns></returns>
+		/// <exception cref="NoTilemapColliderFound"></exception>
+		/// <exception cref="NullReferenceException"></exception>
+		/// <exception cref="InvalidTilemapSize"></exception>
 		public DefinitionNodeGrid GenerateGrid2D()
 		{
 			if (_definitionNodeGrid == null)
 			{
 				var watch = Stopwatch.StartNew();
-				var tilemaps = SearchTilemaps().ToArray();
-				var baseTilemap = tilemaps.FirstOrDefault();
+
+				var tilemapColliderWithBodies = GameObj.GetComponentsInChildren<TilemapCollider>().Concat(GameObj.GetComponents<TilemapCollider>()).Select(x => new TilemapColliderWithBody(x)).ToArray();
+
+				if (tilemapColliderWithBodies.Length == 0)
+				{
+					throw new NoTilemapColliderFound($"{nameof(TilemapNodeGridGenerator)}: Could not find any {nameof(TilemapCollider)}s. Be sure to add a gameobject with a {nameof(TilemapCollider)} component.");
+				}
+				var baseTilemap = tilemapColliderWithBodies.FirstOrDefault()?.TilemapCollisionSources.FirstOrDefault().SourceTilemap;
 				if (baseTilemap == null)
 				{
-					Log.Game.WriteWarning($"{nameof(TilemapNodeGridGenerator)}: Could not find any {nameof(Tilemap)}s. Be sure to add a gameobject with a {nameof(Tilemap)} component as a child. Skipping nodegrid generation.");
-					return null;
-				}				
-				var tilemapColliderWithBodies = GameObj.GetComponentsInChildren<TilemapCollider>().Select(x => new TilemapColliderWithBody(x)).ToArray();
+					throw new NullReferenceException($"{nameof(TilemapNodeGridGenerator)}: The {nameof(TilemapCollider)}s do not have any {nameof(Tilemap)}s defined");
+				}
+
+				foreach (var tilemapColliderWithBody in tilemapColliderWithBodies)
+				{
+					foreach (var tilemapCollisionSource in tilemapColliderWithBody.TilemapCollisionSources)
+					{
+						if (tilemapCollisionSource.SourceTilemap == null)
+						{
+							throw new NullReferenceException($"{nameof(TilemapNodeGridGenerator)}: Not all collisionssources have a {nameof(Tilemap)} defined");
+						}
+
+						if (tilemapCollisionSource.SourceTilemap.Tileset.Res == null)
+						{
+							throw new NullReferenceException($"{nameof(TilemapNodeGridGenerator)}: Not all {nameof(Tilemap)}s have a {nameof(Tileset)} defined");
+						}
+
+						if (tilemapCollisionSource.SourceTilemap.Size != baseTilemap.Size)
+						{
+							throw new InvalidTilemapSize($"{nameof(TilemapNodeGridGenerator)}: Not all {nameof(Tilemap)}s have the same size");
+						}
+					}
+				}
+
 				var connectionGenerator = new TilemapNodeGridCollisionMaskGenerator();
 				var collisionLayers = connectionGenerator.GetCollisionLayers(tilemapColliderWithBodies, baseTilemap.Size.X, baseTilemap.Size.Y);
 				var factory = new DefinitionNodeGridFactory();
@@ -90,13 +121,6 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Components
 				Debug.WriteLine($"Generated definition nodegrid for tilemap in {watch.ElapsedMilliseconds} ms");
 			}
 			return _definitionNodeGrid;
-		}
-
-		private IEnumerable<Tilemap> SearchTilemaps()
-		{
-			var tilemaps = GameObj.GetComponentsInChildren<Tilemap>();
-			var tilemap = GameObj.GetComponent<Tilemap>();
-			return tilemap != null ? tilemaps.Concat(new[] { tilemap }) : tilemaps;
 		}
 	}
 }

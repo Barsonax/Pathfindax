@@ -1,5 +1,7 @@
-﻿using Pathfindax.Graph;
+﻿using Duality.Editor;
+using Pathfindax.Graph;
 using Pathfindax.PathfindEngine;
+using Pathfindax.PathfindEngine.Exceptions;
 using Pathfindax.Paths;
 
 namespace Duality.Plugins.Pathfindax.Components
@@ -17,6 +19,7 @@ namespace Duality.Plugins.Pathfindax.Components
 		[DontSerialize]
 		private IPathfinder<TDefinitionNodeNetwork, TThreadNodeNetwork, TPath> _pathfinder;
 
+        [EditorHintFlags(MemberFlags.Invisible)]
 		public IPathfinder<TDefinitionNodeNetwork, TThreadNodeNetwork, TPath> Pathfinder
 		{
 			get
@@ -36,14 +39,12 @@ namespace Duality.Plugins.Pathfindax.Components
 			var definitionNodeNetworkProvider = GameObj.GetComponent<IDefinitionNodeNetworkProvider<TDefinitionNodeNetwork>>();
 			if (definitionNodeNetworkProvider == null)
 			{
-				Log.Game.WriteError($"{GetType()}: Could not find a component that implements {typeof(IDefinitionNodeNetworkProvider<TDefinitionNodeNetwork>)}.");
-				return null;
+				throw new NoDefinitionNodeNetworkException($"{GetType().Name}: Could not find a component that implements {typeof(IDefinitionNodeNetworkProvider<TDefinitionNodeNetwork>)}.");
 			}
 			var definitionNodeNetwork = definitionNodeNetworkProvider.GenerateGrid2D();
 			if (definitionNodeNetwork == null)
 			{
-				Log.Game.WriteError($"{GetType()}: Found a component that implements {typeof(IDefinitionNodeNetworkProvider<TDefinitionNodeNetwork>)} but it could not generate a nodenetwork.");
-				return null;
+				throw new NoDefinitionNodeNetworkException($"{GetType().Name}: Found a component that implements {typeof(IDefinitionNodeNetworkProvider<TDefinitionNodeNetwork>)} but it could not generate a nodenetwork.");
 			}
 			return definitionNodeNetwork;
 		}
@@ -52,7 +53,7 @@ namespace Duality.Plugins.Pathfindax.Components
 
 		void ICmpInitializable.OnShutdown(ShutdownContext context)
 		{
-			Pathfinder?.Stop();
+			_pathfinder?.Stop();
 		}
 	}
 }
