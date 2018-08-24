@@ -20,12 +20,15 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 		public PathfindaxCollisionCategory CollisionCategory { get; set; }
 		public Point2 TopLeftCorner { get; set; }
 		public Point2 BottomRightCorner { get; set; }
+
 		public IPath Path { get; private set; }
 
 		[EditorHintRange(1, 1000)]
 		public int FramesBetweenRequest { get; set; }
 
 		public AstarPathfinderComponent PathfinderComponent { get; set; }
+
+		[DontSerialize]
 		private readonly Random _randomGenerator = new Random();
 
 		[DontSerialize]
