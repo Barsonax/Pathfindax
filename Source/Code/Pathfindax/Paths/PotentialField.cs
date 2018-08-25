@@ -37,6 +37,7 @@ namespace Pathfindax.Paths
 
 		public PotentialField(GridTransformer gridTransformer, Point2 targetNodePosition, params Array2D<float>[] potentialArrays)
 		{
+			TargetNode = targetNodePosition;
 			PotentialArray = new PotentialArray(gridTransformer, potentialArrays);
 		}
 
