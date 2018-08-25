@@ -27,8 +27,8 @@ namespace Pathfindax.Paths
 		public int Width => FlowArray.Width;
 		public int Height => FlowArray.Height;
 
-		Transformer IPath.Transformer => GridTransformer;
-		public readonly GridTransformer GridTransformer;
+		Transformer IPath.Transformer => Transformer;
+		public GridTransformer Transformer { get; }
 		public readonly Array2D<byte> FlowArray;
 		public readonly Point2 TargetNode;
 		public readonly Vector2 TargetWorldPosition;
@@ -37,12 +37,13 @@ namespace Pathfindax.Paths
 		{
 			TargetNode = potentialField.TargetNode;
 			TargetWorldPosition = potentialField.TargetWorldPosition;
-			GridTransformer = potentialField.GridTransformer;
-			FlowArray = new Array2D<byte>(potentialField.PotentialArray.Width, potentialField.PotentialArray.Height);
+			Transformer = potentialField.Transformer;
+			
+			FlowArray = new Array2D<byte>(potentialField.Transformer.GridSize.X, potentialField.Transformer.GridSize.Y);
 
-			for (int y = 0; y < potentialField.PotentialArray.Height; y++)
+			for (int y = 0; y < potentialField.Transformer.GridSize.Y; y++)
 			{
-				for (int x = 0; x < potentialField.PotentialArray.Width; x++)
+				for (int x = 0; x < potentialField.Transformer.GridSize.X; x++)
 				{
 					var vector = potentialField[x, y];
 					if (vector.X == 0 && vector.Y == 0)
@@ -66,7 +67,7 @@ namespace Pathfindax.Paths
 
 		public Vector2 GetHeading(Vector2 currentPosition)
 		{
-			var gridCoords = GridTransformer.ToGrid(currentPosition);
+			var gridCoords = Transformer.ToGrid(currentPosition);
 			if (gridCoords == TargetNode)
 			{
 				return (TargetWorldPosition - currentPosition).Normalized;

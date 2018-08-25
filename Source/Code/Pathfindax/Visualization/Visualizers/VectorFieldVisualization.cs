@@ -15,9 +15,10 @@ namespace Pathfindax.Visualization
 
 		public void SetPath(IVectorField vectorField)
 		{
-			var length = vectorField.Width * vectorField.Height;
-			if (Vectors == null || Vectors.Length != length) Vectors = new Array2D<Vector2>(vectorField.Width, vectorField.Height);
 			Transformer = vectorField.Transformer;
+			var length = vectorField.Transformer.GridSize.X * vectorField.Transformer.GridSize.Y;
+			if (Vectors == null || Vectors.Length != length) Vectors = new Array2D<Vector2>(vectorField.Transformer.GridSize.X, vectorField.Transformer.GridSize.Y);
+
 			for (var i = 0; i < length; i++)
 			{
 				Vectors[i] = vectorField[i];

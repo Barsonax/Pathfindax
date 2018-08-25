@@ -1,4 +1,5 @@
 ﻿using Duality;
+using Pathfindax.Graph;
 
 namespace Pathfindax.Paths
 {
@@ -6,7 +7,6 @@ namespace Pathfindax.Paths
 	{
 		Vector2 this[int i] { get; }
 		Vector2 this[int x, int y] { get; }
-		int Width { get; }
-		int Height { get; }
+		new GridTransformer Transformer { get; }
 	}
 }

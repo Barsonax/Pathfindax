@@ -1,4 +1,5 @@
 ﻿using Duality.Editor;
+using Duality.Resources;
 using Pathfindax.Graph;
 using Pathfindax.PathfindEngine;
 using Pathfindax.Paths;
@@ -29,7 +30,9 @@ namespace Duality.Plugins.Pathfindax.Components
 			}
 		}
 
-		void ICmpInitializable.OnInit(InitContext context) { }
+		void ICmpInitializable.OnInit(InitContext context) {
+
+		}
 
 		void ICmpInitializable.OnShutdown(ShutdownContext context)
 		{

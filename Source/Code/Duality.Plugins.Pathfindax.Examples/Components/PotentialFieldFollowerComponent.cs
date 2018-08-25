@@ -28,7 +28,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 		IPath IPathProvider.Path => _path;
 
 		[DontSerialize]
-		private AggregratedPotentialField _path;
+		private PotentialField _path;
 
 		[DontSerialize]
 		private RigidBody _rigidBody;
@@ -71,10 +71,11 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 			switch (request.Status)
 			{
 				case PathRequestStatus.Solved:
-					_path = new AggregratedPotentialField(DynamicPotentialFieldComponent.PotentialField.GridTransformer, completedPath, DynamicPotentialFieldComponent.PotentialField);
+					var arrays = completedPath.PotentialArray.Arrays.Append(DynamicPotentialFieldComponent.PotentialField.Array);
+					_path = new PotentialField(DynamicPotentialFieldComponent.PotentialField.GridTransformer, completedPath.TargetNode, arrays);
 					break;
 				case PathRequestStatus.NoPathFound:
-					_path = new AggregratedPotentialField(DynamicPotentialFieldComponent.PotentialField.GridTransformer, DynamicPotentialFieldComponent.PotentialField);
+					_path = new PotentialField(DynamicPotentialFieldComponent.PotentialField.GridTransformer, completedPath.TargetNode, DynamicPotentialFieldComponent.PotentialField.Array);
 					break;
 			}
 		}

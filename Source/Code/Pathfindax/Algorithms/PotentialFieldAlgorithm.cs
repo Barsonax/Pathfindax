@@ -28,7 +28,7 @@ namespace Pathfindax.Algorithms
 		public bool ValidatePath(DijkstraNodeGrid dijkstraNodeNetwork, IPathRequest pathRequest, PotentialField potentialField)
 		{
 			ref var startDefinitionNode = ref dijkstraNodeNetwork.DefinitionNodeGrid.NodeArray[pathRequest.PathStart];
-			var nodeWorldPosition = potentialField.GridTransformer.ToWorld(startDefinitionNode.Position);
+			var nodeWorldPosition = potentialField.Transformer.ToWorld(startDefinitionNode.Position);
 			return potentialField.GetHeading(nodeWorldPosition).Length > 0;
 		}
 
