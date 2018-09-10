@@ -28,11 +28,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AdamsLair.Duality" Version="2.14.8" />
+    <PackageReference Include="AdamsLair.Duality" Version="2.14.9" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Pathfindax\Pathfindax.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
