@@ -28,11 +28,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AdamsLair.Duality.Primitives" Version="2.0.7" />
+    <PackageReference Include="AdamsLair.Duality.Primitives" Version="3.0.0" />
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="if $(ConfigurationName) == Debug GOTO copyToPlugin&#xD;&#xA;if $(ConfigurationName) == Benchmark GOTO copyToPlugin&#xD;&#xA;&#xD;&#xA;ECHO ------ Skipping copy to plugin for configuration $(ConfigurationName) ------&#xD;&#xA;GOTO end&#xD;&#xA;&#xD;&#xA;:copyToPlugin&#xD;&#xA;mkdir &quot;$(SolutionDir)../../Plugins&quot;&#xD;&#xA;copy &quot;$(TargetPath)&quot; &quot;$(SolutionDir)../../Plugins&quot;&#xD;&#xA;copy &quot;$(TargetDir)$(TargetName).pdb&quot; &quot;$(SolutionDir)../../Plugins&quot;&#xD;&#xA;xcopy /Y &quot;$(TargetDir)*.core.xml&quot; &quot;$(SolutionDir)../../Plugins&quot;&#xD;&#xA;&#xD;&#xA;:end" />
+    <Exec Command="if $(ConfigurationName) == Debug GOTO copyToPlugin&#xD;&#xA;if $(ConfigurationName) == Benchmark GOTO copyToPlugin&#xD;&#xA;&#xD;&#xA;ECHO ------ Skipping copy to plugin for configuration $(ConfigurationName) ------&#xD;&#xA;GOTO end&#xD;&#xA;&#xD;&#xA;:copyToPlugin&#xD;&#xA;mkdir &quot;$(SolutionDir)../../Plugins&quot;&#xD;&#xA;copy &quot;$(TargetPath)&quot; &quot;$(SolutionDir)../../Plugins&quot;&#xD;&#xA;copy &quot;$(TargetDir)$(TargetName).pdb&quot; &quot;$(SolutionDir)../../Plugins&quot;&#xD;&#xA;xcopy /Y &quot;$(TargetDir)*.xml&quot; &quot;$(SolutionDir)../../Plugins&quot;&#xD;&#xA;&#xD;&#xA;:end" />
   </Target>
 
 </Project>

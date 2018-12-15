@@ -32,13 +32,13 @@ namespace Pathfindax.Duality.Test
             // Add some Console logs manually for NUnit
             if (_consoleLogOutput == null)
                 _consoleLogOutput = new TextWriterLogOutput(Console.Out);
-            Log.AddGlobalOutput(_consoleLogOutput);
+            Logs.AddGlobalOutput(_consoleLogOutput);
 
             // Initialize Duality
             DualityApp.Init(
                 DualityApp.ExecutionEnvironment.Launcher,
                 DualityApp.ExecutionContext.Game,
-                new DefaultPluginLoader(),
+                new DefaultAssemblyLoader(),
                 null);
 
             // Create a dummy window, to get access to all the device contexts
@@ -46,8 +46,7 @@ namespace Pathfindax.Duality.Test
             {
                 var options = new WindowOptions
                 {
-                    Width = 800,
-                    Height = 600
+					Size = new Point2(800,600),
                 };
                 _dummyWindow = DualityApp.OpenWindow(options);
             }
@@ -63,13 +62,12 @@ namespace Pathfindax.Duality.Test
             Console.WriteLine("----- Beginning Duality environment teardown -----");
 
             // Remove NUnit Console logs
-            Log.RemoveGlobalOutput(_consoleLogOutput);
+            Logs.RemoveGlobalOutput(_consoleLogOutput);
             _consoleLogOutput = null;
 
             if (_dummyWindow != null)
             {
                 ContentProvider.ClearContent();
-                ContentProvider.DisposeDefaultContent();
                 _dummyWindow.Dispose();
                 _dummyWindow = null;
             }

@@ -37,7 +37,7 @@ namespace Duality.Plugins.Pathfindax.Components
 			}
 			catch (Exception e)
 			{
-				Log.Game.WriteError($"Could not generate the definitionnode network. Returning a dummy pathfinder that does nothing. The following error occurred: {Log.Exception(e)}.");
+				Logs.Game.WriteError($"Could not generate the definitionnode network. Returning a dummy pathfinder that does nothing. The following error occurred: {LogFormat.Exception(e)}.");
 				return new DummyPathfinder<DefinitionNodeGrid, DijkstraNodeGrid, PotentialField>();
 			}
 		}

@@ -10,13 +10,13 @@ namespace Duality.Plugins.Pathfindax.Components.Extensions
 			var definitionNodeNetworkProvider = gameObj.GetComponent<IDefinitionNodeNetworkProvider<TDefinitionNodeNetwork>>();
 			if (definitionNodeNetworkProvider == null)
 			{
-				Log.Game.WriteError($"{gameObj.Name}: Could not find a component that implements {typeof(IDefinitionNodeNetworkProvider<TDefinitionNodeNetwork>)}.");
+				Logs.Game.WriteError($"{gameObj.Name}: Could not find a component that implements {typeof(IDefinitionNodeNetworkProvider<TDefinitionNodeNetwork>)}.");
 				return null;
 			}
 			var definitionNodeNetwork = definitionNodeNetworkProvider.GenerateGrid2D();
 			if (definitionNodeNetwork == null)
 			{
-				Log.Game.WriteError($"{gameObj.Name}: Found a component that implements {typeof(IDefinitionNodeNetworkProvider<TDefinitionNodeNetwork>)} but it could not generate a nodenetwork.");
+				Logs.Game.WriteError($"{gameObj.Name}: Found a component that implements {typeof(IDefinitionNodeNetworkProvider<TDefinitionNodeNetwork>)} but it could not generate a nodenetwork.");
 				return null;
 			}
 			return definitionNodeNetwork;

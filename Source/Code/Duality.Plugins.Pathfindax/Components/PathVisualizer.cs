@@ -18,20 +18,15 @@ namespace Duality.Plugins.Pathfindax.Components
 		/// </summary>
 		public bool Visualize { get; set; } = true;
 
-		/// <summary>
-		/// Only needed in order to implement <see cref="ICmpRenderer"/>
-		/// </summary>
-		[EditorHintFlags(MemberFlags.Invisible)]
-		public float BoundRadius { get; } = 0;
-
 		[DontSerialize]
 		private PathVisualization _pathVisualization;
 
-		bool ICmpRenderer.IsVisible(IDrawDevice device)
+		void ICmpRenderer.GetCullingInfo(out CullingInfo info)
 		{
-			return
-				(device.VisibilityMask & VisibilityFlag.AllGroups) != VisibilityFlag.None &&
-				(device.VisibilityMask & VisibilityFlag.ScreenOverlay) == VisibilityFlag.None;
+			info = new CullingInfo
+			{
+				Visibility = VisibilityFlag.AllGroups
+			};
 		}
 
 		void ICmpRenderer.Draw(IDrawDevice device)
@@ -46,11 +41,11 @@ namespace Duality.Plugins.Pathfindax.Components
 			}
 		}
 
-		public void OnInit(InitContext context)
+		void ICmpInitializable.OnActivate()
 		{
 			_pathVisualization = new PathVisualization();
 		}
 
-		public void OnShutdown(ShutdownContext context) { }
+		void ICmpInitializable.OnDeactivate() { }
 	}
 }

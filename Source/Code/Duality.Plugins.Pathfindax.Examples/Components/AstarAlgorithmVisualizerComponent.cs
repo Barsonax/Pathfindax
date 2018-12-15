@@ -30,27 +30,27 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 		[DontSerialize]
 		private AstarAlgorithmVisualization _astarAlgorithmVisualization;
 
-		bool ICmpRenderer.IsVisible(IDrawDevice device)
+		void ICmpRenderer.GetCullingInfo(out CullingInfo info)
 		{
-			return
-				(device.VisibilityMask & VisibilityFlag.AllGroups) != VisibilityFlag.None &&
-				(device.VisibilityMask & VisibilityFlag.ScreenOverlay) == VisibilityFlag.None;
+			info = new CullingInfo
+			{
+				Visibility = VisibilityFlag.AllGroups
+			};
 		}
 
-		public void OnInit(InitContext context)
+		void ICmpInitializable.OnActivate()
 		{
-			if (context == InitContext.Activate && DualityApp.ExecContext == DualityApp.ExecutionContext.Game)
-			{
-				_definitionNodeNetwork = GameObj.GetDefinitionNodeNetwork<IDefinitionNodeNetwork>();
-				_astarAlgorithmVisualization = new AstarAlgorithmVisualization(_definitionNodeNetwork);
-				_stopwatch = Stopwatch.StartNew();
-				DualityApp.Mouse.ButtonDown += Mouse_ButtonDown;
-			}
+			_definitionNodeNetwork = GameObj.GetDefinitionNodeNetwork<IDefinitionNodeNetwork>();
+			_astarAlgorithmVisualization = new AstarAlgorithmVisualization(_definitionNodeNetwork);
+			_stopwatch = Stopwatch.StartNew();
+			DualityApp.Mouse.ButtonDown += Mouse_ButtonDown;
 		}
+
+		void ICmpInitializable.OnDeactivate() { }
 
 		private void Mouse_ButtonDown(object sender, MouseButtonEventArgs e)
 		{
-			var position = Camera.GetSpaceCoord(e.Position).Xy;
+			var position = Camera.GetWorldPos(e.Pos).Xy;
 			if (_astarAlgorithmVisualization.EndIndex == null && _astarAlgorithmVisualization.StartIndex != null)
 			{
 				_astarAlgorithmVisualization.SetTarget(position);
@@ -72,7 +72,5 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 			}
 			_astarAlgorithmVisualization.Draw(new DualityRenderer(device, -5));
 		}
-
-		public void OnShutdown(ShutdownContext context) { }
 	}
 }

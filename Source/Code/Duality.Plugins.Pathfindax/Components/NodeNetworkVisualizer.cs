@@ -34,20 +34,15 @@ namespace Duality.Plugins.Pathfindax.Components
 		/// </summary>
 		public bool Visualize { get; set; } = true;
 
-		/// <summary>
-		/// Only needed in order to implement <see cref="ICmpRenderer"/>
-		/// </summary>
-		[EditorHintFlags(MemberFlags.Invisible)]
-		public float BoundRadius { get; } = 0;
-
 		[DontSerialize]
 		private PathfindNodeNetworkVisualization _pathfindNodeNetworkVisualization;
 
-		bool ICmpRenderer.IsVisible(IDrawDevice device)
+		void ICmpRenderer.GetCullingInfo(out CullingInfo info)
 		{
-			return
-				(device.VisibilityMask & VisibilityFlag.AllGroups) != VisibilityFlag.None &&
-				(device.VisibilityMask & VisibilityFlag.ScreenOverlay) == VisibilityFlag.None;
+			info = new CullingInfo
+			{
+				Visibility = VisibilityFlag.AllGroups
+			};
 		}
 
 		void ICmpRenderer.Draw(IDrawDevice device)
@@ -57,18 +52,15 @@ namespace Duality.Plugins.Pathfindax.Components
 			_pathfindNodeNetworkVisualization.Draw(new DualityRenderer(device, -5));
 		}
 
-		public void OnInit(InitContext context)
+		void ICmpInitializable.OnActivate()
 		{
-			if (context == InitContext.Activate && DualityApp.ExecContext == DualityApp.ExecutionContext.Game)
+			var pathfinder = GameObj.GetComponent<IDualityPathfinderComponent>();
+			if (pathfinder?.Pathfinder?.DefinitionNodeNetwork != null)
 			{
-				var pathfinder = GameObj.GetComponent<IDualityPathfinderComponent>();
-				if (pathfinder?.Pathfinder?.DefinitionNodeNetwork != null)
-				{
-					_pathfindNodeNetworkVisualization = new PathfindNodeNetworkVisualization(pathfinder.Pathfinder.DefinitionNodeNetwork.NodeArray, pathfinder.Pathfinder.DefinitionNodeNetwork.Transformer, pathfinder.Pathfinder.PathfindNodeNetworks[0]) { CollisionCategory = CollisionCategory };
-				}
+				_pathfindNodeNetworkVisualization = new PathfindNodeNetworkVisualization(pathfinder.Pathfinder.DefinitionNodeNetwork.NodeArray, pathfinder.Pathfinder.DefinitionNodeNetwork.Transformer, pathfinder.Pathfinder.PathfindNodeNetworks[0]) { CollisionCategory = CollisionCategory };
 			}
 		}
 
-		public void OnShutdown(ShutdownContext context) { }
+		void ICmpInitializable.OnDeactivate() { }
 	}
 }

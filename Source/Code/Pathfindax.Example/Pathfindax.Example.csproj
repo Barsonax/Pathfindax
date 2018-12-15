@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AdamsLair.Duality.Primitives" Version="2.0.7" />
+    <PackageReference Include="AdamsLair.Duality.Primitives" Version="3.0.0" />
   </ItemGroup>
 
   <ItemGroup>

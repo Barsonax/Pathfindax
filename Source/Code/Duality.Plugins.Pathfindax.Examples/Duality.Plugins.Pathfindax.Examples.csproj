@@ -11,7 +11,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <PlatformTarget>x86</PlatformTarget>
     <OutputPath>..\Binaries\Debug\</OutputPath>
-    <DocumentationFile>..\Binaries\Debug\Pathfindax.Duality.Examples.core.xml</DocumentationFile>
+    <DocumentationFile>..\Binaries\Debug\Duality.Plugins.Pathfindax.Examples.core.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -20,7 +20,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AdamsLair.Duality" Version="2.14.9" />
+    <PackageReference Include="AdamsLair.Duality" Version="3.0.0" />
     <PackageReference Include="SnowyPeak.Duality.Plugin.Frozen.Procedural" Version="2.0.1" />
   </ItemGroup>
 

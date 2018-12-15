@@ -25,10 +25,11 @@ namespace Pathfindax.Duality.Test
             obj.AddComponent<Transform>();
             var body = obj.AddComponent<RigidBody>();
             body.BodyType = BodyType.Static; //Rigidbody has to be a static one if we want to use chain and polygon shapes
-            body.AddShape(new ChainShapeInfo(new List<Vector2> { new Vector2(0, 0), new Vector2(1f, 0) }));
+            body.AddShape(new ChainShapeInfo(new[] { new Vector2(0, 0), new Vector2(1f, 0) }));
             scene.AddObject(obj);
             var hits = new RawList<RayCastData>();
-            RigidBody.RayCast(new Vector2(0.5f, 1f), new Vector2(0.5f, -1f), hitData => hitData.Fraction, hits);
+
+	        scene.Physics.RayCast(new Vector2(0.5f, 1f), new Vector2(0.5f, -1f), hitData => hitData.Fraction, hits);
             Assert.Single(hits);
         }
     }

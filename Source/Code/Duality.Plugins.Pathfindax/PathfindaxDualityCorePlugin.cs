@@ -35,7 +35,7 @@ namespace Duality.Plugins.Pathfindax
 		protected override void OnBeforeUpdate()
 		{
 			base.OnBeforeUpdate();
-			_pathfindaxManager.Update(Time.LastDelta);
+			_pathfindaxManager.Update(Time.DeltaTime);
 		}
 
 		protected override void OnDisposePlugin()

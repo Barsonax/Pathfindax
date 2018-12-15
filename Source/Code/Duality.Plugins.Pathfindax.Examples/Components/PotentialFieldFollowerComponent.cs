@@ -12,7 +12,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 {
 	[EditorHintCategory(PathfindaxStrings.PathfindaxTest)]
 	[RequiredComponent(typeof(RigidBody))]
-	public class PotentialFieldFollowerComponent : Component, ICmpUpdatable, ICmpInitializable, IPathProvider
+	public class PotentialFieldFollowerComponent : Component, ICmpUpdatable, ICmpInitializable, IPathProvider, IPathReceiver<PotentialField>
 	{
 		[EditorHintRange(0, float.MaxValue)]
 		public float MovementSpeed { get; set; } = 1f;
@@ -33,24 +33,25 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 		[DontSerialize]
 		private RigidBody _rigidBody;
 
+		public PathfindaxCollisionCategory CollisionCategory => _collisionCategory;
+
+		public Vector3 Pos => GameObj.Transform.Pos;
+
 		[DontSerialize]
 		private PathfindaxCollisionCategory _collisionCategory;
 
-		void ICmpInitializable.OnInit(InitContext context)
+		void ICmpInitializable.OnActivate()
 		{
-			if (context == InitContext.Activate && DualityApp.ExecContext == DualityApp.ExecutionContext.Game)
-			{
-				DynamicPotentialFieldComponent.PotentialField.AddPotentialFunction(this,
-					new QuadraticPotentialFunction(() => CurrentPosition, (float)AgentSize / 2 + 1.0f, 1.2f * AgentSize));
-				_rigidBody = GameObj.GetComponent<RigidBody>();
-				_collisionCategory = (PathfindaxCollisionCategory)_rigidBody.CollisionCategory;
-				DualityApp.Mouse.ButtonDown += Mouse_ButtonDown;
-			}
+			DynamicPotentialFieldComponent.PotentialField.AddPotentialFunction(this,
+				new QuadraticPotentialFunction(() => CurrentPosition, (float)AgentSize / 2 + 1.0f, 1.2f * AgentSize));
+			_rigidBody = GameObj.GetComponent<RigidBody>();
+			_collisionCategory = (PathfindaxCollisionCategory)_rigidBody.CollisionCategory;
+			//DualityApp.Mouse.ButtonDown += Mouse_ButtonDown;
 		}
 
-		void ICmpInitializable.OnShutdown(ShutdownContext context)
+		void ICmpInitializable.OnDeactivate()
 		{
-			DualityApp.Mouse.ButtonDown -= Mouse_ButtonDown;
+			//DualityApp.Mouse.ButtonDown -= Mouse_ButtonDown;
 			DynamicPotentialFieldComponent?.PotentialField?.RemovePotentialFunction(this);
 		}
 
@@ -63,12 +64,26 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 			}
 		}
 
-		private async void Mouse_ButtonDown(object sender, MouseButtonEventArgs e)
+		//private async void Mouse_ButtonDown(object sender, MouseButtonEventArgs e)
+		//{
+		//	var targetPos = Camera.GetSpaceCoord(e.Position);
+		//	var request = PathfinderComponent.Pathfinder.RequestPath(GameObj.Transform.Pos, targetPos, _collisionCategory, AgentSize);
+		//	var completedPath = await request;
+		//	switch (request.Status)
+		//	{
+		//		case PathRequestStatus.Solved:
+		//			var arrays = completedPath.PotentialArray.Arrays.Append(DynamicPotentialFieldComponent.PotentialField.Array);
+		//			_path = new PotentialField(DynamicPotentialFieldComponent.PotentialField.GridTransformer, completedPath.TargetNode, arrays);
+		//			break;
+		//		case PathRequestStatus.NoPathFound:
+		//			_path = new PotentialField(DynamicPotentialFieldComponent.PotentialField.GridTransformer, completedPath.TargetNode, DynamicPotentialFieldComponent.PotentialField.Array);
+		//			break;
+		//	}
+		//}
+
+		public void SetPath(PotentialField completedPath, PathRequestStatus status)
 		{
-			var targetPos = Camera.GetSpaceCoord(e.Position);
-			var request = PathfinderComponent.Pathfinder.RequestPath(GameObj.Transform.Pos, targetPos, _collisionCategory, AgentSize);
-			var completedPath = await request;
-			switch (request.Status)
+			switch (status)
 			{
 				case PathRequestStatus.Solved:
 					var arrays = completedPath.PotentialArray.Arrays.Append(DynamicPotentialFieldComponent.PotentialField.Array);

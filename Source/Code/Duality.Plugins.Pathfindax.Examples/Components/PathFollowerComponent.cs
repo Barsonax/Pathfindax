@@ -27,15 +27,12 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 
 		public AstarPathfinderComponent PathfinderComponent { get; set; }
 
-		void ICmpInitializable.OnInit(InitContext context)
+		void ICmpInitializable.OnActivate()
 		{
-			if (context == InitContext.Activate && DualityApp.ExecContext == DualityApp.ExecutionContext.Game)
-			{
-				DualityApp.Mouse.ButtonDown += Mouse_ButtonDown;
-			}
+			DualityApp.Mouse.ButtonDown += Mouse_ButtonDown;
 		}
 
-		void ICmpInitializable.OnShutdown(ShutdownContext context)
+		void ICmpInitializable.OnDeactivate()
 		{
 			DualityApp.Mouse.ButtonDown -= Mouse_ButtonDown;
 		}
@@ -53,7 +50,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 
 		private async void Mouse_ButtonDown(object sender, MouseButtonEventArgs e)
 		{
-			var targetPos = Camera.GetSpaceCoord(e.Position);
+			var targetPos = Camera.GetWorldPos(e.Pos);
 			var request = PathfinderComponent.Pathfinder.RequestPath(GameObj.Transform.Pos, targetPos, CollisionCategory, AgentSize);
 			_path = await request;
 		}

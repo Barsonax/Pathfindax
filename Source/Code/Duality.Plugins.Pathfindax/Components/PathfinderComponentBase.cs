@@ -19,7 +19,7 @@ namespace Duality.Plugins.Pathfindax.Components
 		[DontSerialize]
 		private IPathfinder<TDefinitionNodeNetwork, TThreadNodeNetwork, TPath> _pathfinder;
 
-        [EditorHintFlags(MemberFlags.Invisible)]
+		[EditorHintFlags(MemberFlags.Invisible)]
 		public IPathfinder<TDefinitionNodeNetwork, TThreadNodeNetwork, TPath> Pathfinder
 		{
 			get
@@ -49,9 +49,9 @@ namespace Duality.Plugins.Pathfindax.Components
 			return definitionNodeNetwork;
 		}
 
-		void ICmpInitializable.OnInit(InitContext context) { }
+		void ICmpInitializable.OnActivate() { }
 
-		void ICmpInitializable.OnShutdown(ShutdownContext context)
+		void ICmpInitializable.OnDeactivate()
 		{
 			_pathfinder?.Stop();
 		}
