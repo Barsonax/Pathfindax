@@ -1,4 +1,5 @@
-﻿using Duality.Components;
+﻿using System;
+using Duality.Components;
 using Duality.Input;
 using Duality.Resources;
 using Pathfindax.Collections;
@@ -12,6 +13,7 @@ using Pathfindax.Nodes;
 
 namespace Duality.Plugins.Pathfindax.Components
 {
+	[Obsolete("WIP")]
 	public class FormationControllerComponent : Component, ICmpUpdatable, ICmpInitializable, ICmpRenderer
 	{
 		private IPathReceiver<PotentialField>[] _selectedPathReceivers;
