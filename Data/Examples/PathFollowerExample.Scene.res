@@ -412,12 +412,12 @@
             <pos dataType="Struct" type="Duality.Vector3">
               <X dataType="Float">0</X>
               <Y dataType="Float">0</Y>
-              <Z dataType="Float">-10</Z>
+              <Z dataType="Float">-20</Z>
             </pos>
             <posAbs dataType="Struct" type="Duality.Vector3">
               <X dataType="Float">0</X>
               <Y dataType="Float">0</Y>
-              <Z dataType="Float">-10</Z>
+              <Z dataType="Float">-20</Z>
             </posAbs>
             <scale dataType="Float">1</scale>
             <scaleAbs dataType="Float">1</scaleAbs>
@@ -426,7 +426,7 @@
             <active dataType="Bool">true</active>
             <clearColor dataType="Struct" type="Duality.Drawing.ColorRgba" />
             <farZ dataType="Float">11000</farZ>
-            <focusDist dataType="Float">590</focusDist>
+            <focusDist dataType="Float">20</focusDist>
             <gameobj dataType="ObjectRef">56615252</gameobj>
             <nearZ dataType="Float">0</nearZ>
             <priority dataType="Int">0</priority>

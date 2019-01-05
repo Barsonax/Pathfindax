@@ -42,16 +42,20 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 
 		void ICmpInitializable.OnActivate()
 		{
-			DynamicPotentialFieldComponent.PotentialField.AddPotentialFunction(this,
-				new QuadraticPotentialFunction(() => CurrentPosition, (float)AgentSize / 2 + 1.0f, 1.2f * AgentSize));
-			_rigidBody = GameObj.GetComponent<RigidBody>();
-			_collisionCategory = (PathfindaxCollisionCategory)_rigidBody.CollisionCategory;
-			//DualityApp.Mouse.ButtonDown += Mouse_ButtonDown;
+			if (DynamicPotentialFieldComponent.PotentialField != null)
+			{
+				DynamicPotentialFieldComponent.PotentialField.AddPotentialFunction(this,
+					new QuadraticPotentialFunction(() => CurrentPosition, (float) AgentSize / 2 + 1.0f,
+						1.2f * AgentSize));
+				_rigidBody = GameObj.GetComponent<RigidBody>();
+				_collisionCategory = (PathfindaxCollisionCategory) _rigidBody.CollisionCategory;
+				DualityApp.Mouse.ButtonDown += Mouse_ButtonDown;
+			}
 		}
 
 		void ICmpInitializable.OnDeactivate()
 		{
-			//DualityApp.Mouse.ButtonDown -= Mouse_ButtonDown;
+			DualityApp.Mouse.ButtonDown -= Mouse_ButtonDown;
 			DynamicPotentialFieldComponent?.PotentialField?.RemovePotentialFunction(this);
 		}
 
@@ -64,22 +68,22 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 			}
 		}
 
-		//private async void Mouse_ButtonDown(object sender, MouseButtonEventArgs e)
-		//{
-		//	var targetPos = Camera.GetSpaceCoord(e.Position);
-		//	var request = PathfinderComponent.Pathfinder.RequestPath(GameObj.Transform.Pos, targetPos, _collisionCategory, AgentSize);
-		//	var completedPath = await request;
-		//	switch (request.Status)
-		//	{
-		//		case PathRequestStatus.Solved:
-		//			var arrays = completedPath.PotentialArray.Arrays.Append(DynamicPotentialFieldComponent.PotentialField.Array);
-		//			_path = new PotentialField(DynamicPotentialFieldComponent.PotentialField.GridTransformer, completedPath.TargetNode, arrays);
-		//			break;
-		//		case PathRequestStatus.NoPathFound:
-		//			_path = new PotentialField(DynamicPotentialFieldComponent.PotentialField.GridTransformer, completedPath.TargetNode, DynamicPotentialFieldComponent.PotentialField.Array);
-		//			break;
-		//	}
-		//}
+		private async void Mouse_ButtonDown(object sender, MouseButtonEventArgs e)
+		{			
+			var targetPos = Camera.GetWorldPos(e.Pos);
+			var request = PathfinderComponent.Pathfinder.RequestPath(GameObj.Transform.Pos, targetPos, _collisionCategory, AgentSize);
+			var completedPath = await request;
+			switch (request.Status)
+			{
+				case PathRequestStatus.Solved:
+					var arrays = completedPath.PotentialArray.Arrays.Append(DynamicPotentialFieldComponent.PotentialField.Array);
+					_path = new PotentialField(DynamicPotentialFieldComponent.PotentialField.GridTransformer, completedPath.TargetNode, arrays);
+					break;
+				case PathRequestStatus.NoPathFound:
+					_path = new PotentialField(DynamicPotentialFieldComponent.PotentialField.GridTransformer, completedPath.TargetNode, DynamicPotentialFieldComponent.PotentialField.Array);
+					break;
+			}
+		}
 
 		public void SetPath(PotentialField completedPath, PathRequestStatus status)
 		{

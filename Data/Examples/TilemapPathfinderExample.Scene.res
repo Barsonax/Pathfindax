@@ -628,7 +628,7 @@
             <active dataType="Bool">true</active>
             <clearColor dataType="Struct" type="Duality.Drawing.ColorRgba" />
             <farZ dataType="Float">10000</farZ>
-            <focusDist dataType="Float">500</focusDist>
+            <focusDist dataType="Float">300</focusDist>
             <gameobj dataType="ObjectRef">3451967615</gameobj>
             <nearZ dataType="Float">0</nearZ>
             <priority dataType="Int">0</priority>

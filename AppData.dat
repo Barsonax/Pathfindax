@@ -13,6 +13,6 @@
   <startScene dataType="Struct" type="Duality.ContentRef`1[[Duality.Resources.Scene]]">
     <contentPath dataType="String">Data\Examples\SheepSimulator.Scene.res</contentPath>
   </startScene>
-  <version dataType="UInt">2432</version>
+  <version dataType="UInt">2471</version>
 </root>
 <!-- XmlFormatterBase Document Separator -->
