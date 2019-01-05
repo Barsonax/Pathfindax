@@ -1,7 +1,5 @@
-﻿using System;
-using Duality;
+﻿using Duality;
 using Pathfindax.Collections;
-using Pathfindax.Factories;
 using Pathfindax.Nodes;
 using Pathfindax.Utils;
 

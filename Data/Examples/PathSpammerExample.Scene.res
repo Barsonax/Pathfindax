@@ -14,12 +14,8 @@
             <active dataType="Bool">true</active>
             <angle dataType="Float">0</angle>
             <angleAbs dataType="Float">0</angleAbs>
-            <angleVel dataType="Float">0</angleVel>
-            <angleVelAbs dataType="Float">0</angleVelAbs>
-            <deriveAngle dataType="Bool">true</deriveAngle>
             <gameobj dataType="ObjectRef">2546774786</gameobj>
             <ignoreParent dataType="Bool">false</ignoreParent>
-            <parentTransform />
             <pos dataType="Struct" type="Duality.Vector3">
               <X dataType="Float">244</X>
               <Y dataType="Float">244</Y>
@@ -32,45 +28,32 @@
             </posAbs>
             <scale dataType="Float">1</scale>
             <scaleAbs dataType="Float">1</scaleAbs>
-            <vel dataType="Struct" type="Duality.Vector3" />
-            <velAbs dataType="Struct" type="Duality.Vector3" />
-          </item>
-          <item dataType="Struct" type="Duality.Components.SoundListener" id="284460017">
-            <active dataType="Bool">true</active>
-            <gameobj dataType="ObjectRef">2546774786</gameobj>
           </item>
           <item dataType="Struct" type="Duality.Components.Camera" id="4093161263">
             <active dataType="Bool">true</active>
+            <clearColor dataType="Struct" type="Duality.Drawing.ColorRgba" />
             <farZ dataType="Float">10000</farZ>
             <focusDist dataType="Float">1000</focusDist>
             <gameobj dataType="ObjectRef">2546774786</gameobj>
             <nearZ dataType="Float">0</nearZ>
-            <passes dataType="Struct" type="System.Collections.Generic.List`1[[Duality.Components.Camera+Pass]]" id="1775317395">
-              <_items dataType="Array" type="Duality.Components.Camera+Pass[]" id="565413094" length="4">
-                <item dataType="Struct" type="Duality.Components.Camera+Pass" id="414354816">
-                  <clearColor dataType="Struct" type="Duality.Drawing.ColorRgba" />
-                  <clearDepth dataType="Float">1</clearDepth>
-                  <clearFlags dataType="Enum" type="Duality.Drawing.ClearFlag" name="All" value="3" />
-                  <input />
-                  <matrixMode dataType="Enum" type="Duality.Drawing.RenderMatrix" name="PerspectiveWorld" value="0" />
-                  <output dataType="Struct" type="Duality.ContentRef`1[[Duality.Resources.RenderTarget]]" />
-                  <visibilityMask dataType="Enum" type="Duality.Drawing.VisibilityFlag" name="AllGroups" value="2147483647" />
-                </item>
-                <item dataType="Struct" type="Duality.Components.Camera+Pass" id="673237198">
-                  <clearColor dataType="Struct" type="Duality.Drawing.ColorRgba" />
-                  <clearDepth dataType="Float">1</clearDepth>
-                  <clearFlags dataType="Enum" type="Duality.Drawing.ClearFlag" name="None" value="0" />
-                  <input />
-                  <matrixMode dataType="Enum" type="Duality.Drawing.RenderMatrix" name="OrthoScreen" value="1" />
-                  <output dataType="Struct" type="Duality.ContentRef`1[[Duality.Resources.RenderTarget]]" />
-                  <visibilityMask dataType="Enum" type="Duality.Drawing.VisibilityFlag" name="All" value="4294967295" />
-                </item>
-              </_items>
-              <_size dataType="Int">2</_size>
-            </passes>
-            <perspective dataType="Enum" type="Duality.Drawing.PerspectiveMode" name="Flat" value="0" />
             <priority dataType="Int">0</priority>
+            <projection dataType="Enum" type="Duality.Drawing.ProjectionMode" name="Perspective" value="1" />
+            <renderSetup dataType="Struct" type="Duality.ContentRef`1[[Duality.Resources.RenderSetup]]" />
+            <renderTarget dataType="Struct" type="Duality.ContentRef`1[[Duality.Resources.RenderTarget]]" />
+            <shaderParameters dataType="Struct" type="Duality.Drawing.ShaderParameterCollection" id="1775317395" custom="true">
+              <body />
+            </shaderParameters>
+            <targetRect dataType="Struct" type="Duality.Rect">
+              <H dataType="Float">1</H>
+              <W dataType="Float">1</W>
+              <X dataType="Float">0</X>
+              <Y dataType="Float">0</Y>
+            </targetRect>
             <visibilityMask dataType="Enum" type="Duality.Drawing.VisibilityFlag" name="All" value="4294967295" />
+          </item>
+          <item dataType="Struct" type="Duality.Components.SoundListener" id="284460017">
+            <active dataType="Bool">true</active>
+            <gameobj dataType="ObjectRef">2546774786</gameobj>
           </item>
         </_items>
         <_size dataType="Int">3</_size>
@@ -120,10 +103,7 @@
             <gameobj dataType="ObjectRef">2532558428</gameobj>
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Components.NodeNetworkVisualizer" id="2444387331">
-            <_x003C_BoundRadius_x003E_k__BackingField dataType="Float">0</_x003C_BoundRadius_x003E_k__BackingField>
-            <_x003C_CollisionCategory_x003E_k__BackingField dataType="Enum" type="Pathfindax.Nodes.PathfindaxCollisionCategory" name="Cat1" value="1" />
-            <_x003C_NodeSize_x003E_k__BackingField dataType="Float">10</_x003C_NodeSize_x003E_k__BackingField>
-            <_x003C_Thread_x003E_k__BackingField dataType="Int">0</_x003C_Thread_x003E_k__BackingField>
+            <_collisionCategory dataType="Enum" type="Pathfindax.Nodes.PathfindaxCollisionCategory" name="Cat1" value="1" />
             <_x003C_Visualize_x003E_k__BackingField dataType="Bool">true</_x003C_Visualize_x003E_k__BackingField>
             <active dataType="Bool">true</active>
             <gameobj dataType="ObjectRef">2532558428</gameobj>
@@ -164,11 +144,6 @@
       <compList dataType="Struct" type="System.Collections.Generic.List`1[[Duality.Component]]" id="3719019467">
         <_items dataType="Array" type="Duality.Component[]" id="4252602870" length="4">
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Examples.Components.PathfindaxPathSpammerComponent" id="3274627541">
-            <_randomGenerator dataType="Struct" type="System.Random" id="2433592613">
-              <inext dataType="Int">0</inext>
-              <inextp dataType="Int">21</inextp>
-              <SeedArray dataType="Array" type="System.Int32[]" id="2222538390">0, 1913677982, 195051343, 984369963, 399979191, 1928009724, 489956584, 492085928, 914007529, 587956798, 716377560, 839210581, 1712081260, 37888562, 1967516137, 985794150, 1629849060, 1756352948, 1709525997, 1567527269, 294145154, 1446449498, 2033048504, 1186782606, 1641988831, 221926937, 290614763, 263460979, 461576274, 1813902820, 1628345585, 835872650, 982287757, 1259116771, 307457291, 1378423470, 1447206770, 959069193, 778206994, 1769611824, 23660801, 1456914761, 1754083414, 1215181879, 222358558, 1084850404, 874485330, 951891639, 544642381, 1314253149, 631704427, 2120174446, 1152944166, 1631863689, 1709435207, 1941495191</SeedArray>
-            </_randomGenerator>
             <_x003C_AgentSize_x003E_k__BackingField dataType="Byte">0</_x003C_AgentSize_x003E_k__BackingField>
             <_x003C_BottomRightCorner_x003E_k__BackingField dataType="Struct" type="Duality.Point2">
               <X dataType="Int">480</X>
@@ -183,7 +158,6 @@
             <gameobj dataType="ObjectRef">3722181769</gameobj>
           </item>
           <item dataType="Struct" type="Duality.Plugins.Pathfindax.Components.PathVisualizer" id="859886671">
-            <_x003C_BoundRadius_x003E_k__BackingField dataType="Float">0</_x003C_BoundRadius_x003E_k__BackingField>
             <_x003C_Visualize_x003E_k__BackingField dataType="Bool">true</_x003C_Visualize_x003E_k__BackingField>
             <active dataType="Bool">true</active>
             <gameobj dataType="ObjectRef">3722181769</gameobj>

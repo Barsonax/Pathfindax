@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using Duality;
-using NUnit.Framework;
+using Xunit;
 using Pathfindax.Collections;
 using Pathfindax.Factories;
 using Pathfindax.Graph;
@@ -10,10 +10,10 @@ using Pathfindax.Utils;
 
 namespace Pathfindax.Test.Tests.Factories
 {
-	[TestFixture]
+	
 	public class NodeGridFactoryTest
 	{
-		[Test, TestCaseSource(typeof(AlgorithmTestCases), nameof(AlgorithmTestCases.NodeGridGenerationTestCases))]
+		[Theory, MemberData(nameof(AlgorithmTestCases.NodeGridGenerationTestCases), MemberType = typeof(AlgorithmTestCases))]
 		public void GeneratePreFilledArray(int width, int height, Point2[] blockedNodes)
 		{
 			var factory = new DefinitionNodeGridFactory();
@@ -24,17 +24,17 @@ namespace Pathfindax.Test.Tests.Factories
 			}
 			var nodeGrid = factory.GeneratePreFilledArray(GenerateNodeGridConnections.All, collisionMask);
 
-			Assert.AreEqual(width, nodeGrid.Width);
-			Assert.AreEqual(height, nodeGrid.Height);
+			Assert.Equal(width, nodeGrid.Width);
+			Assert.Equal(height, nodeGrid.Height);
 
 			foreach (var point in blockedNodes)
 			{
 				var index = nodeGrid.ToIndex(point.X, point.Y);
 				foreach (var connection in nodeGrid.Array[index].Connections)
 				{
-					Assert.AreEqual(PathfindaxCollisionCategory.Cat1, connection.CollisionCategory);
+					Assert.Equal(PathfindaxCollisionCategory.Cat1, connection.CollisionCategory);
 					var connectionToThis = nodeGrid.Array[connection.To].Connections.First(x => x.To == index);
-					Assert.AreEqual(PathfindaxCollisionCategory.Cat1, connectionToThis.CollisionCategory);
+					Assert.Equal(PathfindaxCollisionCategory.Cat1, connectionToThis.CollisionCategory);
 				}
 
 				var topNodeIndex = GetIndex(nodeGrid, point.X, point.Y + 1);
@@ -42,21 +42,21 @@ namespace Pathfindax.Test.Tests.Factories
 				var leftNodeIndex = GetIndex(nodeGrid, point.X - 1, point.Y);
 				var rightNodeIndex = GetIndex(nodeGrid, point.X + 1, point.Y);
 
-				Assert.IsTrue(ConnectionIsBlocked(nodeGrid, topNodeIndex, leftNodeIndex));
-				Assert.IsTrue(ConnectionIsBlocked(nodeGrid, topNodeIndex, rightNodeIndex));
+				Assert.True(ConnectionIsBlocked(nodeGrid, topNodeIndex, leftNodeIndex));
+				Assert.True(ConnectionIsBlocked(nodeGrid, topNodeIndex, rightNodeIndex));
 
-				Assert.IsTrue(ConnectionIsBlocked(nodeGrid, bottomNodeIndex, leftNodeIndex));
-				Assert.IsTrue(ConnectionIsBlocked(nodeGrid, bottomNodeIndex, rightNodeIndex));
+				Assert.True(ConnectionIsBlocked(nodeGrid, bottomNodeIndex, leftNodeIndex));
+				Assert.True(ConnectionIsBlocked(nodeGrid, bottomNodeIndex, rightNodeIndex));
 
-				Assert.IsTrue(ConnectionIsBlocked(nodeGrid, leftNodeIndex, topNodeIndex));
-				Assert.IsTrue(ConnectionIsBlocked(nodeGrid, leftNodeIndex, bottomNodeIndex));
+				Assert.True(ConnectionIsBlocked(nodeGrid, leftNodeIndex, topNodeIndex));
+				Assert.True(ConnectionIsBlocked(nodeGrid, leftNodeIndex, bottomNodeIndex));
 
-				Assert.IsTrue(ConnectionIsBlocked(nodeGrid, rightNodeIndex, topNodeIndex));
-				Assert.IsTrue(ConnectionIsBlocked(nodeGrid, rightNodeIndex, bottomNodeIndex));
+				Assert.True(ConnectionIsBlocked(nodeGrid, rightNodeIndex, topNodeIndex));
+				Assert.True(ConnectionIsBlocked(nodeGrid, rightNodeIndex, bottomNodeIndex));
 			}
 		}
 
-		[Test, TestCaseSource(typeof(AlgorithmTestCases), nameof(AlgorithmTestCases.NodeGridGenerationTestCases))]
+        [Theory, MemberData(nameof(AlgorithmTestCases.NodeGridGenerationTestCases), MemberType = typeof(AlgorithmTestCases))]
 		public void GeneratePreFilledArray_CrossCorners(int width, int height, Point2[] blockedNodes)
 		{
 			var factory = new DefinitionNodeGridFactory();
@@ -67,17 +67,17 @@ namespace Pathfindax.Test.Tests.Factories
 			}
 			var nodeGrid = factory.GeneratePreFilledArray(GenerateNodeGridConnections.All, collisionMask, true);
 
-			Assert.AreEqual(width, nodeGrid.Width);
-			Assert.AreEqual(height, nodeGrid.Height);
+			Assert.Equal(width, nodeGrid.Width);
+			Assert.Equal(height, nodeGrid.Height);
 
 			foreach (var point in blockedNodes)
 			{
 				var index = nodeGrid.ToIndex(point.X, point.Y);
 				foreach (var connection in nodeGrid.Array[index].Connections)
 				{
-					Assert.AreEqual(PathfindaxCollisionCategory.Cat1, connection.CollisionCategory);
+					Assert.Equal(PathfindaxCollisionCategory.Cat1, connection.CollisionCategory);
 					var connectionToThis = nodeGrid.Array[connection.To].Connections.First(x => x.To == index);
-					Assert.AreEqual(PathfindaxCollisionCategory.Cat1, connectionToThis.CollisionCategory);
+					Assert.Equal(PathfindaxCollisionCategory.Cat1, connectionToThis.CollisionCategory);
 				}
 			}
 		}

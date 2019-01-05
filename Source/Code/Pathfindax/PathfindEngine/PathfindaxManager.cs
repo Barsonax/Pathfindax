@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using Pathfindax.Algorithms;
+using Pathfindax.Collections.Interfaces;
 using Pathfindax.Graph;
 using Pathfindax.Paths;
 using Pathfindax.Threading;
@@ -44,14 +45,30 @@ namespace Pathfindax.PathfindEngine
 			updater.Disposed += o => _dynamicPotentialFieldUpdaters.Remove(o);
 		}
 
-		IPathfinder<TDefinitionNodeNetwork, TThreadNodeNetwork, TPath> IPathfindaxManager.CreatePathfinder<TDefinitionNodeNetwork, TThreadNodeNetwork, TPath>(TDefinitionNodeNetwork definitionNodeNetwork, IPathFindAlgorithm<TThreadNodeNetwork, TPath> pathFindAlgorithm, Func<TDefinitionNodeNetwork, IPathFindAlgorithm<TThreadNodeNetwork, TPath>, PathRequestProcesser<TThreadNodeNetwork, TPath>> processerConstructor, int threads = 1) => CreatePathfinder(definitionNodeNetwork, pathFindAlgorithm, processerConstructor, threads);
-		public Pathfinder<TSourceNodeNetwork, TThreadNodeNetwork, TPath> CreatePathfinder<TSourceNodeNetwork, TThreadNodeNetwork, TPath>(TSourceNodeNetwork definitionNodeNetwork, IPathFindAlgorithm<TThreadNodeNetwork, TPath> pathFindAlgorithm, Func<TSourceNodeNetwork, IPathFindAlgorithm<TThreadNodeNetwork, TPath>, PathRequestProcesser<TThreadNodeNetwork, TPath>> processerConstructor, int threads = 1)
-			where TSourceNodeNetwork : IDefinitionNodeNetwork
+
+
+		public Pathfinder<TDefinitionNodeNetwork, TThreadNodeNetwork, TPath> CreatePathfinder<TDefinitionNodeNetwork, TThreadNodeNetwork, TPath>(
+			TDefinitionNodeNetwork definitionNodeNetwork,
+			IPathFindAlgorithm<TThreadNodeNetwork, TPath> pathFindAlgorithm,
+			Func<TDefinitionNodeNetwork, IPathFindAlgorithm<TThreadNodeNetwork, TPath>, ICache<IPathRequest, TPath>, PathRequestProcesser<TThreadNodeNetwork, TPath>> processerConstructor,
+			ICache<IPathRequest, TPath> pathCache,
+			int threads = 1)
+			where TDefinitionNodeNetwork : IDefinitionNodeNetwork
 			where TThreadNodeNetwork : IPathfindNodeNetwork
 			where TPath : class, IPath
 		{
 			if (threads < 1) throw new ArgumentException("There is a minimum of 1 thread");
-			return new Pathfinder<TSourceNodeNetwork, TThreadNodeNetwork, TPath>(_synchronizationContext, definitionNodeNetwork, pathFindAlgorithm, processerConstructor, threads);
+			return new Pathfinder<TDefinitionNodeNetwork, TThreadNodeNetwork, TPath>(_synchronizationContext, definitionNodeNetwork, pathFindAlgorithm, processerConstructor, pathCache, threads);
+		}
+
+		IPathfinder<TDefinitionNodeNetwork, TThreadNodeNetwork, TPath> IPathfindaxManager.CreatePathfinder<TDefinitionNodeNetwork, TThreadNodeNetwork, TPath>(
+			TDefinitionNodeNetwork definitionNodeNetwork, 
+			IPathFindAlgorithm<TThreadNodeNetwork, TPath> pathFindAlgorithm, 
+			Func<TDefinitionNodeNetwork, IPathFindAlgorithm<TThreadNodeNetwork, TPath>, ICache<IPathRequest, TPath>, PathRequestProcesser<TThreadNodeNetwork, TPath>> processerConstructor, 
+			ICache<IPathRequest, TPath> pathCache, 
+			int threads)
+		{
+			return CreatePathfinder(definitionNodeNetwork, pathFindAlgorithm, processerConstructor, pathCache, threads);
 		}
 	}
 }

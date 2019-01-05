@@ -37,27 +37,27 @@ namespace Pathfindax.Benchmarks
 		}
 
 		[Benchmark]
-		public NodePath FindLongPath()
+		public WaypointPath FindLongPath()
 		{
-			return _algorithm.FindPath(_astarNodeNetwork, _longPathRequest, out var succes);
+			return _algorithm.FindPath(_astarNodeNetwork, _longPathRequest);
 		}
 
 		[Benchmark]
-		public NodePath FindShortPath()
+		public WaypointPath FindShortPath()
 		{
-			return _algorithm.FindPath(_astarNodeNetwork, _shortPathRequest, out var succes);
+			return _algorithm.FindPath(_astarNodeNetwork, _shortPathRequest);
 		}
 
 		[Benchmark]
-		public NodePath FindVeryShortPath()
+		public WaypointPath FindVeryShortPath()
 		{
-			return _algorithm.FindPath(_astarNodeNetwork, _veryShortPathRequest, out var succes);
+			return _algorithm.FindPath(_astarNodeNetwork, _veryShortPathRequest);
 		}
 
 		[Benchmark]
-		public NodePath FindZeroLengthPath()
+		public WaypointPath FindZeroLengthPath()
 		{
-			return _algorithm.FindPath(_astarNodeNetwork, _zeroLengthPathRequest, out var succes);
+			return _algorithm.FindPath(_astarNodeNetwork, _zeroLengthPathRequest);
 		}
 	}
 }

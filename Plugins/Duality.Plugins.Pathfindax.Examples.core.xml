@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Duality.Plugins.Pathfindax.Examples.core</name>
+    </assembly>
+    <members>
+        <member name="P:Duality.Plugins.Pathfindax.Examples.Components.AstarAlgorithmVisualizerComponent.Camera">
+            <summary>
+            A reference to the <see cref="T:Duality.Components.Camera"/> thats used to convert the screen coordinates from mouseclicks to world coordinates.
+            </summary>
+        </member>
+        <member name="P:Duality.Plugins.Pathfindax.Examples.Components.GridMouseClickPathfinder.AgentSize">
+            <summary>
+            The size of the agent in nodes. Bigger agents won't fit in nodes whose clearance is smaller than this.
+            </summary>
+        </member>
+        <member name="P:Duality.Plugins.Pathfindax.Examples.Components.GridMouseClickPathfinder.CollisionCategory">
+            <summary>
+            What collision categories will the agent collide with? These categories will be avoided when calculating a path.
+            </summary>
+        </member>
+        <member name="P:Duality.Plugins.Pathfindax.Examples.Components.GridMouseClickPathfinder.Path">
+            <summary>
+            The currently calculated path
+            </summary>
+        </member>
+        <member name="P:Duality.Plugins.Pathfindax.Examples.Components.GridMouseClickPathfinder.Camera">
+            <summary>
+            A reference to the <see cref="T:Duality.Components.Camera"/> thats used to convert the screen coordinates from mouseclicks to world coordinates.
+            </summary>
+        </member>
+        <member name="P:Duality.Plugins.Pathfindax.Examples.Components.NonGridMouseClickPathfinder.AgentSize">
+            <summary>
+            The size of the agent in nodes. Bigger agents won't fit in nodes whose clearance is smaller than this.
+            </summary>
+        </member>
+        <member name="P:Duality.Plugins.Pathfindax.Examples.Components.NonGridMouseClickPathfinder.CollisionCategory">
+            <summary>
+            What collision categories will the agent collide with? These categories will be avoided when calculating a path.
+            </summary>
+        </member>
+        <member name="P:Duality.Plugins.Pathfindax.Examples.Components.NonGridMouseClickPathfinder.Path">
+            <summary>
+            The currently calculated path
+            </summary>
+        </member>
+        <member name="P:Duality.Plugins.Pathfindax.Examples.Components.NonGridMouseClickPathfinder.Camera">
+            <summary>
+            A reference to the <see cref="T:Duality.Components.Camera"/> thats used to convert the screen coordinates from mouseclicks to world coordinates.
+            </summary>
+        </member>
+        <member name="T:Duality.Plugins.Pathfindax.Examples.Components.PathfindaxPathSpammerComponent">
+            <summary>
+            Spams path requests as a example
+            Use the <see cref="P:Duality.Plugins.Pathfindax.Examples.Components.PathfindaxPathSpammerComponent.TopLeftCorner"/> and <see cref="P:Duality.Plugins.Pathfindax.Examples.Components.PathfindaxPathSpammerComponent.BottomRightCorner"/> properties to control where it will spam the path requests.
+            </summary>
+        </member>
+        <member name="T:Duality.Plugins.Pathfindax.Examples.Components.DefinitionNodeGridProvderMockupComponent">
+            <summary>
+            Provides a simple <see cref="T:Pathfindax.Graph.IDefinitionNodeGrid"/> for testing/example purposes
+            </summary>
+        </member>
+        <member name="T:Duality.Plugins.Pathfindax.Examples.Components.TurnToMoveDirection">
+            <summary>
+            jhvjbvjkhbvjkhbkhbkbkjb
+            </summary>
+        </member>
+        <member name="T:Duality.Plugins.Pathfindax.Examples.PathfindaxDualityTestCorePlugin">
+            <summary>
+            Defines a Duality core plugin.
+            </summary>
+        </member>
+    </members>
+</doc>

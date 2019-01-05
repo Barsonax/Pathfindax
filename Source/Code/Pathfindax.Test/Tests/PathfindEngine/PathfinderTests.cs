@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Threading;
 using NSubstitute;
-using NUnit.Framework;
+using Xunit;
 using Pathfindax.PathfindEngine;
 using Pathfindax.Paths;
 using Pathfindax.Test.Setup;
@@ -9,10 +9,10 @@ using Pathfindax.Threading;
 
 namespace Pathfindax.Test.Tests.PathfindEngine
 {
-	[TestFixture]
+	
 	public class MultithreadedPathfinderTests
 	{
-		[Test]
+		[Fact]
 		public void RequestPath_SingleThread_NoExceptions()
 		{
 			var manager = new PathfindaxManager(Substitute.For<IUpdatableSynchronizationContext>());
@@ -21,10 +21,10 @@ namespace Pathfindax.Test.Tests.PathfindEngine
 			var pathRequest = PathRequest.Create(multithreadedPathfinder, -1, -1);
 			pathRequest.WaitHandle.WaitOne(1000);
 
-			Assert.AreEqual(PathRequestStatus.Solved, pathRequest.Status);
+			Assert.Equal(PathRequestStatus.Solved, pathRequest.Status);
 		}
 
-		[Test]
+		[Fact]
 		public void RequestPath_MultipleThreads_NoExceptions()
 		{
 			var manager = new PathfindaxManager(Substitute.For<IUpdatableSynchronizationContext>());
@@ -42,7 +42,7 @@ namespace Pathfindax.Test.Tests.PathfindEngine
 
 			foreach (var pathRequest in pathRequests)
 			{
-				Assert.AreEqual(PathRequestStatus.Solved, pathRequest.Status);
+				Assert.Equal(PathRequestStatus.Solved, pathRequest.Status);
 			}
 		}
 	}

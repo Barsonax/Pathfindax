@@ -30,17 +30,14 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 		[DontSerialize]
 		private PathfindaxCollisionCategory _collisionCategory;
 
-		void ICmpInitializable.OnInit(InitContext context)
+		void ICmpInitializable.OnActivate()
 		{
-			if (context == InitContext.Activate && DualityApp.ExecContext == DualityApp.ExecutionContext.Game)
-			{
-				_rigidBody = GameObj.GetComponent<RigidBody>();
-				_collisionCategory = (PathfindaxCollisionCategory) _rigidBody.CollisionCategory;
-				DualityApp.Mouse.ButtonDown += Mouse_ButtonDown;
-			}
+			_rigidBody = GameObj.GetComponent<RigidBody>();
+			_collisionCategory = (PathfindaxCollisionCategory)_rigidBody.CollisionCategory;
+			DualityApp.Mouse.ButtonDown += Mouse_ButtonDown;
 		}
 
-		void ICmpInitializable.OnShutdown(ShutdownContext context)
+		void ICmpInitializable.OnDeactivate()
 		{
 			DualityApp.Mouse.ButtonDown -= Mouse_ButtonDown;
 		}
@@ -56,7 +53,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 
 		private void Mouse_ButtonDown(object sender, MouseButtonEventArgs e)
 		{
-			var targetPos = Camera.GetSpaceCoord(e.Position);
+			var targetPos = Camera.GetWorldPos(e.Pos);
 			var request = PathfinderComponent.Pathfinder.RequestPath(GameObj.Transform.Pos, targetPos, _collisionCategory, AgentSize);
 			request.AddCallback(pathrequest =>
 			{

@@ -23,6 +23,13 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Generators
 			FillUsedLayerCache();
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="tilemapColliderWithBodies"></param>
+		/// <param name="width"></param>
+		/// <param name="height"></param>
+		/// <returns></returns>
 		public NodeGridCollisionMask GetCollisionLayers(TilemapColliderWithBody[] tilemapColliderWithBodies, int width, int height)
 		{
 			var mask = new NodeGridCollisionMask(tilemapColliderWithBodies.Select(x => x.CollisionCategory).ToArray(), width, height);

@@ -38,22 +38,19 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 		[DontSerialize]
 		private Vector3? _pathStart;
 
-		void ICmpInitializable.OnInit(InitContext context)
+		void ICmpInitializable.OnActivate()
 		{
-			if (context == InitContext.Activate && DualityApp.ExecContext == DualityApp.ExecutionContext.Game)
-			{
-				DualityApp.Mouse.Move += Mouse_Move;
-				DualityApp.Mouse.ButtonDown += Mouse_ButtonDown;
-			}
+			DualityApp.Mouse.Move += Mouse_Move;
+			DualityApp.Mouse.ButtonDown += Mouse_ButtonDown;
 		}
 
-		void ICmpInitializable.OnShutdown(ShutdownContext context)
+		void ICmpInitializable.OnDeactivate()
 		{
 			DualityApp.Mouse.ButtonDown -= Mouse_ButtonDown;
 			DualityApp.Mouse.Move -= Mouse_Move;
 		}
 
-		private void PathSolved(PathRequest<NodePath> pathRequest)
+		private void PathSolved(PathRequest<WaypointPath> pathRequest)
 		{
 			Path = pathRequest.CompletedPath;
 		}
@@ -62,7 +59,7 @@ namespace Duality.Plugins.Pathfindax.Examples.Components
 		{
 			if (_pathStart == null)
 			{
-				_pathStart = Camera.GetSpaceCoord(e.Position);
+				_pathStart = Camera.GetWorldPos(e.Pos);
 			}
 			else
 			{

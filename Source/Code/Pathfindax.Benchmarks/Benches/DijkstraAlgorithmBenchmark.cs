@@ -18,7 +18,7 @@ namespace Pathfindax.Benchmarks
 		private DijkstraNodeGrid _dijkstraNodeGrid;
 		private DefinitionNodeGrid _definitionNodeGrid;
 		private DijkstraNode[] _nodeNetwork;
-		private PathRequest<NodePath> _pathRequest;
+		private PathRequest<WaypointPath> _pathRequest;
 
 		[GlobalSetup]
 		public void Setup()
@@ -28,7 +28,7 @@ namespace Pathfindax.Benchmarks
 			_definitionNodeGrid = new DefinitionNodeGrid(nodeGrid, new Vector2(1, 1));
 			_dijkstraNodeGrid = new DijkstraNodeGrid(_definitionNodeGrid, 1);
 			_algorithm = new DijkstraAlgorithm(_definitionNodeGrid.NodeCount);
-			_pathRequest = PathRequest.Create(Substitute.For<IPathfinder<NodePath>>(),
+			_pathRequest = PathRequest.Create(Substitute.For<IPathfinder<WaypointPath>>(),
 				_definitionNodeGrid.NodeGrid.ToIndex(0, 0), _definitionNodeGrid.NodeGrid.ToIndex(319, 199));
 			_nodeNetwork = _dijkstraNodeGrid.GetCollisionLayerNetwork(_pathRequest.CollisionCategory);
 		}
@@ -36,8 +36,8 @@ namespace Pathfindax.Benchmarks
 		[Benchmark]
 		public bool FindPath()
 		{
-			_algorithm.StartFindPath(_nodeNetwork, _definitionNodeGrid.NodeArray, _pathRequest.PathStart);
-			return _algorithm.FindPath(_nodeNetwork, _definitionNodeGrid.NodeGrid.Array, _pathRequest.PathEnd, _pathRequest.AgentSize, _pathRequest.CollisionCategory);
+			_algorithm.Start(_nodeNetwork, _definitionNodeGrid.NodeArray, _pathRequest.PathStart, _pathRequest.PathEnd, _pathRequest.AgentSize, _pathRequest.CollisionCategory);
+			return _algorithm.Step(-1);
 		}
 	}
 }

@@ -42,7 +42,7 @@ namespace Duality.Plugins.Pathfindax.Tilemaps.Components
 				_movementPenalties = value;
 				for (var i = oldLength; i < _movementPenalties.Length; i++)
 				{
-					Log.Game.Write(i.ToString());
+					Logs.Game.Write(i.ToString());
 					_movementPenalties[i] = 1f;
 				}
 			}

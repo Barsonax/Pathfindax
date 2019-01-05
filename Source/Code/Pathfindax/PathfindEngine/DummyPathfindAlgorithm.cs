@@ -13,10 +13,19 @@ namespace Pathfindax.PathfindEngine
 		where TPathfindNodeNetwork : IPathfindNodeNetwork 
 		where TPath : IPath
 	{
-		public TPath FindPath(TPathfindNodeNetwork nodeNetwork, IPathRequest pathRequest, out bool succes)
+		public TPath FindPath(TPathfindNodeNetwork nodeNetwork, IPathRequest pathRequest)
 		{
-			succes = false;
-			return default;
+			return default(TPath);
+		}
+
+		public TPath GetDefaultPath(TPathfindNodeNetwork nodeNetwork, IPathRequest pathRequest)
+		{
+			return default(TPath);
+		}
+
+		public bool ValidatePath(TPathfindNodeNetwork nodeNetwork, IPathRequest pathRequest, TPath path)
+		{
+			return false;
 		}
 	}
 }

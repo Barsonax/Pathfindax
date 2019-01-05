@@ -4,6 +4,8 @@ namespace Pathfindax.Graph
 {
 	public class Transformer
 	{
+		public static Transformer UnitTransform => new Transformer(new Vector2(1, 1));
+
 		public Vector2 Position { get; }
 		public Vector2 Scale { get; }
 

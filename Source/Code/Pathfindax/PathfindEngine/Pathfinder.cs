@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Duality;
 using Pathfindax.Algorithms;
+using Pathfindax.Collections.Interfaces;
 using Pathfindax.Graph;
 using Pathfindax.Nodes;
 using Pathfindax.Paths;
@@ -35,6 +36,8 @@ namespace Pathfindax.PathfindEngine
 		private readonly MultithreadedWorkerQueue<PathRequest<TPath>> _multithreadedWorkerQueue;
 		public ISynchronizationContext SynchronizationContext { get; }
 
+		private ICache<IPathRequest, TPath> _pathCache;
+
 		/// <summary>
 		/// Creates a new <see cref="Pathfinder{TSourceNodeNetwork,TThreadNodeNetwork, TPath}"/>
 		/// </summary>
@@ -42,15 +45,23 @@ namespace Pathfindax.PathfindEngine
 		/// <param name="definitionNodeNetwork"></param>
 		/// <param name="pathFindAlgorithm"></param>
 		/// <param name="processerConstructor">Used to construct the processers for each thread</param>
+		/// <param name="pathCache"></param>
 		/// <param name="threads">The amount of threads that will be used</param>
-		public Pathfinder(ISynchronizationContext synchronizationContext, TDefinitionNodeNetwork definitionNodeNetwork, IPathFindAlgorithm<TThreadNodeNetwork, TPath> pathFindAlgorithm, Func<TDefinitionNodeNetwork, IPathFindAlgorithm<TThreadNodeNetwork, TPath>, PathRequestProcesser<TThreadNodeNetwork, TPath>> processerConstructor, int threads = 1)
+		public Pathfinder(
+			ISynchronizationContext synchronizationContext, 
+			TDefinitionNodeNetwork definitionNodeNetwork, 
+			IPathFindAlgorithm<TThreadNodeNetwork, TPath> pathFindAlgorithm, 
+			Func<TDefinitionNodeNetwork, IPathFindAlgorithm<TThreadNodeNetwork, TPath>, ICache<IPathRequest, TPath>, PathRequestProcesser<TThreadNodeNetwork, TPath>> processerConstructor, 
+			ICache<IPathRequest, TPath> pathCache, 
+			int threads = 1)
 		{
 			if (threads < 1) throw new ArgumentException("There is a minimum of 1 thread");
+			_pathCache = pathCache;
 			PathFindAlgorithm = pathFindAlgorithm;
 			DefinitionNodeNetwork = definitionNodeNetwork;
 			_multithreadedWorkerQueue = new MultithreadedWorkerQueue<PathRequest<TPath>>(() =>
 			{
-				var processer = processerConstructor.Invoke(DefinitionNodeNetwork, pathFindAlgorithm);
+				var processer = processerConstructor.Invoke(DefinitionNodeNetwork, PathFindAlgorithm, _pathCache);
 				_pathfindNodeNetworks.Add(processer.NodeNetwork);
 				return processer;
 			}, threads);

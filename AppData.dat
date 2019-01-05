@@ -1,18 +1,18 @@
 ﻿<root dataType="Struct" type="Duality.DualityAppData" id="129723834">
   <appName dataType="String">Duality Application</appName>
-  <authorName dataType="String">Unknown</authorName>
   <customData />
-  <localUserData dataType="Bool">true</localUserData>
+  <forcedRenderResizeMode dataType="Enum" type="Duality.TargetResize" name="Fit" value="2" />
+  <forcedRenderSize dataType="Struct" type="Duality.Point2" />
   <multisampleBackBuffer dataType="Bool">true</multisampleBackBuffer>
   <physicsFixedTime dataType="Bool">false</physicsFixedTime>
   <physicsVelThreshold dataType="Float">0.8333333</physicsVelThreshold>
+  <renderSetup dataType="Struct" type="Duality.ContentRef`1[[Duality.Resources.RenderSetup]]" />
   <skipBackends />
   <soundDopplerFactor dataType="Float">1</soundDopplerFactor>
   <speedOfSound dataType="Float">360</speedOfSound>
   <startScene dataType="Struct" type="Duality.ContentRef`1[[Duality.Resources.Scene]]">
-    <contentPath dataType="String">Data\Examples\PotentialFieldPathfinderExample.Scene.res</contentPath>
+    <contentPath dataType="String">Data\Examples\SheepSimulator.Scene.res</contentPath>
   </startScene>
-  <version dataType="UInt">2121</version>
-  <websiteUrl dataType="String">http://www.adamslair.net</websiteUrl>
+  <version dataType="UInt">2471</version>
 </root>
 <!-- XmlFormatterBase Document Separator -->

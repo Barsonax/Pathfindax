@@ -29,9 +29,9 @@ namespace Duality.Plugins.Pathfindax.Components
 			}
 		}
 
-		void ICmpInitializable.OnInit(InitContext context) { }
+		void ICmpInitializable.OnActivate(){}
 
-		void ICmpInitializable.OnShutdown(ShutdownContext context)
+		void ICmpInitializable.OnDeactivate()
 		{
 			_potentialField?.Dispose();
 			_potentialField = null;

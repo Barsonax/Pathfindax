@@ -15,7 +15,7 @@ namespace Duality.Plugins.Pathfindax.Components
 	/// </summary>
 	[EditorHintCategory(PathfindaxStrings.Pathfindax)]
 	[RequiredComponent(typeof(IDefinitionNodeNetworkProvider<IDefinitionNodeNetwork>))]
-	public class AstarPathfinderComponent : PathfinderComponentBase<IDefinitionNodeNetwork, IPathfindNodeNetwork<AstarNode>, NodePath>
+	public class AstarPathfinderComponent : PathfinderComponentBase<IDefinitionNodeNetwork, IPathfindNodeNetwork<AstarNode>, WaypointPath>
 	{
 		/// <summary>
 		/// The max calculated clearance. Any clearance value higher than will be set to this. 
@@ -24,7 +24,7 @@ namespace Duality.Plugins.Pathfindax.Components
 		public int MaxClearance { get; set; } = 5;
 		public IDistanceHeuristic Heuristic { get; set; } = new ManhattanDistance();
 
-		public override IPathfinder<IDefinitionNodeNetwork, IPathfindNodeNetwork<AstarNode>, NodePath> CreatePathfinder()
+		public override IPathfinder<IDefinitionNodeNetwork, IPathfindNodeNetwork<AstarNode>, WaypointPath> CreatePathfinder()
 		{
 			try
 			{
@@ -36,9 +36,9 @@ namespace Duality.Plugins.Pathfindax.Components
 				return PathfindaxDualityCorePlugin.PathfindaxManager.CreateAstarPathfinder(definitionNodeNetwork, Heuristic, MaxClearance, AmountOfThreads);
 			}
 			catch (Exception e)
-			{
-				Log.Game.WriteError($"Could not generate the definitionnode network. Returning a dummy pathfinder that does nothing. The following error occurred: {Log.Exception(e)}.");
-				return new DummyPathfinder<IDefinitionNodeNetwork, IPathfindNodeNetwork<AstarNode>, NodePath>();
+			{				
+				Logs.Game.WriteError($"Could not generate the definitionnode network. Returning a dummy pathfinder that does nothing. The following error occurred: {LogFormat.Exception(e)}.");
+				return new DummyPathfinder<IDefinitionNodeNetwork, IPathfindNodeNetwork<AstarNode>, WaypointPath>();
 			}		
 		}
 	}

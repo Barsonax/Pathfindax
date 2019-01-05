@@ -7,13 +7,13 @@ using Pathfindax.PathfindEngine;
 
 namespace Pathfindax.Paths
 {
-	public class DynamicPotentialField : PotentialFieldBase, IDisposable
+	public class DynamicPotentialField : IDisposable
 	{
-		public override int Width => PotentialArray.Width;
-		public override int Height => PotentialArray.Height;
 		public event Event<DynamicPotentialField> Disposed;
-		public Array2D<float> PotentialArray { get; }
 		private readonly Dictionary<object, PotentialFunction> _valueProviders = new Dictionary<object, PotentialFunction>();
+
+		public Array2D<float> Array { get; }
+		public GridTransformer GridTransformer { get; }
 
 		/// <summary>
 		/// Creates a new <see cref="DynamicPotentialField"/>
@@ -21,10 +21,11 @@ namespace Pathfindax.Paths
 		/// <param name="pathfindaxManager"></param>
 		/// <param name="gridTransformer"></param>
 		/// <param name="interval">The update interval in milliseconds.</param>
-		public DynamicPotentialField(IPathfindaxManager pathfindaxManager, GridTransformer gridTransformer, float interval) : base(gridTransformer)
-		{			
+		public DynamicPotentialField(IPathfindaxManager pathfindaxManager, GridTransformer gridTransformer, float interval) 
+		{
+			GridTransformer = gridTransformer;
+			Array = new Array2D<float>(gridTransformer.GridSize.X, gridTransformer.GridSize.Y);
 			pathfindaxManager.CreatePotentialFieldUpdater(this, interval);
-			PotentialArray = new Array2D<float>(gridTransformer.GridSize.X, gridTransformer.GridSize.Y);
 		}
 
 		public void Dispose()
@@ -50,10 +51,10 @@ namespace Pathfindax.Paths
 				for (var valueX = -potentialFunction.MaxGridDistance; valueX <= potentialFunction.MaxGridDistance; valueX++)
 				{
 					var coords = new Point2(valueX + potentialFunction.GridPosition.X, valueY + potentialFunction.GridPosition.Y);
-					if (coords.X >= 0 && coords.Y >= 0 && coords.X < PotentialArray.Width && coords.Y < PotentialArray.Height)
+					if (coords.X >= 0 && coords.Y >= 0 && coords.X < Array.Width && coords.Y < Array.Height)
 					{
 						var value = potentialFunction.GetValue(coords.X, coords.Y);
-						PotentialArray[coords.X, coords.Y] += value;
+						Array[coords.X, coords.Y] += value;
 					}
 				}
 			}
@@ -61,24 +62,14 @@ namespace Pathfindax.Paths
 
 		public void Update()
 		{
-			for (var i = 0; i < PotentialArray.Array.Length; i++)
+			for (var i = 0; i < Array.Length; i++)
 			{
-				PotentialArray.Array[i] = 0f;
+				Array[i] = 0f;
 			}
 			foreach (var valueProvider in _valueProviders)
 			{
 				AddPotential(valueProvider.Value);
 			}
-		}
-
-		public override float GetPotential(int x, int y)
-		{
-			if (x >= 0 && y >= 0 && x < PotentialArray.Width && y < PotentialArray.Height)
-			{
-				var value = PotentialArray[x, y];
-				return value;
-			}
-			return float.NaN;
 		}
 	}
 }

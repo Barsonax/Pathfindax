@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Duality;
-using NUnit.Framework;
 using Pathfindax.Collections;
 using Pathfindax.Nodes;
 
@@ -13,7 +7,7 @@ namespace Pathfindax.Test.Tests.Paths
 {
 	public class PathTestCases
 	{
-		public static IEnumerable ZeroPotentialsTestCases
+		public static IEnumerable<object[]> ZeroPotentialsTestCases
 		{
 			get
 			{
@@ -21,12 +15,12 @@ namespace Pathfindax.Test.Tests.Paths
 				{
 					for (var x = 0; x < 3; x++)
 					{
-						yield return new TestCaseData(new Vector2(x, y));
+						yield return new object[] { new Vector2(x, y) };
 					}
 				}
 			}
 		}
-		public static IEnumerable PathLengthTestCases
+		public static IEnumerable<object[]> PathLengthTestCases
 		{
 			get
 			{
@@ -35,7 +29,7 @@ namespace Pathfindax.Test.Tests.Paths
 			}
 		}
 
-		private static TestCaseData GeneratePathLengthTestCase(int gridWidth, int gridHeight, int[] path, float expectedPathLength)
+		private static object[] GeneratePathLengthTestCase(int gridWidth, int gridHeight, int[] path, float expectedPathLength)
 		{
 			var nodes = new Array2D<DefinitionNode>(gridWidth, gridHeight);
 			for (var y = 0; y < gridHeight; y++)
@@ -45,7 +39,7 @@ namespace Pathfindax.Test.Tests.Paths
 					nodes[x, y] = new DefinitionNode(new Vector2(x, y));
 				}
 			}
-			return new TestCaseData(nodes.Array, path, expectedPathLength);
+			return new object[] { nodes.Array, path, expectedPathLength };
 		}
 	}
 }
