@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <IsPackable>false</IsPackable>
+    <NoWarn>1701;1702;1705;1591;NU1701</NoWarn>
+    <Configurations>Debug;Release;z_CI_config</Configurations>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AdamsLair.Duality.Primitives" Version="3.0.0" />
+    <PackageReference Include="BenchmarkDotNet" Version="0.11.1" />
+    <PackageReference Include="NSubstitute" Version="3.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="$(SolutionDir)\Tests\Pathfindax.Test\Pathfindax.Test.csproj" />
+    <ProjectReference Include="$(SolutionDir)\Pathfindax\Pathfindax.csproj" />
+  </ItemGroup>
+
+</Project>
