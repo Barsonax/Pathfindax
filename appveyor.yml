@@ -1,27 +1,12 @@
-version: 3.0.0.{build}
 image: Visual Studio 2017
-configuration: Release
-shallow_clone: true
-dotnet_csproj:
-  patch: true
-  file: '**\*.csproj'
-  version: '{version}'
-  package_version: '{version}'
-  assembly_version: '{version}'
-  file_version: '{version}'
-  informational_version: '{version}'
-nuget:
-  project_feed: true
-before_build:
-- cmd: nuget restore C:\Projects\Pathfindax\Source\Code
-build:
-  publish_nuget: true
-  publish_nuget_symbols: true
-  include_nuget_references: true
-  verbosity: minimal
+configuration: z_CI_config
+build_script:
+- ps: Invoke-Expression .\CI_script.ps1 
+artifacts:
+- path: 'Artifacts\*.nupkg'
 deploy:
 - provider: NuGet
   api_key:
     secure: AmEmyZ6/NdCfuHypu7kSrG8Yijc+S9ON/1BtLxBdYmoaCvJD1NXDGFYG74nW5Ka5
   on:
-    APPVEYOR_REPO_TAG: true
+    branch: /^(develop)$/

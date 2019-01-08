@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net452</TargetFramework>
+    <IsPackable>false</IsPackable>
+    <NoWarn>1701;1702;1705;1591;NU1701</NoWarn>
+    <Configurations>Debug;Release;z_CI_config</Configurations>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AdamsLair.Duality.Primitives" Version="3.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Pathfindax\Pathfindax.csproj" />
+  </ItemGroup>
+
+</Project>
