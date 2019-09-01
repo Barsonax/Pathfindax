@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2027
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29215.179
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{AFC44DC1-306D-4BE6-9B18-8741D05F3677}"
 EndProject
@@ -26,6 +26,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Duality.Plugins.Pathfindax.Tilemaps.Examples", "Duality\Source\Code\Duality.Plugins.Pathfindax.Tilemaps.Examples\Duality.Plugins.Pathfindax.Tilemaps.Examples.csproj", "{40BA0798-98F3-4DAF-9A0C-AED378216F73}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{78B0D24C-B1B3-48FA-9CC8-2AC0FC283133}"
+	ProjectSection(SolutionItems) = preProject
+		AggregateUserPlugins.targets = AggregateUserPlugins.targets
+		DefaultLibrarySettings.targets = DefaultLibrarySettings.targets
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CI", "CI", "{B5C0FDD4-851A-4125-88A2-295F3B8F7CFB}"
 	ProjectSection(SolutionItems) = preProject
@@ -48,6 +52,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{496F
 		Scripts\RunOpenCover.psm1 = Scripts\RunOpenCover.psm1
 	EndProjectSection
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "_build", "..\build\_build.csproj", "{C3D2CE6C-0C16-43C9-B657-4110B53E2046}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,56 +65,60 @@ Global
 		{6E882F63-13F3-472F-B24C-00087FB10349}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6E882F63-13F3-472F-B24C-00087FB10349}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6E882F63-13F3-472F-B24C-00087FB10349}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6E882F63-13F3-472F-B24C-00087FB10349}.z_CI_config|Any CPU.ActiveCfg = z_CI_config|Any CPU
-		{6E882F63-13F3-472F-B24C-00087FB10349}.z_CI_config|Any CPU.Build.0 = z_CI_config|Any CPU
+		{6E882F63-13F3-472F-B24C-00087FB10349}.z_CI_config|Any CPU.ActiveCfg = Release|Any CPU
+		{6E882F63-13F3-472F-B24C-00087FB10349}.z_CI_config|Any CPU.Build.0 = Release|Any CPU
 		{82F96687-A95C-4DC2-BF4B-DD431FD35E34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{82F96687-A95C-4DC2-BF4B-DD431FD35E34}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{82F96687-A95C-4DC2-BF4B-DD431FD35E34}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{82F96687-A95C-4DC2-BF4B-DD431FD35E34}.Release|Any CPU.Build.0 = Release|Any CPU
-		{82F96687-A95C-4DC2-BF4B-DD431FD35E34}.z_CI_config|Any CPU.ActiveCfg = z_CI_config|Any CPU
-		{82F96687-A95C-4DC2-BF4B-DD431FD35E34}.z_CI_config|Any CPU.Build.0 = z_CI_config|Any CPU
+		{82F96687-A95C-4DC2-BF4B-DD431FD35E34}.z_CI_config|Any CPU.ActiveCfg = Release|Any CPU
+		{82F96687-A95C-4DC2-BF4B-DD431FD35E34}.z_CI_config|Any CPU.Build.0 = Release|Any CPU
 		{159BC519-F52B-4553-84FF-235493D32A97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{159BC519-F52B-4553-84FF-235493D32A97}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{159BC519-F52B-4553-84FF-235493D32A97}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{159BC519-F52B-4553-84FF-235493D32A97}.Release|Any CPU.Build.0 = Release|Any CPU
-		{159BC519-F52B-4553-84FF-235493D32A97}.z_CI_config|Any CPU.ActiveCfg = z_CI_config|Any CPU
-		{159BC519-F52B-4553-84FF-235493D32A97}.z_CI_config|Any CPU.Build.0 = z_CI_config|Any CPU
+		{159BC519-F52B-4553-84FF-235493D32A97}.z_CI_config|Any CPU.ActiveCfg = Release|Any CPU
+		{159BC519-F52B-4553-84FF-235493D32A97}.z_CI_config|Any CPU.Build.0 = Release|Any CPU
 		{D1665621-684F-44CD-8B57-9EB7F1F24850}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D1665621-684F-44CD-8B57-9EB7F1F24850}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D1665621-684F-44CD-8B57-9EB7F1F24850}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D1665621-684F-44CD-8B57-9EB7F1F24850}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D1665621-684F-44CD-8B57-9EB7F1F24850}.z_CI_config|Any CPU.ActiveCfg = z_CI_config|Any CPU
-		{D1665621-684F-44CD-8B57-9EB7F1F24850}.z_CI_config|Any CPU.Build.0 = z_CI_config|Any CPU
+		{D1665621-684F-44CD-8B57-9EB7F1F24850}.z_CI_config|Any CPU.ActiveCfg = Release|Any CPU
+		{D1665621-684F-44CD-8B57-9EB7F1F24850}.z_CI_config|Any CPU.Build.0 = Release|Any CPU
 		{3616AE4C-2312-4194-9FFA-A2FCFC65FED8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3616AE4C-2312-4194-9FFA-A2FCFC65FED8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3616AE4C-2312-4194-9FFA-A2FCFC65FED8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3616AE4C-2312-4194-9FFA-A2FCFC65FED8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3616AE4C-2312-4194-9FFA-A2FCFC65FED8}.z_CI_config|Any CPU.ActiveCfg = z_CI_config|Any CPU
-		{3616AE4C-2312-4194-9FFA-A2FCFC65FED8}.z_CI_config|Any CPU.Build.0 = z_CI_config|Any CPU
+		{3616AE4C-2312-4194-9FFA-A2FCFC65FED8}.z_CI_config|Any CPU.ActiveCfg = Release|Any CPU
+		{3616AE4C-2312-4194-9FFA-A2FCFC65FED8}.z_CI_config|Any CPU.Build.0 = Release|Any CPU
 		{3D26A941-946F-45B0-BB1D-FAA4BC30383F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3D26A941-946F-45B0-BB1D-FAA4BC30383F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D26A941-946F-45B0-BB1D-FAA4BC30383F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3D26A941-946F-45B0-BB1D-FAA4BC30383F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3D26A941-946F-45B0-BB1D-FAA4BC30383F}.z_CI_config|Any CPU.ActiveCfg = z_CI_config|Any CPU
-		{3D26A941-946F-45B0-BB1D-FAA4BC30383F}.z_CI_config|Any CPU.Build.0 = z_CI_config|Any CPU
+		{3D26A941-946F-45B0-BB1D-FAA4BC30383F}.z_CI_config|Any CPU.ActiveCfg = Release|Any CPU
+		{3D26A941-946F-45B0-BB1D-FAA4BC30383F}.z_CI_config|Any CPU.Build.0 = Release|Any CPU
 		{4A48E6E6-35E1-466D-ABBA-FBD84E6828EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4A48E6E6-35E1-466D-ABBA-FBD84E6828EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4A48E6E6-35E1-466D-ABBA-FBD84E6828EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4A48E6E6-35E1-466D-ABBA-FBD84E6828EB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4A48E6E6-35E1-466D-ABBA-FBD84E6828EB}.z_CI_config|Any CPU.ActiveCfg = z_CI_config|Any CPU
-		{4A48E6E6-35E1-466D-ABBA-FBD84E6828EB}.z_CI_config|Any CPU.Build.0 = z_CI_config|Any CPU
+		{4A48E6E6-35E1-466D-ABBA-FBD84E6828EB}.z_CI_config|Any CPU.ActiveCfg = Release|Any CPU
+		{4A48E6E6-35E1-466D-ABBA-FBD84E6828EB}.z_CI_config|Any CPU.Build.0 = Release|Any CPU
 		{8C215F85-0915-42AC-B7B1-C587DDD7CE77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8C215F85-0915-42AC-B7B1-C587DDD7CE77}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C215F85-0915-42AC-B7B1-C587DDD7CE77}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C215F85-0915-42AC-B7B1-C587DDD7CE77}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8C215F85-0915-42AC-B7B1-C587DDD7CE77}.z_CI_config|Any CPU.ActiveCfg = z_CI_config|Any CPU
-		{8C215F85-0915-42AC-B7B1-C587DDD7CE77}.z_CI_config|Any CPU.Build.0 = z_CI_config|Any CPU
+		{8C215F85-0915-42AC-B7B1-C587DDD7CE77}.z_CI_config|Any CPU.ActiveCfg = Release|Any CPU
+		{8C215F85-0915-42AC-B7B1-C587DDD7CE77}.z_CI_config|Any CPU.Build.0 = Release|Any CPU
 		{40BA0798-98F3-4DAF-9A0C-AED378216F73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{40BA0798-98F3-4DAF-9A0C-AED378216F73}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{40BA0798-98F3-4DAF-9A0C-AED378216F73}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{40BA0798-98F3-4DAF-9A0C-AED378216F73}.Release|Any CPU.Build.0 = Release|Any CPU
-		{40BA0798-98F3-4DAF-9A0C-AED378216F73}.z_CI_config|Any CPU.ActiveCfg = z_CI_config|Any CPU
-		{40BA0798-98F3-4DAF-9A0C-AED378216F73}.z_CI_config|Any CPU.Build.0 = z_CI_config|Any CPU
+		{40BA0798-98F3-4DAF-9A0C-AED378216F73}.z_CI_config|Any CPU.ActiveCfg = Release|Any CPU
+		{40BA0798-98F3-4DAF-9A0C-AED378216F73}.z_CI_config|Any CPU.Build.0 = Release|Any CPU
+		{C3D2CE6C-0C16-43C9-B657-4110B53E2046}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3D2CE6C-0C16-43C9-B657-4110B53E2046}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3D2CE6C-0C16-43C9-B657-4110B53E2046}.z_CI_config|Any CPU.ActiveCfg = Release|Any CPU
+		{C3D2CE6C-0C16-43C9-B657-4110B53E2046}.z_CI_config|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
