@@ -1,4 +1,7 @@
 # Pathfindax
+[![Discord](https://img.shields.io/discord/569232642105540608.svg)](https://discord.gg/cKFnjjk) [![NuGet Badge](https://buildstats.info/nuget/Pathfindax)](https://www.nuget.org/packages/Singularity/) [![Build Status](https://dev.azure.com/Barsonax/Pathfindax/_apis/build/status/Pathfindax%20CI?branchName=master)](https://dev.azure.com/Barsonax/Pathfindax/_build/latest?definitionId=10&branchName=master) ![Azure DevOps tests (branch)](https://img.shields.io/azure-devops/tests/Barsonax/Pathfindax/10/master.svg) [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=Barsonax_Pathfindax&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=Barsonax_Pathfindax) [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=Barsonax_Pathfindax&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=Barsonax_Pathfindax) [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=Barsonax_Pathfindax&metric=security_rating)](https://sonarcloud.io/dashboard?id=Barsonax_Pathfindax) ![coverage](https://img.shields.io/azure-devops/coverage/Barsonax/Pathfindax/10/master.svg)
+
+## Features
 Pathfindax is a pathfinding framework that can be used to get a path to a destination in a network of nodes. Currently A*, potential fields and flowfield are implemented. These implementations support the following features:
 - Support for up to 32 collision layers 
 - Support for multiple agent sizes
@@ -52,14 +55,7 @@ The duality packages make it easier to use pathfindax by abstracting most of the
 Additionally some example components can be found [here](https://github.com/Barsonax/Pathfindax/tree/master/Source/Code/Duality.Plugins.Pathfindax.Examples/Components).
 
 ## Other
-  
-### Build status: 
-| Branch | Status |
-|-------------|--------|
-| master      | [![Build status](https://ci.appveyor.com/api/projects/status/0h8kc3pk5s0p1jir/branch/master?svg=true)](https://ci.appveyor.com/project/Barsonax/pathfindax/branch/master) |
-| develop      | [![Build status](https://ci.appveyor.com/api/projects/status/0h8kc3pk5s0p1jir/branch/develop?svg=true)](https://ci.appveyor.com/project/Barsonax/pathfindax/branch/develop) |
-
-  
+    
 ### Nuget
 | Library | Version |
 |-------------|--------|
