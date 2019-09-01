@@ -154,7 +154,7 @@ class Build : NukeBuild
             var server = "https://sonarcloud.io";
             var projectKey = "Barsonax_Pathfindax";
             var organisation = "barsonax-github";
-            var exclusions = "";
+            var exclusions = "src/Tests/**/*";
             var branch = GitVersion.BranchName;
             var version = GitVersion.GetNormalizedAssemblyVersion();
             SonarScanner($"begin /k:{projectKey} /o:{organisation} /v:{version} /d:sonar.login={SonarCloudLogin} /d:sonar.host.url={server} /d:sonar.exclusions={exclusions} /d:sonar.cs.dotcover.reportsPaths={CoverageHtml} /d:sonar.branch.name={branch}");
