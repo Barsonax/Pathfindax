@@ -1,0 +1,16 @@
+<Project>
+  <PropertyGroup>
+    <LangVersion>8.0</LangVersion>
+    <Nullable>enable</Nullable>
+    <Authors>Barsonax</Authors>
+    <NeutralLanguage>en</NeutralLanguage>
+    <PackageProjectUrl>https://github.com/Barsonax/Pathfindax</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Barsonax/Pathfindax</RepositoryUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/Barsonax/Pathfindax/master/Icon.png</PackageIconUrl>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <PackageLicenseExpression>AGPL-3.0-or-later</PackageLicenseExpression>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+  </PropertyGroup>
+</Project>

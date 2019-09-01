@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+	  <AssemblyName>Duality.Plugins.Pathfindax.Tilemaps.core</AssemblyName>
+    <PackageTags>Duality Plugin Pathfindax Pathfinder Pathfinding Navigator Astar AstarPathfinder PotentialField FlowField A* Dijkstra Tilemaps</PackageTags>
+    <Description>Plugin that makes it easier to use pathfindax with duality tilemaps</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AdamsLair.Duality" Version="3.1.3" />
+    <PackageReference Include="AdamsLair.Duality.Plugins.Tilemaps" Version="2.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="$(SolutionDir)\Duality\Source\Code\Duality.Plugins.Pathfindax\Duality.Plugins.Pathfindax.csproj" />
+    <ProjectReference Include="$(SolutionDir)\Pathfindax\Pathfindax.csproj" />
+  </ItemGroup>
+
+  <Import Project="$(SolutionDir)DefaultLibrarySettings.targets" />
+  <Import Project="$(SolutionDir)AggregateUserPlugins.targets" />
+
+</Project>

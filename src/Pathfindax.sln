@@ -1,0 +1,173 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29215.179
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{AFC44DC1-306D-4BE6-9B18-8741D05F3677}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{DFCF0817-23D3-4368-8E14-8C442E05F401}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pathfindax", "Pathfindax\Pathfindax.csproj", "{6E882F63-13F3-472F-B24C-00087FB10349}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Duality.Plugins.Pathfindax", "Duality\Source\Code\Duality.Plugins.Pathfindax\Duality.Plugins.Pathfindax.csproj", "{82F96687-A95C-4DC2-BF4B-DD431FD35E34}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Duality.Plugins.Pathfindax.Tilemaps", "Duality\Source\Code\Duality.Plugins.Pathfindax.Tilemaps\Duality.Plugins.Pathfindax.Tilemaps.csproj", "{159BC519-F52B-4553-84FF-235493D32A97}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pathfindax.Test", "Tests\Pathfindax.Test\Pathfindax.Test.csproj", "{D1665621-684F-44CD-8B57-9EB7F1F24850}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pathfindax.Example", "Pathfindax.Example\Pathfindax.Example.csproj", "{3616AE4C-2312-4194-9FFA-A2FCFC65FED8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pathfindax.Duality.Test", "Tests\Pathfindax.Duality.Test\Pathfindax.Duality.Test.csproj", "{3D26A941-946F-45B0-BB1D-FAA4BC30383F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pathfindax.Benchmarks", "Pathfindax.Benchmarks\Pathfindax.Benchmarks.csproj", "{4A48E6E6-35E1-466D-ABBA-FBD84E6828EB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Duality.Plugins.Pathfindax.Examples", "Duality\Source\Code\Duality.Plugins.Pathfindax.Examples\Duality.Plugins.Pathfindax.Examples.csproj", "{8C215F85-0915-42AC-B7B1-C587DDD7CE77}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Duality.Plugins.Pathfindax.Tilemaps.Examples", "Duality\Source\Code\Duality.Plugins.Pathfindax.Tilemaps.Examples\Duality.Plugins.Pathfindax.Tilemaps.Examples.csproj", "{40BA0798-98F3-4DAF-9A0C-AED378216F73}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{78B0D24C-B1B3-48FA-9CC8-2AC0FC283133}"
+	ProjectSection(SolutionItems) = preProject
+		AggregateUserPlugins.targets = AggregateUserPlugins.targets
+		DefaultLibrarySettings.targets = DefaultLibrarySettings.targets
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CI", "CI", "{B5C0FDD4-851A-4125-88A2-295F3B8F7CFB}"
+	ProjectSection(SolutionItems) = preProject
+		appveyor.yml = appveyor.yml
+		GitVersion.yml = GitVersion.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Git", "Git", "{F5110E81-7E55-4A97-9B4E-212883A0D3EF}"
+	ProjectSection(SolutionItems) = preProject
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{496FE287-BD0F-46E8-B2F9-810406842D73}"
+	ProjectSection(SolutionItems) = preProject
+		Scripts\Build.psm1 = Scripts\Build.psm1
+		CI_script.ps1 = CI_script.ps1
+		Scripts\InstallChocolateyPackages.psm1 = Scripts\InstallChocolateyPackages.psm1
+		Scripts\PublishCoverage.psm1 = Scripts\PublishCoverage.psm1
+		Scripts\RunOpenCover.psm1 = Scripts\RunOpenCover.psm1
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "_build", "..\build\_build.csproj", "{C3D2CE6C-0C16-43C9-B657-4110B53E2046}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+		z_CI_config|Any CPU = z_CI_config|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6E882F63-13F3-472F-B24C-00087FB10349}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E882F63-13F3-472F-B24C-00087FB10349}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E882F63-13F3-472F-B24C-00087FB10349}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E882F63-13F3-472F-B24C-00087FB10349}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E882F63-13F3-472F-B24C-00087FB10349}.z_CI_config|Any CPU.ActiveCfg = Release|Any CPU
+		{6E882F63-13F3-472F-B24C-00087FB10349}.z_CI_config|Any CPU.Build.0 = Release|Any CPU
+		{82F96687-A95C-4DC2-BF4B-DD431FD35E34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82F96687-A95C-4DC2-BF4B-DD431FD35E34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82F96687-A95C-4DC2-BF4B-DD431FD35E34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82F96687-A95C-4DC2-BF4B-DD431FD35E34}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82F96687-A95C-4DC2-BF4B-DD431FD35E34}.z_CI_config|Any CPU.ActiveCfg = Release|Any CPU
+		{82F96687-A95C-4DC2-BF4B-DD431FD35E34}.z_CI_config|Any CPU.Build.0 = Release|Any CPU
+		{159BC519-F52B-4553-84FF-235493D32A97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{159BC519-F52B-4553-84FF-235493D32A97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{159BC519-F52B-4553-84FF-235493D32A97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{159BC519-F52B-4553-84FF-235493D32A97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{159BC519-F52B-4553-84FF-235493D32A97}.z_CI_config|Any CPU.ActiveCfg = Release|Any CPU
+		{159BC519-F52B-4553-84FF-235493D32A97}.z_CI_config|Any CPU.Build.0 = Release|Any CPU
+		{D1665621-684F-44CD-8B57-9EB7F1F24850}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1665621-684F-44CD-8B57-9EB7F1F24850}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1665621-684F-44CD-8B57-9EB7F1F24850}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1665621-684F-44CD-8B57-9EB7F1F24850}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1665621-684F-44CD-8B57-9EB7F1F24850}.z_CI_config|Any CPU.ActiveCfg = Release|Any CPU
+		{D1665621-684F-44CD-8B57-9EB7F1F24850}.z_CI_config|Any CPU.Build.0 = Release|Any CPU
+		{3616AE4C-2312-4194-9FFA-A2FCFC65FED8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3616AE4C-2312-4194-9FFA-A2FCFC65FED8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3616AE4C-2312-4194-9FFA-A2FCFC65FED8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3616AE4C-2312-4194-9FFA-A2FCFC65FED8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3616AE4C-2312-4194-9FFA-A2FCFC65FED8}.z_CI_config|Any CPU.ActiveCfg = Release|Any CPU
+		{3616AE4C-2312-4194-9FFA-A2FCFC65FED8}.z_CI_config|Any CPU.Build.0 = Release|Any CPU
+		{3D26A941-946F-45B0-BB1D-FAA4BC30383F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D26A941-946F-45B0-BB1D-FAA4BC30383F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D26A941-946F-45B0-BB1D-FAA4BC30383F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D26A941-946F-45B0-BB1D-FAA4BC30383F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D26A941-946F-45B0-BB1D-FAA4BC30383F}.z_CI_config|Any CPU.ActiveCfg = Release|Any CPU
+		{3D26A941-946F-45B0-BB1D-FAA4BC30383F}.z_CI_config|Any CPU.Build.0 = Release|Any CPU
+		{4A48E6E6-35E1-466D-ABBA-FBD84E6828EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A48E6E6-35E1-466D-ABBA-FBD84E6828EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A48E6E6-35E1-466D-ABBA-FBD84E6828EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A48E6E6-35E1-466D-ABBA-FBD84E6828EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A48E6E6-35E1-466D-ABBA-FBD84E6828EB}.z_CI_config|Any CPU.ActiveCfg = Release|Any CPU
+		{4A48E6E6-35E1-466D-ABBA-FBD84E6828EB}.z_CI_config|Any CPU.Build.0 = Release|Any CPU
+		{8C215F85-0915-42AC-B7B1-C587DDD7CE77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C215F85-0915-42AC-B7B1-C587DDD7CE77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C215F85-0915-42AC-B7B1-C587DDD7CE77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C215F85-0915-42AC-B7B1-C587DDD7CE77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C215F85-0915-42AC-B7B1-C587DDD7CE77}.z_CI_config|Any CPU.ActiveCfg = Release|Any CPU
+		{8C215F85-0915-42AC-B7B1-C587DDD7CE77}.z_CI_config|Any CPU.Build.0 = Release|Any CPU
+		{40BA0798-98F3-4DAF-9A0C-AED378216F73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40BA0798-98F3-4DAF-9A0C-AED378216F73}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40BA0798-98F3-4DAF-9A0C-AED378216F73}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40BA0798-98F3-4DAF-9A0C-AED378216F73}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40BA0798-98F3-4DAF-9A0C-AED378216F73}.z_CI_config|Any CPU.ActiveCfg = Release|Any CPU
+		{40BA0798-98F3-4DAF-9A0C-AED378216F73}.z_CI_config|Any CPU.Build.0 = Release|Any CPU
+		{C3D2CE6C-0C16-43C9-B657-4110B53E2046}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3D2CE6C-0C16-43C9-B657-4110B53E2046}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3D2CE6C-0C16-43C9-B657-4110B53E2046}.z_CI_config|Any CPU.ActiveCfg = Release|Any CPU
+		{C3D2CE6C-0C16-43C9-B657-4110B53E2046}.z_CI_config|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D1665621-684F-44CD-8B57-9EB7F1F24850} = {AFC44DC1-306D-4BE6-9B18-8741D05F3677}
+		{3616AE4C-2312-4194-9FFA-A2FCFC65FED8} = {DFCF0817-23D3-4368-8E14-8C442E05F401}
+		{3D26A941-946F-45B0-BB1D-FAA4BC30383F} = {AFC44DC1-306D-4BE6-9B18-8741D05F3677}
+		{4A48E6E6-35E1-466D-ABBA-FBD84E6828EB} = {AFC44DC1-306D-4BE6-9B18-8741D05F3677}
+		{8C215F85-0915-42AC-B7B1-C587DDD7CE77} = {DFCF0817-23D3-4368-8E14-8C442E05F401}
+		{40BA0798-98F3-4DAF-9A0C-AED378216F73} = {DFCF0817-23D3-4368-8E14-8C442E05F401}
+		{B5C0FDD4-851A-4125-88A2-295F3B8F7CFB} = {78B0D24C-B1B3-48FA-9CC8-2AC0FC283133}
+		{F5110E81-7E55-4A97-9B4E-212883A0D3EF} = {78B0D24C-B1B3-48FA-9CC8-2AC0FC283133}
+		{496FE287-BD0F-46E8-B2F9-810406842D73} = {B5C0FDD4-851A-4125-88A2-295F3B8F7CFB}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4CD8AF15-7F0F-43A9-B238-8A102A8D7151}
+	EndGlobalSection
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
+	EndGlobalSection
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
+	EndGlobalSection
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
+	EndGlobalSection
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
+	EndGlobalSection
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
+	EndGlobalSection
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
+	EndGlobalSection
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
+	EndGlobalSection
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
+	EndGlobalSection
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
+	EndGlobalSection
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
+	EndGlobalSection
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
+	EndGlobalSection
+EndGlobal

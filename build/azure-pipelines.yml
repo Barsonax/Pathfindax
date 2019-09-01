@@ -1,0 +1,75 @@
+trigger:
+  branches:
+    include:
+    - '*'
+  tags:
+    include:
+    - '*'
+
+pr:
+  branches:
+    include:
+    - '*'
+
+stages:
+- stage: Build
+  jobs:
+  - job: Build
+    pool:
+      vmImage: 'windows-2019'
+    steps:
+    - task: DotNetCoreInstaller@2
+      displayName: 'Use .NET Core sdk 3.0.100-preview8-013656'
+      inputs:
+        version: '3.0.100-preview8-013656'
+        performMultiLevelLookup: true
+    - task: PowerShell@2
+      displayName: 'Nuke build'
+      inputs:
+        targetType: filePath
+        filePath: ./build.ps1
+        arguments: 'Coverage RunSonarScanner --CoberturaReport -SonarCloudLogin $env:SonarCloudLogin'
+      env:
+        SonarCloudLogin: $(sonar_cloud_login)
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.SourcesDirectory)/BuildOutput'
+        ArtifactName: 'artifacts'
+    - task: PublishTestResults@2
+      inputs:
+        testResultsFormat: VSTest
+        testResultsFiles: '*.trx'
+        searchFolder: '$(Build.SourcesDirectory)/TestResults'
+    - task: PublishCodeCoverageResults@1
+      displayName: 'Publish code coverage'
+      inputs:
+        codeCoverageTool: Cobertura
+        summaryFileLocation: '$(Build.SourcesDirectory)/coverage/Cobertura.xml'
+        reportDirectory: '$(Build.SourcesDirectory)/coverage'
+- stage: Deploy
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master')) 
+  jobs:
+  - deployment: Deploy
+    pool:
+      vmImage: 'windows-2019'
+    environment: 'nuget'
+    strategy: 
+      runOnce:
+        deploy:
+          steps:
+          - checkout: self
+          - task: PowerShell@2
+            displayName: 'Nuke build'
+            inputs:
+              targetType: filePath
+              filePath: ./build.ps1
+              arguments: 'Push -ApiKey $env:NugetToken -BaseBuildOutput $(Pipeline.Workspace)/artifacts'
+            env:
+              NugetToken: $(nuget_token)
+schedules:
+- cron: "0 0 * * *"
+  displayName: nightly
+  branches:
+    include:
+    - master
+  always: false

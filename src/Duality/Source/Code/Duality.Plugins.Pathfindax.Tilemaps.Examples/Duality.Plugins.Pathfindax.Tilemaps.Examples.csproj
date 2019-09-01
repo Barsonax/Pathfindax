@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+	  <AssemblyName>Duality.Plugins.Pathfindax.Tilemaps.Examples.Core</AssemblyName>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AdamsLair.Duality.Plugins.Tilemaps" Version="2.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="$(SolutionDir)\Duality\Source\Code\Duality.Plugins.Pathfindax\Duality.Plugins.Pathfindax.csproj" />
+    <ProjectReference Include="$(SolutionDir)\Pathfindax\Pathfindax.csproj" />
+    <ProjectReference Include="..\Duality.Plugins.Pathfindax.Tilemaps\Duality.Plugins.Pathfindax.Tilemaps.csproj" />
+  </ItemGroup>
+
+  <Import Project="$(SolutionDir)AggregateUserPlugins.targets" />
+
+</Project>
