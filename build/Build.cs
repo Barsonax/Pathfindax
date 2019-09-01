@@ -101,9 +101,9 @@ class Build : NukeBuild
         .Executes(() =>
         {
             DotNetTest(s => s
-            .SetOutput(BuildOutput / "netcoreapp2.0")
+            .SetOutput(BuildOutput / "net472")
             .SetWorkingDirectory(SrcPath)
-            .SetFramework("netcoreapp2.0")
+            .SetFramework("net472")
             .SetConfiguration(Configuration)
             .SetProperties(NoWarns)
             .EnableNoBuild());
@@ -113,7 +113,7 @@ class Build : NukeBuild
         .DependsOn(Compile)
         .Executes(() =>
     {
-        string testdlls = GlobFiles(BuildOutput / "netcoreapp2.0", "*.Test.dll").Join(" ");
+        string testdlls = GlobFiles(BuildOutput / "net472", "*.Test.dll").Join(" ");
         string targetArgs = $"vstest {testdlls} /logger:trx;LogFileName=testresults.trx";
         string dotnetPath = ToolPathResolver.GetPathExecutable("dotnet");
         AbsolutePath coverageSnapshot = CoverageDirectory / "coverage.dcvr";
