@@ -65,3 +65,6 @@ Additionally some example components can be found [here](https://github.com/Bars
 
 ### Donations
 Donations can be done through my Patreon page: https://www.patreon.com/rickthephotogrammer
+
+### Licensing
+Licensed under AGPL however this might not be fit for all commercial works as it requires you to open source your work if you modify Pathfindax. If you require a different license please contact me.
